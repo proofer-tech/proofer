@@ -1,3 +1,5 @@
+@import "fonts/style.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,6 +8,9 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  --color-primary: rgb(0, 82, 204);
+  --color-secondary: rgb(76, 175, 80);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,12 +23,6 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
 
 @layer utilities {
