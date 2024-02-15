@@ -2,16 +2,15 @@ import {
   AppShell,
   Burger,
   Button,
-  Flex,
+  Container,
   Group,
   Image,
-  SimpleGrid,
   Space,
   Stack,
-  UnstyledButton,
 } from "@mantine/core";
 import styles from "./style.module.css";
 import React from "react";
+import { useWindowScroll } from "@mantine/hooks";
 
 interface Menu {
   title: string;
@@ -21,64 +20,78 @@ interface Menu {
 interface HeaderProps {
   isNavbarOpened: boolean;
   onBurgerClick: () => void;
+  onMenuClick: (index: number) => void;
 }
 
-export default function Header({ isNavbarOpened, onBurgerClick }: HeaderProps) {
+export default function Header({
+  isNavbarOpened,
+  onBurgerClick,
+  onMenuClick,
+}: HeaderProps) {
+  const [_, scrollTo] = useWindowScroll();
   const menus: Menu[] = [
     {
       title: "가격",
-      onClick: () => {},
+      onClick: () => onMenuClick(0),
     },
     {
       title: "서비스 소개",
-      onClick: () => {},
+      onClick: () => onMenuClick(1),
     },
     {
       title: "회사 소개",
-      onClick: () => {},
+      onClick: () => onMenuClick(2),
     },
   ];
 
   return (
     <>
       <AppShell.Header>
-        <Group h="100%" px="md">
-          <Group justify="space-between" style={{ flex: 1 }}>
-            <Button variant={"transparent"}>
-              <Image
-                src="/images/branding.svg"
-                width={30}
-                height={30}
-                alt="프루퍼 로고"
-              />
-            </Button>
+        <Container display={"flex"} h={"100%"}>
+          <Group h="100%" px="md" style={{ flex: 1 }}>
             <Group justify="space-between" style={{ flex: 1 }}>
-              <Group ml="xl" gap={0} visibleFrom="sm">
-                {menus.map((menu, idx) => (
-                  <Button
-                    color="var(--color-foreground)"
-                    variant="transparent"
-                    key={`${menu.title}-${idx}`}
-                    className={styles.control}
-                    onClick={menu.onClick}
-                  >
-                    {menu.title}
-                  </Button>
-                ))}
-              </Group>
-              <Group visibleFrom="sm">
-                <Button variant="subtle">로그인</Button>
-                <Button>무료상담 신청</Button>
+              <Button
+                variant={"transparent"}
+                style={{ width: "30px", height: "30px" }}
+                p={0}
+                onClick={() => scrollTo({ y: 0 })}
+              >
+                <Image
+                  src="/images/branding.svg"
+                  alt="프루퍼 로고"
+                  width={"100%"}
+                />
+              </Button>
+              <Group justify="space-between" style={{ flex: 1 }}>
+                <Group ml="xl" gap={0} visibleFrom="sm">
+                  {menus.map((menu, idx) => (
+                    <Button
+                      color="var(--color-foreground)"
+                      variant="transparent"
+                      key={`${menu.title}-${idx}`}
+                      className={styles.control}
+                      onClick={menu.onClick}
+                    >
+                      {menu.title}
+                    </Button>
+                  ))}
+                </Group>
+                <Button variant="subtle" visibleFrom="sm">
+                  로그인
+                </Button>
               </Group>
             </Group>
+            <Group>
+              <Button>무료상담 신청</Button>
+              <Burger
+                opened={isNavbarOpened}
+                onClick={onBurgerClick}
+                hiddenFrom="sm"
+                size="sm"
+              />
+            </Group>
           </Group>
-          <Burger
-            opened={isNavbarOpened}
-            onClick={onBurgerClick}
-            hiddenFrom="sm"
-            size="sm"
-          />
-        </Group>
+        </Container>
       </AppShell.Header>
       <AppShell.Navbar py="md" px={4}>
         <Stack gap={"xs"}>
