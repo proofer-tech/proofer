@@ -59,7 +59,7 @@ export default function HomePage() {
       hiddenFields: { email: inquireEmail },
     });
     setTallyOptions(newOptions);
-  }, [inquireEmail]);
+  }, [inquireEmail, tallyOptions]);
   const [isInquireFocusTrapActive, inquireFocusTrap] = useDisclosure(false);
   const scrollIntoTrial = useScrollIntoView<HTMLDivElement>({ offset: 30 });
 
