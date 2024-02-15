@@ -60,10 +60,19 @@ export default function HomePage() {
     });
     setTallyOptions(newOptions);
   }, [inquireEmail]);
-
-  // @ts-ignore
-  const onInquireClick = () => Tally.openPopup(inquireFormId, tallyOptions);
+  const [isInquireFocusTrapActive, inquireFocusTrap] = useDisclosure(false);
   const scrollIntoTrial = useScrollIntoView<HTMLDivElement>({ offset: 30 });
+
+  const scrollIntoTrialView = () => {
+    scrollIntoTrial.scrollIntoView();
+    inquireFocusTrap.open();
+  };
+  const onInquireClick = () => {
+    scrollIntoTrialView();
+
+    // @ts-ignore
+    Tally.openPopup(inquireFormId, tallyOptions);
+  };
 
   const onMenuClick = (index: number) => scrollIntoMenu[index].scrollIntoView();
   return (
@@ -219,7 +228,7 @@ export default function HomePage() {
                   fullWidth
                   variant={"outline"}
                   size={"md"}
-                  onClick={() => scrollIntoTrial.scrollIntoView()}
+                  onClick={() => scrollIntoTrialView()}
                 >
                   무료로 사용해보기
                 </Button>
@@ -244,7 +253,7 @@ export default function HomePage() {
                 <Button
                   fullWidth
                   size={"md"}
-                  onClick={() => scrollIntoTrial.scrollIntoView()}
+                  onClick={() => scrollIntoTrialView()}
                 >
                   플랜 신청하기
                 </Button>
@@ -283,6 +292,7 @@ export default function HomePage() {
         <Inquire
           isMobile={isMobile || false}
           isTablet={isTablet || false}
+          isActive={isInquireFocusTrapActive}
           inquireEmail={inquireEmail}
           onInquireEmailChange={(text) => setInquireEmail(text)}
           onInquireClick={() => onInquireClick()}
