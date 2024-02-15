@@ -67,12 +67,9 @@ export default function HomePage() {
     scrollIntoTrial.scrollIntoView();
     inquireFocusTrap.open();
   };
-  const onInquireClick = () => {
-    scrollIntoTrialView();
 
-    // @ts-ignore
-    Tally.openPopup(inquireFormId, tallyOptions);
-  };
+  // @ts-ignore
+  const onInquireClick = () => Tally.openPopup(inquireFormId, tallyOptions);
 
   const onMenuClick = (index: number) => scrollIntoMenu[index].scrollIntoView();
   return (
