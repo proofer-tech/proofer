@@ -15,4 +15,13 @@ export default withBundleAnalyzer({
   sassOptions: {
     prependData: `@import "./_mantine.scss";`,
   },
+  async redirects() {
+    return [
+      {
+        source: '/subscribe',
+        destination: 'https://medium.com/@proofer.tech/subscribe',
+        permanent: true,
+      },
+    ]
+  },
 });
