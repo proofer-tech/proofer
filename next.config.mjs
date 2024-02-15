@@ -22,6 +22,11 @@ export default withBundleAnalyzer({
         destination: 'https://medium.com/@proofer.tech/subscribe',
         permanent: true,
       },
+      {
+        source: '/blog',
+        destination: 'https://medium.com/@proofer.tech',
+        permanent: true,
+      },
     ]
   },
 });
