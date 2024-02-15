@@ -81,7 +81,7 @@ export default function HomePage() {
         onBurgerClick={toggle}
         onMenuClick={onMenuClick}
         onLoginClick={() => notReadyYetModal.open()}
-        onInquireClick={() => scrollIntoTrial.scrollIntoView()}
+        onInquireClick={() => onInquireClick()}
       />
       <AppShell.Main pb={0} px={0}>
         <Background />
@@ -105,7 +105,7 @@ export default function HomePage() {
           bg={
             "linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 63%)"
           }
-          top={"-3em"}
+          top={isMobile || isTablet ? "0" : "-3em"}
           style={{
             position: "relative",
             borderTop: "1px solid var(--color-lightgray-2)",
@@ -253,7 +253,7 @@ export default function HomePage() {
             <PlanCard
               flex={1}
               name={"Enterprise"}
-              onInquireClick={() => {}}
+              onInquireClick={() => onInquireClick()}
               description={
                 "서비스를 제한 없이 사용, 프루퍼 팀의 기술 지원을 통해 긴밀하게 협업합니다."
               }
@@ -271,7 +271,7 @@ export default function HomePage() {
                   fullWidth
                   variant={"outline"}
                   size={"md"}
-                  onClick={() => scrollIntoTrial.scrollIntoView()}
+                  onClick={() => onInquireClick()}
                 >
                   도입 문의하기
                 </Button>
@@ -308,9 +308,7 @@ export default function HomePage() {
               </Text>,
             ],
             바로가기: [
-              <Text onClick={() => scrollIntoTrial.scrollIntoView()}>
-                무료로 체험해보기
-              </Text>,
+              <Text onClick={() => onInquireClick()}>무료로 체험해보기</Text>,
               <Text onClick={() => scrollIntoMenu[0].scrollIntoView()}>
                 가격
               </Text>,

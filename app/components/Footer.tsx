@@ -67,11 +67,11 @@ export default function Footer({ linkGroups }: FooterProps) {
           wrap={"nowrap"}
         >
           {Object.keys(linkGroups).map((k) => (
-            <Stack visibleFrom={"sm"}>
+            <Stack visibleFrom={"sm"} key={`footer-${k}`}>
               <Text fw={700}>{k}</Text>
               <List listStyleType={"none"} style={{ cursor: "pointer" }}>
-                {linkGroups[k].map((n) => (
-                  <FooterMenuItem>{n}</FooterMenuItem>
+                {linkGroups[k].map((n, idx) => (
+                  <FooterMenuItem key={idx}>{n}</FooterMenuItem>
                 ))}
               </List>
             </Stack>

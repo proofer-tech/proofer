@@ -67,6 +67,7 @@ export default function Hero({
         direction={isMobile ? "column" : "row"}
         justify={"center"}
         align={isMobile ? "normal" : "start"}
+        px={isMobile ? "2em" : 0}
         gap={8}
       >
         <Input.Wrapper
@@ -76,12 +77,12 @@ export default function Hero({
           <Input
             placeholder="이메일 입력 ..."
             type={"email"}
-            size={isMobile ? "xs" : isTablet ? "sm" : "md"}
+            size={isMobile ? "sm" : isTablet ? "md" : "lg"}
             value={inquireEmail}
             onChange={(e) => onInquireEmailChange(e.target.value)}
           />
         </Input.Wrapper>
-        <Button size={isTablet ? "sm" : "md"} onClick={onInquireClick}>
+        <Button size={isTablet ? "md" : "lg"} onClick={onInquireClick}>
           무료상담 신청
         </Button>
       </Flex>

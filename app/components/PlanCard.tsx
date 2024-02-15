@@ -80,8 +80,8 @@ export default function PlanCard({
       </Stack>
       <Divider />
       <List listStyleType="disc" py={"1em"} spacing={"0.3em"}>
-        {items.map((item) => (
-          <List.Item fz={"0.8em"} c={"var(--color-darkgray-2)"}>
+        {items.map((item, idx) => (
+          <List.Item key={idx} fz={"0.8em"} c={"var(--color-darkgray-2)"}>
             {item}
           </List.Item>
         ))}

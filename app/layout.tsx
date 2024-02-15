@@ -2,12 +2,22 @@ import "@mantine/core/styles.css";
 import "./globals.css";
 import React from "react";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
-import { theme } from "../theme";
+import { theme } from "@/theme";
 
 export const metadata = {
-  title: "프루퍼(proofer)",
+  title: "프루퍼 | 개발자 성과측정 SaaS",
   description:
     "정확한 개발자 성과측정을 위해 실리콘 밸리 빅테크기업들에서 검증된 프레임워크를 기반한 플랫폼을 제공하는 엔지니어링 매니징 파트너",
+  openGraph: {
+    locale: "ko",
+    type: "website",
+    url: "https://proofer.tech",
+    siteName: "프루퍼 | 개발자 성과측정 SaaS",
+    title: "프루퍼 | 개발자 성과측정 SaaS",
+    description:
+      "정확한 개발자 성과측정을 위해 실리콘 밸리 빅테크기업들에서 검증된 프레임워크를 기반한 플랫폼을 제공하는 엔지니어링 매니징 파트너",
+    images: ["/images/og-image.png"],
+  },
 };
 
 export default function RootLayout({ children }: { children: any }) {

@@ -85,7 +85,9 @@ export function NotReadyYetModal({
           조금만 기다려주시면, 곧 여러분의 기대를 충족시킬 수 있는 새롭고
           흥미로운 기능을 선보일 예정입니다.
         </Text>
-        <Text>곧 멋진 소식으로 다시 찾아뵙겠습니다!</Text>
+        <Text c={"var(--color-darkgray)"}>
+          곧 멋진 소식으로 다시 찾아뵙겠습니다!
+        </Text>
         <Group justify={"end"} align={"center"}>
           <Image src="/images/logo.svg" h={"1.5em"} />
           <Text>드림</Text>
