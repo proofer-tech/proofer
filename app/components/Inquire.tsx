@@ -14,15 +14,23 @@ import { ElementProps } from "@mantine/core/lib/core";
 interface InquireProps extends ContainerProps, ElementProps<"div"> {
   isMobile: boolean;
   isTablet: boolean;
+  inquireEmail: string;
+  onInquireEmailChange: (text: string) => void;
+  onInquireClick: () => void;
 }
 
 export default function Inquire({
   isMobile,
   isTablet,
+  inquireEmail,
+  onInquireEmailChange,
+  onInquireClick,
+  children,
   ...props
 }: InquireProps) {
   return (
     <Container {...props}>
+      {children}
       <BackgroundImage src="/images/background-inquire.png" radius={"3em"}>
         <Flex
           p={"3em 5em"}
@@ -47,8 +55,18 @@ export default function Inquire({
             align={isMobile || isTablet ? "normal" : "start"}
             gap={8}
           >
-            <Input placeholder="이메일 입력 ..." type={"email"} size={"md"} />
-            <Button color={"var(--color-secondary)"} size={"md"}>
+            <Input
+              placeholder="이메일 입력 ..."
+              type={"email"}
+              size={"md"}
+              value={inquireEmail}
+              onChange={(e) => onInquireEmailChange(e.target.value)}
+            />
+            <Button
+              color={"var(--color-secondary)"}
+              size={"md"}
+              onClick={onInquireClick}
+            >
               무료상담 신청
             </Button>
           </Flex>

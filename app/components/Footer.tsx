@@ -1,13 +1,32 @@
-import { Text, Container, Group, Stack, Image, Anchor } from "@mantine/core";
+import {
+  Text,
+  Container,
+  Group,
+  Stack,
+  Image,
+  Anchor,
+  List,
+  Avatar,
+  Box,
+  Center,
+} from "@mantine/core";
 import React from "react";
 import { IconPhoneCall } from "@tabler/icons-react";
 
-export default function Footer() {
+function FooterMenuItem({ children }: any) {
+  return <List.Item py={"0.3em"}>{children}</List.Item>;
+}
+
+interface FooterProps {
+  linkGroups: { [key: string]: React.ReactNode[] };
+}
+
+export default function Footer({ linkGroups }: FooterProps) {
   return (
-    <Container py={"3em"}>
-      <Group>
+    <Box py={"3em"} px={"2em"}>
+      <Group align={"start"} justify={"space-between"} gap={"5em"}>
         <Stack gap={"3em"}>
-          <Image radius="md" src="/images/logo.svg" w={"8em"} />
+          <Image src="/images/logo.svg" w={"8em"} />
           <Stack gap={1}>
             <Text c={"var(--color-darkgray-2)"}>
               경기도 광명시 오리로 362, 4층
@@ -16,20 +35,82 @@ export default function Footer() {
               사업자등록번호: 327-87-02020
             </Text>
             <Text c={"var(--color-darkgray-2)"}>
-              개인정보관리책임자: 홍제형(info@campersground.kr)
+              개인정보관리책임자: 홍제형(
+              <Anchor
+                href="mailto:info@campersground.kr"
+                target="_blank"
+                underline="never"
+                c={"var(--color-darkgray-2)"}
+              >
+                info@campersground.kr
+              </Anchor>
+              )
             </Text>
           </Stack>
           <Group>
             <IconPhoneCall color="var(--color-darkgray-2)" size={"1em"} />
-            <Anchor href="tel:031-623-0193" target="_blank" underline="never">
-              <Text c={"var(--color-darkgray-2)"}>031-623-0193</Text>
+            <Anchor
+              href="tel:031-623-0193"
+              target="_blank"
+              underline="never"
+              c={"var(--color-darkgray-2)"}
+            >
+              031-623-0193
             </Anchor>
           </Group>
         </Stack>
-        <Stack></Stack>
-        <Stack></Stack>
-        <Stack></Stack>
+        <Group
+          justify={"end"}
+          align={"start"}
+          gap={"5em"}
+          flex={1}
+          wrap={"nowrap"}
+        >
+          {Object.keys(linkGroups).map((k) => (
+            <Stack visibleFrom={"sm"}>
+              <Text fw={700}>{k}</Text>
+              <List listStyleType={"none"} style={{ cursor: "pointer" }}>
+                {linkGroups[k].map((n) => (
+                  <FooterMenuItem>{n}</FooterMenuItem>
+                ))}
+              </List>
+            </Stack>
+          ))}
+          <Stack>
+            <Text fw={700}>Follow Us On</Text>
+            <Group gap={"0.5em"} wrap={"nowrap"}>
+              <Anchor
+                href="https://medium.com/@proofer.tech"
+                target="_blank"
+                underline="never"
+              >
+                <Avatar
+                  p={"0.1em"}
+                  bg={"var(--color-white)"}
+                  color={"var(--color-white)"}
+                  style={{ border: "1px solid var(--color-lightgray-2)" }}
+                >
+                  <Image
+                    src="/images/bi-medium.png"
+                    alt="@proofer.tech in Medium"
+                  />
+                </Avatar>
+              </Anchor>
+              <Avatar
+                p={"0.1em"}
+                bg={"var(--color-white)"}
+                color={"var(--color-white)"}
+                style={{ border: "1px solid var(--color-lightgray-2)" }}
+              >
+                <Image
+                  src="/images/bi-linkedin.png"
+                  alt="@proofer.tech in linkedin"
+                />
+              </Avatar>
+            </Group>
+          </Stack>
+        </Group>
       </Group>
-    </Container>
+    </Box>
   );
 }

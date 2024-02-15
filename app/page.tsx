@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDisclosure, useScrollIntoView } from "@mantine/hooks";
 import {
   AppShell,
@@ -8,7 +8,10 @@ import {
   Flex,
   Group,
   Image,
+  List,
+  Modal,
   Space,
+  Stack,
   Text,
 } from "@mantine/core";
 import Header from "@/app/components/Header";
@@ -20,21 +23,52 @@ import Footer from "@/app/components/Footer";
 import Background from "@/app/components/Background";
 import PlanCard from "@/app/components/PlanCard";
 import Inquire from "@/app/components/Inquire";
+import { TallyPopupOptions } from "@/types/tally";
+import {
+  InquireCompletedModal,
+  NotReadyYetModal,
+} from "@/app/components/Modal";
 
+const inquireFormId = "wALJdk";
 export default function HomePage() {
   const [opened, { toggle }] = useDisclosure();
 
   const isTablet = useIsTablet();
   const isMobile = useIsMobile();
 
-  const scrollIntoView = [
+  const scrollIntoMenu = [
     useScrollIntoView<HTMLDivElement>({ offset: 30 }),
     useScrollIntoView<HTMLDivElement>({ offset: 30 }),
     useScrollIntoView<HTMLDivElement>({ offset: 30 }),
   ];
 
-  const onMenuClick = (index: number) => scrollIntoView[index].scrollIntoView();
+  const [notReadyYetModalOpened, notReadyYetModal] = useDisclosure(false);
+  const [isInquireCompletedModalOpened, inquireCompletedModal] =
+    useDisclosure(false);
+  const [inquireEmail, setInquireEmail] = useState<string>("");
+  const [tallyOptions, setTallyOptions] = useState<TallyPopupOptions>({
+    layout: "modal",
+    width: 425,
+    hideTitle: true,
+    autoClose: 1,
+    onSubmit: () => inquireCompletedModal.open(),
+    emoji: {
+      text: "👋",
+      animation: "wave",
+    },
+  });
+  useEffect(() => {
+    const newOptions = Object.assign(tallyOptions, {
+      hiddenFields: { email: inquireEmail },
+    });
+    setTallyOptions(newOptions);
+  }, [inquireEmail]);
 
+  // @ts-ignore
+  const onInquireClick = () => Tally.openPopup(inquireFormId, tallyOptions);
+  const scrollIntoTrial = useScrollIntoView<HTMLDivElement>({ offset: 30 });
+
+  const onMenuClick = (index: number) => scrollIntoMenu[index].scrollIntoView();
   return (
     <AppShell
       header={{ height: 60 }}
@@ -49,10 +83,18 @@ export default function HomePage() {
         isNavbarOpened={opened}
         onBurgerClick={toggle}
         onMenuClick={onMenuClick}
+        onLoginClick={() => notReadyYetModal.open()}
+        onInquireClick={() => scrollIntoTrial.scrollIntoView()}
       />
       <AppShell.Main pb={0} px={0}>
         <Background />
-        <Hero isMobile={isMobile || false} isTablet={isTablet || false} />
+        <Hero
+          isMobile={isMobile || false}
+          isTablet={isTablet || false}
+          inquireEmail={inquireEmail}
+          onInquireEmailChange={(text) => setInquireEmail(text)}
+          onInquireClick={() => onInquireClick()}
+        />
         <Group justify={"center"} visibleFrom="xs">
           <Image
             radius="md"
@@ -72,7 +114,7 @@ export default function HomePage() {
             borderTop: "1px solid var(--color-lightgray-2)",
           }}
         >
-          <Text ref={scrollIntoView[1].targetRef} />
+          <Text ref={scrollIntoMenu[1].targetRef} />
         </Down>
         <Section
           question={"프루퍼는 무엇을 할 수 있나요?"}
@@ -146,7 +188,7 @@ export default function HomePage() {
           </Section>
         </Box>
         <Down py={"5em"}>
-          <Text ref={scrollIntoView[0].targetRef} />
+          <Text ref={scrollIntoMenu[0].targetRef} />
         </Down>
         <Section
           question={"우리도 사용해볼 수 있나요?"}
@@ -176,7 +218,12 @@ export default function HomePage() {
                 "기능 자동 업데이트",
               ]}
               cta={
-                <Button fullWidth variant={"outline"} size={"md"}>
+                <Button
+                  fullWidth
+                  variant={"outline"}
+                  size={"md"}
+                  onClick={() => scrollIntoTrial.scrollIntoView()}
+                >
                   무료로 사용해보기
                 </Button>
               }
@@ -197,7 +244,11 @@ export default function HomePage() {
                 "기능 자동 업데이트",
               ]}
               cta={
-                <Button fullWidth size={"md"}>
+                <Button
+                  fullWidth
+                  size={"md"}
+                  onClick={() => scrollIntoTrial.scrollIntoView()}
+                >
                   플랜 신청하기
                 </Button>
               }
@@ -219,7 +270,12 @@ export default function HomePage() {
                 "프루퍼 팀 기술 지원",
               ]}
               cta={
-                <Button fullWidth variant={"outline"} size={"md"}>
+                <Button
+                  fullWidth
+                  variant={"outline"}
+                  size={"md"}
+                  onClick={() => scrollIntoTrial.scrollIntoView()}
+                >
                   도입 문의하기
                 </Button>
               }
@@ -227,17 +283,58 @@ export default function HomePage() {
           </Flex>
         </Section>
         <Done py={"5em"} />
-        <Inquire isMobile={isMobile || false} isTablet={isTablet || false} />
-        <Space h={"10vh"} />
+        <Inquire
+          isMobile={isMobile || false}
+          isTablet={isTablet || false}
+          inquireEmail={inquireEmail}
+          onInquireEmailChange={(text) => setInquireEmail(text)}
+          onInquireClick={() => onInquireClick()}
+        >
+          <Text ref={scrollIntoTrial.targetRef}></Text>
+        </Inquire>
+        <Space h={"20vh"} />
       </AppShell.Main>
       <AppShell.Footer
         pos={"static"}
         bg={"transparent"}
         style={{ border: "none" }}
       >
-        <Text ref={scrollIntoView[2].targetRef} />
-        <Footer />
+        <Text ref={scrollIntoMenu[2].targetRef} />
+        <Footer
+          linkGroups={{
+            프루퍼: [
+              <Text onClick={() => notReadyYetModal.open()}>About 프루퍼</Text>,
+              <Text onClick={() => notReadyYetModal.open()}>문의 & 지원</Text>,
+              <Text onClick={() => notReadyYetModal.open()}>이용약관</Text>,
+              <Text onClick={() => notReadyYetModal.open()}>
+                개인정보처리방침
+              </Text>,
+            ],
+            바로가기: [
+              <Text onClick={() => scrollIntoTrial.scrollIntoView()}>
+                무료로 체험해보기
+              </Text>,
+              <Text onClick={() => scrollIntoMenu[0].scrollIntoView()}>
+                가격
+              </Text>,
+              <Text onClick={() => scrollIntoMenu[1].scrollIntoView()}>
+                서비스 소개
+              </Text>,
+              <Text onClick={() => scrollIntoMenu[2].scrollIntoView()}>
+                회사 소개
+              </Text>,
+            ],
+          }}
+        />
       </AppShell.Footer>
+      <InquireCompletedModal
+        isOpened={isInquireCompletedModalOpened}
+        onCloseClick={inquireCompletedModal.close}
+      />
+      <NotReadyYetModal
+        isOpened={notReadyYetModalOpened}
+        onCloseClick={notReadyYetModal.close}
+      />
     </AppShell>
   );
 }

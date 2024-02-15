@@ -21,12 +21,16 @@ interface HeaderProps {
   isNavbarOpened: boolean;
   onBurgerClick: () => void;
   onMenuClick: (index: number) => void;
+  onLoginClick?: () => void;
+  onInquireClick?: () => void;
 }
 
 export default function Header({
   isNavbarOpened,
   onBurgerClick,
   onMenuClick,
+  onLoginClick = () => {},
+  onInquireClick = () => {},
 }: HeaderProps) {
   const [_, scrollTo] = useWindowScroll();
   const menus: Menu[] = [
@@ -76,13 +80,17 @@ export default function Header({
                     </Button>
                   ))}
                 </Group>
-                <Button variant="subtle" visibleFrom="sm">
+                <Button
+                  variant="subtle"
+                  visibleFrom="sm"
+                  onClick={onLoginClick}
+                >
                   로그인
                 </Button>
               </Group>
             </Group>
             <Group>
-              <Button>무료상담 신청</Button>
+              <Button onClick={onInquireClick}>무료상담 신청</Button>
               <Burger
                 opened={isNavbarOpened}
                 onClick={onBurgerClick}
@@ -108,7 +116,9 @@ export default function Header({
           ))}
         </Stack>
         <Space h="xl" />
-        <Button variant="subtle">로그인</Button>
+        <Button variant="subtle" onClick={onLoginClick}>
+          로그인
+        </Button>
       </AppShell.Navbar>
     </>
   );

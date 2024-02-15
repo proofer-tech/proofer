@@ -13,9 +13,19 @@ import { ElementProps } from "@mantine/core/lib/core";
 interface HeroProps extends StackProps, ElementProps<"div"> {
   isMobile: boolean;
   isTablet: boolean;
+  inquireEmail: string;
+  onInquireEmailChange: (text: string) => void;
+  onInquireClick: () => void;
 }
 
-export default function Hero({ isMobile, isTablet, ...props }: HeroProps) {
+export default function Hero({
+  isMobile,
+  isTablet,
+  inquireEmail,
+  onInquireEmailChange,
+  onInquireClick,
+  ...props
+}: HeroProps) {
   return (
     <Stack
       gap={"min(8vw, 1em)"}
@@ -67,9 +77,13 @@ export default function Hero({ isMobile, isTablet, ...props }: HeroProps) {
             placeholder="이메일 입력 ..."
             type={"email"}
             size={isMobile ? "xs" : isTablet ? "sm" : "md"}
+            value={inquireEmail}
+            onChange={(e) => onInquireEmailChange(e.target.value)}
           />
         </Input.Wrapper>
-        <Button size={isTablet ? "sm" : "md"}>무료상담 신청</Button>
+        <Button size={isTablet ? "sm" : "md"} onClick={onInquireClick}>
+          무료상담 신청
+        </Button>
       </Flex>
     </Stack>
   );
