@@ -1,12 +1,15 @@
-# Mantine Next.js template
+# 프루퍼 (Proofer) Monorepo
 
-This is a template for [Next.js](https://nextjs.org/) app router + [Mantine](https://mantine.dev/).
-If you want to use pages router instead, see [next-pages-template](https://github.com/mantinedev/next-pages-template).
+정확한 개발자 성과측정을 위한 엔지니어링 매니징 파트너
 
 ## Features
 
-This template comes with the following features:
+- 랜딩 페이지
 
+## Stacks
+
+- [Mantine](https://mantine.dev)
+- [Next.js](https://nextjs.org/)
 - [PostCSS](https://postcss.org/) with [mantine-postcss-preset](https://mantine.dev/styles/postcss-preset)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Storybook](https://storybook.js.org/)

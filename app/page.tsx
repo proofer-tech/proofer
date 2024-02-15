@@ -8,10 +8,7 @@ import {
   Flex,
   Group,
   Image,
-  List,
-  Modal,
   Space,
-  Stack,
   Text,
 } from "@mantine/core";
 import Header from "@/app/components/Header";

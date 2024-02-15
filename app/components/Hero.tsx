@@ -48,7 +48,7 @@ export default function Hero({
           deg: 80,
         }}
       >
-        정확한 개발자 성과측정 을 위한
+        정확한 개발자 성과측정을 위한
         <br />
         엔지니어링 매니징 파트너
       </Text>
