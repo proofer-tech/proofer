@@ -33,6 +33,10 @@ export default function RootLayout({ children }: { children: any }) {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
         />
+        <meta
+          name="naver-site-verification"
+          content="66a885dd71e438eca763ad82a8131045e4dabb59"
+        />
         <script async src="https://tally.so/widgets/embed.js"></script>
       </head>
       <body>
