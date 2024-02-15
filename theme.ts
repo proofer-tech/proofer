@@ -1,0 +1,16 @@
+'use client';
+
+import {createTheme} from '@mantine/core';
+
+export const theme = createTheme({
+    fontFamily: "LINESeedKR",
+    primaryColor: "primary",
+    colors: {
+        primary: ['#CCF9E0', '#AAF4D9', '#88EEDE', '#66E1E7', '#44BBDF', '#228BD6', '#0052cc', '#0020B6', '#00009E', '#1B0086', '#2D006D'],
+        secondary: ['#F1EFD9', '#E3E7C1', '#CDDDA8', '#B3D291', '#93C779', '#6FBB62', '#4caf50', '#419B58', '#36865B', '#2C715B', '#235B55']
+    },
+    white: "var(--color-white)",
+    black: "var(--color-black)",
+
+    defaultRadius: "sm",
+});
