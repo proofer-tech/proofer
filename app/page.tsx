@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useDisclosure, useScrollIntoView } from "@mantine/hooks";
 import {
   AppShell,
-  Box,
   Button,
   Flex,
   Group,

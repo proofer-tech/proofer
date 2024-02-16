@@ -61,7 +61,7 @@ export default function Header({
             <Group justify="space-between" style={{ flex: 1 }}>
               <Button
                 variant={"transparent"}
-                style={{ width: "30px", height: "30px" }}
+                style={{ width: "2em", height: "2em" }}
                 p={0}
                 onClick={() => scrollTo({ y: 0 })}
               >
