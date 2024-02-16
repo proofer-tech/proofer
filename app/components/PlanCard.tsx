@@ -1,16 +1,15 @@
 import {
-  Badge,
+  Box,
+  Button,
   Card,
+  CardProps,
+  Divider,
   Group,
   Image,
-  Text,
-  Button,
-  CardProps,
-  Box,
-  Stack,
-  Divider,
   List,
   Space,
+  Stack,
+  Text,
 } from "@mantine/core";
 import React from "react";
 import { ElementProps } from "@mantine/core/lib/core";

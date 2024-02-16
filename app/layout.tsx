@@ -1,10 +1,20 @@
 import "@mantine/core/styles.css";
 import "./globals.css";
 import React from "react";
-import { MantineProvider, ColorSchemeScript } from "@mantine/core";
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { theme } from "@/theme";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
+import type { Viewport } from "next";
+
+export const viewport: Viewport = {
+  themeColor: "#0052cc",
+  initialScale: 1,
+  minimumScale: 1,
+  width: "device-width",
+  userScalable: false,
+};
 
 export const metadata = {
   metadataBase: new URL("https://proofer.tech"),
@@ -29,10 +39,6 @@ export default function RootLayout({ children }: { children: any }) {
       <head>
         <ColorSchemeScript />
         <link rel="shortcut icon" href="/favicon.ico" />
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
-        />
         <meta
           name="naver-site-verification"
           content="66a885dd71e438eca763ad82a8131045e4dabb59"

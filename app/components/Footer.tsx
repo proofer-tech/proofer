@@ -1,17 +1,18 @@
+"use client";
 import {
-  Text,
-  Container,
-  Group,
-  Stack,
-  Image,
   Anchor,
-  List,
   Avatar,
   Box,
-  Center,
+  Flex,
+  Group,
+  Image,
+  List,
+  Stack,
+  Text,
 } from "@mantine/core";
 import React from "react";
 import { IconPhoneCall } from "@tabler/icons-react";
+import { useIsDesktop } from "@/hooks/mediaQuery";
 
 function FooterMenuItem({ children }: any) {
   return <List.Item py={"0.3em"}>{children}</List.Item>;
@@ -22,11 +23,17 @@ interface FooterProps {
 }
 
 export default function Footer({ linkGroups }: FooterProps) {
+  const isDesktop = useIsDesktop();
   return (
     <Box py={"3em"} px={"2em"}>
-      <Group align={"start"} justify={"space-between"} gap={"5em"}>
+      <Flex
+        direction={isDesktop ? "row" : "column-reverse"}
+        align={"start"}
+        justify={isDesktop ? "space-between" : "revert"}
+        gap={"5em"}
+      >
         <Stack gap={"3em"}>
-          <Image src="/images/logo.svg" w={"8em"} />
+          <Image src="/images/logo.svg" w={"8em"} alt={"프루퍼 로고"} />
           <Stack gap={1}>
             <Text c={"var(--color-darkgray-2)"}>
               경기도 광명시 오리로 362, 4층
@@ -60,6 +67,7 @@ export default function Footer({ linkGroups }: FooterProps) {
           </Group>
         </Stack>
         <Group
+          w={isDesktop ? "auto" : "100%"}
           justify={"end"}
           align={"start"}
           gap={"5em"}
@@ -110,7 +118,7 @@ export default function Footer({ linkGroups }: FooterProps) {
             </Group>
           </Stack>
         </Group>
-      </Group>
+      </Flex>
     </Box>
   );
 }

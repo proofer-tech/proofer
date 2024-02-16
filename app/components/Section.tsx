@@ -1,6 +1,9 @@
+"use client";
+
 import { Box, Container, ContainerProps, Stack, Text } from "@mantine/core";
 import React from "react";
 import { ElementProps } from "@mantine/core/lib/core";
+import { useIsDesktop } from "@/hooks/mediaQuery";
 
 interface SectionProps extends ContainerProps, ElementProps<"div"> {
   question?: string;
@@ -18,6 +21,7 @@ export default function Section({
   children,
   ...props
 }: SectionProps) {
+  const isDesktop = useIsDesktop();
   return (
     <Container {...props}>
       <Stack
@@ -29,7 +33,7 @@ export default function Section({
         {question && (
           <Text
             ta="center"
-            size={"min(2.4vw, 1.3em)"}
+            size={isDesktop ? "1.3em" : "1.1em"}
             c={"var(--color-lightgray)"}
             lh={1}
           >
@@ -39,7 +43,7 @@ export default function Section({
         {(answer || title) && (
           <Text
             ta="center"
-            size={"min(6vw, 2.6em)"}
+            size={isDesktop ? "2.6em" : "2.3em"}
             c={"var(--color-primary)"}
             fw={700}
             lh={1.3}
@@ -49,9 +53,9 @@ export default function Section({
         )}
         {description && (
           <Text
-            maw={"68%"}
+            maw={isDesktop ? "68%" : "none"}
+            size={isDesktop ? "1em" : "0.9em"}
             ta="center"
-            size={"min(2vw, 1em)"}
             c={"var(--color-foreground)"}
             lh={1.3}
             style={{ whiteSpace: "pre-wrap" }}

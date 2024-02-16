@@ -10,37 +10,40 @@ import {
 } from "@mantine/core";
 import React, { useState } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
+import { useIsDesktop } from "@/hooks/mediaQuery";
 
 interface HeroProps extends StackProps, ElementProps<"div"> {
-  isMobile: boolean;
-  isTablet: boolean;
   inquireEmail: string;
   onInquireEmailChange: (text: string) => void;
   onInquireClick: () => void;
 }
 
 export default function Hero({
-  isMobile,
-  isTablet,
   inquireEmail,
   onInquireEmailChange,
   onInquireClick,
   ...props
 }: HeroProps) {
+  const isDesktop = useIsDesktop();
   const [isPopoverOpened, setPopoverOpened] = useState<boolean>(false);
 
   return (
     <Stack
+      align={"center"}
       gap={"min(8vw, 1em)"}
       py={"min(5vw, 48px)"}
       px={"min(1vw, 16px)"}
       {...props}
     >
-      <Text ta="center" size={"min(2.4vw, 1.3em)"} c={"var(--color-lightgray)"}>
+      <Text
+        ta="center"
+        size={isDesktop ? "1.3em" : "0.9em"}
+        c={"var(--color-lightgray)"}
+      >
         #DORA Metrics / #SPACE Framework / #DevEx Framework
       </Text>
       <Text
-        size={"min(7vw, 4em)"}
+        size={isDesktop ? "4em" : "2.3em"}
         ta="center"
         lh={1.3}
         variant="gradient"
@@ -55,22 +58,30 @@ export default function Hero({
         <br />
         엔지니어링 매니징 파트너
       </Text>
-      <Stack gap={4} c={"var(--color-darkgray)"}>
-        <Text ta={"center"} size={"min(2vw, 1.3em)"}>
-          실리콘밸리에서 여러차례 검증된 방법으로 개발자들의 성과평가를 위한
-          인사이트를 제공합니다.
-        </Text>
-        <Text ta={"center"} size={"min(2vw, 1.3em)"}>
-          무료 상담을 통한 자세한 온보딩과 14일 무료 평가판으로 높은 성과를 향한
-          여정을 시작해보세요.
+      <Stack
+        gap={4}
+        c={"var(--color-darkgray)"}
+        maw={isDesktop ? "none" : "80%"}
+      >
+        <Text ta={"center"} size={isDesktop ? "1.3em" : "0.9em"} lh={1.3}>
+          <span>
+            실리콘밸리에서 여러차례 검증된 방법으로 개발자들의 성과평가를 위한
+            인사이트를 제공합니다.
+          </span>
+          <br />
+          <span>
+            무료 상담을 통한 자세한 온보딩과 14일 무료 평가판으로 높은 성과를
+            향한 여정을 시작해보세요.
+          </span>
         </Text>
       </Stack>
       <Space h={"md"} />
       <Flex
-        direction={isMobile ? "column" : "row"}
+        w={"100%"}
+        direction={isDesktop ? "row" : "column"}
         justify={"center"}
-        align={isMobile ? "normal" : "start"}
-        px={isMobile ? "2em" : 0}
+        align={isDesktop ? "start" : "normal"}
+        px={isDesktop ? 0 : "2em"}
         gap={8}
       >
         <Input.Wrapper
@@ -88,7 +99,7 @@ export default function Hero({
               <Input
                 placeholder="이메일 입력 ..."
                 type={"email"}
-                size={isMobile ? "sm" : isTablet ? "md" : "lg"}
+                size={isDesktop ? "lg" : "md"}
                 value={inquireEmail}
                 onChange={(e) => onInquireEmailChange(e.target.value)}
                 onFocus={() => setPopoverOpened(true)}
@@ -102,7 +113,7 @@ export default function Hero({
             </Popover.Dropdown>
           </Popover>
         </Input.Wrapper>
-        <Button size={isTablet ? "md" : "lg"} onClick={onInquireClick}>
+        <Button size={isDesktop ? "lg" : "md"} onClick={onInquireClick}>
           무료상담 신청
         </Button>
       </Flex>

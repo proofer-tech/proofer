@@ -1,3 +1,4 @@
+"use client";
 import {
   BackgroundImage,
   Button,
@@ -12,10 +13,9 @@ import {
 } from "@mantine/core";
 import React, { useState } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
+import { useIsDesktop } from "@/hooks/mediaQuery";
 
 interface InquireProps extends ContainerProps, ElementProps<"div"> {
-  isMobile: boolean;
-  isTablet: boolean;
   isActive: boolean;
   inquireEmail: string;
   onInquireEmailChange: (text: string) => void;
@@ -23,8 +23,6 @@ interface InquireProps extends ContainerProps, ElementProps<"div"> {
 }
 
 export default function Inquire({
-  isMobile,
-  isTablet,
   isActive = false,
   inquireEmail,
   onInquireEmailChange,
@@ -32,6 +30,7 @@ export default function Inquire({
   children,
   ...props
 }: InquireProps) {
+  const isDesktop = useIsDesktop();
   const [isPopoverOpened, setPopoverOpened] = useState<boolean>(false);
 
   return (
@@ -41,9 +40,9 @@ export default function Inquire({
         <BackgroundImage src="/images/background-inquire.png" radius={"3em"}>
           <Flex
             p={"3em 5em"}
-            direction={isMobile || isTablet ? "column" : "row"}
-            justify={isMobile || isTablet ? "center" : "space-between"}
-            align={isMobile || isTablet ? "normal" : "center"}
+            direction={isDesktop ? "row" : "column"}
+            justify={isDesktop ? "space-between" : "center"}
+            align={isDesktop ? "center" : "normal"}
             gap={"1.3em"}
           >
             <Stack gap={0}>
@@ -57,9 +56,9 @@ export default function Inquire({
               </Text>
             </Stack>
             <Flex
-              direction={isMobile || isTablet ? "column" : "row"}
-              justify={isMobile || isTablet ? "normal" : "center"}
-              align={isMobile || isTablet ? "normal" : "start"}
+              direction={isDesktop ? "row" : "column"}
+              justify={isDesktop ? "center" : "normal"}
+              align={isDesktop ? "start" : "normal"}
               gap={8}
             >
               <Popover

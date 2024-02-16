@@ -92,8 +92,6 @@ export default function HomePage() {
       <AppShell.Main pb={0} px={0}>
         <Background />
         <Hero
-          isMobile={isMobile || false}
-          isTablet={isTablet || false}
           inquireEmail={inquireEmail}
           onInquireEmailChange={(text) => setInquireEmail(text)}
           onInquireClick={() => onInquireClick()}
@@ -104,6 +102,7 @@ export default function HomePage() {
             src="/images/landing-page-01.png"
             w={"100%"}
             maw={"1080px"}
+            alt={"프루퍼 대시보드"}
           />
         </Group>
         <Down
@@ -121,7 +120,7 @@ export default function HomePage() {
         </Down>
         <Section
           question={"프루퍼는 무엇을 할 수 있나요?"}
-          answer={"성과를 측정/평가/개선합니다."}
+          answer={"성과를 측정/평가/개선합니다"}
           description={
             "개발자의 업무성과에 대한 가시성을 확보하고 비즈니스 목표와의 연계를 이해합니다. 실리콘밸리에서 연구 및 검증된 DORA Metrics, SPACE Framework, DevEx Framework 를 포함한 여러 개발자 성과 측정 프레임워크를 통해 평가하여 최종적으로 개선까지 유도합니다."
           }
@@ -131,6 +130,7 @@ export default function HomePage() {
             src="/images/landing-page-02.png"
             w={"100%"}
             maw={"1080px"}
+            alt={"성과를 측정/평가/개선합니다"}
           />
         </Section>
         <Down py={"5em"} />
@@ -146,6 +146,7 @@ export default function HomePage() {
             src="/images/landing-page-03.png"
             w={"100%"}
             maw={"1080px"}
+            alt={"프루퍼 통합 시스템"}
           />
         </Section>
         <Down py={"5em"} />
@@ -161,6 +162,7 @@ export default function HomePage() {
             src="/images/landing-page-04.png"
             w={"100%"}
             maw={"1080px"}
+            alt={"정확한 데이터에 기반한 성과 가시화"}
           />
         </Section>
         <Down py={"5em"} />
@@ -177,6 +179,7 @@ export default function HomePage() {
             src="/images/landing-page-05.png"
             w={"100%"}
             maw={"1080px"}
+            alt={"인사이트 알고리즘"}
           />
         </Section>
         <Down py={"5em"} />
@@ -187,6 +190,7 @@ export default function HomePage() {
               src="/images/landing-page-06.png"
               w={"100%"}
               maw={"1080px"}
+              alt={"다 함께 건강한 문화를 만들어 가고 있습니다."}
             />
           </Section>
         </Box>
@@ -287,8 +291,6 @@ export default function HomePage() {
         </Section>
         <Done py={"5em"} />
         <Inquire
-          isMobile={isMobile || false}
-          isTablet={isTablet || false}
           isActive={isInquireFocusTrapActive}
           inquireEmail={inquireEmail}
           onInquireEmailChange={(text) => setInquireEmail(text)}
@@ -307,22 +309,30 @@ export default function HomePage() {
         <Footer
           linkGroups={{
             프루퍼: [
-              <Text onClick={() => notReadyYetModal.open()}>About 프루퍼</Text>,
-              <Text onClick={() => notReadyYetModal.open()}>문의 & 지원</Text>,
-              <Text onClick={() => notReadyYetModal.open()}>이용약관</Text>,
-              <Text onClick={() => notReadyYetModal.open()}>
+              <Text key={0} onClick={() => notReadyYetModal.open()}>
+                About 프루퍼
+              </Text>,
+              <Text key={1} onClick={() => notReadyYetModal.open()}>
+                문의 & 지원
+              </Text>,
+              <Text key={2} onClick={() => notReadyYetModal.open()}>
+                이용약관
+              </Text>,
+              <Text key={3} onClick={() => notReadyYetModal.open()}>
                 개인정보처리방침
               </Text>,
             ],
             바로가기: [
-              <Text onClick={() => onInquireClick()}>무료로 체험해보기</Text>,
-              <Text onClick={() => scrollIntoMenu[0].scrollIntoView()}>
+              <Text key={0} onClick={() => onInquireClick()}>
+                무료로 체험해보기
+              </Text>,
+              <Text key={1} onClick={() => scrollIntoMenu[0].scrollIntoView()}>
                 가격
               </Text>,
-              <Text onClick={() => scrollIntoMenu[1].scrollIntoView()}>
+              <Text key={2} onClick={() => scrollIntoMenu[1].scrollIntoView()}>
                 서비스 소개
               </Text>,
-              <Text onClick={() => scrollIntoMenu[2].scrollIntoView()}>
+              <Text key={3} onClick={() => scrollIntoMenu[2].scrollIntoView()}>
                 회사 소개
               </Text>,
             ],
