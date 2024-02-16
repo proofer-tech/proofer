@@ -48,6 +48,11 @@ export default function Header({
     },
   ];
 
+  const onSpecificMenuClick = (menu: Menu) => {
+    menu.onClick();
+    onBurgerClick();
+  };
+
   return (
     <>
       <AppShell.Header>
@@ -109,7 +114,7 @@ export default function Header({
               variant="subtle"
               key={`${menu.title}-${idx}`}
               className={styles.control}
-              onClick={menu.onClick}
+              onClick={() => onSpecificMenuClick(menu)}
             >
               {menu.title}
             </Button>
