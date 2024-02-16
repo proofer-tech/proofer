@@ -183,17 +183,15 @@ export default function HomePage() {
           />
         </Section>
         <Down py={"5em"} />
-        <Box bg={"var(--color-background)"}>
-          <Section title={"다 함께 건강한 문화를 만들어 가고 있습니다."}>
-            <Image
-              radius="md"
-              src="/images/landing-page-06.png"
-              w={"100%"}
-              maw={"1080px"}
-              alt={"다 함께 건강한 문화를 만들어 가고 있습니다."}
-            />
-          </Section>
-        </Box>
+        <Section title={"다 함께 건강한 문화를 만들어 가고 있습니다."}>
+          <Image
+            radius="md"
+            src="/images/landing-page-06.png"
+            w={"100%"}
+            maw={"1080px"}
+            alt={"다 함께 건강한 문화를 만들어 가고 있습니다."}
+          />
+        </Section>
         <Down py={"5em"}>
           <Text ref={scrollIntoMenu[0].targetRef} />
         </Down>
