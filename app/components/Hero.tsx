@@ -2,12 +2,13 @@ import {
   Button,
   Flex,
   Input,
+  Popover,
   Space,
   Stack,
   StackProps,
   Text,
 } from "@mantine/core";
-import React from "react";
+import React, { useState } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
 
 interface HeroProps extends StackProps, ElementProps<"div"> {
@@ -26,6 +27,8 @@ export default function Hero({
   onInquireClick,
   ...props
 }: HeroProps) {
+  const [isPopoverOpened, setPopoverOpened] = useState<boolean>(false);
+
   return (
     <Stack
       gap={"min(8vw, 1em)"}
@@ -74,13 +77,30 @@ export default function Hero({
           description="14일간 무료로 제공됩니다"
           inputWrapperOrder={["input", "description"]}
         >
-          <Input
-            placeholder="이메일 입력 ..."
-            type={"email"}
-            size={isMobile ? "sm" : isTablet ? "md" : "lg"}
-            value={inquireEmail}
-            onChange={(e) => onInquireEmailChange(e.target.value)}
-          />
+          <Popover
+            opened={isPopoverOpened}
+            width={200}
+            position="bottom"
+            withArrow
+            shadow="md"
+          >
+            <Popover.Target>
+              <Input
+                placeholder="이메일 입력 ..."
+                type={"email"}
+                size={isMobile ? "sm" : isTablet ? "md" : "lg"}
+                value={inquireEmail}
+                onChange={(e) => onInquireEmailChange(e.target.value)}
+                onFocus={() => setPopoverOpened(true)}
+                onBlur={() => setPopoverOpened(false)}
+              />
+            </Popover.Target>
+            <Popover.Dropdown>
+              <Text size="xs">
+                이메일을 입력하고, 무료상담 신청 버튼을 눌러주세요.
+              </Text>
+            </Popover.Dropdown>
+          </Popover>
         </Input.Wrapper>
         <Button size={isTablet ? "md" : "lg"} onClick={onInquireClick}>
           무료상담 신청
