@@ -309,7 +309,7 @@ export default function HomePage() {
               <Text key={0} onClick={() => notReadyYetModal.open()}>
                 About 프루퍼
               </Text>,
-              <Text key={1} onClick={() => notReadyYetModal.open()}>
+              <Text key={1} onClick={() => onInquireClick()}>
                 문의 & 지원
               </Text>,
               <Text key={2} onClick={() => notReadyYetModal.open()}>
