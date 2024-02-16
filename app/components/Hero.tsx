@@ -24,8 +24,11 @@ export default function Hero({
   onInquireClick,
   ...props
 }: HeroProps) {
-  const isDesktop = useIsDesktop();
+  let isDesktop = useIsDesktop();
   const [isPopoverOpened, setPopoverOpened] = useState<boolean>(false);
+
+  // Desktop first
+  isDesktop = isDesktop === undefined ? true : isDesktop;
 
   return (
     <Stack
