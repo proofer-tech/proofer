@@ -24,7 +24,7 @@ export default function Partners() {
   }, [isDesktop, isTablet, isMobile]);
 
   return (
-    <Grid>
+    <Grid py={"3em"}>
       <Grid.Col span={span}>
         <Logo src="/images/partners/careerday.png" />
       </Grid.Col>
