@@ -5,6 +5,7 @@ import {
   AppShell,
   Button,
   Flex,
+  Grid,
   Group,
   Image,
   Space,
@@ -24,6 +25,7 @@ import {
   InquireCompletedModal,
   NotReadyYetModal,
 } from "@/app/components/Modal";
+import Partners from "@/app/components/Partners";
 
 const inquireFormId = "wALJdk";
 export default function HomePage() {
@@ -183,13 +185,7 @@ export default function HomePage() {
         </Section>
         <Down py={"5em"} />
         <Section title={"다 함께 건강한 문화를 만들어 가고 있습니다."}>
-          <Image
-            radius="md"
-            src="/images/landing-page-06.png"
-            w={"100%"}
-            maw={"1080px"}
-            alt={"다 함께 건강한 문화를 만들어 가고 있습니다."}
-          />
+          <Partners />
         </Section>
         <Down py={"5em"}>
           <Text ref={scrollIntoMenu[0].targetRef} />

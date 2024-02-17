@@ -52,13 +52,20 @@ export default function PlanCard({
           {name}
         </Text>
         {price !== undefined && (
-          <Group align={"end"} gap={"0.3em"}>
-            <Text fw={100} fz={"2em"} lh={1}>
-              {price.toLocaleString("en-US")}원
-            </Text>
-            <Text lh={1.1}>/</Text>
-            <Text lh={1.1}>월</Text>
-          </Group>
+          <Stack gap={0}>
+            {price > 0 && (
+              <Text c={"var(--color-lightgray)"} size={"xs"}>
+                (개발자 1인당)
+              </Text>
+            )}
+            <Group align={"end"} gap={"0.3em"}>
+              <Text fw={100} fz={"2em"} lh={1}>
+                {price.toLocaleString("en-US")}원
+              </Text>
+              <Text lh={1.1}>/</Text>
+              <Text lh={1.1}>월</Text>
+            </Group>
+          </Stack>
         )}
         {onInquireClick && (
           <Box>

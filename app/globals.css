@@ -57,11 +57,6 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --color-foreground: var(--color-grayscale-1);
-        --color-background: var(--color-primarygray);
-        --color-layer: var(--color-grayscale-8);
-    }
 }
 
 
