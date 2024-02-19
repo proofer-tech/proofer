@@ -18,13 +18,13 @@ export default withBundleAnalyzer({
   async redirects() {
     return [
       {
-        source: '/subscribe',
-        destination: 'https://medium.com/@proofer.tech/subscribe',
+        source: '/blog',
+        destination: 'https://medium.com/@proofer.tech',
         permanent: true,
       },
       {
-        source: '/blog',
-        destination: 'https://medium.com/@proofer.tech',
+        source: '/blog/:slug*',
+        destination: 'https://medium.com/@proofer.tech/:slug*',
         permanent: true,
       },
     ]
