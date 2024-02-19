@@ -54,6 +54,14 @@ export default function RootLayout({ children }: { children: any }) {
           content="66a885dd71e438eca763ad82a8131045e4dabb59"
         />
         <script async src="https://tally.so/widgets/embed.js"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-L765E402KF"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-L765E402KF');
+        </script>
       </head>
       <body>
         <MantineProvider theme={theme}>{children}</MantineProvider>
