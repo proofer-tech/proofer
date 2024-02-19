@@ -61,7 +61,7 @@ export default function RootLayout({ children }: { children: any }) {
         <Analytics />
         <SpeedInsights />
 
-        <GoogleAnalytics gaId="G-XYZ" />
+        <GoogleAnalytics gaId="G-L765E402KF" />
       </body>
     </html>
   );
