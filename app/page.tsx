@@ -5,7 +5,6 @@ import {
   AppShell,
   Button,
   Flex,
-  Grid,
   Group,
   Image,
   Space,
