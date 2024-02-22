@@ -1,4 +1,3 @@
-"use client";
 import {
   Anchor,
   Avatar,
@@ -10,9 +9,9 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
-import React from "react";
+import React, { useContext } from "react";
 import { IconPhoneCall } from "@tabler/icons-react";
-import { useIsDesktop } from "@/hooks/mediaQuery";
+import { LandingPageContext } from "@/app/hooks";
 
 function FooterMenuItem({ children }: any) {
   return <List.Item py={"0.3em"}>{children}</List.Item>;
@@ -23,13 +22,13 @@ interface FooterProps {
 }
 
 export default function Footer({ linkGroups }: FooterProps) {
-  const isDesktop = useIsDesktop();
+  const lpCtx = useContext(LandingPageContext);
   return (
     <Box py={"3em"} px={"2em"}>
       <Flex
-        direction={isDesktop ? "row" : "column-reverse"}
+        direction={lpCtx.userAgent.isDesktop ? "row" : "column-reverse"}
         align={"start"}
-        justify={isDesktop ? "space-between" : "revert"}
+        justify={lpCtx.userAgent.isDesktop ? "space-between" : "revert"}
         gap={"5em"}
       >
         <Stack gap={"3em"}>
@@ -67,7 +66,7 @@ export default function Footer({ linkGroups }: FooterProps) {
           </Group>
         </Stack>
         <Group
-          w={isDesktop ? "auto" : "100%"}
+          w={lpCtx.userAgent.isDesktop ? "auto" : "100%"}
           justify={"end"}
           align={"start"}
           gap={"5em"}

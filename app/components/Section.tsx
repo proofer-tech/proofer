@@ -1,9 +1,9 @@
 "use client";
 
 import { Box, Container, ContainerProps, Stack, Text } from "@mantine/core";
-import React from "react";
+import React, { useContext } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
-import { useIsDesktop } from "@/hooks/mediaQuery";
+import { LandingPageContext } from "@/app/hooks";
 
 interface SectionProps extends ContainerProps, ElementProps<"div"> {
   question?: string;
@@ -21,7 +21,7 @@ export default function Section({
   children,
   ...props
 }: SectionProps) {
-  const isDesktop = useIsDesktop();
+  const lpCtx = useContext(LandingPageContext);
   return (
     <Container {...props}>
       <Stack
@@ -33,7 +33,7 @@ export default function Section({
         {question && (
           <Text
             ta="center"
-            size={isDesktop ? "1.3em" : "1.1em"}
+            size={lpCtx.userAgent.isDesktop ? "1.3em" : "1.1em"}
             c={"var(--color-lightgray)"}
             lh={1}
           >
@@ -43,7 +43,7 @@ export default function Section({
         {(answer || title) && (
           <Text
             ta="center"
-            size={isDesktop ? "2.6em" : "2.3em"}
+            size={lpCtx.userAgent.isDesktop ? "2.6em" : "2.3em"}
             c={"var(--color-primary)"}
             fw={700}
             lh={1.3}
@@ -53,8 +53,8 @@ export default function Section({
         )}
         {description && (
           <Text
-            maw={isDesktop ? "68%" : "none"}
-            size={isDesktop ? "1em" : "0.9em"}
+            maw={lpCtx.userAgent.isDesktop ? "68%" : "none"}
+            size={lpCtx.userAgent.isDesktop ? "1em" : "0.9em"}
             ta="center"
             c={"var(--color-foreground)"}
             lh={1.3}

@@ -1,7 +1,7 @@
 "use client";
 import { Grid, Group, Image } from "@mantine/core";
-import React, { useEffect, useState } from "react";
-import { useIsDesktop, useIsMobile, useIsTablet } from "@/hooks/mediaQuery";
+import React, { useContext, useEffect, useState } from "react";
+import { LandingPageContext } from "@/app/hooks";
 
 function Logo({ src }: { src: string }) {
   return (
@@ -12,16 +12,14 @@ function Logo({ src }: { src: string }) {
 }
 
 export default function Partners() {
-  const isDesktop = useIsDesktop(true);
-  const isTablet = useIsTablet(false);
-  const isMobile = useIsMobile(false);
+  const lpCtx = useContext(LandingPageContext);
 
   const [span, setSpan] = useState<number>(4);
   useEffect(() => {
-    if (isDesktop) setSpan(3);
-    if (isTablet) setSpan(4);
-    if (isMobile) setSpan(6);
-  }, [isDesktop, isTablet, isMobile]);
+    if (lpCtx.userAgent.isDesktop) setSpan(3);
+    if (lpCtx.userAgent.isTablet) setSpan(4);
+    if (lpCtx.userAgent.isMobile) setSpan(6);
+  }, [lpCtx.userAgent]);
 
   return (
     <Grid py={"3em"}>

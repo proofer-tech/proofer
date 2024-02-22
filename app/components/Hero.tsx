@@ -8,9 +8,9 @@ import {
   StackProps,
   Text,
 } from "@mantine/core";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
-import { useIsDesktop } from "@/hooks/mediaQuery";
+import { LandingPageContext } from "@/app/hooks";
 
 interface HeroProps extends StackProps, ElementProps<"div"> {
   inquireEmail: string;
@@ -24,7 +24,7 @@ export default function Hero({
   onInquireClick,
   ...props
 }: HeroProps) {
-  let isDesktop = useIsDesktop(true);
+  const lpCtx = useContext(LandingPageContext);
   const [isPopoverOpened, setPopoverOpened] = useState<boolean>(false);
 
   return (
@@ -37,13 +37,13 @@ export default function Hero({
     >
       <Text
         ta="center"
-        size={isDesktop ? "1.3em" : "0.9em"}
+        size={lpCtx.userAgent.isDesktop ? "1.3em" : "0.9em"}
         c={"var(--color-lightgray)"}
       >
         #DORA Metrics / #SPACE Framework / #DevEx Framework
       </Text>
       <Text
-        size={isDesktop ? "4em" : "2.3em"}
+        size={lpCtx.userAgent.isDesktop ? "4em" : "2.3em"}
         ta="center"
         lh={1.3}
         variant="gradient"
@@ -61,9 +61,13 @@ export default function Hero({
       <Stack
         gap={4}
         c={"var(--color-darkgray)"}
-        maw={isDesktop ? "none" : "80%"}
+        maw={lpCtx.userAgent.isDesktop ? "none" : "80%"}
       >
-        <Text ta={"center"} size={isDesktop ? "1.3em" : "0.9em"} lh={1.3}>
+        <Text
+          ta={"center"}
+          size={lpCtx.userAgent.isDesktop ? "1.3em" : "0.9em"}
+          lh={1.3}
+        >
           <span>
             실리콘밸리에서 여러차례 검증된 방법으로 개발자들의 성과평가를 위한
             인사이트를 제공합니다.
@@ -78,10 +82,10 @@ export default function Hero({
       <Space h={"md"} />
       <Flex
         w={"100%"}
-        direction={isDesktop ? "row" : "column"}
+        direction={lpCtx.userAgent.isDesktop ? "row" : "column"}
         justify={"center"}
-        align={isDesktop ? "start" : "normal"}
-        px={isDesktop ? 0 : "2em"}
+        align={lpCtx.userAgent.isDesktop ? "start" : "normal"}
+        px={lpCtx.userAgent.isDesktop ? 0 : "2em"}
         gap={8}
       >
         <Input.Wrapper
@@ -99,7 +103,7 @@ export default function Hero({
               <Input
                 placeholder="이메일 입력 ..."
                 type={"email"}
-                size={isDesktop ? "lg" : "md"}
+                size={lpCtx.userAgent.isDesktop ? "lg" : "md"}
                 value={inquireEmail}
                 onChange={(e) => onInquireEmailChange(e.target.value)}
                 onFocus={() => setPopoverOpened(true)}
@@ -113,7 +117,10 @@ export default function Hero({
             </Popover.Dropdown>
           </Popover>
         </Input.Wrapper>
-        <Button size={isDesktop ? "lg" : "md"} onClick={onInquireClick}>
+        <Button
+          size={lpCtx.userAgent.isDesktop ? "lg" : "md"}
+          onClick={onInquireClick}
+        >
           무료상담 신청
         </Button>
       </Flex>

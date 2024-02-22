@@ -1,7 +1,9 @@
 import { useMediaQuery } from "@mantine/hooks";
-export const useIsDesktop = (initialValue: boolean = false) =>
+import { isBrowser, isMobile } from "react-device-detect";
+
+export const useIsDesktopMedia = (initialValue: boolean = isBrowser) =>
   useMediaQuery(`(min-width: 1024px)`, initialValue);
-export const useIsTablet = (initialValue: boolean = false) =>
+export const useIsTabletMedia = (initialValue: boolean = isMobile) =>
   useMediaQuery(`(max-width: 1024px) and (min-width: 512px)`, initialValue);
-export const useIsMobile = (initialValue: boolean = false) =>
+export const useIsMobileMedia = (initialValue: boolean = isMobile) =>
   useMediaQuery(`(max-width: 512px)`, initialValue);
