@@ -17,11 +17,15 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
+const title = "프루퍼";
+const shortTitle = "최고의 개발자 성과측정 SaaS 솔루션";
+const description =
+  "실리콘밸리 검증 방법으로 개발자 성과평가 인사이트 제공. 무료 상담과 14일 무료 평가판으로 성과 향상 여정 시작. 지금 연락하세요!";
+
 export const metadata = {
   metadataBase: new URL("https://proofer.tech"),
-  title: "프루퍼 | 개발자 성과측정 SaaS",
-  description:
-    "정확한 개발자 성과측정을 위해 실리콘 밸리 빅테크기업들에서 검증된 프레임워크를 기반한 플랫폼을 제공하는 엔지니어링 매니징 파트너",
+  title: `${title} | ${shortTitle}`,
+  description: description,
   keywords: [
     "프루퍼",
     "개발자 성과",
@@ -36,10 +40,9 @@ export const metadata = {
     locale: "ko",
     type: "website",
     url: "https://proofer.tech",
-    siteName: "프루퍼 | 개발자 성과측정 SaaS",
-    title: "프루퍼 | 개발자 성과측정 SaaS",
-    description:
-      "정확한 개발자 성과측정을 위해 실리콘 밸리 빅테크기업들에서 검증된 프레임워크를 기반한 플랫폼을 제공하는 엔지니어링 매니징 파트너",
+    siteName: title,
+    title: title,
+    description: description,
     images: ["/images/og-image.png"],
   },
 };
