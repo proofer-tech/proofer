@@ -56,7 +56,7 @@ export default function Inquire({
       <div ref={offsetPinRef} />
       <Container {...props}>
         <Box
-          w={"calc(100% - 1em)"}
+          w={isWidget ? "calc(100% - 1em)" : "100%"}
           style={
             isWidget
               ? { position: "fixed", left: "0.5em", bottom: "0.5em" }
