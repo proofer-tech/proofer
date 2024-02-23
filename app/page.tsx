@@ -8,7 +8,7 @@ import {
   useIsMobileMedia,
   useIsTabletMedia,
 } from "@/hooks/mediaQuery";
-import { PageContext, UserAgent } from "@/app/hooks";
+import { PageContext } from "@/app/hooks";
 import {
   AppShell,
   Button,
@@ -50,7 +50,7 @@ Page.getInitialProps = async (ctx: NextPageContext) => {
   }
   return defaultProps;
 };
-export default function Page(userAgent: UserAgent) {
+export default function Page(userAgent: any) {
   const isDesktopMedia = useIsDesktopMedia(userAgent.isDesktop);
   const isTabletMedia = useIsTabletMedia(userAgent.isTablet);
   const isMobileMedia = useIsMobileMedia(userAgent.isMobile);
