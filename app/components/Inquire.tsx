@@ -13,7 +13,7 @@ import {
 } from "@mantine/core";
 import React, { useContext, useState } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
-import { LandingPageContext } from "@/app/hooks";
+import { PageContext } from "@/app/hooks";
 
 interface InquireProps extends ContainerProps, ElementProps<"div"> {
   isActive: boolean;
@@ -30,7 +30,7 @@ export default function Inquire({
   children,
   ...props
 }: InquireProps) {
-  const lpCtx = useContext(LandingPageContext);
+  const pageCtx = useContext(PageContext);
   const [isPopoverOpened, setPopoverOpened] = useState<boolean>(false);
 
   return (
@@ -40,9 +40,9 @@ export default function Inquire({
         <BackgroundImage src="/images/background-inquire.png" radius={"3em"}>
           <Flex
             p={"3em 5em"}
-            direction={lpCtx.userAgent.isDesktop ? "row" : "column"}
-            justify={lpCtx.userAgent.isDesktop ? "space-between" : "center"}
-            align={lpCtx.userAgent.isDesktop ? "center" : "normal"}
+            direction={pageCtx.userAgent.isDesktop ? "row" : "column"}
+            justify={pageCtx.userAgent.isDesktop ? "space-between" : "center"}
+            align={pageCtx.userAgent.isDesktop ? "center" : "normal"}
             gap={"1.3em"}
           >
             <Stack gap={0}>
@@ -56,9 +56,9 @@ export default function Inquire({
               </Text>
             </Stack>
             <Flex
-              direction={lpCtx.userAgent.isDesktop ? "row" : "column"}
-              justify={lpCtx.userAgent.isDesktop ? "center" : "normal"}
-              align={lpCtx.userAgent.isDesktop ? "start" : "normal"}
+              direction={pageCtx.userAgent.isDesktop ? "row" : "column"}
+              justify={pageCtx.userAgent.isDesktop ? "center" : "normal"}
+              align={pageCtx.userAgent.isDesktop ? "start" : "normal"}
               gap={8}
             >
               <Popover

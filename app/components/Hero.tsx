@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import React, { useContext, useState } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
-import { LandingPageContext } from "@/app/hooks";
+import { PageContext } from "@/app/hooks";
 
 interface HeroProps extends StackProps, ElementProps<"div"> {
   inquireEmail: string;
@@ -24,7 +24,7 @@ export default function Hero({
   onInquireClick,
   ...props
 }: HeroProps) {
-  const lpCtx = useContext(LandingPageContext);
+  const pageCtx = useContext(PageContext);
   const [isPopoverOpened, setPopoverOpened] = useState<boolean>(false);
 
   return (
@@ -37,13 +37,13 @@ export default function Hero({
     >
       <Text
         ta="center"
-        size={lpCtx.userAgent.isDesktop ? "1.3em" : "0.9em"}
+        size={pageCtx.userAgent.isDesktop ? "1.3em" : "0.9em"}
         c={"var(--color-lightgray)"}
       >
         #DORA Metrics / #SPACE Framework / #DevEx Framework
       </Text>
       <Text
-        size={lpCtx.userAgent.isDesktop ? "4em" : "2.3em"}
+        size={pageCtx.userAgent.isDesktop ? "4em" : "2.3em"}
         ta="center"
         lh={1.3}
         variant="gradient"
@@ -61,11 +61,11 @@ export default function Hero({
       <Stack
         gap={4}
         c={"var(--color-darkgray)"}
-        maw={lpCtx.userAgent.isDesktop ? "none" : "80%"}
+        maw={pageCtx.userAgent.isDesktop ? "none" : "80%"}
       >
         <Text
           ta={"center"}
-          size={lpCtx.userAgent.isDesktop ? "1.3em" : "0.9em"}
+          size={pageCtx.userAgent.isDesktop ? "1.3em" : "0.9em"}
           lh={1.3}
         >
           <span>
@@ -82,10 +82,10 @@ export default function Hero({
       <Space h={"md"} />
       <Flex
         w={"100%"}
-        direction={lpCtx.userAgent.isDesktop ? "row" : "column"}
+        direction={pageCtx.userAgent.isDesktop ? "row" : "column"}
         justify={"center"}
-        align={lpCtx.userAgent.isDesktop ? "start" : "normal"}
-        px={lpCtx.userAgent.isDesktop ? 0 : "2em"}
+        align={pageCtx.userAgent.isDesktop ? "start" : "normal"}
+        px={pageCtx.userAgent.isDesktop ? 0 : "2em"}
         gap={8}
       >
         <Input.Wrapper
@@ -103,7 +103,7 @@ export default function Hero({
               <Input
                 placeholder="이메일 입력 ..."
                 type={"email"}
-                size={lpCtx.userAgent.isDesktop ? "lg" : "md"}
+                size={pageCtx.userAgent.isDesktop ? "lg" : "md"}
                 value={inquireEmail}
                 onChange={(e) => onInquireEmailChange(e.target.value)}
                 onFocus={() => setPopoverOpened(true)}
@@ -118,7 +118,7 @@ export default function Hero({
           </Popover>
         </Input.Wrapper>
         <Button
-          size={lpCtx.userAgent.isDesktop ? "lg" : "md"}
+          size={pageCtx.userAgent.isDesktop ? "lg" : "md"}
           onClick={onInquireClick}
         >
           무료상담 신청

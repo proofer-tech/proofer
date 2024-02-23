@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import React, { useContext } from "react";
 import { IconPhoneCall } from "@tabler/icons-react";
-import { LandingPageContext } from "@/app/hooks";
+import { PageContext } from "@/app/hooks";
 
 function FooterMenuItem({ children }: any) {
   return <List.Item py={"0.3em"}>{children}</List.Item>;
@@ -22,13 +22,13 @@ interface FooterProps {
 }
 
 export default function Footer({ linkGroups }: FooterProps) {
-  const lpCtx = useContext(LandingPageContext);
+  const pageCtx = useContext(PageContext);
   return (
     <Box py={"3em"} px={"2em"}>
       <Flex
-        direction={lpCtx.userAgent.isDesktop ? "row" : "column-reverse"}
+        direction={pageCtx.userAgent.isDesktop ? "row" : "column-reverse"}
         align={"start"}
-        justify={lpCtx.userAgent.isDesktop ? "space-between" : "revert"}
+        justify={pageCtx.userAgent.isDesktop ? "space-between" : "revert"}
         gap={"5em"}
       >
         <Stack gap={"3em"}>
@@ -66,7 +66,7 @@ export default function Footer({ linkGroups }: FooterProps) {
           </Group>
         </Stack>
         <Group
-          w={lpCtx.userAgent.isDesktop ? "auto" : "100%"}
+          w={pageCtx.userAgent.isDesktop ? "auto" : "100%"}
           justify={"end"}
           align={"start"}
           gap={"5em"}

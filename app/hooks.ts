@@ -1,22 +1,15 @@
 import { createContext } from "react";
 
-interface LandingPageContext {
-  appShell: {
-    isOpened: boolean;
-    toggle: () => void;
-  };
-  userAgent: {
-    isDesktop: boolean;
-    isTablet: boolean;
-    isMobile: boolean;
-  };
+export interface UserAgent {
+  isDesktop: boolean;
+  isTablet: boolean;
+  isMobile: boolean;
+}
+export interface PageProps {
+  userAgent: UserAgent;
 }
 
-export const LandingPageContext = createContext<LandingPageContext>({
-  appShell: {
-    isOpened: false,
-    toggle: () => {},
-  },
+export const PageContext = createContext<PageProps>({
   userAgent: {
     isDesktop: true,
     isMobile: false,
