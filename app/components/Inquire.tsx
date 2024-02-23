@@ -60,7 +60,7 @@ export default function Inquire({
           style={
             isWidget
               ? { position: "fixed", left: "0.5em", bottom: "0.5em" }
-              : { transitionDuration: "0.3s" }
+              : {}
           }
         >
           {children}
