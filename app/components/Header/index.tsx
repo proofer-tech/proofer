@@ -1,4 +1,5 @@
 import {
+  Anchor,
   AppShell,
   Burger,
   Button,
@@ -20,7 +21,7 @@ interface Menu {
 interface HeaderProps {
   isNavbarOpened: boolean;
   onBurgerClick: () => void;
-  onMenuClick: (index: number) => void;
+  onMenuClick?: (index: number) => void;
   onLoginClick?: () => void;
   onInquireClick?: () => void;
 }
@@ -29,22 +30,22 @@ export default function Header({
   isNavbarOpened,
   onBurgerClick,
   onMenuClick,
-  onLoginClick = () => {},
-  onInquireClick = () => {},
+  onLoginClick,
+  onInquireClick,
 }: HeaderProps) {
   const [_, scrollTo] = useWindowScroll();
   const menus: Menu[] = [
     {
       title: "가격",
-      onClick: () => onMenuClick(0),
+      onClick: () => onMenuClick && onMenuClick(0),
     },
     {
       title: "서비스 소개",
-      onClick: () => onMenuClick(1),
+      onClick: () => onMenuClick && onMenuClick(1),
     },
     {
       title: "회사 소개",
-      onClick: () => onMenuClick(2),
+      onClick: () => onMenuClick && onMenuClick(2),
     },
   ];
 
@@ -59,18 +60,20 @@ export default function Header({
         <Container display={"flex"} h={"100%"}>
           <Group h="100%" px="md" style={{ flex: 1 }}>
             <Group justify="space-between" style={{ flex: 1 }}>
-              <Button
-                variant={"transparent"}
-                style={{ width: "2em", height: "2em" }}
-                p={0}
-                onClick={() => scrollTo({ y: 0 })}
-              >
-                <Image
-                  src="/images/branding.svg"
-                  alt="프루퍼 로고"
-                  width={"100%"}
-                />
-              </Button>
+              <Anchor href={"/"} underline="never">
+                <Button
+                  variant={"transparent"}
+                  style={{ width: "2em", height: "2em" }}
+                  p={0}
+                  onClick={() => scrollTo({ y: 0 })}
+                >
+                  <Image
+                    src="/images/branding.svg"
+                    alt="프루퍼 로고"
+                    width={"100%"}
+                  />
+                </Button>
+              </Anchor>
               <Group justify="space-between" style={{ flex: 1 }}>
                 <Group ml="xl" gap={0} visibleFrom="sm">
                   {menus.map((menu, idx) => (

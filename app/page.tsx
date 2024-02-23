@@ -20,8 +20,6 @@ import {
   Transition,
 } from "@mantine/core";
 import { useDisclosure, useScrollIntoView } from "@mantine/hooks";
-import { TallyPopupOptions } from "@/types/tally";
-import Header from "@/app/components/Header";
 import Background from "@/app/components/Background";
 import Hero from "@/app/components/Hero";
 import { Done, Down } from "@/app/components/Divider";
@@ -34,8 +32,9 @@ import {
   InquireCompletedModal,
   NotReadyYetModal,
 } from "@/app/components/Modal";
-
-const inquireFormId = "wALJdk";
+import LandingPageShell from "@/app/components/LandingPageShell";
+import { useRouter } from "next/navigation";
+import useTallyInquireForm from "@/hooks/tally";
 
 Page.getInitialProps = async (ctx: NextPageContext) => {
   const defaultProps = { isDesktop: true, isTablet: false, isMobile: false };
@@ -57,12 +56,13 @@ export default function Page(userAgent: any) {
   const isTabletMedia = useIsTabletMedia(userAgent.isTablet);
   const isMobileMedia = useIsMobileMedia(userAgent.isMobile);
 
+  const router = useRouter();
+
   const [isMounted, setIsMounted] = useState<boolean>(false);
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const [opened, { toggle }] = useDisclosure(false);
   const scrollIntoMenu = [
     useScrollIntoView<HTMLDivElement>({ offset: 30 }),
     useScrollIntoView<HTMLDivElement>({ offset: 30 }),
@@ -73,52 +73,35 @@ export default function Page(userAgent: any) {
   const [isInquireCompletedModalOpened, inquireCompletedModal] =
     useDisclosure(false);
   const [inquireEmail, setInquireEmail] = useState<string>("");
-  const [tallyOptions, setTallyOptions] = useState<TallyPopupOptions>({
-    layout: "modal",
-    width: 425,
-    hideTitle: true,
-    autoClose: 1,
-    onSubmit: () => inquireCompletedModal.open(),
-    emoji: {
-      text: "👋",
-      animation: "wave",
+  const { tallyOptions, setTallyOptions, openTallyPopup } = useTallyInquireForm(
+    {
+      onSubmit: () => inquireCompletedModal.open(),
     },
-  });
+  );
   useEffect(() => {
     const newOptions = Object.assign(tallyOptions, {
       hiddenFields: { email: inquireEmail },
     });
     setTallyOptions(newOptions);
-  }, [inquireEmail, tallyOptions]);
+  }, [tallyOptions, inquireEmail, setTallyOptions]);
   const [isInquireFocusTrapActive, inquireFocusTrap] = useDisclosure(false);
-  const scrollIntoTrial = useScrollIntoView<HTMLDivElement>({ offset: 30 });
-
-  const scrollIntoTrialView = () => {
-    scrollIntoTrial.scrollIntoView();
-    inquireFocusTrap.open();
-  };
-
-  // @ts-ignore
-  const onInquireClick = () => Tally.openPopup(inquireFormId, tallyOptions);
-  const onMenuClick = (index: number) => scrollIntoMenu[index].scrollIntoView();
+  const routeToIntroduction = () =>
+    router.push("/docs/introduction-of-proofer");
 
   return (
-    <AppShell
-      header={{ height: 60 }}
-      navbar={{
-        width: 300,
-        breakpoint: "sm",
-        collapsed: { desktop: true, mobile: !opened },
+    <LandingPageShell
+      onMenuClick={(index) => {
+        switch (index) {
+          case 1:
+            routeToIntroduction();
+            break;
+          default:
+            scrollIntoMenu[index].scrollIntoView();
+        }
       }}
-      padding="md"
+      onLoginClick={() => notReadyYetModal.open()}
+      onInquireClick={() => openTallyPopup()}
     >
-      <Header
-        isNavbarOpened={opened}
-        onBurgerClick={toggle}
-        onMenuClick={onMenuClick}
-        onLoginClick={() => notReadyYetModal.open()}
-        onInquireClick={() => onInquireClick()}
-      />
       <PageContext.Provider
         value={{
           userAgent: {
@@ -141,7 +124,7 @@ export default function Page(userAgent: any) {
                 <Hero
                   inquireEmail={inquireEmail}
                   onInquireEmailChange={(text) => setInquireEmail(text)}
-                  onInquireClick={() => onInquireClick()}
+                  onInquireClick={() => openTallyPopup()}
                 />
                 <Group justify={"center"} px={"1em"}>
                   <Image
@@ -276,7 +259,7 @@ export default function Page(userAgent: any) {
                           fullWidth
                           variant={"outline"}
                           size={"md"}
-                          onClick={() => scrollIntoTrialView()}
+                          onClick={() => openTallyPopup()}
                         >
                           무료로 사용해보기
                         </Button>
@@ -301,7 +284,7 @@ export default function Page(userAgent: any) {
                         <Button
                           fullWidth
                           size={"md"}
-                          onClick={() => scrollIntoTrialView()}
+                          onClick={() => openTallyPopup()}
                         >
                           플랜 신청하기
                         </Button>
@@ -310,7 +293,7 @@ export default function Page(userAgent: any) {
                     <PlanCard
                       flex={1}
                       name={"Enterprise"}
-                      onInquireClick={() => onInquireClick()}
+                      onInquireClick={() => openTallyPopup()}
                       description={
                         "서비스를 제한 없이 사용, 프루퍼 팀의 기술 지원을 통해 긴밀하게 협업합니다."
                       }
@@ -328,7 +311,7 @@ export default function Page(userAgent: any) {
                           fullWidth
                           variant={"outline"}
                           size={"md"}
-                          onClick={() => onInquireClick()}
+                          onClick={() => openTallyPopup()}
                         >
                           도입 문의하기
                         </Button>
@@ -341,10 +324,8 @@ export default function Page(userAgent: any) {
                   isActive={isInquireFocusTrapActive}
                   inquireEmail={inquireEmail}
                   onInquireEmailChange={(text) => setInquireEmail(text)}
-                  onInquireClick={() => onInquireClick()}
-                >
-                  <Text ref={scrollIntoTrial.targetRef}></Text>
-                </Inquire>
+                  onInquireClick={() => openTallyPopup()}
+                />
                 <Space h={"20vh"} />
               </AppShell.Main>
               <AppShell.Footer
@@ -359,7 +340,7 @@ export default function Page(userAgent: any) {
                       <Text key={0} onClick={() => notReadyYetModal.open()}>
                         About 프루퍼
                       </Text>,
-                      <Text key={1} onClick={() => onInquireClick()}>
+                      <Text key={1} onClick={() => openTallyPopup()}>
                         문의 & 지원
                       </Text>,
                       <Text key={2} onClick={() => notReadyYetModal.open()}>
@@ -370,7 +351,7 @@ export default function Page(userAgent: any) {
                       </Text>,
                     ],
                     바로가기: [
-                      <Text key={0} onClick={() => onInquireClick()}>
+                      <Text key={0} onClick={() => openTallyPopup()}>
                         무료로 체험해보기
                       </Text>,
                       <Text
@@ -379,10 +360,7 @@ export default function Page(userAgent: any) {
                       >
                         가격
                       </Text>,
-                      <Text
-                        key={2}
-                        onClick={() => scrollIntoMenu[1].scrollIntoView()}
-                      >
+                      <Text key={2} onClick={() => routeToIntroduction()}>
                         서비스 소개
                       </Text>,
                       <Text
@@ -407,6 +385,6 @@ export default function Page(userAgent: any) {
         isOpened={notReadyYetModalOpened}
         onCloseClick={notReadyYetModal.close}
       />
-    </AppShell>
+    </LandingPageShell>
   );
 }

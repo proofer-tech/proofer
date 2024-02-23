@@ -15,6 +15,13 @@ export default withBundleAnalyzer({
   sassOptions: {
     prependData: `@import "./_mantine.scss";`,
   },
+  webpack: (
+      config,
+      { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
+  ) => {
+    config.externals.push({ canvas: 'commonjs canvas' })
+    return config
+  },
   async redirects() {
     return [
       {
