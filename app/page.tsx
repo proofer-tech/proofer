@@ -84,7 +84,7 @@ export default function Page(userAgent: any) {
     });
     setTallyOptions(newOptions);
   }, [tallyOptions, inquireEmail, setTallyOptions]);
-  const [isInquireFocusTrapActive, inquireFocusTrap] = useDisclosure(false);
+  const [isInquireFocusTrapActive] = useDisclosure(false);
   const routeToIntroduction = () =>
     router.push("/docs/introduction-of-proofer");
 
