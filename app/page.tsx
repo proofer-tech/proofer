@@ -35,12 +35,6 @@ import { LandingPageContext } from "@/app/hooks";
 
 const inquireFormId = "wALJdk";
 
-interface LandingPageProps {
-  isDesktop: boolean;
-  isTablet: boolean;
-  isMobile: boolean;
-}
-
 LandingPage.getInitialProps = async (ctx: NextPageContext) => {
   const defaultProps = { isDesktop: true, isTablet: false, isMobile: false };
   if (ctx.req && ctx.req.headers["user-agent"] !== undefined) {
@@ -57,7 +51,7 @@ LandingPage.getInitialProps = async (ctx: NextPageContext) => {
   return defaultProps;
 };
 
-export default function LandingPage(props: LandingPageProps) {
+export default function LandingPage(props: any) {
   const [opened, { toggle }] = useDisclosure(false);
 
   const isDesktopMedia = useIsDesktopMedia(props.isDesktop);
