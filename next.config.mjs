@@ -16,9 +16,9 @@ export default withBundleAnalyzer({
     prependData: `@import "./_mantine.scss";`,
   },
   webpack: (
-      config,
-      { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
+      config, ..._
   ) => {
+    // @ts-ignore
     config.externals.push({ canvas: 'commonjs canvas' })
     return config
   },
