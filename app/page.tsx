@@ -35,6 +35,8 @@ import {
   NotReadyYetModal,
 } from "@/app/components/Modal";
 
+const inquireFormId = "wALJdk";
+
 Page.getInitialProps = async (ctx: NextPageContext) => {
   const defaultProps = { isDesktop: true, isTablet: false, isMobile: false };
   if (ctx.req && ctx.req.headers["user-agent"] !== undefined) {
