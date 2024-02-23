@@ -141,7 +141,7 @@ export default function Page(userAgent: UserAgent) {
                   onInquireEmailChange={(text) => setInquireEmail(text)}
                   onInquireClick={() => onInquireClick()}
                 />
-                <Group justify={"center"} visibleFrom="xs">
+                <Group justify={"center"} px={"1em"}>
                   <Image
                     radius="md"
                     src="/images/landing-page-01.png"
@@ -155,7 +155,7 @@ export default function Page(userAgent: UserAgent) {
                   bg={
                     "linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 63%)"
                   }
-                  top={isDesktopMedia ? "-3em" : "0"}
+                  top={"-3em"}
                   style={{
                     position: "relative",
                     borderTop: "1px solid var(--color-lightgray-2)",
