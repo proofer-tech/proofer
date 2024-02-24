@@ -18,7 +18,7 @@ function FooterMenuItem({ children }: any) {
 }
 
 interface FooterProps {
-  linkGroups: { [key: string]: React.ReactNode[] };
+  linkGroups?: { [key: string]: React.ReactNode[] };
 }
 
 export default function Footer({ linkGroups }: FooterProps) {
@@ -73,16 +73,17 @@ export default function Footer({ linkGroups }: FooterProps) {
           flex={1}
           wrap={"nowrap"}
         >
-          {Object.keys(linkGroups).map((k) => (
-            <Stack visibleFrom={"sm"} key={`footer-${k}`}>
-              <Text fw={700}>{k}</Text>
-              <List listStyleType={"none"} style={{ cursor: "pointer" }}>
-                {linkGroups[k].map((n, idx) => (
-                  <FooterMenuItem key={idx}>{n}</FooterMenuItem>
-                ))}
-              </List>
-            </Stack>
-          ))}
+          {linkGroups &&
+            Object.keys(linkGroups).map((k) => (
+              <Stack visibleFrom={"sm"} key={`footer-${k}`}>
+                <Text fw={700}>{k}</Text>
+                <List listStyleType={"none"} style={{ cursor: "pointer" }}>
+                  {linkGroups[k].map((n, idx) => (
+                    <FooterMenuItem key={idx}>{n}</FooterMenuItem>
+                  ))}
+                </List>
+              </Stack>
+            ))}
           <Stack>
             <Text fw={700}>Follow Us On</Text>
             <Group gap={"0.5em"} wrap={"nowrap"}>
