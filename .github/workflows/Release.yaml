@@ -1,6 +1,8 @@
 name: Release
 on:
-  deployment
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
