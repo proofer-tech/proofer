@@ -59,7 +59,7 @@ export default function IntroductionOfProofer() {
         )}
         <React.Suspense fallback={<Box h={"100vh"} />}>
           <Viewer
-            fileUrl="/docs/introduction-of-proofer.pdf"
+            fileUrl="https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/assets/introduction-of-proofer.pdf"
             plugins={[getFilePluginInstance]}
             renderLoader={(percent) => {
               setLoadingPercent(Math.round(percent));
