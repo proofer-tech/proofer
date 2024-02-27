@@ -43,10 +43,6 @@ export default function Header({
       title: "서비스 소개",
       onClick: () => onMenuClick && onMenuClick(1),
     },
-    {
-      title: "회사 소개",
-      onClick: () => onMenuClick && onMenuClick(2),
-    },
   ];
 
   const onSpecificMenuClick = (menu: Menu) => {

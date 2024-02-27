@@ -370,12 +370,6 @@ export default function Page(userAgent: any) {
                       <Text key={2} onClick={() => routeToIntroduction()}>
                         서비스 소개
                       </Text>,
-                      <Text
-                        key={3}
-                        onClick={() => scrollIntoMenu[2].scrollIntoView()}
-                      >
-                        회사 소개
-                      </Text>,
                     ],
                   }}
                 />
