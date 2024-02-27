@@ -353,7 +353,14 @@ export default function Page(userAgent: any) {
                       >
                         서비스이용약관
                       </Text>,
-                      <Text key={3} onClick={() => notReadyYetModal.open()}>
+                      <Text
+                        key={3}
+                        onClick={() =>
+                          router.push(
+                            "https://proofer-tech.notion.site/7f1752d2fb9c40f09c86ffc2cf1b74b3",
+                          )
+                        }
+                      >
                         개인정보처리방침
                       </Text>,
                     ],
