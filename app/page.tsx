@@ -343,8 +343,15 @@ export default function Page(userAgent: any) {
                       <Text key={1} onClick={() => openTallyPopup()}>
                         문의 & 지원
                       </Text>,
-                      <Text key={2} onClick={() => notReadyYetModal.open()}>
-                        이용약관
+                      <Text
+                        key={2}
+                        onClick={() =>
+                          router.push(
+                            "https://proofer-tech.notion.site/d9127501250a4a3bb1002f6792593d3e",
+                          )
+                        }
+                      >
+                        서비스이용약관
                       </Text>,
                       <Text key={3} onClick={() => notReadyYetModal.open()}>
                         개인정보처리방침
