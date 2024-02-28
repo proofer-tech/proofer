@@ -10,6 +10,7 @@ import {
 } from "@/hooks/mediaQuery";
 import { PageContext } from "@/app/hooks";
 import {
+  Anchor,
   AppShell,
   Button,
   Flex,
@@ -343,26 +344,22 @@ export default function Page(userAgent: any) {
                       <Text key={1} onClick={() => openTallyPopup()}>
                         문의 & 지원
                       </Text>,
-                      <Text
+                      <Anchor
                         key={2}
-                        onClick={() =>
-                          router.push(
-                            "https://proofer-tech.notion.site/d9127501250a4a3bb1002f6792593d3e",
-                          )
-                        }
+                        href="/docs/terms-of-service"
+                        underline="never"
+                        c={"black"}
                       >
                         서비스이용약관
-                      </Text>,
-                      <Text
+                      </Anchor>,
+                      <Anchor
                         key={3}
-                        onClick={() =>
-                          router.push(
-                            "https://proofer-tech.notion.site/7f1752d2fb9c40f09c86ffc2cf1b74b3",
-                          )
-                        }
+                        href="/docs/privacy"
+                        underline="never"
+                        c={"black"}
                       >
                         개인정보처리방침
-                      </Text>,
+                      </Anchor>,
                     ],
                     바로가기: [
                       <Text key={0} onClick={() => openTallyPopup()}>
