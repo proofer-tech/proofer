@@ -10,6 +10,7 @@ import {
 } from "@/hooks/mediaQuery";
 import { PageContext } from "@/app/hooks";
 import {
+  Anchor,
   AppShell,
   Button,
   Flex,
@@ -19,7 +20,7 @@ import {
   Text,
   Transition,
 } from "@mantine/core";
-import { useDisclosure, useScrollIntoView } from "@mantine/hooks";
+import { useDisclosure } from "@mantine/hooks";
 import Background from "@/app/components/Background";
 import Hero from "@/app/components/Hero";
 import { Done, Down } from "@/app/components/Divider";
@@ -33,7 +34,6 @@ import {
   NotReadyYetModal,
 } from "@/app/components/Modal";
 import LandingPageShell from "@/app/components/LandingPageShell";
-import { useRouter } from "next/navigation";
 import useTallyInquireForm from "@/hooks/tally";
 
 Page.getInitialProps = async (ctx: NextPageContext) => {
@@ -56,18 +56,22 @@ export default function Page(userAgent: any) {
   const isTabletMedia = useIsTabletMedia(userAgent.isTablet);
   const isMobileMedia = useIsMobileMedia(userAgent.isMobile);
 
-  const router = useRouter();
-
   const [isMounted, setIsMounted] = useState<boolean>(false);
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const scrollIntoMenu = [
-    useScrollIntoView<HTMLDivElement>({ offset: 30 }),
-    useScrollIntoView<HTMLDivElement>({ offset: 30 }),
-    useScrollIntoView<HTMLDivElement>({ offset: 30 }),
-  ];
+  const moveToHashAnchor = () => {
+    if (window.location.hash) {
+      const hashAnchor = document.getElementById(
+        window.location.hash.replace("#", ""),
+      );
+      if (hashAnchor !== null) {
+        const y = hashAnchor.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    }
+  };
 
   const [notReadyYetModalOpened, notReadyYetModal] = useDisclosure(false);
   const [isInquireCompletedModalOpened, inquireCompletedModal] =
@@ -85,20 +89,9 @@ export default function Page(userAgent: any) {
     setTallyOptions(newOptions);
   }, [tallyOptions, inquireEmail, setTallyOptions]);
   const [isInquireFocusTrapActive] = useDisclosure(false);
-  const routeToIntroduction = () =>
-    router.push("/docs/introduction-of-proofer");
 
   return (
     <LandingPageShell
-      onMenuClick={(index) => {
-        switch (index) {
-          case 1:
-            routeToIntroduction();
-            break;
-          default:
-            scrollIntoMenu[index].scrollIntoView();
-        }
-      }}
       onLoginClick={() => notReadyYetModal.open()}
       onInquireClick={() => openTallyPopup()}
     >
@@ -116,6 +109,7 @@ export default function Page(userAgent: any) {
           transition="fade"
           duration={400}
           timingFunction="ease"
+          onEntered={() => moveToHashAnchor()}
         >
           {(styles) => (
             <>
@@ -145,9 +139,7 @@ export default function Page(userAgent: any) {
                     position: "relative",
                     borderTop: "1px solid var(--color-lightgray-2)",
                   }}
-                >
-                  <Text ref={scrollIntoMenu[1].targetRef} />
-                </Down>
+                />
                 <Section
                   question={"프루퍼는 무엇을 할 수 있나요?"}
                   answer={"성과를 측정/평가/개선합니다"}
@@ -216,9 +208,7 @@ export default function Page(userAgent: any) {
                 <Section title={"다 함께 건강한 문화를 만들어 가고 있습니다."}>
                   <Partners />
                 </Section>
-                <Down py={"5em"}>
-                  <Text ref={scrollIntoMenu[0].targetRef} />
-                </Down>
+                <Down py={"5em"} id={"price"} />
                 <Section
                   question={"우리도 사용해볼 수 있나요?"}
                   answer={"서비스 제공 플랜"}
@@ -333,7 +323,6 @@ export default function Page(userAgent: any) {
                 bg={"transparent"}
                 style={{ border: "none" }}
               >
-                <Text ref={scrollIntoMenu[2].targetRef} />
                 <Footer
                   linkGroups={{
                     프루퍼: [
@@ -343,40 +332,43 @@ export default function Page(userAgent: any) {
                       <Text key={1} onClick={() => openTallyPopup()}>
                         문의 & 지원
                       </Text>,
-                      <Text
+                      <Anchor
                         key={2}
-                        onClick={() =>
-                          router.push(
-                            "https://proofer-tech.notion.site/d9127501250a4a3bb1002f6792593d3e",
-                          )
-                        }
+                        href="/docs/terms-of-service"
+                        underline="never"
+                        c={"black"}
                       >
                         서비스이용약관
-                      </Text>,
-                      <Text
+                      </Anchor>,
+                      <Anchor
                         key={3}
-                        onClick={() =>
-                          router.push(
-                            "https://proofer-tech.notion.site/7f1752d2fb9c40f09c86ffc2cf1b74b3",
-                          )
-                        }
+                        href="/docs/privacy"
+                        underline="never"
+                        c={"black"}
                       >
                         개인정보처리방침
-                      </Text>,
+                      </Anchor>,
                     ],
                     바로가기: [
                       <Text key={0} onClick={() => openTallyPopup()}>
                         무료로 체험해보기
                       </Text>,
-                      <Text
+                      <Anchor
                         key={1}
-                        onClick={() => scrollIntoMenu[0].scrollIntoView()}
+                        href="#price"
+                        underline="never"
+                        c={"black"}
                       >
                         가격
-                      </Text>,
-                      <Text key={2} onClick={() => routeToIntroduction()}>
+                      </Anchor>,
+                      <Anchor
+                        key={2}
+                        href="/docs/introduction-of-proofer"
+                        underline="never"
+                        c={"black"}
+                      >
                         서비스 소개
-                      </Text>,
+                      </Anchor>,
                     ],
                   }}
                 />
