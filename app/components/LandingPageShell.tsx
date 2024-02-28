@@ -5,14 +5,12 @@ import { useDisclosure } from "@mantine/hooks";
 import Header from "@/app/components/Header";
 
 interface LandingPageShellProps extends AppShellProps, ElementProps<"div"> {
-  onMenuClick?: (index: number) => void;
   onLoginClick?: () => void;
   onInquireClick?: () => void;
   children: React.ReactNode;
 }
 
 export default function LandingPageShell({
-  onMenuClick,
   onLoginClick,
   onInquireClick,
   children,
@@ -33,7 +31,6 @@ export default function LandingPageShell({
       <Header
         isNavbarOpened={opened}
         onBurgerClick={toggle}
-        onMenuClick={onMenuClick}
         onLoginClick={onLoginClick}
         onInquireClick={onInquireClick}
       />

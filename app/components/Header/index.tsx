@@ -12,6 +12,7 @@ import {
 import styles from "./style.module.css";
 import React from "react";
 import { useWindowScroll } from "@mantine/hooks";
+import { useRouter } from "next/navigation";
 
 interface Menu {
   title: string;
@@ -21,7 +22,6 @@ interface Menu {
 interface HeaderProps {
   isNavbarOpened: boolean;
   onBurgerClick: () => void;
-  onMenuClick?: (index: number) => void;
   onLoginClick?: () => void;
   onInquireClick?: () => void;
 }
@@ -29,19 +29,19 @@ interface HeaderProps {
 export default function Header({
   isNavbarOpened,
   onBurgerClick,
-  onMenuClick,
   onLoginClick,
   onInquireClick,
 }: HeaderProps) {
+  const router = useRouter();
   const [_, scrollTo] = useWindowScroll();
   const menus: Menu[] = [
     {
       title: "가격",
-      onClick: () => onMenuClick && onMenuClick(0),
+      onClick: () => router.push("/#price"),
     },
     {
       title: "서비스 소개",
-      onClick: () => onMenuClick && onMenuClick(1),
+      onClick: () => router.push("/docs/introduction-of-proofer"),
     },
   ];
 

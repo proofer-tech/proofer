@@ -20,7 +20,6 @@ export default function DocsLayout({ children }: any) {
 
   return (
     <LandingPageShell
-      onMenuClick={() => router.replace("/")}
       onLoginClick={() => router.replace("/")}
       onInquireClick={() => openTallyPopup()}
     >
