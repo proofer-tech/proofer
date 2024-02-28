@@ -7,7 +7,7 @@ import useTallyInquireForm from "@/hooks/tally";
 import { InquireCompletedModal } from "@/app/components/Modal";
 import React from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { AppShell, Space } from "@mantine/core";
+import { AppShell } from "@mantine/core";
 import Footer from "@/app/components/Footer";
 
 export default function DocsLayout({ children }: any) {

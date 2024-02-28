@@ -1,6 +1,6 @@
 "use client";
 import { ElementProps } from "@mantine/core/lib/core";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Center, Loader } from "@mantine/core";
 
 interface FullPageIframeProps extends ElementProps<"iframe"> {}
