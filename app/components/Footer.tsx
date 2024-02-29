@@ -104,17 +104,23 @@ export default function Footer({ linkGroups }: FooterProps) {
                   />
                 </Avatar>
               </Anchor>
-              <Avatar
-                p={"0.1em"}
-                bg={"var(--color-white)"}
-                color={"var(--color-white)"}
-                style={{ border: "1px solid var(--color-lightgray-2)" }}
+              <Anchor
+                href={"https://www.linkedin.com/company/campers-ground-inc"}
+                target={"_blank"}
+                underline={"never"}
               >
-                <Image
-                  src="/images/bi-linkedin.png"
-                  alt="@proofer.tech in linkedin"
-                />
-              </Avatar>
+                <Avatar
+                  p={"0.1em"}
+                  bg={"var(--color-white)"}
+                  color={"var(--color-white)"}
+                  style={{ border: "1px solid var(--color-lightgray-2)" }}
+                >
+                  <Image
+                    src="/images/bi-linkedin.png"
+                    alt="@proofer.tech in linkedin"
+                  />
+                </Avatar>
+              </Anchor>
             </Group>
           </Stack>
         </Group>
