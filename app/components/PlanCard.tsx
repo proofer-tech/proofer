@@ -11,8 +11,9 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
-import React from "react";
+import React, { useContext } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
+import { PageContext } from "@/app/hooks";
 
 interface PlanCardProps extends CardProps, ElementProps<"div"> {
   name: string;
@@ -32,6 +33,7 @@ export default function PlanCard({
   cta,
   ...props
 }: PlanCardProps) {
+  const pageCtx = useContext(PageContext);
   return (
     <Card
       w={"100%"}
@@ -48,7 +50,11 @@ export default function PlanCard({
         </Box>
       </Card.Section>
       <Stack py={"1em"} gap={"1.3em"}>
-        <Text fz={"1em"} fw={700} c={"var(--color-primary)"}>
+        <Text
+          fz={pageCtx.userAgent.isDesktop ? "1em" : "1.2em"}
+          fw={700}
+          c={"var(--color-primary)"}
+        >
           {name}
         </Text>
         {price !== undefined && (

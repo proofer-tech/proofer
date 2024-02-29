@@ -34,7 +34,7 @@ export default function Section({
           <Text
             ta="center"
             size={pageCtx.userAgent.isDesktop ? "1.3em" : "1.1em"}
-            c={"var(--color-lightgray)"}
+            c={"var(--color-darkgray-2)"}
             lh={1}
           >
             {question}
@@ -43,6 +43,7 @@ export default function Section({
         {(answer || title) && (
           <Text
             ta="center"
+            maw={pageCtx.userAgent.isDesktop ? "none" : "90%"}
             size={pageCtx.userAgent.isDesktop ? "2.6em" : "2.3em"}
             c={"var(--color-primary)"}
             fw={700}
@@ -54,7 +55,7 @@ export default function Section({
         {description && (
           <Text
             maw={pageCtx.userAgent.isDesktop ? "68%" : "none"}
-            size={pageCtx.userAgent.isDesktop ? "1em" : "0.9em"}
+            size={"1em"}
             ta="center"
             c={"var(--color-foreground)"}
             lh={1.3}

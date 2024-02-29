@@ -37,8 +37,8 @@ export default function Hero({
     >
       <Text
         ta="center"
-        size={pageCtx.userAgent.isDesktop ? "1.3em" : "0.9em"}
-        c={"var(--color-lightgray)"}
+        size={pageCtx.userAgent.isDesktop ? "1.3em" : "1em"}
+        c={"var(--color-darkgray-2)"}
       >
         #DORA Metrics / #SPACE Framework / #DevEx Framework
       </Text>
@@ -65,7 +65,7 @@ export default function Hero({
       >
         <Text
           ta={"center"}
-          size={pageCtx.userAgent.isDesktop ? "1.3em" : "0.9em"}
+          size={pageCtx.userAgent.isDesktop ? "1.3em" : "1em"}
           lh={1.3}
         >
           <span>
@@ -103,7 +103,7 @@ export default function Hero({
               <Input
                 placeholder="이메일 입력 ..."
                 type={"email"}
-                size={pageCtx.userAgent.isDesktop ? "lg" : "md"}
+                size={pageCtx.userAgent.isDesktop ? "xl" : "lg"}
                 value={inquireEmail}
                 onChange={(e) => onInquireEmailChange(e.target.value)}
                 onFocus={() => setPopoverOpened(true)}
@@ -118,7 +118,7 @@ export default function Hero({
           </Popover>
         </Input.Wrapper>
         <Button
-          size={pageCtx.userAgent.isDesktop ? "lg" : "md"}
+          size={pageCtx.userAgent.isDesktop ? "xl" : "lg"}
           onClick={onInquireClick}
         >
           무료상담 신청
