@@ -7,3 +7,18 @@ datasource db {
   url       = env("POSTGRES_PRISMA_URL")
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
+
+enum HealthState {
+  UP
+  DOWN
+  MAINTENANCE
+}
+
+model Health {
+  id          Int         @id @default(autoincrement())
+  name        String
+  codename    String
+  description String?
+  state       HealthState
+  order       Int         @default(100)
+}

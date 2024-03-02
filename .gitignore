@@ -26,8 +26,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env docs
-.env*.local
-.env
+*.env*
 
 # vercel
 .vercel
@@ -37,3 +36,11 @@ yarn-error.log*
 next-env.d.ts
 
 .idea
+
+# prisma
+javascript/**/migrations/
+typescript/**/migrations/
+misc/**/migrations/
+databases/**/migrations/
+experimental/**/*.db
+dev.db
