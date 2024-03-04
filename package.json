@@ -4,7 +4,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git@github.com:campersground-kr/proofer.git"
+    "url": "git@github.com:proofer-tech/proofer.git"
   },
   "release": {
     "branches": [
