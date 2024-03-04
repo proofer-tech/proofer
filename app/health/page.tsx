@@ -115,13 +115,17 @@ export default function HealthPage() {
           <Group gap={"1em"} justify={"center"} py={"2em"}>
             {isLoading
               ? Array.from({ length: 3 }, () => (
-                  <Skeleton width={"10em"} height={"2em"} radius="xl" />
+                  <Skeleton
+                    key={Math.random()}
+                    width={"10em"}
+                    height={"2em"}
+                    radius="xl"
+                  />
                 ))
               : data &&
                 data.map((h) => (
-                  <Tooltip.Floating label={h.description}>
+                  <Tooltip.Floating key={h.id} label={h.description}>
                     <Badge
-                      key={h.id}
                       size="xl"
                       variant="dot"
                       color={(() => {
@@ -145,7 +149,7 @@ export default function HealthPage() {
           {isLoading ? (
             <Stack>
               {Array.from({ length: 5 }, () => (
-                <Skeleton width={"100%"} height={"1em"} />
+                <Skeleton key={Math.random()} width={"100%"} height={"1em"} />
               ))}
             </Stack>
           ) : (
