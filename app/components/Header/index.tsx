@@ -9,18 +9,16 @@ import {
   Space,
   Stack,
 } from "@mantine/core";
-import styles from "./style.module.css";
 import React from "react";
-import { useWindowScroll } from "@mantine/hooks";
-import { useRouter } from "next/navigation";
 
-interface Menu {
+export interface HeaderPortal {
   title: string;
-  onClick: () => void;
+  href: string;
 }
 
-interface HeaderProps {
+export interface HeaderProps {
   isNavbarOpened: boolean;
+  portals?: HeaderPortal[];
   onBurgerClick: () => void;
   onLoginClick?: () => void;
   onInquireClick?: () => void;
@@ -29,27 +27,10 @@ interface HeaderProps {
 export default function Header({
   isNavbarOpened,
   onBurgerClick,
+  portals = [],
   onLoginClick,
   onInquireClick,
 }: HeaderProps) {
-  const router = useRouter();
-  const [_, scrollTo] = useWindowScroll();
-  const menus: Menu[] = [
-    {
-      title: "가격",
-      onClick: () => router.push("/#price"),
-    },
-    {
-      title: "서비스 소개",
-      onClick: () => router.push("/docs/introduction-of-proofer"),
-    },
-  ];
-
-  const onSpecificMenuClick = (menu: Menu) => {
-    menu.onClick();
-    onBurgerClick();
-  };
-
   return (
     <>
       <AppShell.Header>
@@ -61,7 +42,6 @@ export default function Header({
                   variant={"transparent"}
                   style={{ width: "2em", height: "2em" }}
                   p={0}
-                  onClick={() => scrollTo({ y: 0 })}
                 >
                   <Image
                     src="/images/branding.svg"
@@ -71,33 +51,36 @@ export default function Header({
                 </Button>
               </Anchor>
               <Group justify="space-between" style={{ flex: 1 }}>
-                <Group ml="xl" gap={0} visibleFrom="sm">
-                  {menus.map((menu, idx) => (
-                    <Button
-                      color="var(--color-foreground)"
-                      variant="transparent"
+                <Group ml="xl" gap={"2em"} visibleFrom="sm">
+                  {portals.map((menu, idx) => (
+                    <Anchor
                       key={`${menu.title}-${idx}`}
-                      className={styles.control}
-                      onClick={menu.onClick}
+                      c="var(--color-foreground)"
+                      href={menu.href}
+                      underline={"never"}
                     >
                       {menu.title}
-                    </Button>
+                    </Anchor>
                   ))}
                 </Group>
-                <Button
-                  variant="subtle"
-                  visibleFrom="sm"
-                  onClick={onLoginClick}
-                >
-                  로그인
-                </Button>
+                {onLoginClick && (
+                  <Button
+                    variant="subtle"
+                    visibleFrom="sm"
+                    onClick={onLoginClick}
+                  >
+                    로그인
+                  </Button>
+                )}
               </Group>
             </Group>
             <Group>
-              <Button onClick={onInquireClick}>무료상담 신청</Button>
+              {onInquireClick && (
+                <Button onClick={onInquireClick}>무료상담 신청</Button>
+              )}
               <Burger
                 opened={isNavbarOpened}
-                onClick={onBurgerClick}
+                onClick={() => onBurgerClick()}
                 hiddenFrom="sm"
                 size="sm"
               />
@@ -107,22 +90,22 @@ export default function Header({
       </AppShell.Header>
       <AppShell.Navbar py="md" px={4}>
         <Stack gap={"xs"}>
-          {menus.map((menu, idx) => (
-            <Button
-              color="var(--color-foreground)"
-              variant="subtle"
+          {portals.map((menu, idx) => (
+            <Anchor
               key={`${menu.title}-${idx}`}
-              className={styles.control}
-              onClick={() => onSpecificMenuClick(menu)}
+              c="var(--color-foreground)"
+              href={menu.href}
             >
               {menu.title}
-            </Button>
+            </Anchor>
           ))}
         </Stack>
         <Space h="xl" />
-        <Button variant="subtle" onClick={onLoginClick}>
-          로그인
-        </Button>
+        {onLoginClick && (
+          <Button variant="subtle" onClick={onLoginClick}>
+            로그인
+          </Button>
+        )}
       </AppShell.Navbar>
     </>
   );

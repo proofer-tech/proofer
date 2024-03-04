@@ -35,6 +35,7 @@ import {
 } from "@/app/components/Modal";
 import LandingPageShell from "@/app/components/LandingPageShell";
 import useTallyInquireForm from "@/hooks/tally";
+import Header from "@/app/components/Header";
 
 Page.getInitialProps = async (ctx: NextPageContext) => {
   const defaultProps = { isDesktop: true, isTablet: false, isMobile: false };
@@ -72,7 +73,7 @@ export default function Page(userAgent: any) {
       }
     }
   };
-
+  const navbarDisclosure = useDisclosure(false);
   const [notReadyYetModalOpened, notReadyYetModal] = useDisclosure(false);
   const [isInquireCompletedModalOpened, inquireCompletedModal] =
     useDisclosure(false);
@@ -91,10 +92,17 @@ export default function Page(userAgent: any) {
   const [isInquireFocusTrapActive] = useDisclosure(false);
 
   return (
-    <LandingPageShell
-      onLoginClick={() => notReadyYetModal.open()}
-      onInquireClick={() => openTallyPopup()}
-    >
+    <LandingPageShell isNavbarOpened={navbarDisclosure[0]}>
+      <Header
+        isNavbarOpened={navbarDisclosure[0]}
+        portals={[
+          { title: "가격", href: "/#price" },
+          { title: "서비스소개", href: "/docs/introduction-of-proofer" },
+        ]}
+        onBurgerClick={navbarDisclosure[1].toggle}
+        onLoginClick={() => notReadyYetModal.open()}
+        onInquireClick={() => openTallyPopup()}
+      />
       <PageContext.Provider
         value={{
           userAgent: {
@@ -332,6 +340,14 @@ export default function Page(userAgent: any) {
                       <Text key={1} onClick={() => openTallyPopup()}>
                         문의 & 지원
                       </Text>,
+                      <Anchor
+                        key={2}
+                        href="/health"
+                        underline="never"
+                        c={"black"}
+                      >
+                        서비스 상태보기
+                      </Anchor>,
                       <Anchor
                         key={2}
                         href="/docs/terms-of-service"

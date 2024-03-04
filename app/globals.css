@@ -1,62 +1,56 @@
 @font-face {
-    font-family: 'LINESeedKR';
+    font-family: LINESeedKR;
     src: url('/fonts/LINESeedKR-Th.woff2') format('woff2');
     font-weight: 200;
 }
 
 @font-face {
-    font-family: 'LINESeedKR';
+    font-family: LINESeedKR;
     src: url('/fonts/LINESeedKR-Rg.woff2') format('woff2');
     font-weight: 400;
 }
 
 @font-face {
-    font-family: 'LINESeedKR';
+    font-family: LINESeedKR;
     src: url('/fonts/LINESeedKR-Bd.woff2') format('woff2');
     font-weight: 700;
 }
 
 :root {
-    --color-white: #ffffff;
-    --color-grayscale-1: #eeeeee;
+    --color-white: #fff;
+    --color-grayscale-1: #eee;
     --color-grayscale-2: #e0e0e0;
     --color-grayscale-3: #bdbdbd;
     --color-grayscale-4: #9e9e9e;
     --color-grayscale-5: #757575;
     --color-grayscale-6: #616161;
     --color-grayscale-7: #424242;
-    --color-grayscale-8: #333333;
+    --color-grayscale-8: #333;
     --color-grayscale-9: #2b2b2b;
-    --color-black: #000000;
-
+    --color-black: #000;
     --color-green: #009379;
-    --color-blue: #3366FF;
+    --color-blue: #36F;
     --color-red: #FF6250;
     --color-yellow: #FFDF90;
     --color-purple: #BFAFF2;
-
     --color-primary: #0052cc;
     --color-secondary: #4caf50;
-
     --color-info: var(--color-purple);
     --color-warn: var(--color-yellow);
     --color-danger: var(--color-red);
     --color-success: var(--color-green);
-
     --color-primarygray: var(--color-grayscale-9);
-
     --color-darkgray: var(--color-grayscale-8);
     --color-darkgray-2: var(--color-grayscale-6);
-
     --color-lightgray: var(--color-grayscale-3);
     --color-lightgray-2: var(--color-grayscale-1);
-
     --color-foreground: var(--color-primarygray);
     --color-background: var(--color-white);
     --color-layer: var(--color-grayscale-1);
 }
 
 @media (prefers-color-scheme: dark) {
+    /* empty block */
 }
 
 
@@ -65,25 +59,25 @@ html {
     min-width: 320px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (width <= 1024px) {
     html {
         font-size: 15px;
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width <= 768px) {
     html {
         font-size: 14px;
     }
 }
 
-@media screen and (max-width: 512px) {
+@media screen and (width <= 512px) {
     html {
         font-size: 13px;
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (width <= 320px) {
     html {
         font-size: 12px;
     }
