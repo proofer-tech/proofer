@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { useWindowScroll } from "@mantine/hooks";
 import { Affix, Box, Button, Center, Loader, Transition } from "@mantine/core";
 import { IconDownload } from "@tabler/icons-react";
+import { useChannelIOEvent } from "react-channel-plugin";
 
 export default function IntroductionOfProofer() {
   const [scroll, _] = useWindowScroll();
@@ -14,6 +15,9 @@ export default function IntroductionOfProofer() {
   });
 
   const [loadingPercent, setLoadingPercent] = useState<number>(0);
+
+  const [isChannelIOLoaded, setIsChannelIOLoaded] = useState<boolean>(false);
+  useChannelIOEvent("onBoot", () => setIsChannelIOLoaded(true));
 
   return (
     <>
@@ -35,7 +39,7 @@ export default function IntroductionOfProofer() {
           />
         </React.Suspense>
       </Worker>
-      <Affix position={{ bottom: 20, right: 20 }}>
+      <Affix position={{ bottom: 16, right: isChannelIOLoaded ? 80 : 16 }}>
         <Transition transition="slide-up" mounted={scroll.y > 0}>
           {(styles) => (
             <Button style={styles} size="xl">
