@@ -1,6 +1,7 @@
 import React from "react";
 import {
   IconActivity,
+  IconAntennaBars5,
   IconBulb,
   IconHeartbeat,
   IconLayoutDashboard,
@@ -68,7 +69,7 @@ export const pathTree: PathTree = {
   },
   throughput: {
     title: "Throughput",
-    tablerIcon: IconPresentation,
+    tablerIcon: IconAntennaBars5,
     subTree: {
       resources: {
         title: "리소스 현황",
