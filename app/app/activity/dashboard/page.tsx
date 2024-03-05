@@ -1,5 +1,3 @@
-import { notFound } from "next/navigation";
-
 export default function Page() {
-  return notFound();
+  return <div>대시보드</div>;
 }

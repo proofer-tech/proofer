@@ -9,10 +9,8 @@ import {
   Center,
   Divider,
   Group,
-  Loader,
   NavLink,
   ScrollArea,
-  Skeleton,
   Stack,
   Text,
   Transition,
@@ -64,6 +62,7 @@ export default function AppLayout({ children }: { children: any }) {
   useEffect(() => setIsMounted(true), []);
 
   const collapseDisclosure = useDisclosure(true);
+  // console.log(pathname);
 
   return (
     <ReactChannelIO
