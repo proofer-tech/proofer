@@ -58,7 +58,6 @@ export const pathTree: PathTree = {
   },
   satisfaction: {
     title: "Satisfaction",
-    isImplemented: false,
     tablerIcon: IconHeartbeat,
     subTree: {
       dashboard: {
@@ -69,7 +68,6 @@ export const pathTree: PathTree = {
   },
   throughput: {
     title: "Throughput",
-    isImplemented: true,
     tablerIcon: IconPresentation,
     subTree: {
       resources: {
