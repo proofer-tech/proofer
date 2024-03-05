@@ -12,6 +12,7 @@ import {
   Loader,
   NavLink,
   ScrollArea,
+  Skeleton,
   Stack,
   Text,
   Transition,
@@ -112,24 +113,10 @@ export default function AppLayout({ children }: { children: any }) {
                     />
                   </Anchor>
                 </Center>
-                {!isMounted ? <Loader color="blue" /> : ""}
-                <Transition
-                  mounted={isMounted}
-                  transition="fade"
-                  duration={400}
-                  timingFunction="ease"
-                >
-                  {(styles) => (
-                    <Stack
-                      style={styles}
-                      w={"100%"}
-                      h={"100%"}
-                      align={"center"}
-                      py={"1em"}
-                    >
-                      <Avatar
-                        src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-                      />
+                <Stack w={"100%"} h={"100%"} py={"1em"}>
+                  {!isMounted ? (
+                    <Stack align={"center"}>
+                      <Avatar />
                       <IconArrowMerge size={"1em"} />
                       <Avatar.Group
                         style={{
@@ -138,20 +125,50 @@ export default function AppLayout({ children }: { children: any }) {
                           flexDirection: "column",
                         }}
                       >
-                        <Avatar
-                          src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-                        />
-                        <Avatar
-                          src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-                        />
-                        <Avatar
-                          src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-                        />
-                        <Avatar>+5</Avatar>
+                        <Avatar />
+                        <Avatar />
+                        <Avatar />
+                        <Avatar>+@</Avatar>
                       </Avatar.Group>
                     </Stack>
+                  ) : (
+                    ""
                   )}
-                </Transition>
+                  <Transition
+                    mounted={isMounted}
+                    transition="fade"
+                    duration={400}
+                    timingFunction="ease"
+                  >
+                    {(styles) => (
+                      <Stack style={styles} align={"center"}>
+                        <Avatar
+                          src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
+                          style={{ border: "4px solid var(--color-primary)" }}
+                        />
+                        <IconArrowMerge size={"1em"} />
+                        <Avatar.Group
+                          style={{
+                            alignItems: "center",
+                            width: "100%",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <Avatar
+                            src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
+                          />
+                          <Avatar
+                            src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
+                          />
+                          <Avatar
+                            src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
+                          />
+                          <Avatar>+5</Avatar>
+                        </Avatar.Group>
+                      </Stack>
+                    )}
+                  </Transition>
+                </Stack>
               </Stack>
               <Stack gap={0} miw={"20em"} h={"100%"} align={"center"}>
                 <Group
