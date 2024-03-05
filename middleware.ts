@@ -22,7 +22,7 @@ export default async function middleware(req: NextRequest) {
     path.startsWith("/fonts") ||
     path.startsWith("/images") ||
     path.startsWith("/scripts") ||
-    (path !== "/" && !path.slice(1).includes("/")) // root files
+    (path !== "/" && !path.slice(1).includes("/") && path.includes(".")) // root files
   )
     return NextResponse.next();
 
