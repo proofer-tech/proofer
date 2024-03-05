@@ -2,15 +2,24 @@ import React from "react";
 import {
   IconActivity,
   IconAntennaBars5,
+  IconBrandDeezer,
   IconBulb,
+  IconClockCode,
+  IconClockHour4,
+  IconDeviceHeartMonitor,
+  IconFocus2,
   IconHeartbeat,
+  IconHourglassOff,
   IconLayoutDashboard,
   IconLayoutKanban,
+  IconMessageCode,
   IconMessages,
+  IconMoodSearch,
   IconReorder,
   IconReportMoney,
   IconSettingsCode,
   IconTelescope,
+  IconTimelineEventText,
   IconTransformPoint,
   TablerIconsProps,
 } from "@tabler/icons-react";
@@ -36,15 +45,25 @@ export const pathTree: PathTree = {
     isImplemented: true,
     tablerIcon: IconActivity,
     subTree: {
-      dashboard: {
-        title: "대시보드",
+      heatmap: {
+        title: "히트맵",
         isImplemented: true,
-        tablerIcon: IconLayoutDashboard,
+        tablerIcon: IconBrandDeezer,
       },
-      engineering: {
-        title: "엔지니어링",
+      timeline: {
+        title: "타임라인",
         isImplemented: true,
-        tablerIcon: IconSettingsCode,
+        tablerIcon: IconTimelineEventText,
+      },
+      "cycle-time": {
+        title: "사이클타임",
+        isImplemented: true,
+        tablerIcon: IconClockCode,
+      },
+      "code-review": {
+        title: "코드리뷰",
+        isImplemented: true,
+        tablerIcon: IconMessageCode,
       },
       project: {
         title: "프로젝트",
@@ -60,9 +79,17 @@ export const pathTree: PathTree = {
     title: "Satisfaction",
     tablerIcon: IconHeartbeat,
     subTree: {
-      dashboard: {
-        title: "대시보드",
-        tablerIcon: IconLayoutDashboard,
+      engagement: {
+        title: "개발 몰입도",
+        tablerIcon: IconFocus2,
+      },
+      enps: {
+        title: "개발자 만족도",
+        tablerIcon: IconMoodSearch,
+      },
+      workload: {
+        title: "업무로드 분석",
+        tablerIcon: IconHourglassOff,
       },
     },
   },
@@ -82,12 +109,10 @@ export const pathTree: PathTree = {
   },
   utility: {
     title: "Utility",
-    isImplemented: true,
     tablerIcon: IconBulb,
     subTree: {
       "dora-metrics": {
         title: "DORA Metrics",
-        isImplemented: true,
         tablerIcon: IconTransformPoint,
       },
       benchmark: {

@@ -28,7 +28,6 @@ import { PageContext } from "@/app/hooks";
 import "@mantine/charts/styles.css";
 import {
   IconArrowMerge,
-  IconExternalLink,
   IconHeadset,
   IconLayoutSidebarLeftCollapse,
   IconLayoutSidebarRightCollapse,
@@ -94,7 +93,7 @@ export default function AppLayout({ children }: { children: any }) {
       >
         <AppShell
           navbar={{
-            width: "15em",
+            width: "calc(20em + 1px)",
             breakpoint: 0,
             collapsed: {
               mobile:
@@ -104,243 +103,266 @@ export default function AppLayout({ children }: { children: any }) {
           }}
           style={{ display: "flex", justifyContent: "flex-start", gap: 0 }}
         >
-          <AppShell.Navbar w={"auto"} style={{ position: "relative" }}>
-            <AppShell.Section>
-              <Group gap={0} align={"start"} h={"100dvh"} wrap={"nowrap"}>
-                <Stack
-                  gap={0}
-                  w={"4em"}
-                  h={"100%"}
+          <Group gap={0} align={"start"} h={"100dvh"} wrap={"nowrap"}>
+            <Stack
+              gap={0}
+              w={"4em"}
+              h={"100%"}
+              align={"center"}
+              bg={"var(--mantine-color-white)"}
+              style={{
+                borderRight: "1px solid var(--mantine-color-gray-3)",
+                position: "relative",
+                zIndex: 300,
+              }}
+            >
+              <Center
+                w={"100%"}
+                h={"3.5em"}
+                style={{
+                  borderBottom: "1px solid var(--mantine-color-gray-3)",
+                  flexShrink: 0,
+                }}
+              >
+                {collapseDisclosure[0] ? (
+                  <Button
+                    variant={"subtle"}
+                    onClick={() => collapseDisclosure[1].toggle()}
+                  >
+                    <IconLayoutSidebarRightCollapse
+                      color={"var(--mantine-color-gray-6)"}
+                    />
+                  </Button>
+                ) : (
+                  <Anchor href={"/"} underline="never" fz={0}>
+                    <Image
+                      src="/images/branding.svg"
+                      alt="프루퍼 로고"
+                      width={24}
+                      height={24}
+                    />
+                  </Anchor>
+                )}
+              </Center>
+              <Stack
+                w={"100%"}
+                h={"100%"}
+                py={"1em"}
+                justify={"space-between"}
+                align={"center"}
+              >
+                {isMounted ?? (
+                  <Stack align={"center"}>
+                    <Avatar />
+                    <IconArrowMerge size={"1em"} />
+                    <Avatar.Group
+                      style={{
+                        alignItems: "center",
+                        width: "100%",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <Avatar />
+                      <Avatar />
+                      <Avatar />
+                      <Avatar>+@</Avatar>
+                    </Avatar.Group>
+                  </Stack>
+                )}
+                <Transition
+                  mounted={!!isMounted}
+                  transition="fade"
+                  duration={400}
+                  timingFunction="ease"
+                >
+                  {(styles) => (
+                    <Stack style={styles} align={"center"}>
+                      <Avatar
+                        src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
+                        style={{
+                          border: "3px solid var(--color-primary)",
+                        }}
+                      />
+                      <IconArrowMerge size={"1em"} />
+                      <Avatar.Group
+                        style={{
+                          alignItems: "center",
+                          width: "100%",
+                          flexDirection: "column",
+                        }}
+                      >
+                        <Avatar
+                          src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
+                        />
+                        <Avatar
+                          src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
+                        />
+                        <Avatar
+                          src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
+                        />
+                        <Avatar>+5</Avatar>
+                      </Avatar.Group>
+                    </Stack>
+                  )}
+                </Transition>
+                <Menu withArrow>
+                  <Menu.Target>
+                    <Avatar
+                      src={
+                        "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-8.png"
+                      }
+                      style={{
+                        border: "2px solid var(--color-secondary)",
+                      }}
+                    />
+                  </Menu.Target>
+                  <Menu.Dropdown>
+                    <Menu.Item component="a" href="#">
+                      워크스페이스 설정
+                    </Menu.Item>
+                    <Menu.Item component="a" href="#">
+                      멤버 관리
+                    </Menu.Item>
+                    <Menu.Item component="a" href="#">
+                      연동된 앱 관리
+                    </Menu.Item>
+                  </Menu.Dropdown>
+                </Menu>
+              </Stack>
+            </Stack>
+            <AppShell.Navbar
+              style={{ position: "relative", width: "auto", border: 0 }}
+            >
+              <Stack gap={0} miw={"20em"} h={"100%"} align={"center"}>
+                <Group
+                  pl={"1em"}
+                  pr={"0.5em"}
+                  w={"100%"}
+                  h={"3.5em"}
+                  justify={"space-between"}
                   align={"center"}
                   style={{
-                    borderRight: "1px solid var(--mantine-color-gray-3)",
+                    borderBottom: "1px solid var(--mantine-color-gray-3)",
+                    flexShrink: 0,
+                  }}
+                >
+                  <Text fw={700}>{workspace.name}</Text>
+                  <Button
+                    variant={"subtle"}
+                    onClick={() => collapseDisclosure[1].toggle()}
+                  >
+                    {collapseDisclosure[0] ? (
+                      <IconLayoutSidebarRightCollapse
+                        color={"var(--mantine-color-gray-6)"}
+                      />
+                    ) : (
+                      <IconLayoutSidebarLeftCollapse
+                        color={"var(--mantine-color-gray-6)"}
+                      />
+                    )}
+                  </Button>
+                </Group>
+                <Stack
+                  w={"100%"}
+                  h={"100%"}
+                  justify={"space-between"}
+                  style={{
                     ...(collapseDisclosure[0] ? { display: "none" } : {}),
                   }}
                 >
-                  <Center
-                    w={"100%"}
-                    h={"3.5em"}
-                    style={{
-                      borderBottom: "1px solid var(--mantine-color-gray-3)",
-                      flexShrink: 0,
-                    }}
-                  >
-                    <Anchor href={"/"} underline="never" fz={0}>
-                      <Image
-                        src="/images/branding.svg"
-                        alt="프루퍼 로고"
-                        width={24}
-                        height={24}
-                      />
-                    </Anchor>
-                  </Center>
-                  <Stack
-                    w={"100%"}
-                    h={"100%"}
-                    py={"1em"}
-                    justify={"space-between"}
-                    align={"center"}
-                  >
-                    {isMounted ?? (
-                      <Stack align={"center"}>
-                        <Avatar />
-                        <IconArrowMerge size={"1em"} />
-                        <Avatar.Group
-                          style={{
-                            alignItems: "center",
-                            width: "100%",
-                            flexDirection: "column",
-                          }}
-                        >
-                          <Avatar />
-                          <Avatar />
-                          <Avatar />
-                          <Avatar>+@</Avatar>
-                        </Avatar.Group>
-                      </Stack>
-                    )}
-                    <Transition
-                      mounted={!!isMounted}
-                      transition="fade"
-                      duration={400}
-                      timingFunction="ease"
+                  <ScrollArea>
+                    <Accordion
+                      multiple
+                      defaultValue={Object.entries(pathTree)
+                        .filter(([_, v]) => v.isImplemented)
+                        .map(([k]) => k)}
                     >
-                      {(styles) => (
-                        <Stack style={styles} align={"center"}>
-                          <Avatar
-                            src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-                            style={{
-                              border: "3px solid var(--color-primary)",
-                            }}
-                          />
-                          <IconArrowMerge size={"1em"} />
-                          <Avatar.Group
-                            style={{
-                              alignItems: "center",
-                              width: "100%",
-                              flexDirection: "column",
-                            }}
-                          >
-                            <Avatar
-                              src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-                            />
-                            <Avatar
-                              src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-                            />
-                            <Avatar
-                              src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-                            />
-                            <Avatar>+5</Avatar>
-                          </Avatar.Group>
-                        </Stack>
-                      )}
-                    </Transition>
-                    <Menu withArrow>
-                      <Menu.Target>
-                        <Avatar
-                          src={
-                            "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-8.png"
+                      {Object.entries(pathTree).map(([pathName, path], idx) => (
+                        <Accordion.Item
+                          key={pathName}
+                          value={pathName}
+                          style={
+                            idx + 1 === Object.keys(pathTree).length
+                              ? { borderBottom: "none" }
+                              : {}
                           }
-                          style={{
-                            border: "2px solid var(--color-secondary)",
-                          }}
-                        />
-                      </Menu.Target>
-                      <Menu.Dropdown>
-                        <Menu.Item component="a" href="#">
-                          워크스페이스 설정
-                        </Menu.Item>
-                        <Menu.Item component="a" href="#">
-                          멤버 관리
-                        </Menu.Item>
-                        <Menu.Item component="a" href="#">
-                          연동된 앱 관리
-                        </Menu.Item>
-                      </Menu.Dropdown>
-                    </Menu>
-                  </Stack>
-                </Stack>
-                <Stack gap={0} miw={"20em"} h={"100%"} align={"center"}>
-                  <Group
-                    pl={"1em"}
-                    pr={"0.5em"}
-                    w={"100%"}
-                    h={"3.5em"}
-                    justify={"space-between"}
-                    align={"center"}
-                    style={{
-                      borderBottom: "1px solid var(--mantine-color-gray-3)",
-                      flexShrink: 0,
-                    }}
-                  >
-                    <Text fw={700}>{workspace.name}</Text>
-                    <Button
-                      variant={"subtle"}
-                      onClick={() => collapseDisclosure[1].toggle()}
-                    >
-                      {collapseDisclosure[0] ? (
-                        <IconLayoutSidebarRightCollapse
-                          color={"var(--mantine-color-gray-6)"}
-                        />
-                      ) : (
-                        <IconLayoutSidebarLeftCollapse
-                          color={"var(--mantine-color-gray-6)"}
-                        />
-                      )}
-                    </Button>
-                  </Group>
-                  <Stack
-                    w={"100%"}
-                    h={"100%"}
-                    justify={"space-between"}
-                    style={{
-                      ...(collapseDisclosure[0] ? { display: "none" } : {}),
-                    }}
-                  >
-                    <ScrollArea>
-                      <Accordion
-                        multiple
-                        defaultValue={Object.entries(pathTree)
-                          .filter(([_, v]) => v.isImplemented)
-                          .map(([k]) => k)}
-                      >
-                        {Object.entries(pathTree).map(
-                          ([pathName, path], idx) => (
-                            <Accordion.Item
-                              key={pathName}
-                              value={pathName}
-                              style={
-                                idx + 1 === Object.keys(pathTree).length
-                                  ? { borderBottom: "none" }
-                                  : {}
-                              }
-                            >
-                              <Accordion.Control
-                                icon={renderPathIcon(path, {
+                        >
+                          <Accordion.Control
+                            icon={
+                              <Center
+                                p={"0.3em"}
+                                bg={"var(--mantine-color-gray-2)"}
+                                style={{ borderRadius: "4px" }}
+                              >
+                                {renderPathIcon(path, {
                                   size: "1em",
                                   color: path.isImplemented
                                     ? "var(--mantine-color-gray-8)"
                                     : "var(--mantine-color-gray-6)",
                                 })}
-                              >
-                                <Text
-                                  fw={700}
-                                  c={
-                                    path.isImplemented
-                                      ? "var(--mantine-color-gray-8)"
-                                      : "var(--mantine-color-gray-6)"
-                                  }
-                                >
-                                  {path.title}
-                                </Text>
-                              </Accordion.Control>
-                              <Accordion.Panel>
-                                {path.subTree &&
-                                  Object.entries(path.subTree).map(
-                                    ([subPathName, subPath]) => (
-                                      <NavLink
-                                        key={`${pathName}/${subPathName}`}
-                                        href={`/${workspace.slug}/${pathName}/${subPathName}`}
-                                        leftSection={renderPathIcon(subPath, {
-                                          size: "1em",
-                                          color: subPath.isImplemented
-                                            ? "var(--mantine-color-gray-6)"
-                                            : "var(--mantine-color-gray-4)",
-                                        })}
-                                        style={{
-                                          paddingLeft: "1em",
-                                          marginLeft: "1em",
-                                          borderLeft:
-                                            "1px solid var(--mantine-color-gray-3)",
-                                        }}
-                                        label={subPath.title}
-                                        c={
-                                          subPath.isImplemented
-                                            ? "var(--mantine-color-gray-8)"
-                                            : "var(--mantine-color-gray-4)"
-                                        }
-                                        active={isNavLinkActive(
-                                          pathName,
-                                          subPathName,
-                                        )}
-                                      />
-                                    ),
-                                  )}
-                              </Accordion.Panel>
-                            </Accordion.Item>
-                          ),
-                        )}
-                      </Accordion>
-                    </ScrollArea>
-                    <Stack gap={0}>
-                      <Divider />
-                      <NeedHelpNavLink />
-                    </Stack>
+                              </Center>
+                            }
+                          >
+                            <Text
+                              fw={700}
+                              c={
+                                path.isImplemented
+                                  ? "var(--mantine-color-gray-8)"
+                                  : "var(--mantine-color-gray-6)"
+                              }
+                            >
+                              {path.title}
+                            </Text>
+                          </Accordion.Control>
+                          <Accordion.Panel>
+                            {path.subTree &&
+                              Object.entries(path.subTree).map(
+                                ([subPathName, subPath]) => (
+                                  <NavLink
+                                    key={`${pathName}/${subPathName}`}
+                                    href={`/${workspace.slug}/${pathName}/${subPathName}`}
+                                    leftSection={renderPathIcon(subPath, {
+                                      size: "1em",
+                                      color: subPath.isImplemented
+                                        ? "var(--mantine-color-gray-6)"
+                                        : "var(--mantine-color-gray-4)",
+                                    })}
+                                    style={{
+                                      paddingLeft: "1em",
+                                      marginLeft: "1em",
+                                      borderLeft:
+                                        "1px solid var(--mantine-color-gray-3)",
+                                    }}
+                                    label={subPath.title}
+                                    c={
+                                      subPath.isImplemented
+                                        ? "var(--mantine-color-gray-8)"
+                                        : "var(--mantine-color-gray-4)"
+                                    }
+                                    active={isNavLinkActive(
+                                      pathName,
+                                      subPathName,
+                                    )}
+                                  />
+                                ),
+                              )}
+                          </Accordion.Panel>
+                        </Accordion.Item>
+                      ))}
+                    </Accordion>
+                  </ScrollArea>
+                  <Stack gap={0}>
+                    <Divider />
+                    <NeedHelpNavLink />
                   </Stack>
                 </Stack>
-              </Group>
-            </AppShell.Section>
-          </AppShell.Navbar>
+              </Stack>
+            </AppShell.Navbar>
+          </Group>
+          <AppShell.Navbar
+            w={"auto"}
+            style={{ position: "relative" }}
+          ></AppShell.Navbar>
           <AppShell.Main
             pl={0}
             w={"100%"}
