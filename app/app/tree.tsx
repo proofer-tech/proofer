@@ -7,7 +7,6 @@ import {
   IconLayoutDashboard,
   IconLayoutKanban,
   IconMessages,
-  IconPresentation,
   IconReorder,
   IconReportMoney,
   IconSettingsCode,
