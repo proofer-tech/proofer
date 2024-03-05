@@ -53,7 +53,7 @@ function NeedHelpNavLink() {
 }
 
 export default function AppLayout({ children }: { children: any }) {
-  const pathname = usePathname();
+  const pathBlocks = usePathname().split("/").slice(1);
   const isDesktopMedia = useIsDesktopMedia(true);
   const isTabletMedia = useIsTabletMedia(false);
   const isMobileMedia = useIsMobileMedia(false);
@@ -62,7 +62,10 @@ export default function AppLayout({ children }: { children: any }) {
   useEffect(() => setIsMounted(true), []);
 
   const collapseDisclosure = useDisclosure(true);
-  // console.log(pathname);
+
+  const isNavLinkActive = (pathName: string, subPathName: string) =>
+    pathBlocks.length === 2 &&
+    pathBlocks.join("") === [pathName, subPathName].join("");
 
   return (
     <ReactChannelIO
@@ -86,65 +89,39 @@ export default function AppLayout({ children }: { children: any }) {
             collapsed: { mobile: collapseDisclosure[0], desktop: false },
           }}
         >
-          <AppShell.Navbar w={"auto"}>
-            <Group gap={0} align={"start"} h={"100dvh"} wrap={"nowrap"}>
-              <Stack
-                gap={0}
-                w={"4em"}
-                h={"100%"}
-                align={"center"}
-                style={{
-                  borderRight: "1px solid var(--mantine-color-gray-3)",
-                }}
-              >
-                <Center
-                  w={"100%"}
-                  h={"3.5em"}
+          <Group gap={0}>
+            <AppShell.Navbar w={"auto"} style={{ position: "relative" }}>
+              <Group gap={0} align={"start"} h={"100dvh"} wrap={"nowrap"}>
+                <Stack
+                  gap={0}
+                  w={"4em"}
+                  h={"100%"}
+                  align={"center"}
                   style={{
-                    borderBottom: "1px solid var(--mantine-color-gray-3)",
-                    flexShrink: 0,
+                    borderRight: "1px solid var(--mantine-color-gray-3)",
                   }}
                 >
-                  <Anchor href={"/app"} underline="never" fz={0}>
-                    <Image
-                      src="/images/branding.svg"
-                      alt="프루퍼 로고"
-                      width={24}
-                      height={24}
-                    />
-                  </Anchor>
-                </Center>
-                <Stack w={"100%"} h={"100%"} py={"1em"}>
-                  {isMounted ?? (
-                    <Stack align={"center"}>
-                      <Avatar />
-                      <IconArrowMerge size={"1em"} />
-                      <Avatar.Group
-                        style={{
-                          alignItems: "center",
-                          width: "100%",
-                          flexDirection: "column",
-                        }}
-                      >
-                        <Avatar />
-                        <Avatar />
-                        <Avatar />
-                        <Avatar>+@</Avatar>
-                      </Avatar.Group>
-                    </Stack>
-                  )}
-                  <Transition
-                    mounted={!!isMounted}
-                    transition="fade"
-                    duration={400}
-                    timingFunction="ease"
+                  <Center
+                    w={"100%"}
+                    h={"3.5em"}
+                    style={{
+                      borderBottom: "1px solid var(--mantine-color-gray-3)",
+                      flexShrink: 0,
+                    }}
                   >
-                    {(styles) => (
-                      <Stack style={styles} align={"center"}>
-                        <Avatar
-                          src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-                          style={{ border: "3px solid var(--color-primary)" }}
-                        />
+                    <Anchor href={"/app"} underline="never" fz={0}>
+                      <Image
+                        src="/images/branding.svg"
+                        alt="프루퍼 로고"
+                        width={24}
+                        height={24}
+                      />
+                    </Anchor>
+                  </Center>
+                  <Stack w={"100%"} h={"100%"} py={"1em"}>
+                    {isMounted ?? (
+                      <Stack align={"center"}>
+                        <Avatar />
                         <IconArrowMerge size={"1em"} />
                         <Avatar.Group
                           style={{
@@ -153,117 +130,145 @@ export default function AppLayout({ children }: { children: any }) {
                             flexDirection: "column",
                           }}
                         >
-                          <Avatar
-                            src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-                          />
-                          <Avatar
-                            src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-                          />
-                          <Avatar
-                            src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-                          />
-                          <Avatar>+5</Avatar>
+                          <Avatar />
+                          <Avatar />
+                          <Avatar />
+                          <Avatar>+@</Avatar>
                         </Avatar.Group>
                       </Stack>
                     )}
-                  </Transition>
-                </Stack>
-              </Stack>
-              <Stack gap={0} miw={"20em"} h={"100%"} align={"center"}>
-                <Group
-                  px={"1em"}
-                  w={"100%"}
-                  h={"3.5em"}
-                  align={"center"}
-                  style={{
-                    borderBottom: "1px solid var(--mantine-color-gray-3)",
-                    flexShrink: 0,
-                  }}
-                >
-                  <Text fw={700}>프루퍼 인사이트</Text>
-                </Group>
-                <Stack
-                  w={"100%"}
-                  h={"100%"}
-                  p={"1em"}
-                  justify={"space-between"}
-                >
-                  <ScrollArea>
-                    <Accordion
-                      multiple
-                      defaultValue={Object.entries(pathTree)
-                        .filter(([_, v]) => v.isImplemented)
-                        .map(([k]) => k)}
+                    <Transition
+                      mounted={!!isMounted}
+                      transition="fade"
+                      duration={400}
+                      timingFunction="ease"
                     >
-                      {Object.entries(pathTree).map(([name, path]) => (
-                        <Accordion.Item key={name} value={name}>
-                          <Accordion.Control>
-                            <Group>
-                              <Center
-                                bg={"var(--mantine-color-gray-0)"}
-                                p={"0.5em"}
-                                style={{ borderRadius: "8px" }}
-                              >
-                                {renderPathIcon(path, {
-                                  size: "1em",
-                                  color: path.isImplemented
-                                    ? "var(--mantine-color-gray-8)"
-                                    : "var(--mantine-color-gray-6)",
-                                })}
-                              </Center>
-                              <Text
-                                fw={700}
-                                c={
-                                  path.isImplemented
-                                    ? "var(--mantine-color-gray-8)"
-                                    : "var(--mantine-color-gray-6)"
-                                }
-                              >
-                                {path.title}
-                              </Text>
-                            </Group>
-                          </Accordion.Control>
-                          <Accordion.Panel>
-                            {path.subTree &&
-                              Object.entries(path.subTree).map(
-                                ([subPathName, subPath]) => (
-                                  <NavLink
-                                    key={`${name}/${subPathName}`}
-                                    href={`/${name}/${subPathName}`}
-                                    leftSection={renderPathIcon(subPath, {
-                                      size: "1em",
-                                      color: subPath.isImplemented
-                                        ? "var(--mantine-color-gray-6)"
-                                        : "var(--mantine-color-gray-4)",
-                                    })}
-                                    style={{
-                                      marginLeft: "1em",
-                                      borderLeft:
-                                        "1px solid var(--mantine-color-gray-3)",
-                                    }}
-                                    label={subPath.title}
-                                    c={
-                                      subPath.isImplemented
-                                        ? "var(--mantine-color-gray-8)"
-                                        : "var(--mantine-color-gray-4)"
-                                    }
-                                  />
-                                ),
-                              )}
-                          </Accordion.Panel>
-                        </Accordion.Item>
-                      ))}
-                    </Accordion>
-                  </ScrollArea>
-                  <Stack>
-                    <Divider />
-                    <NeedHelpNavLink />
+                      {(styles) => (
+                        <Stack style={styles} align={"center"}>
+                          <Avatar
+                            src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
+                            style={{ border: "3px solid var(--color-primary)" }}
+                          />
+                          <IconArrowMerge size={"1em"} />
+                          <Avatar.Group
+                            style={{
+                              alignItems: "center",
+                              width: "100%",
+                              flexDirection: "column",
+                            }}
+                          >
+                            <Avatar
+                              src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
+                            />
+                            <Avatar
+                              src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
+                            />
+                            <Avatar
+                              src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
+                            />
+                            <Avatar>+5</Avatar>
+                          </Avatar.Group>
+                        </Stack>
+                      )}
+                    </Transition>
                   </Stack>
                 </Stack>
-              </Stack>
-            </Group>
-          </AppShell.Navbar>
-          <AppShell.Main>{children}</AppShell.Main>
+                <Stack gap={0} miw={"20em"} h={"100%"} align={"center"}>
+                  <Group
+                    px={"1em"}
+                    w={"100%"}
+                    h={"3.5em"}
+                    align={"center"}
+                    style={{
+                      borderBottom: "1px solid var(--mantine-color-gray-3)",
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Text fw={700}>프루퍼 인사이트</Text>
+                  </Group>
+                  <Stack w={"100%"} h={"100%"} justify={"space-between"}>
+                    <ScrollArea>
+                      <Accordion
+                        multiple
+                        defaultValue={Object.entries(pathTree)
+                          .filter(([_, v]) => v.isImplemented)
+                          .map(([k]) => k)}
+                      >
+                        {Object.entries(pathTree).map(([pathName, path]) => (
+                          <Accordion.Item key={pathName} value={pathName}>
+                            <Accordion.Control>
+                              <Group>
+                                <Center
+                                  bg={"var(--mantine-color-gray-0)"}
+                                  p={"0.5em"}
+                                  style={{ borderRadius: "8px" }}
+                                >
+                                  {renderPathIcon(path, {
+                                    size: "1em",
+                                    color: path.isImplemented
+                                      ? "var(--mantine-color-gray-8)"
+                                      : "var(--mantine-color-gray-6)",
+                                  })}
+                                </Center>
+                                <Text
+                                  fw={700}
+                                  c={
+                                    path.isImplemented
+                                      ? "var(--mantine-color-gray-8)"
+                                      : "var(--mantine-color-gray-6)"
+                                  }
+                                >
+                                  {path.title}
+                                </Text>
+                              </Group>
+                            </Accordion.Control>
+                            <Accordion.Panel>
+                              {path.subTree &&
+                                Object.entries(path.subTree).map(
+                                  ([subPathName, subPath]) => (
+                                    <NavLink
+                                      key={`${pathName}/${subPathName}`}
+                                      href={`/${pathName}/${subPathName}`}
+                                      leftSection={renderPathIcon(subPath, {
+                                        size: "1em",
+                                        color: subPath.isImplemented
+                                          ? "var(--mantine-color-gray-6)"
+                                          : "var(--mantine-color-gray-4)",
+                                      })}
+                                      style={{
+                                        paddingLeft: "1em",
+                                        marginLeft: "1em",
+                                        borderLeft:
+                                          "1px solid var(--mantine-color-gray-3)",
+                                      }}
+                                      label={subPath.title}
+                                      c={
+                                        subPath.isImplemented
+                                          ? "var(--mantine-color-gray-8)"
+                                          : "var(--mantine-color-gray-4)"
+                                      }
+                                      active={isNavLinkActive(
+                                        pathName,
+                                        subPathName,
+                                      )}
+                                    />
+                                  ),
+                                )}
+                            </Accordion.Panel>
+                          </Accordion.Item>
+                        ))}
+                      </Accordion>
+                    </ScrollArea>
+                    <Stack>
+                      <Divider />
+                      <NeedHelpNavLink />
+                    </Stack>
+                  </Stack>
+                </Stack>
+              </Group>
+            </AppShell.Navbar>
+            <AppShell.Main pl={0}>{children}</AppShell.Main>
+          </Group>
         </AppShell>
       </PageContext.Provider>
     </ReactChannelIO>
