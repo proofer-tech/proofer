@@ -6,6 +6,7 @@ import {
   Anchor,
   AppShell,
   Avatar,
+  Button,
   Center,
   Divider,
   Group,
@@ -24,7 +25,12 @@ import {
 } from "@/hooks/mediaQuery";
 import { PageContext } from "@/app/hooks";
 import "@mantine/charts/styles.css";
-import { IconArrowMerge, IconHeadset } from "@tabler/icons-react";
+import {
+  IconArrowMerge,
+  IconHeadset,
+  IconLayoutSidebarLeftCollapse,
+  IconLayoutSidebarRightCollapse,
+} from "@tabler/icons-react";
 import { pathTree, renderPathIcon } from "@/app/app/tree";
 import { ReactChannelIO, useChannelIOApi } from "react-channel-plugin";
 import { usePathname } from "next/navigation";
@@ -44,10 +50,7 @@ function NeedHelpNavLink() {
       href="#"
       label="도움이 필요하신가요?"
       leftSection={<IconHeadset size={"1em"} />}
-      onClick={() => {
-        console.log("??");
-        showMessenger();
-      }}
+      onClick={() => showMessenger()}
     />
   );
 }
@@ -61,7 +64,7 @@ export default function AppLayout({ children }: { children: any }) {
   const [isMounted, setIsMounted] = useState<boolean | undefined>(undefined);
   useEffect(() => setIsMounted(true), []);
 
-  const collapseDisclosure = useDisclosure(true);
+  const collapseDisclosure = useDisclosure();
 
   const isNavLinkActive = (pathName: string, subPathName: string) =>
     pathBlocks.length === 2 &&
@@ -84,13 +87,18 @@ export default function AppLayout({ children }: { children: any }) {
       >
         <AppShell
           navbar={{
-            width: { sm: 200, lg: 300 },
-            breakpoint: "sm",
-            collapsed: { mobile: collapseDisclosure[0], desktop: false },
+            width: "15em",
+            breakpoint: 0,
+            collapsed: {
+              mobile:
+                collapseDisclosure[0] === null ? true : collapseDisclosure[0],
+              desktop: collapseDisclosure[0],
+            },
           }}
+          style={{ display: "flex", justifyContent: "flex-start", gap: 0 }}
         >
-          <Group gap={0}>
-            <AppShell.Navbar w={"auto"} style={{ position: "relative" }}>
+          <AppShell.Navbar w={"auto"} style={{ position: "relative" }}>
+            <AppShell.Section>
               <Group gap={0} align={"start"} h={"100dvh"} wrap={"nowrap"}>
                 <Stack
                   gap={0}
@@ -99,6 +107,7 @@ export default function AppLayout({ children }: { children: any }) {
                   align={"center"}
                   style={{
                     borderRight: "1px solid var(--mantine-color-gray-3)",
+                    ...(collapseDisclosure[0] ? { display: "none" } : {}),
                   }}
                 >
                   <Center
@@ -147,7 +156,9 @@ export default function AppLayout({ children }: { children: any }) {
                         <Stack style={styles} align={"center"}>
                           <Avatar
                             src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-                            style={{ border: "3px solid var(--color-primary)" }}
+                            style={{
+                              border: "3px solid var(--color-primary)",
+                            }}
                           />
                           <IconArrowMerge size={"1em"} />
                           <Avatar.Group
@@ -175,9 +186,11 @@ export default function AppLayout({ children }: { children: any }) {
                 </Stack>
                 <Stack gap={0} miw={"20em"} h={"100%"} align={"center"}>
                   <Group
-                    px={"1em"}
+                    pl={"1em"}
+                    pr={"0.5em"}
                     w={"100%"}
                     h={"3.5em"}
+                    justify={"space-between"}
                     align={"center"}
                     style={{
                       borderBottom: "1px solid var(--mantine-color-gray-3)",
@@ -185,8 +198,29 @@ export default function AppLayout({ children }: { children: any }) {
                     }}
                   >
                     <Text fw={700}>프루퍼 인사이트</Text>
+                    <Button
+                      variant={"subtle"}
+                      onClick={() => collapseDisclosure[1].toggle()}
+                    >
+                      {collapseDisclosure[0] ? (
+                        <IconLayoutSidebarRightCollapse
+                          color={"var(--mantine-color-gray-6)"}
+                        />
+                      ) : (
+                        <IconLayoutSidebarLeftCollapse
+                          color={"var(--mantine-color-gray-6)"}
+                        />
+                      )}
+                    </Button>
                   </Group>
-                  <Stack w={"100%"} h={"100%"} justify={"space-between"}>
+                  <Stack
+                    w={"100%"}
+                    h={"100%"}
+                    justify={"space-between"}
+                    style={{
+                      ...(collapseDisclosure[0] ? { display: "none" } : {}),
+                    }}
+                  >
                     <ScrollArea>
                       <Accordion
                         multiple
@@ -259,16 +293,22 @@ export default function AppLayout({ children }: { children: any }) {
                         ))}
                       </Accordion>
                     </ScrollArea>
-                    <Stack>
+                    <Stack gap={0}>
                       <Divider />
                       <NeedHelpNavLink />
                     </Stack>
                   </Stack>
                 </Stack>
               </Group>
-            </AppShell.Navbar>
-            <AppShell.Main pl={0}>{children}</AppShell.Main>
-          </Group>
+            </AppShell.Section>
+          </AppShell.Navbar>
+          <AppShell.Main
+            pl={0}
+            w={"100%"}
+            style={{ transform: "var(--app-shell-navbar-transform)" }}
+          >
+            {children}
+          </AppShell.Main>
         </AppShell>
       </PageContext.Provider>
     </ReactChannelIO>
