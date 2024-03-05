@@ -1,5 +1,6 @@
-import { notFound } from "next/navigation";
+"use client";
+import React from "react";
 
 export default function Page() {
-  return notFound();
+  return <></>;
 }

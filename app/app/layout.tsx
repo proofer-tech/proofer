@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import type { Viewport } from "next";
+import { Viewport } from "next";
 import {
   Accordion,
   Anchor,
@@ -32,7 +32,7 @@ import {
   IconLayoutSidebarLeftCollapse,
   IconLayoutSidebarRightCollapse,
 } from "@tabler/icons-react";
-import { pathTree, renderPathIcon } from "@/app/app/tree";
+import { pathTree } from "@/app/app/tree";
 import { ReactChannelIO, useChannelIOApi } from "react-channel-plugin";
 import { usePathname } from "next/navigation";
 
@@ -57,7 +57,7 @@ function NeedHelpNavLink() {
 }
 
 export default function AppLayout({ children }: { children: any }) {
-  const pathBlocks = usePathname().split("/").slice(1);
+  const pathBlocks = usePathname().split("/").slice(2);
   const isDesktopMedia = useIsDesktopMedia(true);
   const isTabletMedia = useIsTabletMedia(false);
   const isMobileMedia = useIsMobileMedia(false);
@@ -93,7 +93,7 @@ export default function AppLayout({ children }: { children: any }) {
       >
         <AppShell
           navbar={{
-            width: "calc(20em + 1px)",
+            width: isMobileMedia ? "100%" : "100%",
             breakpoint: 0,
             collapsed: {
               mobile:
@@ -103,7 +103,14 @@ export default function AppLayout({ children }: { children: any }) {
           }}
           style={{ display: "flex", justifyContent: "flex-start", gap: 0 }}
         >
-          <Group gap={0} align={"start"} h={"100dvh"} wrap={"nowrap"}>
+          <Group
+            gap={0}
+            align={"start"}
+            w={"auto"}
+            h={"100dvh"}
+            wrap={"nowrap"}
+            style={{ flexShrink: 0 }}
+          >
             <Stack
               gap={0}
               w={"4em"}
@@ -114,6 +121,7 @@ export default function AppLayout({ children }: { children: any }) {
                 borderRight: "1px solid var(--mantine-color-gray-3)",
                 position: "relative",
                 zIndex: 300,
+                flexShrink: 0,
               }}
             >
               <Center
@@ -231,7 +239,10 @@ export default function AppLayout({ children }: { children: any }) {
               </Stack>
             </Stack>
             <AppShell.Navbar
-              style={{ position: "relative", width: "auto", border: 0 }}
+              style={{
+                position: collapseDisclosure[0] ? "fixed" : "relative",
+                width: collapseDisclosure[0] ? "auto" : "100%",
+              }}
             >
               <Stack gap={0} miw={"20em"} h={"100%"} align={"center"}>
                 <Group
@@ -274,7 +285,9 @@ export default function AppLayout({ children }: { children: any }) {
                     <Accordion
                       multiple
                       defaultValue={Object.entries(pathTree)
-                        .filter(([_, v]) => v.isImplemented)
+                        .filter(
+                          ([k, v]) => v.isImplemented || k === pathBlocks[0],
+                        )
                         .map(([k]) => k)}
                     >
                       {Object.entries(pathTree).map(([pathName, path], idx) => (
@@ -289,18 +302,22 @@ export default function AppLayout({ children }: { children: any }) {
                         >
                           <Accordion.Control
                             icon={
-                              <Center
-                                p={"0.3em"}
-                                bg={"var(--mantine-color-gray-2)"}
-                                style={{ borderRadius: "4px" }}
-                              >
-                                {renderPathIcon(path, {
-                                  size: "1em",
-                                  color: path.isImplemented
-                                    ? "var(--mantine-color-gray-8)"
-                                    : "var(--mantine-color-gray-6)",
-                                })}
-                              </Center>
+                              path.tablerIcon && (
+                                <Center
+                                  p={"0.3em"}
+                                  bg={"var(--mantine-color-gray-2)"}
+                                  style={{ borderRadius: "4px" }}
+                                >
+                                  <path.tablerIcon
+                                    size={"1em"}
+                                    color={
+                                      path.isImplemented
+                                        ? "var(--mantine-color-gray-8)"
+                                        : "var(--mantine-color-gray-6)"
+                                    }
+                                  />
+                                </Center>
+                              )
                             }
                           >
                             <Text
@@ -321,12 +338,18 @@ export default function AppLayout({ children }: { children: any }) {
                                   <NavLink
                                     key={`${pathName}/${subPathName}`}
                                     href={`/${workspace.slug}/${pathName}/${subPathName}`}
-                                    leftSection={renderPathIcon(subPath, {
-                                      size: "1em",
-                                      color: subPath.isImplemented
-                                        ? "var(--mantine-color-gray-6)"
-                                        : "var(--mantine-color-gray-4)",
-                                    })}
+                                    leftSection={
+                                      subPath.tablerIcon && (
+                                        <subPath.tablerIcon
+                                          size={"1em"}
+                                          color={
+                                            subPath.isImplemented
+                                              ? "var(--mantine-color-gray-6)"
+                                              : "var(--mantine-color-gray-4)"
+                                          }
+                                        />
+                                      )
+                                    }
                                     style={{
                                       paddingLeft: "1em",
                                       marginLeft: "1em",
@@ -359,16 +382,10 @@ export default function AppLayout({ children }: { children: any }) {
               </Stack>
             </AppShell.Navbar>
           </Group>
-          <AppShell.Navbar
-            w={"auto"}
-            style={{ position: "relative" }}
-          ></AppShell.Navbar>
-          <AppShell.Main
-            pl={0}
-            w={"100%"}
-            style={{ transform: "var(--app-shell-navbar-transform)" }}
-          >
-            {children}
+          <AppShell.Main w={"100%"} pl={0} h={"100dvh"}>
+            <ScrollArea px={"2em"} py={"3em"} h={"100%"}>
+              {children}
+            </ScrollArea>
           </AppShell.Main>
         </AppShell>
       </PageContext.Provider>
