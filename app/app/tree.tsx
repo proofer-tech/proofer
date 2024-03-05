@@ -21,6 +21,7 @@ interface Path {
   tablerIcon?: (props: TablerIconsProps) => React.JSX.Element;
   subTree?: PathTree;
 }
+
 type PathTree = { [key: string]: Path };
 
 export function renderPathIcon(path: Path, props: { [key: string]: any }) {
@@ -28,6 +29,7 @@ export function renderPathIcon(path: Path, props: { [key: string]: any }) {
   if (Component) return <Component {...props} />;
   return <></>;
 }
+
 export const pathTree: PathTree = {
   activity: {
     title: "Activity",

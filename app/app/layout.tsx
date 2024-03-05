@@ -29,6 +29,7 @@ import "@mantine/charts/styles.css";
 import { IconArrowMerge, IconHeadset } from "@tabler/icons-react";
 import { pathTree, renderPathIcon } from "@/app/app/tree";
 import { ReactChannelIO, useChannelIOApi } from "react-channel-plugin";
+import { usePathname } from "next/navigation";
 
 export const viewport: Viewport = {
   themeColor: "#0052cc",
@@ -54,11 +55,12 @@ function NeedHelpNavLink() {
 }
 
 export default function AppLayout({ children }: { children: any }) {
+  const pathname = usePathname();
   const isDesktopMedia = useIsDesktopMedia(true);
   const isTabletMedia = useIsTabletMedia(false);
   const isMobileMedia = useIsMobileMedia(false);
 
-  const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean | undefined>(undefined);
   useEffect(() => setIsMounted(true), []);
 
   const collapseDisclosure = useDisclosure(true);
@@ -114,7 +116,7 @@ export default function AppLayout({ children }: { children: any }) {
                   </Anchor>
                 </Center>
                 <Stack w={"100%"} h={"100%"} py={"1em"}>
-                  {!isMounted ? (
+                  {isMounted ?? (
                     <Stack align={"center"}>
                       <Avatar />
                       <IconArrowMerge size={"1em"} />
@@ -131,11 +133,9 @@ export default function AppLayout({ children }: { children: any }) {
                         <Avatar>+@</Avatar>
                       </Avatar.Group>
                     </Stack>
-                  ) : (
-                    ""
                   )}
                   <Transition
-                    mounted={isMounted}
+                    mounted={!!isMounted}
                     transition="fade"
                     duration={400}
                     timingFunction="ease"
@@ -144,7 +144,7 @@ export default function AppLayout({ children }: { children: any }) {
                       <Stack style={styles} align={"center"}>
                         <Avatar
                           src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-                          style={{ border: "4px solid var(--color-primary)" }}
+                          style={{ border: "3px solid var(--color-primary)" }}
                         />
                         <IconArrowMerge size={"1em"} />
                         <Avatar.Group
@@ -196,8 +196,8 @@ export default function AppLayout({ children }: { children: any }) {
                         .filter(([_, v]) => v.isImplemented)
                         .map(([k]) => k)}
                     >
-                      {Object.entries(pathTree).map(([pathName, path]) => (
-                        <Accordion.Item key={pathName} value={pathName}>
+                      {Object.entries(pathTree).map(([name, path]) => (
+                        <Accordion.Item key={name} value={name}>
                           <Accordion.Control>
                             <Group>
                               <Center
@@ -229,7 +229,8 @@ export default function AppLayout({ children }: { children: any }) {
                               Object.entries(path.subTree).map(
                                 ([subPathName, subPath]) => (
                                   <NavLink
-                                    key={`${pathName}/${subPathName}`}
+                                    key={`${name}/${subPathName}`}
+                                    href={`/${name}/${subPathName}`}
                                     leftSection={renderPathIcon(subPath, {
                                       size: "1em",
                                       color: subPath.isImplemented
