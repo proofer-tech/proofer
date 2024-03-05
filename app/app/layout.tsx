@@ -264,22 +264,25 @@ export default function AppLayout({ children }: { children: any }) {
                           .filter(([_, v]) => v.isImplemented)
                           .map(([k]) => k)}
                       >
-                        {Object.entries(pathTree).map(([pathName, path]) => (
-                          <Accordion.Item key={pathName} value={pathName}>
-                            <Accordion.Control>
-                              <Group>
-                                <Center
-                                  bg={"var(--mantine-color-gray-0)"}
-                                  p={"0.5em"}
-                                  style={{ borderRadius: "8px" }}
-                                >
-                                  {renderPathIcon(path, {
-                                    size: "1em",
-                                    color: path.isImplemented
-                                      ? "var(--mantine-color-gray-8)"
-                                      : "var(--mantine-color-gray-6)",
-                                  })}
-                                </Center>
+                        {Object.entries(pathTree).map(
+                          ([pathName, path], idx) => (
+                            <Accordion.Item
+                              key={pathName}
+                              value={pathName}
+                              style={
+                                idx + 1 === Object.keys(pathTree).length
+                                  ? { borderBottom: "none" }
+                                  : {}
+                              }
+                            >
+                              <Accordion.Control
+                                icon={renderPathIcon(path, {
+                                  size: "1em",
+                                  color: path.isImplemented
+                                    ? "var(--mantine-color-gray-8)"
+                                    : "var(--mantine-color-gray-6)",
+                                })}
+                              >
                                 <Text
                                   fw={700}
                                   c={
@@ -290,43 +293,43 @@ export default function AppLayout({ children }: { children: any }) {
                                 >
                                   {path.title}
                                 </Text>
-                              </Group>
-                            </Accordion.Control>
-                            <Accordion.Panel>
-                              {path.subTree &&
-                                Object.entries(path.subTree).map(
-                                  ([subPathName, subPath]) => (
-                                    <NavLink
-                                      key={`${pathName}/${subPathName}`}
-                                      href={`/${workspace.slug}/${pathName}/${subPathName}`}
-                                      leftSection={renderPathIcon(subPath, {
-                                        size: "1em",
-                                        color: subPath.isImplemented
-                                          ? "var(--mantine-color-gray-6)"
-                                          : "var(--mantine-color-gray-4)",
-                                      })}
-                                      style={{
-                                        paddingLeft: "1em",
-                                        marginLeft: "1em",
-                                        borderLeft:
-                                          "1px solid var(--mantine-color-gray-3)",
-                                      }}
-                                      label={subPath.title}
-                                      c={
-                                        subPath.isImplemented
-                                          ? "var(--mantine-color-gray-8)"
-                                          : "var(--mantine-color-gray-4)"
-                                      }
-                                      active={isNavLinkActive(
-                                        pathName,
-                                        subPathName,
-                                      )}
-                                    />
-                                  ),
-                                )}
-                            </Accordion.Panel>
-                          </Accordion.Item>
-                        ))}
+                              </Accordion.Control>
+                              <Accordion.Panel>
+                                {path.subTree &&
+                                  Object.entries(path.subTree).map(
+                                    ([subPathName, subPath]) => (
+                                      <NavLink
+                                        key={`${pathName}/${subPathName}`}
+                                        href={`/${workspace.slug}/${pathName}/${subPathName}`}
+                                        leftSection={renderPathIcon(subPath, {
+                                          size: "1em",
+                                          color: subPath.isImplemented
+                                            ? "var(--mantine-color-gray-6)"
+                                            : "var(--mantine-color-gray-4)",
+                                        })}
+                                        style={{
+                                          paddingLeft: "1em",
+                                          marginLeft: "1em",
+                                          borderLeft:
+                                            "1px solid var(--mantine-color-gray-3)",
+                                        }}
+                                        label={subPath.title}
+                                        c={
+                                          subPath.isImplemented
+                                            ? "var(--mantine-color-gray-8)"
+                                            : "var(--mantine-color-gray-4)"
+                                        }
+                                        active={isNavLinkActive(
+                                          pathName,
+                                          subPathName,
+                                        )}
+                                      />
+                                    ),
+                                  )}
+                              </Accordion.Panel>
+                            </Accordion.Item>
+                          ),
+                        )}
                       </Accordion>
                     </ScrollArea>
                     <Stack gap={0}>
