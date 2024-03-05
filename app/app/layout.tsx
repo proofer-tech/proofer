@@ -9,6 +9,7 @@ import {
   Center,
   Divider,
   Group,
+  Loader,
   NavLink,
   ScrollArea,
   Stack,
@@ -90,13 +91,16 @@ export default function AppLayout({ children }: { children: any }) {
                 w={"4em"}
                 h={"100%"}
                 align={"center"}
-                style={{ borderRight: "1px solid var(--mantine-color-gray-3)" }}
+                style={{
+                  borderRight: "1px solid var(--mantine-color-gray-3)",
+                }}
               >
                 <Center
                   w={"100%"}
-                  h={"4em"}
+                  h={"3.5em"}
                   style={{
                     borderBottom: "1px solid var(--mantine-color-gray-3)",
+                    flexShrink: 0,
                   }}
                 >
                   <Anchor href={"/app"} underline="never" fz={0}>
@@ -108,6 +112,7 @@ export default function AppLayout({ children }: { children: any }) {
                     />
                   </Anchor>
                 </Center>
+                {!isMounted ? <Loader color="blue" /> : ""}
                 <Transition
                   mounted={isMounted}
                   transition="fade"
@@ -152,10 +157,11 @@ export default function AppLayout({ children }: { children: any }) {
                 <Group
                   px={"1em"}
                   w={"100%"}
-                  h={"4em"}
+                  h={"3.5em"}
                   align={"center"}
                   style={{
                     borderBottom: "1px solid var(--mantine-color-gray-3)",
+                    flexShrink: 0,
                   }}
                 >
                   <Text fw={700}>프루퍼 인사이트</Text>
