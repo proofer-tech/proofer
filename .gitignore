@@ -44,3 +44,6 @@ misc/**/migrations/
 databases/**/migrations/
 experimental/**/*.db
 dev.db
+
+# stylelint
+.stylelintcache

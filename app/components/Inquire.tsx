@@ -16,6 +16,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
 import { PageContext } from "@/app/hooks";
 import { useWindowScroll } from "@mantine/hooks";
+import { useChannelIOEvent } from "react-channel-plugin";
 
 interface InquireProps extends ContainerProps, ElementProps<"div"> {
   isActive: boolean;
@@ -40,6 +41,9 @@ export default function Inquire({
 
   const [isWidget, setIsWidget] = useState<boolean>(false);
 
+  const [isChannelIOLoaded, setIsChannelIOLoaded] = useState<boolean>(false);
+  useChannelIOEvent("onBoot", () => setIsChannelIOLoaded(true));
+
   useEffect(() => {
     if (offsetPinRef.current === null) return;
     const rect = offsetPinRef.current.getBoundingClientRect();
@@ -56,7 +60,13 @@ export default function Inquire({
       <div ref={offsetPinRef} />
       <Container {...props}>
         <Box
-          w={isWidget ? "calc(100% - 1em)" : "100%"}
+          w={
+            isWidget
+              ? isChannelIOLoaded
+                ? "calc(100% - 1em - 72px)"
+                : "calc(100% - 1em)"
+              : "100%"
+          }
           style={
             isWidget
               ? { position: "fixed", left: "0.5em", bottom: "0.5em" }
