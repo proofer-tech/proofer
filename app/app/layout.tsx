@@ -10,6 +10,7 @@ import {
   Center,
   Divider,
   Group,
+  Menu,
   NavLink,
   ScrollArea,
   Stack,
@@ -27,6 +28,7 @@ import { PageContext } from "@/app/hooks";
 import "@mantine/charts/styles.css";
 import {
   IconArrowMerge,
+  IconExternalLink,
   IconHeadset,
   IconLayoutSidebarLeftCollapse,
   IconLayoutSidebarRightCollapse,
@@ -65,6 +67,11 @@ export default function AppLayout({ children }: { children: any }) {
   useEffect(() => setIsMounted(true), []);
 
   const collapseDisclosure = useDisclosure();
+
+  const workspace = {
+    name: "제스트",
+    slug: "zest",
+  };
 
   const isNavLinkActive = (pathName: string, subPathName: string) =>
     pathBlocks.length === 2 &&
@@ -118,7 +125,7 @@ export default function AppLayout({ children }: { children: any }) {
                       flexShrink: 0,
                     }}
                   >
-                    <Anchor href={"/app"} underline="never" fz={0}>
+                    <Anchor href={"/"} underline="never" fz={0}>
                       <Image
                         src="/images/branding.svg"
                         alt="프루퍼 로고"
@@ -127,7 +134,13 @@ export default function AppLayout({ children }: { children: any }) {
                       />
                     </Anchor>
                   </Center>
-                  <Stack w={"100%"} h={"100%"} py={"1em"}>
+                  <Stack
+                    w={"100%"}
+                    h={"100%"}
+                    py={"1em"}
+                    justify={"space-between"}
+                    align={"center"}
+                  >
                     {isMounted ?? (
                       <Stack align={"center"}>
                         <Avatar />
@@ -182,6 +195,29 @@ export default function AppLayout({ children }: { children: any }) {
                         </Stack>
                       )}
                     </Transition>
+                    <Menu withArrow>
+                      <Menu.Target>
+                        <Avatar
+                          src={
+                            "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-8.png"
+                          }
+                          style={{
+                            border: "2px solid var(--color-secondary)",
+                          }}
+                        />
+                      </Menu.Target>
+                      <Menu.Dropdown>
+                        <Menu.Item component="a" href="#">
+                          워크스페이스 설정
+                        </Menu.Item>
+                        <Menu.Item component="a" href="#">
+                          멤버 관리
+                        </Menu.Item>
+                        <Menu.Item component="a" href="#">
+                          연동된 앱 관리
+                        </Menu.Item>
+                      </Menu.Dropdown>
+                    </Menu>
                   </Stack>
                 </Stack>
                 <Stack gap={0} miw={"20em"} h={"100%"} align={"center"}>
@@ -197,7 +233,7 @@ export default function AppLayout({ children }: { children: any }) {
                       flexShrink: 0,
                     }}
                   >
-                    <Text fw={700}>프루퍼 인사이트</Text>
+                    <Text fw={700}>{workspace.name}</Text>
                     <Button
                       variant={"subtle"}
                       onClick={() => collapseDisclosure[1].toggle()}
@@ -262,7 +298,7 @@ export default function AppLayout({ children }: { children: any }) {
                                   ([subPathName, subPath]) => (
                                     <NavLink
                                       key={`${pathName}/${subPathName}`}
-                                      href={`/${pathName}/${subPathName}`}
+                                      href={`/${workspace.slug}/${pathName}/${subPathName}`}
                                       leftSection={renderPathIcon(subPath, {
                                         size: "1em",
                                         color: subPath.isImplemented

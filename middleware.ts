@@ -16,15 +16,20 @@ export default async function middleware(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams.toString();
   const path = `${url.pathname}${searchParams.length > 0 ? `?${searchParams}` : ""}`;
 
+  console.log(subDomain);
+  console.log(path);
+
   // public 리소스
   if (
     path.startsWith("/_") ||
     path.startsWith("/fonts") ||
     path.startsWith("/images") ||
     path.startsWith("/scripts") ||
-    (path !== "/" && !path.slice(1).includes("/")) // root files
+    (path !== "/" && !path.slice(1).includes("/") && path.includes(".")) // root files
   )
     return NextResponse.next();
+
+  console.log("pass");
 
   if (subDomain === "app")
     return NextResponse.rewrite(
