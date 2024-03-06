@@ -68,8 +68,8 @@ export default function AppLayout({ children }: { children: any }) {
   const collapseDisclosure = useDisclosure();
 
   const workspace = {
-    name: "제스트",
-    slug: "zest",
+    name: "팀 프루퍼",
+    slug: "proofer",
   };
 
   const isNavLinkActive = (pathName: string, subPathName: string) =>
@@ -382,7 +382,12 @@ export default function AppLayout({ children }: { children: any }) {
               </Stack>
             </AppShell.Navbar>
           </Group>
-          <AppShell.Main w={"100%"} pl={0} h={"100dvh"}>
+          <AppShell.Main
+            w={"100%"}
+            pl={0}
+            h={"100dvh"}
+            bg={"var(--mantine-color-gray-0)"}
+          >
             <ScrollArea px={"2em"} py={"3em"} h={"100%"}>
               {children}
             </ScrollArea>
