@@ -1,4 +1,3 @@
-import React from "react";
 import {
   IconActivity,
   IconAntennaBars5,
@@ -8,6 +7,7 @@ import {
   IconFocus2,
   IconHeartbeat,
   IconHourglassOff,
+  IconInfoCircle,
   IconLayoutKanban,
   IconMessageCode,
   IconMessages,
@@ -17,23 +17,9 @@ import {
   IconTelescope,
   IconTimelineEventText,
   IconTransformPoint,
-  TablerIconsProps,
 } from "@tabler/icons-react";
-
-interface Path {
-  title: string;
-  isImplemented?: boolean;
-  tablerIcon?: (props: TablerIconsProps) => React.JSX.Element;
-  subTree?: PathTree;
-}
-
-type PathTree = { [key: string]: Path };
-
-export function renderPathIcon(path: Path, props: { [key: string]: any }) {
-  const Component = path.tablerIcon;
-  if (Component) return <Component {...props} />;
-  return <></>;
-}
+import { PathTree } from "@/app/app/components/types";
+import { Alert } from "@mantine/core";
 
 export const pathTree: PathTree = {
   activity: {
