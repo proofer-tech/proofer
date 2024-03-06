@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, Image, Title, Button, Center, Space } from "@mantine/core";
+import { Button, Center, Image, Stack, Title } from "@mantine/core";
 import { IconSquareRoundedPlus } from "@tabler/icons-react";
 
 export default function Page() {

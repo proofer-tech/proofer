@@ -2,7 +2,6 @@
 import { usePathname } from "next/navigation";
 import { pathTree } from "@/app/app/tree";
 import {
-  Anchor,
   Box,
   Breadcrumbs,
   Center,
