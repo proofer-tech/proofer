@@ -253,7 +253,10 @@ export default function AppLayout({ children }: { children: any }) {
                     </Menu.Item>
                     <Menu.Divider />
                     <Menu.Label>업그레이드</Menu.Label>
-                    <Menu.Item>
+                    <Menu.Item
+                      component={"a"}
+                      href={"https://proofer.tech#price"}
+                    >
                       <Group justify={"space-between"}>
                         <Text size={"sm"}>
                           Professional 플랜을 사용해 보세요
