@@ -6,6 +6,7 @@ import {
   Anchor,
   AppShell,
   Avatar,
+  Badge,
   Button,
   Center,
   Divider,
@@ -35,6 +36,9 @@ import {
 import { pathTree } from "@/app/app/tree";
 import { ReactChannelIO, useChannelIOApi } from "react-channel-plugin";
 import { usePathname } from "next/navigation";
+import SettingsModal from "@/app/app/settings/modal";
+import { settingsPathTree } from "@/app/app/settings/tree";
+import { Path } from "@/app/app/components/types";
 
 export const viewport: Viewport = {
   themeColor: "#0052cc",
@@ -65,7 +69,13 @@ export default function AppLayout({ children }: { children: any }) {
   const [isMounted, setIsMounted] = useState<boolean | undefined>(undefined);
   useEffect(() => setIsMounted(true), []);
 
-  const collapseDisclosure = useDisclosure();
+  const collapseDisclosure = useDisclosure(false);
+  const settingsDisclosure = useDisclosure(false);
+  const [settingsModalPath, setSettingsModalPath] = useState<Path>();
+  const openSettingModal = (path: Path) => {
+    setSettingsModalPath(path);
+    settingsDisclosure[1].open();
+  };
 
   const workspace = {
     name: "팀 프루퍼",
@@ -225,15 +235,51 @@ export default function AppLayout({ children }: { children: any }) {
                     />
                   </Menu.Target>
                   <Menu.Dropdown>
-                    <Menu.Item component="a" href="#">
-                      워크스페이스 설정
+                    <Menu.Label>계정</Menu.Label>
+                    <Menu.Item>
+                      <Group gap={16}>
+                        <Avatar
+                          src={
+                            "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-8.png"
+                          }
+                        />
+                        <Stack gap={0}>
+                          <Text size={"sm"}>임한솔</Text>
+                          <Text size={"xs"} c={"dimmed"}>
+                            hsol@campersground.kr
+                          </Text>
+                        </Stack>
+                      </Group>
                     </Menu.Item>
-                    <Menu.Item component="a" href="#">
-                      멤버 관리
+                    <Menu.Divider />
+                    <Menu.Label>업그레이드</Menu.Label>
+                    <Menu.Item>
+                      <Group justify={"space-between"}>
+                        <Text size={"sm"}>
+                          Professional 플랜을 사용해 보세요
+                        </Text>
+                        <Badge size={"xs"}>무료 14일 평가판</Badge>
+                      </Group>
                     </Menu.Item>
-                    <Menu.Item component="a" href="#">
-                      연동된 앱 관리
-                    </Menu.Item>
+                    <Menu.Divider />
+                    {Object.entries(settingsPathTree).map(
+                      ([pathName, path]) => (
+                        <Menu.Item
+                          key={pathName}
+                          component="button"
+                          onClick={() => openSettingModal(path)}
+                        >
+                          <Group>
+                            {path.tablerIcon && (
+                              <path.tablerIcon size={"1em"} />
+                            )}
+                            <Text size={"sm"}>{path.title}</Text>
+                          </Group>
+                        </Menu.Item>
+                      ),
+                    )}
+                    <Menu.Divider />
+                    <Menu.Item c={"red"}>로그아웃</Menu.Item>
                   </Menu.Dropdown>
                 </Menu>
               </Stack>
@@ -393,6 +439,12 @@ export default function AppLayout({ children }: { children: any }) {
             </ScrollArea>
           </AppShell.Main>
         </AppShell>
+        <SettingsModal
+          fullScreen={!isDesktopMedia}
+          path={settingsModalPath}
+          opened={settingsDisclosure[0]}
+          onClose={() => settingsDisclosure[1].close()}
+        />
       </PageContext.Provider>
     </ReactChannelIO>
   );

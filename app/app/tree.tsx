@@ -7,7 +7,6 @@ import {
   IconFocus2,
   IconHeartbeat,
   IconHourglassOff,
-  IconInfoCircle,
   IconLayoutKanban,
   IconMessageCode,
   IconMessages,
@@ -19,7 +18,6 @@ import {
   IconTransformPoint,
 } from "@tabler/icons-react";
 import { PathTree } from "@/app/app/components/types";
-import { Alert } from "@mantine/core";
 
 export const pathTree: PathTree = {
   activity: {
