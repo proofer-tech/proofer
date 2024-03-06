@@ -105,7 +105,7 @@ export default function Footer({ linkGroups }: FooterProps) {
                 </Avatar>
               </Anchor>
               <Anchor
-                href={"https://www.linkedin.com/company/campers-ground-inc"}
+                href={"https://www.linkedin.com/showcase/proofer-tech"}
                 target={"_blank"}
                 underline={"never"}
               >
