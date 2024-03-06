@@ -17,7 +17,7 @@ export default function MainLayout({ children }: { children: any }) {
   const pathname = usePathname();
   const pathBlocks = pathname.split("/").slice(2);
   const path = pathTree[pathBlocks[0]];
-  const subPath = path && path.subTree && path.subTree[pathBlocks[1]];
+  const subPath = path?.subTree?.[pathBlocks[1]];
 
   // sub-page
   if (subPath !== undefined)
