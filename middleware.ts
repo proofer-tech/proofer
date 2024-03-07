@@ -27,7 +27,10 @@ async function RouterMiddleware(req: NextRequest) {
   if (path.startsWith("/api")) return NextResponse.next();
 
   const health = (await get("health")) as { [key: string]: Health };
-  if (health?.[subDomain]?.state === "MAINTENANCE") {
+  if (
+    process.env.NODE_ENV === "production" &&
+    health?.[subDomain]?.state === "MAINTENANCE"
+  ) {
     const pureHostname = hostname.replace(`${subDomain}.`, "");
     return NextResponse.rewrite(
       new URL(`${req.nextUrl.protocol}//${pureHostname}/health`, req.url),
