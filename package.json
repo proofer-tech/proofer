@@ -13,8 +13,8 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "npx prisma generate && next build",
-    "deploy": "npm run build",
+    "build": "next build",
+    "deploy": "npx prisma generate && npm run build",
     "analyze": "ANALYZE=true next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
