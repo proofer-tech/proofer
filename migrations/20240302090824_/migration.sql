@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Health" ADD COLUMN     "order" INTEGER NOT NULL DEFAULT 100;

@@ -7,10 +7,10 @@ import {
   AppShell,
   Center,
   Container,
-  Stack,
-  Title,
-  Text,
   Space,
+  Stack,
+  Text,
+  Title,
 } from "@mantine/core";
 import Footer from "@/app/components/Footer";
 import { redirect } from "next/navigation";

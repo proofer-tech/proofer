@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
+  engineType = "library"
 }
 
 datasource db {
@@ -12,13 +13,4 @@ enum HealthState {
   UP
   DOWN
   MAINTENANCE
-}
-
-model Health {
-  id          Int         @id @default(autoincrement())
-  name        String
-  codename    String
-  description String?
-  state       HealthState
-  order       Int         @default(100)
 }

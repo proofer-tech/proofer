@@ -1,11 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import { get } from "@vercel/edge-config";
 
 export async function GET(request: NextRequest) {
-  const prisma = new PrismaClient();
-  const healthRecords = await prisma.health.findMany({
-    orderBy: { order: "asc" },
-  });
-
-  return NextResponse.json(healthRecords);
+  const health: { [key: string]: Health } | undefined = await get("health");
+  return NextResponse.json(health);
 }
