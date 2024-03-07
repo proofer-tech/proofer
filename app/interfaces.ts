@@ -1,6 +1,11 @@
-interface Health {
+export enum HealthState {
+  UP = "UP",
+  DOWN = "DOWN",
+  MAINTENANCE = "MAINTENANCE",
+}
+export interface Health {
   name: string;
   description: string;
-  state: string;
+  state: HealthState;
   order: number;
 }

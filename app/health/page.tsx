@@ -29,9 +29,8 @@ import {
 } from "@tabler/icons-react";
 import Link from "next/link";
 import useSWR from "swr";
-import { $Enums, Health } from "@prisma/client";
 import { apiFetcher } from "@/app/src/swr";
-import HealthState = $Enums.HealthState;
+import { Health, HealthState } from "@/app/interfaces";
 
 const HealthStateLabel = {
   [HealthState.UP]: "운영중",
@@ -47,7 +46,6 @@ const HealthStateColor = {
 
 export default function HealthPage() {
   const navbarDisclosure = useDisclosure(false);
-
   const [isInquireCompletedModalOpened, inquireCompletedModal] =
     useDisclosure(false);
   const [notReadyYetModalOpened, notReadyYetModal] = useDisclosure(false);
@@ -55,7 +53,7 @@ export default function HealthPage() {
     onSubmit: () => inquireCompletedModal.open(),
   });
 
-  const { data, error, isLoading } = useSWR<Health[]>(
+  const { data, error, isLoading } = useSWR<{ [key: string]: Health }>(
     "/api/health",
     apiFetcher,
   );
@@ -74,7 +72,10 @@ export default function HealthPage() {
             {isLoading ? (
               <Loader color="rgba(0, 0, 0, 0.1)" size={"9em"} />
             ) : error ||
-              (data && data.some((h) => h.state === HealthState.DOWN)) ? (
+              (data &&
+                Object.values(data).some(
+                  (h) => h.state === HealthState.DOWN,
+                )) ? (
               <IconAlertCircleFilled
                 size={"10em"}
                 style={{ color: "var(--color-red)" }}
@@ -90,7 +91,10 @@ export default function HealthPage() {
             {isLoading ? (
               <Skeleton width={"80%"} height={"2em"} radius="xl" />
             ) : error ||
-              (data && data.some((h) => h.state === HealthState.DOWN)) ? (
+              (data &&
+                Object.values(data).some(
+                  (h) => h.state === HealthState.DOWN,
+                )) ? (
               <Title order={1}>서비스에 문제를 발견하여 확인중입니다.</Title>
             ) : (
               <Title order={1}>프루퍼 서비스가 정상 동작중입니다.</Title>
@@ -98,7 +102,8 @@ export default function HealthPage() {
 
             {isLoading ? (
               <Skeleton width={"90%"} height={"1em"} radius="xl" />
-            ) : data && data.every((h) => h.state !== HealthState.DOWN) ? (
+            ) : data &&
+              Object.values(data).every((h) => h.state !== HealthState.DOWN) ? (
               <Text>
                 혹시 문제를 겪고 계시나요? 문제상황을{" "}
                 <Link href={"mailto:info@campersground.kr"}>
@@ -123,8 +128,8 @@ export default function HealthPage() {
                   />
                 ))
               : data &&
-                data.map((h) => (
-                  <Tooltip.Floating key={h.id} label={h.description}>
+                Object.entries(data).map(([k, h]) => (
+                  <Tooltip.Floating key={k} label={h.description}>
                     <Badge
                       size="xl"
                       variant="dot"
@@ -154,12 +159,12 @@ export default function HealthPage() {
             </Stack>
           ) : (
             data &&
-            data.some((h) => h.description !== null) && (
+            Object.values(data).some((h) => h.description.length > 0) && (
               <Table captionSide="bottom">
-                {data
-                  .filter((h) => h.description !== null)
-                  .map((h) => (
-                    <Table.Tr key={h.id}>
+                {Object.entries(data)
+                  .filter(([k, h]) => h.description.length > 0)
+                  .map(([k, h]) => (
+                    <Table.Tr key={k}>
                       <Table.Td>
                         <Badge
                           variant="light"

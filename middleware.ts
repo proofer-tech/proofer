@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { get } from "@vercel/edge-config";
+import { Health } from "@/app/interfaces";
 
 function notFound(req: NextRequest) {
   const url = req.nextUrl.clone();
@@ -8,10 +9,7 @@ function notFound(req: NextRequest) {
 }
 
 async function RouterMiddleware(req: NextRequest) {
-  const hostname = (req.headers.get("host") || "").replace(
-    ".localhost:3000",
-    `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`,
-  );
+  const hostname = req.headers.get("host") || req.nextUrl.host;
   const subDomain = hostname.split(".")[0];
 
   const searchParams = req.nextUrl.searchParams.toString();
@@ -26,14 +24,15 @@ async function RouterMiddleware(req: NextRequest) {
   )
     return NextResponse.next();
 
+  if (path.startsWith("/api")) return NextResponse.next();
+
   const health = (await get("health")) as { [key: string]: Health };
-  if (health?.[subDomain]?.state === "MAINTENANCE")
+  if (health?.[subDomain]?.state === "MAINTENANCE") {
+    const pureHostname = hostname.replace(`${subDomain}.`, "");
     return NextResponse.rewrite(
-      new URL(
-        `${req.nextUrl.protocol}//${hostname.replace(`${subDomain}.`, "")}/health`,
-        req.url,
-      ),
+      new URL(`${req.nextUrl.protocol}//${pureHostname}/health`, req.url),
     );
+  }
 
   if (subDomain === "app")
     return NextResponse.rewrite(
