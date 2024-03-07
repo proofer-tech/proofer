@@ -51,11 +51,7 @@ export default function DocsLayout({ children }: any) {
           isOpened={notReadyYetModalOpened}
           onCloseClick={notReadyYetModal.close}
         />
-        <AppShell.Footer
-          pos={"static"}
-          bg={"transparent"}
-          style={{ border: "none" }}
-        >
+        <AppShell.Footer pos={"static"} bg={"transparent"} withBorder={false}>
           <Footer />
         </AppShell.Footer>
       </LandingPageShell>

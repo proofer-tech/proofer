@@ -185,11 +185,7 @@ export default function HealthPage() {
         isOpened={isInquireCompletedModalOpened}
         onCloseClick={inquireCompletedModal.close}
       />
-      <AppShell.Footer
-        pos={"static"}
-        bg={"transparent"}
-        style={{ border: "none" }}
-      >
+      <AppShell.Footer pos={"static"} bg={"transparent"} withBorder={false}>
         <Footer />
       </AppShell.Footer>
     </LandingPageShell>

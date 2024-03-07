@@ -22,6 +22,9 @@ export default withBundleAnalyzer({
     config.externals.push({ canvas: 'commonjs canvas' })
     return config
   },
+  async rewrites() {
+    return [{source: "/medium/:slug*", destination: "https://medium.com/@proofer.tech/:slug*"}]
+  },
   async redirects() {
     return [
       {
