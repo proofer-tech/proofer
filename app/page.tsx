@@ -8,7 +8,7 @@ import {
   useIsMobileMedia,
   useIsTabletMedia,
 } from "@/hooks/mediaQuery";
-import { PageContext } from "@/app/hooks";
+import { PageContext } from "@/app/context";
 import {
   Anchor,
   AppShell,
@@ -93,31 +93,31 @@ export default function Page(userAgent: any) {
   const [isInquireFocusTrapActive] = useDisclosure(false);
 
   return (
-    <ReactChannelIO
-      pluginKey={process.env.NEXT_PUBLIC_CHANNEL_ID_PLUGIN_KEY!}
-      language="ko"
-      autoBoot
+    <PageContext.Provider
+      value={{
+        userAgent: {
+          isDesktop: isDesktopMedia ?? true,
+          isTablet: isTabletMedia ?? false,
+          isMobile: isMobileMedia ?? false,
+        },
+      }}
     >
-      <LandingPageShell isNavbarOpened={navbarDisclosure[0]}>
-        <Header
-          isNavbarOpened={navbarDisclosure[0]}
-          portals={[
-            { title: "가격", href: "/#price" },
-            { title: "서비스소개", href: "/docs/introduction-of-proofer" },
-          ]}
-          onBurgerClick={navbarDisclosure[1].toggle}
-          onLoginClick={() => notReadyYetModal.open()}
-          onInquireClick={() => openTallyPopup()}
-        />
-        <PageContext.Provider
-          value={{
-            userAgent: {
-              isDesktop: isDesktopMedia ?? true,
-              isMobile: isTabletMedia ?? false,
-              isTablet: isMobileMedia ?? false,
-            },
-          }}
-        >
+      <ReactChannelIO
+        pluginKey={process.env.NEXT_PUBLIC_CHANNEL_ID_PLUGIN_KEY!}
+        language="ko"
+        autoBoot
+      >
+        <LandingPageShell isNavbarOpened={navbarDisclosure[0]}>
+          <Header
+            isNavbarOpened={navbarDisclosure[0]}
+            portals={[
+              { title: "가격", href: "/#price" },
+              { title: "서비스소개", href: "/docs/introduction-of-proofer" },
+            ]}
+            onBurgerClick={navbarDisclosure[1].toggle}
+            onLoginClick={() => notReadyYetModal.open()}
+            onInquireClick={() => openTallyPopup()}
+          />
           <Transition
             mounted={isMounted}
             transition="fade"
@@ -400,16 +400,16 @@ export default function Page(userAgent: any) {
               </>
             )}
           </Transition>
-        </PageContext.Provider>
-        <InquireCompletedModal
-          isOpened={isInquireCompletedModalOpened}
-          onCloseClick={inquireCompletedModal.close}
-        />
-        <NotReadyYetModal
-          isOpened={notReadyYetModalOpened}
-          onCloseClick={notReadyYetModal.close}
-        />
-      </LandingPageShell>
-    </ReactChannelIO>
+          <InquireCompletedModal
+            isOpened={isInquireCompletedModalOpened}
+            onCloseClick={inquireCompletedModal.close}
+          />
+          <NotReadyYetModal
+            isOpened={notReadyYetModalOpened}
+            onCloseClick={notReadyYetModal.close}
+          />
+        </LandingPageShell>
+      </ReactChannelIO>
+    </PageContext.Provider>
   );
 }

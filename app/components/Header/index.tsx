@@ -19,7 +19,7 @@ export interface HeaderPortal {
 export interface HeaderProps {
   isNavbarOpened: boolean;
   portals?: HeaderPortal[];
-  onBurgerClick: () => void;
+  onBurgerClick?: () => void;
   onLoginClick?: () => void;
   onInquireClick?: () => void;
 }
@@ -78,12 +78,14 @@ export default function Header({
               {onInquireClick && (
                 <Button onClick={onInquireClick}>무료상담 신청</Button>
               )}
-              <Burger
-                opened={isNavbarOpened}
-                onClick={() => onBurgerClick()}
-                hiddenFrom="sm"
-                size="sm"
-              />
+              {onBurgerClick && (
+                <Burger
+                  opened={isNavbarOpened}
+                  onClick={() => onBurgerClick()}
+                  hiddenFrom="sm"
+                  size="sm"
+                />
+              )}
             </Group>
           </Group>
         </Container>

@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import React, { useContext, useState } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
-import { PageContext } from "@/app/hooks";
+import { PageContext } from "@/app/context";
 
 interface HeroProps extends StackProps, ElementProps<"div"> {
   inquireEmail: string;
@@ -37,10 +37,17 @@ export default function Hero({
     >
       <Text
         ta="center"
-        size={pageCtx.userAgent.isDesktop ? "1.3em" : "1em"}
+        size={
+          pageCtx.userAgent.isDesktop
+            ? "1.3em"
+            : pageCtx.userAgent.isTablet
+              ? "1em"
+              : "0.8em"
+        }
         c={"var(--color-darkgray-2)"}
+        style={{ whiteSpace: "pre" }}
       >
-        #DORA Metrics / #SPACE Framework / #DevEx Framework
+        {["#DORA Metrics", "#SPACE Framework", "#DevEx Framework"].join(" / ")}
       </Text>
       <Text
         size={pageCtx.userAgent.isDesktop ? "4em" : "2.3em"}
@@ -54,7 +61,7 @@ export default function Hero({
           deg: 80,
         }}
       >
-        정확한 개발자 성과측정을 위한
+        정확한 개발자{pageCtx.userAgent.isMobile ? <br /> : ""} 성과측정을 위한
         <br />
         엔지니어링 매니징 파트너
       </Text>

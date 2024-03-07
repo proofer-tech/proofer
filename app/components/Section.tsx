@@ -3,7 +3,7 @@
 import { Box, Container, ContainerProps, Stack, Text } from "@mantine/core";
 import React, { useContext } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
-import { PageContext } from "@/app/hooks";
+import { PageContext } from "@/app/context";
 
 interface SectionProps extends ContainerProps, ElementProps<"div"> {
   question?: string;
