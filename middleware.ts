@@ -36,7 +36,10 @@ async function MaintenanceMiddleware(req: NextRequest) {
   ) {
     const pureHostname = hostname.replace(`${subDomain}.`, "");
     return NextResponse.rewrite(
-      new URL(`${req.nextUrl.protocol}//${pureHostname}/health`, req.url),
+      new URL(
+        `${req.nextUrl.protocol}//${pureHostname}/health?service=${subDomain}`,
+        req.url,
+      ),
     );
   }
 }
