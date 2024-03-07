@@ -55,7 +55,6 @@ export default function NotFound() {
   const [magnifierComponent, setMagnifierComponent] = useState<React.ReactNode>(
     magnifierComponents[Math.floor(Math.random() * 4)],
   );
-  const [html, setHtml] = useState<string>("");
 
   useEffect(() => {
     const interval = setInterval(
