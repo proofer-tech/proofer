@@ -7,11 +7,7 @@ function notFound(req: NextRequest) {
   url.pathname = `/404`;
   return NextResponse.rewrite(url);
 }
-
-async function RouterMiddleware(req: NextRequest) {
-  const hostname = req.headers.get("host") || req.nextUrl.host;
-  const subDomain = hostname.split(".")[0];
-
+async function StaticMiddleware(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams.toString();
   const path = `${req.nextUrl.pathname}${searchParams.length > 0 ? `?${searchParams}` : ""}`;
 
@@ -23,6 +19,13 @@ async function RouterMiddleware(req: NextRequest) {
     (path !== "/" && !path.slice(1).includes("/") && path.includes(".")) // root files
   )
     return NextResponse.next();
+}
+async function MaintenanceMiddleware(req: NextRequest) {
+  const hostname = req.headers.get("host") || req.nextUrl.host;
+  const subDomain = hostname.split(".")[0];
+
+  const searchParams = req.nextUrl.searchParams.toString();
+  const path = `${req.nextUrl.pathname}${searchParams.length > 0 ? `?${searchParams}` : ""}`;
 
   if (path.startsWith("/api")) return NextResponse.next();
 
@@ -34,6 +37,30 @@ async function RouterMiddleware(req: NextRequest) {
     const pureHostname = hostname.replace(`${subDomain}.`, "");
     return NextResponse.rewrite(
       new URL(`${req.nextUrl.protocol}//${pureHostname}/health`, req.url),
+    );
+  }
+}
+
+async function RouterMiddleware(req: NextRequest) {
+  const hostname = req.headers.get("host") || req.nextUrl.host;
+  const subDomain = hostname.split(".")[0];
+
+  const searchParams = req.nextUrl.searchParams.toString();
+  const path = `${req.nextUrl.pathname}${searchParams.length > 0 ? `?${searchParams}` : ""}`;
+
+  if (path.startsWith("/api")) return NextResponse.next();
+
+  const health = (await get("health")) as { [key: string]: Health };
+  if (
+    process.env.NODE_ENV === "production" &&
+    health?.[subDomain]?.state === "MAINTENANCE"
+  ) {
+    const pureHostname = hostname.replace(`${subDomain}.`, "");
+    return NextResponse.rewrite(
+      new URL(
+        `${req.nextUrl.protocol}//${pureHostname}/health?service=${subDomain}`,
+        req.url,
+      ),
     );
   }
 
@@ -51,7 +78,11 @@ async function RouterMiddleware(req: NextRequest) {
 }
 
 export default async function wrapper(req: NextRequest) {
-  for (let middleware of [RouterMiddleware]) {
+  for (let middleware of [
+    StaticMiddleware,
+    MaintenanceMiddleware,
+    RouterMiddleware,
+  ]) {
     let response = await middleware(req);
     if (response) return response;
   }

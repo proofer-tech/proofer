@@ -33,6 +33,7 @@ import { apiFetcher } from "@/app/src/swr";
 import { Health, HealthState } from "@/app/interfaces";
 import { fswitch } from "@/utils";
 import { ReactChannelIO } from "react-channel-plugin";
+import { useSearchParams } from "next/navigation";
 
 const HealthStateLabel = {
   [HealthState.UP]: "운영중",
@@ -47,6 +48,7 @@ const HealthStateColor = {
 };
 
 export default function HealthPage() {
+  const searchParams = useSearchParams();
   const navbarDisclosure = useDisclosure(false);
   const [isInquireCompletedModalOpened, inquireCompletedModal] =
     useDisclosure(false);
@@ -61,7 +63,7 @@ export default function HealthPage() {
   );
 
   const serviceHealth = (data?: { [key: string]: Health }) =>
-    data?.[window.location.hostname.split(".")[0]];
+    data?.[searchParams.get("service") || ""];
 
   return (
     <ReactChannelIO
