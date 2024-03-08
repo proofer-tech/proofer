@@ -2,7 +2,7 @@
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import LandingPageShell from "@/app/components/LandingPageShell";
 
-import useTallyInquireForm from "@/hooks/tally";
+import useTallyInquireForm from "@/app/src/hooks/tally";
 import {
   InquireCompletedModal,
   NotReadyYetModal,

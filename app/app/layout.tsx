@@ -24,8 +24,8 @@ import {
   useIsDesktopMedia,
   useIsMobileMedia,
   useIsTabletMedia,
-} from "@/hooks/mediaQuery";
-import { PageContext } from "@/app/context";
+} from "@/app/src/hooks/mediaQuery";
+import { PageContext } from "@/app/src/contexts";
 import "@mantine/charts/styles.css";
 import {
   IconArrowMerge,

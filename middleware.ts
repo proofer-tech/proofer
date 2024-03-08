@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { get } from "@vercel/edge-config";
-import { Health } from "@/app/interfaces";
+import { Health } from "@/app/src/interfaces";
 
 function notFound(req: NextRequest): NextResponse {
   const url = new URL(req.url);

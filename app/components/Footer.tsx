@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import React, { useContext } from "react";
 import { IconPhoneCall } from "@tabler/icons-react";
-import { PageContext } from "@/app/context";
+import { PageContext } from "@/app/src/contexts";
 
 function FooterMenuItem({ children }: any) {
   return <List.Item py={"0.3em"}>{children}</List.Item>;
