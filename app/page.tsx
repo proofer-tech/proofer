@@ -115,7 +115,6 @@ export default function Page(userAgent: any) {
               { title: "서비스소개", href: "/docs/introduction-of-proofer" },
             ]}
             onBurgerClick={navbarDisclosure[1].toggle}
-            onLoginClick={() => notReadyYetModal.open()}
             onInquireClick={() => openTallyPopup()}
           />
           <Transition

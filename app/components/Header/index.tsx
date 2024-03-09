@@ -20,7 +20,6 @@ export interface HeaderProps {
   isNavbarOpened: boolean;
   portals?: HeaderPortal[];
   onBurgerClick?: () => void;
-  onLoginClick?: () => void;
   onInquireClick?: () => void;
 }
 
@@ -28,7 +27,6 @@ export default function Header({
   isNavbarOpened,
   onBurgerClick,
   portals = [],
-  onLoginClick,
   onInquireClick,
 }: HeaderProps) {
   return (
@@ -63,15 +61,9 @@ export default function Header({
                     </Anchor>
                   ))}
                 </Group>
-                {onLoginClick && (
-                  <Button
-                    variant="subtle"
-                    visibleFrom="sm"
-                    onClick={onLoginClick}
-                  >
-                    로그인
-                  </Button>
-                )}
+                <Button variant="subtle" visibleFrom="sm" onClick={() => {}}>
+                  로그인
+                </Button>
               </Group>
             </Group>
             <Group>
@@ -103,11 +95,9 @@ export default function Header({
           ))}
         </Stack>
         <Space h="xl" />
-        {onLoginClick && (
-          <Button variant="subtle" onClick={onLoginClick}>
-            로그인
-          </Button>
-        )}
+        <Button variant="subtle" onClick={() => {}}>
+          로그인
+        </Button>
       </AppShell.Navbar>
     </>
   );

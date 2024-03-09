@@ -16,10 +16,7 @@ import {
   Title,
   Tooltip,
 } from "@mantine/core";
-import {
-  InquireCompletedModal,
-  NotReadyYetModal,
-} from "@/app/components/Modal";
+import { InquireCompletedModal } from "@/app/components/Modal";
 import Footer from "@/app/components/Footer";
 import React from "react";
 import Header from "@/app/components/Header";
@@ -52,7 +49,6 @@ export default function HealthPage() {
   const navbarDisclosure = useDisclosure(false);
   const [isInquireCompletedModalOpened, inquireCompletedModal] =
     useDisclosure(false);
-  const [notReadyYetModalOpened, notReadyYetModal] = useDisclosure(false);
   const { openTallyPopup } = useTallyInquireForm({
     onSubmit: () => inquireCompletedModal.open(),
   });
@@ -75,7 +71,6 @@ export default function HealthPage() {
         <Header
           isNavbarOpened={navbarDisclosure[0]}
           onBurgerClick={navbarDisclosure[1].toggle}
-          onLoginClick={() => notReadyYetModal.open()}
           onInquireClick={() => openTallyPopup()}
         />
         <AppShell.Main>
@@ -219,10 +214,6 @@ export default function HealthPage() {
             )}
           </Container>
         </AppShell.Main>
-        <NotReadyYetModal
-          isOpened={notReadyYetModalOpened}
-          onCloseClick={notReadyYetModal.close}
-        />
         <InquireCompletedModal
           isOpened={isInquireCompletedModalOpened}
           onCloseClick={inquireCompletedModal.close}
