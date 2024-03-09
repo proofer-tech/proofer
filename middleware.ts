@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { get } from "@vercel/edge-config";
 import { Health } from "@/app/src/interfaces";
+const isProduction = process.env.NODE_ENV === "production";
 
 function notFound(req: NextRequest): NextResponse {
   const url = new URL(req.url);
@@ -43,10 +44,7 @@ async function handleMaintenanceMiddleware(
   }
 
   const health = (await get("health")) as { [key: string]: Health };
-  if (
-    process.env.NODE_ENV === "production" &&
-    health?.[subDomain]?.state === "MAINTENANCE"
-  ) {
+  if (isProduction && health?.[subDomain]?.state === "MAINTENANCE") {
     const pureHostname = hostname.replace(`${subDomain}.`, "");
     const maintenanceUrl = new URL(
       `${req.nextUrl.protocol}//${pureHostname}/health?service=${subDomain}`,
@@ -62,23 +60,6 @@ async function handleRouterMiddleware(
   const hostname = req.headers.get("host") || req.nextUrl.host;
   const subDomain = hostname.split(".")[0];
   const path = getPath(req);
-
-  if (path.startsWith("/api")) {
-    return NextResponse.next();
-  }
-
-  const health = (await get("health")) as { [key: string]: Health };
-  if (
-    process.env.NODE_ENV === "production" &&
-    health?.[subDomain]?.state === "MAINTENANCE"
-  ) {
-    const pureHostname = hostname.replace(`${subDomain}.`, "");
-    const maintenanceUrl = new URL(
-      `${req.nextUrl.protocol}//${pureHostname}/health?service=${subDomain}`,
-      req.url,
-    );
-    return NextResponse.rewrite(maintenanceUrl);
-  }
 
   if (subDomain === "app") {
     const rewriteUrl = new URL(`/app${path === "/" ? "" : path}`, req.url);
