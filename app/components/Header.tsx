@@ -1,3 +1,4 @@
+import { useUser } from "@auth0/nextjs-auth0/client";
 import {
   Anchor,
   AppShell,
@@ -29,6 +30,8 @@ export default function Header({
   portals = [],
   onInquireClick,
 }: HeaderProps) {
+  const { user, error, isLoading } = useUser();
+
   return (
     <>
       <AppShell.Header>
@@ -61,9 +64,23 @@ export default function Header({
                     </Anchor>
                   ))}
                 </Group>
-                <Button variant="subtle" visibleFrom="sm" onClick={() => {}}>
-                  로그인
-                </Button>
+                {user ? (
+                  <Anchor
+                    href={"/api/auth/logout"}
+                    underline={"never"}
+                    size={"sm"}
+                  >
+                    로그아웃
+                  </Anchor>
+                ) : (
+                  <Anchor
+                    href={"/api/auth/login"}
+                    underline={"never"}
+                    size={"sm"}
+                  >
+                    로그인
+                  </Anchor>
+                )}
               </Group>
             </Group>
             <Group>
@@ -95,9 +112,15 @@ export default function Header({
           ))}
         </Stack>
         <Space h="xl" />
-        <Button variant="subtle" onClick={() => {}}>
-          로그인
-        </Button>
+        {user ? (
+          <Anchor href={"/api/auth/logout"} underline={"never"} size={"md"}>
+            로그아웃
+          </Anchor>
+        ) : (
+          <Anchor href={"/api/auth/login"} underline={"never"} size={"md"}>
+            로그인
+          </Anchor>
+        )}
       </AppShell.Navbar>
     </>
   );
