@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { get } from "@vercel/edge-config";
 import { Health } from "@/app/_src/interfaces";
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.VERCEL_ENV === "production";
 
 function notFound(req: NextRequest): NextResponse {
   const url = new URL(req.url);
@@ -81,7 +81,7 @@ async function handleRouterMiddleware(
   }
 
   // 앱에 직접 접근할 수 없다. (개발환경에서는 localhost 의 쿠키 정책문제로 제외)
-  // if (path.startsWith(`/subs`)) return notFound(req);
+  if (path.startsWith(`/subs`)) return notFound(req);
 }
 
 export default async function wrapper(req: NextRequest): Promise<NextResponse> {

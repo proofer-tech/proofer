@@ -44,7 +44,7 @@ const workspace = {
   slug: "proofer",
 };
 const getWorkspacePath = (path: string) => {
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.VERCEL_ENV === "production") {
     return `/${workspace.slug}/${path}`;
   } else {
     return `/subs/app/${workspace.slug}/${path}`;

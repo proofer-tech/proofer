@@ -11,12 +11,8 @@ import {
 } from "@mantine/core";
 import React from "react";
 import { headers } from "next/headers";
-import { getSession } from "@auth0/nextjs-auth0";
 
 export default async function WorkspaceLayout({ children }: { children: any }) {
-  const session = await getSession();
-  console.log(session);
-
   const headersList = headers();
   const pathname = headersList.get("x-pathname") || "";
   const pathBlocks = pathname.split("/").slice(2);
