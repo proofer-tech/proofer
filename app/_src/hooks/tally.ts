@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TallyPopupOptions } from "@/app/src/types/tally";
+import { TallyPopupOptions } from "@/app/_src/types/tally";
 
 const inquireFormId = "wALJdk";
 

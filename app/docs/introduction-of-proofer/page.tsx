@@ -21,7 +21,7 @@ export default function IntroductionOfProofer() {
 
   return (
     <>
-      <Worker workerUrl="/scripts/pdf.worker.min.js">
+      <Worker workerUrl="/assets/scripts/pdf.worker.min.js">
         {loadingPercent < 100 && (
           <Center py={"calc(50vh - 4.45em)"}>
             <Loader color="blue" size="xl" />

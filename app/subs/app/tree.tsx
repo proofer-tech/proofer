@@ -17,7 +17,7 @@ import {
   IconTimelineEventText,
   IconTransformPoint,
 } from "@tabler/icons-react";
-import { PathTree } from "@/app/app/components/types";
+import { PathTree } from "@/app/subs/app/components/types";
 
 export const pathTree: PathTree = {
   activity: {

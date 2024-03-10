@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
-import Header from "@/app/components/Header";
+import Header from "@/app/_components/Header";
 import React, { useEffect, useState } from "react";
-import LandingPageShell from "@/app/components/LandingPageShell";
+import LandingPageShell from "@/app/_components/LandingPageShell";
 import {
   AppShell,
   Center,
@@ -12,34 +12,34 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import Footer from "@/app/components/Footer";
+import Footer from "@/app/_components/Footer";
 import { redirect } from "next/navigation";
 
 const magnifierComponents = [
   <Image
     key={1}
-    src={"/images/magnifier-1.png"}
+    src={"/assets/images/magnifier-1.png"}
     alt={"페이지를 찾는 사람"}
     width={240}
     height={240}
   />,
   <Image
     key={2}
-    src={"/images/magnifier-2.png"}
+    src={"/assets/images/magnifier-2.png"}
     alt={"페이지를 찾는 사람"}
     width={240}
     height={240}
   />,
   <Image
     key={3}
-    src={"/images/magnifier-3.png"}
+    src={"/assets/images/magnifier-3.png"}
     alt={"페이지를 찾는 사람"}
     width={240}
     height={240}
   />,
   <Image
     key={4}
-    src={"/images/magnifier-4.png"}
+    src={"/assets/images/magnifier-4.png"}
     alt={"페이지를 찾는 사람"}
     width={240}
     height={240}

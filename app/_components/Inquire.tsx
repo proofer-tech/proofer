@@ -14,7 +14,7 @@ import {
 } from "@mantine/core";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
-import { PageContext } from "@/app/src/contexts";
+import { PageContext } from "@/app/_src/contexts";
 import { useWindowScroll } from "@mantine/hooks";
 import { useChannelIOEvent } from "react-channel-plugin";
 
@@ -75,7 +75,7 @@ export default function Inquire({
         >
           {children}
           <BackgroundImage
-            src="/images/background-inquire.png"
+            src="/assets/images/background-inquire.png"
             radius={isWidget ? "8px" : "3em"}
           >
             <Flex

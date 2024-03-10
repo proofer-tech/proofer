@@ -29,7 +29,7 @@ export function InquireCompletedModal({
         <Group>
           <Box w={"1em"} h={"1em"}>
             <Image
-              src="/images/branding.svg"
+              src="/assets/images/branding.svg"
               alt="프루퍼 로고"
               width={"100%"}
             />
@@ -65,7 +65,7 @@ export function NotReadyYetModal({
         <Group>
           <Box w={"1em"} h={"1em"}>
             <Image
-              src="/images/branding.svg"
+              src="/assets/images/branding.svg"
               alt="프루퍼 로고"
               width={"100%"}
             />
@@ -89,7 +89,11 @@ export function NotReadyYetModal({
           곧 멋진 소식으로 다시 찾아뵙겠습니다!
         </Text>
         <Group justify={"end"} align={"center"}>
-          <Image src="/images/logo.svg" h={"1.5em"} alt={"프루퍼 로고"} />
+          <Image
+            src="/assets/images/logo.svg"
+            h={"1.5em"}
+            alt={"프루퍼 로고"}
+          />
           <Text>드림</Text>
         </Group>
       </Stack>

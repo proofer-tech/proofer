@@ -4,7 +4,9 @@
 
 ## Features
 
-- 랜딩 페이지
+- www: 랜딩 페이지
+- team: 팀 페이지
+- app: 프루퍼 인사이트
 
 ## Stacks
 
@@ -12,7 +14,6 @@
 - [Next.js](https://nextjs.org/)
 - [PostCSS](https://postcss.org/) with [mantine-postcss-preset](https://mantine.dev/styles/postcss-preset)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Storybook](https://storybook.js.org/)
 - [Jest](https://jestjs.io/) setup with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
 - ESLint setup with [eslint-config-mantine](https://github.com/mantinedev/eslint-config-mantine)
 
@@ -35,6 +36,11 @@
 
 ### Other scripts
 
-- `storybook` – starts storybook dev server
-- `storybook:build` – build production storybook bundle to `storybook-static`
 - `prettier:write` – formats all files with Prettier
+
+
+## Rules
+
+### NEXT.JS
+- `Using App Router`
+### layers
