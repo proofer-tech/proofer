@@ -36,7 +36,7 @@ export default function Inquire({
   const pageCtx = useContext(PageContext);
   const [isPopoverOpened, setPopoverOpened] = useState<boolean>(false);
 
-  const [scroll, scrollTo] = useWindowScroll();
+  const [scroll] = useWindowScroll();
   const offsetPinRef = useRef<HTMLDivElement>(null);
 
   const [isWidget, setIsWidget] = useState<boolean>(false);
