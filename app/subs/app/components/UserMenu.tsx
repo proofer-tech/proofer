@@ -86,10 +86,8 @@ export default function UserMenu({
             </Menu.Item>
           ))}
           <Menu.Divider />
-          <Menu.Item>
-            <Anchor c={"red"} href={"/api/auth/logout"}>
-              로그아웃
-            </Anchor>
+          <Menu.Item component={"a"} href={"/api/auth/logout"} c={"red"}>
+            로그아웃
           </Menu.Item>
         </Menu.Dropdown>
       )}
