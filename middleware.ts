@@ -62,6 +62,10 @@ async function handleRouterMiddleware(
   const subDomain = hostname.split(".")[0];
   const path = getPath(req);
 
+  if (!isProduction) {
+    return;
+  }
+
   if (["app", "team"].includes(subDomain)) {
     const pureHostname = hostname.replace(`${subDomain}.`, "");
 
@@ -77,7 +81,7 @@ async function handleRouterMiddleware(
   }
 
   // 앱에 직접 접근할 수 없다. (개발환경에서는 localhost 의 쿠키 정책문제로 제외)
-  if (isProduction && path.startsWith(`/subs`)) return notFound(req);
+  if (path.startsWith(`/subs`)) return notFound(req);
 }
 
 export default async function wrapper(req: NextRequest): Promise<NextResponse> {

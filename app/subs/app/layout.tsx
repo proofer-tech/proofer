@@ -39,6 +39,18 @@ import { Path } from "@/app/subs/app/components/types";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import UserMenu from "@/app/subs/app/components/UserMenu";
 
+const workspace = {
+  name: "팀 프루퍼",
+  slug: "proofer",
+};
+const getWorkspacePath = (path: string) => {
+  if (process.env.NODE_ENV === "production") {
+    return `/${workspace.slug}/${path}`;
+  } else {
+    return `/subs/app/${workspace.slug}/${path}`;
+  }
+};
+
 export const viewport: Viewport = {
   themeColor: "#0052cc",
   initialScale: 1,
@@ -74,11 +86,6 @@ export default function AppLayout({ children }: { children: any }) {
   const openSettingModal = (path: Path) => {
     setSettingsModalPath(path);
     settingsDisclosure[1].open();
-  };
-
-  const workspace = {
-    name: "팀 프루퍼",
-    slug: "proofer",
   };
 
   const isNavLinkActive = (pathName: string, subPathName: string) =>
@@ -329,7 +336,9 @@ export default function AppLayout({ children }: { children: any }) {
                                 ([subPathName, subPath]) => (
                                   <NavLink
                                     key={`${pathName}/${subPathName}`}
-                                    href={`/${workspace.slug}/${pathName}/${subPathName}`}
+                                    href={getWorkspacePath(
+                                      `/${pathName}/${subPathName}`,
+                                    )}
                                     leftSection={
                                       subPath.tablerIcon && (
                                         <subPath.tablerIcon
