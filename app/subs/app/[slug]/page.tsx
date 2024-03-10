@@ -13,7 +13,7 @@ export default function Page() {
           w={"10em"}
         />
         <Title order={1} ta={"center"}>
-          우리 개발자의 생산성이 궁금하다면?
+          우리 개발자{process.env.NODE_ENV}의 생산성이 궁금하다면?
         </Title>
         <Stack w={"100%"}>
           <Button variant="light">데모버전 구경하기</Button>
