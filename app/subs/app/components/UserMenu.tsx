@@ -57,7 +57,7 @@ export default function UserMenu({
             <Group gap={16}>
               <Avatar src={userContext.user.picture} />
               <Stack gap={0}>
-                <Text size={"sm"}>{userContext.user.name}</Text>
+                <Text size={"sm"}>{userContext.user.nickname}</Text>
                 <Text size={"xs"} c={"dimmed"}>
                   {userContext.user.email}
                 </Text>
