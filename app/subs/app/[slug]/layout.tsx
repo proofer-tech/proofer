@@ -14,8 +14,11 @@ import { headers } from "next/headers";
 
 export default async function WorkspaceLayout({ children }: { children: any }) {
   const headersList = headers();
+  const hostname = headersList.get("host");
+  const subDomain = hostname?.split(".")[0];
+
   const pathname = headersList.get("x-pathname") || "";
-  const pathBlocks = pathname.split("/").slice(2);
+  const pathBlocks = pathname.split("/").slice(subDomain === "app" ? 2 : 4);
   const path = pathTree[pathBlocks[0]];
   const subPath = path?.subTree?.[pathBlocks[1]];
 

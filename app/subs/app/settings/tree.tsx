@@ -1,11 +1,11 @@
 import { PathTree } from "@/app/subs/app/components/types";
-import { IconApps, IconChalkboard, IconUsers } from "@tabler/icons-react";
+import { IconApps, IconFolder, IconUsers } from "@tabler/icons-react";
 
 export const settingsPathTree: PathTree = {
   workspace: {
     title: "워크스페이스 설정",
     isImplemented: true,
-    tablerIcon: IconChalkboard,
+    tablerIcon: IconFolder,
     component: <>1. 구현중입니다.</>,
   },
   members: {
