@@ -30,8 +30,8 @@ export default async function SubPathLayout({ children }: { children: any }) {
             워크스페이스를 먼저 생성해주세요.
           </Title>
           <Text ta={"center"}>
-            {subPath?.title} 메뉴의 내용을 확인하려면, 먼저 워크스페이스를
-            생성해주신 후 업무에 사용되는 앱을 연동해야 합니다.
+            {subPath?.title} 내용을 확인하려면, 먼저 워크스페이스를 생성해주신
+            후 업무에 사용되는 앱을 연동해야 합니다.
           </Text>
           <>{subPath?.component}</>
         </Stack>
