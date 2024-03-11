@@ -1,5 +1,5 @@
 import { pathTree } from "@/app/subs/app/tree";
-import { Center, Group, Image, Stack, Text, Title } from "@mantine/core";
+import { Center, Stack, Text, Title } from "@mantine/core";
 import React from "react";
 import { headers } from "next/headers";
 import { getSession } from "@auth0/nextjs-auth0";
