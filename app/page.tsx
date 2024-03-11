@@ -7,8 +7,8 @@ import {
   useIsDesktopMedia,
   useIsMobileMedia,
   useIsTabletMedia,
-} from "@/app/_src/hooks/mediaQuery";
-import { PageContext } from "@/app/_src/contexts";
+} from "@/src/hooks/mediaQuery";
+import { PageContext } from "@/src/contexts";
 import {
   Anchor,
   AppShell,
@@ -34,7 +34,7 @@ import {
   NotReadyYetModal,
 } from "@/app/_components/Modal";
 import LandingPageShell from "@/app/_components/LandingPageShell";
-import useTallyInquireForm from "@/app/_src/hooks/tally";
+import useTallyInquireForm from "@/src/hooks/tally";
 import Header from "@/app/_components/Header";
 import { ReactChannelIO } from "react-channel-plugin";
 

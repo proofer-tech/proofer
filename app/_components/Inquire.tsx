@@ -14,7 +14,7 @@ import {
 } from "@mantine/core";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
-import { PageContext } from "@/app/_src/contexts";
+import { PageContext } from "@/src/contexts";
 import { useWindowScroll } from "@mantine/hooks";
 import { useChannelIOEvent } from "react-channel-plugin";
 

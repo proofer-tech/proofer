@@ -1,7 +1,7 @@
 "use client";
 import { Grid, Group, Image } from "@mantine/core";
 import React, { useContext, useEffect, useState } from "react";
-import { PageContext } from "@/app/_src/contexts";
+import { PageContext } from "@/src/contexts";
 
 function Logo({ src }: { src: string }) {
   return (

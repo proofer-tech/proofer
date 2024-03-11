@@ -1,6 +1,6 @@
 "use client";
 import { useDisclosure } from "@mantine/hooks";
-import useTallyInquireForm from "@/app/_src/hooks/tally";
+import useTallyInquireForm from "@/src/hooks/tally";
 import LandingPageShell from "@/app/_components/LandingPageShell";
 import {
   AppShell,
@@ -26,8 +26,8 @@ import {
   IconInfoCircleFilled,
 } from "@tabler/icons-react";
 import useSWR from "swr";
-import { apiFetcher } from "@/app/_src/swr";
-import { Health, HealthState } from "@/app/_src/interfaces";
+import { apiFetcher } from "@/src/swr";
+import { Health, HealthState } from "@/src/interfaces";
 import { fswitch } from "@/utils";
 import { ReactChannelIO } from "react-channel-plugin";
 import { useSearchParams } from "next/navigation";
