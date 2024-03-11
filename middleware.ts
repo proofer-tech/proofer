@@ -36,35 +36,41 @@ async function handleStaticMiddleware(
 async function handleMaintenanceMiddleware(
   req: NextRequest,
 ): Promise<NextResponse | undefined> {
+  if (!isProduction) {
+    return;
+  }
+
   const hostname = req.headers.get("host") || req.nextUrl.host;
   const subDomain = hostname.split(".")[0];
 
   if (getPath(req).startsWith("/api")) {
     // api endpoint 는 maintenance 와 연관이 없도록 한다.
-    return undefined;
+    return;
   }
 
   const health = (await get("health")) as { [key: string]: Health };
-  if (isProduction && health?.[subDomain]?.state === "MAINTENANCE") {
-    const pureHostname = hostname.replace(`${subDomain}.`, "");
-    const maintenanceUrl = new URL(
-      `${req.nextUrl.protocol}//${pureHostname}/health?service=${subDomain}`,
-      req.url,
-    );
-    return NextResponse.rewrite(maintenanceUrl);
+  if (health?.[subDomain]?.state !== "MAINTENANCE") {
+    return;
   }
+
+  const pureHostname = hostname.replace(`${subDomain}.`, "");
+  const maintenanceUrl = new URL(
+    `${req.nextUrl.protocol}//${pureHostname}/health?service=${subDomain}`,
+    req.url,
+  );
+  return NextResponse.rewrite(maintenanceUrl);
 }
 
 async function handleRouterMiddleware(
   req: NextRequest,
 ): Promise<NextResponse | undefined> {
-  const hostname = req.headers.get("host") || req.nextUrl.host;
-  const subDomain = hostname.split(".")[0];
-  const path = getPath(req);
-
   if (!isProduction) {
     return;
   }
+
+  const hostname = req.headers.get("host") || req.nextUrl.host;
+  const subDomain = hostname.split(".")[0];
+  const path = getPath(req);
 
   if (["app", "team"].includes(subDomain)) {
     const pureHostname = hostname.replace(`${subDomain}.`, "");
