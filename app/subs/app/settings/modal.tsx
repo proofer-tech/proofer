@@ -10,9 +10,9 @@ import {
   Text,
 } from "@mantine/core";
 import React, { useEffect, useState } from "react";
-import { Path } from "@/app/app/components/types";
+import { Path } from "@/app/subs/app/components/types";
 import { IconSearch } from "@tabler/icons-react";
-import { settingsPathTree } from "@/app/app/settings/tree";
+import { settingsPathTree } from "@/app/subs/app/settings/tree";
 
 interface SettingsModalProps extends ModalRootProps {
   path?: Path;

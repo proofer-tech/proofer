@@ -1,7 +1,7 @@
 "use client";
 import { Grid, Group, Image } from "@mantine/core";
 import React, { useContext, useEffect, useState } from "react";
-import { PageContext } from "@/app/src/contexts";
+import { PageContext } from "@/app/_src/contexts";
 
 function Logo({ src }: { src: string }) {
   return (
@@ -24,22 +24,22 @@ export default function Partners() {
   return (
     <Grid py={"3em"}>
       <Grid.Col span={span}>
-        <Logo src="/images/partners/careerday.png" />
+        <Logo src="/assets/images/partners/careerday.png" />
       </Grid.Col>
       <Grid.Col span={span}>
-        <Logo src="/images/partners/planonmars.png" />
+        <Logo src="/assets/images/partners/planonmars.png" />
       </Grid.Col>
       <Grid.Col span={span}>
-        <Logo src="/images/partners/mysc.png" />
+        <Logo src="/assets/images/partners/mysc.png" />
       </Grid.Col>
       <Grid.Col span={span}>
-        <Logo src="/images/partners/ingen.png" />
+        <Logo src="/assets/images/partners/ingen.png" />
       </Grid.Col>
       <Grid.Col span={span}>
-        <Logo src="/images/partners/realsite.png" />
+        <Logo src="/assets/images/partners/realsite.png" />
       </Grid.Col>
       <Grid.Col span={span}>
-        <Logo src="/images/partners/stephow.png" />
+        <Logo src="/assets/images/partners/stephow.png" />
       </Grid.Col>
     </Grid>
   );

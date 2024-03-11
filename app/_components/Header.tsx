@@ -1,15 +1,19 @@
+import { useUser } from "@auth0/nextjs-auth0/client";
 import {
   Anchor,
   AppShell,
+  Box,
   Burger,
   Button,
   Container,
+  Divider,
   Group,
   Image,
-  Space,
-  Stack,
+  Loader,
+  NavLink,
 } from "@mantine/core";
 import React from "react";
+import { IconChevronRight, IconLogin2, IconLogout } from "@tabler/icons-react";
 
 export interface HeaderPortal {
   title: string;
@@ -20,7 +24,6 @@ export interface HeaderProps {
   isNavbarOpened: boolean;
   portals?: HeaderPortal[];
   onBurgerClick?: () => void;
-  onLoginClick?: () => void;
   onInquireClick?: () => void;
 }
 
@@ -28,9 +31,10 @@ export default function Header({
   isNavbarOpened,
   onBurgerClick,
   portals = [],
-  onLoginClick,
   onInquireClick,
 }: HeaderProps) {
+  const userContext = useUser();
+
   return (
     <>
       <AppShell.Header>
@@ -44,7 +48,7 @@ export default function Header({
                   p={0}
                 >
                   <Image
-                    src="/images/branding.svg"
+                    src="/assets/images/branding.svg"
                     alt="프루퍼 로고"
                     width={"100%"}
                   />
@@ -63,15 +67,29 @@ export default function Header({
                     </Anchor>
                   ))}
                 </Group>
-                {onLoginClick && (
-                  <Button
-                    variant="subtle"
-                    visibleFrom="sm"
-                    onClick={onLoginClick}
-                  >
-                    로그인
-                  </Button>
-                )}
+                <Group visibleFrom={"sm"} px={"0.5em"} align={"center"}>
+                  {userContext.isLoading ? (
+                    <Box px={"1em"}>
+                      <Loader color="blue" type="dots" size={"1em"} />
+                    </Box>
+                  ) : userContext.user ? (
+                    <Anchor
+                      href={"/api/auth/logout"}
+                      underline={"never"}
+                      size={"sm"}
+                    >
+                      로그아웃
+                    </Anchor>
+                  ) : (
+                    <Anchor
+                      href={"/api/auth/login"}
+                      underline={"never"}
+                      size={"sm"}
+                    >
+                      로그인
+                    </Anchor>
+                  )}
+                </Group>
               </Group>
             </Group>
             <Group>
@@ -91,22 +109,37 @@ export default function Header({
         </Container>
       </AppShell.Header>
       <AppShell.Navbar py="md" px={4}>
-        <Stack gap={"xs"}>
-          {portals.map((menu, idx) => (
-            <Anchor
-              key={`${menu.title}-${idx}`}
-              c="var(--color-foreground)"
-              href={menu.href}
-            >
-              {menu.title}
-            </Anchor>
-          ))}
-        </Stack>
-        <Space h="xl" />
-        {onLoginClick && (
-          <Button variant="subtle" onClick={onLoginClick}>
-            로그인
-          </Button>
+        {portals.map((menu, idx) => (
+          <NavLink
+            key={`${menu.title}-${idx}`}
+            href={menu.href}
+            label={menu.title}
+            rightSection={<IconChevronRight size="0.8em" stroke={1.5} />}
+            onClick={onBurgerClick}
+          />
+        ))}
+        <Box py={"1em"}>
+          <Divider />
+        </Box>
+        {userContext.isLoading ? (
+          <NavLink
+            href={"/api/auth/logout"}
+            label={<Loader color="blue" type="dots" size={"1.5em"} />}
+          />
+        ) : userContext.user ? (
+          <NavLink
+            rightSection={<IconLogout size={"1em"} />}
+            href={"/api/auth/logout"}
+            label={"로그아웃"}
+            color={"red"}
+            c={"red"}
+          />
+        ) : (
+          <NavLink
+            rightSection={<IconLogin2 size={"1em"} />}
+            href={"/api/auth/login"}
+            label={"로그인"}
+          />
         )}
       </AppShell.Navbar>
     </>

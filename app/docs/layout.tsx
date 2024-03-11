@@ -1,17 +1,14 @@
 "use client";
 import "@react-pdf-viewer/core/lib/styles/index.css";
-import LandingPageShell from "@/app/components/LandingPageShell";
+import LandingPageShell from "@/app/_components/LandingPageShell";
 
-import useTallyInquireForm from "@/app/src/hooks/tally";
-import {
-  InquireCompletedModal,
-  NotReadyYetModal,
-} from "@/app/components/Modal";
+import useTallyInquireForm from "@/app/_src/hooks/tally";
+import { InquireCompletedModal } from "@/app/_components/Modal";
 import React from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { AppShell } from "@mantine/core";
-import Footer from "@/app/components/Footer";
-import Header from "@/app/components/Header";
+import Footer from "@/app/_components/Footer";
+import Header from "@/app/_components/Header";
 import { ReactChannelIO } from "react-channel-plugin";
 
 export default function DocsLayout({ children }: any) {
@@ -19,7 +16,6 @@ export default function DocsLayout({ children }: any) {
 
   const [isInquireCompletedModalOpened, inquireCompletedModal] =
     useDisclosure(false);
-  const [notReadyYetModalOpened, notReadyYetModal] = useDisclosure(false);
 
   const { openTallyPopup } = useTallyInquireForm({
     onSubmit: () => inquireCompletedModal.open(),
@@ -39,17 +35,12 @@ export default function DocsLayout({ children }: any) {
             { title: "서비스소개", href: "/docs/introduction-of-proofer" },
           ]}
           onBurgerClick={navbarDisclosure[1].toggle}
-          onLoginClick={() => notReadyYetModal.open()}
           onInquireClick={() => openTallyPopup()}
         />
         <AppShell.Main>{children}</AppShell.Main>
         <InquireCompletedModal
           isOpened={isInquireCompletedModalOpened}
           onCloseClick={inquireCompletedModal.close}
-        />
-        <NotReadyYetModal
-          isOpened={notReadyYetModalOpened}
-          onCloseClick={notReadyYetModal.close}
         />
         <AppShell.Footer pos={"static"} bg={"transparent"} withBorder={false}>
           <Footer />

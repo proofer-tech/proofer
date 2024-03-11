@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import React, { useContext } from "react";
 import { IconPhoneCall } from "@tabler/icons-react";
-import { PageContext } from "@/app/src/contexts";
+import { PageContext } from "@/app/_src/contexts";
 
 function FooterMenuItem({ children }: any) {
   return <List.Item py={"0.3em"}>{children}</List.Item>;
@@ -32,7 +32,7 @@ export default function Footer({ linkGroups }: FooterProps) {
         gap={"5em"}
       >
         <Stack gap={"3em"}>
-          <Image src="/images/logo.svg" w={"8em"} alt={"프루퍼 로고"} />
+          <Image src="/assets/images/logo.svg" w={"8em"} alt={"프루퍼 로고"} />
           <Stack gap={1}>
             <Text c={"var(--color-darkgray-2)"}>
               경기도 광명시 오리로 362, 4층
@@ -99,7 +99,7 @@ export default function Footer({ linkGroups }: FooterProps) {
                   style={{ border: "1px solid var(--color-lightgray-2)" }}
                 >
                   <Image
-                    src="/images/bi-medium.png"
+                    src="/assets/images/bi-medium.png"
                     alt="@proofer.tech in Medium"
                   />
                 </Avatar>
@@ -116,7 +116,7 @@ export default function Footer({ linkGroups }: FooterProps) {
                   style={{ border: "1px solid var(--color-lightgray-2)" }}
                 >
                   <Image
-                    src="/images/bi-linkedin.png"
+                    src="/assets/images/bi-linkedin.png"
                     alt="@proofer.tech in linkedin"
                   />
                 </Avatar>

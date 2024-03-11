@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import React, { useContext, useState } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
-import { PageContext } from "@/app/src/contexts";
+import { PageContext } from "@/app/_src/contexts";
 
 interface HeroProps extends StackProps, ElementProps<"div"> {
   inquireEmail: string;

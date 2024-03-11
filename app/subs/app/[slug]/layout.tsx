@@ -1,6 +1,4 @@
-"use client";
-import { usePathname } from "next/navigation";
-import { pathTree } from "@/app/app/tree";
+import { pathTree } from "@/app/subs/app/tree";
 import {
   Box,
   Breadcrumbs,
@@ -12,14 +10,15 @@ import {
   Title,
 } from "@mantine/core";
 import React from "react";
+import { headers } from "next/headers";
 
-export default function MainLayout({ children }: { children: any }) {
-  const pathname = usePathname();
+export default async function WorkspaceLayout({ children }: { children: any }) {
+  const headersList = headers();
+  const pathname = headersList.get("x-pathname") || "";
   const pathBlocks = pathname.split("/").slice(2);
   const path = pathTree[pathBlocks[0]];
   const subPath = path?.subTree?.[pathBlocks[1]];
 
-  // sub-page
   if (subPath !== undefined)
     return (
       <Stack>

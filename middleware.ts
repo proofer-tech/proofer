@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { get } from "@vercel/edge-config";
-import { Health } from "@/app/src/interfaces";
-const isProduction = process.env.NODE_ENV === "production";
+import { Health } from "@/app/_src/interfaces";
+const isProduction = process.env.VERCEL_ENV === "production";
 
 function notFound(req: NextRequest): NextResponse {
   const url = new URL(req.url);
@@ -16,7 +16,7 @@ function getPath(req: NextRequest): string {
 
 async function isStaticFile(req: NextRequest): Promise<boolean> {
   const path = getPath(req);
-  const staticPaths = ["/_", "/fonts", "/images", "/scripts"];
+  const staticPaths = ["/_", "/assets"];
 
   return (
     staticPaths.some((staticPath) => path.startsWith(staticPath)) ||
@@ -28,6 +28,7 @@ async function handleStaticMiddleware(
   req: NextRequest,
 ): Promise<NextResponse | undefined> {
   if (await isStaticFile(req)) {
+    // static 파일은 무조건 아무 처리없이 return 합니다.
     return NextResponse.next();
   }
 }
@@ -35,45 +36,58 @@ async function handleStaticMiddleware(
 async function handleMaintenanceMiddleware(
   req: NextRequest,
 ): Promise<NextResponse | undefined> {
+  if (!isProduction) {
+    return;
+  }
+
   const hostname = req.headers.get("host") || req.nextUrl.host;
   const subDomain = hostname.split(".")[0];
-  const path = getPath(req);
 
-  if (path.startsWith("/api")) {
-    return NextResponse.next();
+  if (getPath(req).startsWith("/api")) {
+    // api endpoint 는 maintenance 와 연관이 없도록 한다.
+    return;
   }
 
   const health = (await get("health")) as { [key: string]: Health };
-  if (isProduction && health?.[subDomain]?.state === "MAINTENANCE") {
-    const pureHostname = hostname.replace(`${subDomain}.`, "");
-    const maintenanceUrl = new URL(
-      `${req.nextUrl.protocol}//${pureHostname}/health?service=${subDomain}`,
-      req.url,
-    );
-    return NextResponse.rewrite(maintenanceUrl);
+  if (health?.[subDomain]?.state !== "MAINTENANCE") {
+    return;
   }
+
+  const pureHostname = hostname.replace(`${subDomain}.`, "");
+  const maintenanceUrl = new URL(
+    `${req.nextUrl.protocol}//${pureHostname}/health?service=${subDomain}`,
+    req.url,
+  );
+  return NextResponse.rewrite(maintenanceUrl);
 }
 
 async function handleRouterMiddleware(
   req: NextRequest,
 ): Promise<NextResponse | undefined> {
+  if (!isProduction) {
+    return;
+  }
+
   const hostname = req.headers.get("host") || req.nextUrl.host;
   const subDomain = hostname.split(".")[0];
   const path = getPath(req);
 
-  if (subDomain === "app") {
-    const rewriteUrl = new URL(`/app${path === "/" ? "" : path}`, req.url);
-    return NextResponse.rewrite(rewriteUrl);
-  } else if (path.startsWith("/app")) {
-    return notFound(req);
+  if (["app", "team"].includes(subDomain)) {
+    const pureHostname = hostname.replace(`${subDomain}.`, "");
+
+    let rewriteUri = path === "/" ? "" : path;
+    if (path.startsWith("/api/auth") || path.startsWith("/api/health")) {
+      // auth 와 health 는 공통으로 사용합니다.
+      rewriteUri = `${req.nextUrl.protocol}//${pureHostname}${rewriteUri}`;
+    } else {
+      rewriteUri = `/subs/${subDomain}` + rewriteUri;
+    }
+
+    return NextResponse.rewrite(new URL(rewriteUri, req.url));
   }
 
-  if (subDomain === "team") {
-    const rewriteUrl = new URL(`/team${path === "/" ? "" : path}`, req.url);
-    return NextResponse.rewrite(rewriteUrl);
-  } else if (path.startsWith("/team")) {
-    return notFound(req);
-  }
+  // 앱에 직접 접근할 수 없다. (개발환경에서는 localhost 의 쿠키 정책문제로 제외)
+  if (path.startsWith(`/subs`)) return notFound(req);
 }
 
 export default async function wrapper(req: NextRequest): Promise<NextResponse> {
@@ -82,13 +96,19 @@ export default async function wrapper(req: NextRequest): Promise<NextResponse> {
     handleMaintenanceMiddleware,
     handleRouterMiddleware,
   ];
+  let response = NextResponse.next();
 
   for (const middleware of middlewares) {
-    const response = await middleware(req);
-    if (response) {
-      return response;
+    const mResponse = await middleware(req);
+    if (mResponse) {
+      response = mResponse;
+      break;
     }
   }
 
-  return NextResponse.next();
+  // url, pathname 넣어줍니다.
+  response.headers.set("x-url", req.url);
+  response.headers.set("x-pathname", req.nextUrl.pathname);
+
+  return response;
 }

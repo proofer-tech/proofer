@@ -1,4 +1,4 @@
-import { PathTree } from "@/app/app/components/types";
+import { PathTree } from "@/app/subs/app/components/types";
 import { IconApps, IconChalkboard, IconUsers } from "@tabler/icons-react";
 
 export const settingsPathTree: PathTree = {

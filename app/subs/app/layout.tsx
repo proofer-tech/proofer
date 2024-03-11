@@ -6,12 +6,10 @@ import {
   Anchor,
   AppShell,
   Avatar,
-  Badge,
   Button,
   Center,
   Divider,
   Group,
-  Menu,
   NavLink,
   ScrollArea,
   Stack,
@@ -24,8 +22,8 @@ import {
   useIsDesktopMedia,
   useIsMobileMedia,
   useIsTabletMedia,
-} from "@/app/src/hooks/mediaQuery";
-import { PageContext } from "@/app/src/contexts";
+} from "@/app/_src/hooks/mediaQuery";
+import { PageContext } from "@/app/_src/contexts";
 import "@mantine/charts/styles.css";
 import {
   IconArrowMerge,
@@ -33,12 +31,25 @@ import {
   IconLayoutSidebarLeftCollapse,
   IconLayoutSidebarRightCollapse,
 } from "@tabler/icons-react";
-import { pathTree } from "@/app/app/tree";
+import { pathTree } from "@/app/subs/app/tree";
 import { ReactChannelIO, useChannelIOApi } from "react-channel-plugin";
 import { usePathname } from "next/navigation";
-import SettingsModal from "@/app/app/settings/modal";
-import { settingsPathTree } from "@/app/app/settings/tree";
-import { Path } from "@/app/app/components/types";
+import SettingsModal from "@/app/subs/app/settings/modal";
+import { Path } from "@/app/subs/app/components/types";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import UserMenu from "@/app/subs/app/components/UserMenu";
+
+const workspace = {
+  name: "팀 프루퍼",
+  slug: "proofer",
+};
+const getWorkspacePath = (path: string) => {
+  if (process.env.VERCEL_ENV === "production") {
+    return `/${workspace.slug}/${path}`;
+  } else {
+    return `/subs/app/${workspace.slug}/${path}`;
+  }
+};
 
 export const viewport: Viewport = {
   themeColor: "#0052cc",
@@ -77,14 +88,11 @@ export default function AppLayout({ children }: { children: any }) {
     settingsDisclosure[1].open();
   };
 
-  const workspace = {
-    name: "팀 프루퍼",
-    slug: "proofer",
-  };
-
   const isNavLinkActive = (pathName: string, subPathName: string) =>
     pathBlocks.length === 2 &&
     pathBlocks.join("") === [pathName, subPathName].join("");
+
+  const userContext = useUser();
 
   return (
     <ReactChannelIO
@@ -154,7 +162,7 @@ export default function AppLayout({ children }: { children: any }) {
                 ) : (
                   <Anchor href={"/"} underline="never" fz={0}>
                     <Image
-                      src="/images/branding.svg"
+                      src="/assets/images/branding.svg"
                       alt="프루퍼 로고"
                       width={24}
                       height={24}
@@ -223,68 +231,10 @@ export default function AppLayout({ children }: { children: any }) {
                     </Stack>
                   )}
                 </Transition>
-                <Menu withArrow>
-                  <Menu.Target>
-                    <Avatar
-                      src={
-                        "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-8.png"
-                      }
-                      style={{
-                        border: "2px solid var(--color-secondary)",
-                      }}
-                    />
-                  </Menu.Target>
-                  <Menu.Dropdown>
-                    <Menu.Label>계정</Menu.Label>
-                    <Menu.Item>
-                      <Group gap={16}>
-                        <Avatar
-                          src={
-                            "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-8.png"
-                          }
-                        />
-                        <Stack gap={0}>
-                          <Text size={"sm"}>임한솔</Text>
-                          <Text size={"xs"} c={"dimmed"}>
-                            hsol@campersground.kr
-                          </Text>
-                        </Stack>
-                      </Group>
-                    </Menu.Item>
-                    <Menu.Divider />
-                    <Menu.Label>업그레이드</Menu.Label>
-                    <Menu.Item
-                      component={"a"}
-                      href={"https://proofer.tech#price"}
-                    >
-                      <Group justify={"space-between"}>
-                        <Text size={"sm"}>
-                          Professional 플랜을 사용해 보세요
-                        </Text>
-                        <Badge size={"xs"}>무료 14일 평가판</Badge>
-                      </Group>
-                    </Menu.Item>
-                    <Menu.Divider />
-                    {Object.entries(settingsPathTree).map(
-                      ([pathName, path]) => (
-                        <Menu.Item
-                          key={pathName}
-                          component="button"
-                          onClick={() => openSettingModal(path)}
-                        >
-                          <Group>
-                            {path.tablerIcon && (
-                              <path.tablerIcon size={"1em"} />
-                            )}
-                            <Text size={"sm"}>{path.title}</Text>
-                          </Group>
-                        </Menu.Item>
-                      ),
-                    )}
-                    <Menu.Divider />
-                    <Menu.Item c={"red"}>로그아웃</Menu.Item>
-                  </Menu.Dropdown>
-                </Menu>
+                <UserMenu
+                  userContext={userContext}
+                  onSettingClick={openSettingModal}
+                />
               </Stack>
             </Stack>
             <AppShell.Navbar
@@ -386,7 +336,9 @@ export default function AppLayout({ children }: { children: any }) {
                                 ([subPathName, subPath]) => (
                                   <NavLink
                                     key={`${pathName}/${subPathName}`}
-                                    href={`/${workspace.slug}/${pathName}/${subPathName}`}
+                                    href={getWorkspacePath(
+                                      `/${pathName}/${subPathName}`,
+                                    )}
                                     leftSection={
                                       subPath.tablerIcon && (
                                         <subPath.tablerIcon

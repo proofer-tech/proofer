@@ -6,7 +6,11 @@ export default function Page() {
   return (
     <Center h={"80vh"}>
       <Stack align={"center"}>
-        <Image src={"/images/integrations.png"} alt={"연동"} w={"10em"} />
+        <Image
+          src={"/assets/images/integrations.png"}
+          alt={"연동"}
+          w={"10em"}
+        />
         <Title order={1} ta={"center"}>
           우리 개발자의 생산성이 궁금하다면?
         </Title>

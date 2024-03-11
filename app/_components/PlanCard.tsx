@@ -13,7 +13,7 @@ import {
 } from "@mantine/core";
 import React, { useContext } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
-import { PageContext } from "@/app/src/contexts";
+import { PageContext } from "@/app/_src/contexts";
 
 interface PlanCardProps extends CardProps, ElementProps<"div"> {
   name: string;
@@ -46,7 +46,7 @@ export default function PlanCard({
     >
       <Card.Section>
         <Box w={"8em"} pos={"absolute"} right={"-4.2em"} top={"0.8em"}>
-          <Image src="/images/card-head.png" alt="Norway" />
+          <Image src="/assets/images/card-head.png" alt="Norway" />
         </Box>
       </Card.Section>
       <Stack py={"1em"} gap={"1.3em"}>

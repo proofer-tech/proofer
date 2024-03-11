@@ -9,6 +9,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
+import { UserProvider } from "@auth0/nextjs-auth0/client";
+
 export const viewport: Viewport = {
   themeColor: "#0052cc",
   initialScale: 1,
@@ -43,7 +45,7 @@ export const metadata = {
     siteName: title,
     title: title,
     description: description,
-    images: ["/images/og-image.png"],
+    images: ["/assets/images/og-image.png"],
   },
 };
 
@@ -60,11 +62,13 @@ export default function RootLayout({ children }: { children: any }) {
         <script async src="https://tally.so/widgets/embed.js"></script>
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
-        <Analytics />
-        <SpeedInsights />
+        <UserProvider>
+          <MantineProvider theme={theme}>{children}</MantineProvider>
+          <Analytics />
+          <SpeedInsights />
 
-        <GoogleAnalytics gaId="G-L765E402KF" />
+          <GoogleAnalytics gaId="G-L765E402KF" />
+        </UserProvider>
       </body>
     </html>
   );

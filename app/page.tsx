@@ -7,8 +7,8 @@ import {
   useIsDesktopMedia,
   useIsMobileMedia,
   useIsTabletMedia,
-} from "@/app/src/hooks/mediaQuery";
-import { PageContext } from "@/app/src/contexts";
+} from "@/app/_src/hooks/mediaQuery";
+import { PageContext } from "@/app/_src/contexts";
 import {
   Anchor,
   AppShell,
@@ -21,21 +21,21 @@ import {
   Transition,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import Background from "@/app/components/Background";
-import Hero from "@/app/components/Hero";
-import { Done, Down } from "@/app/components/Divider";
-import Section from "@/app/components/Section";
-import Partners from "@/app/components/Partners";
-import PlanCard from "@/app/components/PlanCard";
-import Inquire from "@/app/components/Inquire";
-import Footer from "@/app/components/Footer";
+import Background from "@/app/_components/Background";
+import Hero from "@/app/_components/Hero";
+import { Done, Down } from "@/app/_components/Divider";
+import Section from "@/app/_components/Section";
+import Partners from "@/app/_components/Partners";
+import PlanCard from "@/app/_components/PlanCard";
+import Inquire from "@/app/_components/Inquire";
+import Footer from "@/app/_components/Footer";
 import {
   InquireCompletedModal,
   NotReadyYetModal,
-} from "@/app/components/Modal";
-import LandingPageShell from "@/app/components/LandingPageShell";
-import useTallyInquireForm from "@/app/src/hooks/tally";
-import Header from "@/app/components/Header";
+} from "@/app/_components/Modal";
+import LandingPageShell from "@/app/_components/LandingPageShell";
+import useTallyInquireForm from "@/app/_src/hooks/tally";
+import Header from "@/app/_components/Header";
 import { ReactChannelIO } from "react-channel-plugin";
 
 Page.getInitialProps = async (ctx: NextPageContext) => {
@@ -115,7 +115,6 @@ export default function Page(userAgent: any) {
               { title: "서비스소개", href: "/docs/introduction-of-proofer" },
             ]}
             onBurgerClick={navbarDisclosure[1].toggle}
-            onLoginClick={() => notReadyYetModal.open()}
             onInquireClick={() => openTallyPopup()}
           />
           <Transition
@@ -137,7 +136,7 @@ export default function Page(userAgent: any) {
                   <Group justify={"center"} px={"1em"}>
                     <Image
                       radius="md"
-                      src="/images/landing-page-01.png"
+                      src="/assets/images/landing-page-01.png"
                       w={"100%"}
                       maw={"1080px"}
                       alt={"프루퍼 대시보드"}
@@ -163,7 +162,7 @@ export default function Page(userAgent: any) {
                   >
                     <Image
                       radius="md"
-                      src="/images/landing-page-02.png"
+                      src="/assets/images/landing-page-02.png"
                       w={"100%"}
                       maw={"1080px"}
                       alt={"성과를 측정/평가/개선합니다"}
@@ -179,7 +178,7 @@ export default function Page(userAgent: any) {
                   >
                     <Image
                       radius="md"
-                      src="/images/landing-page-03.png"
+                      src="/assets/images/landing-page-03.png"
                       w={"100%"}
                       maw={"1080px"}
                       alt={"프루퍼 통합 시스템"}
@@ -195,7 +194,7 @@ export default function Page(userAgent: any) {
                   >
                     <Image
                       radius="md"
-                      src="/images/landing-page-04.png"
+                      src="/assets/images/landing-page-04.png"
                       w={"100%"}
                       maw={"1080px"}
                       alt={"정확한 데이터에 기반한 성과 가시화"}
@@ -212,7 +211,7 @@ export default function Page(userAgent: any) {
                   >
                     <Image
                       radius="md"
-                      src="/images/landing-page-05.png"
+                      src="/assets/images/landing-page-05.png"
                       w={"100%"}
                       maw={"1080px"}
                       alt={"인사이트 알고리즘"}

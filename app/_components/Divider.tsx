@@ -6,7 +6,7 @@ export function Down({ children, ...props }: any) {
     <>
       <Group justify={"center"} {...props}>
         <Box w={"min(5vw, 2em)"}>
-          <Image src={"/images/divider-down.svg"} alt={"↓"} />
+          <Image src={"/assets/images/divider-down.svg"} alt={"↓"} />
         </Box>
       </Group>
       {children}
@@ -19,7 +19,7 @@ export function Done({ children, ...props }: any) {
     <>
       <Group justify={"center"} {...props}>
         <Box w={"min(5vw, 2em)"}>
-          <Image src={"/images/divider-end.svg"} alt={"</>"} />
+          <Image src={"/assets/images/divider-end.svg"} alt={"</>"} />
         </Box>
       </Group>
       {children}
