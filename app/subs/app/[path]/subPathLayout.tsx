@@ -1,9 +1,10 @@
 import { pathTree } from "@/app/subs/app/tree";
-import { Center, Stack, Text, Title } from "@mantine/core";
+import { Center, Space, Stack, Text, Title } from "@mantine/core";
 import React from "react";
 import { headers } from "next/headers";
 import { getSession } from "@auth0/nextjs-auth0";
 import { IconFolderX } from "@tabler/icons-react";
+import NotReadyYetLetter from "@/app/_components/NotReadyYetLetter";
 
 export default async function SubPathLayout({ children }: { children: any }) {
   const session = await getSession();
@@ -21,9 +22,13 @@ export default async function SubPathLayout({ children }: { children: any }) {
   const path = pathTree[pathBlocks[0]];
   const subPath = path?.subTree?.[pathBlocks[1]];
 
+  if (!subPath?.isImplemented)
+    return <NotReadyYetLetter title={true} c={"var(--mantine-color-gray-8)"} />;
+
   return (
-    <Center h={"80vh"}>
+    <Center>
       <Stack align={"center"} c={"var(--mantine-color-gray-6"}>
+        <Space h={"10vh"} />
         <IconFolderX size={"5em"} />
         <Stack w={"100%"} align={"center"}>
           <Title order={1} ta={"center"}>
