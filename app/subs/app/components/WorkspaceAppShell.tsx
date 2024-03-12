@@ -131,7 +131,7 @@ export default function WorkspaceAppShell({
                   />
                 </Button>
               ) : (
-                <Anchor href={"/"} underline="never" fz={0}>
+                <Anchor href={generateAppPath("/")} underline="never" fz={0}>
                   <Image
                     src="/assets/images/branding.svg"
                     alt="프루퍼 로고"

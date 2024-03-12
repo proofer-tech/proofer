@@ -14,6 +14,9 @@ import { Workspace } from "@/database/workspace/schema";
 import { db } from "@/database/engine";
 import { eq } from "drizzle-orm";
 import { getUserByEmail } from "@/src/data/users";
+import { redirect } from "next/navigation";
+import { generateAppPath } from "@/src/path";
+import WorkspaceChoice from "@/app/subs/app/components/WorkspaceChoice";
 
 export default async function Page() {
   const session = await getSession();
@@ -21,8 +24,6 @@ export default async function Page() {
   const workspaces = user
     ? await db.select().from(Workspace).where(eq(Workspace.ownerId, user.id))
     : [];
-
-  const onWorkspaceSelect = (slug: string) => {};
 
   return (
     <Center h={"80vh"}>
@@ -39,12 +40,7 @@ export default async function Page() {
           {user ? (
             <>
               {workspaces.length > 0 ? (
-                <NativeSelect
-                  data={workspaces.map((workspace) => ({
-                    label: workspace.title,
-                    value: workspace.id.toString(),
-                  }))}
-                />
+                <WorkspaceChoice workspaces={workspaces} />
               ) : (
                 ""
               )}

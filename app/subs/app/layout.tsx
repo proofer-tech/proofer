@@ -20,6 +20,7 @@ export default async function AppLayout({ children }: { children: any }) {
 
   const headerList = headers();
   const [workspaceSlug] = getAppPathBlocks(headerList.get("x-pathname") || "");
+  console.log("hello");
 
   let workspace, member;
   if (user) {

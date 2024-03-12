@@ -17,5 +17,5 @@ export const generateAppPath = (
   if (workspace) workspacePathBlocks.push(workspace.slug);
   if (path) workspacePathBlocks.push(path);
 
-  return workspacePathBlocks.join("/");
+  return workspacePathBlocks.join("/").replace("//", "/");
 };
