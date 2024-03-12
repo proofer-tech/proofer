@@ -9,22 +9,15 @@ import {
   Text,
 } from "@mantine/core";
 import { settingsPathTree } from "@/app/subs/app/settings/tree";
-import React from "react";
+import React, { useContext } from "react";
 import { Path } from "./types";
-import { UserDto } from "@/app/subs/app/dto/user";
-import { InferSelectModel } from "drizzle-orm";
-import { WorkspaceMember } from "@/database/workspace/schema";
+import AppContext from "@/app/subs/app/contexts/AppContext";
 
 interface UserMenuProps extends MenuProps {
-  user?: UserDto;
-  member?: InferSelectModel<typeof WorkspaceMember>;
   onSettingClick: (path: Path) => void;
 }
-export default async function UserMenu({
-  user,
-  member,
-  onSettingClick,
-}: UserMenuProps) {
+export default async function UserMenu({ onSettingClick }: UserMenuProps) {
+  const { user, workspace } = useContext(AppContext);
   return (
     <Menu withArrow>
       <Menu.Target>
@@ -58,7 +51,7 @@ export default async function UserMenu({
               </Stack>
             </Group>
           </Menu.Item>
-          {member && member.isManager ? (
+          {workspace && workspace.member && workspace.member.isManager ? (
             <>
               <Menu.Divider />
               <Menu.Label>업그레이드</Menu.Label>
