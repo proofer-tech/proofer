@@ -18,10 +18,9 @@ import { getUserByEmail } from "@/src/data/users";
 export default async function Page() {
   const session = await getSession();
   const user = await getUserByEmail(session?.user?.email);
-  const workspaces = await db
-    .select()
-    .from(Workspace)
-    .where(eq(Workspace.ownerId, user.id));
+  const workspaces = user
+    ? await db.select().from(Workspace).where(eq(Workspace.ownerId, user.id))
+    : [];
 
   const onWorkspaceSelect = (slug: string) => {};
 
