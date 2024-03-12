@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1710135784047,
+      "tag": "0000_vengeful_skrulls",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1710210160977,
+      "tag": "0001_medical_the_enforcers",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1710224219012,
+      "tag": "0002_last_prism",
+      "breakpoints": true
+    }
+  ]
+}

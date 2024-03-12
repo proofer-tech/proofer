@@ -1,16 +1,6 @@
-import {
-  Anchor,
-  Box,
-  Button,
-  Divider,
-  Group,
-  Image,
-  Modal,
-  Stack,
-  Text,
-} from "@mantine/core";
+import { Box, Group, Image, Modal, Text } from "@mantine/core";
 import React from "react";
-import NotReadyYetLetter from "@/app/_components/NotReadyYetLetter";
+import NotReadyYetLetter from "@/app/components/NotReadyYetLetter";
 
 interface InquireCompletedModalProps {
   isOpened: boolean;

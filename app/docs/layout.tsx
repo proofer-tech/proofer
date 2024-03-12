@@ -1,14 +1,14 @@
 "use client";
 import "@react-pdf-viewer/core/lib/styles/index.css";
-import LandingPageShell from "@/app/_components/LandingPageShell";
+import LandingPageShell from "@/app/components/LandingPageShell";
 
 import useTallyInquireForm from "@/src/hooks/tally";
-import { InquireCompletedModal } from "@/app/_components/Modal";
+import { InquireCompletedModal } from "@/app/components/Modal";
 import React from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { AppShell } from "@mantine/core";
-import Footer from "@/app/_components/Footer";
-import Header from "@/app/_components/Header";
+import Footer from "@/app/components/Footer";
+import Header from "@/app/components/Header";
 import { ReactChannelIO } from "react-channel-plugin";
 
 export default function DocsLayout({ children }: any) {

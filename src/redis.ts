@@ -1,5 +1,5 @@
 import { kv } from "@vercel/kv";
-
+import { Lock, RetryConfig } from "@upstash/lock";
 export class VercelKVStream {
   private readonly _key: string;
   get key() {
@@ -74,5 +74,29 @@ export class VercelKVStreamGroup {
       return { [lastOffset]: records[lastOffset] };
     }
     return undefined;
+  }
+}
+
+type withLockConfig = {
+  id: string;
+  lease?: number;
+  retry?: RetryConfig;
+};
+export async function withLock(
+  config: withLockConfig,
+  onAcquire: (lock: Lock) => void,
+  onFail: (lock: Lock) => void = (lock: Lock) => {},
+) {
+  const lock = new Lock(
+    Object.assign({ lease: 3000 }, config, {
+      redis: kv,
+    }),
+  );
+
+  if (await lock.acquire()) {
+    onAcquire(lock);
+    await lock.release();
+  } else {
+    onFail(lock);
   }
 }

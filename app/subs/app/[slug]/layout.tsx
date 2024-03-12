@@ -10,17 +10,27 @@ import {
   Title,
 } from "@mantine/core";
 import React from "react";
+import { getSession } from "@auth0/nextjs-auth0";
+import { redirect } from "next/navigation";
+import { getAppPathBlocks } from "@/src/path";
 import { headers } from "next/headers";
+import { findWorkspace } from "@/app/subs/app/data/workspace";
+import { findUserFromSession } from "@/app/subs/app/data/user";
 
 export default async function WorkspaceLayout({ children }: { children: any }) {
   const headersList = headers();
-  const hostname = headersList.get("host");
-  const subDomain = hostname?.split(".")[0];
-
   const pathname = headersList.get("x-pathname") || "";
-  const pathBlocks = pathname.split("/").slice(subDomain === "app" ? 2 : 4);
-  const path = pathTree[pathBlocks[0]];
-  const subPath = path?.subTree?.[pathBlocks[1]];
+  const [slug, pathBlock, subPathBlock] = getAppPathBlocks(pathname);
+  const path = pathTree[pathBlock];
+  const subPath = path?.subTree?.[subPathBlock];
+
+  const user = await findUserFromSession();
+  if (!user) return redirect("/api/auth/login");
+  if (!user?.email_verified) return redirect("/auth/email-verification");
+
+  const workspace = await findWorkspace(slug);
+  if (!workspace) return redirect("/404");
+  if (workspace.ownerId !== user.id) return redirect("/403");
 
   if (subPath !== undefined)
     return (

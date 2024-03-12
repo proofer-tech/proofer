@@ -1,10 +1,11 @@
 import { pathTree } from "@/app/subs/app/tree";
 import { Center, Space, Stack, Text, Title } from "@mantine/core";
 import React from "react";
-import { headers } from "next/headers";
 import { getSession } from "@auth0/nextjs-auth0";
 import { IconFolderX } from "@tabler/icons-react";
-import NotReadyYetLetter from "@/app/_components/NotReadyYetLetter";
+import NotReadyYetLetter from "@/app/components/NotReadyYetLetter";
+import { getAppPathBlocks } from "@/src/path";
+import { headers } from "next/headers";
 
 export default async function SubPathLayout({ children }: { children: any }) {
   const session = await getSession();
@@ -14,13 +15,10 @@ export default async function SubPathLayout({ children }: { children: any }) {
   }
 
   const headersList = headers();
-  const hostname = headersList.get("host");
-  const subDomain = hostname?.split(".")[0];
-
   const pathname = headersList.get("x-pathname") || "";
-  const pathBlocks = pathname.split("/").slice(subDomain === "app" ? 2 : 4);
-  const path = pathTree[pathBlocks[0]];
-  const subPath = path?.subTree?.[pathBlocks[1]];
+  const [_, pathBlock, subPathBlock] = getAppPathBlocks(pathname);
+  const path = pathTree[pathBlock];
+  const subPath = path?.subTree?.[subPathBlock];
 
   if (!subPath?.isImplemented)
     return <NotReadyYetLetter title={true} c={"var(--mantine-color-gray-8)"} />;

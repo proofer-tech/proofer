@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
-import Header from "@/app/_components/Header";
+import Header from "@/app/components/Header";
 import React, { useEffect, useState } from "react";
-import LandingPageShell from "@/app/_components/LandingPageShell";
+import LandingPageShell from "@/app/components/LandingPageShell";
 import {
   AppShell,
   Center,
@@ -12,7 +12,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import Footer from "@/app/_components/Footer";
+import Footer from "@/app/components/Footer";
 import { redirect } from "next/navigation";
 
 const magnifierComponents = [

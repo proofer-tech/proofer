@@ -1,7 +1,7 @@
 "use client";
 import { useDisclosure } from "@mantine/hooks";
 import useTallyInquireForm from "@/src/hooks/tally";
-import LandingPageShell from "@/app/_components/LandingPageShell";
+import LandingPageShell from "@/app/components/LandingPageShell";
 import {
   AppShell,
   Badge,
@@ -16,10 +16,10 @@ import {
   Title,
   Tooltip,
 } from "@mantine/core";
-import { InquireCompletedModal } from "@/app/_components/Modal";
-import Footer from "@/app/_components/Footer";
+import { InquireCompletedModal } from "@/app/components/Modal";
+import Footer from "@/app/components/Footer";
 import React from "react";
-import Header from "@/app/_components/Header";
+import Header from "@/app/components/Header";
 import {
   IconAlertCircleFilled,
   IconCircleCheckFilled,

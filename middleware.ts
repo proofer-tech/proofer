@@ -76,7 +76,11 @@ async function handleRouterMiddleware(
     const pureHostname = hostname.replace(`${subDomain}.`, "");
 
     let rewriteUri = path === "/" ? "" : path;
-    if (path.startsWith("/api/auth0") || path.startsWith("/api/health")) {
+    if (
+      path.startsWith("/api/auth0") ||
+      path.startsWith("/api/health") ||
+      path.startsWith("/auth")
+    ) {
       // auth 와 health 는 공통으로 사용합니다.
       rewriteUri = `${req.nextUrl.protocol}//${pureHostname}${rewriteUri}`;
     } else {
