@@ -1,7 +1,7 @@
 import { db } from "@/database/engine";
-import { Workspace, WorkspaceMember } from "@/database/workspace/schema";
+import { Workspace, WorkspaceMember } from "@/database/schemas/workspace";
 import { and, eq, InferSelectModel } from "drizzle-orm";
-import { User } from "@/database/auth/schema";
+import { User } from "@/database/schemas/auth";
 
 export async function findWorkspace(
   slug: string,

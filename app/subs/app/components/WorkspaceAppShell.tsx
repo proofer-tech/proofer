@@ -33,7 +33,7 @@ import { usePathname } from "next/navigation";
 import AppContext from "@/app/subs/app/contexts/AppContext";
 import { InferSelectModel } from "drizzle-orm";
 import { UserDto } from "@/app/subs/app/dto/user";
-import { Workspace, WorkspaceMember } from "@/database/workspace/schema";
+import { Workspace, WorkspaceMember } from "@/database/schemas/workspace";
 
 function NeedHelpNavLink() {
   const { showMessenger } = useChannelIOApi();

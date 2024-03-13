@@ -1,7 +1,7 @@
 "use client";
 import { createContext } from "react";
 import { InferSelectModel } from "drizzle-orm";
-import { Workspace, WorkspaceMember } from "@/database/workspace/schema";
+import { Workspace, WorkspaceMember } from "@/database/schemas/workspace";
 import { UserDto } from "@/app/subs/app/dto/user";
 
 interface Workspace {

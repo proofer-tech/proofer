@@ -2,7 +2,7 @@
 import { SelectProps, Select } from "@mantine/core";
 import React from "react";
 import { InferSelectModel } from "drizzle-orm";
-import { Workspace } from "@/database/workspace/schema";
+import { Workspace } from "@/database/schemas/workspace";
 import { generateAppPath } from "@/src/path";
 import { useRouter } from "next/navigation";
 

@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import { IconSquareRoundedPlus } from "@tabler/icons-react";
 import React from "react";
-import { Workspace } from "@/database/workspace/schema";
+import { Workspace } from "@/database/schemas/workspace";
 import { db } from "@/database/engine";
 import { eq } from "drizzle-orm";
 import { getUserByEmail } from "@/src/data/users";

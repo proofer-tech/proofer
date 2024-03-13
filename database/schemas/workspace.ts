@@ -6,7 +6,7 @@ import {
   text,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
-import { User } from "@/database/auth/schema";
+import { User } from "@/database/schemas/auth";
 
 export const Workspace = prooferSchema.table(
   "workspace",

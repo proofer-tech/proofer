@@ -1,5 +1,5 @@
 import { db } from "@/database/engine";
-import { User } from "@/database/auth/schema";
+import { User } from "@/database/schemas/auth";
 import { eq } from "drizzle-orm";
 
 export async function getUserByEmail(email: string) {

@@ -1,4 +1,4 @@
-import { Workspace } from "@/database/workspace/schema";
+import { Workspace } from "@/database/schemas/workspace";
 import { InferSelectModel } from "drizzle-orm";
 
 export function getAppPathBlocks(pathname: String) {
