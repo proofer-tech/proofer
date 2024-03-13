@@ -22,6 +22,13 @@
       "when": 1710224219012,
       "tag": "0002_last_prism",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1710315246606,
+      "tag": "0003_lean_captain_universe",
+      "breakpoints": true
     }
   ]
 }

@@ -17,6 +17,8 @@ export const Workspace = prooferSchema.table(
     ownerId: integer("owner_id")
       .notNull()
       .references(() => User.id),
+
+    logoUrl: text("logo_url"),
   },
   (table) => {
     return {
