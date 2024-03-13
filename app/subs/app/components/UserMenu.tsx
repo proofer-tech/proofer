@@ -16,7 +16,7 @@ import AppContext from "@/app/subs/app/contexts/AppContext";
 interface UserMenuProps extends MenuProps {
   onSettingClick: (path: Path) => void;
 }
-export default async function UserMenu({ onSettingClick }: UserMenuProps) {
+export default function UserMenu({ onSettingClick }: UserMenuProps) {
   const { user, workspace } = useContext(AppContext);
   return (
     <Menu withArrow>
