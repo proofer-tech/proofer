@@ -82,7 +82,7 @@ export default function Header({
                     </Anchor>
                   ) : (
                     <Anchor
-                      href={"/api/auth/login"}
+                      href={"/auth/login"}
                       underline={"never"}
                       size={"sm"}
                     >
@@ -137,7 +137,7 @@ export default function Header({
         ) : (
           <NavLink
             rightSection={<IconLogin2 size={"1em"} />}
-            href={"/api/auth/login"}
+            href={"/auth/login"}
             label={"로그인"}
           />
         )}

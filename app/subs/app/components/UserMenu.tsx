@@ -22,7 +22,7 @@ export default async function UserMenu({ onSettingClick }: UserMenuProps) {
     <Menu withArrow>
       <Menu.Target>
         <Anchor
-          href={user === undefined ? "/api/auth/login" : "#"}
+          href={user === undefined ? "/auth/login" : "#"}
           underline={"never"}
         >
           <Avatar

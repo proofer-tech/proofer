@@ -77,7 +77,7 @@ async function handleRouterMiddleware(
 
     let rewriteUri = path === "/" ? "" : path;
     if (
-      path.startsWith("/api/auth0") ||
+      path.startsWith("/api/auth") ||
       path.startsWith("/api/health") ||
       path.startsWith("/auth")
     ) {

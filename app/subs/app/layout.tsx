@@ -6,6 +6,7 @@ import { headers } from "next/headers";
 import { getAppPathBlocks } from "@/src/path";
 import { findMember, findWorkspace } from "@/app/subs/app/data/workspace";
 import { findUserFromSession } from "@/app/subs/app/data/user";
+import { touchSession } from "@auth0/nextjs-auth0";
 
 export const viewport: Viewport = {
   themeColor: "#0052cc",

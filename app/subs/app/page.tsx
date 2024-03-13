@@ -54,7 +54,7 @@ export default async function Page() {
           ) : (
             <>
               <Button variant="light">데모버전 구경하기</Button>
-              <Anchor href={"/api/auth/login"} w={"100%"}>
+              <Anchor href={"/auth/login"} w={"100%"}>
                 <Button w={"100%"}>로그인</Button>
               </Anchor>
             </>

@@ -1,7 +1,7 @@
 import { db } from "@/database/engine";
 import { User } from "@/database/auth/schema";
 import { eq, InferSelectModel } from "drizzle-orm";
-import { getSession } from "@auth0/nextjs-auth0";
+import { getSession, touchSession } from "@auth0/nextjs-auth0";
 import { UserDto } from "@/app/subs/app/dto/user";
 
 export async function findUserByEmail(
@@ -12,6 +12,8 @@ export async function findUserByEmail(
 }
 
 export async function findUserFromSession(): Promise<UserDto | undefined> {
+  await touchSession();
+
   const session = await getSession();
   if (!session?.user) return;
 

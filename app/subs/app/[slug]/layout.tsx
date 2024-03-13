@@ -25,7 +25,7 @@ export default async function WorkspaceLayout({ children }: { children: any }) {
   const subPath = path?.subTree?.[subPathBlock];
 
   const user = await findUserFromSession();
-  if (!user) return redirect("/api/auth/login");
+  if (!user) return redirect("/auth/login");
   if (!user?.email_verified) return redirect("/auth/email-verification");
 
   const workspace = await findWorkspace(slug);
