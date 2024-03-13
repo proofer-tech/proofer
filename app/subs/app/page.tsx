@@ -1,21 +1,11 @@
 import { getSession } from "@auth0/nextjs-auth0";
-import {
-  Anchor,
-  Button,
-  Center,
-  Image,
-  NativeSelect,
-  Stack,
-  Title,
-} from "@mantine/core";
+import { Anchor, Button, Center, Image, Stack, Title } from "@mantine/core";
 import { IconSquareRoundedPlus } from "@tabler/icons-react";
 import React from "react";
 import { Workspace } from "@/database/schemas/workspace";
 import { db } from "@/database/engine";
 import { eq } from "drizzle-orm";
 import { getUserByEmail } from "@/src/data/users";
-import { redirect } from "next/navigation";
-import { generateAppPath } from "@/src/path";
 import WorkspaceChoice from "@/app/subs/app/components/WorkspaceChoice";
 
 export default async function Page() {

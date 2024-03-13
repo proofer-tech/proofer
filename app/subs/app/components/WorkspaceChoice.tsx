@@ -1,5 +1,5 @@
 "use client";
-import { SelectProps, Select } from "@mantine/core";
+import { Select, SelectProps } from "@mantine/core";
 import React from "react";
 import { InferSelectModel } from "drizzle-orm";
 import { Workspace } from "@/database/schemas/workspace";

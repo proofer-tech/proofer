@@ -27,7 +27,7 @@ import { ReactChannelIO, useChannelIOApi } from "react-channel-plugin";
 import SettingsModal from "@/app/subs/app/settings/modal";
 import { Path } from "@/app/subs/app/components/types";
 import UserMenu from "@/app/subs/app/components/UserMenu";
-import { getAppPathBlocks, generateAppPath } from "@/src/path";
+import { generateAppPath, getAppPathBlocks } from "@/src/path";
 import TargetAvatarGroup from "@/app/subs/app/components/TargetAvatarGroup";
 import { usePathname } from "next/navigation";
 import AppContext from "@/app/subs/app/contexts/AppContext";
