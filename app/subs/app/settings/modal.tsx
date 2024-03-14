@@ -14,18 +14,24 @@ import { Path } from "@/app/subs/app/components/types";
 import { IconSearch } from "@tabler/icons-react";
 import { settingsPathTree } from "@/app/subs/app/settings/tree";
 import { useDisclosure } from "@mantine/hooks";
+import { usePathname, useRouter } from "next/navigation";
 
 interface SettingsModalProps {
   path?: Path;
   setPath?: (path: Path) => void;
 
   opened: boolean;
-  onClose: () => void;
   fullScreen: boolean;
+
+  open: () => void;
+  close: () => void;
+  toggle: () => void;
 }
 export const SettingsModalContext = createContext<SettingsModalProps>({
   opened: false,
-  onClose: () => {},
+  open: () => {},
+  close: () => {},
+  toggle: () => {},
   fullScreen: false,
 });
 
@@ -41,6 +47,8 @@ export function useSettingsModal() {
   };
 }
 export function SettingsModal() {
+  const router = useRouter();
+  const pathname = usePathname();
   const settingsModalContext = useContext(SettingsModalContext);
   const [searchText, setSearchText] = useState<string>("");
 
@@ -54,7 +62,7 @@ export function SettingsModal() {
       centered={true}
       closeOnClickOutside={false}
       opened={settingsModalContext.opened}
-      onClose={settingsModalContext.onClose}
+      onClose={settingsModalContext.close}
     >
       <Modal.Overlay />
       <Modal.Content>
@@ -95,11 +103,11 @@ export function SettingsModal() {
                     ([_, v]) =>
                       searchText.length < 1 || v.title.includes(searchText),
                   )
-                  .map(([code, setting]) => {
+                  .map(([slug, setting]) => {
                     return (
                       <NavLink
-                        key={code}
-                        href={`#settings-${code}`}
+                        key={slug}
+                        component={"div"}
                         active={
                           settingsModalContext.path?.title === setting.title
                         }
@@ -109,7 +117,11 @@ export function SettingsModal() {
                             <setting.tablerIcon size={"1em"} />
                           )
                         }
-                        onClick={() => settingsModalContext.setPath?.(setting)}
+                        onClick={() => {
+                          if (pathname.split("/").reverse()[1] === "settings")
+                            router.push(slug);
+                          settingsModalContext.setPath?.(setting);
+                        }}
                       />
                     );
                   })}

@@ -9,9 +9,10 @@ interface Workspace {
   member?: InferSelectModel<typeof WorkspaceMember>;
 }
 interface AppProps {
+  isMounted: boolean;
   user?: UserDto;
   workspace?: Workspace;
 }
 
-const AppContext = createContext<AppProps>({});
+const AppContext = createContext<AppProps>({ isMounted: false });
 export default AppContext;

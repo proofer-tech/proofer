@@ -1,6 +1,6 @@
 import { getSession, touchSession } from "@auth0/nextjs-auth0";
 import { Anchor, Button, Stack, Text } from "@mantine/core";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { User } from "@/database/schemas/auth";
 import { db } from "@/database/engine";
 import { withLock } from "@/src/redis";
@@ -21,9 +21,7 @@ export default async function Page({ searchParams }: any) {
         async () => {
           await db.insert(User).values({ email: session.user.email });
         },
-        async () => {
-          redirect("/404");
-        },
+        async () => notFound(),
       );
     }
   }

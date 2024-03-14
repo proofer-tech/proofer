@@ -10,3 +10,15 @@ export interface Path {
 }
 
 export type PathTree = { [key: string]: Path };
+
+export const digTree = (tree: PathTree, pathBlocks: string[]) => {
+  let searchTree = tree;
+  for (const pathBlock of pathBlocks) {
+    const path = searchTree[pathBlock];
+    if (path) {
+      if (path.subTree) searchTree = path.subTree;
+      else return path;
+    }
+  }
+  return undefined;
+};

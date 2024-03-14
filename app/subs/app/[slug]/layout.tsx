@@ -10,7 +10,7 @@ import {
   Title,
 } from "@mantine/core";
 import React from "react";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getAppPathBlocks } from "@/src/path";
 import { headers } from "next/headers";
 import { findWorkspace } from "@/app/subs/app/data/workspace";
@@ -28,7 +28,7 @@ export default async function WorkspaceLayout({ children }: { children: any }) {
   if (!user?.email_verified) return redirect("/auth/email-verification");
 
   const workspace = await findWorkspace(slug);
-  if (!workspace) return redirect("/404");
+  if (!workspace) return notFound();
   if (workspace.ownerId !== user.id) return redirect("/403");
 
   if (subPath !== undefined)
