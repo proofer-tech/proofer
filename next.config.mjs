@@ -1,7 +1,7 @@
-import bundleAnalyzer from '@next/bundle-analyzer';
+import bundleAnalyzer from "@next/bundle-analyzer";
 
 const withBundleAnalyzer = bundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
+  enabled: process.env.ANALYZE === "true",
 });
 
 export default withBundleAnalyzer({
@@ -10,33 +10,40 @@ export default withBundleAnalyzer({
     ignoreDuringBuilds: true,
   },
   experimental: {
-    optimizePackageImports: ['@mantine/core', '@mantine/hooks'],
+    optimizePackageImports: ["@mantine/core", "@mantine/hooks"],
   },
   sassOptions: {
     prependData: `@import "./_mantine.scss";`,
   },
-  webpack: (
-      config, ..._
-  ) => {
+  webpack: (config, ..._) => {
     // @ts-ignore
-    config.externals.push({ canvas: 'commonjs canvas' })
-    return config
+    config.externals.push({ canvas: "commonjs canvas" });
+    return config;
   },
   async rewrites() {
-    return [{source: "/medium/:slug*", destination: "https://medium.com/@proofer.tech/:slug*"}]
+    return [
+      {
+        source: "/medium/:slug*",
+        destination: "https://medium.com/@proofer.tech/:slug*",
+      },
+      {
+        source: "/install/github",
+        destination: "https://github.com/apps/proofer-tech/installations/new",
+      },
+    ];
   },
   async redirects() {
     return [
       {
-        source: '/blog',
-        destination: 'https://medium.com/@proofer.tech',
+        source: "/blog",
+        destination: "https://medium.com/@proofer.tech",
         permanent: true,
       },
       {
-        source: '/blog/:slug*',
-        destination: 'https://medium.com/@proofer.tech/:slug*',
+        source: "/blog/:slug*",
+        destination: "https://medium.com/@proofer.tech/:slug*",
         permanent: true,
       },
-    ]
+    ];
   },
 });

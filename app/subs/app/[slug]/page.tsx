@@ -5,6 +5,7 @@ import AppContext from "@/app/subs/app/contexts/AppContext";
 
 export default function Page() {
   const context = useContext(AppContext);
+
   return (
     <Group>
       <Stack w={"30%"}>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Accordion,
   Anchor,
@@ -24,7 +24,6 @@ import {
 } from "@tabler/icons-react";
 import { pathTree } from "@/app/subs/app/tree";
 import { ReactChannelIO, useChannelIOApi } from "react-channel-plugin";
-import SettingsModal from "@/app/subs/app/settings/modal";
 import { Path } from "@/app/subs/app/components/types";
 import UserMenu from "@/app/subs/app/components/UserMenu";
 import { generateAppPath, getAppPathBlocks } from "@/src/path";
@@ -34,6 +33,11 @@ import AppContext from "@/app/subs/app/contexts/AppContext";
 import { InferSelectModel } from "drizzle-orm";
 import { UserDto } from "@/app/subs/app/dto/user";
 import { Workspace, WorkspaceMember } from "@/database/schemas/workspace";
+import {
+  SettingsModal,
+  SettingsModalContext,
+  useSettingsModal,
+} from "@/app/subs/app/settings/modal";
 
 function NeedHelpNavLink() {
   const { showMessenger } = useChannelIOApi();
@@ -62,13 +66,12 @@ export default function WorkspaceAppShell({
 }: WorkspaceAppShellProps) {
   const pathname = usePathname();
   const [_, pathBlock, subPathBlock] = getAppPathBlocks(pathname);
-
   const collapseDisclosure = useDisclosure(false);
-  const settingsDisclosure = useDisclosure(false);
-  const [settingsModalPath, setSettingsModalPath] = useState<Path>();
+  const settingsModal = useSettingsModal();
+
   const openSettingModal = (path: Path) => {
-    setSettingsModalPath(path);
-    settingsDisclosure[1].open();
+    settingsModal.setPath(path);
+    settingsModal.disclosure.open();
   };
 
   const isNavLinkActive = (pathName: string, subPathName: string) =>
@@ -323,11 +326,18 @@ export default function WorkspaceAppShell({
             </ScrollArea>
           </AppShell.Main>
         </AppShell>
-        <SettingsModal
-          path={settingsModalPath}
-          opened={settingsDisclosure[0]}
-          onClose={() => settingsDisclosure[1].close()}
-        />
+        <SettingsModalContext.Provider
+          value={{
+            path: settingsModal.path,
+            setPath: settingsModal.setPath,
+
+            opened: settingsModal.opened,
+            onClose: () => settingsModal.disclosure.close(),
+            fullScreen: false,
+          }}
+        >
+          <SettingsModal />
+        </SettingsModalContext.Provider>
       </AppContext.Provider>
     </ReactChannelIO>
   );
