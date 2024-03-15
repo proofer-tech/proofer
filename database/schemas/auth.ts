@@ -1,5 +1,5 @@
 import { prooferSchema } from "@/database/engine";
-import { char, serial, text, uniqueIndex } from "drizzle-orm/pg-core";
+import { char, serial, uniqueIndex } from "drizzle-orm/pg-core";
 
 export const User = prooferSchema.table(
   "user",
