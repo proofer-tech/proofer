@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { get } from "@vercel/edge-config";
-import { Health } from "@/src/interfaces";
+import { Health } from "@/src/types/health";
 const isProduction = process.env.VERCEL_ENV === "production";
 
 function notFound(req: NextRequest): NextResponse {

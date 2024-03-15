@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { WorkspaceUpdateDto } from "@/app/subs/app/[slug]/api/workspace/dto";
 import { Workspace } from "@/database/schemas/workspace";
 import { db } from "@/database/engine";
 import { eq } from "drizzle-orm";
@@ -8,6 +7,9 @@ import { findUserFromSession } from "@/src/data/user";
 import { notFound } from "next/navigation";
 import * as Boom from "@hapi/boom";
 import { findMember } from "@/src/data/workspace";
+import { put } from "@vercel/blob";
+import { base64ToFile } from "@/src/file";
+import { keysToCamelCase } from "@/src/object";
 
 export const PUT = withApiAuthRequired(async function route(
   req: NextRequest,
@@ -26,8 +28,25 @@ export const PUT = withApiAuthRequired(async function route(
     throw Boom.forbidden("워크스페이스의 관리자만 호출할 수 있습니다.");
 
   const res = new NextResponse();
-  const data: WorkspaceUpdateDto = await req.json();
-  if (Object.keys(data).length === 0) return NextResponse.error();
-  await db.update(Workspace).set(data).where(eq(Workspace.id, workspace.id));
-  return NextResponse.json({}, res);
+  const data = await req.json();
+
+  if (data.logo_url) {
+    const file = base64ToFile(data.logo_url);
+    const blob = await put(
+      `uploads/workspaces/${workspace.id}/${file.name}`,
+      file,
+      {
+        access: "public",
+      },
+    );
+    data.logo_url = blob.url;
+  }
+
+  const updateData = keysToCamelCase(data);
+
+  await db
+    .update(Workspace)
+    .set(updateData)
+    .where(eq(Workspace.id, workspace.id));
+  return NextResponse.json(Object.assign(workspace, updateData), res);
 });

@@ -1,4 +1,4 @@
 export interface WorkspaceUpdateDto {
-  title?: string;
+  name?: string;
   slug?: string;
 }

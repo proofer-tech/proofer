@@ -1,8 +1,18 @@
 import React, { useContext } from "react";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import NeedToSelectWorkspace from "@/app/subs/app/components/NeedToSelectWorkspace";
-import { Center, Stack, Text, Title } from "@mantine/core";
-import { IconSunset } from "@tabler/icons-react";
+import {
+  ActionIcon,
+  Avatar,
+  Card,
+  Center,
+  Group,
+  Menu,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
+import { IconDots, IconSunset } from "@tabler/icons-react";
 
 export default function IntegrationSettingsBody() {
   const { workspace } = useContext(ProoferInsightContext);
@@ -12,21 +22,23 @@ export default function IntegrationSettingsBody() {
 
   return (
     <Center w={"100%"}>
-      <Stack align={"center"} c={"var(--mantine-color-gray-6"} py={"2em"}>
-        <IconSunset size={"3em"} />
-        <Stack w={"100%"} align={"center"}>
-          <Title order={3} ta={"center"}>
-            준비중입니다.
-          </Title>
-          <Text ta={"center"}>
-            앱을 연결하거나 이미 연결되어있는 앱의 연결을 해제할 수 있는
-            기능입니다.
-          </Text>
-          <Text ta={"center"}>
-            지금 이 기능은 준비중이오니 이미 가입되어있는 계정에 워크스페이스를
-            볼 수 있는 권한을 부여하고 싶으시다면 채널톡을 통해 문의해주세요.
-          </Text>
-        </Stack>
+      <Stack align={"center"} c={"var(--mantine-color-gray-6"} w={"100%"}>
+        <Card withBorder shadow="sm" radius="md" w={"100%"}>
+          <Card.Section withBorder inheritPadding py="xs">
+            <Group justify="space-between">
+              <Avatar src="avatar.png" alt="it's me" />
+              <Text fw={500}>GitHub</Text>
+              <Menu withinPortal position="bottom-end" shadow="sm">
+                <Menu.Target>
+                  <ActionIcon variant="subtle" color="gray">
+                    <IconDots size={"1em"} />
+                  </ActionIcon>
+                </Menu.Target>
+                <Menu.Dropdown></Menu.Dropdown>
+              </Menu>
+            </Group>
+          </Card.Section>
+        </Card>
       </Stack>
     </Center>
   );

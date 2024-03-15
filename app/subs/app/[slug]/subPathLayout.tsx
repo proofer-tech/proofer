@@ -20,7 +20,7 @@ export default function SubPathLayout({ children }: { children: any }) {
   const path = pathTree[pathBlock];
   const subPath = path?.subTree?.[subPathBlock];
 
-  if (!subPath?.isImplemented)
+  if (path && !subPath?.isImplemented)
     return (
       <NotReadyYetLetter
         title={"아직 준비중인 기능이에요."}
@@ -29,8 +29,8 @@ export default function SubPathLayout({ children }: { children: any }) {
     );
   if (!wContext?.workspace)
     return (
-      <NeedToSelectWorkspace serviceName={subPath.title}>
-        {subPath.component}
+      <NeedToSelectWorkspace serviceName={subPath?.title}>
+        {subPath?.component}
       </NeedToSelectWorkspace>
     );
 

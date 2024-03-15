@@ -27,7 +27,7 @@ import {
 } from "@tabler/icons-react";
 import useSWR from "swr";
 import { apiFetcher } from "@/src/swr";
-import { Health, HealthState } from "@/src/interfaces";
+import { Health, HealthState } from "@/src/types/health";
 import { fswitch } from "@/utils";
 import { ReactChannelIO } from "react-channel-plugin";
 import { useSearchParams } from "next/navigation";

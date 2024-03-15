@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { get } from "@vercel/edge-config";
-import { Health } from "@/src/interfaces";
+import { Health } from "@/src/types/health";
 
 export async function GET() {
   const health: { [key: string]: Health } | undefined = await get("health");

@@ -3,7 +3,7 @@ import { IconFolderX } from "@tabler/icons-react";
 import React from "react";
 
 interface NeedToSelectWorkspaceProps {
-  serviceName: string;
+  serviceName?: string;
   children?: React.ReactNode;
 }
 export default function NeedToSelectWorkspace(
@@ -19,8 +19,9 @@ export default function NeedToSelectWorkspace(
             워크스페이스를 먼저 생성해주세요.
           </Title>
           <Text ta={"center"}>
-            {props.serviceName} 내용을 확인하려면, 먼저 워크스페이스를
-            생성해주신 후 업무에 사용되는 앱을 연동해야 합니다.
+            {props.serviceName ? `${props.serviceName} ` : ""}내용을 확인하려면,
+            먼저 워크스페이스를 생성해주신 후 업무에 사용되는 앱을 연동해야
+            합니다.
           </Text>
           <>{props.children}</>
         </Stack>
