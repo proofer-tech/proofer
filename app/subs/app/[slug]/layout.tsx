@@ -13,8 +13,8 @@ import React from "react";
 import { notFound, redirect } from "next/navigation";
 import { getAppPathBlocks } from "@/src/path";
 import { headers } from "next/headers";
-import { findWorkspace } from "@/app/subs/app/data/workspace";
-import { findUserFromSession } from "@/app/subs/app/data/user";
+import { findWorkspace } from "@/src/data/workspace";
+import { findUserFromSession } from "@/src/data/user";
 
 export default async function WorkspaceLayout({ children }: { children: any }) {
   const headersList = headers();

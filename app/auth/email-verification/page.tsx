@@ -4,7 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import { User } from "@/database/schemas/auth";
 import { db } from "@/database/engine";
 import { withLock } from "@/src/redis";
-import { findUserByEmail } from "@/app/subs/app/data/user";
+import { findUserByEmail } from "@/src/data/user";
 
 export default async function Page({ searchParams }: any) {
   const session = await getSession();

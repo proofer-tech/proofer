@@ -89,6 +89,7 @@ export function SettingsModal() {
               px={"1em"}
               w={settingsModalContext.fullScreen ? "100%" : "auto"}
               mah={settingsModalContext.fullScreen ? "30vh" : "none"}
+              style={{ flexShrink: 0 }}
             >
               <Input
                 fz={"0.8em"}
@@ -133,7 +134,9 @@ export function SettingsModal() {
                 settingsModalContext.fullScreen ? "horizontal" : "vertical"
               }
             />
-            <Stack px={"1em"}>{settingsModalContext.path?.component}</Stack>
+            <Stack px={"1em"} w={"100%"}>
+              {settingsModalContext.path?.component}
+            </Stack>
           </Flex>
         </Modal.Body>
       </Modal.Content>

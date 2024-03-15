@@ -10,6 +10,9 @@ import type { Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 import { UserProvider } from "@auth0/nextjs-auth0/client";
+import { getGitHubApp } from "@/src/integrations/github";
+import { Octokit } from "octokit";
+import { Installation } from "@octokit/webhooks-types";
 
 export const viewport: Viewport = {
   themeColor: "#0052cc",
@@ -49,7 +52,7 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: any }) {
+export default async function RootLayout({ children }: { children: any }) {
   return (
     <html lang="ko">
       <head>

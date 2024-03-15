@@ -5,12 +5,12 @@ import React from "react";
 import { Workspace } from "@/database/schemas/workspace";
 import { db } from "@/database/engine";
 import { eq } from "drizzle-orm";
-import { getUserByEmail } from "@/src/data/users";
 import WorkspaceChoice from "@/app/subs/app/components/WorkspaceChoice";
+import { findUserByEmail } from "@/src/data/user";
 
 export default async function Page() {
   const session = await getSession();
-  const user = await getUserByEmail(session?.user?.email);
+  const user = await findUserByEmail(session?.user?.email);
   const workspaces = user
     ? await db.select().from(Workspace).where(eq(Workspace.ownerId, user.id))
     : [];

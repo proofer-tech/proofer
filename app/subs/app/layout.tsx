@@ -4,8 +4,8 @@ import "@mantine/charts/styles.css";
 import WorkspaceAppShell from "@/app/subs/app/components/WorkspaceAppShell";
 import { headers } from "next/headers";
 import { getAppPathBlocks } from "@/src/path";
-import { findMember, findWorkspace } from "@/app/subs/app/data/workspace";
-import { findUserFromSession } from "@/app/subs/app/data/user";
+import { findMember, findWorkspace } from "@/src/data/workspace";
+import { findUserFromSession } from "@/src/data/user";
 
 export const viewport: Viewport = {
   themeColor: "#0052cc",
