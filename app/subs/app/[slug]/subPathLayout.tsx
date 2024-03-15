@@ -4,12 +4,12 @@ import React, { useContext } from "react";
 import NotReadyYetLetter from "@/app/components/NotReadyYetLetter";
 import { getAppPathBlocks } from "@/src/path";
 import NeedToSelectWorkspace from "@/app/subs/app/components/NeedToSelectWorkspace";
-import WorkspaceContext from "@/app/subs/app/contexts/WorkspaceContext";
+import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import NeedToLogin from "@/app/subs/app/components/charts/NeedToLogin";
 import { usePathname } from "next/navigation";
 
 export default function SubPathLayout({ children }: { children: any }) {
-  const wContext = useContext(WorkspaceContext);
+  const wContext = useContext(ProoferInsightContext);
   const pathname = usePathname();
 
   if (!wContext?.user) {

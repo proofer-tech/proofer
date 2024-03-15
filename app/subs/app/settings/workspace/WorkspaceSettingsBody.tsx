@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import WorkspaceContext from "@/app/subs/app/contexts/WorkspaceContext";
+import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import NeedToSelectWorkspace from "@/app/subs/app/components/NeedToSelectWorkspace";
 import {
   Button,
@@ -16,31 +16,25 @@ import { useRouter } from "next/navigation";
 
 export default function WorkspaceSettingsBody() {
   const router = useRouter();
-  const wContext = useContext(WorkspaceContext);
-  const [isLoading, setIsLoading] = useState<boolean>(!wContext.isMounted);
+  const { workspace, isMounted } = useContext(ProoferInsightContext);
+  const [isLoading, setIsLoading] = useState<boolean>(!isMounted);
 
   const onSubmit = (values: any) => {
-    if (wContext.workspace === undefined) return;
+    if (workspace === undefined) return;
     setIsLoading(true);
 
-    fetch(
-      generateAppPath(`/${wContext.workspace.instance.slug}/api/workspace`),
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
+    fetch(generateAppPath(`/${workspace.instance.slug}/api/workspace`), {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
       },
-    )
+      body: JSON.stringify(values),
+    })
       .then(async (response) => {
-        if (wContext.workspace === undefined) return;
+        if (workspace === undefined) return;
         if (response.ok) {
-          const beforeInstance = Object.assign({}, wContext.workspace.instance);
-          wContext.workspace.instance = Object.assign(
-            wContext.workspace.instance,
-            form.values,
-          );
+          const beforeInstance = Object.assign({}, workspace.instance);
+          workspace.instance = Object.assign(workspace.instance, form.values);
 
           router.push(
             window.location.href.replace(
@@ -57,8 +51,8 @@ export default function WorkspaceSettingsBody() {
   const slugRuleText = "알파벳 소문자 또는 특수문자 '-'";
   const form = useForm({
     initialValues: {
-      name: wContext.workspace?.instance.name,
-      slug: wContext.workspace?.instance.slug,
+      name: workspace?.instance.name,
+      slug: workspace?.instance.slug,
     },
     validate: {
       name: (value) =>
@@ -72,7 +66,7 @@ export default function WorkspaceSettingsBody() {
     },
   });
 
-  if (wContext?.workspace === undefined) {
+  if (workspace === undefined) {
     return <NeedToSelectWorkspace serviceName={"워크스페이스 설정"} />;
   }
 

@@ -1,20 +1,20 @@
 "use client";
 import React, { useContext } from "react";
 import { Box, Group, Image, Stack, Title } from "@mantine/core";
-import WorkspaceContext from "@/app/subs/app/contexts/WorkspaceContext";
+import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 
 export default function Page() {
-  const context = useContext(WorkspaceContext);
+  const { workspace } = useContext(ProoferInsightContext);
 
   return (
     <Group>
       <Stack w={"30%"}>
         <Group justify={"space-between"}>
           <Box>
-            {context.workspace?.instance.logoUrl ? (
+            {workspace?.instance.logoUrl ? (
               <Image
-                src={context.workspace?.instance.logoUrl}
-                alt={context.workspace?.instance.name}
+                src={workspace?.instance.logoUrl}
+                alt={workspace?.instance.name}
                 height={"32px"}
               />
             ) : (
@@ -25,7 +25,7 @@ export default function Page() {
           </Box>
           <Box>버튼</Box>
         </Group>
-        <Group>{context.workspace?.instance.name}</Group>
+        <Group>{workspace?.instance.name}</Group>
       </Stack>
       <Stack></Stack>
     </Group>

@@ -11,13 +11,13 @@ import {
 import { settingsPathTree } from "@/app/subs/app/settings/tree";
 import React, { useContext } from "react";
 import { Path } from "./types";
-import WorkspaceContext from "@/app/subs/app/contexts/WorkspaceContext";
+import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 
 interface UserMenuProps extends MenuProps {
   onSettingClick: (path: Path) => void;
 }
 export default function UserMenu({ onSettingClick }: UserMenuProps) {
-  const { user, workspace } = useContext(WorkspaceContext);
+  const { user, workspace } = useContext(ProoferInsightContext);
   return (
     <Menu withArrow>
       {user === undefined ? (

@@ -1,6 +1,6 @@
 "use client";
 
-import WorkspaceContext from "@/app/subs/app/contexts/WorkspaceContext";
+import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import { useContext, useEffect } from "react";
 import { SettingsModalContext } from "@/app/subs/app/settings/modal";
 import { Box, LoadingOverlay } from "@mantine/core";
@@ -9,7 +9,7 @@ import { settingsPathTree } from "@/app/subs/app/settings/tree";
 import { notFound } from "next/navigation";
 
 export default function Page({ params }: any) {
-  const wContext = useContext(WorkspaceContext);
+  const { isMounted } = useContext(ProoferInsightContext);
   const settingsModalContext = useContext(SettingsModalContext);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function Page({ params }: any) {
   return (
     <Box>
       <LoadingOverlay
-        visible={!wContext.isMounted}
+        visible={!isMounted}
         zIndex={1000}
         overlayProps={{ radius: "sm", blur: 2 }}
       />

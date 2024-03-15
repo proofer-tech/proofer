@@ -8,11 +8,13 @@ interface Workspace {
   instance: InferSelectModel<typeof Workspace>;
   member?: InferSelectModel<typeof WorkspaceMember>;
 }
-interface WorkspaceProps {
+interface ProoferInsightProps {
   isMounted: boolean;
   user?: UserDto;
   workspace?: Workspace;
 }
 
-const WorkspaceContext = createContext<WorkspaceProps>({ isMounted: false });
-export default WorkspaceContext;
+const ProoferInsightContext = createContext<ProoferInsightProps>({
+  isMounted: false,
+});
+export default ProoferInsightContext;

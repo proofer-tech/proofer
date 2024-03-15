@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import WorkspaceContext from "@/app/subs/app/contexts/WorkspaceContext";
+import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import NeedToSelectWorkspace from "@/app/subs/app/components/NeedToSelectWorkspace";
 import { Center, Stack, Text, Title } from "@mantine/core";
 import { IconSunset } from "@tabler/icons-react";
 
 export default function MemberSettingsBody() {
-  const wContext = useContext(WorkspaceContext);
-  if (wContext?.workspace === undefined) {
+  const { workspace } = useContext(ProoferInsightContext);
+  if (workspace === undefined) {
     return <NeedToSelectWorkspace serviceName={"워크스페이스 설정"} />;
   }
 
