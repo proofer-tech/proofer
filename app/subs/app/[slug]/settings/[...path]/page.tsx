@@ -1,6 +1,6 @@
 "use client";
 
-import AppContext from "@/app/subs/app/contexts/AppContext";
+import WorkspaceContext from "@/app/subs/app/contexts/WorkspaceContext";
 import { useContext, useEffect } from "react";
 import { SettingsModalContext } from "@/app/subs/app/settings/modal";
 import { Box, LoadingOverlay } from "@mantine/core";
@@ -9,7 +9,7 @@ import { settingsPathTree } from "@/app/subs/app/settings/tree";
 import { notFound } from "next/navigation";
 
 export default function Page({ params }: any) {
-  const appContext = useContext(AppContext);
+  const wContext = useContext(WorkspaceContext);
   const settingsModalContext = useContext(SettingsModalContext);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function Page({ params }: any) {
   return (
     <Box>
       <LoadingOverlay
-        visible={!appContext.isMounted}
+        visible={!wContext.isMounted}
         zIndex={1000}
         overlayProps={{ radius: "sm", blur: 2 }}
       />

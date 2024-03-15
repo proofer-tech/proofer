@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import AppContext from "@/app/subs/app/contexts/AppContext";
+import WorkspaceContext from "@/app/subs/app/contexts/WorkspaceContext";
 import NeedToSelectWorkspace from "@/app/subs/app/components/NeedToSelectWorkspace";
 import {
   Button,
@@ -16,15 +16,15 @@ import { useRouter } from "next/navigation";
 
 export default function WorkspaceSettingsBody() {
   const router = useRouter();
-  const appContext = useContext(AppContext);
-  const [isLoading, setIsLoading] = useState<boolean>(!appContext.isMounted);
+  const wContext = useContext(WorkspaceContext);
+  const [isLoading, setIsLoading] = useState<boolean>(!wContext.isMounted);
 
   const onSubmit = (values: any) => {
-    if (appContext.workspace === undefined) return;
+    if (wContext.workspace === undefined) return;
     setIsLoading(true);
 
     fetch(
-      generateAppPath(`/${appContext.workspace.instance.slug}/api/workspace`),
+      generateAppPath(`/${wContext.workspace.instance.slug}/api/workspace`),
       {
         method: "PUT",
         headers: {
@@ -34,14 +34,11 @@ export default function WorkspaceSettingsBody() {
       },
     )
       .then(async (response) => {
-        if (appContext.workspace === undefined) return;
+        if (wContext.workspace === undefined) return;
         if (response.ok) {
-          const beforeInstance = Object.assign(
-            {},
-            appContext.workspace.instance,
-          );
-          appContext.workspace.instance = Object.assign(
-            appContext.workspace.instance,
+          const beforeInstance = Object.assign({}, wContext.workspace.instance);
+          wContext.workspace.instance = Object.assign(
+            wContext.workspace.instance,
             form.values,
           );
 
@@ -60,8 +57,8 @@ export default function WorkspaceSettingsBody() {
   const slugRuleText = "알파벳 소문자 또는 특수문자 '-'";
   const form = useForm({
     initialValues: {
-      name: appContext.workspace?.instance.name,
-      slug: appContext.workspace?.instance.slug,
+      name: wContext.workspace?.instance.name,
+      slug: wContext.workspace?.instance.slug,
     },
     validate: {
       name: (value) =>
@@ -75,7 +72,7 @@ export default function WorkspaceSettingsBody() {
     },
   });
 
-  if (appContext?.workspace === undefined) {
+  if (wContext?.workspace === undefined) {
     return <NeedToSelectWorkspace serviceName={"워크스페이스 설정"} />;
   }
 

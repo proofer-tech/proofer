@@ -11,13 +11,13 @@ import {
 import { settingsPathTree } from "@/app/subs/app/settings/tree";
 import React, { useContext } from "react";
 import { Path } from "./types";
-import AppContext from "@/app/subs/app/contexts/AppContext";
+import WorkspaceContext from "@/app/subs/app/contexts/WorkspaceContext";
 
 interface UserMenuProps extends MenuProps {
   onSettingClick: (path: Path) => void;
 }
 export default function UserMenu({ onSettingClick }: UserMenuProps) {
-  const { user, workspace } = useContext(AppContext);
+  const { user, workspace } = useContext(WorkspaceContext);
   return (
     <Menu withArrow>
       {user === undefined ? (

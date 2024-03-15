@@ -8,11 +8,11 @@ interface Workspace {
   instance: InferSelectModel<typeof Workspace>;
   member?: InferSelectModel<typeof WorkspaceMember>;
 }
-interface AppProps {
+interface WorkspaceProps {
   isMounted: boolean;
   user?: UserDto;
   workspace?: Workspace;
 }
 
-const AppContext = createContext<AppProps>({ isMounted: false });
-export default AppContext;
+const WorkspaceContext = createContext<WorkspaceProps>({ isMounted: false });
+export default WorkspaceContext;

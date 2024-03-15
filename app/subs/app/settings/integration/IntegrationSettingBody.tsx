@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import AppContext from "@/app/subs/app/contexts/AppContext";
+import WorkspaceContext from "@/app/subs/app/contexts/WorkspaceContext";
 import NeedToSelectWorkspace from "@/app/subs/app/components/NeedToSelectWorkspace";
 import { Center, Stack, Text, Title } from "@mantine/core";
 import { IconSunset } from "@tabler/icons-react";
 
 export default function IntegrationSettingsBody() {
-  const appContext = useContext(AppContext);
-  if (appContext?.workspace === undefined) {
+  const wContext = useContext(WorkspaceContext);
+  if (wContext?.workspace === undefined) {
     return <NeedToSelectWorkspace serviceName={"워크스페이스 설정"} />;
   }
 

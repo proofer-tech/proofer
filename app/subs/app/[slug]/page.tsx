@@ -1,10 +1,10 @@
 "use client";
 import React, { useContext } from "react";
 import { Box, Group, Image, Stack, Title } from "@mantine/core";
-import AppContext from "@/app/subs/app/contexts/AppContext";
+import WorkspaceContext from "@/app/subs/app/contexts/WorkspaceContext";
 
 export default function Page() {
-  const context = useContext(AppContext);
+  const context = useContext(WorkspaceContext);
 
   return (
     <Group>

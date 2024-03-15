@@ -4,15 +4,15 @@ import React, { useContext } from "react";
 import NotReadyYetLetter from "@/app/components/NotReadyYetLetter";
 import { getAppPathBlocks } from "@/src/path";
 import NeedToSelectWorkspace from "@/app/subs/app/components/NeedToSelectWorkspace";
-import AppContext from "@/app/subs/app/contexts/AppContext";
+import WorkspaceContext from "@/app/subs/app/contexts/WorkspaceContext";
 import NeedToLogin from "@/app/subs/app/components/charts/NeedToLogin";
 import { usePathname } from "next/navigation";
 
 export default function SubPathLayout({ children }: { children: any }) {
-  const appContext = useContext(AppContext);
+  const wContext = useContext(WorkspaceContext);
   const pathname = usePathname();
 
-  if (!appContext?.user) {
+  if (!wContext?.user) {
     return <NeedToLogin />;
   }
 
@@ -27,7 +27,7 @@ export default function SubPathLayout({ children }: { children: any }) {
         c={"var(--mantine-color-gray-8)"}
       />
     );
-  if (!appContext?.workspace)
+  if (!wContext?.workspace)
     return (
       <NeedToSelectWorkspace serviceName={subPath.title}>
         {subPath.component}

@@ -29,7 +29,7 @@ import UserMenu from "@/app/subs/app/components/UserMenu";
 import { generateAppPath, getAppPathBlocks } from "@/src/path";
 import TargetAvatarGroup from "@/app/subs/app/components/TargetAvatarGroup";
 import { usePathname } from "next/navigation";
-import AppContext from "@/app/subs/app/contexts/AppContext";
+import WorkspaceContext from "@/app/subs/app/contexts/WorkspaceContext";
 import { InferSelectModel } from "drizzle-orm";
 import { UserDto } from "@/app/subs/app/dto/user";
 import { Workspace, WorkspaceMember } from "@/database/schemas/workspace";
@@ -86,7 +86,7 @@ export default function WorkspaceAppShell({
       language="ko"
       autoBoot
     >
-      <AppContext.Provider
+      <WorkspaceContext.Provider
         value={{
           isMounted: isMounted,
           user: user,
@@ -354,7 +354,7 @@ export default function WorkspaceAppShell({
           </AppShell>
           <SettingsModal />
         </SettingsModalContext.Provider>
-      </AppContext.Provider>
+      </WorkspaceContext.Provider>
     </ReactChannelIO>
   );
 }
