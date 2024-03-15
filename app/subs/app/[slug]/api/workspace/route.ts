@@ -11,7 +11,7 @@ import { findMember } from "@/src/data/workspace";
 
 export const PUT = withApiAuthRequired(async function route(
   req: NextRequest,
-  { params, searchParams }: any,
+  { params }: any,
 ) {
   const workspace = (
     await db.select().from(Workspace).where(eq(Workspace.slug, params.slug))
