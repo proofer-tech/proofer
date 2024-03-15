@@ -20,6 +20,16 @@ export default withBundleAnalyzer({
     config.externals.push({ canvas: "commonjs canvas" });
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "asgkzse2rqmcnxxg.public.blob.vercel-storage.com",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
   async rewrites() {
     return [
       {
