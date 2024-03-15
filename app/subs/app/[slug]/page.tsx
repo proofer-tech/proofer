@@ -14,7 +14,7 @@ export default function Page() {
             {context.workspace?.instance.logoUrl ? (
               <Image
                 src={context.workspace?.instance.logoUrl}
-                alt={context.workspace?.instance.title}
+                alt={context.workspace?.instance.name}
                 height={"32px"}
               />
             ) : (
@@ -25,7 +25,7 @@ export default function Page() {
           </Box>
           <Box>버튼</Box>
         </Group>
-        <Group>{context.workspace?.instance.title}</Group>
+        <Group>{context.workspace?.instance.name}</Group>
       </Stack>
       <Stack></Stack>
     </Group>

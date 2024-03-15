@@ -60,11 +60,11 @@ export default function WorkspaceSettingsBody() {
   const slugRuleText = "알파벳 소문자 또는 특수문자 '-'";
   const form = useForm({
     initialValues: {
-      title: appContext.workspace?.instance.title,
+      name: appContext.workspace?.instance.name,
       slug: appContext.workspace?.instance.slug,
     },
     validate: {
-      title: (value) =>
+      name: (value) =>
         value === "" ? "워크스페이스 이름을 입력해주세요." : null,
       slug: (value) =>
         value === ""
@@ -91,7 +91,7 @@ export default function WorkspaceSettingsBody() {
           <TextInput
             label="워크스페이스 이름"
             placeholder="이름을 입력해주세요."
-            {...form.getInputProps("title")}
+            {...form.getInputProps("name")}
             onBlur={() => form.validate()}
           />
           <Space h={"1em"} />

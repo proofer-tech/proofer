@@ -1,11 +1,11 @@
 import { prooferSchema } from "@/database/engine";
-import { serial, text, uniqueIndex } from "drizzle-orm/pg-core";
+import { char, serial, text, uniqueIndex } from "drizzle-orm/pg-core";
 
 export const User = prooferSchema.table(
   "user",
   {
     id: serial("id").primaryKey(),
-    email: text("email").notNull(),
+    email: char("email", { length: 64 }).notNull(),
   },
   (table) => {
     return {

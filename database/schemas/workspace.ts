@@ -4,6 +4,7 @@ import {
   integer,
   serial,
   text,
+  char,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
 import { User } from "@/database/schemas/auth";
@@ -12,8 +13,8 @@ export const Workspace = prooferSchema.table(
   "workspace",
   {
     id: serial("id").primaryKey(),
-    slug: text("slug").notNull(),
-    title: text("title").notNull(),
+    slug: char("slug", { length: 64 }).notNull(),
+    name: char("slug", { length: 16 }).notNull(),
     ownerId: integer("owner_id")
       .notNull()
       .references(() => User.id),
