@@ -162,25 +162,16 @@ export default function WorkspaceAppShell({
                     </Button>
                   ) : (
                     <Anchor
-                      href={generateAppPath("/")}
+                      href={generateAppPath(`/${workspace?.slug}`)}
                       underline="never"
                       fz={0}
                     >
-                      {workspace ? (
-                        <Image
-                          src={workspace.logoUrl!}
-                          alt={workspace.name}
-                          width={24}
-                          height={24}
-                        />
-                      ) : (
-                        <Image
-                          src="/assets/images/branding.svg"
-                          alt="프루퍼 로고"
-                          width={24}
-                          height={24}
-                        />
-                      )}
+                      <Image
+                        src="/assets/images/branding.svg"
+                        alt="프루퍼 로고"
+                        width={24}
+                        height={24}
+                      />
                     </Anchor>
                   )}
                 </Center>
