@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { WorkspaceUpdateDto } from "@/app/subs/app/[slug]/api/workspace/dto";
-import { Workspace, WorkspaceMember } from "@/database/schemas/workspace";
+import { Workspace } from "@/database/schemas/workspace";
 import { db } from "@/database/engine";
-import { and, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { findUserFromSession } from "@/src/data/user";
 import { notFound } from "next/navigation";

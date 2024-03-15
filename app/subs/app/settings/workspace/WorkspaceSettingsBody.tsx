@@ -1,7 +1,14 @@
 import React, { useContext } from "react";
 import AppContext from "@/app/subs/app/contexts/AppContext";
 import NeedToSelectWorkspace from "@/app/subs/app/components/NeedToSelectWorkspace";
-import { Button, Fieldset, Group, Stack, TextInput } from "@mantine/core";
+import {
+  Button,
+  Fieldset,
+  Group,
+  Space,
+  Stack,
+  TextInput,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { generateAppPath } from "@/src/path";
 import { useRouter } from "next/navigation";
@@ -20,27 +27,41 @@ export default function WorkspaceSettingsBody() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          title: values.workspace_title,
-        }),
+        body: JSON.stringify(values),
       },
     )
       .then(async (response) => {
         if (appContext.workspace === undefined) return;
         if (response.ok) {
-          appContext.workspace.instance.title = form.values.workspace_title!;
-          router.refresh();
+          const beforeInstance = Object.assign(
+            {},
+            appContext.workspace.instance,
+          );
+          appContext.workspace.instance = Object.assign(
+            appContext.workspace.instance,
+            form.values,
+          );
+
+          router.push(
+            window.location.href.replace(
+              beforeInstance.slug,
+              form.values.slug || beforeInstance.slug,
+            ),
+          );
         }
       })
       .catch((reason) => form.setErrors(reason));
   };
   const form = useForm({
     initialValues: {
-      workspace_title: appContext.workspace?.instance.title,
+      title: appContext.workspace?.instance.title,
+      slug: appContext.workspace?.instance.slug,
     },
     validate: {
-      workspace_title: (value) =>
+      title: (value) =>
         value === "" ? "워크스페이스 이름을 입력해주세요." : null,
+      slug: (value) =>
+        value === "" ? "워크스페이스 식별자를 입력해주세요." : null,
     },
   });
 
@@ -55,8 +76,15 @@ export default function WorkspaceSettingsBody() {
           <TextInput
             label="워크스페이스 이름"
             placeholder="이름을 입력해주세요."
-            {...form.getInputProps("workspace_title")}
+            {...form.getInputProps("title")}
             onBlur={() => form.validate()}
+          />
+          <Space h={"1em"} />
+          <TextInput
+            label="식별자"
+            placeholder="영문으로 된 식별자를 입력해주세요."
+            description="(영문 알파벳 또는 특수문자 '-')"
+            {...form.getInputProps("slug")}
           />
         </Fieldset>
         <Group justify={"end"}>

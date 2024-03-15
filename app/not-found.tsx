@@ -67,9 +67,15 @@ export default function NotFound() {
 
     fetch(`/medium/${window.location.pathname}`)
       .then(async (response) => {
-        if (response.status !== 200) return;
-        const responseText = await response.text();
-        setIsFounded(!responseText.includes("PAGE NOT FOUND"));
+        switch (response.status) {
+          case 200:
+            const responseText = await response.text();
+            setIsFounded(!responseText.includes("PAGE NOT FOUND"));
+            break;
+          case 404:
+            setIsFounded(false);
+            break;
+        }
       })
       .finally(() => clearInterval(interval));
   }, []);
