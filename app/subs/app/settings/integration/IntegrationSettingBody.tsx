@@ -7,7 +7,7 @@ import { IconSunset } from "@tabler/icons-react";
 export default function IntegrationSettingsBody() {
   const appContext = useContext(AppContext);
   if (appContext?.workspace === undefined) {
-    return <NeedToSelectWorkspace title={"워크스페이스 설정"} />;
+    return <NeedToSelectWorkspace serviceName={"워크스페이스 설정"} />;
   }
 
   return (

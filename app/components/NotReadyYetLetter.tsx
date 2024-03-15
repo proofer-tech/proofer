@@ -12,7 +12,7 @@ import {
 import React from "react";
 
 interface NotReadyYetLetterProps extends BoxProps {
-  title?: boolean;
+  title?: string;
   children?: React.ReactNode;
   from?: boolean;
 }
@@ -24,12 +24,10 @@ export default function NotReadyYetLetter({
 }: NotReadyYetLetterProps) {
   return (
     <Box {...props}>
-      {title ? (
+      {title && (
         <Text fz={"1.3em"} fw={700}>
-          아직 준비중인 기능이에요.
+          {title}
         </Text>
-      ) : (
-        ""
       )}
       <Stack gap={"1em"} py={"1em"}>
         <Text>
