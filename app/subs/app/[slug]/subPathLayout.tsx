@@ -30,7 +30,7 @@ export default function SubPathLayout({ children }: { children: any }) {
   if (!workspace)
     return (
       <NeedToSelectWorkspace serviceName={subPath?.title}>
-        {subPath?.component}
+        {subPath?.component && <subPath.component />}
       </NeedToSelectWorkspace>
     );
 

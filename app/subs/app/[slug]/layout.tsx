@@ -57,7 +57,7 @@ export default async function WorkspaceLayout({ children }: { children: any }) {
           </Title>
         </Stack>
         <Divider w={"100%"} />
-        {subPath.component}
+        {subPath.component && <subPath.component />}
         <Box>{children}</Box>
       </Stack>
     );

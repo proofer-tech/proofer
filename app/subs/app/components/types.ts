@@ -6,7 +6,7 @@ export interface Path {
   isImplemented?: boolean;
   tablerIcon?: (props: TablerIconsProps) => React.JSX.Element;
   subTree?: PathTree;
-  component?: React.ReactNode;
+  component?: (props: any) => React.JSX.Element;
 }
 
 export type PathTree = { [key: string]: Path };

@@ -9,18 +9,18 @@ export const settingsPathTree: PathTree = {
     title: "워크스페이스 설정",
     isImplemented: true,
     tablerIcon: IconFolder,
-    component: <WorkspaceSettingsBody />,
+    component: WorkspaceSettingsBody,
   },
   members: {
     title: "멤버 관리",
     isImplemented: true,
     tablerIcon: IconUsers,
-    component: <MemberSettingsBody />,
+    component: MemberSettingsBody,
   },
   integrations: {
     title: "연결된 앱 관리",
     isImplemented: true,
     tablerIcon: IconApps,
-    component: <IntegrationSettingsBody />,
+    component: IntegrationSettingsBody,
   },
 };

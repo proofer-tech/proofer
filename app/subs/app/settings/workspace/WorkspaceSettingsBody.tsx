@@ -17,7 +17,12 @@ import { generateAppPath } from "@/src/path";
 import { useRouter } from "next/navigation";
 import { blobToBase64 } from "@/src/file";
 
-export default function WorkspaceSettingsBody() {
+interface WorkspaceSettingsBodyProps {
+  close: () => void;
+}
+export default function WorkspaceSettingsBody({
+  close,
+}: WorkspaceSettingsBodyProps) {
   const router = useRouter();
   const { workspace, isMounted } = useContext(ProoferInsightContext);
   const [isLoading, setIsLoading] = useState<boolean>(!isMounted);
@@ -66,10 +71,10 @@ export default function WorkspaceSettingsBody() {
           workspace.instance = Object.assign(workspace.instance, data);
           setLogoUrl(data.logoUrl);
 
-          router.refresh();
           router.push(
             window.location.href.replace(beforeInstance.slug, data.slug),
           );
+          setTimeout(() => router.refresh(), 1);
         }
       })
       .catch((reason) => form.setErrors(reason))
@@ -128,14 +133,28 @@ export default function WorkspaceSettingsBody() {
             {...form.getInputProps("slug")}
           />
         </Fieldset>
-        <Group justify={"end"}>
+        <Group justify={"end"} gap={"0.5em"}>
+          <Button
+            size={"xs"}
+            color={"red"}
+            variant={"subtle"}
+            onClick={() => {
+              form.reset();
+              close();
+            }}
+          >
+            취소
+          </Button>
+          <Button type={"submit"} size={"xs"} color={"gray"} variant={"subtle"}>
+            저장
+          </Button>
           <Button
             type={"submit"}
             size={"xs"}
-            color={"gray"}
             variant={"outline"}
+            onClick={() => close()}
           >
-            저장
+            확인
           </Button>
         </Group>
       </Stack>

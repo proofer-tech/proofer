@@ -142,7 +142,11 @@ export function SettingsModal() {
               />
             </Box>
             <Stack px={"1em"} w={"100%"}>
-              {settingsModalContext.path?.component}
+              {settingsModalContext.path?.component && (
+                <settingsModalContext.path.component
+                  close={settingsModalContext.close}
+                />
+              )}
             </Stack>
           </Flex>
         </Modal.Body>
