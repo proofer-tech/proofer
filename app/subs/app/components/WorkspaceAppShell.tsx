@@ -38,6 +38,7 @@ import {
   SettingsModalContext,
   useSettingsModal,
 } from "@/app/subs/app/settings/modal";
+import { useIsDesktopMedia } from "@/src/hooks/mediaQuery";
 
 function NeedHelpNavLink() {
   const { showMessenger } = useChannelIOApi();
@@ -68,6 +69,7 @@ export default function WorkspaceAppShell({
   const [_, pathBlock, subPathBlock] = getAppPathBlocks(pathname);
   const collapseDisclosure = useDisclosure(false);
   const settingsModal = useSettingsModal();
+  const isDesktopMedia = !!useIsDesktopMedia(true);
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
   const openSettingModal = (path: Path) => {
@@ -104,7 +106,7 @@ export default function WorkspaceAppShell({
             close: settingsModal.disclosure.close,
             toggle: settingsModal.disclosure.toggle,
 
-            fullScreen: false,
+            fullScreen: !isDesktopMedia,
           }}
         >
           <AppShell

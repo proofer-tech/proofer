@@ -4,14 +4,14 @@ import { InferSelectModel } from "drizzle-orm";
 import { Workspace, WorkspaceMember } from "@/database/schemas/workspace";
 import { UserDto } from "@/app/subs/app/dto/user";
 
-interface Workspace {
+interface WorkspaceProps {
   instance: InferSelectModel<typeof Workspace>;
   member?: InferSelectModel<typeof WorkspaceMember>;
 }
 interface ProoferInsightProps {
   isMounted: boolean;
   user?: UserDto;
-  workspace?: Workspace;
+  workspace?: WorkspaceProps;
 }
 
 const ProoferInsightContext = createContext<ProoferInsightProps>({

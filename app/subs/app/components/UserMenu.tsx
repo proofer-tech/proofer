@@ -59,7 +59,7 @@ export default function UserMenu({ onSettingClick }: UserMenuProps) {
                 </Stack>
               </Group>
             </Menu.Item>
-            {workspace && workspace.member && workspace.member.isManager ? (
+            {workspace?.member?.isManager ? (
               <>
                 <Menu.Divider />
                 <Menu.Label>업그레이드</Menu.Label>

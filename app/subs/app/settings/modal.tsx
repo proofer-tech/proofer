@@ -1,5 +1,6 @@
 "use client";
 import {
+  Box,
   Divider,
   Flex,
   Input,
@@ -63,12 +64,13 @@ export function SettingsModal() {
       closeOnClickOutside={false}
       opened={settingsModalContext.opened}
       onClose={settingsModalContext.close}
+      fullScreen={settingsModalContext.fullScreen}
     >
       <Modal.Overlay />
       <Modal.Content>
         <Modal.Header>
           <Modal.Title
-            pl={settingsModalContext.fullScreen ? "4em" : 0}
+            pl={settingsModalContext.fullScreen ? "5em" : 0}
             w={"100%"}
             ta={"center"}
           >
@@ -78,7 +80,7 @@ export function SettingsModal() {
           </Modal.Title>
           <Modal.CloseButton />
         </Modal.Header>
-        <Modal.Body pl={settingsModalContext.fullScreen ? "4em" : 0}>
+        <Modal.Body pl={settingsModalContext.fullScreen ? "5em" : 0}>
           <Flex
             direction={settingsModalContext.fullScreen ? "column" : "row"}
             gap={0}
@@ -128,12 +130,17 @@ export function SettingsModal() {
                   })}
               </ScrollArea.Autosize>
             </Stack>
-            <Divider
-              w={settingsModalContext.fullScreen ? "100%" : "1px"}
-              orientation={
-                settingsModalContext.fullScreen ? "horizontal" : "vertical"
-              }
-            />
+            <Box
+              w={settingsModalContext.fullScreen ? "100%" : "auto"}
+              py={settingsModalContext.fullScreen ? "1em" : 0}
+            >
+              <Divider
+                w={settingsModalContext.fullScreen ? "100%" : "1px"}
+                orientation={
+                  settingsModalContext.fullScreen ? "horizontal" : "vertical"
+                }
+              />
+            </Box>
             <Stack px={"1em"} w={"100%"}>
               {settingsModalContext.path?.component}
             </Stack>
