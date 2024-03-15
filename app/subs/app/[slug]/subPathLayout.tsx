@@ -9,10 +9,10 @@ import NeedToLogin from "@/app/subs/app/components/charts/NeedToLogin";
 import { usePathname } from "next/navigation";
 
 export default function SubPathLayout({ children }: { children: any }) {
-  const wContext = useContext(ProoferInsightContext);
+  const { user, workspace } = useContext(ProoferInsightContext);
   const pathname = usePathname();
 
-  if (!wContext?.user) {
+  if (!user) {
     return <NeedToLogin />;
   }
 
@@ -27,7 +27,7 @@ export default function SubPathLayout({ children }: { children: any }) {
         c={"var(--mantine-color-gray-8)"}
       />
     );
-  if (!wContext?.workspace)
+  if (!workspace)
     return (
       <NeedToSelectWorkspace serviceName={subPath?.title}>
         {subPath?.component}
