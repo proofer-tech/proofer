@@ -10,9 +10,8 @@ import {
   Menu,
   Stack,
   Text,
-  Title,
 } from "@mantine/core";
-import { IconDots, IconSunset } from "@tabler/icons-react";
+import { IconDots } from "@tabler/icons-react";
 
 export default function IntegrationSettingsBody() {
   const { workspace } = useContext(ProoferInsightContext);

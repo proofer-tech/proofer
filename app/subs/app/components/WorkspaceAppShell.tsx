@@ -36,6 +36,7 @@ import { Workspace, WorkspaceMember } from "@/database/schemas/workspace";
 import {
   SettingsModal,
   SettingsModalContext,
+  Triggers,
   useSettingsModal,
 } from "@/app/subs/app/settings/modal";
 import { useIsDesktopMedia } from "@/src/hooks/mediaQuery";
@@ -71,6 +72,7 @@ export default function WorkspaceAppShell({
   const settingsModal = useSettingsModal();
   const isDesktopMedia = !!useIsDesktopMedia(true);
   const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [triggerToken, setTriggerToken] = useState<Triggers>("");
 
   const openSettingModal = (path: Path) => {
     settingsModal.setPath(path);
@@ -107,6 +109,9 @@ export default function WorkspaceAppShell({
             toggle: settingsModal.disclosure.toggle,
 
             fullScreen: !isDesktopMedia,
+
+            triggered: triggerToken,
+            trigger: setTriggerToken,
           }}
         >
           <AppShell

@@ -1,8 +1,10 @@
 "use client";
 import {
   Box,
+  Button,
   Divider,
   Flex,
+  Group,
   Input,
   Modal,
   NavLink,
@@ -17,6 +19,7 @@ import { settingsPathTree } from "@/app/subs/app/settings/tree";
 import { useDisclosure } from "@mantine/hooks";
 import { usePathname, useRouter } from "next/navigation";
 
+export type Triggers = "" | "cancel" | "save" | "submit";
 interface SettingsModalProps {
   path?: Path;
   setPath?: (path: Path) => void;
@@ -27,13 +30,20 @@ interface SettingsModalProps {
   open: () => void;
   close: () => void;
   toggle: () => void;
+
+  triggered: Triggers;
+  trigger: (triggerString: Triggers) => void;
 }
 export const SettingsModalContext = createContext<SettingsModalProps>({
   opened: false,
+  fullScreen: false,
+
   open: () => {},
   close: () => {},
   toggle: () => {},
-  fullScreen: false,
+
+  triggered: "",
+  trigger: (triggerString) => {},
 });
 
 export function useSettingsModal() {
@@ -143,9 +153,36 @@ export function SettingsModal() {
             </Box>
             <Stack px={"1em"} w={"100%"}>
               {settingsModalContext.path?.component && (
-                <settingsModalContext.path.component
-                  close={settingsModalContext.close}
-                />
+                <Stack w={"100%"}>
+                  <settingsModalContext.path.component />
+                  <Group justify={"end"} gap={"0.5em"}>
+                    <Button
+                      size={"xs"}
+                      color={"red"}
+                      variant={"subtle"}
+                      onClick={() => settingsModalContext.trigger("cancel")}
+                    >
+                      취소
+                    </Button>
+                    <Button
+                      type={"submit"}
+                      size={"xs"}
+                      color={"gray"}
+                      variant={"subtle"}
+                      onClick={() => settingsModalContext.trigger("save")}
+                    >
+                      저장
+                    </Button>
+                    <Button
+                      type={"submit"}
+                      size={"xs"}
+                      variant={"outline"}
+                      onClick={() => settingsModalContext.trigger("submit")}
+                    >
+                      확인
+                    </Button>
+                  </Group>
+                </Stack>
               )}
             </Stack>
           </Flex>

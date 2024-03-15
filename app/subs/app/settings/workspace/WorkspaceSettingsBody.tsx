@@ -1,29 +1,24 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import NeedToSelectWorkspace from "@/app/subs/app/components/NeedToSelectWorkspace";
 import {
-  Button,
+  BackgroundImage,
   Fieldset,
   FileInput,
   Group,
   LoadingOverlay,
   Space,
-  Stack,
   TextInput,
-  BackgroundImage,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { generateAppPath } from "@/src/path";
 import { useRouter } from "next/navigation";
 import { blobToBase64 } from "@/src/file";
+import { SettingsModalContext } from "@/app/subs/app/settings/modal";
 
-interface WorkspaceSettingsBodyProps {
-  close: () => void;
-}
-export default function WorkspaceSettingsBody({
-  close,
-}: WorkspaceSettingsBodyProps) {
+export default function WorkspaceSettingsBody() {
   const router = useRouter();
+  const { close, triggered, trigger } = useContext(SettingsModalContext);
   const { workspace, isMounted } = useContext(ProoferInsightContext);
   const [isLoading, setIsLoading] = useState<boolean>(!isMounted);
 
@@ -81,83 +76,72 @@ export default function WorkspaceSettingsBody({
       .finally(() => setIsLoading(false));
   };
 
-  if (workspace === undefined) {
-    return <NeedToSelectWorkspace serviceName={"워크스페이스 설정"} />;
-  }
+  useEffect(() => {
+    switch (triggered) {
+      case "cancel":
+        form.reset();
+        close();
+        break;
+      case "save":
+        form.onSubmit(onSubmit)();
+        break;
+      case "submit":
+        form.onSubmit(onSubmit)();
+        close();
+        break;
+    }
+    trigger("");
+  }, [triggered]);
 
-  return (
+  return workspace === undefined ? (
+    <NeedToSelectWorkspace serviceName={"워크스페이스 설정"} />
+  ) : (
     <form onSubmit={form.onSubmit(onSubmit)}>
       <LoadingOverlay
         visible={isLoading}
         zIndex={1000}
         overlayProps={{ radius: "sm", blur: 1 }}
       />
-      <Stack w={"100%"}>
-        <Fieldset legend="기본정보">
-          <Group wrap={"nowrap"} align={"center"}>
-            <BackgroundImage
-              src={logoUrl}
-              radius="sm"
-              w={"4em"}
-              h={"4em"}
-              style={{
-                flexShrink: 0,
-                border: "1px solid var(--mantine-color-gray-3)",
-              }}
-            />
-            <FileInput
-              label="워크스페이스 로고 이미지"
-              description={"1:1 비율의 정사각형 이미지를 추천합니다."}
-              placeholder={logoUrl.split("/").pop()?.slice(-32)}
-              w={"100%"}
-              {...form.getInputProps("logo_url")}
-              onChange={(file) => {
-                const originProps = form.getInputProps("logo_url");
-                file && setLogoUrl(URL.createObjectURL(file));
-                return originProps.onChange(file);
-              }}
-            ></FileInput>
-          </Group>
-          <Space h={"1em"} />
-          <TextInput
-            label="워크스페이스 이름"
-            placeholder="이름을 입력해주세요."
-            {...form.getInputProps("name")}
-            onBlur={() => form.validate()}
-          />
-          <Space h={"1em"} />
-          <TextInput
-            label="식별자"
-            placeholder="URL 식별자를 입력해주세요."
-            description={`(${slugRuleText})`}
-            {...form.getInputProps("slug")}
-          />
-        </Fieldset>
-        <Group justify={"end"} gap={"0.5em"}>
-          <Button
-            size={"xs"}
-            color={"red"}
-            variant={"subtle"}
-            onClick={() => {
-              form.reset();
-              close();
+      <Fieldset legend="기본정보">
+        <Group wrap={"nowrap"} align={"center"}>
+          <BackgroundImage
+            src={logoUrl}
+            radius="sm"
+            w={"4em"}
+            h={"4em"}
+            style={{
+              flexShrink: 0,
+              border: "1px solid var(--mantine-color-gray-3)",
             }}
-          >
-            취소
-          </Button>
-          <Button type={"submit"} size={"xs"} color={"gray"} variant={"subtle"}>
-            저장
-          </Button>
-          <Button
-            type={"submit"}
-            size={"xs"}
-            variant={"outline"}
-            onClick={() => close()}
-          >
-            확인
-          </Button>
+          />
+          <FileInput
+            label="워크스페이스 로고 이미지"
+            description={"1:1 비율의 정사각형 이미지를 추천합니다."}
+            placeholder={logoUrl.split("/").pop()?.slice(-32)}
+            w={"100%"}
+            {...form.getInputProps("logo_url")}
+            onChange={(file) => {
+              const originProps = form.getInputProps("logo_url");
+              file && setLogoUrl(URL.createObjectURL(file));
+              return originProps.onChange(file);
+            }}
+          ></FileInput>
         </Group>
-      </Stack>
+        <Space h={"1em"} />
+        <TextInput
+          label="워크스페이스 이름"
+          placeholder="이름을 입력해주세요."
+          {...form.getInputProps("name")}
+          onBlur={() => form.validate()}
+        />
+        <Space h={"1em"} />
+        <TextInput
+          label="식별자"
+          placeholder="URL 식별자를 입력해주세요."
+          description={`(${slugRuleText})`}
+          {...form.getInputProps("slug")}
+        />
+      </Fieldset>
     </form>
   );
 }
