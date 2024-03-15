@@ -1,4 +1,4 @@
-import { getSession, touchSession } from "@auth0/nextjs-auth0";
+import { getSession } from "@auth0/nextjs-auth0";
 import { Anchor, Button, Stack, Text } from "@mantine/core";
 import { notFound, redirect } from "next/navigation";
 import { User } from "@/database/schemas/auth";

@@ -1,7 +1,7 @@
 "use client";
 import { Avatar, Stack, Transition } from "@mantine/core";
 import { IconArrowMerge } from "@tabler/icons-react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 
 export default function TargetAvatarGroup() {
