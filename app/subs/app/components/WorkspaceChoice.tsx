@@ -18,7 +18,7 @@ export default function WorkspaceChoice({
     <Select
       placeholder="워크스페이스를 선택해주세요"
       data={workspaces.map((workspace) => ({
-        label: workspace.title,
+        label: workspace.name,
         value: workspace.slug,
       }))}
       onChange={(value) => {

@@ -205,7 +205,7 @@ export default function WorkspaceAppShell({
                   >
                     <Text fw={700}>
                       {workspace
-                        ? workspace.title
+                        ? workspace.name
                         : "워크스페이스를 선택해주세요"}
                     </Text>
                     <Button
