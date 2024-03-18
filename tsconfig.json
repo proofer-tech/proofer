@@ -20,7 +20,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": false,
+    "isolatedModules": true,
     "useUnknownInCatchVariables": false,
     "jsx": "preserve",
     "incremental": true,
@@ -33,7 +33,7 @@
       {
         "name": "next"
       }
-    ],
+    ]
   },
   "include": [
     "next-env.d.ts",
