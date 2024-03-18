@@ -85,7 +85,9 @@ export function SettingsModal() {
             ta={"center"}
           >
             <Text size={"1em"} fw={700}>
-              환경설정
+              {settingsModalContext.path
+                ? settingsModalContext.path.title
+                : "환경설정"}
             </Text>
           </Modal.Title>
           <Modal.CloseButton />

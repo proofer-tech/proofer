@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   Accordion,
   Anchor,
@@ -40,6 +40,11 @@ import {
   useSettingsModal,
 } from "@/app/subs/app/settings/modal";
 import { useIsDesktopMedia } from "@/src/hooks/mediaQuery";
+import {
+  GlobalAlertContext,
+  GlobalAlertMold,
+  GlobalAlertConfig,
+} from "@/app/components/GlobalAlert";
 
 function NeedHelpNavLink() {
   const { showMessenger } = useChannelIOApi();
@@ -53,10 +58,58 @@ function NeedHelpNavLink() {
   );
 }
 
+interface WorkspaceAppShellContextProps {
+  isCollapsed: boolean;
+  open: () => void;
+  close: () => void;
+  toggle: () => void;
+}
+export const WorkspaceAppShellContext =
+  createContext<WorkspaceAppShellContextProps>({
+    isCollapsed: false,
+    open: () => {},
+    close: () => {},
+    toggle: () => {},
+  });
+
 interface WorkspaceAppShellProps extends AppShellProps {
   user?: UserDto;
   workspace?: InferSelectModel<typeof Workspace>;
   member?: InferSelectModel<typeof WorkspaceMember>;
+}
+
+export function WorkspaceAppShellDisclosureProvider({ children }: any) {
+  const collapseDisclosure = useDisclosure(true);
+  const [isGlobalAlertMounted, setIsGlobalAlertMounted] =
+    useState<boolean>(false);
+  const [globalOption, setGlobalOption] = useState<GlobalAlertConfig>({
+    variant: "white",
+  });
+
+  return (
+    <WorkspaceAppShellContext.Provider
+      value={{
+        isCollapsed: collapseDisclosure[0],
+        open: collapseDisclosure[1].open,
+        close: collapseDisclosure[1].close,
+        toggle: collapseDisclosure[1].toggle,
+      }}
+    >
+      <GlobalAlertContext.Provider
+        value={{
+          options: globalOption,
+          open: (config) => {
+            setGlobalOption(Object.assign(globalOption, config));
+            setIsGlobalAlertMounted(true);
+          },
+          close: () => setIsGlobalAlertMounted(false),
+        }}
+      >
+        {children}
+        <GlobalAlertMold mounted={isGlobalAlertMounted} />
+      </GlobalAlertContext.Provider>
+    </WorkspaceAppShellContext.Provider>
+  );
 }
 
 export default function WorkspaceAppShell({
@@ -68,11 +121,12 @@ export default function WorkspaceAppShell({
 }: WorkspaceAppShellProps) {
   const pathname = usePathname();
   const [_, pathBlock, subPathBlock] = getAppPathBlocks(pathname);
-  const collapseDisclosure = useDisclosure(false);
   const settingsModal = useSettingsModal();
   const isDesktopMedia = !!useIsDesktopMedia(true);
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const [triggerToken, setTriggerToken] = useState<Triggers>("");
+
+  const appShellContext = useContext(WorkspaceAppShellContext);
 
   const openSettingModal = (path: Path) => {
     settingsModal.setPath(path);
@@ -119,9 +173,8 @@ export default function WorkspaceAppShell({
               width: "100%",
               breakpoint: 0,
               collapsed: {
-                mobile:
-                  collapseDisclosure[0] === null ? true : collapseDisclosure[0],
-                desktop: collapseDisclosure[0],
+                mobile: !appShellContext.isCollapsed,
+                desktop: !appShellContext.isCollapsed,
               },
             }}
             style={{ display: "flex", justifyContent: "flex-start", gap: 0 }}
@@ -144,7 +197,7 @@ export default function WorkspaceAppShell({
                 style={{
                   borderRight: "1px solid var(--mantine-color-gray-3)",
                   position: "relative",
-                  zIndex: 300,
+                  zIndex: 201,
                   flexShrink: 0,
                 }}
               >
@@ -156,16 +209,7 @@ export default function WorkspaceAppShell({
                     flexShrink: 0,
                   }}
                 >
-                  {collapseDisclosure[0] ? (
-                    <Button
-                      variant={"subtle"}
-                      onClick={() => collapseDisclosure[1].toggle()}
-                    >
-                      <IconLayoutSidebarRightCollapse
-                        color={"var(--mantine-color-gray-6)"}
-                      />
-                    </Button>
-                  ) : (
+                  {appShellContext.isCollapsed ? (
                     <Anchor
                       href={generateAppPath(`/${workspace?.slug}`)}
                       underline="never"
@@ -178,6 +222,15 @@ export default function WorkspaceAppShell({
                         height={24}
                       />
                     </Anchor>
+                  ) : (
+                    <Button
+                      variant={"subtle"}
+                      onClick={() => appShellContext.toggle()}
+                    >
+                      <IconLayoutSidebarRightCollapse
+                        color={"var(--mantine-color-gray-6)"}
+                      />
+                    </Button>
                   )}
                 </Center>
                 <Stack
@@ -193,8 +246,8 @@ export default function WorkspaceAppShell({
               </Stack>
               <AppShell.Navbar
                 style={{
-                  position: collapseDisclosure[0] ? "fixed" : "relative",
-                  width: collapseDisclosure[0] ? "auto" : "100%",
+                  position: appShellContext.isCollapsed ? "relative" : "fixed",
+                  width: appShellContext.isCollapsed ? "100%" : "auto",
                 }}
               >
                 <Stack gap={0} miw={"20em"} h={"100%"} align={"center"}>
@@ -217,14 +270,14 @@ export default function WorkspaceAppShell({
                     </Text>
                     <Button
                       variant={"subtle"}
-                      onClick={() => collapseDisclosure[1].toggle()}
+                      onClick={() => appShellContext.toggle()}
                     >
-                      {collapseDisclosure[0] ? (
-                        <IconLayoutSidebarRightCollapse
+                      {appShellContext.isCollapsed ? (
+                        <IconLayoutSidebarLeftCollapse
                           color={"var(--mantine-color-gray-6)"}
                         />
                       ) : (
-                        <IconLayoutSidebarLeftCollapse
+                        <IconLayoutSidebarRightCollapse
                           color={"var(--mantine-color-gray-6)"}
                         />
                       )}
@@ -235,7 +288,9 @@ export default function WorkspaceAppShell({
                     h={"100%"}
                     justify={"space-between"}
                     style={{
-                      ...(collapseDisclosure[0] ? { display: "none" } : {}),
+                      ...(appShellContext.isCollapsed
+                        ? {}
+                        : { display: "none" }),
                     }}
                   >
                     <ScrollArea>
@@ -354,7 +409,7 @@ export default function WorkspaceAppShell({
               h={"100dvh"}
               bg={"var(--mantine-color-gray-0)"}
             >
-              <ScrollArea px={"2em"} py={"3em"} h={"100%"}>
+              <ScrollArea px={"2em"} py={"2em"} h={"100%"}>
                 {children}
               </ScrollArea>
             </AppShell.Main>

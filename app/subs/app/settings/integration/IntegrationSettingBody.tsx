@@ -1,17 +1,8 @@
 import React, { useContext } from "react";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import NeedToSelectWorkspace from "@/app/subs/app/components/NeedToSelectWorkspace";
-import {
-  ActionIcon,
-  Avatar,
-  Card,
-  Center,
-  Group,
-  Menu,
-  Stack,
-  Text,
-} from "@mantine/core";
-import { IconDots } from "@tabler/icons-react";
+import { Divider, ScrollArea, Stack } from "@mantine/core";
+import { IntegrationHorizontalCard } from "@/app/subs/app/components/integrations";
 
 export default function IntegrationSettingsBody() {
   const { workspace } = useContext(ProoferInsightContext);
@@ -20,25 +11,32 @@ export default function IntegrationSettingsBody() {
   }
 
   return (
-    <Center w={"100%"}>
-      <Stack align={"center"} c={"var(--mantine-color-gray-6"} w={"100%"}>
-        <Card withBorder shadow="sm" radius="md" w={"100%"}>
-          <Card.Section withBorder inheritPadding py="xs">
-            <Group justify="space-between">
-              <Avatar src="avatar.png" alt="it's me" />
-              <Text fw={500}>GitHub</Text>
-              <Menu withinPortal position="bottom-end" shadow="sm">
-                <Menu.Target>
-                  <ActionIcon variant="subtle" color="gray">
-                    <IconDots size={"1em"} />
-                  </ActionIcon>
-                </Menu.Target>
-                <Menu.Dropdown></Menu.Dropdown>
-              </Menu>
-            </Group>
-          </Card.Section>
-        </Card>
+    <ScrollArea>
+      <Stack gap={"3em"}>
+        <Stack align={"start"} w={"100%"}>
+          <Divider label="Opt-In" labelPosition="left" w={"100%"} />
+          <IntegrationHorizontalCard
+            branding={
+              "https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/uploads/integrations/1/25231-TnjPtwgBVvRquVRJpKfY61iPU9oHoi.png"
+            }
+          />
+        </Stack>
+        <Stack align={"start"} w={"100%"}>
+          <Divider label="Others" labelPosition="left" w={"100%"} />
+          <IntegrationHorizontalCard
+            branding={
+              "https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/uploads/integrations/1/25231-TnjPtwgBVvRquVRJpKfY61iPU9oHoi.png"
+            }
+            disabled
+          />
+          <IntegrationHorizontalCard
+            branding={
+              "https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/uploads/integrations/1/25231-TnjPtwgBVvRquVRJpKfY61iPU9oHoi.png"
+            }
+            disabled
+          />
+        </Stack>
       </Stack>
-    </Center>
+    </ScrollArea>
   );
 }

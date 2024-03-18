@@ -25,7 +25,7 @@ export default function Page({ params }: any) {
     <Box>
       <LoadingOverlay
         visible={!isMounted}
-        zIndex={1000}
+        zIndex={100}
         overlayProps={{ radius: "sm", blur: 2 }}
       />
     </Box>

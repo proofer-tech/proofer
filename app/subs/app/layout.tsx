@@ -1,7 +1,9 @@
 import React from "react";
 import { Viewport } from "next";
 import "@mantine/charts/styles.css";
-import WorkspaceAppShell from "@/app/subs/app/components/WorkspaceAppShell";
+import WorkspaceAppShell, {
+  WorkspaceAppShellDisclosureProvider,
+} from "@/app/subs/app/components/WorkspaceAppShell";
 import { headers } from "next/headers";
 import { getAppPathBlocks } from "@/src/path";
 import { findMember, findWorkspace } from "@/src/data/workspace";
@@ -35,8 +37,10 @@ export default async function AppLayout({ children }: { children: any }) {
   }
 
   return (
-    <WorkspaceAppShell user={user} workspace={workspace} member={member}>
-      {children}
-    </WorkspaceAppShell>
+    <WorkspaceAppShellDisclosureProvider>
+      <WorkspaceAppShell user={user} workspace={workspace} member={member}>
+        {children}
+      </WorkspaceAppShell>
+    </WorkspaceAppShellDisclosureProvider>
   );
 }

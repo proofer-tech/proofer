@@ -99,7 +99,7 @@ export default function WorkspaceSettingsBody() {
     <form onSubmit={form.onSubmit(onSubmit)}>
       <LoadingOverlay
         visible={isLoading}
-        zIndex={1000}
+        zIndex={100}
         overlayProps={{ radius: "sm", blur: 1 }}
       />
       <Fieldset legend="기본정보">
