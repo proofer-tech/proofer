@@ -49,7 +49,7 @@ export default function IntegrationNavbar({
           </Stack>
           <Stack gap={"1ex"}>
             <Text fw={700} size={"xs"}>
-              한줄소개:
+              앱 설명:
             </Text>
             <Text size={"sm"} c={"var(--mantine-color-gray-8)"}>
               {integration.description}
