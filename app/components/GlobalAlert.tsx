@@ -25,13 +25,13 @@ export function GlobalAlertMold({ mounted }: GlobalAlertMoldProps) {
 
   useEffect(() => {
     if (!alertContext.options.closeOnSeconds) return;
-    const timeoutFunc = setTimeout(
-      () => alertContext.close(),
-      alertContext.options.closeOnSeconds * 1000,
-    );
+    const timeoutFunc = setTimeout(() => {
+      alertContext.close();
+      alertContext.options.onClose && alertContext.options.onClose();
+    }, alertContext.options.closeOnSeconds * 1000);
 
     return () => clearTimeout(timeoutFunc);
-  }, [mounted]);
+  }, [alertContext, mounted]);
 
   return (
     <>
@@ -48,7 +48,9 @@ export function GlobalAlertMold({ mounted }: GlobalAlertMoldProps) {
               title={alertContext.options.title}
               icon={alertContext.options.icon}
               style={transitionStyles}
-              onClose={alertContext.options.onClose}
+              onClose={() =>
+                alertContext.options.onClose && alertContext.options.onClose()
+              }
               withCloseButton={alertContext.options.withCloseButton}
             >
               {alertContext.options.children}

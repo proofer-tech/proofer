@@ -1,5 +1,6 @@
 "use client";
 import {
+  Anchor,
   Avatar,
   Badge,
   Button,
@@ -15,29 +16,28 @@ import {
 } from "@mantine/core";
 import React, { useContext, useEffect, useState } from "react";
 import { generateAppPath } from "@/src/path";
-import { InferSelectModel } from "drizzle-orm";
-import { Workspace } from "@/database/schemas/workspace";
 import { apiFetcher } from "@/src/swr";
 import useSWRImmutable from "swr/immutable";
 import { IconChevronRight } from "@tabler/icons-react";
 import { Installation } from "@/app/subs/app/[workspace-slug]/api/github/installations/[installation-id]/route";
-import { notFound, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { GlobalAlertContext } from "@/app/components/GlobalAlert";
+import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
+import useSWR from "swr";
+import { InferSelectModel } from "drizzle-orm";
+import { GitHubInstallation } from "@/database/schemas/github";
+import GitHubInstallationCard from "@/app/subs/app/[workspace-slug]/integrations/components/GitHub/GitHubInstallationCard";
 
-interface GitHubPageProps {
-  workspace: InferSelectModel<typeof Workspace>;
-  pathBlocks: string[];
-}
-
-function GitHubInstallationDetailPage({
-  workspace,
-  pathBlocks,
-}: GitHubPageProps) {
+export function GitHubInstallationDetailCardSection({
+  installationId,
+}: {
+  installationId: number;
+}) {
+  const { workspace } = useContext(ProoferInsightContext);
   const router = useRouter();
   const alertContext = useContext(GlobalAlertContext);
-  const [installationId] = pathBlocks;
   const installationAPIPath = generateAppPath(
-    `/${workspace.slug}/api/github/installations/${installationId}`,
+    `/${workspace?.instance.slug}/api/github/installations/${installationId}`,
   );
 
   const { data, error, isLoading } = useSWRImmutable<Installation>(
@@ -74,21 +74,29 @@ function GitHubInstallationDetailPage({
   };
 
   const doUninstall = async () => {
+    alertContext.close();
     setIsPageLoading(true);
     await fetch(installationAPIPath, { method: "DELETE" });
     alertContext.open({
       children: "연동이 해제되었습니다. 잠시 후 소개 페이지로 이동됩니다.",
+      variant: "filled",
       closeOnSeconds: 3,
       onClose: () => {
         setIsPageLoading(false);
-        router.push(generateAppPath(`/${workspace.slug}/integrations/github`));
+        router.push(
+          generateAppPath(`/${workspace?.instance.slug}/integrations/github`),
+        );
       },
     });
   };
 
   useEffect(() => {
     if (!error) return;
-    if (error.status === 404) notFound();
+    if (error.status === 404) {
+      router.push(
+        generateAppPath(`/${workspace?.instance.slug}/integrations/github`),
+      );
+    }
   }, [error]);
 
   return (
@@ -171,24 +179,47 @@ function GitHubInstallationDetailPage({
   );
 }
 
-function GitHubInstallationListPage({ workspace }: GitHubPageProps) {
+export function GitHubInstallationListCardSection({}) {
+  const { workspace } = useContext(ProoferInsightContext);
   const installationListAPIPath = generateAppPath(
-    `/${workspace.slug}/api/github/installations`,
+    `/${workspace?.instance.slug}/api/github/installations`,
   );
+
+  const { data, error, isLoading } = useSWR<
+    InferSelectModel<typeof GitHubInstallation>[]
+  >(installationListAPIPath, apiFetcher);
 
   return (
     <>
       <LoadingOverlay
-        visible={false}
+        visible={isLoading}
         zIndex={100}
         overlayProps={{ radius: "sm", blur: 1 }}
       />
+      <Card.Section inheritPadding py={"lg"} h={"100%"}>
+        <Stack gap={"3em"} h={"100%"}>
+          {data && data.length !== 0 ? (
+            <Stack>
+              <Divider label="Opt-In" labelPosition="left" w={"100%"} />
+              <Stack gap={"1ex"}>
+                {data.map((installation) => (
+                  <Anchor
+                    key={installation.installation_id}
+                    href={`github/${installation.installation_id}`}
+                    underline={"never"}
+                  >
+                    <GitHubInstallationCard installation={installation} />
+                  </Anchor>
+                ))}
+              </Stack>
+            </Stack>
+          ) : (
+            <Center c={"var(--mantine-color-gray-6)"} h={"100%"}>
+              {'"앱 연동하기"'} 버튼을 눌러 프루퍼 인사이트에 앱을 연동해보세요.
+            </Center>
+          )}
+        </Stack>
+      </Card.Section>
     </>
   );
-}
-export default function GitHubPage(props: GitHubPageProps) {
-  const [installationId] = props.pathBlocks;
-  return installationId
-    ? GitHubInstallationDetailPage(props)
-    : GitHubInstallationListPage(props);
 }

@@ -1,65 +1,36 @@
-import {
-  ActionIcon,
-  Avatar,
-  Badge,
-  Card,
-  Group,
-  Menu,
-  Text,
-} from "@mantine/core";
-import { IconDots, IconPlugConnectedX } from "@tabler/icons-react";
+import { Avatar, Badge, Card, Group, Text } from "@mantine/core";
 import React from "react";
+import { IntegrationDto } from "@/src/data/integration";
+
 interface IntegrationHorizontalCardProps {
-  branding: string;
-  disabled?: boolean;
+  integration: IntegrationDto;
 }
 export function IntegrationHorizontalCard({
-  branding,
-  disabled,
+  integration,
 }: IntegrationHorizontalCardProps) {
   return (
     <Card
       withBorder
-      shadow={disabled ? undefined : "xs"}
+      shadow={integration.isImplemented ? "xs" : undefined}
       radius="md"
       w={"100%"}
-      style={{ opacity: disabled ? ".4" : 1 }}
+      style={{ opacity: integration.isImplemented ? 1 : 0.4 }}
     >
       <Card.Section withBorder inheritPadding py="xs">
         <Group justify="space-between" wrap={"nowrap"}>
           <Group justify="space-between" w={"100%"} wrap={"nowrap"}>
             <Group>
-              <Avatar src={branding} alt="it's me" />
-              <Text fw={700}>GitHub</Text>
+              <Avatar src={integration.iconUrl} alt="it's me" />
+              <Text fw={700}>{integration.name}</Text>
             </Group>
             <Group justify={"end"} gap={"1ex"}>
-              <Badge variant="light" color="gray">
-                VCS
-              </Badge>
-              <Badge variant="light" color="gray">
-                Activity
-              </Badge>
+              {integration.tags.map((t) => (
+                <Badge key={t.id} variant="light" color={t.color || undefined}>
+                  {t.name}
+                </Badge>
+              ))}
             </Group>
           </Group>
-          {!disabled ? (
-            <Menu withinPortal position="bottom-end" shadow="sm">
-              <Menu.Target>
-                <ActionIcon variant="subtle" color="gray">
-                  <IconDots size={"1em"} />
-                </ActionIcon>
-              </Menu.Target>
-              <Menu.Dropdown>
-                <Menu.Item
-                  c={"red"}
-                  leftSection={<IconPlugConnectedX size={"1em"} />}
-                >
-                  연동 해제하기
-                </Menu.Item>
-              </Menu.Dropdown>
-            </Menu>
-          ) : (
-            ""
-          )}
         </Group>
       </Card.Section>
     </Card>

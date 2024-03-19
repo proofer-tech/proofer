@@ -1,12 +1,5 @@
 "use client";
-import {
-  Avatar,
-  Box,
-  Loader,
-  Skeleton,
-  Stack,
-  Transition,
-} from "@mantine/core";
+import { Avatar, Box, Skeleton, Stack, Transition } from "@mantine/core";
 import { IconArrowMerge } from "@tabler/icons-react";
 import React, { useContext } from "react";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";

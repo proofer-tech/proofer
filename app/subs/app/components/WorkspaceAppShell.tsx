@@ -41,9 +41,9 @@ import {
 } from "@/app/subs/app/settings/modal";
 import { useIsDesktopMedia } from "@/src/hooks/mediaQuery";
 import {
+  GlobalAlertConfig,
   GlobalAlertContext,
   GlobalAlertMold,
-  GlobalAlertConfig,
 } from "@/app/components/GlobalAlert";
 
 function NeedHelpNavLink() {

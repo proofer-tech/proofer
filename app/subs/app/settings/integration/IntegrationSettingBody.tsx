@@ -1,42 +1,89 @@
+"use client";
 import React, { useContext } from "react";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import NeedToSelectWorkspace from "@/app/subs/app/components/NeedToSelectWorkspace";
-import { Divider, ScrollArea, Stack } from "@mantine/core";
+import {
+  Anchor,
+  Divider,
+  LoadingOverlay,
+  ScrollArea,
+  Stack,
+} from "@mantine/core";
 import { IntegrationHorizontalCard } from "@/app/subs/app/components/integrations";
+import useSWR from "swr";
+import { generateAppPath } from "@/src/path";
+import { apiFetcher } from "@/src/swr";
+import { IntegrationDto } from "@/src/data/integration";
 
 export default function IntegrationSettingsBody() {
   const { workspace } = useContext(ProoferInsightContext);
+
+  const { data, error, isLoading } = useSWR<{
+    optIn: IntegrationDto[];
+    others: IntegrationDto[];
+  }>(
+    generateAppPath(`/${workspace?.instance.slug}/api/workspace/integrations`),
+    apiFetcher,
+    { isPaused: () => workspace === undefined },
+  );
+
   if (workspace === undefined) {
     return <NeedToSelectWorkspace serviceName={"워크스페이스 설정"} />;
   }
 
   return (
-    <ScrollArea>
-      <Stack gap={"3em"}>
-        <Stack align={"start"} w={"100%"}>
-          <Divider label="Opt-In" labelPosition="left" w={"100%"} />
-          <IntegrationHorizontalCard
-            branding={
-              "https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/uploads/integrations/1/25231-TnjPtwgBVvRquVRJpKfY61iPU9oHoi.png"
-            }
-          />
+    <>
+      <LoadingOverlay
+        visible={isLoading}
+        zIndex={100}
+        overlayProps={{ radius: "sm", blur: 1 }}
+      />
+      <ScrollArea>
+        <Stack gap={"3em"}>
+          {data && (
+            <>
+              {data.optIn.length > 0 ? (
+                <Stack align={"start"} w={"100%"}>
+                  <Divider label="Opt-In" labelPosition="left" w={"100%"} />
+                  {data.optIn.map((integration) => (
+                    <Anchor
+                      key={integration.id}
+                      href={generateAppPath(
+                        `/${workspace.instance.slug}/integrations/${integration.slug}`,
+                      )}
+                      underline={"never"}
+                      w={"100%"}
+                    >
+                      <IntegrationHorizontalCard integration={integration} />
+                    </Anchor>
+                  ))}
+                </Stack>
+              ) : (
+                ""
+              )}
+              {data.others.length > 0 ? (
+                <Stack align={"start"} w={"100%"}>
+                  <Divider label="Others" labelPosition="left" w={"100%"} />
+                  {data.others.map((integration) => (
+                    <Anchor
+                      key={integration.id}
+                      href={generateAppPath(
+                        `/${workspace.instance.slug}/integrations/${integration.slug}`,
+                      )}
+                      underline={"never"}
+                      w={"100%"}
+                    >
+                      <IntegrationHorizontalCard integration={integration} />
+                    </Anchor>
+                  ))}
+                </Stack>
+              ) : (
+                ""
+              )}
+            </>
+          )}
         </Stack>
-        <Stack align={"start"} w={"100%"}>
-          <Divider label="Others" labelPosition="left" w={"100%"} />
-          <IntegrationHorizontalCard
-            branding={
-              "https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/uploads/integrations/1/25231-TnjPtwgBVvRquVRJpKfY61iPU9oHoi.png"
-            }
-            disabled
-          />
-          <IntegrationHorizontalCard
-            branding={
-              "https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/uploads/integrations/1/25231-TnjPtwgBVvRquVRJpKfY61iPU9oHoi.png"
-            }
-            disabled
-          />
-        </Stack>
-      </Stack>
-    </ScrollArea>
+      </ScrollArea>
+    </>
   );
 }

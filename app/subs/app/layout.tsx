@@ -31,7 +31,7 @@ export default async function AppLayout({ children }: { children: any }) {
       if (workspace.ownerId !== user.id) {
         workspace = undefined;
       } else {
-        member = await findMember(workspace, user);
+        member = await findMember(workspace.id, user.id);
       }
     }
   }
