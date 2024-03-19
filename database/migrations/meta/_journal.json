@@ -71,6 +71,13 @@
       "when": 1710833387887,
       "tag": "0009_fixed_scarlet_spider",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1710853520344,
+      "tag": "0010_perpetual_war_machine",
+      "breakpoints": true
     }
   ]
 }

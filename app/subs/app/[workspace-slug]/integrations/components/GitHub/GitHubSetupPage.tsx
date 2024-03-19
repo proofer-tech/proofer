@@ -8,6 +8,7 @@ import { generateAppPath } from "@/src/path";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { GitHubApp } from "@/src/integrations/github";
+import { pick } from "lodash";
 
 export default async function GitHubSetupPage({ params, searchParams }: any) {
   const headerList = headers();
@@ -25,10 +26,13 @@ export default async function GitHubSetupPage({ params, searchParams }: any) {
   for await (const { installation } of GitHubApp.eachInstallation.iterator()) {
     if (installation.id !== installationId) continue;
     if (installation.account === null) throw Error();
+    const account = await fetch(installation.account.url).then((r) => r.json());
+
     await db.insert(GitHubInstallation).values({
       installation_id: installation.id,
-      avatar_url: installation.account.avatar_url,
-      name: installation.account.login,
+      updated_at: new Date(),
+      ...pick(installation, ["target_type", "repository_selection"]),
+      ...pick(account, ["avatar_url", "name", "bio", "blog"]),
     });
   }
 

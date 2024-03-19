@@ -6,6 +6,7 @@ import {
   text,
   uuid,
   uniqueIndex,
+  timestamp,
 } from "drizzle-orm/pg-core";
 
 export const WorkspaceToGitHubInstallation = prooferSchema.table(
@@ -32,6 +33,14 @@ export const GitHubInstallation = prooferSchema.table("github_installation", {
     .unique("ghi_uidx_installation_id"),
   avatar_url: text("avatar_url"),
   name: varchar("name", { length: 100 }).notNull(),
+  bio: varchar("bio", { length: 128 }),
+  blog: varchar("blog", { length: 128 }),
+
+  target_type: varchar("target_type", { length: 32 }),
+  repository_selection: varchar("repository_selection", { length: 16 }),
+
+  updated_at: timestamp("updated_at").defaultNow().notNull(),
+  created_at: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const GitHubRepository = prooferSchema.table("github_repository", {

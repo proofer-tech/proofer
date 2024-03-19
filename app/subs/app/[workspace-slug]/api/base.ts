@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { NextRequest } from "next/server";
 import { Workspace } from "@/database/schemas/workspace";
 import { db } from "@/database/engine";
@@ -8,10 +9,11 @@ import { notFound } from "next/navigation";
 import * as Boom from "@hapi/boom";
 import { findMember } from "@/src/data/workspace";
 import { NextApiHandler, NextApiRequest } from "next";
+import { WithApiAuthRequired } from "@auth0/nextjs-auth0/src/shared";
 
-export function withApiWorkspaceUserRequired(
+export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
   apiRoute: AppRouteHandlerFn | NextApiHandler,
-) {
+) => {
   const wrapper = async (
     req: NextRequest & NextApiRequest,
     kwargs: any,
@@ -40,4 +42,4 @@ export function withApiWorkspaceUserRequired(
   };
 
   return wrapper as NextApiHandler;
-}
+};
