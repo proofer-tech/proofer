@@ -2,7 +2,7 @@ import { InferSelectModel } from "drizzle-orm";
 import { Integration, IntegrationTag } from "@/database/schemas/integration";
 import React from "react";
 import { Card, Group } from "@mantine/core";
-import IntegrationNavbar from "@/app/subs/app/[workspace-slug]/integrations/[...integration-path]/components/IntegrationNavbar";
+import IntegrationNavbar from "@/app/subs/app/[workspace-slug]/integrations/components/IntegrationNavbar";
 
 interface IntegrationPageProps {
   integration: InferSelectModel<typeof Integration>;
