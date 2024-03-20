@@ -132,13 +132,6 @@ export function GitHubInstallationDetailCardSection({
               </Group>
               <Divider />
               <Stack gap={0} h={"100%"}>
-                {data.repository_selection === "all" ? (
-                  <Center c={"var(--mantine-color-gray-6)"} h={"100%"}>
-                    {data.name} 의 모든 저장소에 접근할 수 있습니다.
-                  </Center>
-                ) : (
-                  ""
-                )}
                 {data.repositories.map((repo) => (
                   <NavLink
                     key={repo.html_url}

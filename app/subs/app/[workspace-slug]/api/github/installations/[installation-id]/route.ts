@@ -4,6 +4,7 @@ import { pick } from "lodash";
 import { db } from "@/database/engine";
 import {
   GitHubInstallation,
+  GitHubRepository,
   WorkspaceToGitHubInstallation,
 } from "@/database/schemas/github";
 import { and, eq } from "drizzle-orm";
@@ -50,12 +51,13 @@ export const GET = withApiAuthRequired(
 
     let installation = row.github_installation;
     if (installation.updated_at < moment().subtract(1, "hours").toDate()) {
-      const installationResponse = await GitHubApp.octokit.request(
-        `/app/installations/${installationId}`,
-      );
-      const accountResponse = await fetch(
-        installationResponse.data.account.url,
-      );
+      const installationResponse =
+        await GitHubApp.octokit.rest.apps.getInstallation({
+          installation_id: installationId,
+        });
+      const accountResponse = await GitHubApp.octokit.rest.users.getByUsername({
+        username: installationResponse.data.account?.name!,
+      });
       installation = (
         await db
           .update(GitHubInstallation)
@@ -66,7 +68,7 @@ export const GET = withApiAuthRequired(
                 "target_type",
                 "repository_selection",
               ]),
-              pick(await accountResponse.json(), [
+              pick(accountResponse.data as {}, [
                 "avatar_url",
                 "name",
                 "bio",
@@ -79,22 +81,10 @@ export const GET = withApiAuthRequired(
       )[0];
     }
 
-    const repositories = [];
-    if (installation.repository_selection === "selected") {
-      for await (const { repository } of GitHubApp.eachRepository.iterator({
-        installationId: installationId,
-      })) {
-        repositories.push(
-          pick(repository, [
-            "name",
-            "description",
-            "html_url",
-            "language",
-            "visibility",
-          ]),
-        );
-      }
-    }
+    const repositories = await db
+      .select()
+      .from(GitHubRepository)
+      .where(eq(GitHubRepository.installation_id, installationId));
 
     return NextResponse.json(Object.assign(installation, { repositories }));
   }),
@@ -103,35 +93,46 @@ export const DELETE = withApiAuthRequired(
   withApiWorkspaceUserRequired(async (_: any, { params }: any) => {
     const workspaceSlug = params["workspace-slug"];
     const installationId = parseInt(params["installation-id"]);
-    const response = await GitHubApp.octokit.request(
-      `DELETE /app/installations/${installationId}`,
-    );
-    if (response.status !== 204) throw new Error("연동 해제에 실패했습니다.");
+    try {
+      await GitHubApp.octokit.rest.apps.deleteInstallation({
+        installation_id: installationId,
+      });
+    } catch (e) {
+      if (e.status !== 404) throw e;
+    }
 
-    const { workspace_to_github_installation } = (
+    await db.transaction(async (db) => {
+      const { workspace_to_github_installation } = (
+        await db
+          .select()
+          .from(WorkspaceToGitHubInstallation)
+          .innerJoin(
+            Workspace,
+            eq(WorkspaceToGitHubInstallation.workspace_id, Workspace.id),
+          )
+          .where(
+            and(
+              eq(WorkspaceToGitHubInstallation.installation_id, installationId),
+              eq(Workspace.slug, workspaceSlug),
+            ),
+          )
+      )[0];
+      if (!workspace_to_github_installation) return notFound();
       await db
-        .select()
-        .from(WorkspaceToGitHubInstallation)
-        .innerJoin(
-          Workspace,
-          eq(WorkspaceToGitHubInstallation.workspace_id, Workspace.id),
-        )
+        .delete(WorkspaceToGitHubInstallation)
         .where(
-          and(
-            eq(WorkspaceToGitHubInstallation.installation_id, installationId),
-            eq(Workspace.slug, workspaceSlug),
+          eq(
+            WorkspaceToGitHubInstallation.uuid,
+            workspace_to_github_installation.uuid,
           ),
-        )
-    )[0];
-    await db
-      .delete(WorkspaceToGitHubInstallation)
-      .where(
-        eq(
-          WorkspaceToGitHubInstallation.uuid,
-          workspace_to_github_installation.uuid,
-        ),
-      );
-
-    return new Response(null, { status: response.status });
+        );
+      await db
+        .delete(GitHubRepository)
+        .where(eq(GitHubRepository.installation_id, installationId));
+      await db
+        .delete(GitHubInstallation)
+        .where(eq(GitHubInstallation.installation_id, installationId));
+    });
+    return new Response(null, { status: 204 });
   }),
 );

@@ -1,14 +1,18 @@
 import { db } from "@/database/engine";
 import {
   GitHubInstallation,
+  GitHubRepository,
   WorkspaceToGitHubInstallation,
 } from "@/database/schemas/github";
-import { eq } from "drizzle-orm";
+import { eq, InferSelectModel } from "drizzle-orm";
 import { generateAppPath } from "@/src/path";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { GitHubApp } from "@/src/integrations/github";
 import { pick } from "lodash";
+import { integer, text, timestamp, varchar } from "drizzle-orm/pg-core/index";
+import { undefined } from "zod";
+import moment from "moment";
 
 export default async function GitHubSetupPage({ params, searchParams }: any) {
   const headerList = headers();
@@ -23,17 +27,40 @@ export default async function GitHubSetupPage({ params, searchParams }: any) {
   )[0];
   if (!bridge) return;
 
-  for await (const { installation } of GitHubApp.eachInstallation.iterator()) {
+  for await (const {
+    octokit,
+    installation,
+  } of GitHubApp.eachInstallation.iterator()) {
     if (installation.id !== installationId) continue;
     if (installation.account === null) throw Error();
-    const account = await fetch(installation.account.url).then((r) => r.json());
-
-    await db.insert(GitHubInstallation).values({
-      installation_id: installation.id,
-      updated_at: new Date(),
-      ...pick(installation, ["target_type", "repository_selection"]),
-      ...pick(account, ["avatar_url", "name", "bio", "blog"]),
+    const accountResponse = await octokit.rest.users.getByUsername({
+      username: installation.account.login,
     });
+
+    await db
+      .insert(GitHubInstallation)
+      .values({
+        installation_id: installation.id,
+        ...pick(installation, ["target_type", "repository_selection"]),
+        ...pick(accountResponse.data, ["avatar_url", "name", "bio", "blog"]),
+      } as InferSelectModel<typeof GitHubInstallation>)
+      .onConflictDoNothing({ target: GitHubInstallation.installation_id });
+    const repos = await octokit.rest.apps.listReposAccessibleToInstallation();
+
+    for (const repo of repos.data.repositories) {
+      await db.insert(GitHubRepository).values({
+        installation_id: installation.id,
+        repository_id: repo.id,
+        name: repo.name,
+        full_name: repo.full_name,
+        description: repo.description,
+        html_url: repo.html_url,
+        language: repo.language,
+        visibility: repo.visibility,
+        created_at: moment(repo.created_at!).toDate(),
+        updated_at: moment(repo.updated_at!).toDate(),
+      });
+    }
   }
 
   const appPath = generateAppPath(

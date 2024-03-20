@@ -24,7 +24,6 @@ export default function TargetAvatarGroup() {
         {(styles) => (
           <Stack style={styles} align={"center"}>
             <Avatar
-              src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
               style={{
                 border: "3px solid var(--color-primary)",
               }}
@@ -37,15 +36,9 @@ export default function TargetAvatarGroup() {
                 flexDirection: "column",
               }}
             >
-              <Avatar
-                src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-              />
-              <Avatar
-                src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-              />
-              <Avatar
-                src={`https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 50 + 1)}.jpg`}
-              />
+              <Avatar />
+              <Avatar />
+              <Avatar />
               <Avatar>+5</Avatar>
             </Avatar.Group>
           </Stack>
