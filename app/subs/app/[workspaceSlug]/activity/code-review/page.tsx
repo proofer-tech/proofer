@@ -1,5 +1,4 @@
 import React from "react";
-import { GitHubApp } from "@/src/integrations/github";
 
 export default function Page() {
   return (

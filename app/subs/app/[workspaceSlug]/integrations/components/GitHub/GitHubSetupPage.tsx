@@ -10,8 +10,6 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { GitHubApp } from "@/src/integrations/github";
 import { pick } from "lodash";
-import { integer, text, timestamp, varchar } from "drizzle-orm/pg-core/index";
-import { undefined } from "zod";
 import moment from "moment";
 
 export default async function GitHubSetupPage({ params, searchParams }: any) {
