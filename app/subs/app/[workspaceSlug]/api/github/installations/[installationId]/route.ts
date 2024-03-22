@@ -33,7 +33,7 @@ export interface Installation {
 }
 export const GET = withApiAuthRequired(
   withApiWorkspaceUserRequired(async (_: any, { params, workspace }: any) => {
-    const installationId = parseInt(params["installationId"]);
+    const { installationId } = params;
     const row = (
       await db
         .select()
@@ -51,11 +51,11 @@ export const GET = withApiAuthRequired(
 
     let installation = row.github_installation;
     if (installation.updated_at < moment().subtract(1, "hours").toDate()) {
-      const installationResponse =
-        await GitHubApp.octokit.rest.apps.getInstallation({
-          installation_id: installationId,
-        });
-      const accountResponse = await GitHubApp.octokit.rest.users.getByUsername({
+      const octokit = await GitHubApp.getInstallationOctokit(installationId);
+      const installationResponse = await octokit.rest.apps.getInstallation({
+        installation_id: installationId,
+      });
+      const accountResponse = await octokit.rest.users.getByUsername({
         username: installationResponse.data.account?.name!,
       });
       installation = (

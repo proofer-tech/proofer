@@ -33,10 +33,7 @@ export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
     else if (!member.isManager)
       throw Boom.forbidden("워크스페이스의 관리자만 호출할 수 있습니다.");
 
-    kwargs.workspace = workspace;
-    kwargs.user = user;
-
-    return apiRoute(req, kwargs, ...args);
+    return apiRoute(req, { workspace, user, params }, ...args);
   };
 
   return wrapper as NextApiHandler;

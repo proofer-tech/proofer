@@ -126,7 +126,9 @@ export function GitHubInstallationDetailCardSection({
                   </Stack>
                   <Group>
                     <Text size={"xs"}>{data.target_type}</Text>
-                    <Text size={"xs"}>{data.blog}</Text>
+                    <Anchor href={data.blog} target={"_blank"} size={"xs"}>
+                      {data.blog}
+                    </Anchor>
                   </Group>
                 </Stack>
               </Group>

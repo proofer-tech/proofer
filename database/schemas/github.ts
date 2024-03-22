@@ -84,9 +84,6 @@ export const GitHubRepository = prooferSchema.table(
 
 export const GitHubCommit = prooferSchema.table("github_commit", {
   id: serial("id").primaryKey(),
-  commit_id: varchar("commit_id", { length: 100 })
-    .notNull()
-    .unique("uidx_ghc_commit_id"),
   sha: varchar("sha", { length: 100 }).notNull(),
 
   repository_id: integer("repository_id")
