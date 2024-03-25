@@ -180,7 +180,7 @@ export function GitHubInstallationListCardSection({}) {
     `/${workspace?.instance.slug}/api/github/installations`,
   );
 
-  const { data, error, isLoading } = useSWR<
+  const { data, isLoading } = useSWR<
     InferSelectModel<typeof GitHubInstallation>[]
   >(installationListAPIPath, apiFetcher);
 
