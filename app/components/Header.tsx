@@ -1,4 +1,3 @@
-import { useUser } from "@auth0/nextjs-auth0/client";
 import {
   Anchor,
   AppShell,
@@ -14,6 +13,7 @@ import {
 } from "@mantine/core";
 import React from "react";
 import { IconChevronRight, IconLogin2, IconLogout } from "@tabler/icons-react";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 export interface HeaderPortal {
   title: string;

@@ -3,13 +3,12 @@ import { NextRequest } from "next/server";
 import { Workspace } from "@/database/schemas/workspace";
 import { db } from "@/database/engine";
 import { eq } from "drizzle-orm";
-import { AppRouteHandlerFn } from "@auth0/nextjs-auth0";
+import { AppRouteHandlerFn, WithApiAuthRequired } from "@auth0/nextjs-auth0";
 import { findUserFromSession } from "@/src/data/user";
 import { notFound } from "next/navigation";
 import * as Boom from "@hapi/boom";
 import { findMember } from "@/src/data/workspace";
 import { NextApiHandler, NextApiRequest } from "next";
-import { WithApiAuthRequired } from "@auth0/nextjs-auth0/src/shared";
 
 export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
   apiRoute: AppRouteHandlerFn | NextApiHandler,

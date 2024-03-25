@@ -45,7 +45,7 @@ export const metadata = {
     type: "website",
     url: "https://proofer.tech",
     siteName: title,
-    title: title,
+    title: `${title} | ${shortTitle}`,
     description: description,
     images: ["/assets/images/og-image.png"],
   },
