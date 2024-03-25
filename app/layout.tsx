@@ -25,15 +25,16 @@ const description =
   "실리콘밸리 검증 방법으로 개발자 성과평가 인사이트 제공. 무료 상담과 14일 무료 평가판으로 성과 향상 여정 시작. 지금 연락하세요!";
 
 export const metadata = {
+  applicationName: title,
   metadataBase: new URL("https://proofer.tech"),
   title: `${title} | ${shortTitle}`,
   description: description,
   keywords: [
     "프루퍼",
     "개발자 성과",
-    "DORA",
-    "도라메트릭",
-    "SPACE",
+    "Developer Velocity",
+    "DORA Metrics",
+    "SPACE Framework",
     "DevEx",
     "proofer",
     "proofer tech",
@@ -43,7 +44,7 @@ export const metadata = {
     type: "website",
     url: "https://proofer.tech",
     siteName: title,
-    title: title,
+    title: `${title} | ${shortTitle}`,
     description: description,
     images: ["/assets/images/og-image.png"],
   },
@@ -54,10 +55,29 @@ export default function RootLayout({ children }: { children: any }) {
     <html lang="ko">
       <head>
         <ColorSchemeScript />
-        <link rel="shortcut icon" href="/favicon.ico" />
         <meta
           name="naver-site-verification"
           content="66a885dd71e438eca763ad82a8131045e4dabb59"
+        />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="512x512"
+          href="/pwa-512x512.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="192x192"
+          href="/pwa-192x192.png"
+        />
+        <link rel="icon" type="image/png" sizes="64x64" href="/pwa-64x64.png" />
+        <link
+          rel="mask-icon"
+          href="/maskable-icon-512x512.png"
+          color="#0052cc"
         />
         <script async src="https://tally.so/widgets/embed.js"></script>
       </head>
