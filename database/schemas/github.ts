@@ -87,17 +87,17 @@ export const GitHubCommit = prooferSchema.table(
   "github_commit",
   {
     id: serial("id").primaryKey(),
-    sha: varchar("sha", { length: 100 }).notNull(),
+    sha: varchar("sha", { length: 100 }).notNull().unique("uidx_ghc_sha"),
 
     repository_id: integer("repository_id")
       .notNull()
       .references(() => GitHubRepository.id),
     author_id: integer("author_id")
       .notNull()
-      .references(() => GitHubUser.id),
+      .references(() => GitHubUser.user_id),
     committer_id: integer("committer_id")
       .notNull()
-      .references(() => GitHubUser.id),
+      .references(() => GitHubUser.user_id),
     message: text("message"),
 
     created_at: timestamp("created_at").defaultNow().notNull(),
@@ -117,7 +117,9 @@ export const GitHubIssue = prooferSchema.table(
     repository_id: integer("repository_id")
       .notNull()
       .references(() => GitHubRepository.id),
-    issue_id: integer("issue_id").notNull().unique("uidx_ghi_issue_id"),
+    issue_id: varchar("issue_id", { length: 32 })
+      .notNull()
+      .unique("uidx_ghi_issue_id"),
     number: integer("number").notNull(),
     state: varchar("state", { length: 16 }).notNull(),
     title: varchar("title", { length: 100 }).notNull(),
@@ -128,15 +130,15 @@ export const GitHubIssue = prooferSchema.table(
     closed_at: timestamp("closed_at"),
     user_id: integer("user_id")
       .notNull()
-      .references(() => GitHubUser.id),
-    assignee_id: integer("assignee_id").references(() => GitHubUser.id),
-    updated_by_id: integer("updated_by_id").references(() => GitHubUser.id),
+      .references(() => GitHubUser.user_id),
+    assignee_id: integer("assignee_id").references(() => GitHubUser.user_id),
 
     timestamp: timestamp("timestamp").notNull(),
   },
   (table) => ({
-    createdAtIdx: index("idx_ghc_created_at").on(table.created_at),
-    timestampIdx: index("idx_ghc_timestamp").on(table.timestamp),
+    numberIdx: index("idx_ghi_number").on(table.number),
+    createdAtIdx: index("idx_ghi_created_at").on(table.created_at),
+    timestampIdx: index("idx_ghi_timestamp").on(table.timestamp),
   }),
 );
 
@@ -161,14 +163,15 @@ export const GitHubPullRequest = prooferSchema.table(
     merged_at: timestamp("merged_at"),
     user_id: integer("user_id")
       .notNull()
-      .references(() => GitHubUser.id),
-    assignee_id: integer("assignee_id").references(() => GitHubUser.id),
+      .references(() => GitHubUser.user_id),
+    assignee_id: integer("assignee_id").references(() => GitHubUser.user_id),
 
     timestamp: timestamp("timestamp").notNull(),
   },
   (table) => ({
-    createdAtIdx: index("idx_ghc_created_at").on(table.created_at),
-    timestampIdx: index("idx_ghc_timestamp").on(table.timestamp),
+    numberIdx: index("idx_ghpr_number").on(table.number),
+    createdAtIdx: index("idx_ghpr_created_at").on(table.created_at),
+    timestampIdx: index("idx_ghpr_timestamp").on(table.timestamp),
   }),
 );
 
@@ -188,13 +191,13 @@ export const GitHubPullRequestReview = prooferSchema.table(
     updated_at: timestamp("updated_at").defaultNow().notNull(),
     user_id: integer("user_id")
       .notNull()
-      .references(() => GitHubUser.id),
+      .references(() => GitHubUser.user_id),
 
     timestamp: timestamp("timestamp").notNull(),
   },
   (table) => ({
-    createdAtIdx: index("idx_ghc_created_at").on(table.created_at),
-    timestampIdx: index("idx_ghc_timestamp").on(table.timestamp),
+    createdAtIdx: index("idx_ghprr_created_at").on(table.created_at),
+    timestampIdx: index("idx_ghprr_timestamp").on(table.timestamp),
   }),
 );
 export const GitHubPullRequestReviewComment = prooferSchema.table(
@@ -213,12 +216,12 @@ export const GitHubPullRequestReviewComment = prooferSchema.table(
     updated_at: timestamp("updated_at").defaultNow().notNull(),
     user_id: integer("user_id")
       .notNull()
-      .references(() => GitHubUser.id),
+      .references(() => GitHubUser.user_id),
 
     timestamp: timestamp("timestamp").notNull(),
   },
   (table) => ({
-    createdAtIdx: index("idx_ghc_created_at").on(table.created_at),
-    timestampIdx: index("idx_ghc_timestamp").on(table.timestamp),
+    createdAtIdx: index("idx_ghprrc_created_at").on(table.created_at),
+    timestampIdx: index("idx_ghprrc_timestamp").on(table.timestamp),
   }),
 );

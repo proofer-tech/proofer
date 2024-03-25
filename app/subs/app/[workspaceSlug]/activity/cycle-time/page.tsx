@@ -1,49 +1,31 @@
+import { Paper, Stack, Title } from "@mantine/core";
 import React from "react";
+import CycleTimeAverage from "@/app/subs/app/[workspaceSlug]/activity/cycle-time/CycleTimeAverage";
+import { SearchGroup } from "@/app/subs/app/[workspaceSlug]/activity/SearchGroup";
+import { CycleTimeBreakdown } from "@/app/subs/app/[workspaceSlug]/activity/cycle-time/CycleTimeBreakdown";
+import CycleTimeTable from "@/app/subs/app/[workspaceSlug]/activity/cycle-time/CycleTimeTable";
 
 export default function Page() {
   return (
-    <>
-      <p>목적: 일하는 공정 시간을 확인하자</p>
-      <ul>
-        <li>
-          Cycle Time Average Breakdown
-          <ul>
-            <li>coding</li>
-            <li>pickup</li>
-            <li>review</li>
-            <li>deploy</li>
-          </ul>
-        </li>
-        <li>
-          Cycle Time History Breakdown
-          <ul>
-            <li>월별</li>
-            <li>breakdown</li>
-          </ul>
-        </li>
-        <li>
-          정리
-          <ul>
-            <li>First Commit</li>
-            <li>Total Files</li>
-            <li>Pull Request created at</li>
-            <li>Pull Request reviewed at</li>
-            <li>Pull Request merged at</li>
-            <li>Total LOC</li>
-            <li>Lead time</li>
-          </ul>
-        </li>
-        <li>
-          Pull request(소스 데이터)
-          <ul>
-            <li>pull request id</li>
-            <li>pull request title</li>
-            <li>전체시간</li>
-            <li>현재상태</li>
-            <li>언제 만들어졌는지</li>
-          </ul>
-        </li>
-      </ul>
-    </>
+    <Stack>
+      <SearchGroup />
+      <Stack>
+        <Paper shadow="xs" p={"xl"}>
+          <Stack>
+            <Title order={5}>평균 6일 8시간 소요</Title>
+            <CycleTimeAverage />
+          </Stack>
+        </Paper>
+        <Paper shadow="xs" px={"xl"} py={"lg"}>
+          <Stack gap={"2em"}>
+            <Title order={5}>주별 평균 사이클 타임</Title>
+            <CycleTimeBreakdown />
+          </Stack>
+        </Paper>
+        <Paper shadow={"xs"}>
+          <CycleTimeTable />
+        </Paper>
+      </Stack>
+    </Stack>
   );
 }

@@ -24,6 +24,7 @@ export default function TargetAvatarGroup() {
         {(styles) => (
           <Stack style={styles} align={"center"}>
             <Avatar
+              src={"/assets/images/sample/avatar/1.jpg"}
               style={{
                 border: "3px solid var(--color-primary)",
               }}
@@ -36,10 +37,10 @@ export default function TargetAvatarGroup() {
                 flexDirection: "column",
               }}
             >
-              <Avatar />
-              <Avatar />
-              <Avatar />
-              <Avatar>+5</Avatar>
+              <Avatar src={"/assets/images/sample/avatar/2.jpg"} />
+              <Avatar src={"/assets/images/sample/avatar/3.jpg"} />
+              <Avatar src={"/assets/images/sample/avatar/4.jpg"} />
+              <Avatar>+2</Avatar>
             </Avatar.Group>
           </Stack>
         )}

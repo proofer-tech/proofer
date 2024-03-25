@@ -23,7 +23,11 @@ export default function UserMenu({ onSettingClick }: UserMenuProps) {
       {user === undefined ? (
         <>
           <Menu.Target>
-            <Anchor href={"/auth/login"} underline={"never"}>
+            <Anchor
+              href={"/auth/login"}
+              underline={"never"}
+              style={{ cursor: "pointer" }}
+            >
               <Avatar
                 src={""}
                 style={{
@@ -43,6 +47,7 @@ export default function UserMenu({ onSettingClick }: UserMenuProps) {
               src={user.picture}
               style={{
                 border: "2px solid var(--color-secondary)",
+                cursor: "pointer",
               }}
             />
           </Menu.Target>

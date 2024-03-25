@@ -2,15 +2,12 @@ import moment from "moment/moment";
 import {
   GitHubPullRequest,
   GitHubPullRequestReview,
+  GitHubPullRequestReviewComment,
   GitHubRepository,
 } from "@/database/schemas/github";
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import { Octokit } from "octokit";
-import {
-  findPullRequest,
-  findRepository,
-  getLastPullRequest,
-} from "@/src/data/github";
+import { findPullRequest, findRepository } from "@/src/data/github";
 
 const serializePullRequests = (
   repoId: number,
@@ -43,7 +40,6 @@ export async function* extractAllPullRequests(
 ) {
   for (const repo of options.repositories) {
     const [ownerName, repoName] = repo.full_name.split("/");
-    const lastPullRequest = await getLastPullRequest(repo.id);
 
     let page = 1;
     do {
@@ -58,15 +54,11 @@ export async function* extractAllPullRequests(
       });
       if (response.data.length === 0) break;
 
-      const pullRequests = [];
-      for (const pr of response.data) {
-        if (lastPullRequest && pr.id === lastPullRequest.pull_request_id) {
-          break;
-        }
-
-        if (options?.bundle) {
-          pullRequests.push(pr);
-        } else yield serializePullRequests(repo.id, pr);
+      const pullRequests = response.data.map((pr) =>
+        serializePullRequests(repo.id, pr),
+      );
+      for (const pr of pullRequests) {
+        if (!options?.bundle) yield pr;
       }
       if (options?.bundle) yield pullRequests;
     } while (page++);
@@ -88,20 +80,56 @@ const serializePullRequestReviews = (
   timestamp: moment(data.created_at).toDate(),
 });
 
-interface extractAllPullRequestReviewsOptions {
-  pullRequestIds: number[];
-  bundle?: boolean;
-}
-
 export async function* extractAllPullRequestReviews(
   octokit: Octokit,
-  options: extractAllPullRequestReviewsOptions,
+  repo: InferSelectModel<typeof GitHubRepository>,
+  pull_request_id: number,
+  pullNumber: number,
 ) {
-  for (const pullRequestId of options.pullRequestIds) {
-    const pullRequest = await findPullRequest(pullRequestId);
-    const repository = await findRepository(pullRequest.repository_id);
-    const [ownerName, repoName] = repository.full_name.split("/");
+  const [ownerName, repoName] = repo.full_name.split("/");
 
-    let page = 1;
+  const reviews = await octokit.paginate(
+    octokit.rest.pulls.listReviews.endpoint.merge({
+      owner: ownerName,
+      repo: repoName,
+      pull_number: pullNumber,
+      per_page: 100,
+    }),
+  );
+  for (const review of reviews) {
+    yield serializePullRequestReviews(pull_request_id, review);
+  }
+}
+
+const serializePullRequestReviewComments = (
+  data: any,
+): InferInsertModel<typeof GitHubPullRequestReviewComment> => {
+  return {
+    review_comment_id: data.id,
+    pull_request_review_id: data.pull_request_review_id,
+    user_id: data.user.id,
+    body: data.body,
+    html_url: data.html_url,
+    created_at: moment(data.created_at).toDate(),
+    updated_at: moment(data.updated_at).toDate(),
+    timestamp: moment(data.created_at).toDate(),
+  };
+};
+export async function* extractAllPullRequestReviewComments(
+  octokit: Octokit,
+  repo: InferSelectModel<typeof GitHubRepository>,
+  pullNumber: number,
+) {
+  const [ownerName, repoName] = repo.full_name.split("/");
+  const comments = await octokit.paginate(
+    octokit.rest.pulls.listReviewComments.endpoint.merge({
+      owner: ownerName,
+      repo: repoName,
+      pull_number: pullNumber,
+      per_page: 100,
+    }),
+  );
+  for (const comment of comments) {
+    yield serializePullRequestReviewComments(comment);
   }
 }

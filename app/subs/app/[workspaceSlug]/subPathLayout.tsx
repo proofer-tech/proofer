@@ -7,6 +7,7 @@ import NeedToSelectWorkspace from "@/app/subs/app/components/NeedToSelectWorkspa
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import NeedToLogin from "@/app/subs/app/components/charts/NeedToLogin";
 import { usePathname } from "next/navigation";
+import { Box } from "@mantine/core";
 
 export default function SubPathLayout({ children }: { children: any }) {
   const { user, workspace } = useContext(ProoferInsightContext);
@@ -34,5 +35,5 @@ export default function SubPathLayout({ children }: { children: any }) {
       </NeedToSelectWorkspace>
     );
 
-  return <>{children}</>;
+  return <Box py={"1em"}>{children}</Box>;
 }

@@ -1,25 +1,53 @@
 import React from "react";
+import { ApexWeekTimeHeatMap } from "@/app/subs/app/[workspaceSlug]/activity/heatmap/ApexWeekTimeHeatMap";
+import {
+  SegmentedControl,
+  Stack,
+  Group,
+  Badge,
+  Notification,
+  Space,
+  Paper,
+  TextInput,
+  Avatar,
+} from "@mantine/core";
+import { ActivityTable } from "@/app/subs/app/[workspaceSlug]/activity/ActivityTable";
+import { IconSearch, IconMoonStars } from "@tabler/icons-react";
+import { SearchGroup } from "@/app/subs/app/[workspaceSlug]/activity/SearchGroup";
 
 export default function Page() {
   return (
-    <>
-      <p>목적: 이 사람이 어떤 시간분포로 일하는지 보자</p>
-      <ul>
-        <li>
-          필터(액션별)
-          <ul>
-            <li>전체</li>
-            <li>commit</li>
-            <li>push</li>
-            <li>PR</li>
-            <li>code-review</li>
-            <li>release</li>
-          </ul>
-        </li>
-        <li>일주일 중에 언제 일했는지</li>
-        <li>평일중에는 주로 몇시에 일하는지</li>
-        <li>주말에 언제 일을 하고있는지</li>
-      </ul>
-    </>
+    <Stack>
+      <SearchGroup />
+      <Paper shadow="xs" p="sm">
+        <Group align={"center"}>
+          <Badge
+            size={"lg"}
+            color={"gray"}
+            variant={"light"}
+            leftSection={<IconMoonStars />}
+          >
+            주로 새벽에 개발합니다
+          </Badge>
+          <Badge size={"lg"} color={"gray"} variant={"light"}>
+            주말에 개발을 쉬지 않습니다
+          </Badge>
+          <Badge size={"lg"} color={"gray"} variant={"light"}>
+            평일 평균 9시간 이상 개발
+          </Badge>
+          <Badge size={"lg"} color={"gray"} variant={"light"}>
+            주말 평균 2시간 이상 개발
+          </Badge>
+        </Group>
+      </Paper>
+      <Stack>
+        <ApexWeekTimeHeatMap />
+        <SegmentedControl
+          fullWidth
+          data={["전체", "Commit", "Pull Request", "Code Review"]}
+        />
+        <ActivityTable />
+      </Stack>
+    </Stack>
   );
 }

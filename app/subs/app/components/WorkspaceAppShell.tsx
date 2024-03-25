@@ -5,6 +5,7 @@ import {
   Anchor,
   AppShell,
   AppShellProps,
+  Box,
   Button,
   Center,
   Divider,
@@ -177,7 +178,11 @@ export default function WorkspaceAppShell({
                 desktop: !appShellContext.isCollapsed,
               },
             }}
-            style={{ display: "flex", justifyContent: "flex-start", gap: 0 }}
+            style={{
+              display: "flex",
+              justifyContent: "flex-start",
+              gap: 0,
+            }}
             {...props}
           >
             <Group
@@ -245,12 +250,13 @@ export default function WorkspaceAppShell({
                 </Stack>
               </Stack>
               <AppShell.Navbar
+                w={"20em"}
                 style={{
                   position: appShellContext.isCollapsed ? "relative" : "fixed",
                   width: appShellContext.isCollapsed ? "100%" : "auto",
                 }}
               >
-                <Stack gap={0} miw={"20em"} h={"100%"} align={"center"}>
+                <Stack gap={0} h={"100%"} align={"center"}>
                   <Group
                     pl={"1em"}
                     pr={"0.5em"}
@@ -404,14 +410,20 @@ export default function WorkspaceAppShell({
               </AppShell.Navbar>
             </Group>
             <AppShell.Main
-              w={"100%"}
+              w={appShellContext.isCollapsed ? "calc(100% - 24em)" : "100%"}
               pl={0}
               h={"100dvh"}
               bg={"var(--mantine-color-gray-0)"}
             >
-              <ScrollArea px={"2em"} py={"2em"} h={"100%"}>
+              {/*ScrollArea 를 사용할 경우 inner 로 table 이 들어가는 문제가 있습니다.*/}
+              <Box
+                p={"2em"}
+                w={"100%"}
+                h={"100%"}
+                style={{ overflowY: "scroll" }}
+              >
                 {children}
-              </ScrollArea>
+              </Box>
             </AppShell.Main>
           </AppShell>
           <SettingsModal />
