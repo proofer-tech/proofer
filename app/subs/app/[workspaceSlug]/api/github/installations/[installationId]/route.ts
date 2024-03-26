@@ -3,7 +3,9 @@ import { GitHubApp } from "@/src/integrations/github";
 import { pick } from "lodash";
 import { db } from "@/database/engine";
 import {
+  GitHubCommit,
   GitHubInstallation,
+  GitHubIssue,
   GitHubRepository,
   WorkspaceToGitHubInstallation,
 } from "@/database/schemas/github";
@@ -125,9 +127,6 @@ export const DELETE = withApiAuthRequired(
             workspace_to_github_installation.uuid,
           ),
         );
-      await db
-        .delete(GitHubRepository)
-        .where(eq(GitHubRepository.installation_id, installationId));
       await db
         .delete(GitHubInstallation)
         .where(eq(GitHubInstallation.installation_id, installationId));

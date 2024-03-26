@@ -63,7 +63,9 @@ export const GitHubRepository = prooferSchema.table(
     id: serial("id").primaryKey(),
     installation_id: integer("installation_id")
       .notNull()
-      .references(() => GitHubInstallation.installation_id),
+      .references(() => GitHubInstallation.installation_id, {
+        onDelete: "cascade",
+      }),
     repository_id: integer("repository_id").notNull(),
     name: varchar("name", { length: 100 }).notNull(),
     full_name: varchar("full_name", { length: 100 }).notNull(),
@@ -91,7 +93,7 @@ export const GitHubCommit = prooferSchema.table(
 
     repository_id: integer("repository_id")
       .notNull()
-      .references(() => GitHubRepository.id),
+      .references(() => GitHubRepository.id, { onDelete: "cascade" }),
     author_id: integer("author_id")
       .notNull()
       .references(() => GitHubUser.user_id),
@@ -116,7 +118,7 @@ export const GitHubIssue = prooferSchema.table(
     id: serial("id").primaryKey(),
     repository_id: integer("repository_id")
       .notNull()
-      .references(() => GitHubRepository.id),
+      .references(() => GitHubRepository.id, { onDelete: "cascade" }),
     issue_id: varchar("issue_id", { length: 32 })
       .notNull()
       .unique("uidx_ghi_issue_id"),
@@ -148,7 +150,7 @@ export const GitHubPullRequest = prooferSchema.table(
     id: serial("id").primaryKey(),
     repository_id: integer("repository_id")
       .notNull()
-      .references(() => GitHubRepository.id),
+      .references(() => GitHubRepository.id, { onDelete: "cascade" }),
     pull_request_id: integer("pull_request_id")
       .notNull()
       .unique("uidx_ghpr_pull_request_id"),
@@ -181,7 +183,9 @@ export const GitHubPullRequestReview = prooferSchema.table(
     id: serial("id").primaryKey(),
     pull_request_id: integer("pull_request_id")
       .notNull()
-      .references(() => GitHubPullRequest.pull_request_id),
+      .references(() => GitHubPullRequest.pull_request_id, {
+        onDelete: "cascade",
+      }),
 
     review_id: integer("review_id").notNull().unique("uidx_ghprr_review_id"),
     state: varchar("state", { length: 16 }).notNull(),
@@ -209,7 +213,9 @@ export const GitHubPullRequestReviewComment = prooferSchema.table(
       .unique("uidx_ghprrc_review_comment_id"),
     pull_request_review_id: integer("pull_request_review_id")
       .notNull()
-      .references(() => GitHubPullRequestReview.review_id),
+      .references(() => GitHubPullRequestReview.review_id, {
+        onDelete: "cascade",
+      }),
     body: text("body"),
     html_url: varchar("html_url", { length: 512 }).notNull(),
     created_at: timestamp("created_at").defaultNow().notNull(),

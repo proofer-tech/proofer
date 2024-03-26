@@ -21,6 +21,7 @@ export default function WorkspaceChoice({
         label: workspace.name,
         value: workspace.slug,
       }))}
+      size={"lg"}
       onChange={(value) => {
         const path = value && generateAppPath(`/${value}`);
         if (path) {

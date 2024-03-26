@@ -23,26 +23,18 @@ export default async function Page() {
           우리 개발자의 생산성이 궁금하다면?
         </Title>
         <Stack w={"100%"}>
-          {user ? (
-            <>
-              {workspaces.length > 0 ? (
-                <WorkspaceChoice workspaces={workspaces} />
-              ) : (
-                ""
-              )}
-              <Button
-                color={"var(--color-secondary)"}
-                leftSection={<IconSquareRoundedPlus size={"1.3em"} />}
-              >
-                워크스페이스 만들기
-              </Button>
-            </>
+          {workspaces.length > 0 ? (
+            <WorkspaceChoice workspaces={workspaces} />
           ) : (
             <>
               <Button variant="light">데모버전 구경하기</Button>
-              <Anchor href={"/auth/login"} w={"100%"}>
-                <Button w={"100%"}>로그인</Button>
-              </Anchor>
+              {user ? (
+                <Anchor href={"/auth/login"} w={"100%"}>
+                  <Button w={"100%"}>로그인</Button>
+                </Anchor>
+              ) : (
+                ""
+              )}
             </>
           )}
         </Stack>
