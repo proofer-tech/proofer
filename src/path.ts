@@ -11,7 +11,7 @@ export const generateAppPath = (
   path: string,
   workspace?: InferSelectModel<typeof Workspace>,
 ) => {
-  const prefix = process.env.VERCEL_ENV === "production" ? "/" : "/subs/app";
+  const prefix = process.env.VERCEL_ENV === "production" ? "" : "/subs/app";
   let workspacePathBlocks = [prefix];
 
   if (workspace) workspacePathBlocks.push(workspace.slug);
