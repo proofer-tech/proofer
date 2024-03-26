@@ -3,9 +3,7 @@ import { GitHubApp } from "@/src/integrations/github";
 import { pick } from "lodash";
 import { db } from "@/database/engine";
 import {
-  GitHubCommit,
   GitHubInstallation,
-  GitHubIssue,
   GitHubRepository,
   WorkspaceToGitHubInstallation,
 } from "@/database/schemas/github";

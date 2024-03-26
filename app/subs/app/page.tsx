@@ -1,6 +1,5 @@
 import { getSession } from "@auth0/nextjs-auth0";
 import { Anchor, Button, Center, Image, Stack, Title } from "@mantine/core";
-import { IconSquareRoundedPlus } from "@tabler/icons-react";
 import React from "react";
 import WorkspaceChoice from "@/app/subs/app/components/WorkspaceChoice";
 import { findUserByEmail } from "@/src/data/user";
