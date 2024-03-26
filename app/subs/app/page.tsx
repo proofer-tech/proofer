@@ -2,22 +2,14 @@ import { getSession } from "@auth0/nextjs-auth0";
 import { Anchor, Button, Center, Image, Stack, Title } from "@mantine/core";
 import { IconSquareRoundedPlus } from "@tabler/icons-react";
 import React from "react";
-import { Workspace, WorkspaceMember } from "@/database/schemas/workspace";
-import { db } from "@/database/engine";
-import { eq } from "drizzle-orm";
 import WorkspaceChoice from "@/app/subs/app/components/WorkspaceChoice";
 import { findUserByEmail } from "@/src/data/user";
+import { getUserWorkspaces } from "@/src/data/workspace";
 
 export default async function Page() {
   const session = await getSession();
   const user = await findUserByEmail(session?.user?.email);
-  const querySet = user
-    ? await db
-        .select()
-        .from(Workspace)
-        .innerJoin(WorkspaceMember, eq(WorkspaceMember.userId, user.id))
-    : [];
-  const workspaces = querySet.map((row) => row.workspace);
+  const workspaces = user ? await getUserWorkspaces(user.id) : [];
 
   return (
     <Center h={"80vh"}>

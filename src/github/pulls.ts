@@ -7,7 +7,6 @@ import {
 } from "@/database/schemas/github";
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import { Octokit } from "octokit";
-import { findPullRequest, findRepository } from "@/src/data/github";
 
 const serializePullRequests = (
   repoId: number,

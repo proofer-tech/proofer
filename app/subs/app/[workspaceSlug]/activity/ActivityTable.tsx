@@ -1,6 +1,6 @@
 "use client";
 import { Paper, Table } from "@mantine/core";
-import React, { useState } from "react";
+import React from "react";
 
 export function ActivityTable() {
   const activityData = [...Array(8)]

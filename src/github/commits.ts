@@ -1,9 +1,5 @@
 import { Octokit } from "octokit";
-import {
-  GitHubCommit,
-  GitHubRepository,
-  GitHubUser,
-} from "@/database/schemas/github";
+import { GitHubCommit } from "@/database/schemas/github";
 import { InferInsertModel } from "drizzle-orm";
 import moment from "moment";
 

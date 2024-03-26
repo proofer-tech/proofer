@@ -1,10 +1,6 @@
 import { Octokit } from "octokit";
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
-import {
-  GitHubRepository,
-  GitHubIssue,
-  GitHubUser,
-} from "@/database/schemas/github";
+import { GitHubIssue, GitHubRepository } from "@/database/schemas/github";
 import moment from "moment";
 
 function serializeGitHubIssue(

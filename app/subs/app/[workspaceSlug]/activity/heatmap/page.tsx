@@ -1,18 +1,8 @@
 import React from "react";
 import { ApexWeekTimeHeatMap } from "@/app/subs/app/[workspaceSlug]/activity/heatmap/ApexWeekTimeHeatMap";
-import {
-  SegmentedControl,
-  Stack,
-  Group,
-  Badge,
-  Notification,
-  Space,
-  Paper,
-  TextInput,
-  Avatar,
-} from "@mantine/core";
+import { Badge, Group, Paper, SegmentedControl, Stack } from "@mantine/core";
 import { ActivityTable } from "@/app/subs/app/[workspaceSlug]/activity/ActivityTable";
-import { IconSearch, IconMoonStars } from "@tabler/icons-react";
+import { IconMoonStars } from "@tabler/icons-react";
 import { SearchGroup } from "@/app/subs/app/[workspaceSlug]/activity/SearchGroup";
 
 export default function Page() {

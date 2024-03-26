@@ -1,5 +1,6 @@
 import { kv } from "@vercel/kv";
 import { Lock, RetryConfig } from "@upstash/lock";
+
 export class VercelKVStream {
   private readonly _key: string;
   get key() {

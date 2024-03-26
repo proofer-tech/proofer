@@ -18,7 +18,7 @@ import {
   IconTransformPoint,
 } from "@tabler/icons-react";
 import { PathTree } from "@/app/subs/app/components/types";
-import { Group, Notification } from "@mantine/core";
+import { Notification } from "@mantine/core";
 import React from "react";
 
 export const pathTree: PathTree = {

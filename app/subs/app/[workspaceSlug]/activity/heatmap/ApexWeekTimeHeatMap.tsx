@@ -3,6 +3,7 @@
 import React, { Suspense, useState } from "react";
 import Chart from "react-apexcharts";
 import { Paper } from "@mantine/core";
+
 const days = ["월", "화", "수", "목", "금", "토", "일"];
 
 function generateData(count: number, yrange: { min: number; max: number }) {

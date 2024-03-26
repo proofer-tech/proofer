@@ -1,14 +1,13 @@
 import React from "react";
 import {
-  Grid,
-  Group,
-  Paper,
-  Stack,
-  Title,
-  Text,
   Avatar,
   Divider,
+  Group,
+  Paper,
   Space,
+  Stack,
+  Text,
+  Title,
 } from "@mantine/core";
 import { SearchGroup } from "@/app/subs/app/[workspaceSlug]/activity/SearchGroup";
 import CountCard from "./CountCard";

@@ -42,3 +42,11 @@ export const getWorkspaceToGitHubInstallationList = async (
       ),
     );
 };
+
+export const getUserWorkspaces = async (userId: number) => {
+  const querySet = await db
+    .select()
+    .from(Workspace)
+    .innerJoin(WorkspaceMember, eq(WorkspaceMember.userId, userId));
+  return querySet.map((row) => row.workspace);
+};
