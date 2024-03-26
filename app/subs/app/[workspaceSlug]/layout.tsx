@@ -28,8 +28,9 @@ export default async function WorkspaceLayout({ children }: { children: any }) {
   if (!user) return redirect("/auth/login");
   if (!user?.email_verified) return redirect("/auth/email-verification");
 
+  console.log(pathname);
+  console.log(slug);
   const workspace = await findWorkspace(slug);
-  console.log(workspace);
   if (!workspace) return notFound();
 
   if (slug !== WORKSPACE_DEMO_SLUG) {
