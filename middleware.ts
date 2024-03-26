@@ -65,6 +65,7 @@ async function handleRouterMiddleware(
   req: NextRequest,
 ): Promise<NextResponse | undefined> {
   if (!isProduction) {
+    // 개발환경에서는 localhost 의 쿠키 정책문제로 제외
     return;
   }
 
@@ -81,14 +82,11 @@ async function handleRouterMiddleware(
     ) {
       // auth 와 health 는 공통으로 사용합니다.
       return NextResponse.next();
-    } else {
-      rewriteUri = `/subs/${subDomain}` + rewriteUri;
-      return NextResponse.rewrite(new URL(rewriteUri, req.url));
     }
-  }
 
-  // 앱에 직접 접근할 수 없다. (개발환경에서는 localhost 의 쿠키 정책문제로 제외)
-  if (path.startsWith(`/subs`)) return notFound(req);
+    rewriteUri = `/subs/${subDomain}` + rewriteUri;
+    return NextResponse.rewrite(new URL(rewriteUri, req.url));
+  } else if (path.startsWith(`/subs`)) return notFound(req);
 }
 
 export default async function wrapper(req: NextRequest): Promise<NextResponse> {
