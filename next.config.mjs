@@ -1,9 +1,12 @@
 import bundleAnalyzer from "@next/bundle-analyzer";
 import pwaAnalyzer from "next-pwa";
 
-const withPWAAnalyzer = pwaAnalyzer({
-  dest: "public",
-});
+const withPWAAnalyzer =
+  process.env.VERCEL_ENV === "production"
+    ? pwaAnalyzer({
+        dest: "public",
+      })
+    : (config) => config;
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
