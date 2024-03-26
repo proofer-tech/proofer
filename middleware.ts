@@ -81,7 +81,7 @@ async function handleRouterMiddleware(
 
     rewriteUri = `/subs/${subDomain}` + rewriteUri;
     return NextResponse.rewrite(new URL(rewriteUri, req.url));
-  }
+  } else if (path.startsWith(`/subs`)) return notFound();
 }
 
 export default async function wrapper(req: NextRequest): Promise<NextResponse> {

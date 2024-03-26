@@ -2,9 +2,7 @@ import { Workspace } from "@/database/schemas/workspace";
 import { InferSelectModel } from "drizzle-orm";
 
 export function getAppPathBlocks(pathname: String) {
-  return pathname
-    .split("/")
-    .slice(process.env.VERCEL_ENV === "production" ? 0 : 3);
+  return pathname.split("/").slice(3);
 }
 
 export const generateAppPath = (
