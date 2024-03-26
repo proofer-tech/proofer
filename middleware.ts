@@ -1,13 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { get } from "@vercel/edge-config";
 import { Health } from "@/src/types/health";
+import { notFound } from "next/navigation";
 const isProduction = process.env.VERCEL_ENV === "production";
-
-function notFound(req: NextRequest): NextResponse {
-  const url = new URL(req.url);
-  url.pathname = `/404`;
-  return NextResponse.rewrite(url);
-}
 
 function getPath(req: NextRequest): string {
   const searchParams = req.nextUrl.searchParams.toString();
@@ -86,7 +81,7 @@ async function handleRouterMiddleware(
 
     rewriteUri = `/subs/${subDomain}` + rewriteUri;
     return NextResponse.rewrite(new URL(rewriteUri, req.url));
-  } else if (path.startsWith(`/subs`)) return notFound(req);
+  }
 }
 
 export default async function wrapper(req: NextRequest): Promise<NextResponse> {
