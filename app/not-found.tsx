@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
-import Header from "@/app/_components/Header";
+import Header from "@/app/components/Header";
 import React, { useEffect, useState } from "react";
-import LandingPageShell from "@/app/_components/LandingPageShell";
+import LandingPageShell from "@/app/components/LandingPageShell";
 import {
   AppShell,
   Center,
@@ -12,7 +12,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import Footer from "@/app/_components/Footer";
+import Footer from "@/app/components/Footer";
 import { redirect } from "next/navigation";
 
 const magnifierComponents = [
@@ -67,9 +67,15 @@ export default function NotFound() {
 
     fetch(`/medium/${window.location.pathname}`)
       .then(async (response) => {
-        if (response.status !== 200) return;
-        const responseText = await response.text();
-        setIsFounded(!responseText.includes("PAGE NOT FOUND"));
+        switch (response.status) {
+          case 200:
+            const responseText = await response.text();
+            setIsFounded(!responseText.includes("PAGE NOT FOUND"));
+            break;
+          case 404:
+            setIsFounded(false);
+            break;
+        }
       })
       .finally(() => clearInterval(interval));
   }, []);

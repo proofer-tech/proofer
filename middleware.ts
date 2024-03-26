@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { get } from "@vercel/edge-config";
-import { Health } from "@/app/_src/interfaces";
+import { Health } from "@/src/types/health";
 const isProduction = process.env.VERCEL_ENV === "production";
 
 function notFound(req: NextRequest): NextResponse {
@@ -76,7 +76,11 @@ async function handleRouterMiddleware(
     const pureHostname = hostname.replace(`${subDomain}.`, "");
 
     let rewriteUri = path === "/" ? "" : path;
-    if (path.startsWith("/api/auth") || path.startsWith("/api/health")) {
+    if (
+      path.startsWith("/api/auth") ||
+      path.startsWith("/api/health") ||
+      path.startsWith("/auth")
+    ) {
       // auth 와 health 는 공통으로 사용합니다.
       rewriteUri = `${req.nextUrl.protocol}//${pureHostname}${rewriteUri}`;
     } else {

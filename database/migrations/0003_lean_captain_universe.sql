@@ -1,0 +1,1 @@
+ALTER TABLE "proofer"."workspace" ADD COLUMN "logo_url" text;

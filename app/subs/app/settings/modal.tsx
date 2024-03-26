@@ -1,66 +1,109 @@
+"use client";
 import {
+  Box,
+  Button,
   Divider,
   Flex,
+  Group,
   Input,
   Modal,
-  ModalRootProps,
   NavLink,
   ScrollArea,
   Stack,
   Text,
 } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { Path } from "@/app/subs/app/components/types";
 import { IconSearch } from "@tabler/icons-react";
 import { settingsPathTree } from "@/app/subs/app/settings/tree";
+import { useDisclosure } from "@mantine/hooks";
+import { usePathname, useRouter } from "next/navigation";
 
-interface SettingsModalProps extends ModalRootProps {
+export type Triggers = "" | "cancel" | "save" | "submit";
+interface SettingsModalProps {
   path?: Path;
-}
-export default function SettingsModal({ path, ...props }: SettingsModalProps) {
-  const [settingsBody, setBody] = useState<React.ReactNode>(
-    path?.component || <></>,
-  );
-  const [searchText, setSearchText] = useState<string>("");
-  const [currentPath, setPath] = useState<Path>();
+  setPath?: (path: Path) => void;
 
-  props.size = "xl";
-  props.centered = true;
-  props.closeOnClickOutside = false;
+  opened: boolean;
+  fullScreen: boolean;
+
+  open: () => void;
+  close: () => void;
+  toggle: () => void;
+
+  triggered: Triggers;
+  trigger: (triggerString: Triggers) => void;
+}
+export const SettingsModalContext = createContext<SettingsModalProps>({
+  opened: false,
+  fullScreen: false,
+
+  open: () => {},
+  close: () => {},
+  toggle: () => {},
+
+  triggered: "",
+  trigger: (triggerString) => {},
+});
+
+export function useSettingsModal() {
+  const [settingsModalOpened, settingsModalDisclosure] = useDisclosure(false);
+  const [settingPath, setSettingPath] = useState<Path>();
+
+  return {
+    opened: settingsModalOpened,
+    disclosure: settingsModalDisclosure,
+    path: settingPath,
+    setPath: setSettingPath,
+  };
+}
+export function SettingsModal() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const settingsModalContext = useContext(SettingsModalContext);
+  const [searchText, setSearchText] = useState<string>("");
 
   useEffect(() => {
     setSearchText("");
-    setPath(path);
-    setBody(path?.component);
-  }, [path]);
+  }, []);
 
   return (
-    <Modal.Root {...props}>
+    <Modal.Root
+      size={"xl"}
+      centered={true}
+      closeOnClickOutside={false}
+      opened={settingsModalContext.opened}
+      onClose={settingsModalContext.close}
+      fullScreen={settingsModalContext.fullScreen}
+    >
       <Modal.Overlay />
       <Modal.Content>
         <Modal.Header>
           <Modal.Title
-            pl={props.fullScreen ? "4em" : 0}
+            pl={settingsModalContext.fullScreen ? "5em" : 0}
             w={"100%"}
             ta={"center"}
           >
             <Text size={"1em"} fw={700}>
-              환경설정
+              {settingsModalContext.path
+                ? settingsModalContext.path.title
+                : "환경설정"}
             </Text>
           </Modal.Title>
           <Modal.CloseButton />
         </Modal.Header>
-        <Modal.Body pl={props.fullScreen ? "4em" : 0}>
+        <Modal.Body pl={settingsModalContext.fullScreen ? "5em" : 0}>
           <Flex
-            direction={props.fullScreen ? "column" : "row"}
+            direction={settingsModalContext.fullScreen ? "column" : "row"}
             gap={0}
             align={"start"}
             justify={"start"}
           >
             <Stack
               px={"1em"}
-              w={props.fullScreen ? "100%" : "auto"}
-              mah={props.fullScreen ? "30vh" : "none"}
+              w={settingsModalContext.fullScreen ? "100%" : "auto"}
+              mah={settingsModalContext.fullScreen ? "30vh" : "none"}
+              style={{ flexShrink: 0 }}
             >
               <Input
                 fz={"0.8em"}
@@ -75,30 +118,75 @@ export default function SettingsModal({ path, ...props }: SettingsModalProps) {
                     ([_, v]) =>
                       searchText.length < 1 || v.title.includes(searchText),
                   )
-                  .map(([code, setting]) => (
-                    <NavLink
-                      key={code}
-                      href={`#settings-${code}`}
-                      active={currentPath?.title === setting.title}
-                      label={setting.title}
-                      leftSection={
-                        setting.tablerIcon && (
-                          <setting.tablerIcon size={"1em"} />
-                        )
-                      }
-                      onClick={() => {
-                        setPath(setting);
-                        setBody(setting.component ?? <></>);
-                      }}
-                    />
-                  ))}
+                  .map(([slug, setting]) => {
+                    return (
+                      <NavLink
+                        key={slug}
+                        component={"div"}
+                        active={
+                          settingsModalContext.path?.title === setting.title
+                        }
+                        label={setting.title}
+                        leftSection={
+                          setting.tablerIcon && (
+                            <setting.tablerIcon size={"1em"} />
+                          )
+                        }
+                        onClick={() => {
+                          if (pathname.split("/").reverse()[1] === "settings")
+                            router.push(slug);
+                          settingsModalContext.setPath?.(setting);
+                        }}
+                      />
+                    );
+                  })}
               </ScrollArea.Autosize>
             </Stack>
-            <Divider
-              w={props.fullScreen ? "100%" : "1px"}
-              orientation={props.fullScreen ? "horizontal" : "vertical"}
-            />
-            <Stack px={"1em"}>{settingsBody}</Stack>
+            <Box
+              w={settingsModalContext.fullScreen ? "100%" : "auto"}
+              py={settingsModalContext.fullScreen ? "1em" : 0}
+            >
+              <Divider
+                w={settingsModalContext.fullScreen ? "100%" : "1px"}
+                orientation={
+                  settingsModalContext.fullScreen ? "horizontal" : "vertical"
+                }
+              />
+            </Box>
+            <Stack px={"1em"} w={"100%"}>
+              {settingsModalContext.path?.component && (
+                <Stack w={"100%"}>
+                  <settingsModalContext.path.component />
+                  <Group justify={"end"} gap={"0.5em"}>
+                    <Button
+                      size={"xs"}
+                      color={"red"}
+                      variant={"subtle"}
+                      onClick={() => settingsModalContext.trigger("cancel")}
+                    >
+                      취소
+                    </Button>
+                    <Button
+                      type={"submit"}
+                      size={"xs"}
+                      color={"gray"}
+                      variant={"subtle"}
+                      onClick={() => settingsModalContext.trigger("save")}
+                    >
+                      저장
+                    </Button>
+                    <Button
+                      type={"submit"}
+                      size={"xs"}
+                      variant={"outline"}
+                      onClick={() => settingsModalContext.trigger("submit")}
+                    >
+                      확인
+                    </Button>
+                  </Group>
+                </Stack>
+              )}
+            </Stack>
           </Flex>
         </Modal.Body>
       </Modal.Content>

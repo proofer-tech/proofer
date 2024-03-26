@@ -7,8 +7,8 @@ import {
   useIsDesktopMedia,
   useIsMobileMedia,
   useIsTabletMedia,
-} from "@/app/_src/hooks/mediaQuery";
-import { PageContext } from "@/app/_src/contexts";
+} from "@/src/hooks/mediaQuery";
+import { PageContext } from "@/src/contexts";
 import {
   Anchor,
   AppShell,
@@ -21,21 +21,21 @@ import {
   Transition,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import Background from "@/app/_components/Background";
-import Hero from "@/app/_components/Hero";
-import { Done, Down } from "@/app/_components/Divider";
-import Section from "@/app/_components/Section";
-import Partners from "@/app/_components/Partners";
-import PlanCard from "@/app/_components/PlanCard";
-import Inquire from "@/app/_components/Inquire";
-import Footer from "@/app/_components/Footer";
+import Background from "@/app/components/Background";
+import Hero from "@/app/components/Hero";
+import { Done, Down } from "@/app/components/Divider";
+import Section from "@/app/components/Section";
+import Partners from "@/app/components/Partners";
+import PlanCard from "@/app/components/PlanCard";
+import Inquire from "@/app/components/Inquire";
+import Footer from "@/app/components/Footer";
 import {
   InquireCompletedModal,
   NotReadyYetModal,
-} from "@/app/_components/Modal";
-import LandingPageShell from "@/app/_components/LandingPageShell";
-import useTallyInquireForm from "@/app/_src/hooks/tally";
-import Header from "@/app/_components/Header";
+} from "@/app/components/Modal";
+import LandingPageShell from "@/app/components/LandingPageShell";
+import useTallyInquireForm from "@/src/hooks/tally";
+import Header from "@/app/components/Header";
 import { ReactChannelIO } from "react-channel-plugin";
 
 Page.getInitialProps = async (ctx: NextPageContext) => {

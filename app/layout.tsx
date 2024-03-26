@@ -1,5 +1,7 @@
 import "@mantine/core/styles.css";
 import "./globals.scss";
+import "@mantine/dates/styles.css";
+import "dayjs/locale/ko";
 import React from "react";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { theme } from "@/theme";
@@ -50,7 +52,7 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: any }) {
+export default async function RootLayout({ children }: { children: any }) {
   return (
     <html lang="ko">
       <head>
