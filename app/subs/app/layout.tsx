@@ -26,13 +26,8 @@ export default async function AppLayout({ children }: { children: any }) {
   let workspace, member;
   if (user) {
     workspace = await findWorkspace(workspaceSlug);
-
     if (workspace) {
-      if (workspace.ownerId !== user.id) {
-        workspace = undefined;
-      } else {
-        member = await findMember(workspace.id, user.id);
-      }
+      member = await findMember(workspace.id, user.id);
     }
   }
 

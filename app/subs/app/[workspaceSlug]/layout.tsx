@@ -13,7 +13,7 @@ import React from "react";
 import { notFound, redirect } from "next/navigation";
 import { getAppPathBlocks } from "@/src/path";
 import { headers } from "next/headers";
-import { findWorkspace } from "@/src/data/workspace";
+import { findMember, findWorkspace } from "@/src/data/workspace";
 import { findUserFromSession } from "@/src/data/user";
 
 export default async function WorkspaceLayout({ children }: { children: any }) {
@@ -29,7 +29,8 @@ export default async function WorkspaceLayout({ children }: { children: any }) {
 
   const workspace = await findWorkspace(slug);
   if (!workspace) return notFound();
-  if (workspace.ownerId !== user.id) return redirect("/403");
+  const workspaceMember = await findMember(workspace.id, user.id);
+  if (!workspaceMember) return redirect("/403");
 
   if (subPath !== undefined)
     return (
