@@ -73,8 +73,6 @@ async function handleRouterMiddleware(
   const path = getPath(req);
 
   if (["app", "team"].includes(subDomain)) {
-    const pureHostname = hostname.replace(`${subDomain}.`, "");
-
     let rewriteUri = path === "/" ? "" : path;
     if (
       path.startsWith("/api/auth") ||
@@ -82,12 +80,11 @@ async function handleRouterMiddleware(
       path.startsWith("/auth")
     ) {
       // auth 와 health 는 공통으로 사용합니다.
-      rewriteUri = `${req.nextUrl.protocol}//${pureHostname}${rewriteUri}`;
+      return NextResponse.next();
     } else {
       rewriteUri = `/subs/${subDomain}` + rewriteUri;
+      return NextResponse.rewrite(new URL(rewriteUri, req.url));
     }
-
-    return NextResponse.rewrite(new URL(rewriteUri, req.url));
   }
 
   // 앱에 직접 접근할 수 없다. (개발환경에서는 localhost 의 쿠키 정책문제로 제외)
