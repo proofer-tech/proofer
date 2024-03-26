@@ -29,7 +29,7 @@ export default function WorkspaceSettingsBody() {
     initialValues: {
       name: workspace?.instance.name,
       slug: workspace?.instance.slug,
-      logo_url: new File([], logoUrl.split("/").pop()?.slice(-32) || ""),
+      logo_url: new File([], logoUrl?.split("/").pop()?.slice(-32) || ""),
     },
     validate: {
       name: (value) =>
@@ -117,7 +117,7 @@ export default function WorkspaceSettingsBody() {
           <FileInput
             label="워크스페이스 로고 이미지"
             description={"1:1 비율의 정사각형 이미지를 추천합니다."}
-            placeholder={logoUrl.split("/").pop()?.slice(-32)}
+            placeholder={logoUrl?.split("/").pop()?.slice(-32)}
             w={"100%"}
             {...form.getInputProps("logo_url")}
             onChange={(file) => {

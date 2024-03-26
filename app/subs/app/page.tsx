@@ -5,6 +5,7 @@ import WorkspaceChoice from "@/app/subs/app/components/WorkspaceChoice";
 import { findUserByEmail } from "@/src/data/user";
 import { getUserWorkspaces } from "@/src/data/workspace";
 import { generateAppPath } from "@/src/path";
+import { WORKSPACE_DEMO_SLUG } from "@/src/constants";
 
 export default async function Page() {
   const session = await getSession();
@@ -27,7 +28,10 @@ export default async function Page() {
             <WorkspaceChoice workspaces={workspaces} />
           ) : (
             <>
-              <Anchor href={generateAppPath("/sample")} w={"100%"}>
+              <Anchor
+                href={generateAppPath(`/${WORKSPACE_DEMO_SLUG}`)}
+                w={"100%"}
+              >
                 <Button variant="light" w={"100%"}>
                   데모버전 구경하기
                 </Button>

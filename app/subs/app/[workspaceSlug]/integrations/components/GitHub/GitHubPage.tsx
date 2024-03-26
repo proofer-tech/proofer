@@ -8,12 +8,17 @@ import {
 } from "@/app/subs/app/[workspaceSlug]/integrations/components/GitHub/client";
 import { WorkspaceToGitHubInstallation } from "@/database/schemas/github";
 import { db } from "@/database/engine";
-import { findMember, findWorkspace } from "@/src/data/workspace";
+import {
+  findMember,
+  findWorkspace,
+  getFirstMember,
+} from "@/src/data/workspace";
 import { findUserFromSession } from "@/src/data/user";
 import { redirect } from "next/navigation";
 import { generateAppPath } from "@/src/path";
 import { headers } from "next/headers";
 import IntegrationPage from "@/app/subs/app/[workspaceSlug]/integrations/components/IntegrationPage";
+import { WORKSPACE_DEMO_SLUG } from "@/src/constants";
 
 async function generateInstallation(formData: FormData) {
   "use server";
@@ -27,7 +32,10 @@ async function generateInstallation(formData: FormData) {
   const workspace = await findWorkspace(workspaceSlug as string);
   if (workspace === undefined) return;
 
-  const member = await findMember(workspace.id, user.id);
+  let member;
+  if (workspaceSlug === WORKSPACE_DEMO_SLUG)
+    member = await getFirstMember(workspace.id);
+  else member = await findMember(workspace.id, user.id);
   if (!(member && member.isManager)) return;
 
   const installation = (

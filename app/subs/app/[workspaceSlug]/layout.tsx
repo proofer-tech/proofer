@@ -15,6 +15,7 @@ import { getAppPathBlocks } from "@/src/path";
 import { headers } from "next/headers";
 import { findMember, findWorkspace } from "@/src/data/workspace";
 import { findUserFromSession } from "@/src/data/user";
+import { WORKSPACE_DEMO_SLUG } from "@/src/constants";
 
 export default async function WorkspaceLayout({ children }: { children: any }) {
   const headersList = headers();
@@ -29,8 +30,11 @@ export default async function WorkspaceLayout({ children }: { children: any }) {
 
   const workspace = await findWorkspace(slug);
   if (!workspace) return notFound();
-  const workspaceMember = await findMember(workspace.id, user.id);
-  if (!workspaceMember) return redirect("/403");
+
+  if (slug !== WORKSPACE_DEMO_SLUG) {
+    const workspaceMember = await findMember(workspace.id, user.id);
+    if (!workspaceMember) return redirect("/403");
+  }
 
   if (subPath !== undefined)
     return (

@@ -13,6 +13,16 @@ export async function findWorkspace(
   return records[0];
 }
 
+export async function getFirstMember(
+  workspaceId: number,
+): Promise<InferSelectModel<typeof WorkspaceMember> | undefined> {
+  const records = await db
+    .select()
+    .from(WorkspaceMember)
+    .where(eq(WorkspaceMember.workspaceId, workspaceId));
+  return records[0];
+}
+
 export async function findMember(
   workspaceId: number,
   userId: number,

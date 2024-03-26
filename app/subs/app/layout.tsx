@@ -6,8 +6,13 @@ import WorkspaceAppShell, {
 } from "@/app/subs/app/components/WorkspaceAppShell";
 import { headers } from "next/headers";
 import { getAppPathBlocks } from "@/src/path";
-import { findMember, findWorkspace } from "@/src/data/workspace";
+import {
+  findMember,
+  findWorkspace,
+  getFirstMember,
+} from "@/src/data/workspace";
 import { findUserFromSession } from "@/src/data/user";
+import { WORKSPACE_DEMO_SLUG } from "@/src/constants";
 
 export const viewport: Viewport = {
   themeColor: "#0052cc",
@@ -27,7 +32,9 @@ export default async function AppLayout({ children }: { children: any }) {
   if (user) {
     workspace = await findWorkspace(workspaceSlug);
     if (workspace) {
-      member = await findMember(workspace.id, user.id);
+      if (workspaceSlug === WORKSPACE_DEMO_SLUG)
+        member = await getFirstMember(workspace.id);
+      else member = await findMember(workspace.id, user.id);
     }
   }
 

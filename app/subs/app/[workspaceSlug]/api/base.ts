@@ -9,6 +9,7 @@ import { notFound } from "next/navigation";
 import * as Boom from "@hapi/boom";
 import { findMember } from "@/src/data/workspace";
 import { NextApiHandler, NextApiRequest } from "next";
+import { WORKSPACE_DEMO_SLUG } from "@/src/constants";
 
 export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
   apiRoute: AppRouteHandlerFn | NextApiHandler,
@@ -26,7 +27,7 @@ export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
     )[0];
     if (!workspace) return notFound();
 
-    if (workspaceSlug === "sample") {
+    if (workspaceSlug === WORKSPACE_DEMO_SLUG) {
     } else {
       const member = await findMember(workspace.id, user.id);
       if (member === undefined)
