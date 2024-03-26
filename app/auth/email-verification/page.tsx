@@ -10,10 +10,7 @@ export default async function Page({ searchParams }: any) {
   const session = await getSession();
   if (!session?.user) return redirect("/auth/login");
 
-  if (
-    (searchParams.success === "true" && searchParams.code === "success") ||
-    searchParams.email
-  ) {
+  if (session.user.email_verified) {
     const user = await findUserByEmail(session.user.email);
     if (!user) {
       await withLock(
