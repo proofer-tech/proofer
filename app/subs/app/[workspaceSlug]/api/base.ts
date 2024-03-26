@@ -26,11 +26,14 @@ export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
     )[0];
     if (!workspace) return notFound();
 
-    const member = await findMember(workspace.id, user.id);
-    if (member === undefined)
-      throw Boom.forbidden("워크스페이스의 멤버만 호출할 수 있습니다.");
-    else if (!member.isManager)
-      throw Boom.forbidden("워크스페이스의 관리자만 호출할 수 있습니다.");
+    if (workspaceSlug === "sample") {
+    } else {
+      const member = await findMember(workspace.id, user.id);
+      if (member === undefined)
+        throw Boom.forbidden("워크스페이스의 멤버만 호출할 수 있습니다.");
+      else if (!member.isManager)
+        throw Boom.forbidden("워크스페이스의 관리자만 호출할 수 있습니다.");
+    }
 
     return apiRoute(req, { workspace, user, params }, ...args);
   };

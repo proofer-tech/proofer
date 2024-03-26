@@ -4,6 +4,7 @@ import React from "react";
 import WorkspaceChoice from "@/app/subs/app/components/WorkspaceChoice";
 import { findUserByEmail } from "@/src/data/user";
 import { getUserWorkspaces } from "@/src/data/workspace";
+import { generateAppPath } from "@/src/path";
 
 export default async function Page() {
   const session = await getSession();
@@ -26,13 +27,17 @@ export default async function Page() {
             <WorkspaceChoice workspaces={workspaces} />
           ) : (
             <>
-              <Button variant="light">데모버전 구경하기</Button>
+              <Anchor href={generateAppPath("/sample")} w={"100%"}>
+                <Button variant="light" w={"100%"}>
+                  데모버전 구경하기
+                </Button>
+              </Anchor>
               {user ? (
+                ""
+              ) : (
                 <Anchor href={"/auth/login"} w={"100%"}>
                   <Button w={"100%"}>로그인</Button>
                 </Anchor>
-              ) : (
-                ""
               )}
             </>
           )}
