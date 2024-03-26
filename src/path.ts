@@ -4,7 +4,7 @@ import { InferSelectModel } from "drizzle-orm";
 export function getAppPathBlocks(pathname: String) {
   return pathname
     .split("/")
-    .slice(process.env.VERCEL_ENV === "production" ? 0 : 3);
+    .slice(process.env.VERCEL_ENV === "production" ? 1 : 3);
 }
 
 export const generateAppPath = (
