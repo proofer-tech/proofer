@@ -87,7 +87,9 @@ async function handleRouterMiddleware(
     let redirectPath = "/" + pathBlocks.slice(3).join("/");
     const redirectURL = new URL(redirectPath, req.url);
 
-    redirectURL.hostname = subDomainOnPath + "." + redirectURL.hostname;
+    const hostNameBlocks = redirectURL.hostname.split(".").slice(-2); // Only SLD.TLD
+    redirectURL.hostname = [subDomainOnPath, ...hostNameBlocks].join(".");
+
     return NextResponse.redirect(redirectURL);
   }
 }
