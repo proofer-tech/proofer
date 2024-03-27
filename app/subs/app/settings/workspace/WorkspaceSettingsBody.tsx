@@ -15,12 +15,14 @@ import { generateAppPath } from "@/src/path";
 import { useRouter } from "next/navigation";
 import { blobToBase64 } from "@/src/file";
 import { SettingsModalContext } from "@/app/subs/app/settings/modal";
+import { useListState } from "@mantine/hooks";
 
 export default function WorkspaceSettingsBody() {
   const router = useRouter();
   const { close, triggered, trigger } = useContext(SettingsModalContext);
   const { workspace, isMounted } = useContext(ProoferInsightContext);
   const [isLoading, setIsLoading] = useState<boolean>(!isMounted);
+  const [delayedJobs, delayedJobHandler] = useListState<() => Promise<any>>([]);
 
   const [logoUrl, setLogoUrl] = useState<string>(workspace?.instance.logoUrl!);
 
@@ -42,6 +44,7 @@ export default function WorkspaceSettingsBody() {
             : `${slugRuleText} 만 입력 가능합니다.`,
     },
   });
+
   const onSubmit = async (values: any) => {
     if (workspace === undefined) return;
     setIsLoading(true);
@@ -86,12 +89,23 @@ export default function WorkspaceSettingsBody() {
         form.onSubmit(onSubmit)();
         break;
       case "submit":
+        delayedJobHandler.append(async () => close());
         form.onSubmit(onSubmit)();
-        close();
         break;
     }
     trigger("");
   }, [triggered]);
+
+  useEffect(() => {
+    function delayedJobQueueTraveler() {
+      const delayedJob = delayedJobs.shift();
+      if (delayedJob)
+        delayedJob()
+          .then(() => delayedJobHandler.shift())
+          .finally(() => delayedJobQueueTraveler());
+    }
+    if (!isLoading) delayedJobQueueTraveler();
+  }, [isLoading]);
 
   return workspace === undefined ? (
     <NeedToSelectWorkspace serviceName={"워크스페이스 설정"} />
