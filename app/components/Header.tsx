@@ -22,7 +22,7 @@ export interface HeaderPortal {
 
 export interface HeaderProps {
   isNavbarOpened: boolean;
-  portals?: HeaderPortal[];
+  portals?: readonly HeaderPortal[];
   onBurgerClick?: () => void;
   onInquireClick?: () => void;
 }

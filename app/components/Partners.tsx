@@ -1,7 +1,7 @@
 "use client";
 import { Grid, Group, Image } from "@mantine/core";
 import React, { useContext, useEffect, useState } from "react";
-import { PageContext } from "@/src/contexts";
+import AgentContext from "@/src/contexts/AgentContext";
 
 function Logo({ src }: { src: string }) {
   return (
@@ -12,14 +12,14 @@ function Logo({ src }: { src: string }) {
 }
 
 export default function Partners() {
-  const pageCtx = useContext(PageContext);
+  const agentContext = useContext(AgentContext);
 
   const [span, setSpan] = useState<number>(4);
   useEffect(() => {
-    if (pageCtx.userAgent.isDesktop) setSpan(3);
-    if (pageCtx.userAgent.isTablet) setSpan(4);
-    if (pageCtx.userAgent.isMobile) setSpan(6);
-  }, [pageCtx.userAgent]);
+    if (agentContext.isDesktop) setSpan(3);
+    if (agentContext.isTablet) setSpan(4);
+    if (agentContext.isMobile) setSpan(6);
+  }, [agentContext]);
 
   return (
     <Grid py={"3em"}>
