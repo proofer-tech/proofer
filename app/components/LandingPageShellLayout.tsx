@@ -138,7 +138,7 @@ export default function LandingPageShellLayout({
                   >
                     무료로 체험해보기
                   </Text>,
-                  <Anchor key={1} href="#price" underline="never" c={"black"}>
+                  <Anchor key={1} href="/#price" underline="never" c={"black"}>
                     가격
                   </Anchor>,
                   <Anchor
