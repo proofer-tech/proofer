@@ -58,10 +58,10 @@ async function handleMaintenanceMiddleware(
 async function handleRouterMiddleware(
   req: NextRequest,
 ): Promise<NextResponse | undefined> {
-  // if (!isProduction) {
-  //   // 개발환경에서는 localhost 의 쿠키 정책문제로 제외
-  //   return;
-  // }
+  if (!isProduction) {
+    // 개발환경에서는 localhost 의 쿠키 정책문제로 제외
+    return;
+  }
 
   const hostname = req.headers.get("host") || req.nextUrl.host;
   const subDomain = hostname.split(".")[0];
