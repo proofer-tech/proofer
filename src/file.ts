@@ -1,3 +1,5 @@
+import { File, Blob } from "@web-std/file";
+
 export const blobToBase64 = (blob: Blob) => {
   const reader = new FileReader();
   reader.readAsDataURL(blob);

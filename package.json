@@ -63,6 +63,7 @@
     "@vercel/kv": "^1.0.1",
     "@vercel/postgres": "^0.7.2",
     "@vercel/speed-insights": "^1.0.10",
+    "@web-std/file": "^3.0.3",
     "apexcharts": "^3.48.0",
     "dayjs": "^1.11.10",
     "drizzle-orm": "^0.30.1",
