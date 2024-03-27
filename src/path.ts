@@ -1,17 +1,22 @@
 import { Workspace } from "@/database/schemas/workspace";
 import { InferSelectModel } from "drizzle-orm";
 
+function getPathPrefix() {
+  return process.env.NEXT_PUBLIC_APP_PREFIX || "";
+}
+
 export function getAppPathBlocks(pathname: String) {
-  return pathname
-    .split("/")
-    .slice(process.env.VERCEL_ENV === "production" ? 1 : 3);
+  const prefix = getPathPrefix();
+  const pathnameWithoutPrefix = pathname.slice(prefix.length);
+
+  return pathnameWithoutPrefix.split("/").slice(1);
 }
 
 export const generateAppPath = (
   path: string,
   workspace?: InferSelectModel<typeof Workspace>,
 ) => {
-  const prefix = process.env.NEXT_PUBLIC_APP_PREFIX || "";
+  const prefix = getPathPrefix();
   let workspacePathBlocks = [prefix];
 
   if (workspace) workspacePathBlocks.push(workspace.slug);
