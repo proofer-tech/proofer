@@ -13,7 +13,7 @@ import {
 } from "@mantine/core";
 import React, { useContext } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
-import { PageContext } from "@/src/contexts";
+import AgentContext from "@/src/contexts/AgentContext";
 
 interface PlanCardProps extends CardProps, ElementProps<"div"> {
   name: string;
@@ -33,7 +33,7 @@ export default function PlanCard({
   cta,
   ...props
 }: PlanCardProps) {
-  const pageCtx = useContext(PageContext);
+  const agentContext = useContext(AgentContext);
   return (
     <Card
       w={"100%"}
@@ -51,7 +51,7 @@ export default function PlanCard({
       </Card.Section>
       <Stack py={"1em"} gap={"1.3em"}>
         <Text
-          fz={pageCtx.userAgent.isDesktop ? "1em" : "1.2em"}
+          fz={agentContext.isDesktop ? "1em" : "1.2em"}
           fw={700}
           c={"var(--color-primary)"}
         >

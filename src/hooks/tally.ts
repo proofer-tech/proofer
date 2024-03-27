@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { TallyPopupOptions } from "@/src/types/tally";
+import { TallyInquireContextProps } from "@/src/contexts/TallyContext";
 
 const inquireFormId = "wALJdk";
 
-export default function useTallyInquireForm({ ...config }: TallyPopupOptions) {
+export default function useTallyInquireForm({
+  ...config
+}: TallyPopupOptions): TallyInquireContextProps {
   const [tallyOptions, setTallyOptions] = useState<TallyPopupOptions>(
     Object.assign(
       {

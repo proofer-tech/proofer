@@ -6,7 +6,6 @@ import {
   Container,
   ContainerProps,
   Flex,
-  FocusTrap,
   Input,
   Popover,
   Stack,
@@ -14,26 +13,24 @@ import {
 } from "@mantine/core";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { ElementProps } from "@mantine/core/lib/core";
-import { PageContext } from "@/src/contexts";
 import { useWindowScroll } from "@mantine/hooks";
 import { useChannelIOEvent } from "react-channel-plugin";
+import AgentContext from "@/src/contexts/AgentContext";
 
 interface InquireProps extends ContainerProps, ElementProps<"div"> {
-  isActive: boolean;
   inquireEmail: string;
   onInquireEmailChange: (text: string) => void;
   onInquireClick: () => void;
 }
 
 export default function Inquire({
-  isActive = false,
   inquireEmail,
   onInquireEmailChange,
   onInquireClick,
   children,
   ...props
 }: InquireProps) {
-  const pageCtx = useContext(PageContext);
+  const agentContext = useContext(AgentContext);
   const [isPopoverOpened, setPopoverOpened] = useState<boolean>(false);
 
   const [scroll] = useWindowScroll();
@@ -56,7 +53,7 @@ export default function Inquire({
   }, [offsetPinRef, scroll]);
 
   return (
-    <FocusTrap active={isActive}>
+    <>
       <div ref={offsetPinRef} />
       <Container {...props}>
         <Box
@@ -81,20 +78,12 @@ export default function Inquire({
             <Flex
               p={isWidget ? "0.8em 1em" : "3em 5em"}
               direction={
-                pageCtx.userAgent.isDesktop
-                  ? "row"
-                  : isWidget
-                    ? "row"
-                    : "column"
+                agentContext.isDesktop ? "row" : isWidget ? "row" : "column"
               }
               justify={
-                isWidget || pageCtx.userAgent.isDesktop
-                  ? "space-between"
-                  : "center"
+                isWidget || agentContext.isDesktop ? "space-between" : "center"
               }
-              align={
-                isWidget || pageCtx.userAgent.isDesktop ? "center" : "normal"
-              }
+              align={isWidget || agentContext.isDesktop ? "center" : "normal"}
               gap={"1.3em"}
             >
               <Stack gap={0}>
@@ -112,9 +101,9 @@ export default function Inquire({
                 </Text>
               </Stack>
               <Flex
-                direction={pageCtx.userAgent.isDesktop ? "row" : "column"}
-                justify={pageCtx.userAgent.isDesktop ? "center" : "normal"}
-                align={pageCtx.userAgent.isDesktop ? "start" : "normal"}
+                direction={agentContext.isDesktop ? "row" : "column"}
+                justify={agentContext.isDesktop ? "center" : "normal"}
+                align={agentContext.isDesktop ? "start" : "normal"}
                 gap={8}
               >
                 <Popover
@@ -153,6 +142,6 @@ export default function Inquire({
           </BackgroundImage>
         </Box>
       </Container>
-    </FocusTrap>
+    </>
   );
 }
