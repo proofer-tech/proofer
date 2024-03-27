@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { get } from "@vercel/edge-config";
 import { Health } from "@/src/types/health";
-import { notFound } from "next/navigation";
 const isProduction = process.env.VERCEL_ENV === "production";
 
 function getPath(req: NextRequest): string {
@@ -59,17 +58,17 @@ async function handleMaintenanceMiddleware(
 async function handleRouterMiddleware(
   req: NextRequest,
 ): Promise<NextResponse | undefined> {
-  if (!isProduction) {
-    // 개발환경에서는 localhost 의 쿠키 정책문제로 제외
-    return;
-  }
+  // if (!isProduction) {
+  //   // 개발환경에서는 localhost 의 쿠키 정책문제로 제외
+  //   return;
+  // }
 
   const hostname = req.headers.get("host") || req.nextUrl.host;
   const subDomain = hostname.split(".")[0];
   const path = getPath(req);
 
   if (["app", "team"].includes(subDomain)) {
-    let rewriteUri = path === "/" ? "" : path;
+    let rewritePath = path;
     if (
       path.startsWith("/api/auth") ||
       path.startsWith("/api/health") ||
@@ -79,9 +78,18 @@ async function handleRouterMiddleware(
       return NextResponse.next();
     }
 
-    rewriteUri = `/subs/${subDomain}` + rewriteUri;
-    return NextResponse.rewrite(new URL(rewriteUri, req.url));
-  } else if (path.startsWith(`/subs`)) return notFound();
+    rewritePath = `/subs/${subDomain}` + rewritePath;
+    return NextResponse.rewrite(new URL(rewritePath, req.url));
+  } else if (path.startsWith(`/subs`)) {
+    const pathBlocks = path.split("/");
+    const subDomainOnPath = pathBlocks.slice(2)[0];
+
+    let redirectPath = "/" + pathBlocks.slice(3).join("/");
+    const redirectURL = new URL(redirectPath, req.url);
+
+    redirectURL.hostname = subDomainOnPath + "." + redirectURL.hostname;
+    return NextResponse.redirect(redirectURL);
+  }
 }
 
 export default async function wrapper(req: NextRequest): Promise<NextResponse> {
