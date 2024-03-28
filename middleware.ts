@@ -67,7 +67,7 @@ async function handleRouterMiddleware(
   const subDomain = hostname.split(".")[0];
   const path = getPath(req);
 
-  if (["app", "team"].includes(subDomain)) {
+  if (["app", "team", "blog"].includes(subDomain)) {
     let rewritePath = path;
     if (
       path.startsWith("/api/auth") ||
