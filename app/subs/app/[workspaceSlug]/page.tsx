@@ -34,7 +34,7 @@ export default function Page() {
             w={"10em"}
           />
           <Title order={1} ta={"center"}>
-            우리 개발자의 생산성이 궁금하다면?
+            우리 개발자가 어떻게 일하고 있는지 궁금하다면?
           </Title>
           <Group>
             <IconSquareArrowLeft size={"1em"} />

@@ -12,6 +12,7 @@ import type { Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 import { UserProvider } from "@auth0/nextjs-auth0/client";
+import { generateManifest } from "@/src/manifest";
 
 export const viewport: Viewport = {
   themeColor: "#0052cc",
@@ -24,33 +25,8 @@ export const viewport: Viewport = {
 const title = "프루퍼";
 const shortTitle = "최고의 개발자 성과측정 SaaS 솔루션";
 const description =
-  "실리콘밸리 검증 방법으로 개발자 성과평가 인사이트 제공. 무료 상담과 14일 무료 평가판으로 성과 향상 여정 시작. 지금 연락하세요!";
-
-export const metadata = {
-  applicationName: title,
-  metadataBase: new URL("https://proofer.tech"),
-  title: `${title} | ${shortTitle}`,
-  description: description,
-  keywords: [
-    "프루퍼",
-    "개발자 성과",
-    "Developer Velocity",
-    "DORA Metrics",
-    "SPACE Framework",
-    "DevEx",
-    "proofer",
-    "proofer tech",
-  ],
-  openGraph: {
-    locale: "ko",
-    type: "website",
-    url: "https://proofer.tech",
-    siteName: title,
-    title: `${title} | ${shortTitle}`,
-    description: description,
-    images: ["/assets/images/og-image.png"],
-  },
-};
+  "실리콘밸리의 프레임워크로 개발자 성과평가 인사이트 제공. 무료 상담과 14일 무료 평가판으로 성과 향상 여정 시작. 지금 연락하세요!";
+export const metadata = generateManifest(title, shortTitle, description);
 
 export default async function RootLayout({ children }: { children: any }) {
   return (
