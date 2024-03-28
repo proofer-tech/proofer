@@ -29,18 +29,6 @@ interface LandingPageShellLayoutProps {
     isMobile?: boolean;
   };
 }
-const moveToHashAnchor = () => {
-  if (window.location.hash) {
-    const hashAnchor = document.getElementById(
-      window.location.hash.replace("#", ""),
-    );
-    if (hashAnchor !== null) {
-      const y = hashAnchor.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({ top: y, behavior: "smooth" });
-    }
-  }
-};
-
 export default function LandingPageShellLayout({
   portals,
   children,
@@ -49,11 +37,6 @@ export default function LandingPageShellLayout({
   const isDesktopMedia = useIsDesktopMedia(userAgent?.isDesktop ?? true);
   const isTabletMedia = useIsTabletMedia(userAgent?.isTablet ?? false);
   const isMobileMedia = useIsMobileMedia(userAgent?.isMobile ?? false);
-
-  const [isMounted, setIsMounted] = useState<boolean>(false);
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const navbarDisclosure = useDisclosure(false);
 
@@ -64,6 +47,18 @@ export default function LandingPageShellLayout({
   const tallyInquireForm = useTallyInquireForm({
     onSubmit: () => inquireCompletedModal.open(),
   });
+
+  useEffect(() => {
+    if (window.location.hash) {
+      const hashAnchor = document.getElementById(
+        window.location.hash.replace("#", ""),
+      );
+      if (hashAnchor !== null) {
+        const y = hashAnchor.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    }
+  }, []);
 
   return (
     <ReactChannelIO
@@ -87,15 +82,7 @@ export default function LandingPageShellLayout({
           />
           <AppShell.Main>
             <TallyContext.Provider value={tallyInquireForm}>
-              <Transition
-                mounted={isMounted}
-                transition="fade"
-                duration={400}
-                timingFunction="ease"
-                onEntered={() => moveToHashAnchor()}
-              >
-                {(styles) => <Box style={styles}>{children}</Box>}
-              </Transition>
+              <Box>{children}</Box>
             </TallyContext.Provider>
           </AppShell.Main>
           <AppShell.Footer pos={"static"} bg={"transparent"} withBorder={false}>
