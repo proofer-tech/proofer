@@ -1,12 +1,14 @@
 import { Workspace } from "@/database/schemas/workspace";
 import { InferSelectModel } from "drizzle-orm";
 
-function getPathPrefix() {
-  return process.env.NEXT_PUBLIC_APP_PREFIX || "";
+function getPathPrefix(subDomain?: string) {
+  let pathPrefix = process.env.NEXT_PUBLIC_PATH_PREFIX || "";
+  if (subDomain) pathPrefix = `${pathPrefix}/${subDomain}`;
+  return pathPrefix;
 }
 
-export function getAppPathBlocks(pathname: String) {
-  const prefix = getPathPrefix();
+export function getPathBlocks(pathname: String, subDomain?: string) {
+  const prefix = getPathPrefix(subDomain);
   const pathnameWithoutPrefix = pathname.slice(prefix.length);
 
   return pathnameWithoutPrefix.split("/").slice(1);

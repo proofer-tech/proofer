@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { get } from "@vercel/edge-config";
 import { Health } from "@/src/types/health";
+import { SUB_DOMAIN } from "@/src/constants";
 const isProduction = process.env.VERCEL_ENV === "production";
 
 function getPath(req: NextRequest): string {
@@ -67,7 +68,7 @@ async function handleRouterMiddleware(
   const subDomain = hostname.split(".")[0];
   const path = getPath(req);
 
-  if (["app", "team", "blog"].includes(subDomain)) {
+  if (Object.values(SUB_DOMAIN).includes(subDomain)) {
     let rewritePath = path;
     if (
       path.startsWith("/api/auth") ||

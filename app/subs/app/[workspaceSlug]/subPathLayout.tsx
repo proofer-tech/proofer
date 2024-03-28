@@ -2,12 +2,13 @@
 import { pathTree } from "@/app/subs/app/tree";
 import React, { useContext } from "react";
 import NotReadyYetLetter from "@/app/components/NotReadyYetLetter";
-import { getAppPathBlocks } from "@/src/path";
+import { getPathBlocks } from "@/src/path";
 import NeedToSelectWorkspace from "@/app/subs/app/components/NeedToSelectWorkspace";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import NeedToLogin from "@/app/subs/app/components/charts/NeedToLogin";
 import { usePathname } from "next/navigation";
 import { Box } from "@mantine/core";
+import { SUB_DOMAIN } from "@/src/constants";
 
 export default function SubPathLayout({ children }: { children: any }) {
   const { user, workspace } = useContext(ProoferInsightContext);
@@ -17,7 +18,7 @@ export default function SubPathLayout({ children }: { children: any }) {
     return <NeedToLogin />;
   }
 
-  const [_, pathBlock, subPathBlock] = getAppPathBlocks(pathname);
+  const [_, pathBlock, subPathBlock] = getPathBlocks(pathname, SUB_DOMAIN.app);
   const path = pathTree[pathBlock];
   const subPath = path?.subTree?.[subPathBlock];
 

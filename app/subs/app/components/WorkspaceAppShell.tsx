@@ -27,7 +27,7 @@ import { pathTree } from "@/app/subs/app/tree";
 import { ReactChannelIO, useChannelIOApi } from "react-channel-plugin";
 import { Path } from "@/app/subs/app/components/types";
 import UserMenu from "@/app/subs/app/components/UserMenu";
-import { generateAppPath, getAppPathBlocks } from "@/src/path";
+import { generateAppPath, getPathBlocks } from "@/src/path";
 import TargetAvatarGroup from "@/app/subs/app/components/TargetAvatarGroup";
 import { usePathname } from "next/navigation";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
@@ -46,6 +46,7 @@ import {
   GlobalAlertContext,
   GlobalAlertMold,
 } from "@/app/components/GlobalAlert";
+import { SUB_DOMAIN } from "@/src/constants";
 
 function NeedHelpNavLink() {
   const { showMessenger } = useChannelIOApi();
@@ -121,7 +122,7 @@ export default function WorkspaceAppShell({
   ...props
 }: WorkspaceAppShellProps) {
   const pathname = usePathname();
-  const [_, pathBlock, subPathBlock] = getAppPathBlocks(pathname);
+  const [_, pathBlock, subPathBlock] = getPathBlocks(pathname, SUB_DOMAIN.app);
   const settingsModal = useSettingsModal();
   const isDesktopMedia = !!useIsDesktopMedia(true);
   const [isMounted, setIsMounted] = useState<boolean>(false);

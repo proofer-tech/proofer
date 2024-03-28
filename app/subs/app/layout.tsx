@@ -4,14 +4,14 @@ import WorkspaceAppShell, {
   WorkspaceAppShellDisclosureProvider,
 } from "@/app/subs/app/components/WorkspaceAppShell";
 import { headers } from "next/headers";
-import { getAppPathBlocks } from "@/src/path";
+import { getPathBlocks } from "@/src/path";
 import {
   findMember,
   findWorkspace,
   getFirstMember,
 } from "@/src/data/workspace";
 import { findUserFromSession } from "@/src/data/user";
-import { WORKSPACE_DEMO_SLUG } from "@/src/constants";
+import { SUB_DOMAIN, WORKSPACE_DEMO_SLUG } from "@/src/constants";
 import { generateManifest } from "@/src/manifest";
 
 const title = "프루퍼 인사이트";
@@ -22,7 +22,10 @@ export default async function AppLayout({ children }: { children: any }) {
   const user = await findUserFromSession();
 
   const headerList = headers();
-  const [workspaceSlug] = getAppPathBlocks(headerList.get("x-pathname") || "");
+  const [workspaceSlug] = getPathBlocks(
+    headerList.get("x-pathname") || "",
+    SUB_DOMAIN.app,
+  );
 
   let workspace, member;
   if (user) {

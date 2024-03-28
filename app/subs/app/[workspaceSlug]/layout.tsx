@@ -11,16 +11,19 @@ import {
 } from "@mantine/core";
 import React from "react";
 import { notFound, redirect } from "next/navigation";
-import { getAppPathBlocks } from "@/src/path";
+import { getPathBlocks } from "@/src/path";
 import { headers } from "next/headers";
 import { findMember, findWorkspace } from "@/src/data/workspace";
 import { findUserFromSession } from "@/src/data/user";
-import { WORKSPACE_DEMO_SLUG } from "@/src/constants";
+import { SUB_DOMAIN, WORKSPACE_DEMO_SLUG } from "@/src/constants";
 
 export default async function WorkspaceLayout({ children }: { children: any }) {
   const headersList = headers();
   const pathname = headersList.get("x-pathname") || "";
-  const [slug, pathBlock, subPathBlock] = getAppPathBlocks(pathname);
+  const [slug, pathBlock, subPathBlock] = getPathBlocks(
+    pathname,
+    SUB_DOMAIN.app,
+  );
   const path = pathTree[pathBlock];
   const subPath = path?.subTree?.[subPathBlock];
 

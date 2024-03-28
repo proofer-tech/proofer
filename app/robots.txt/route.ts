@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { resolveRobots } from "next/dist/build/webpack/loaders/metadata/resolve-route-data";
+import { SUB_DOMAIN } from "@/src/constants";
 
 export async function GET(req: NextRequest) {
   const hostname = req.headers.get("host") || req.nextUrl.host;
@@ -7,7 +8,7 @@ export async function GET(req: NextRequest) {
   const rulesMap = [];
 
   switch (subDomain) {
-    case "app":
+    case SUB_DOMAIN.app:
       rulesMap.push({
         userAgent: "*",
         allow: ["/$"],
