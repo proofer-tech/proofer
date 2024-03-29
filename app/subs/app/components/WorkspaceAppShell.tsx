@@ -217,7 +217,7 @@ export default function WorkspaceAppShell({
                 >
                   {appShellContext.isCollapsed ? (
                     <Anchor
-                      href={generateAppPath(`/${workspace?.slug}`)}
+                      href={generateAppPath(`/${workspace?.slug || ""}`)}
                       underline="never"
                       fz={0}
                     >
