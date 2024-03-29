@@ -23,7 +23,7 @@ export async function generateMetadata(
   if (article) {
     const root = cheerio.load(article.contents);
     return generateMetadataFromTitle(
-      "블로그",
+      "프루퍼",
       article.title,
       truncate(
         Array.from(
