@@ -1,5 +1,6 @@
 import { Workspace } from "@/database/schemas/workspace";
 import { InferSelectModel } from "drizzle-orm";
+import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 
 export function getPathPrefix(subDomain?: string) {
   let pathPrefix = process.env.NEXT_PUBLIC_PATH_PREFIX || "";
@@ -26,3 +27,11 @@ export const generateAppPath = (
 
   return workspacePathBlocks.join("/").replace("//", "/");
 };
+
+export function getURLFromHeaderList(headerList: ReadonlyHeaders) {
+  const protocol = headerList.get("X-Forwarded-Proto") + "://";
+  const host = headerList.get("host") || "";
+  const nextURL = headerList.get("next-url") || "";
+
+  return new URL(headerList.get("x-url") || `${protocol}${host}${nextURL}`);
+}
