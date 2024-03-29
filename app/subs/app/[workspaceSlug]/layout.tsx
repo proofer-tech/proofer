@@ -20,10 +20,12 @@ import { SUB_DOMAIN, WORKSPACE_DEMO_SLUG } from "@/src/constants";
 export default async function WorkspaceLayout({ children }: { children: any }) {
   const headersList = headers();
   const pathname = headersList.get("x-pathname") || "";
+  console.log(pathname);
   const [slug, pathBlock, subPathBlock] = getPathBlocks(
     pathname,
     SUB_DOMAIN.app,
   );
+  console.log([slug, pathBlock, subPathBlock]);
   const path = pathTree[pathBlock];
   const subPath = path?.subTree?.[subPathBlock];
 
