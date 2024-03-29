@@ -23,7 +23,6 @@ export default async function Page() {
             <Anchor
               key={article.id}
               href={generateSubdomainPath(article.slug, SUB_DOMAIN.blog)}
-              target={"_blank"}
               underline={"never"}
               c={"var(--mantine-color-gray-8)"}
             >
