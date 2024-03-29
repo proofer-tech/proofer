@@ -2,16 +2,18 @@ import { db } from "@/database/engine";
 import { Article, ArticleToTag, Tag } from "@/database/schemas/blog";
 import { eq, InferSelectModel } from "drizzle-orm";
 
-export async function getArticlesWithTags(slug: string) {
-  const querySet = await db
+export async function getArticlesWithTags({ slug }: { slug?: string } = {}) {
+  let querySet = db
     .select()
     .from(Article)
-    .where(eq(Article.slug, slug))
     .innerJoin(ArticleToTag, eq(Article.id, ArticleToTag.articleId))
     .innerJoin(Tag, eq(ArticleToTag.tagName, Tag.name));
 
+  // @ts-ignore
+  if (slug) querySet = querySet.where(eq(Article.slug, slug));
+
   return Object.values(
-    querySet.reduce<
+    (await querySet).reduce<
       Record<
         number,
         InferSelectModel<typeof Article> & {
