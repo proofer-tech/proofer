@@ -1,7 +1,7 @@
 import { Workspace } from "@/database/schemas/workspace";
 import { InferSelectModel } from "drizzle-orm";
 
-function getPathPrefix(subDomain?: string) {
+export function getPathPrefix(subDomain?: string) {
   let pathPrefix = process.env.NEXT_PUBLIC_PATH_PREFIX || "";
   if (subDomain) pathPrefix = `${pathPrefix}/${subDomain}`;
   return pathPrefix;

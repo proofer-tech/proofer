@@ -3,6 +3,6 @@
     {
       "path": "/cron/fetch-medium",
       "schedule": "0 0 * * *"
-    },
+    }
   ]
 }
