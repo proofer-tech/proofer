@@ -1,6 +1,8 @@
 "use client";
 import "@react-pdf-viewer/core/lib/styles/index.css";
-import LandingPageShell from "@/app/components/LandingPageShell";
+import LandingPageShell, {
+  LandingPageShellProps,
+} from "@/app/components/LandingPageShell";
 
 import useTallyInquireForm from "@/src/hooks/tally";
 import {
@@ -20,9 +22,9 @@ import {
 } from "@/src/hooks/mediaQuery";
 import TallyContext from "@/src/contexts/TallyContext";
 import AgentContext from "@/src/contexts/AgentContext";
-interface LandingPageShellLayoutProps {
+interface LandingPageShellLayoutProps
+  extends Omit<LandingPageShellProps, "isNavbarOpened"> {
   portals: readonly HeaderPortal[];
-  children: React.ReactNode;
   userAgent?: {
     isDesktop?: boolean;
     isTablet?: boolean;
@@ -33,6 +35,7 @@ export default function LandingPageShellLayout({
   portals,
   children,
   userAgent,
+  ...props
 }: LandingPageShellLayoutProps) {
   const isDesktopMedia = useIsDesktopMedia(userAgent?.isDesktop ?? true);
   const isTabletMedia = useIsTabletMedia(userAgent?.isTablet ?? false);
@@ -73,7 +76,7 @@ export default function LandingPageShellLayout({
           isMobile: isMobileMedia ?? false,
         }}
       >
-        <LandingPageShell isNavbarOpened={navbarDisclosure[0]}>
+        <LandingPageShell isNavbarOpened={navbarDisclosure[0]} {...props}>
           <Header
             isNavbarOpened={navbarDisclosure[0]}
             portals={portals}

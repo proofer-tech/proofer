@@ -1,14 +1,15 @@
-export function generateManifest(
+import { Metadata } from "next";
+import { merge } from "lodash";
+
+export function generateMetadataFromTitle(
   title: string,
   shortTitle: string,
   description: string,
+  parentMetadata?: Metadata,
 ) {
   const fullTitle = [title, shortTitle].filter((v) => v).join(" | ");
-  return {
-    applicationName: title,
+  const baseMetadata = {
     metadataBase: new URL("https://proofer.tech"),
-    title: fullTitle,
-    description: description,
     keywords: [
       "프루퍼",
       "개발자 성과",
@@ -23,10 +24,18 @@ export function generateManifest(
       locale: "ko",
       type: "website",
       url: "https://proofer.tech",
-      siteName: title,
-      title: fullTitle,
-      description: description,
       images: ["/assets/images/og-image.png"],
     },
   };
+
+  return merge(baseMetadata, parentMetadata, {
+    applicationName: title,
+    title: fullTitle,
+    description: description,
+    openGraph: {
+      siteName: title,
+      title: fullTitle,
+      description: description,
+    },
+  });
 }
