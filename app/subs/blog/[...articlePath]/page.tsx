@@ -16,7 +16,7 @@ export async function generateMetadata(
 ): Promise<Metadata | ResolvingMetadata> {
   const { articlePath } = params;
   const [slug] = articlePath;
-  const articles = await getArticlesWithTags(slug);
+  const articles = await getArticlesWithTags({ slug });
   const article = articles[0];
   const parentMetadata = await parent;
 
@@ -56,7 +56,7 @@ export default async function Page({ params }: any) {
     return redirect(newURL);
   }
 
-  const articles = await getArticlesWithTags(slug);
+  const articles = await getArticlesWithTags({ slug });
   return (
     <Stack>
       {articles.map((article) => (

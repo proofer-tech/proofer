@@ -16,17 +16,23 @@ export function getPathBlocks(pathname: String, subDomain?: string) {
   return pathnameWithoutPrefix.split("/").slice(1);
 }
 
+export const generateSubdomainPath = (path: string, subDomain?: string) => {
+  const prefix = getPathPrefix(subDomain);
+  let workspacePathBlocks = [prefix];
+
+  if (path) workspacePathBlocks.push(path);
+  return workspacePathBlocks.join("/").replace("//", "/");
+};
+
 export const generateAppPath = (
   path: string,
   workspace?: InferSelectModel<typeof Workspace>,
 ) => {
-  const prefix = getPathPrefix(SUB_DOMAIN.app);
-  let workspacePathBlocks = [prefix];
-
+  const workspacePathBlocks = [];
   if (workspace) workspacePathBlocks.push(workspace.slug);
   if (path) workspacePathBlocks.push(path);
 
-  return workspacePathBlocks.join("/").replace("//", "/");
+  return generateSubdomainPath(workspacePathBlocks.join("/"), SUB_DOMAIN.app);
 };
 
 export function getURLFromHeaderList(headerList: ReadonlyHeaders) {

@@ -83,9 +83,11 @@ export default function LandingPageShellLayout({
             onBurgerClick={navbarDisclosure[1].toggle}
             onInquireClick={() => tallyInquireForm.openTallyPopup()}
           />
-          <AppShell.Main>
+          <AppShell.Main px={0} pt={"var(--app-shell-header-height)"}>
             <TallyContext.Provider value={tallyInquireForm}>
-              <Box>{children}</Box>
+              <Box w={"100%"} h={"100%"}>
+                {children}
+              </Box>
             </TallyContext.Provider>
           </AppShell.Main>
           <AppShell.Footer pos={"static"} bg={"transparent"} withBorder={false}>
