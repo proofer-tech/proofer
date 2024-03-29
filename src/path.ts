@@ -1,7 +1,6 @@
 import { Workspace } from "@/database/schemas/workspace";
 import { InferSelectModel } from "drizzle-orm";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
-import { SUB_DOMAIN } from "@/src/constants";
 
 export function getPathPrefix(subDomain?: string) {
   let pathPrefix = process.env.NEXT_PUBLIC_PATH_PREFIX || "";
@@ -20,7 +19,7 @@ export const generateAppPath = (
   path: string,
   workspace?: InferSelectModel<typeof Workspace>,
 ) => {
-  const prefix = getPathPrefix(SUB_DOMAIN.app);
+  const prefix = getPathPrefix();
   let workspacePathBlocks = [prefix];
 
   if (workspace) workspacePathBlocks.push(workspace.slug);
