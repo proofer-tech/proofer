@@ -1,6 +1,8 @@
 "use client";
 import "@react-pdf-viewer/core/lib/styles/index.css";
-import LandingPageShell from "@/app/components/LandingPageShell";
+import LandingPageShell, {
+  LandingPageShellProps,
+} from "@/app/components/LandingPageShell";
 
 import useTallyInquireForm from "@/src/hooks/tally";
 import {
@@ -20,40 +22,24 @@ import {
 } from "@/src/hooks/mediaQuery";
 import TallyContext from "@/src/contexts/TallyContext";
 import AgentContext from "@/src/contexts/AgentContext";
-interface LandingPageShellLayoutProps {
+interface LandingPageShellLayoutProps
+  extends Omit<LandingPageShellProps, "isNavbarOpened"> {
   portals: readonly HeaderPortal[];
-  children: React.ReactNode;
   userAgent?: {
     isDesktop?: boolean;
     isTablet?: boolean;
     isMobile?: boolean;
   };
 }
-const moveToHashAnchor = () => {
-  if (window.location.hash) {
-    const hashAnchor = document.getElementById(
-      window.location.hash.replace("#", ""),
-    );
-    if (hashAnchor !== null) {
-      const y = hashAnchor.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({ top: y, behavior: "smooth" });
-    }
-  }
-};
-
 export default function LandingPageShellLayout({
   portals,
   children,
   userAgent,
+  ...props
 }: LandingPageShellLayoutProps) {
   const isDesktopMedia = useIsDesktopMedia(userAgent?.isDesktop ?? true);
   const isTabletMedia = useIsTabletMedia(userAgent?.isTablet ?? false);
   const isMobileMedia = useIsMobileMedia(userAgent?.isMobile ?? false);
-
-  const [isMounted, setIsMounted] = useState<boolean>(false);
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const navbarDisclosure = useDisclosure(false);
 
@@ -64,6 +50,18 @@ export default function LandingPageShellLayout({
   const tallyInquireForm = useTallyInquireForm({
     onSubmit: () => inquireCompletedModal.open(),
   });
+
+  useEffect(() => {
+    if (window.location.hash) {
+      const hashAnchor = document.getElementById(
+        window.location.hash.replace("#", ""),
+      );
+      if (hashAnchor !== null) {
+        const y = hashAnchor.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    }
+  }, []);
 
   return (
     <ReactChannelIO
@@ -78,7 +76,7 @@ export default function LandingPageShellLayout({
           isMobile: isMobileMedia ?? false,
         }}
       >
-        <LandingPageShell isNavbarOpened={navbarDisclosure[0]}>
+        <LandingPageShell isNavbarOpened={navbarDisclosure[0]} {...props}>
           <Header
             isNavbarOpened={navbarDisclosure[0]}
             portals={portals}
@@ -87,15 +85,7 @@ export default function LandingPageShellLayout({
           />
           <AppShell.Main>
             <TallyContext.Provider value={tallyInquireForm}>
-              <Transition
-                mounted={isMounted}
-                transition="fade"
-                duration={400}
-                timingFunction="ease"
-                onEntered={() => moveToHashAnchor()}
-              >
-                {(styles) => <Box style={styles}>{children}</Box>}
-              </Transition>
+              <Box>{children}</Box>
             </TallyContext.Provider>
           </AppShell.Main>
           <AppShell.Footer pos={"static"} bg={"transparent"} withBorder={false}>

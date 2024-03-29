@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { get } from "@vercel/edge-config";
 import { Health } from "@/src/types/health";
+import { SUB_DOMAIN } from "@/src/constants";
+import { getPathPrefix } from "@/src/path";
 const isProduction = process.env.VERCEL_ENV === "production";
 
 function getPath(req: NextRequest): string {
@@ -55,19 +57,16 @@ async function handleMaintenanceMiddleware(
   return NextResponse.rewrite(maintenanceUrl);
 }
 
-async function handleRouterMiddleware(
+async function handleSubdomainMiddleware(
   req: NextRequest,
 ): Promise<NextResponse | undefined> {
-  if (!isProduction) {
-    // 개발환경에서는 localhost 의 쿠키 정책문제로 제외
-    return;
-  }
+  if (getPathPrefix()) return;
 
   const hostname = req.headers.get("host") || req.nextUrl.host;
   const subDomain = hostname.split(".")[0];
   const path = getPath(req);
 
-  if (["app", "team"].includes(subDomain)) {
+  if (Object.values(SUB_DOMAIN).includes(subDomain)) {
     let rewritePath = path;
     if (
       path.startsWith("/api/auth") ||
@@ -98,7 +97,7 @@ export default async function wrapper(req: NextRequest): Promise<NextResponse> {
   const middlewares = [
     handleStaticMiddleware,
     handleMaintenanceMiddleware,
-    handleRouterMiddleware,
+    handleSubdomainMiddleware,
   ];
   let response = NextResponse.next();
 
