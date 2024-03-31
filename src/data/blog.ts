@@ -1,8 +1,11 @@
 import { db } from "@/database/engine";
 import { Article, ArticleToTag, Tag } from "@/database/schemas/blog";
 import { eq, InferSelectModel } from "drizzle-orm";
+import { cached } from "@/src/redis";
 
-export async function getArticlesWithTags({ slug }: { slug?: string } = {}) {
+export const getArticlesWithTags = cached(async function getArticlesWithTags({
+  slug,
+}: { slug?: string } = {}) {
   let querySet = db
     .select()
     .from(Article)
@@ -31,4 +34,4 @@ export async function getArticlesWithTags({ slug }: { slug?: string } = {}) {
       return acc;
     }, {}),
   );
-}
+});

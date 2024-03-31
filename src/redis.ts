@@ -1,5 +1,6 @@
 import { kv } from "@vercel/kv";
 import { Lock, RetryConfig } from "@upstash/lock";
+import { SetCommandOptions } from "@upstash/redis";
 
 export class VercelKVStream {
   private readonly _key: string;
@@ -100,4 +101,24 @@ export async function withLock(
   } else {
     onFail(lock);
   }
+}
+export function cached<T extends (...args: any[]) => Promise<any>>(
+  func: T,
+  options?: SetCommandOptions,
+): T {
+  const cache = async (...args: Parameters<T>): Promise<ReturnType<T>> => {
+    const key = `${func.name}:${JSON.stringify(args)}`;
+    await kv.get(key);
+    const cachedValue: any = await kv.get(key);
+
+    if (cachedValue) {
+      return cachedValue;
+    } else {
+      const result = await func(...args);
+      await kv.set(key, JSON.stringify(result), options || { ex: 60 });
+      return result;
+    }
+  };
+
+  return cache as T;
 }

@@ -10,6 +10,7 @@ import {
   TypographyStylesProvider,
   Button,
 } from "@mantine/core";
+import styles from "./styles.module.scss";
 
 interface ArticleProps {
   article: InferSelectModel<typeof Article> & {
@@ -37,7 +38,10 @@ export default function ArticlePage({ article }: ArticleProps) {
       </Group>
       <Space h={"lg"} />
       <TypographyStylesProvider>
-        <div dangerouslySetInnerHTML={{ __html: article.contents }} />
+        <div
+          className={styles.article}
+          dangerouslySetInnerHTML={{ __html: article.contents }}
+        />
       </TypographyStylesProvider>
     </Stack>
   );

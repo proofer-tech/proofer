@@ -12,6 +12,7 @@ import { getArticlesWithTags } from "@/src/data/blog";
 import { truncateHtml } from "@/src/utils/text";
 import { generateSubdomainPath } from "@/src/path";
 import { SUB_DOMAIN } from "@/src/constants";
+import styles from "./styles.module.scss";
 
 export default async function Page() {
   const articles = await getArticlesWithTags();
@@ -26,7 +27,7 @@ export default async function Page() {
               underline={"never"}
               c={"var(--mantine-color-gray-8)"}
             >
-              <Paper p={"1em 2em"}>
+              <Paper p={"1em 2em"} className={styles.card} shadow={"xs"}>
                 <Group>
                   <Title order={3}>{article.title}</Title>
                   <Text>{truncateHtml(article.contents)}</Text>
