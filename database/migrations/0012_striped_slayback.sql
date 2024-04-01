@@ -1,1 +1,0 @@
-ALTER TABLE "proofer"."github_repository" ADD COLUMN "language" varchar(32);

@@ -23,6 +23,7 @@ const serializePullRequests = (
   updated_at: data.updated_at && moment(data.updated_at).toDate(),
   closed_at: data.closed_at && moment(data.closed_at).toDate(),
   merged_at: data.merged_at && moment(data.merged_at).toDate(),
+  merge_commit_sha: data.merge_commit_sha,
   user_id: data.user.id,
   assignee_id: data.assignee?.id,
   timestamp: moment(data.created_at).toDate(),
