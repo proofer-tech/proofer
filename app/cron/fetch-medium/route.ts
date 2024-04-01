@@ -1,7 +1,7 @@
 import Parser from "rss-parser";
 import { NextRequest, NextResponse } from "next/server";
 import dayjs from "@/src/utils/dayjs";
-import { db } from "@/database/engine";
+import { dz } from "@/database/engine";
 import { desc, eq } from "drizzle-orm";
 import { Article, ArticleToTag, Tag } from "@/database/schemas/blog";
 import { flatten, keyBy } from "lodash";
@@ -39,7 +39,7 @@ function getSlug(link: string) {
 }
 
 async function insertArticles(items: Item[]) {
-  return db.transaction(async (db) => {
+  return dz.transaction(async (db) => {
     await db
       .insert(Tag)
       .values(
@@ -96,7 +96,7 @@ export const GET = withCronApi(async function (_: NextRequest) {
   if (feed.items.length === 0) return notFound();
 
   const lastArticle = (
-    await db.select().from(Article).orderBy(desc(Article.updatedAt)).limit(1)
+    await dz.select().from(Article).orderBy(desc(Article.updatedAt)).limit(1)
   )[0];
   if (
     !lastArticle ||

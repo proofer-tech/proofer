@@ -14,7 +14,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "db:fake": "echo $'\\e'\\[B'\\r' |drizzle-kit push:pg --config drizzle.config.ts",
     "db:studio": "drizzle-kit studio --config drizzle.config.ts",
     "db:generate": "drizzle-kit generate:pg --config drizzle.config.ts",
     "db:migrate": "tsx database/scripts/migrate.js",

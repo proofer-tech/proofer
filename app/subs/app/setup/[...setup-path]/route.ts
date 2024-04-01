@@ -2,7 +2,7 @@ import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { notFound, redirect } from "next/navigation";
 import { generateAppPath } from "@/src/path";
 import { WorkspaceToGitHubInstallation } from "@/database/schemas/github";
-import { db } from "@/database/engine";
+import { dz } from "@/database/engine";
 import { eq } from "drizzle-orm";
 import { Workspace } from "@/database/schemas/workspace";
 import { NextRequest } from "next/server";
@@ -12,7 +12,7 @@ export const GET = withApiAuthRequired(async function GET(req: NextRequest) {
   if (!installationUUID) return notFound();
 
   const installationBridge = (
-    await db
+    await dz
       .select()
       .from(WorkspaceToGitHubInstallation)
       .where(eq(WorkspaceToGitHubInstallation.uuid, installationUUID))

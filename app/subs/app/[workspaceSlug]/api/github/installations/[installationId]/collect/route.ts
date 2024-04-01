@@ -6,7 +6,7 @@ import {
   extractAllPullRequestReviews,
   extractAllPullRequests,
 } from "@/src/github/pulls";
-import { db } from "@/database/engine";
+import { dz } from "@/database/engine";
 import {
   GitHubCommit,
   GitHubIssue,
@@ -32,7 +32,7 @@ const catchFKUserNotFound = async (octokit: Octokit, e: any) => {
 
 async function addUser(octokit: Octokit, user_id: number) {
   const user = await extractUser(octokit, user_id);
-  return db.insert(GitHubUser).values(user).onConflictDoNothing();
+  return dz.insert(GitHubUser).values(user).onConflictDoNothing();
 }
 
 export const GET = async (_: NextRequest, { params }: any) => {
@@ -49,7 +49,7 @@ export const GET = async (_: NextRequest, { params }: any) => {
     })) {
       let whileFlag = true;
       while (whileFlag) {
-        await db
+        await dz
           .insert(GitHubPullRequest)
           // @ts-ignore
           .values(pulls)
@@ -69,7 +69,7 @@ export const GET = async (_: NextRequest, { params }: any) => {
           pull.pull_request_id,
           pull.number,
         )) {
-          await db
+          await dz
             .insert(GitHubPullRequestReview)
             .values(review)
             .onConflictDoNothing();
@@ -79,7 +79,7 @@ export const GET = async (_: NextRequest, { params }: any) => {
           repo,
           pull.number,
         )) {
-          await db
+          await dz
             .insert(GitHubPullRequestReviewComment)
             .values(comment)
             .onConflictDoNothing();
@@ -88,7 +88,7 @@ export const GET = async (_: NextRequest, { params }: any) => {
     }
 
     for await (const issue of extractAllIssues(octokit, repo)) {
-      await db.insert(GitHubIssue).values(issue).onConflictDoNothing();
+      await dz.insert(GitHubIssue).values(issue).onConflictDoNothing();
     }
 
     for await (const branch of extractAllBranches(octokit, repo)) {
@@ -99,7 +99,7 @@ export const GET = async (_: NextRequest, { params }: any) => {
       })) {
         let whileFlag = true;
         while (whileFlag) {
-          await db
+          await dz
             .insert(GitHubCommit)
             // @ts-ignore
             .values(commits)

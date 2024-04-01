@@ -1,4 +1,4 @@
-import { db } from "@/database/engine";
+import { dz } from "@/database/engine";
 import { Article, ArticleToTag, Tag } from "@/database/schemas/blog";
 import { eq, InferSelectModel } from "drizzle-orm";
 import { cached } from "@/src/redis";
@@ -6,7 +6,7 @@ import { cached } from "@/src/redis";
 export const getArticlesWithTags = cached(async function getArticlesWithTags({
   slug,
 }: { slug?: string } = {}) {
-  let querySet = db
+  let querySet = dz
     .select()
     .from(Article)
     .innerJoin(ArticleToTag, eq(Article.id, ArticleToTag.articleId))

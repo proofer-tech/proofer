@@ -1,4 +1,4 @@
-import { db } from "@/database/engine";
+import { dz } from "@/database/engine";
 import { Workspace, WorkspaceMember } from "@/database/schemas/workspace";
 import { and, eq, InferSelectModel, isNotNull } from "drizzle-orm";
 import { WorkspaceToGitHubInstallation } from "@/database/schemas/github";
@@ -6,7 +6,7 @@ import { WorkspaceToGitHubInstallation } from "@/database/schemas/github";
 export async function findWorkspace(
   slug: string,
 ): Promise<InferSelectModel<typeof Workspace> | undefined> {
-  const records = await db
+  const records = await dz
     .select()
     .from(Workspace)
     .where(eq(Workspace.slug, slug));
@@ -16,7 +16,7 @@ export async function findWorkspace(
 export async function getFirstMember(
   workspaceId: number,
 ): Promise<InferSelectModel<typeof WorkspaceMember> | undefined> {
-  const records = await db
+  const records = await dz
     .select()
     .from(WorkspaceMember)
     .where(eq(WorkspaceMember.workspaceId, workspaceId));
@@ -27,7 +27,7 @@ export async function findMember(
   workspaceId: number,
   userId: number,
 ): Promise<InferSelectModel<typeof WorkspaceMember> | undefined> {
-  const records = await db
+  const records = await dz
     .select()
     .from(WorkspaceMember)
     .where(
@@ -42,7 +42,7 @@ export async function findMember(
 export const getWorkspaceToGitHubInstallationList = async (
   workspaceId: number,
 ) => {
-  return db
+  return dz
     .select()
     .from(WorkspaceToGitHubInstallation)
     .where(
@@ -54,7 +54,7 @@ export const getWorkspaceToGitHubInstallationList = async (
 };
 
 export const getUserWorkspaces = async (userId: number) => {
-  const querySet = await db
+  const querySet = await dz
     .select()
     .from(Workspace)
     .innerJoin(WorkspaceMember, eq(WorkspaceMember.userId, userId));

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { GitHubApp } from "@/src/integrations/github";
 import { pick } from "lodash";
-import { db } from "@/database/engine";
+import { dz } from "@/database/engine";
 import {
   GitHubInstallation,
   GitHubRepository,
@@ -35,7 +35,7 @@ export const GET = withApiAuthRequired(
   withApiWorkspaceUserRequired(async (_: any, { params, workspace }: any) => {
     const { installationId } = params;
     const row = (
-      await db
+      await dz
         .select()
         .from(GitHubInstallation)
         .where(eq(GitHubInstallation.installation_id, installationId))
@@ -59,7 +59,7 @@ export const GET = withApiAuthRequired(
         username: installationResponse.data.account?.name!,
       });
       installation = (
-        await db
+        await dz
           .update(GitHubInstallation)
           .set(
             Object.assign(
@@ -81,7 +81,7 @@ export const GET = withApiAuthRequired(
       )[0];
     }
 
-    const repositories = await db
+    const repositories = await dz
       .select()
       .from(GitHubRepository)
       .where(eq(GitHubRepository.installation_id, installationId));
@@ -100,7 +100,7 @@ export const DELETE = withApiAuthRequired(
       if (e.status !== 404) throw e;
     }
 
-    await db.transaction(async (db) => {
+    await dz.transaction(async (db) => {
       const { workspace_to_github_installation } = (
         await db
           .select()

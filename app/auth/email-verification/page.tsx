@@ -2,7 +2,7 @@ import { getSession } from "@auth0/nextjs-auth0";
 import { Anchor, Button, Stack, Text } from "@mantine/core";
 import { notFound, redirect } from "next/navigation";
 import { User } from "@/database/schemas/auth";
-import { db } from "@/database/engine";
+import { dz } from "@/database/engine";
 import { withLock } from "@/src/redis";
 import { findUserByEmail } from "@/src/data/user";
 
@@ -16,7 +16,7 @@ export default async function Page({ searchParams }: any) {
       await withLock(
         { id: `email-verification(${searchParams.email})` },
         async () => {
-          await db.insert(User).values({ email: session.user.email });
+          await dz.insert(User).values({ email: session.user.email });
         },
         async () => notFound(),
       );

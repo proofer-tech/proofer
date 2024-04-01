@@ -1,9 +1,9 @@
 import { migrate } from "drizzle-orm/vercel-postgres/migrator";
 import "dotenv/config";
-import { db } from "../engine.js";
+import { dz } from "../engine.js";
 
 async function main() {
-  await migrate(db, {
+  await migrate(dz, {
     migrationsFolder: "./database/migrations",
   });
   console.log("Migration completed");

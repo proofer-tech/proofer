@@ -3,14 +3,14 @@ import {
   GitHubInstallation,
   WorkspaceToGitHubInstallation,
 } from "@/database/schemas/github";
-import { db } from "@/database/engine";
+import { dz } from "@/database/engine";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { withApiWorkspaceUserRequired } from "@/src/api-decorators";
 
 export const GET = withApiAuthRequired(
   withApiWorkspaceUserRequired(async (_: any, { workspace }: any) => {
-    const querySet = await db
+    const querySet = await dz
       .select()
       .from(WorkspaceToGitHubInstallation)
       .innerJoin(

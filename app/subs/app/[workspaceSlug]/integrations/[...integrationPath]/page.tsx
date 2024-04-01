@@ -1,7 +1,7 @@
 import React from "react";
 import { Center } from "@mantine/core";
 import { fswitch } from "@/utils";
-import { db } from "@/database/engine";
+import { dz } from "@/database/engine";
 import {
   Integration,
   IntegrationTag,
@@ -19,7 +19,7 @@ export default async function Page({ params, ...props }: any) {
   if (pathBlocks[0] === "setup")
     return <GitHubSetupPage params={params} {...props} />;
 
-  const querySet = await db
+  const querySet = await dz
     .select()
     .from(Integration)
     .where(eq(Integration.slug, appName))
