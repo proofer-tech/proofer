@@ -14,7 +14,7 @@ export const WorkspaceToGitHubInstallation = prooferSchema.table(
   "workspace_to_github_installation",
   {
     id: serial("id").primaryKey(),
-    uuid: uuid("uuid1").primaryKey().defaultRandom(),
+    uuid: uuid("uuid1").defaultRandom().notNull(),
     workspace_id: integer("workspace_id").notNull(),
     installation_id: integer("installation_id"),
   },
@@ -163,6 +163,7 @@ export const GitHubPullRequest = prooferSchema.table(
     updated_at: timestamp("updated_at").defaultNow().notNull(),
     closed_at: timestamp("closed_at"),
     merged_at: timestamp("merged_at"),
+    merge_commit_sha: varchar("merge_commit_sha", { length: 64 }),
     user_id: integer("user_id")
       .notNull()
       .references(() => GitHubUser.user_id),

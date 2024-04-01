@@ -1,1 +1,0 @@
-ALTER TABLE "proofer"."integration" ADD COLUMN "is_implemented" boolean DEFAULT false;

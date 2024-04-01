@@ -1,4 +1,4 @@
-import { db } from "@/database/engine";
+import { dz } from "@/database/engine";
 import {
   GitHubInstallation,
   GitHubRepository,
@@ -17,7 +17,7 @@ export default async function GitHubSetupPage({ params, searchParams }: any) {
   const installationId = parseInt(searchParams.installation_id);
   const installationUUID = searchParams.state;
   const bridge = (
-    await db
+    await dz
       .update(WorkspaceToGitHubInstallation)
       .set({ installation_id: installationId })
       .where(eq(WorkspaceToGitHubInstallation.uuid, installationUUID))
@@ -35,7 +35,7 @@ export default async function GitHubSetupPage({ params, searchParams }: any) {
       username: installation.account.login,
     });
 
-    await db
+    await dz
       .insert(GitHubInstallation)
       .values({
         installation_id: installation.id,
@@ -46,7 +46,7 @@ export default async function GitHubSetupPage({ params, searchParams }: any) {
     const repos = await octokit.rest.apps.listReposAccessibleToInstallation();
 
     for (const repo of repos.data.repositories) {
-      await db.insert(GitHubRepository).values({
+      await dz.insert(GitHubRepository).values({
         installation_id: installation.id,
         repository_id: repo.id,
         name: repo.name,

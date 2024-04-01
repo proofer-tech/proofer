@@ -1,4 +1,4 @@
-import { db } from "@/database/engine";
+import { dz } from "@/database/engine";
 import {
   Integration,
   IntegrationTag,
@@ -10,7 +10,7 @@ export interface IntegrationDto extends InferSelectModel<typeof Integration> {
   tags: InferSelectModel<typeof IntegrationTag>[];
 }
 export async function getIntegrationDtoList(): Promise<IntegrationDto[]> {
-  const querySet = await db
+  const querySet = await dz
     .select()
     .from(Integration)
     .leftJoin(

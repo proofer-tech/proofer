@@ -7,7 +7,7 @@ import {
   GitHubInstallationListCardSection,
 } from "@/app/subs/app/[workspaceSlug]/integrations/components/GitHub/client";
 import { WorkspaceToGitHubInstallation } from "@/database/schemas/github";
-import { db } from "@/database/engine";
+import { dz } from "@/database/engine";
 import {
   findMember,
   findWorkspace,
@@ -39,7 +39,7 @@ async function generateInstallation(formData: FormData) {
   if (!(member && member.isManager)) return;
 
   const installation = (
-    await db
+    await dz
       .insert(WorkspaceToGitHubInstallation)
       .values({ workspace_id: workspace.id })
       .returning()

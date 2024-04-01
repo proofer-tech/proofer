@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { NextRequest } from "next/server";
 import { Workspace } from "@/database/schemas/workspace";
-import { db } from "@/database/engine";
+import { dz } from "@/database/engine";
 import { eq } from "drizzle-orm";
 import {
   AppRouteHandlerFn,
@@ -27,7 +27,7 @@ export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
     const user = await findUserFromSession();
     if (user === undefined) throw new Unauthorized("잘못된 접근입니다.");
     const workspace = (
-      await db.select().from(Workspace).where(eq(Workspace.slug, workspaceSlug))
+      await dz.select().from(Workspace).where(eq(Workspace.slug, workspaceSlug))
     )[0];
     if (!workspace) return notFound();
 

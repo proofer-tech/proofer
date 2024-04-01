@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Workspace } from "@/database/schemas/workspace";
-import { db } from "@/database/engine";
+import { dz } from "@/database/engine";
 import { eq, InferSelectModel } from "drizzle-orm";
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { put } from "@vercel/blob";
@@ -30,7 +30,7 @@ export const PUT = withApiAuthRequired(
 
     const updateData = keysToCamelCase(data);
 
-    const workspaces = (await db
+    const workspaces = (await dz
       .update(Workspace)
       .set(updateData)
       .where(eq(Workspace.id, workspace.id))
