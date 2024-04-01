@@ -14,7 +14,7 @@ export const WorkspaceToGitHubInstallation = prooferSchema.table(
   "workspace_to_github_installation",
   {
     id: serial("id").primaryKey(),
-    uuid: uuid("uuid1").primaryKey().defaultRandom(),
+    uuid: uuid("uuid1").defaultRandom().notNull(),
     workspace_id: integer("workspace_id").notNull(),
     installation_id: integer("installation_id"),
   },

@@ -1,5 +1,5 @@
 {
-  "id": "9ff48036-07c9-40ea-8210-d6de4039d50b",
+  "id": "89750a64-afc6-46dd-ba6e-e51ad2c8bef1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -1184,7 +1184,7 @@
         "uuid1": {
           "name": "uuid1",
           "type": "uuid",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true,
           "default": "gen_random_uuid()"
         },

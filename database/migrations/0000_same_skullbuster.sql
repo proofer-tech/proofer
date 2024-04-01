@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS "proofer"."github_user" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "proofer"."workspace_to_github_installation" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"uuid1" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"uuid1" uuid DEFAULT gen_random_uuid() NOT NULL,
 	"workspace_id" integer NOT NULL,
 	"installation_id" integer
 );
