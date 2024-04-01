@@ -11,16 +11,16 @@ export function IntegrationHorizontalCard({
   return (
     <Card
       withBorder
-      shadow={integration.isImplemented ? "xs" : undefined}
+      shadow={integration.is_implemented ? "xs" : undefined}
       radius="md"
       w={"100%"}
-      style={{ opacity: integration.isImplemented ? 1 : 0.4 }}
+      style={{ opacity: integration.is_implemented ? 1 : 0.4 }}
     >
       <Card.Section withBorder inheritPadding py="xs">
         <Group justify="space-between" wrap={"nowrap"}>
           <Group justify="space-between" w={"100%"} wrap={"nowrap"}>
             <Group>
-              <Avatar src={integration.iconUrl} alt="it's me" />
+              <Avatar src={integration.icon_url} alt="it's me" />
               <Text fw={700}>{integration.name}</Text>
             </Group>
             <Group justify={"end"} gap={"1ex"}>

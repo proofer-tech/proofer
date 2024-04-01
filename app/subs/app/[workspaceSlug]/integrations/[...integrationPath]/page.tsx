@@ -25,9 +25,9 @@ export default async function Page({ params, ...props }: any) {
     .where(eq(Integration.slug, appName))
     .innerJoin(
       IntegrationToTag,
-      eq(IntegrationToTag.integrationId, Integration.id),
+      eq(IntegrationToTag.integration_id, Integration.id),
     )
-    .innerJoin(IntegrationTag, eq(IntegrationToTag.tagId, IntegrationTag.id));
+    .innerJoin(IntegrationTag, eq(IntegrationToTag.tag_id, IntegrationTag.id));
   const integration = querySet[0].integration;
   const integrationTags = querySet.map((qs) => qs.integration_tag);
 

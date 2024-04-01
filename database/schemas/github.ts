@@ -108,8 +108,8 @@ export const GitHubCommit = prooferSchema.table(
     timestamp: timestamp("timestamp").notNull(),
   },
   (table) => ({
-    createdAtIdx: index("idx_ghc_created_at").on(table.created_at),
-    timestampIdx: index("idx_ghc_timestamp").on(table.timestamp),
+    created_at_idx: index("idx_ghc_created_at").on(table.created_at),
+    timestamp_idx: index("idx_ghc_timestamp").on(table.timestamp),
   }),
 );
 export const GitHubIssue = prooferSchema.table(
@@ -138,9 +138,9 @@ export const GitHubIssue = prooferSchema.table(
     timestamp: timestamp("timestamp").notNull(),
   },
   (table) => ({
-    numberIdx: index("idx_ghi_number").on(table.number),
-    createdAtIdx: index("idx_ghi_created_at").on(table.created_at),
-    timestampIdx: index("idx_ghi_timestamp").on(table.timestamp),
+    number_idx: index("idx_ghi_number").on(table.number),
+    created_at_idx: index("idx_ghi_created_at").on(table.created_at),
+    timestamp_idx: index("idx_ghi_timestamp").on(table.timestamp),
   }),
 );
 
@@ -172,9 +172,9 @@ export const GitHubPullRequest = prooferSchema.table(
     timestamp: timestamp("timestamp").notNull(),
   },
   (table) => ({
-    numberIdx: index("idx_ghpr_number").on(table.number),
-    createdAtIdx: index("idx_ghpr_created_at").on(table.created_at),
-    timestampIdx: index("idx_ghpr_timestamp").on(table.timestamp),
+    number_idx: index("idx_ghpr_number").on(table.number),
+    created_at_idx: index("idx_ghpr_created_at").on(table.created_at),
+    timestamp_idx: index("idx_ghpr_timestamp").on(table.timestamp),
   }),
 );
 
@@ -201,8 +201,8 @@ export const GitHubPullRequestReview = prooferSchema.table(
     timestamp: timestamp("timestamp").notNull(),
   },
   (table) => ({
-    createdAtIdx: index("idx_ghprr_created_at").on(table.created_at),
-    timestampIdx: index("idx_ghprr_timestamp").on(table.timestamp),
+    created_at_idx: index("idx_ghprr_created_at").on(table.created_at),
+    timestamp_idx: index("idx_ghprr_timestamp").on(table.timestamp),
   }),
 );
 export const GitHubPullRequestReviewComment = prooferSchema.table(
@@ -228,7 +228,7 @@ export const GitHubPullRequestReviewComment = prooferSchema.table(
     timestamp: timestamp("timestamp").notNull(),
   },
   (table) => ({
-    createdAtIdx: index("idx_ghprrc_created_at").on(table.created_at),
-    timestampIdx: index("idx_ghprrc_timestamp").on(table.timestamp),
+    created_at_idx: index("idx_ghprrc_created_at").on(table.created_at),
+    timestamp_idx: index("idx_ghprrc_timestamp").on(table.timestamp),
   }),
 );

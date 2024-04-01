@@ -36,7 +36,7 @@ export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
       const member = await findMember(workspace.id, user.id);
       if (member === undefined)
         throw Forbidden("워크스페이스의 멤버만 호출할 수 있습니다.");
-      else if (!member.isManager)
+      else if (!member.is_manager)
         throw Forbidden("워크스페이스의 관리자만 호출할 수 있습니다.");
     }
 

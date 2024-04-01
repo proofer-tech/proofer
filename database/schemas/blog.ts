@@ -13,11 +13,11 @@ export const Article = prooferSchema.table(
     title: varchar("title", { length: 256 }).notNull(),
     contents: text("contents").notNull(),
 
-    createdAt: timestamp("createdAt").defaultNow().notNull(),
-    updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+    created_at: timestamp("created_at").defaultNow().notNull(),
+    updated_at: timestamp("updated_at").defaultNow().notNull(),
   },
   (table) => ({
-    createdAtIdx: index("article_idx_createdAt").on(table.createdAt),
+    created_at_idx: index("article_idx_created_at").on(table.created_at),
   }),
 );
 
@@ -28,10 +28,10 @@ export const Tag = prooferSchema.table("tag", {
 
 export const ArticleToTag = prooferSchema.table("article_to_tag", {
   id: serial("id").primaryKey(),
-  articleId: serial("articleId").references(() => Article.id, {
+  article_id: serial("article_id").references(() => Article.id, {
     onDelete: "cascade",
   }),
-  tagName: varchar("name", { length: 64 })
+  tag_name: varchar("name", { length: 64 })
     .notNull()
     .references(() => Tag.name, {
       onDelete: "cascade",

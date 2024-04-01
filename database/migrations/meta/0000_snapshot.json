@@ -68,15 +68,15 @@
           "primaryKey": false,
           "notNull": true
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
-        "updatedAt": {
-          "name": "updatedAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
@@ -84,10 +84,10 @@
         }
       },
       "indexes": {
-        "article_idx_createdAt": {
-          "name": "article_idx_createdAt",
+        "article_idx_created_at": {
+          "name": "article_idx_created_at",
           "columns": [
-            "createdAt"
+            "created_at"
           ],
           "isUnique": false
         }
@@ -114,8 +114,8 @@
           "primaryKey": true,
           "notNull": true
         },
-        "articleId": {
-          "name": "articleId",
+        "article_id": {
+          "name": "article_id",
           "type": "serial",
           "primaryKey": false,
           "notNull": true
@@ -129,13 +129,13 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "article_to_tag_articleId_article_id_fk": {
-          "name": "article_to_tag_articleId_article_id_fk",
+        "article_to_tag_article_id_article_id_fk": {
+          "name": "article_to_tag_article_id_article_id_fk",
           "tableFrom": "article_to_tag",
           "tableTo": "article",
           "schemaTo": "proofer",
           "columnsFrom": [
-            "articleId"
+            "article_id"
           ],
           "columnsTo": [
             "id"

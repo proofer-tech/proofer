@@ -10,7 +10,7 @@ import {
 
 export const Integration = prooferSchema.table("integration", {
   id: serial("id").primaryKey(),
-  categoryStr: varchar("category_str", { length: 16 }).notNull(),
+  category_str: varchar("category_str", { length: 16 }).notNull(),
 
   slug: varchar("slug", { length: 16 })
     .notNull()
@@ -18,8 +18,8 @@ export const Integration = prooferSchema.table("integration", {
   name: varchar("name", { length: 16 }).notNull(),
   description: text("description").default(""),
 
-  iconUrl: text("icon_url"),
-  isImplemented: boolean("is_implemented").default(false),
+  icon_url: text("icon_url"),
+  is_implemented: boolean("is_implemented").default(false),
 });
 
 export const IntegrationTag = prooferSchema.table("integration_tag", {
@@ -32,18 +32,18 @@ export const IntegrationToTag = prooferSchema.table(
   "integration_to_tag",
   {
     id: serial("id").primaryKey(),
-    integrationId: integer("integration_id")
+    integration_id: integer("integration_id")
       .notNull()
       .references(() => Integration.id),
-    tagId: integer("tag_id")
+    tag_id: integer("tag_id")
       .notNull()
       .references(() => IntegrationTag.id),
   },
   (table) => {
     return {
-      nameIdx: uniqueIndex("ittt_uidx_bridge").on(
-        table.integrationId,
-        table.tagId,
+      name_idx: uniqueIndex("ittt_uidx_bridge").on(
+        table.integration_id,
+        table.tag_id,
       ),
     };
   },
