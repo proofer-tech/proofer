@@ -24,16 +24,14 @@ export default function WorkspaceSettingsBody() {
   const [isLoading, setIsLoading] = useState<boolean>(!isMounted);
   const [delayedJobs, delayedJobHandler] = useListState<() => Promise<any>>([]);
 
-  const [logo_url, setLogoUrl] = useState<string>(
-    workspace?.instance.logo_url!,
-  );
+  const [logoUrl, setLogoUrl] = useState<string>(workspace?.instance.logo_url!);
 
   const slugRuleText = "알파벳 소문자 또는 특수문자 '-'";
   const form = useForm({
     initialValues: {
       name: workspace?.instance.name,
       slug: workspace?.instance.slug,
-      logo_url: new File([], logo_url?.split("/").pop()?.slice(-32) || ""),
+      logo_url: new File([], logoUrl?.split("/").pop()?.slice(-32) || ""),
     },
     validate: {
       name: (value) =>
@@ -121,7 +119,7 @@ export default function WorkspaceSettingsBody() {
       <Fieldset legend="기본정보">
         <Group wrap={"nowrap"} align={"center"}>
           <BackgroundImage
-            src={logo_url}
+            src={logoUrl}
             radius="sm"
             w={"4em"}
             h={"4em"}
@@ -133,7 +131,7 @@ export default function WorkspaceSettingsBody() {
           <FileInput
             label="워크스페이스 로고 이미지"
             description={"1:1 비율의 정사각형 이미지를 추천합니다."}
-            placeholder={logo_url?.split("/").pop()?.slice(-32)}
+            placeholder={logoUrl?.split("/").pop()?.slice(-32)}
             w={"100%"}
             {...form.getInputProps("logo_url")}
             onChange={(file) => {

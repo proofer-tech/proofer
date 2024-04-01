@@ -70,15 +70,15 @@ async function insertArticles(items: Item[]) {
       getSlug(article.slug),
     );
     for (const item of items) {
-      const article_id = articleSlugMap[getSlug(item.link)!].id;
+      const articleId = articleSlugMap[getSlug(item.link)!].id;
       await db
         .delete(ArticleToTag)
-        .where(eq(ArticleToTag.article_id, article_id));
+        .where(eq(ArticleToTag.article_id, articleId));
       await db
         .insert(ArticleToTag)
         .values(
           item.categories.map((categoryName: string) => ({
-            article_id: article_id,
+            article_id: articleId,
             tag_name: categoryName,
           })),
         )
