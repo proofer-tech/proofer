@@ -10,7 +10,7 @@ import {
 import { and, eq } from "drizzle-orm";
 import { Workspace } from "@/database/schemas/workspace";
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
-import { withApiWorkspaceUserRequired } from "@/app/subs/app/[workspaceSlug]/api/base";
+import { withApiWorkspaceUserRequired } from "@/src/api-decorators";
 import moment from "moment";
 import { notFound } from "next/navigation";
 

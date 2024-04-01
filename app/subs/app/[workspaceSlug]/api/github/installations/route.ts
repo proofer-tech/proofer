@@ -1,5 +1,4 @@
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
-import { withApiWorkspaceUserRequired } from "@/app/subs/app/[workspaceSlug]/api/base";
 import {
   GitHubInstallation,
   WorkspaceToGitHubInstallation,
@@ -7,6 +6,7 @@ import {
 import { db } from "@/database/engine";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { withApiWorkspaceUserRequired } from "@/src/api-decorators";
 
 export const GET = withApiAuthRequired(
   withApiWorkspaceUserRequired(async (_: any, { workspace }: any) => {

@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.5.0",
-    "@hapi/boom": "^10.0.1",
     "@mantine/carousel": "^7.6.1",
     "@mantine/charts": "^7.6.1",
     "@mantine/code-highlight": "^7.6.1",
@@ -70,6 +69,7 @@
     "drizzle-orm": "^0.30.1",
     "embla-carousel-react": "^8.0.0",
     "eslint-config-next": "^14.1.0",
+    "http-errors": "^2.0.0",
     "iconv": "^3.0.1",
     "lodash": "^4.17.21",
     "mobile-detect": "^1.4.5",
@@ -99,6 +99,7 @@
     "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.5.2",
     "@types/cookie": "^0.6.0",
+    "@types/http-errors": "^2.0.4",
     "@types/jest": "^29.5.12",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.11.20",

@@ -5,13 +5,13 @@ import { Metadata, ResolvingMetadata } from "next";
 import { getArticlesWithTags } from "@/src/data/blog";
 import * as cheerio from "cheerio";
 import { truncate } from "lodash";
-import { Props } from "@/src/types/next";
+import { NextRequestProps } from "@/src/types/next";
 import { getURLFromHeaderList } from "@/src/path";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function generateMetadata(
-  { params }: Props,
+  { params }: NextRequestProps,
   parent: ResolvingMetadata,
 ): Promise<Metadata | ResolvingMetadata> {
   const { articlePath } = params;
