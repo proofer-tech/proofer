@@ -4,7 +4,7 @@ import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 
 export function CycleTimeBreakdown() {
-  const [series, setSeries] = useState([
+  const [series] = useState([
     {
       name: "코딩에 걸리는 시간",
       data: [44, 55, 41, 37, 22],
@@ -23,7 +23,7 @@ export function CycleTimeBreakdown() {
     },
   ]);
 
-  const [options, setOptions] = useState<ApexOptions>({
+  const [options] = useState<ApexOptions>({
     chart: {
       stacked: true,
       toolbar: { show: false },
@@ -44,7 +44,7 @@ export function CycleTimeBreakdown() {
       },
     },
     xaxis: {
-      categories: ["첫째주", "둘째주", "셋째주", "넷째주"],
+      categories: ["PR 이름 1", "PR 이름 2", "PR 이름 3", "PR 이름 4"],
     },
     tooltip: {
       y: {

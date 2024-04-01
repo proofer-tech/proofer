@@ -18,7 +18,7 @@ export default function Page() {
         </Paper>
         <Paper shadow="xs" px={"xl"} py={"lg"}>
           <Stack gap={"2em"}>
-            <Title order={5}>주별 평균 사이클 타임</Title>
+            <Title order={5}>PR 별 평균 사이클 타임</Title>
             <CycleTimeBreakdown />
           </Stack>
         </Paper>

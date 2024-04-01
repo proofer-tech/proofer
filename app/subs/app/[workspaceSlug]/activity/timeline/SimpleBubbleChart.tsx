@@ -5,11 +5,7 @@ import moment from "moment";
 import { Paper } from "@mantine/core";
 import { ApexOptions } from "apexcharts";
 
-function generateData(
-  range: [Date, Date],
-  count: number,
-  yrange: { min: number; max: number },
-) {
+function generateData(range: [Date, Date], count: number, y: number) {
   const [startDate, endDate] = range;
   let i = 0;
   const series = [];
@@ -17,8 +13,6 @@ function generateData(
     const x =
       Math.floor(Math.random() * (endDate.getTime() - startDate.getTime())) +
       startDate.getTime();
-    const y =
-      Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
     const z = Math.floor(Math.random() * (75 - 15 + 1)) + 15;
 
     series.push([x, y, z]);
@@ -27,16 +21,13 @@ function generateData(
   return series;
 }
 export function SimpleBubbleChart() {
-  const [series, setSeries] = useState([
+  const [series] = useState([
     {
       name: "[임한솔] Commit",
       data: generateData(
         [moment().subtract(30, "days").toDate(), new Date()],
         20,
-        {
-          min: 10,
-          max: 60,
-        },
+        0.5,
       ),
       color: "#0052cc",
     },
@@ -45,10 +36,7 @@ export function SimpleBubbleChart() {
       data: generateData(
         [moment().subtract(30, "days").toDate(), new Date()],
         20,
-        {
-          min: 10,
-          max: 60,
-        },
+        1.5,
       ),
       color: "#00378d",
     },
@@ -57,10 +45,7 @@ export function SimpleBubbleChart() {
       data: generateData(
         [moment().subtract(30, "days").toDate(), new Date()],
         20,
-        {
-          min: 10,
-          max: 60,
-        },
+        2.5,
       ),
       color: "#002052",
     },
@@ -69,10 +54,7 @@ export function SimpleBubbleChart() {
       data: generateData(
         [moment().subtract(30, "days").toDate(), new Date()],
         20,
-        {
-          min: 10,
-          max: 60,
-        },
+        0.5,
       ),
       color: "#4caf50",
     },
@@ -81,10 +63,7 @@ export function SimpleBubbleChart() {
       data: generateData(
         [moment().subtract(30, "days").toDate(), new Date()],
         20,
-        {
-          min: 10,
-          max: 60,
-        },
+        1.5,
       ),
       color: "#39813c",
     },
@@ -93,15 +72,12 @@ export function SimpleBubbleChart() {
       data: generateData(
         [moment().subtract(30, "days").toDate(), new Date()],
         20,
-        {
-          min: 10,
-          max: 60,
-        },
+        2.5,
       ),
       color: "#1f4921",
     },
   ]);
-  const [options, setOptions] = useState<ApexOptions>({
+  const [options] = useState<ApexOptions>({
     chart: {
       toolbar: { show: false },
     },
@@ -131,6 +107,7 @@ export function SimpleBubbleChart() {
     },
     yaxis: {
       show: false,
+      max: 3,
     },
   });
 
