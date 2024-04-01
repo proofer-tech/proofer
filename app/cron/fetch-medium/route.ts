@@ -1,5 +1,5 @@
 import Parser from "rss-parser";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import dayjs from "@/src/utils/dayjs";
 import { db } from "@/database/engine";
 import { desc, eq } from "drizzle-orm";
@@ -87,7 +87,7 @@ async function insertArticles(items: Item[]) {
   });
 }
 
-export const GET = withCronApi(async function () {
+export const GET = withCronApi(async function (_: NextRequest) {
   const response = await fetch("https://medium.com/feed/@proofer.tech", {
     cache: "no-store",
   });

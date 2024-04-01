@@ -3,21 +3,24 @@ import { NextRequest } from "next/server";
 import { Workspace } from "@/database/schemas/workspace";
 import { db } from "@/database/engine";
 import { eq } from "drizzle-orm";
-import { AppRouteHandlerFn, WithApiAuthRequired } from "@auth0/nextjs-auth0";
+import {
+  AppRouteHandlerFn,
+  AppRouteHandlerFnContext,
+  WithApiAuthRequired,
+} from "@auth0/nextjs-auth0";
 import { findUserFromSession } from "@/src/data/user";
 import { notFound } from "next/navigation";
 import { findMember } from "@/src/data/workspace";
-import { NextApiHandler, NextApiRequest } from "next";
+import { NextApiRequest } from "next";
 import { WORKSPACE_DEMO_SLUG } from "@/src/constants";
-import { NextRequestProps } from "@/src/types/next";
 import { Forbidden, Unauthorized } from "http-errors";
 
 export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
-  apiRoute: AppRouteHandlerFn | NextApiHandler,
+  apiRoute: AppRouteHandlerFn,
 ) => {
   const wrapper = async (
     req: NextRequest & NextApiRequest,
-    props: NextRequestProps,
+    props: AppRouteHandlerFnContext,
     ...args: []
   ) => {
     const { workspaceSlug } = props.params;
@@ -40,13 +43,13 @@ export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
     return apiRoute(req, { workspace, user, ...props }, ...args);
   };
 
-  return wrapper as NextApiHandler;
+  return wrapper as AppRouteHandlerFn;
 };
 
-export const withCronApi = (apiRoute: AppRouteHandlerFn | NextApiHandler) => {
+export const withCronApi = (apiRoute: AppRouteHandlerFn) => {
   const wrapper = async (
     req: NextRequest & NextApiRequest,
-    props: NextRequestProps,
+    props: AppRouteHandlerFnContext,
     ...args: []
   ) => {
     const authHeader = req.headers.get("authorization");
@@ -57,5 +60,5 @@ export const withCronApi = (apiRoute: AppRouteHandlerFn | NextApiHandler) => {
     return apiRoute(req, props, ...args);
   };
 
-  return wrapper as NextApiHandler;
+  return wrapper as AppRouteHandlerFn;
 };
