@@ -6,7 +6,7 @@ import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { put } from "@vercel/blob";
 import { base64ToFile } from "@/src/file";
 import { keysToCamelCase } from "@/src/object";
-import { withApiWorkspaceUserRequired } from "@/app/subs/app/[workspaceSlug]/api/base";
+import { withApiWorkspaceUserRequired } from "@/src/api-decorators";
 
 export const PUT = withApiAuthRequired(
   withApiWorkspaceUserRequired(async function route(

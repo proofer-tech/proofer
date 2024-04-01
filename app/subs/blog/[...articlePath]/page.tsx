@@ -5,13 +5,13 @@ import { Metadata, ResolvingMetadata } from "next";
 import { getArticlesWithTags } from "@/src/data/blog";
 import * as cheerio from "cheerio";
 import { truncate } from "lodash";
-import { Props } from "@/src/types/next";
 import { getURLFromHeaderList } from "@/src/path";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { AppRouteHandlerFnContext } from "@auth0/nextjs-auth0";
 
 export async function generateMetadata(
-  { params }: Props,
+  { params }: AppRouteHandlerFnContext,
   parent: ResolvingMetadata,
 ): Promise<Metadata | ResolvingMetadata> {
   const { articlePath } = params;
@@ -34,7 +34,7 @@ export async function generateMetadata(
         { length: 253, separator: "..." },
       ),
       {
-        keywords: ["프루퍼 ", ...article.tags.map((tag) => tag.name)],
+        keywords: ["프루퍼", ...article.tags.map((tag) => tag.name)],
       },
     );
   }

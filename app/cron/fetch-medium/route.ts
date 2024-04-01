@@ -1,5 +1,5 @@
 import Parser from "rss-parser";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import dayjs from "@/src/utils/dayjs";
 import { db } from "@/database/engine";
 import { desc, eq } from "drizzle-orm";
@@ -8,6 +8,7 @@ import { flatten, keyBy } from "lodash";
 import { Dictionary } from "ts-essentials";
 import { conflictUpdateSetAllColumns } from "@/src/utils/drizzle";
 import { notFound } from "next/navigation";
+import { withCronApi } from "@/src/api-decorators";
 
 const parser = new Parser();
 
@@ -86,7 +87,7 @@ async function insertArticles(items: Item[]) {
   });
 }
 
-export async function GET() {
+export const GET = withCronApi(async function (_: NextRequest) {
   const response = await fetch("https://medium.com/feed/@proofer.tech", {
     cache: "no-store",
   });
@@ -109,4 +110,4 @@ export async function GET() {
   }
 
   return NextResponse.json({});
-}
+});
