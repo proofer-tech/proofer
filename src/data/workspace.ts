@@ -19,12 +19,12 @@ export async function getFirstMember(
   const records = await dz
     .select()
     .from(WorkspaceMember)
-    .where(eq(WorkspaceMember.workspaceId, workspaceId));
+    .where(eq(WorkspaceMember.workspace_id, workspaceId));
   return records[0];
 }
 
 export async function findMember(
-  workspaceId: number,
+  workspace_id: number,
   userId: number,
 ): Promise<InferSelectModel<typeof WorkspaceMember> | undefined> {
   const records = await dz
@@ -32,22 +32,22 @@ export async function findMember(
     .from(WorkspaceMember)
     .where(
       and(
-        eq(WorkspaceMember.workspaceId, workspaceId),
-        eq(WorkspaceMember.userId, userId),
+        eq(WorkspaceMember.workspace_id, workspace_id),
+        eq(WorkspaceMember.user_id, userId),
       ),
     );
   return records[0];
 }
 
 export const getWorkspaceToGitHubInstallationList = async (
-  workspaceId: number,
+  workspace_id: number,
 ) => {
   return dz
     .select()
     .from(WorkspaceToGitHubInstallation)
     .where(
       and(
-        eq(WorkspaceToGitHubInstallation.workspace_id, workspaceId),
+        eq(WorkspaceToGitHubInstallation.workspace_id, workspace_id),
         isNotNull(WorkspaceToGitHubInstallation.installation_id),
       ),
     );
@@ -57,6 +57,6 @@ export const getUserWorkspaces = async (userId: number) => {
   const querySet = await dz
     .select()
     .from(Workspace)
-    .innerJoin(WorkspaceMember, eq(WorkspaceMember.userId, userId));
+    .innerJoin(WorkspaceMember, eq(WorkspaceMember.user_id, userId));
   return querySet.map((row) => row.workspace);
 };

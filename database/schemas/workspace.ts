@@ -1,33 +1,25 @@
 import { prooferSchema } from "@/database/engine";
-import {
-  boolean,
-  integer,
-  serial,
-  text,
-  char,
-  uniqueIndex,
-  varchar,
-} from "drizzle-orm/pg-core";
+import { boolean, integer, serial, text, varchar } from "drizzle-orm/pg-core";
 import { User } from "@/database/schemas/auth";
 
 export const Workspace = prooferSchema.table("workspace", {
   id: serial("id").primaryKey(),
   slug: varchar("slug", { length: 64 }).notNull().unique("workspace_uidx_slug"),
   name: varchar("name", { length: 16 }).default("").notNull(),
-  ownerId: integer("owner_id")
+  owner_id: integer("owner_id")
     .notNull()
     .references(() => User.id),
 
-  logoUrl: text("logo_url"),
+  logo_url: text("logo_url"),
 });
 
 export const WorkspaceMember = prooferSchema.table("workspace_member", {
   id: serial("id").primaryKey(),
-  workspaceId: integer("workspace_id")
+  workspace_id: integer("workspace_id")
     .notNull()
     .references(() => Workspace.id),
-  userId: integer("user_id")
+  user_id: integer("user_id")
     .notNull()
     .references(() => User.id),
-  isManager: boolean("is_manager").default(false).notNull(),
+  is_manager: boolean("is_manager").default(false).notNull(),
 });

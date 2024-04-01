@@ -13,9 +13,9 @@ export default function Page() {
         <Stack w={"30%"}>
           <Group>
             <Box>
-              {workspace?.instance.logoUrl && (
+              {workspace?.instance.logo_url && (
                 <Image
-                  src={workspace?.instance.logoUrl}
+                  src={workspace?.instance.logo_url}
                   alt={workspace?.instance.name}
                   height={"32px"}
                 />

@@ -15,9 +15,9 @@ export async function getIntegrationDtoList(): Promise<IntegrationDto[]> {
     .from(Integration)
     .leftJoin(
       IntegrationToTag,
-      eq(IntegrationToTag.integrationId, Integration.id),
+      eq(IntegrationToTag.integration_id, Integration.id),
     )
-    .leftJoin(IntegrationTag, eq(IntegrationTag.id, IntegrationToTag.tagId));
+    .leftJoin(IntegrationTag, eq(IntegrationTag.id, IntegrationToTag.tag_id));
   if (querySet.length === 0) return [];
 
   return Object.values(

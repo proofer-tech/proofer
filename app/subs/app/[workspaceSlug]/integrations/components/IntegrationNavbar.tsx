@@ -18,7 +18,7 @@ export default function IntegrationNavbar({
     <Card withBorder radius="md" w={"20em"}>
       <Card.Section withBorder inheritPadding py="xs">
         <Group bg={"white"}>
-          <Avatar src={integration.iconUrl} />
+          <Avatar src={integration.icon_url} />
           <Text fw={700}>{integration.name}</Text>
         </Group>
       </Card.Section>
@@ -45,7 +45,7 @@ export default function IntegrationNavbar({
             <Text fw={700} size={"xs"}>
               카테고리:
             </Text>
-            <Text size={"sm"}>{integration.categoryStr}</Text>
+            <Text size={"sm"}>{integration.category_str}</Text>
           </Stack>
           <Stack gap={"1ex"}>
             <Text fw={700} size={"xs"}>

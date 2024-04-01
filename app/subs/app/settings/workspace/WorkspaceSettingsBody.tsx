@@ -24,7 +24,7 @@ export default function WorkspaceSettingsBody() {
   const [isLoading, setIsLoading] = useState<boolean>(!isMounted);
   const [delayedJobs, delayedJobHandler] = useListState<() => Promise<any>>([]);
 
-  const [logoUrl, setLogoUrl] = useState<string>(workspace?.instance.logoUrl!);
+  const [logoUrl, setLogoUrl] = useState<string>(workspace?.instance.logo_url!);
 
   const slugRuleText = "알파벳 소문자 또는 특수문자 '-'";
   const form = useForm({
@@ -67,7 +67,7 @@ export default function WorkspaceSettingsBody() {
           const beforeInstance = Object.assign({}, workspace.instance);
           const data = await response.json();
           workspace.instance = Object.assign(workspace.instance, data);
-          setLogoUrl(data.logoUrl);
+          setLogoUrl(data.logo_url);
 
           router.push(
             window.location.href.replace(beforeInstance.slug, data.slug),

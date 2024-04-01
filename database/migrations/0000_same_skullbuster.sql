@@ -10,14 +10,14 @@ CREATE TABLE IF NOT EXISTS "proofer"."article" (
 	"origin" varchar(512) NOT NULL,
 	"title" varchar(256) NOT NULL,
 	"contents" text NOT NULL,
-	"createdAt" timestamp DEFAULT now() NOT NULL,
-	"updatedAt" timestamp DEFAULT now() NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "article_uidx_slug" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "proofer"."article_to_tag" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"articleId" serial NOT NULL,
+	"article_id" serial NOT NULL,
 	"name" varchar(64) NOT NULL
 );
 --> statement-breakpoint
@@ -193,7 +193,7 @@ CREATE TABLE IF NOT EXISTS "proofer"."workspace_member" (
 	"is_manager" boolean DEFAULT false NOT NULL
 );
 --> statement-breakpoint
-CREATE INDEX IF NOT EXISTS "article_idx_createdAt" ON "proofer"."article" ("createdAt");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "article_idx_created_at" ON "proofer"."article" ("created_at");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "idx_ghc_created_at" ON "proofer"."github_commit" ("created_at");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "idx_ghc_timestamp" ON "proofer"."github_commit" ("timestamp");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "idx_ghi_number" ON "proofer"."github_issue" ("number");--> statement-breakpoint
@@ -210,7 +210,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS "uidx_ghr_bridge" ON "proofer"."github_reposit
 CREATE UNIQUE INDEX IF NOT EXISTS "wtgi_uidx_bridge" ON "proofer"."workspace_to_github_installation" ("workspace_id","installation_id");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "ittt_uidx_bridge" ON "proofer"."integration_to_tag" ("integration_id","tag_id");--> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "proofer"."article_to_tag" ADD CONSTRAINT "article_to_tag_articleId_article_id_fk" FOREIGN KEY ("articleId") REFERENCES "proofer"."article"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "proofer"."article_to_tag" ADD CONSTRAINT "article_to_tag_article_id_article_id_fk" FOREIGN KEY ("article_id") REFERENCES "proofer"."article"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

@@ -9,8 +9,8 @@ export const getArticlesWithTags = cached(async function getArticlesWithTags({
   let querySet = dz
     .select()
     .from(Article)
-    .innerJoin(ArticleToTag, eq(Article.id, ArticleToTag.articleId))
-    .innerJoin(Tag, eq(ArticleToTag.tagName, Tag.name));
+    .innerJoin(ArticleToTag, eq(Article.id, ArticleToTag.article_id))
+    .innerJoin(Tag, eq(ArticleToTag.tag_name, Tag.name));
 
   // @ts-ignore
   if (slug) querySet = querySet.where(eq(Article.slug, slug));

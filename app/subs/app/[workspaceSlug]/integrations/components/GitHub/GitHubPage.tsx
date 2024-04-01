@@ -36,7 +36,7 @@ async function generateInstallation(formData: FormData) {
   if (workspaceSlug === WORKSPACE_DEMO_SLUG)
     member = await getFirstMember(workspace.id);
   else member = await findMember(workspace.id, user.id);
-  if (!(member && member.isManager)) return;
+  if (!(member && member.is_manager)) return;
 
   const installation = (
     await dz

@@ -56,8 +56,8 @@ async function insertArticles(items: Item[]) {
           origin: item.guid,
           title: item.title,
           contents: item["content:encoded"],
-          createdAt: dayjs(item.pubDate).toDate(),
-          updatedAt: dayjs(item["atom:updated"]).toDate(),
+          created_at: dayjs(item.pubDate).toDate(),
+          updated_at: dayjs(item["atom:updated"]).toDate(),
         })),
       )
       .onConflictDoUpdate({
@@ -73,13 +73,13 @@ async function insertArticles(items: Item[]) {
       const articleId = articleSlugMap[getSlug(item.link)!].id;
       await db
         .delete(ArticleToTag)
-        .where(eq(ArticleToTag.articleId, articleId));
+        .where(eq(ArticleToTag.article_id, articleId));
       await db
         .insert(ArticleToTag)
         .values(
           item.categories.map((categoryName: string) => ({
-            articleId: articleId,
-            tagName: categoryName,
+            article_id: articleId,
+            tag_name: categoryName,
           })),
         )
         .onConflictDoNothing();
@@ -96,11 +96,11 @@ export const GET = withCronApi(async function (_: NextRequest) {
   if (feed.items.length === 0) return notFound();
 
   const lastArticle = (
-    await dz.select().from(Article).orderBy(desc(Article.updatedAt)).limit(1)
+    await dz.select().from(Article).orderBy(desc(Article.updated_at)).limit(1)
   )[0];
   if (
     !lastArticle ||
-    dayjs(feed.lastBuildDate).isAfter(lastArticle.updatedAt)
+    dayjs(feed.lastBuildDate).isAfter(lastArticle.updated_at)
   ) {
     try {
       await insertArticles(feed.items);
