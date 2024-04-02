@@ -1,8 +1,8 @@
-import { prooferSchema } from "@/database/engine";
+import { schema } from "@/database/engine";
 import { boolean, integer, serial, text, varchar } from "drizzle-orm/pg-core";
 import { User } from "@/database/schemas/auth";
 
-export const Workspace = prooferSchema.table("workspace", {
+export const Workspace = schema.table("workspace", {
   id: serial("id").primaryKey(),
   slug: varchar("slug", { length: 64 }).notNull().unique("workspace_uidx_slug"),
   name: varchar("name", { length: 16 }).default("").notNull(),
@@ -13,7 +13,7 @@ export const Workspace = prooferSchema.table("workspace", {
   logo_url: text("logo_url"),
 });
 
-export const WorkspaceMember = prooferSchema.table("workspace_member", {
+export const WorkspaceMember = schema.table("workspace_member", {
   id: serial("id").primaryKey(),
   workspace_id: integer("workspace_id")
     .notNull()

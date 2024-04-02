@@ -1,4 +1,4 @@
-import { prooferSchema } from "@/database/engine";
+import { schema } from "@/database/engine";
 import {
   integer,
   varchar,
@@ -10,7 +10,7 @@ import {
   index,
 } from "drizzle-orm/pg-core";
 
-export const WorkspaceToGitHubInstallation = prooferSchema.table(
+export const WorkspaceToGitHubInstallation = schema.table(
   "workspace_to_github_installation",
   {
     id: serial("id").primaryKey(),
@@ -28,7 +28,7 @@ export const WorkspaceToGitHubInstallation = prooferSchema.table(
   },
 );
 
-export const GitHubInstallation = prooferSchema.table("github_installation", {
+export const GitHubInstallation = schema.table("github_installation", {
   id: serial("id").primaryKey(),
   installation_id: integer("installation_id")
     .notNull()
@@ -45,7 +45,7 @@ export const GitHubInstallation = prooferSchema.table("github_installation", {
   created_at: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const GitHubUser = prooferSchema.table("github_user", {
+export const GitHubUser = schema.table("github_user", {
   id: serial("id").primaryKey(),
   user_id: integer("user_id").notNull().unique("ghu_uidx_user_id"),
   login: varchar("login", { length: 100 }).notNull(),
@@ -57,7 +57,7 @@ export const GitHubUser = prooferSchema.table("github_user", {
   created_at: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const GitHubRepository = prooferSchema.table(
+export const GitHubRepository = schema.table(
   "github_repository",
   {
     id: serial("id").primaryKey(),
@@ -85,7 +85,7 @@ export const GitHubRepository = prooferSchema.table(
   }),
 );
 
-export const GitHubCommit = prooferSchema.table(
+export const GitHubCommit = schema.table(
   "github_commit",
   {
     id: serial("id").primaryKey(),
@@ -112,7 +112,7 @@ export const GitHubCommit = prooferSchema.table(
     timestamp_idx: index("idx_ghc_timestamp").on(table.timestamp),
   }),
 );
-export const GitHubIssue = prooferSchema.table(
+export const GitHubIssue = schema.table(
   "github_issue",
   {
     id: serial("id").primaryKey(),
@@ -144,7 +144,7 @@ export const GitHubIssue = prooferSchema.table(
   }),
 );
 
-export const GitHubPullRequest = prooferSchema.table(
+export const GitHubPullRequest = schema.table(
   "github_pull_request",
   {
     id: serial("id").primaryKey(),
@@ -178,7 +178,7 @@ export const GitHubPullRequest = prooferSchema.table(
   }),
 );
 
-export const GitHubPullRequestReview = prooferSchema.table(
+export const GitHubPullRequestReview = schema.table(
   "github_pull_request_review",
   {
     id: serial("id").primaryKey(),
@@ -205,7 +205,7 @@ export const GitHubPullRequestReview = prooferSchema.table(
     timestamp_idx: index("idx_ghprr_timestamp").on(table.timestamp),
   }),
 );
-export const GitHubPullRequestReviewComment = prooferSchema.table(
+export const GitHubPullRequestReviewComment = schema.table(
   "github_pull_request_review_comment",
   {
     id: serial("id").primaryKey(),

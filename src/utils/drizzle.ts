@@ -22,6 +22,6 @@ export function conflictUpdateSetAllColumns<TTable extends PgTable>(
     }, {}) as PgUpdateSetSource<TTable>;
 }
 
-export function pgEnumFrom(enumName: string, enumValues: string[]) {
-  return pgEnum(enumName, enumValues as [string, ...string[]]);
+export function createEnumType(enumName: string, enumType: {}) {
+  return pgEnum(enumName, Object.values(enumType) as [string, ...string[]]);
 }

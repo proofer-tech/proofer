@@ -1,15 +1,5 @@
-import { prooferSchema } from "@/database/engine";
-import {
-  integer,
-  varchar,
-  serial,
-  text,
-  uuid,
-  uniqueIndex,
-  timestamp,
-  index,
-  pgEnum,
-} from "drizzle-orm/pg-core";
+import { schema } from "@/database/engine";
+import { varchar, serial, timestamp, index } from "drizzle-orm/pg-core";
 import { Workspace } from "@/database/schemas/workspace";
 import {
   GitHubInstallation,
@@ -17,14 +7,17 @@ import {
   GitHubUser,
 } from "@/database/schemas/github/raw";
 import { GitHubEvent } from "@/src/github/types";
-import { pgEnumFrom } from "@/src/utils/drizzle";
+import { createEnumType } from "@/src/utils/drizzle";
 
-const EventType = pgEnumFrom("series_type", Object.values(GitHubEvent));
-export const ProcessedGitHubTimeSeries = prooferSchema.table(
+export const GitHubEventEnum = createEnumType(
+  "enum_github_event_type",
+  GitHubEvent,
+);
+export const ProcessedGitHubTimeSeries = schema.table(
   "processed_github_time_series",
   {
     id: serial("id").primaryKey(),
-    event_type: EventType("event_type").notNull(),
+    event: GitHubEventEnum("event"),
     reference_id: varchar("reference_id", { length: 64 }).notNull(),
 
     workspace_id: serial("workspace_id")
