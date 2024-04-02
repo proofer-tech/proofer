@@ -6,7 +6,7 @@ import {
   GitHubInstallation,
   GitHubRepository,
   WorkspaceToGitHubInstallation,
-} from "@/database/schemas/github";
+} from "@/database/schemas/github/raw";
 import { and, eq } from "drizzle-orm";
 import { Workspace } from "@/database/schemas/workspace";
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";

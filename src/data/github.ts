@@ -1,5 +1,8 @@
 import { dz } from "@/database/engine";
-import { GitHubPullRequest, GitHubRepository } from "@/database/schemas/github";
+import {
+  GitHubPullRequest,
+  GitHubRepository,
+} from "@/database/schemas/github/raw";
 import { desc, eq } from "drizzle-orm";
 
 export async function getAllRepositories(installation_id: number) {

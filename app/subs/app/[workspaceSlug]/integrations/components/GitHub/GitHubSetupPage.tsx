@@ -3,7 +3,7 @@ import {
   GitHubInstallation,
   GitHubRepository,
   WorkspaceToGitHubInstallation,
-} from "@/database/schemas/github";
+} from "@/database/schemas/github/raw";
 import { eq, InferSelectModel } from "drizzle-orm";
 import { generateAppPath } from "@/src/path";
 import { redirect } from "next/navigation";

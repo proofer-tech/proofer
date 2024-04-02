@@ -2,7 +2,7 @@ import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import {
   GitHubInstallation,
   WorkspaceToGitHubInstallation,
-} from "@/database/schemas/github";
+} from "@/database/schemas/github/raw";
 import { dz } from "@/database/engine";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";

@@ -25,7 +25,7 @@ import { GlobalAlertContext } from "@/app/components/GlobalAlert";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import useSWR from "swr";
 import { InferSelectModel } from "drizzle-orm";
-import { GitHubInstallation } from "@/database/schemas/github";
+import { GitHubInstallation } from "@/database/schemas/github/raw";
 import GitHubInstallationCard from "@/app/subs/app/[workspaceSlug]/integrations/components/GitHub/GitHubInstallationCard";
 
 export function GitHubInstallationDetailCardSection({

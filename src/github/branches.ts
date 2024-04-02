@@ -1,17 +1,18 @@
-import { Octokit } from "octokit";
+import { Octokit, RequestError } from "octokit";
 import { InferSelectModel } from "drizzle-orm";
-import { GitHubRepository } from "@/database/schemas/github";
-
+import { GitHubRepository } from "@/database/schemas/github/raw";
 export async function* extractAllBranches(
   octokit: Octokit,
   repo: InferSelectModel<typeof GitHubRepository>,
 ) {
   const [owner, repoName] = repo.full_name.split("/");
-  const response = await octokit.rest.repos.listBranches({
-    owner: owner,
-    repo: repoName,
-  });
-  for (const branch of response.data) {
-    yield branch;
+  try {
+    const branches = await octokit.paginate(octokit.rest.repos.listBranches, {
+      owner: owner,
+      repo: repoName,
+    });
+    for (const branch of branches) yield branch;
+  } catch (e) {
+    if (!(e instanceof RequestError && e.status === 404)) throw e;
   }
 }

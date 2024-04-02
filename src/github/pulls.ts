@@ -4,9 +4,9 @@ import {
   GitHubPullRequestReview,
   GitHubPullRequestReviewComment,
   GitHubRepository,
-} from "@/database/schemas/github";
+} from "@/database/schemas/github/raw";
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
-import { Octokit } from "octokit";
+import { Octokit, RequestError } from "octokit";
 
 const serializePullRequests = (
   repoId: number,
@@ -40,28 +40,19 @@ export async function* extractAllPullRequests(
 ) {
   for (const repo of options.repositories) {
     const [ownerName, repoName] = repo.full_name.split("/");
-
-    let page = 1;
-    do {
-      const response = await octokit.rest.pulls.list({
+    try {
+      const pulls = await octokit.paginate(octokit.rest.pulls.list, {
         owner: ownerName,
         repo: repoName,
         state: "all",
         sort: "created",
         direction: "desc",
         per_page: 100,
-        page: page,
       });
-      if (response.data.length === 0) break;
-
-      const pullRequests = response.data.map((pr) =>
-        serializePullRequests(repo.id, pr),
-      );
-      for (const pr of pullRequests) {
-        if (!options?.bundle) yield pr;
-      }
-      if (options?.bundle) yield pullRequests;
-    } while (page++);
+      for (const pull of pulls) yield serializePullRequests(repo.id, pull);
+    } catch (e) {
+      if (!(e instanceof RequestError && e.status === 404)) throw e;
+    }
   }
 }
 
@@ -88,16 +79,19 @@ export async function* extractAllPullRequestReviews(
 ) {
   const [ownerName, repoName] = repo.full_name.split("/");
 
-  const reviews = await octokit.paginate(
-    octokit.rest.pulls.listReviews.endpoint.merge({
-      owner: ownerName,
-      repo: repoName,
-      pull_number: pullNumber,
-      per_page: 100,
-    }),
-  );
-  for (const review of reviews) {
-    yield serializePullRequestReviews(pull_request_id, review);
+  try {
+    const reviews = await octokit.paginate(
+      octokit.rest.pulls.listReviews.endpoint.merge({
+        owner: ownerName,
+        repo: repoName,
+        pull_number: pullNumber,
+        per_page: 100,
+      }),
+    );
+    for (const review of reviews)
+      yield serializePullRequestReviews(pull_request_id, review);
+  } catch (e) {
+    if (!(e instanceof RequestError && e.status === 404)) throw e;
   }
 }
 
@@ -121,15 +115,18 @@ export async function* extractAllPullRequestReviewComments(
   pullNumber: number,
 ) {
   const [ownerName, repoName] = repo.full_name.split("/");
-  const comments = await octokit.paginate(
-    octokit.rest.pulls.listReviewComments.endpoint.merge({
-      owner: ownerName,
-      repo: repoName,
-      pull_number: pullNumber,
-      per_page: 100,
-    }),
-  );
-  for (const comment of comments) {
-    yield serializePullRequestReviewComments(comment);
+  try {
+    const comments = await octokit.paginate(
+      octokit.rest.pulls.listReviewComments.endpoint.merge({
+        owner: ownerName,
+        repo: repoName,
+        pull_number: pullNumber,
+        per_page: 100,
+      }),
+    );
+    for (const comment of comments)
+      yield serializePullRequestReviewComments(comment);
+  } catch (e) {
+    if (!(e instanceof RequestError && e.status === 404)) throw e;
   }
 }

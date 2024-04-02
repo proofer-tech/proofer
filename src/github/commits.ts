@@ -1,5 +1,5 @@
-import { Octokit } from "octokit";
-import { GitHubCommit } from "@/database/schemas/github";
+import { Octokit, RequestError } from "octokit";
+import { GitHubCommit } from "@/database/schemas/github/raw";
 import { InferInsertModel } from "drizzle-orm";
 import moment from "moment";
 
@@ -24,7 +24,6 @@ function serializeCommit(
 interface extractAllCommitsOptions {
   repositories: any;
   sha?: string;
-  bundle?: boolean;
 }
 export async function* extractAllCommits(
   octokit: Octokit,
@@ -33,24 +32,16 @@ export async function* extractAllCommits(
   for (const repo of options.repositories) {
     const [ownerName, repoName] = repo.full_name.split("/");
 
-    let page = 1;
-    do {
-      const response = await octokit.rest.repos.listCommits({
+    try {
+      const commits = await octokit.paginate(octokit.rest.repos.listCommits, {
         owner: ownerName,
         repo: repoName,
         per_page: 100,
-        page: page,
         sha: options.sha,
       });
-      if (response.data.length === 0) break;
-
-      const commits = response.data.map((commit) =>
-        serializeCommit(repo.id, commit),
-      );
-      for (const commit of commits) {
-        if (!options?.bundle) yield commit;
-      }
-      if (options?.bundle) yield commits;
-    } while (page++);
+      for (const commit of commits) yield serializeCommit(repo.id, commit);
+    } catch (e) {
+      if (!(e instanceof RequestError && e.status === 404)) throw e;
+    }
   }
 }

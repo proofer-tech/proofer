@@ -1,6 +1,6 @@
-import { Octokit } from "octokit";
+import { Octokit, RequestError } from "octokit";
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
-import { GitHubIssue, GitHubRepository } from "@/database/schemas/github";
+import { GitHubIssue, GitHubRepository } from "@/database/schemas/github/raw";
 import moment from "moment";
 
 function serializeGitHubIssue(
@@ -29,18 +29,14 @@ export async function* extractAllIssues(
   repo: InferSelectModel<typeof GitHubRepository>,
 ) {
   const [owner, repoName] = repo.full_name.split("/");
-  const issues = await octokit
-    .paginate(
-      octokit.rest.issues.listForRepo.endpoint.merge({
-        owner: owner,
-        state: "all",
-        repo: repoName,
-      }),
-    )
-    .then((issues) => {
-      return issues.map((issue) => serializeGitHubIssue(repo.id, issue));
+  try {
+    const issues = await octokit.paginate(octokit.rest.issues.listForRepo, {
+      owner: owner,
+      state: "all",
+      repo: repoName,
     });
-  for (const issue of issues) {
-    yield issue;
+    for (const issue of issues) yield serializeGitHubIssue(repo.id, issue);
+  } catch (e) {
+    if (!(e instanceof RequestError && e.status === 404)) throw e;
   }
 }

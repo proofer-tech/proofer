@@ -14,12 +14,14 @@ import {
   GitHubPullRequestReview,
   GitHubPullRequestReviewComment,
   GitHubUser,
-} from "@/database/schemas/github";
-import { extractUser } from "@/src/github/users";
+} from "@/database/schemas/github/raw";
+import { getUser } from "@/src/github/users";
 import { extractAllCommits } from "@/src/github/commits";
 import { extractAllBranches } from "@/src/github/branches";
 import { Octokit } from "octokit";
 import { extractAllIssues } from "@/src/github/issues";
+import fromAsync from "array-from-async";
+import { NotFound } from "http-errors";
 
 const catchFKUserNotFound = async (octokit: Octokit, e: any) => {
   if (e.code !== "23503") return e;
@@ -31,8 +33,10 @@ const catchFKUserNotFound = async (octokit: Octokit, e: any) => {
 };
 
 async function addUser(octokit: Octokit, user_id: number) {
-  const user = await extractUser(octokit, user_id);
-  return dz.insert(GitHubUser).values(user).onConflictDoNothing();
+  const user = await getUser(octokit, user_id);
+  if (user !== null)
+    return dz.insert(GitHubUser).values(user).onConflictDoNothing();
+  throw NotFound(`User with id ${user_id} not found`);
 }
 
 export const GET = async (_: NextRequest, { params }: any) => {
@@ -41,71 +45,74 @@ export const GET = async (_: NextRequest, { params }: any) => {
   const repositories = await getAllRepositories(installationId);
 
   const responseList: any[] = [];
-
   for (const repo of repositories) {
-    for await (const pulls of extractAllPullRequests(octokit, {
-      repositories: [repo],
-      bundle: true,
-    })) {
-      let whileFlag = true;
-      while (whileFlag) {
+    const pulls = await fromAsync<typeof extractAllPullRequests>(
+      extractAllPullRequests(octokit, {
+        repositories: [repo],
+      }),
+    );
+    if (pulls.length > 0) {
+      let insertPrFlag = true;
+      while (insertPrFlag) {
         await dz
           .insert(GitHubPullRequest)
-          // @ts-ignore
           .values(pulls)
           .onConflictDoNothing()
           .then((r) => {
-            whileFlag = false;
+            insertPrFlag = false;
             return r;
           })
           .catch(async (e) => await catchFKUserNotFound(octokit, e));
       }
+    }
 
-      // @ts-ignore
-      for (const pull of pulls) {
-        for await (const review of extractAllPullRequestReviews(
+    for (const pull of pulls) {
+      const reviews = await fromAsync<typeof extractAllPullRequestReviews>(
+        extractAllPullRequestReviews(
           octokit,
           repo,
           pull.pull_request_id,
           pull.number,
-        )) {
-          await dz
-            .insert(GitHubPullRequestReview)
-            .values(review)
-            .onConflictDoNothing();
-        }
-        for await (const comment of extractAllPullRequestReviewComments(
-          octokit,
-          repo,
-          pull.number,
-        )) {
-          await dz
-            .insert(GitHubPullRequestReviewComment)
-            .values(comment)
-            .onConflictDoNothing();
-        }
-      }
+        ),
+      );
+      if (reviews.length > 0)
+        await dz
+          .insert(GitHubPullRequestReview)
+          .values(reviews)
+          .onConflictDoNothing();
+
+      const comments = await fromAsync<
+        typeof extractAllPullRequestReviewComments
+      >(extractAllPullRequestReviewComments(octokit, repo, pull.number));
+      if (comments.length > 0)
+        await dz
+          .insert(GitHubPullRequestReviewComment)
+          .values(comments)
+          .onConflictDoNothing();
     }
 
-    for await (const issue of extractAllIssues(octokit, repo)) {
-      await dz.insert(GitHubIssue).values(issue).onConflictDoNothing();
-    }
+    const issues = await fromAsync<typeof extractAllIssues>(
+      extractAllIssues(octokit, repo),
+    );
+    if (issues.length > 0)
+      await dz.insert(GitHubIssue).values(issues).onConflictDoNothing();
 
     for await (const branch of extractAllBranches(octokit, repo)) {
-      for await (const commits of extractAllCommits(octokit, {
-        repositories: repositories,
-        sha: branch.name,
-        bundle: true,
-      })) {
-        let whileFlag = true;
-        while (whileFlag) {
+      const commits = await fromAsync<typeof extractAllCommits>(
+        extractAllCommits(octokit, {
+          repositories: repositories,
+          sha: branch.name,
+        }),
+      );
+      if (commits.length > 0) {
+        let insertCommitsFlag = true;
+        while (insertCommitsFlag) {
           await dz
             .insert(GitHubCommit)
-            // @ts-ignore
             .values(commits)
             .onConflictDoNothing()
             .then((r) => {
-              whileFlag = false;
+              insertCommitsFlag = false;
               return r;
             })
             .catch(async (e) => await catchFKUserNotFound(octokit, e));

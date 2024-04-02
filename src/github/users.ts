@@ -1,6 +1,6 @@
-import { Octokit } from "octokit";
+import { Octokit, RequestError } from "octokit";
 import { InferInsertModel } from "drizzle-orm";
-import { GitHubUser } from "@/database/schemas/github";
+import { GitHubUser } from "@/database/schemas/github/raw";
 import moment from "moment";
 
 function serializeUser(data: any): InferInsertModel<typeof GitHubUser> {
@@ -15,7 +15,12 @@ function serializeUser(data: any): InferInsertModel<typeof GitHubUser> {
     updated_at: moment(data.updated_at).toDate(),
   };
 }
-export async function extractUser(octokit: Octokit, user_id: number) {
-  const response = await octokit.request(`GET /user/${user_id}`);
-  return serializeUser(response.data);
+export async function getUser(octokit: Octokit, user_id: number) {
+  try {
+    const response = await octokit.request(`GET /user/${user_id}`);
+    return serializeUser(response.data);
+  } catch (e) {
+    if (!(e instanceof RequestError && e.status === 404)) throw e;
+  }
+  return null;
 }

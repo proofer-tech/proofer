@@ -1,7 +1,7 @@
 import { dz } from "@/database/engine";
 import { Workspace, WorkspaceMember } from "@/database/schemas/workspace";
 import { and, eq, InferSelectModel, isNotNull } from "drizzle-orm";
-import { WorkspaceToGitHubInstallation } from "@/database/schemas/github";
+import { WorkspaceToGitHubInstallation } from "@/database/schemas/github/raw";
 
 export async function findWorkspace(
   slug: string,

@@ -1,6 +1,7 @@
 import { getTableColumns, sql } from "drizzle-orm";
 import {
   getTableConfig,
+  pgEnum,
   PgTable,
   PgUpdateSetSource,
 } from "drizzle-orm/pg-core";
@@ -19,4 +20,8 @@ export function conflictUpdateSetAllColumns<TTable extends PgTable>(
       );
       return acc;
     }, {}) as PgUpdateSetSource<TTable>;
+}
+
+export function pgEnumFrom(enumName: string, enumValues: string[]) {
+  return pgEnum(enumName, enumValues as [string, ...string[]]);
 }

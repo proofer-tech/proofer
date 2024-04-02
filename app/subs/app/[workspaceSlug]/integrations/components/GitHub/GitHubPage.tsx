@@ -6,7 +6,7 @@ import {
   GitHubInstallationDetailCardSection,
   GitHubInstallationListCardSection,
 } from "@/app/subs/app/[workspaceSlug]/integrations/components/GitHub/client";
-import { WorkspaceToGitHubInstallation } from "@/database/schemas/github";
+import { WorkspaceToGitHubInstallation } from "@/database/schemas/github/raw";
 import { dz } from "@/database/engine";
 import {
   findMember,

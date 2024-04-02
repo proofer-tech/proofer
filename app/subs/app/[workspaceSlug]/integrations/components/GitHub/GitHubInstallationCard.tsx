@@ -1,7 +1,7 @@
 import { Avatar, Card, Group, Text } from "@mantine/core";
 import React from "react";
 import { InferSelectModel } from "drizzle-orm";
-import { GitHubInstallation } from "@/database/schemas/github";
+import { GitHubInstallation } from "@/database/schemas/github/raw";
 
 interface GitHubInstallationProps {
   installation: InferSelectModel<typeof GitHubInstallation>;
