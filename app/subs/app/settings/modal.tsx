@@ -153,7 +153,7 @@ export function SettingsModal() {
                 }
               />
             </Box>
-            <Stack px={"1em"} w={"100%"}>
+            <Stack px={"1em"} w={"100%"} style={{ position: "relative" }}>
               {settingsModalContext.path?.component && (
                 <Stack w={"100%"}>
                   <settingsModalContext.path.component />
