@@ -3,6 +3,10 @@
     {
       "path": "/cron/fetch-medium",
       "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/cron/execute-command",
+      "schedule": "* * * * *"
     }
   ]
 }
