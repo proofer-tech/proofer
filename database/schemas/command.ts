@@ -11,7 +11,7 @@ export enum CommandState {
   TIMEOUT = "TIMEOUT",
 }
 export const CommandStateEnum = createEnumType(
-  "proofer.enum_command_state",
+  "enum_command_state",
   CommandState,
 );
 export const Command = schema.table(
