@@ -1,0 +1,1 @@
+ALTER TABLE "proofer"."command" ADD COLUMN "memo" text DEFAULT '';

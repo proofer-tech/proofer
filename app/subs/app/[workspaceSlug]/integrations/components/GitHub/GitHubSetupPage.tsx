@@ -43,9 +43,11 @@ export default async function GitHubSetupPage({ params, searchParams }: any) {
         ...pick(accountResponse.data, ["avatar_url", "name", "bio", "blog"]),
       } as InferSelectModel<typeof GitHubInstallation>)
       .onConflictDoNothing({ target: GitHubInstallation.installation_id });
-    const repos = await octokit.rest.apps.listReposAccessibleToInstallation();
+    const repos = await octokit.paginate(
+      octokit.rest.apps.listReposAccessibleToInstallation,
+    );
 
-    for (const repo of repos.data.repositories) {
+    for (const repo of repos.repositories) {
       await dz.insert(GitHubRepository).values({
         installation_id: installation.id,
         repository_id: repo.id,

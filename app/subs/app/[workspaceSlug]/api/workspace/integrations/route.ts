@@ -2,7 +2,7 @@ import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { getIntegrationDtoList } from "@/src/data/integration";
 import { InferSelectModel } from "drizzle-orm";
 import { getWorkspaceToGitHubInstallationList } from "@/src/data/workspace";
-import { withApiWorkspaceUserRequired } from "@/src/api-decorators";
+import { withApiWorkspaceUserRequired } from "@/src/decorators/api";
 import { NextResponse } from "next/server";
 import { Integration } from "@/database/schemas/integration";
 

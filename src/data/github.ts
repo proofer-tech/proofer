@@ -11,14 +11,6 @@ export async function getAllRepositories(installation_id: number) {
     .from(GitHubRepository)
     .where(eq(GitHubRepository.installation_id, installation_id));
 }
-export async function findRepository(repository_id: number) {
-  return (
-    await dz
-      .select()
-      .from(GitHubRepository)
-      .where(eq(GitHubRepository.repository_id, repository_id))
-  )[0];
-}
 
 export async function findPullRequest(pull_request_id: number) {
   return (

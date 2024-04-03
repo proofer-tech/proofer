@@ -25,10 +25,14 @@ export const ProcessedGitHubTimeSeries = schema.table(
       .references(() => Workspace.id, { onDelete: "cascade" }),
     installation_id: serial("installation_id")
       .notNull()
-      .references(() => GitHubInstallation.id, { onDelete: "cascade" }),
+      .references(() => GitHubInstallation.installation_id, {
+        onDelete: "cascade",
+      }),
     repository_id: serial("repository_id")
       .notNull()
-      .references(() => GitHubRepository.id, { onDelete: "cascade" }),
+      .references(() => GitHubRepository.id, {
+        onDelete: "cascade",
+      }),
     user_id: serial("user_id")
       .notNull()
       .references(() => GitHubUser.id),

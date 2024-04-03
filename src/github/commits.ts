@@ -22,26 +22,24 @@ function serializeCommit(
   };
 }
 interface extractAllCommitsOptions {
-  repositories: any;
+  repository: any;
   sha?: string;
 }
 export async function* extractAllCommits(
   octokit: Octokit,
-  options: extractAllCommitsOptions,
+  { repository, sha }: extractAllCommitsOptions,
 ) {
-  for (const repo of options.repositories) {
-    const [ownerName, repoName] = repo.full_name.split("/");
+  const [ownerName, repoName] = repository.full_name.split("/");
 
-    try {
-      const commits = await octokit.paginate(octokit.rest.repos.listCommits, {
-        owner: ownerName,
-        repo: repoName,
-        per_page: 100,
-        sha: options.sha,
-      });
-      for (const commit of commits) yield serializeCommit(repo.id, commit);
-    } catch (e) {
-      if (!(e instanceof RequestError && e.status === 404)) throw e;
-    }
+  try {
+    const commits = await octokit.paginate(octokit.rest.repos.listCommits, {
+      owner: ownerName,
+      repo: repoName,
+      per_page: 100,
+      sha: sha,
+    });
+    for (const commit of commits) yield serializeCommit(repository.id, commit);
+  } catch (e) {
+    if (!(e instanceof RequestError && e.status === 404)) throw e;
   }
 }

@@ -30,29 +30,26 @@ const serializePullRequests = (
 });
 
 interface extractAllPullRequestsOptions {
-  repositories: InferSelectModel<typeof GitHubRepository>[];
-  bundle?: boolean;
+  repository: InferSelectModel<typeof GitHubRepository>;
 }
 
 export async function* extractAllPullRequests(
   octokit: Octokit,
-  options: extractAllPullRequestsOptions,
+  { repository }: extractAllPullRequestsOptions,
 ) {
-  for (const repo of options.repositories) {
-    const [ownerName, repoName] = repo.full_name.split("/");
-    try {
-      const pulls = await octokit.paginate(octokit.rest.pulls.list, {
-        owner: ownerName,
-        repo: repoName,
-        state: "all",
-        sort: "created",
-        direction: "desc",
-        per_page: 100,
-      });
-      for (const pull of pulls) yield serializePullRequests(repo.id, pull);
-    } catch (e) {
-      if (!(e instanceof RequestError && e.status === 404)) throw e;
-    }
+  const [ownerName, repoName] = repository.full_name.split("/");
+  try {
+    const pulls = await octokit.paginate(octokit.rest.pulls.list, {
+      owner: ownerName,
+      repo: repoName,
+      state: "all",
+      sort: "created",
+      direction: "desc",
+      per_page: 100,
+    });
+    for (const pull of pulls) yield serializePullRequests(repository.id, pull);
+  } catch (e) {
+    if (!(e instanceof RequestError && e.status === 404)) throw e;
   }
 }
 

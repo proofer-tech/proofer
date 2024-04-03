@@ -6,7 +6,7 @@ import {
 import { dz } from "@/database/engine";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
-import { withApiWorkspaceUserRequired } from "@/src/api-decorators";
+import { withApiWorkspaceUserRequired } from "@/src/decorators/api";
 
 export const GET = withApiAuthRequired(
   withApiWorkspaceUserRequired(async (_: any, { workspace }: any) => {

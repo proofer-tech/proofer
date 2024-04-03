@@ -14,15 +14,20 @@ export const CommandStateEnum = createEnumType(
   "enum_command_state",
   CommandState,
 );
-export const Command = schema.table(
+export const Command: any = schema.table(
   "command",
   {
     id: serial("id").primaryKey(),
+    parents: varchar("parents", { length: 64 }).references(() => Command.hash, {
+      onDelete: "cascade",
+    }),
     hash: varchar("hash", { length: 64 }).unique().notNull(),
     name: varchar("name", { length: 64 }).notNull(),
     arguments: text("arguments").notNull().default(""),
 
     state: CommandStateEnum("state").default(CommandState.PENDING),
+    memo: text("memo").default(""),
+
     created_at: timestamp("created_at").defaultNow().notNull(),
     updated_at: timestamp("updated_at").defaultNow().notNull(),
   },

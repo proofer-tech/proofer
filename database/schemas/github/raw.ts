@@ -93,7 +93,9 @@ export const GitHubCommit = schema.table(
 
     repository_id: integer("repository_id")
       .notNull()
-      .references(() => GitHubRepository.id, { onDelete: "cascade" }),
+      .references(() => GitHubRepository.id, {
+        onDelete: "cascade",
+      }),
     author_id: integer("author_id")
       .notNull()
       .references(() => GitHubUser.user_id),
@@ -118,7 +120,9 @@ export const GitHubIssue = schema.table(
     id: serial("id").primaryKey(),
     repository_id: integer("repository_id")
       .notNull()
-      .references(() => GitHubRepository.id, { onDelete: "cascade" }),
+      .references(() => GitHubRepository.id, {
+        onDelete: "cascade",
+      }),
     issue_id: varchar("issue_id", { length: 32 })
       .notNull()
       .unique("uidx_ghi_issue_id"),
@@ -150,7 +154,9 @@ export const GitHubPullRequest = schema.table(
     id: serial("id").primaryKey(),
     repository_id: integer("repository_id")
       .notNull()
-      .references(() => GitHubRepository.id, { onDelete: "cascade" }),
+      .references(() => GitHubRepository.id, {
+        onDelete: "cascade",
+      }),
     pull_request_id: integer("pull_request_id")
       .notNull()
       .unique("uidx_ghpr_pull_request_id"),
