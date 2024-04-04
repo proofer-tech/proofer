@@ -5,8 +5,9 @@ import { User } from "@/database/schemas/auth";
 import { dz } from "@/database/engine";
 import { withLock } from "@/src/redis";
 import { findUserByEmail } from "@/src/data/user";
+import { PageProps } from "@/src/types/general";
 
-export default async function Page({ searchParams }: any) {
+export default async function Page({ searchParams }: PageProps) {
   const session = await getSession();
   if (!session?.user) return redirect("/auth/login");
 

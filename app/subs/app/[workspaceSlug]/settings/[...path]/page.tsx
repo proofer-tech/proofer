@@ -7,8 +7,15 @@ import { Box, LoadingOverlay } from "@mantine/core";
 import { digTree } from "@/app/subs/app/components/types";
 import { settingsPathTree } from "@/app/subs/app/settings/tree";
 import { notFound } from "next/navigation";
+import { PageProps } from "@/src/types/general";
+import { WorkspacePageProps } from "@/app/subs/app/[workspaceSlug]/types";
 
-export default function Page({ params }: any) {
+interface SettingPageProps extends WorkspacePageProps {
+  params: WorkspacePageProps["params"] & {
+    path: string[];
+  };
+}
+export default function Page({ params }: SettingPageProps) {
   const { isMounted } = useContext(ProoferInsightContext);
   const settingsModalContext = useContext(SettingsModalContext);
 

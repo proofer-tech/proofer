@@ -8,10 +8,10 @@ import { truncate } from "lodash";
 import { getURLFromHeaderList } from "@/src/path";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { AppRouteHandlerFnContext } from "@auth0/nextjs-auth0";
+import { NextHandlerContext, PageProps } from "@/src/types/general";
 
 export async function generateMetadata(
-  { params }: AppRouteHandlerFnContext,
+  { params }: NextHandlerContext,
   parent: ResolvingMetadata,
 ): Promise<Metadata | ResolvingMetadata> {
   const { articlePath } = params;
@@ -42,7 +42,7 @@ export async function generateMetadata(
   return parentMetadata;
 }
 
-export default async function Page({ params }: any) {
+export default async function Page({ params }: PageProps) {
   const { articlePath } = params;
   const [slug, ...path] = articlePath;
   if (path.length > 0) {

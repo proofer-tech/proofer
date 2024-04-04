@@ -11,8 +11,12 @@ import { headers } from "next/headers";
 import { GitHubApp } from "@/src/integrations/github";
 import { pick } from "lodash";
 import moment from "moment";
+import { PageProps } from "@/src/types/general";
 
-export default async function GitHubSetupPage({ params, searchParams }: any) {
+export default async function GitHubSetupPage({
+  params,
+  searchParams,
+}: PageProps) {
   const headerList = headers();
   const installationId = parseInt(searchParams.installation_id);
   const installationUUID = searchParams.state;

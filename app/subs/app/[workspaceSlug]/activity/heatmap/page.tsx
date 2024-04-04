@@ -4,8 +4,22 @@ import { Badge, Group, Paper, SegmentedControl, Stack } from "@mantine/core";
 import { ActivityTable } from "@/app/subs/app/[workspaceSlug]/activity/ActivityTable";
 import { IconMoonStars } from "@tabler/icons-react";
 import { SearchGroup } from "@/app/subs/app/[workspaceSlug]/activity/SearchGroup";
+import { dz } from "@/database/engine";
+import { ProcessedGitHubTimeSeries } from "@/database/schemas/github/processed";
+import { eq } from "drizzle-orm";
+import { Workspace } from "@/database/schemas/workspace";
+import { WorkspacePageProps } from "@/app/subs/app/[workspaceSlug]/types";
 
-export default function Page() {
+export default async function Page({ params }: WorkspacePageProps) {
+  const { workspaceSlug } = params;
+  const workspace = (
+    await dz.select().from(Workspace).where(eq(Workspace.slug, workspaceSlug))
+  )[0];
+  const timeSeriesSet = await dz
+    .select()
+    .from(ProcessedGitHubTimeSeries)
+    .where(eq(ProcessedGitHubTimeSeries.workspace_id, workspace.id))
+    .orderBy(ProcessedGitHubTimeSeries.timestamp);
   return (
     <Stack>
       <SearchGroup />
@@ -31,7 +45,7 @@ export default function Page() {
         </Group>
       </Paper>
       <Stack>
-        <ApexWeekTimeHeatMap />
+        <ApexWeekTimeHeatMap timeSeries={timeSeriesSet} />
         <SegmentedControl
           fullWidth
           data={["전체", "Commit", "Pull Request", "Code Review"]}

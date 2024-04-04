@@ -12,12 +12,21 @@ import GitHubPage from "@/app/subs/app/[workspaceSlug]/integrations/components/G
 import GitHubSetupPage from "@/app/subs/app/[workspaceSlug]/integrations/components/GitHub/GitHubSetupPage";
 import IntegrationPage from "@/app/subs/app/[workspaceSlug]/integrations/components/IntegrationPage";
 import NotReadyYetLetter from "@/app/components/NotReadyYetLetter";
+import { WorkspacePageProps } from "@/app/subs/app/[workspaceSlug]/types";
 
-export default async function Page({ params, ...props }: any) {
+interface IntegrationPageProps extends WorkspacePageProps {
+  params: WorkspacePageProps["params"] & {
+    integrationPath: string[];
+  };
+}
+export default async function Page({
+  params,
+  searchParams,
+}: IntegrationPageProps) {
   const { workspaceSlug, integrationPath } = params;
   const [appName, ...pathBlocks] = integrationPath;
   if (pathBlocks[0] === "setup")
-    return <GitHubSetupPage params={params} {...props} />;
+    return <GitHubSetupPage params={params} searchParams={searchParams} />;
 
   const querySet = await dz
     .select()

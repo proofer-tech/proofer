@@ -16,13 +16,14 @@ import { WORKSPACE_DEMO_SLUG } from "@/src/constants";
 import { Forbidden, NotFound, Unauthorized } from "http-errors";
 import { Command, CommandState } from "@/database/schemas/command";
 import { withLock } from "@/src/redis";
+import { NextHandler, NextHandlerContext } from "@/src/types/general";
 
 export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
   apiRoute: AppRouteHandlerFn,
 ) => {
   const wrapper = async (
     req: NextRequest & NextApiRequest,
-    props: AppRouteHandlerFnContext,
+    props: NextHandlerContext,
     ...args: []
   ) => {
     const { workspaceSlug } = props.params;
@@ -48,10 +49,10 @@ export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
   return wrapper as AppRouteHandlerFn;
 };
 
-export const withBearer = (token?: string, apiRoute: AppRouteHandlerFn) => {
+export const withBearer = (token?: string, apiRoute: NextHandler) => {
   const wrapper = async (
     req: NextRequest & NextApiRequest,
-    props: AppRouteHandlerFnContext,
+    props: NextHandlerContext,
     ...args: []
   ) => {
     const authHeader = req.headers.get("authorization");
@@ -62,22 +63,22 @@ export const withBearer = (token?: string, apiRoute: AppRouteHandlerFn) => {
     return apiRoute(req, props, ...args);
   };
 
-  return wrapper as AppRouteHandlerFn;
+  return wrapper as NextHandler;
 };
 
-export type AppRouteCommandHandlerFnContext = AppRouteHandlerFnContext & {
+export type CommandHandlerContext = NextHandlerContext & {
   command: InferSelectModel<typeof Command>;
 };
-export type AppRouteCommandHandlerFn = (
+export type CommandHandler = (
   req: NextRequest,
-  ctx: AppRouteCommandHandlerFnContext,
+  ctx: CommandHandlerContext,
 ) => Promise<Response> | Response | void | Promise<void>;
-export const withCommand = (apiRoute: AppRouteCommandHandlerFn) =>
+export const withCommand = (apiRoute: CommandHandler) =>
   withBearer(
     process.env.EDA_SECRET,
     async (
       req: NextRequest & NextApiRequest,
-      props: AppRouteHandlerFnContext,
+      props: CommandHandlerContext,
       ...args: []
     ) => {
       const hash = req.headers.get("x-command-hash");

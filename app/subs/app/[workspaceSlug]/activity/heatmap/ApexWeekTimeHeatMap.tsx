@@ -3,12 +3,16 @@
 import React, { Suspense, useState } from "react";
 import Chart from "react-apexcharts";
 import { Paper } from "@mantine/core";
+import { InferSelectModel } from "drizzle-orm";
+import { ProcessedGitHubTimeSeries } from "@/database/schemas/github/processed";
+import { groupBy } from "lodash";
+import dayjs from "dayjs";
 
-const days = ["월", "화", "수", "목", "금", "토", "일"];
+const dayOfTheWeekLabels = ["월", "화", "수", "목", "금", "토", "일"];
 
 function generateData(count: number, yrange: { min: number; max: number }) {
   let i = 0;
-  return days.map((day) => {
+  return dayOfTheWeekLabels.map((day) => {
     let y =
       Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
     if (["토", "일"].includes(day)) {
@@ -21,28 +25,22 @@ function generateData(count: number, yrange: { min: number; max: number }) {
   });
 }
 
-export function ApexWeekTimeHeatMap() {
+type tsType = InferSelectModel<typeof ProcessedGitHubTimeSeries>;
+export function ApexWeekTimeHeatMap({ timeSeries }: { timeSeries: tsType[] }) {
+  const hoursMap: { [key: number]: tsType[] } = Object.assign(
+    Object.fromEntries([...Array(25)].map((_, i) => [i, []])),
+    groupBy(timeSeries, (t) => dayjs(t.timestamp).hour()),
+  );
   const [series, setSeries] = useState(
-    [...Array(24)]
-      .map((_, time) => {
-        let preData = generateData(24, {
-          min: 0,
-          max: 30,
+    Object.entries(hoursMap)
+      .map(([time, seriesSet]) => {
+        let preData = dayOfTheWeekLabels.map((key, idx) => {
+          const value = seriesSet.filter(
+            (s) => dayjs(s.timestamp).get("d") == idx,
+          ).length;
+
+          return { x: key, y: value };
         });
-
-        if (time < 8) {
-          preData = preData.map((data) => ({
-            x: data.x,
-            y: Math.min(data.y, Math.floor(Math.random() * 10) + 1),
-          }));
-        }
-
-        if ((time < 8 && time > 3) || time > 20) {
-          preData = preData.map((data) => ({
-            x: data.x,
-            y: Math.floor(Math.random() * 5),
-          }));
-        }
 
         return {
           name: `${time}시`,
@@ -74,14 +72,16 @@ export function ApexWeekTimeHeatMap() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Paper shadow="xs" px="lg" py={0}>
-        <Chart
-          options={options}
-          series={series}
-          type={"heatmap"}
-          height={600}
-        />
-      </Paper>
+      {window && (
+        <Paper shadow="xs" px="lg" py={0}>
+          <Chart
+            options={options}
+            series={series}
+            type={"heatmap"}
+            height={600}
+          />
+        </Paper>
+      )}
     </Suspense>
   );
 }
