@@ -1,7 +1,7 @@
 import { Octokit, RequestError } from "octokit";
 import { GitHubCommit } from "@/database/schemas/github/raw";
 import { InferInsertModel } from "drizzle-orm";
-import moment from "moment";
+import dayjs from "dayjs";
 
 function serializeCommit(
   repo_id: number,
@@ -15,10 +15,10 @@ function serializeCommit(
     committer_id: data.committer?.id,
     message: data.commit.message,
 
-    created_at: moment(data.created_at).toDate(),
-    updated_at: moment(data.updated_at).toDate(),
+    created_at: dayjs(data.commit.author.date).toDate(),
+    updated_at: dayjs(data.commit.committer.date).toDate(),
 
-    timestamp: moment(data.created_at).toDate(),
+    timestamp: dayjs(data.commit.author.date).toDate(),
   };
 }
 interface extractAllCommitsOptions {

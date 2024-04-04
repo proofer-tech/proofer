@@ -224,8 +224,7 @@ export const GitHubPullRequestReview = schema.table(
     state: varchar("state", { length: 16 }).notNull(),
     body: text("body"),
     html_url: varchar("html_url", { length: 512 }).notNull(),
-    created_at: timestamp("created_at").defaultNow().notNull(),
-    updated_at: timestamp("updated_at").defaultNow().notNull(),
+    submitted_at: timestamp("submitted_at").defaultNow().notNull(),
     user_id: integer("user_id")
       .notNull()
       .references(() => GitHubUser.user_id),
@@ -233,7 +232,7 @@ export const GitHubPullRequestReview = schema.table(
     timestamp: timestamp("timestamp").notNull(),
   },
   (table) => ({
-    created_at_idx: index("idx_ghprr_created_at").on(table.created_at),
+    submitted_at_idx: index("idx_ghprr_submitted_at").on(table.submitted_at),
     timestamp_idx: index("idx_ghprr_timestamp").on(table.timestamp),
   }),
 );

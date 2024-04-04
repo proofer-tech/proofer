@@ -1,5 +1,11 @@
 import { schema } from "@/database/engine";
-import { varchar, serial, timestamp, index } from "drizzle-orm/pg-core";
+import {
+  varchar,
+  serial,
+  timestamp,
+  uniqueIndex,
+  integer,
+} from "drizzle-orm/pg-core";
 import { Workspace } from "@/database/schemas/workspace";
 import {
   GitHubInstallation,
@@ -33,12 +39,17 @@ export const ProcessedGitHubTimeSeries = schema.table(
       .references(() => GitHubRepository.id, {
         onDelete: "cascade",
       }),
-    user_id: serial("user_id")
+
+    user_id: integer("user_id")
       .notNull()
-      .references(() => GitHubUser.id),
+      .references(() => GitHubUser.user_id, {}),
     timestamp: timestamp("timestamp").notNull(),
   },
   (table) => ({
-    idx_pgts_reference_id: index("reference_id_idx").on(table.reference_id),
+    uidx_reference: uniqueIndex("uidx_reference").on(
+      table.workspace_id,
+      table.event,
+      table.reference_id,
+    ),
   }),
 );

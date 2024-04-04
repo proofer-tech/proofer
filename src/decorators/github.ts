@@ -8,10 +8,12 @@ export const withUserSafe = async (
   func: Promise<any>,
   { octokit, tx }: { octokit?: Octokit; tx?: VercelPgDatabase } = {},
 ) => {
-  const recursiveFunc: Awaited<typeof func> = async () => {
+  const recursiveFunc: Awaited<typeof func> = async (retry: number = 0) => {
+    if (retry > 3) throw new Error("Too many retries");
+
     return func.catch(async (e) =>
       catchFKUserReferenceError(tx || dz, octokit || GitHubApp.octokit, e).then(
-        async () => recursiveFunc(),
+        async () => recursiveFunc(retry++),
       ),
     );
   };
