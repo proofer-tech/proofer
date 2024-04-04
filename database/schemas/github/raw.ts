@@ -148,6 +148,32 @@ export const GitHubIssue = schema.table(
   }),
 );
 
+export const GitHubIssueComment = schema.table(
+  "github_issue_comment",
+  {
+    id: serial("id").primaryKey(),
+    issue_id: varchar("issue_id", { length: 32 })
+      .notNull()
+      .references(() => GitHubIssue.issue_id, {
+        onDelete: "cascade",
+      }),
+    comment_id: integer("comment_id").notNull().unique("uidx_ghic_comment_id"),
+    body: text("body"),
+    html_url: varchar("html_url", { length: 512 }).notNull(),
+    created_at: timestamp("created_at").defaultNow().notNull(),
+    updated_at: timestamp("updated_at").defaultNow().notNull(),
+    user_id: integer("user_id")
+      .notNull()
+      .references(() => GitHubUser.user_id),
+
+    timestamp: timestamp("timestamp").notNull(),
+  },
+  (table) => ({
+    created_at_idx: index("idx_ghic_created_at").on(table.created_at),
+    timestamp_idx: index("idx_ghic_timestamp").on(table.timestamp),
+  }),
+);
+
 export const GitHubPullRequest = schema.table(
   "github_pull_request",
   {
