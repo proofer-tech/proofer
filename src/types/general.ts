@@ -1,8 +1,8 @@
 import { NextRequest } from "next/server";
 
-type GeneratorReturnType<T extends Generator> =
+export type GeneratorReturnType<T extends Generator> =
   T extends Generator<any, infer R, any> ? R : never;
-type AsyncGeneratorReturnType<T extends AsyncGenerator> =
+export type AsyncGeneratorReturnType<T extends AsyncGenerator> =
   T extends AsyncGenerator<infer R> ? R[] : never;
 
 export interface PageProps {

@@ -86,7 +86,7 @@ export const GET = withCommand(async function (req) {
   );
 
   await Promise.all(
-    pulls.map((pull: any) =>
+    pulls.map((pull) =>
       fromAsync<typeof extractAllPullRequestReviews>(
         extractAllPullRequestReviews(
           octokit,
