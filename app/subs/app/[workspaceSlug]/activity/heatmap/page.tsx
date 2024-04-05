@@ -4,7 +4,7 @@ import { Badge, Group, Paper, Stack } from "@mantine/core";
 import { IconMoonStars } from "@tabler/icons-react";
 import { dz } from "@/database/engine";
 import { ProcessedGitHubTimeSeries } from "@/database/schemas/github/processed";
-import { and, eq, gte, inArray, lt } from "drizzle-orm";
+import { and, eq, gte, inArray, InferSelectModel, lt } from "drizzle-orm";
 import { Workspace } from "@/database/schemas/workspace";
 import { WorkspacePageProps } from "@/app/subs/app/[workspaceSlug]/types";
 import dayjs, { endOfWeek, startOfWeek } from "@/src/utils/dayjs";
@@ -15,6 +15,8 @@ import { TimeSeriesTable } from "@/app/subs/app/[workspaceSlug]/activity/heatmap
 import { GitHubEvent } from "@/src/github/types";
 import HeatmapSegmentedControl from "@/app/subs/app/[workspaceSlug]/activity/heatmap/HeatmapSegmentedControl";
 import { HeatmapSegment } from "@/src/types/heatmap";
+import { analyzeTimeSeries } from "@/src/github/insight";
+import { GitHubUser } from "@/database/schemas/github/raw";
 
 interface HeatmapPageProps extends WorkspacePageProps {
   searchParams: HeatmapSearchGroupProps & {
@@ -72,29 +74,22 @@ export default async function Page({ params, searchParams }: HeatmapPageProps) {
   }
 
   const timeSeriesSet = await querySet.where(and(...conditions));
+  const timeSeriesUsers = (await dz
+    // @ts-ignore
+    .selectDistinctOn([GitHubUser.user_id], GitHubUser)
+    .from(GitHubUser)
+    .innerJoin(
+      ProcessedGitHubTimeSeries,
+      eq(ProcessedGitHubTimeSeries.user_id, GitHubUser.user_id),
+    )
+    .where(and(...conditions))) as InferSelectModel<typeof GitHubUser>[];
 
   return (
     <Stack>
-      <HeatmapSearchGroup range={range} q={q} />
+      <HeatmapSearchGroup range={range} q={q} githubUsers={timeSeriesUsers} />
       <Paper shadow="xs" p="sm">
         <Group align={"center"}>
-          <Badge
-            size={"lg"}
-            color={"gray"}
-            variant={"light"}
-            leftSection={<IconMoonStars />}
-          >
-            주로 새벽에 개발합니다
-          </Badge>
-          <Badge size={"lg"} color={"gray"} variant={"light"}>
-            주말에 개발을 쉬지 않습니다
-          </Badge>
-          <Badge size={"lg"} color={"gray"} variant={"light"}>
-            평일 평균 9시간 이상 개발
-          </Badge>
-          <Badge size={"lg"} color={"gray"} variant={"light"}>
-            주말 평균 2시간 이상 개발
-          </Badge>
+          {[...analyzeTimeSeries(timeSeriesSet)].map((badge) => badge)}
         </Group>
       </Paper>
       <Stack>

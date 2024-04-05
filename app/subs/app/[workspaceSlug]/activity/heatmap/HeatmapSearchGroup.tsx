@@ -3,6 +3,8 @@ import dayjs from "@/src/utils/dayjs";
 import { SearchGroup } from "@/app/subs/app/[workspaceSlug]/activity/SearchGroup";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { InferSelectModel } from "drizzle-orm";
+import { GitHubUser } from "@/database/schemas/github/raw";
 
 export interface HeatmapSearchGroupProps {
   range?: string[];
@@ -11,7 +13,10 @@ export interface HeatmapSearchGroupProps {
 export default function HeatmapSearchGroup({
   range,
   q,
-}: HeatmapSearchGroupProps) {
+  githubUsers,
+}: HeatmapSearchGroupProps & {
+  githubUsers: InferSelectModel<typeof GitHubUser>[];
+}) {
   const router = useRouter();
   const [href, setHref] = useState("");
 
@@ -37,6 +42,10 @@ export default function HeatmapSearchGroup({
         router.push(newURL.toString());
         router.refresh();
       }}
+      avatars={githubUsers.map((gu) => ({
+        src: gu.avatar_url || "",
+        isTarget: false,
+      }))}
     />
   );
 }

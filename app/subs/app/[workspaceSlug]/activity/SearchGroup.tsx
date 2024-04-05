@@ -6,7 +6,7 @@ import {
   IconSearch,
 } from "@tabler/icons-react";
 import React, { useEffect, useState } from "react";
-import { Calendar, DatePickerInput } from "@mantine/dates";
+import { DatePickerInput } from "@mantine/dates";
 import dayjs from "dayjs";
 import { endOfWeek, startOfWeek } from "@/src/utils/dayjs";
 import { notifications } from "@mantine/notifications";
@@ -17,6 +17,7 @@ interface SearchGroupProps {
   initialQuery?: string;
   onQueryChange?: (value: string) => void;
   onSubmit?: () => void;
+  avatars?: { src: string; isTarget: boolean }[];
 
   weekCalendar?: boolean;
 }
@@ -26,6 +27,7 @@ export function SearchGroup({
   initialQuery,
   onQueryChange,
   onSubmit,
+  avatars,
   weekCalendar,
 }: SearchGroupProps) {
   const [range, setRange] = useState<[Date | null, Date | null]>(
@@ -42,15 +44,6 @@ export function SearchGroup({
     if (range[0] === null || range[1] === null) return;
     onQueryChange && onQueryChange(query);
   }, [query]);
-
-  const [hovered, setHovered] = useState<Date | null>(null);
-
-  function isInWeekRange(date: Date, value: Date | null) {
-    return value
-      ? dayjs(date).isBefore(endOfWeek(value)) &&
-          dayjs(date).isAfter(dayjs(startOfWeek(value)).subtract(1, "day"))
-      : false;
-  }
 
   return (
     <Group justify={"space-between"}>
@@ -77,17 +70,6 @@ export function SearchGroup({
           miw={"10em"}
           leftSection={<IconCalendarMonth size={"1em"} />}
           withCellSpacing={false}
-          // @ts-ignore
-          getDayProps={
-            weekCalendar
-              ? (date) => {
-                  return {
-                    onMouseEnter: () => setHovered(date),
-                    onMouseLeave: () => setHovered(null),
-                  };
-                }
-              : () => {}
-          }
         />
       </Tooltip>
       <Group>
@@ -111,10 +93,15 @@ export function SearchGroup({
             />
           </Group>
           <Avatar.Group>
-            <Avatar src="/assets/images/sample/avatar/2.jpg" />
-            <Avatar src="/assets/images/sample/avatar/3.jpg" />
-            <Avatar src="/assets/images/sample/avatar/4.jpg" />
-            <Avatar>+2</Avatar>
+            {avatars
+              ?.reverse()
+              .slice(-3)
+              .map((avatar) => <Avatar key={avatar.src} src={avatar.src} />)}
+            {avatars && avatars.length > 3 ? (
+              <Avatar>+{avatars.length - 3}</Avatar>
+            ) : (
+              ""
+            )}
           </Avatar.Group>
         </Group>
       </Group>
