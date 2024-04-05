@@ -3,11 +3,13 @@ import React from "react";
 import { HeaderPortal } from "@/app/components/Header";
 import LandingPageShellLayout from "@/app/components/LandingPageShellLayout";
 import { get } from "@vercel/edge-config";
+import { NavigationProgress } from "@mantine/nprogress";
 
 export default async function Layout({ children }: any) {
   const portals: readonly HeaderPortal[] = (await get("portals")) || [];
   return (
     <LandingPageShellLayout portals={portals}>
+      <NavigationProgress />
       {children}
     </LandingPageShellLayout>
   );

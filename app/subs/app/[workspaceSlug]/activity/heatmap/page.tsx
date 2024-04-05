@@ -1,28 +1,81 @@
 import React from "react";
 import { ApexWeekTimeHeatMap } from "@/app/subs/app/[workspaceSlug]/activity/heatmap/ApexWeekTimeHeatMap";
-import { Badge, Group, Paper, SegmentedControl, Stack } from "@mantine/core";
-import { ActivityTable } from "@/app/subs/app/[workspaceSlug]/activity/ActivityTable";
+import { Badge, Group, Paper, Stack } from "@mantine/core";
 import { IconMoonStars } from "@tabler/icons-react";
-import { SearchGroup } from "@/app/subs/app/[workspaceSlug]/activity/SearchGroup";
 import { dz } from "@/database/engine";
 import { ProcessedGitHubTimeSeries } from "@/database/schemas/github/processed";
-import { eq } from "drizzle-orm";
+import { and, eq, gte, inArray, lt } from "drizzle-orm";
 import { Workspace } from "@/database/schemas/workspace";
 import { WorkspacePageProps } from "@/app/subs/app/[workspaceSlug]/types";
+import dayjs, { endOfWeek, startOfWeek } from "@/src/utils/dayjs";
+import HeatmapSearchGroup, {
+  HeatmapSearchGroupProps,
+} from "@/app/subs/app/[workspaceSlug]/activity/heatmap/HeatmapSearchGroup";
+import { TimeSeriesTable } from "@/app/subs/app/[workspaceSlug]/activity/heatmap/TimeSeriesTable";
+import { GitHubEvent } from "@/src/github/types";
+import HeatmapSegmentedControl from "@/app/subs/app/[workspaceSlug]/activity/heatmap/HeatmapSegmentedControl";
+import { HeatmapSegment } from "@/src/types/heatmap";
 
-export default async function Page({ params }: WorkspacePageProps) {
+interface HeatmapPageProps extends WorkspacePageProps {
+  searchParams: HeatmapSearchGroupProps & {
+    segment?: string;
+  };
+}
+export default async function Page({ params, searchParams }: HeatmapPageProps) {
   const { workspaceSlug } = params;
   const workspace = (
     await dz.select().from(Workspace).where(eq(Workspace.slug, workspaceSlug))
   )[0];
-  const timeSeriesSet = await dz
+
+  let { range, q, segment } = searchParams;
+  if (!range) {
+    const today = new Date();
+    range = [
+      startOfWeek(dayjs(today).subtract(4, "weeks").toDate()).toISOString(),
+      endOfWeek(today).toISOString(),
+    ];
+  }
+
+  const [start, end] = range;
+  const conditions = [
+    eq(ProcessedGitHubTimeSeries.workspace_id, workspace.id),
+    gte(ProcessedGitHubTimeSeries.timestamp, dayjs(start).toDate()),
+    lt(ProcessedGitHubTimeSeries.timestamp, dayjs(end).toDate()),
+  ];
+  const querySet = dz
     .select()
     .from(ProcessedGitHubTimeSeries)
-    .where(eq(ProcessedGitHubTimeSeries.workspace_id, workspace.id))
     .orderBy(ProcessedGitHubTimeSeries.timestamp);
+
+  switch (segment ? parseInt(segment) : 0) {
+    case HeatmapSegment.Commit:
+      conditions.push(eq(ProcessedGitHubTimeSeries.event, GitHubEvent.commit));
+      break;
+    case HeatmapSegment["Pull Request"]:
+      conditions.push(
+        inArray(ProcessedGitHubTimeSeries.event, [
+          GitHubEvent["pull_request_review.submitted"],
+          GitHubEvent["pull_request.opened"],
+          GitHubEvent["pull_request.closed"],
+          GitHubEvent["pull_request_review_comment.created"],
+        ]),
+      );
+      break;
+    case HeatmapSegment["Issue"]:
+      conditions.push(
+        inArray(ProcessedGitHubTimeSeries.event, [
+          GitHubEvent["issues.opened"],
+          GitHubEvent["issue_comment.created"],
+        ]),
+      );
+      break;
+  }
+
+  const timeSeriesSet = await querySet.where(and(...conditions));
+
   return (
     <Stack>
-      <SearchGroup />
+      <HeatmapSearchGroup range={range} q={q} />
       <Paper shadow="xs" p="sm">
         <Group align={"center"}>
           <Badge
@@ -46,11 +99,8 @@ export default async function Page({ params }: WorkspacePageProps) {
       </Paper>
       <Stack>
         <ApexWeekTimeHeatMap timeSeries={timeSeriesSet} />
-        <SegmentedControl
-          fullWidth
-          data={["전체", "Commit", "Pull Request", "Code Review"]}
-        />
-        <ActivityTable />
+        <HeatmapSegmentedControl segment={segment ? parseInt(segment) : 0} />
+        <TimeSeriesTable timeSeries={timeSeriesSet} />
       </Stack>
     </Stack>
   );

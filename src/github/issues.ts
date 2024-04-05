@@ -5,8 +5,7 @@ import {
   GitHubIssueComment,
   GitHubRepository,
 } from "@/database/schemas/github/raw";
-import moment from "moment";
-import dayjs from "../utils/dayjs";
+import dayjs from "@/src/utils/dayjs";
 
 function serializeGitHubIssue(
   repo_id: number,
@@ -24,7 +23,7 @@ function serializeGitHubIssue(
     assignee_id: data.user.id,
     created_at: dayjs(data.created_at).toDate(),
     updated_at: dayjs(data.updated_at).toDate(),
-    closed_at: data.closed_at && moment(data.closed_at).toDate(),
+    closed_at: data.closed_at && dayjs(data.closed_at).toDate(),
     timestamp: dayjs(data.created_at).toDate(),
   };
 }

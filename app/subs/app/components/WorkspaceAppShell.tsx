@@ -421,7 +421,7 @@ export default function WorkspaceAppShell({
                 p={"2em"}
                 w={"100%"}
                 h={"100%"}
-                style={{ overflowY: "scroll" }}
+                style={{ overflowY: "scroll", position: "relative" }}
               >
                 {children}
               </Box>

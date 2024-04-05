@@ -1,7 +1,7 @@
 import { Octokit, RequestError } from "octokit";
 import { GitHubCommit } from "@/database/schemas/github/raw";
 import { InferInsertModel } from "drizzle-orm";
-import dayjs from "dayjs";
+import dayjs from "@/src/utils/dayjs";
 
 function serializeCommit(
   repo_id: number,

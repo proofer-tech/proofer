@@ -1,6 +1,8 @@
 import "@mantine/core/styles.css";
 import "./globals.scss";
 import "@mantine/dates/styles.css";
+import "@mantine/nprogress/styles.css";
+import "@mantine/notifications/styles.css";
 import "dayjs/locale/ko";
 import React from "react";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
@@ -13,6 +15,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { generateMetadataFromTitle } from "@/src/manifest";
+import { Notifications } from "@mantine/notifications";
 
 export const viewport: Viewport = {
   themeColor: "#0052cc",
@@ -65,7 +68,10 @@ export default async function RootLayout({ children }: { children: any }) {
       </head>
       <body>
         <UserProvider>
-          <MantineProvider theme={theme}>{children}</MantineProvider>
+          <MantineProvider theme={theme}>
+            <Notifications />
+            {children}
+          </MantineProvider>
           <Analytics />
           <SpeedInsights />
 

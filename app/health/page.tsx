@@ -133,7 +133,11 @@ export default function HealthPage() {
             ))
           : data &&
             Object.entries(data).map(([k, h]) => (
-              <Tooltip.Floating key={k} label={h.description}>
+              <Tooltip.Floating
+                key={k}
+                label={h.description}
+                disabled={h.description.length > 0}
+              >
                 <Badge
                   size="xl"
                   variant="dot"

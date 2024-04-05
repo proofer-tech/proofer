@@ -37,7 +37,6 @@ export async function catchFKUserReferenceError(
   const userId = userIdExp.exec(e.detail)?.[1];
   if (!userId) throw e;
 
-  console.log(e.detail);
   const user = await getUser(octokit, parseInt(userId));
   if (user === null) throw NotFound(`User with id ${userId} not found`);
 

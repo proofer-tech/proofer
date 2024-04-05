@@ -6,7 +6,7 @@ import {
 } from "@/database/schemas/github/raw";
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import { Octokit, RequestError } from "octokit";
-import dayjs from "dayjs";
+import dayjs from "@/src/utils/dayjs";
 
 const serializePullRequests = (
   repoId: number,
