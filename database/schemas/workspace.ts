@@ -30,6 +30,8 @@ export const WorkspaceMember = schema.table("workspace_member", {
     .references(() => Workspace.id),
   user_id: integer("user_id").references(() => User.id),
   role: WorkspaceRoleEnum("role").default(WorkspaceRole.MEMBER),
+
+  avatar_url: varchar("avatar_url", { length: 512 }),
   // deprecated
   is_manager: boolean("is_manager").default(false).notNull(),
 });

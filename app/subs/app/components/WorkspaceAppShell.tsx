@@ -16,7 +16,7 @@ import {
   Text,
 } from "@mantine/core";
 import Image from "next/image";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useListState } from "@mantine/hooks";
 import "@mantine/charts/styles.css";
 import {
   IconHeadset,
@@ -28,7 +28,7 @@ import { ReactChannelIO, useChannelIOApi } from "react-channel-plugin";
 import { Path } from "@/app/subs/app/components/types";
 import UserMenu from "@/app/subs/app/components/UserMenu";
 import { generateAppPath, getPathBlocks } from "@/src/path";
-import TargetAvatarGroup from "@/app/subs/app/components/TargetAvatarGroup";
+import SearchByUserAvatarGroup from "@/app/subs/app/components/SearchByUserAvatarGroup";
 import { usePathname } from "next/navigation";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import { InferSelectModel } from "drizzle-orm";
@@ -47,6 +47,10 @@ import {
   GlobalAlertMold,
 } from "@/app/components/GlobalAlert";
 import { SUB_DOMAIN } from "@/src/constants";
+import SearchByMemberContext, {
+  searchByMemberContextTools,
+} from "@/src/contexts/SearchByMemberContext";
+import fromAsync from "array-from-async";
 
 function NeedHelpNavLink() {
   const { showMessenger } = useChannelIOApi();
@@ -138,7 +142,38 @@ export default function WorkspaceAppShell({
   const isNavLinkActive = (pathName: string, subPathName: string) =>
     pathName === pathBlock && subPathName === subPathBlock;
 
-  useEffect(() => setIsMounted(true), []);
+  const [searchTarget, setSearchTarget] =
+    useState<InferSelectModel<typeof WorkspaceMember>>();
+  const [searchRelations, searchRelationsHandler] = useListState<
+    InferSelectModel<typeof WorkspaceMember>
+  >([]);
+  useEffect(() => {
+    setIsMounted(true);
+    async function loadSearchByMemberContextData() {
+      if (searchByMemberContextTools.targetId) {
+        const target: InferSelectModel<typeof WorkspaceMember> = await fetch(
+          generateAppPath(
+            `/${workspace?.slug}/api/workspace/members/${searchByMemberContextTools.targetId}`,
+          ),
+        ).then((r) => r.json());
+        setSearchTarget(target);
+      }
+
+      if (searchByMemberContextTools.relationIds?.length) {
+        const relations = (await fromAsync(
+          searchByMemberContextTools.relationIds?.map(async (id) =>
+            fetch(
+              generateAppPath(
+                `/${workspace?.slug}/api/workspace/members/${id}`,
+              ),
+            ).then((r) => r.json()),
+          ) || [],
+        )) as InferSelectModel<typeof WorkspaceMember>[];
+        searchRelationsHandler.insert(0, ...relations);
+      }
+    }
+    if (workspace) loadSearchByMemberContextData();
+  }, []);
 
   return (
     <ReactChannelIO
@@ -170,263 +205,269 @@ export default function WorkspaceAppShell({
             trigger: setTriggerToken,
           }}
         >
-          <AppShell
-            navbar={{
-              width: "100%",
-              breakpoint: 0,
-              collapsed: {
-                mobile: !appShellContext.isCollapsed,
-                desktop: !appShellContext.isCollapsed,
-              },
-            }}
-            style={{
-              display: "flex",
-              justifyContent: "flex-start",
-              gap: 0,
-            }}
-            {...props}
+          <SearchByMemberContext.Provider
+            value={{ target: searchTarget, relations: searchRelations }}
           >
-            <Group
-              gap={0}
-              align={"start"}
-              w={"auto"}
-              h={"100dvh"}
-              wrap={"nowrap"}
-              style={{ flexShrink: 0 }}
+            <AppShell
+              navbar={{
+                width: "100%",
+                breakpoint: 0,
+                collapsed: {
+                  mobile: !appShellContext.isCollapsed,
+                  desktop: !appShellContext.isCollapsed,
+                },
+              }}
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                gap: 0,
+              }}
+              {...props}
             >
-              <Stack
+              <Group
                 gap={0}
-                w={"4em"}
-                h={"100%"}
-                align={"center"}
-                bg={"var(--mantine-color-white)"}
-                style={{
-                  borderRight: "1px solid var(--mantine-color-gray-3)",
-                  position: "relative",
-                  zIndex: 201,
-                  flexShrink: 0,
-                }}
+                align={"start"}
+                w={"auto"}
+                h={"100dvh"}
+                wrap={"nowrap"}
+                style={{ flexShrink: 0 }}
               >
-                <Center
-                  w={"100%"}
-                  h={"3.5em"}
+                <Stack
+                  gap={0}
+                  w={"4em"}
+                  h={"100%"}
+                  align={"center"}
+                  bg={"var(--mantine-color-white)"}
                   style={{
-                    borderBottom: "1px solid var(--mantine-color-gray-3)",
+                    borderRight: "1px solid var(--mantine-color-gray-3)",
+                    position: "relative",
+                    zIndex: 201,
                     flexShrink: 0,
                   }}
                 >
-                  {appShellContext.isCollapsed ? (
-                    <Anchor
-                      href={generateAppPath(`/${workspace?.slug || ""}`)}
-                      underline="never"
-                      fz={0}
-                    >
-                      <Image
-                        src="/assets/images/branding.svg"
-                        alt="프루퍼 로고"
-                        width={24}
-                        height={24}
-                      />
-                    </Anchor>
-                  ) : (
-                    <Button
-                      variant={"subtle"}
-                      onClick={() => appShellContext.toggle()}
-                    >
-                      <IconLayoutSidebarRightCollapse
-                        color={"var(--mantine-color-gray-6)"}
-                      />
-                    </Button>
-                  )}
-                </Center>
-                <Stack
-                  w={"100%"}
-                  h={"100%"}
-                  py={"1em"}
-                  justify={"space-between"}
-                  align={"center"}
-                >
-                  <TargetAvatarGroup />
-                  <UserMenu onSettingClick={openSettingModal} />
-                </Stack>
-              </Stack>
-              <AppShell.Navbar
-                w={"20em"}
-                style={{
-                  position: appShellContext.isCollapsed ? "relative" : "fixed",
-                  width: appShellContext.isCollapsed ? "100%" : "auto",
-                }}
-              >
-                <Stack gap={0} h={"100%"} align={"center"}>
-                  <Group
-                    pl={"1em"}
-                    pr={"0.5em"}
+                  <Center
                     w={"100%"}
                     h={"3.5em"}
-                    justify={"space-between"}
-                    align={"center"}
                     style={{
                       borderBottom: "1px solid var(--mantine-color-gray-3)",
                       flexShrink: 0,
                     }}
                   >
-                    <Text fw={700}>
-                      {workspace
-                        ? workspace.name
-                        : "워크스페이스를 선택해주세요"}
-                    </Text>
-                    <Button
-                      variant={"subtle"}
-                      onClick={() => appShellContext.toggle()}
-                    >
-                      {appShellContext.isCollapsed ? (
-                        <IconLayoutSidebarLeftCollapse
-                          color={"var(--mantine-color-gray-6)"}
+                    {appShellContext.isCollapsed ? (
+                      <Anchor
+                        href={generateAppPath(`/${workspace?.slug || ""}`)}
+                        underline="never"
+                        fz={0}
+                      >
+                        <Image
+                          src="/assets/images/branding.svg"
+                          alt="프루퍼 로고"
+                          width={24}
+                          height={24}
                         />
-                      ) : (
+                      </Anchor>
+                    ) : (
+                      <Button
+                        variant={"subtle"}
+                        onClick={() => appShellContext.toggle()}
+                      >
                         <IconLayoutSidebarRightCollapse
                           color={"var(--mantine-color-gray-6)"}
                         />
-                      )}
-                    </Button>
-                  </Group>
+                      </Button>
+                    )}
+                  </Center>
                   <Stack
                     w={"100%"}
                     h={"100%"}
+                    py={"1em"}
                     justify={"space-between"}
-                    style={{
-                      ...(appShellContext.isCollapsed
-                        ? {}
-                        : { display: "none" }),
-                    }}
+                    align={"center"}
                   >
-                    <ScrollArea>
-                      <Accordion
-                        multiple
-                        defaultValue={Object.entries(pathTree)
-                          .filter(
-                            ([k, v]) => v.isImplemented || k === pathBlock,
-                          )
-                          .map(([k]) => k)}
-                      >
-                        {Object.entries(pathTree).map(
-                          ([pathName, path], idx) => (
-                            <Accordion.Item
-                              key={pathName}
-                              value={pathName}
-                              style={
-                                idx + 1 === Object.keys(pathTree).length
-                                  ? { borderBottom: "none" }
-                                  : {}
-                              }
-                            >
-                              <Accordion.Control
-                                icon={
-                                  path.tablerIcon && (
-                                    <Center
-                                      p={"0.3em"}
-                                      bg={"var(--mantine-color-gray-2)"}
-                                      style={{ borderRadius: "4px" }}
-                                    >
-                                      <path.tablerIcon
-                                        size={"1em"}
-                                        color={
-                                          path.isImplemented
-                                            ? "var(--mantine-color-gray-8)"
-                                            : "var(--mantine-color-gray-6)"
-                                        }
-                                      />
-                                    </Center>
-                                  )
-                                }
-                              >
-                                <Text
-                                  fw={700}
-                                  c={
-                                    path.isImplemented
-                                      ? "var(--mantine-color-gray-8)"
-                                      : "var(--mantine-color-gray-6)"
-                                  }
-                                >
-                                  {path.title}
-                                </Text>
-                              </Accordion.Control>
-                              <Accordion.Panel>
-                                {path.subTree &&
-                                  Object.entries(path.subTree).map(
-                                    ([subPathName, subPath]) => (
-                                      <NavLink
-                                        key={`${pathName}/${subPathName}`}
-                                        href={
-                                          workspace
-                                            ? generateAppPath(
-                                                `/${pathName}/${subPathName}`,
-                                                workspace,
-                                              )
-                                            : "#"
-                                        }
-                                        leftSection={
-                                          subPath.tablerIcon && (
-                                            <subPath.tablerIcon
-                                              size={"1em"}
-                                              color={
-                                                subPath.isImplemented
-                                                  ? "var(--mantine-color-gray-6)"
-                                                  : "var(--mantine-color-gray-4)"
-                                              }
-                                            />
-                                          )
-                                        }
-                                        style={{
-                                          paddingLeft: "1em",
-                                          marginLeft: "1em",
-                                          borderLeft:
-                                            "1px solid var(--mantine-color-gray-3)",
-                                        }}
-                                        label={subPath.title}
-                                        c={
-                                          subPath.isImplemented
-                                            ? "var(--mantine-color-gray-8)"
-                                            : "var(--mantine-color-gray-4)"
-                                        }
-                                        active={isNavLinkActive(
-                                          pathName,
-                                          subPathName,
-                                        )}
-                                      />
-                                    ),
-                                  )}
-                              </Accordion.Panel>
-                            </Accordion.Item>
-                          ),
-                        )}
-                      </Accordion>
-                    </ScrollArea>
-                    <Stack gap={0}>
-                      <Divider />
-                      <NeedHelpNavLink />
-                    </Stack>
+                    <SearchByUserAvatarGroup />
+                    <UserMenu onSettingClick={openSettingModal} />
                   </Stack>
                 </Stack>
-              </AppShell.Navbar>
-            </Group>
-            <AppShell.Main
-              w={appShellContext.isCollapsed ? "calc(100% - 24em)" : "100%"}
-              pl={0}
-              h={"100dvh"}
-              bg={"var(--mantine-color-gray-0)"}
-            >
-              {/*ScrollArea 를 사용할 경우 inner 로 table 이 들어가는 문제가 있습니다.*/}
-              <Box
-                p={"2em"}
-                w={"100%"}
-                h={"100%"}
-                style={{ overflowY: "scroll", position: "relative" }}
+                <AppShell.Navbar
+                  w={"20em"}
+                  style={{
+                    position: appShellContext.isCollapsed
+                      ? "relative"
+                      : "fixed",
+                    width: appShellContext.isCollapsed ? "100%" : "auto",
+                  }}
+                >
+                  <Stack gap={0} h={"100%"} align={"center"}>
+                    <Group
+                      pl={"1em"}
+                      pr={"0.5em"}
+                      w={"100%"}
+                      h={"3.5em"}
+                      justify={"space-between"}
+                      align={"center"}
+                      style={{
+                        borderBottom: "1px solid var(--mantine-color-gray-3)",
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Text fw={700}>
+                        {workspace
+                          ? workspace.name
+                          : "워크스페이스를 선택해주세요"}
+                      </Text>
+                      <Button
+                        variant={"subtle"}
+                        onClick={() => appShellContext.toggle()}
+                      >
+                        {appShellContext.isCollapsed ? (
+                          <IconLayoutSidebarLeftCollapse
+                            color={"var(--mantine-color-gray-6)"}
+                          />
+                        ) : (
+                          <IconLayoutSidebarRightCollapse
+                            color={"var(--mantine-color-gray-6)"}
+                          />
+                        )}
+                      </Button>
+                    </Group>
+                    <Stack
+                      w={"100%"}
+                      h={"100%"}
+                      justify={"space-between"}
+                      style={{
+                        ...(appShellContext.isCollapsed
+                          ? {}
+                          : { display: "none" }),
+                      }}
+                    >
+                      <ScrollArea>
+                        <Accordion
+                          multiple
+                          defaultValue={Object.entries(pathTree)
+                            .filter(
+                              ([k, v]) => v.isImplemented || k === pathBlock,
+                            )
+                            .map(([k]) => k)}
+                        >
+                          {Object.entries(pathTree).map(
+                            ([pathName, path], idx) => (
+                              <Accordion.Item
+                                key={pathName}
+                                value={pathName}
+                                style={
+                                  idx + 1 === Object.keys(pathTree).length
+                                    ? { borderBottom: "none" }
+                                    : {}
+                                }
+                              >
+                                <Accordion.Control
+                                  icon={
+                                    path.tablerIcon && (
+                                      <Center
+                                        p={"0.3em"}
+                                        bg={"var(--mantine-color-gray-2)"}
+                                        style={{ borderRadius: "4px" }}
+                                      >
+                                        <path.tablerIcon
+                                          size={"1em"}
+                                          color={
+                                            path.isImplemented
+                                              ? "var(--mantine-color-gray-8)"
+                                              : "var(--mantine-color-gray-6)"
+                                          }
+                                        />
+                                      </Center>
+                                    )
+                                  }
+                                >
+                                  <Text
+                                    fw={700}
+                                    c={
+                                      path.isImplemented
+                                        ? "var(--mantine-color-gray-8)"
+                                        : "var(--mantine-color-gray-6)"
+                                    }
+                                  >
+                                    {path.title}
+                                  </Text>
+                                </Accordion.Control>
+                                <Accordion.Panel>
+                                  {path.subTree &&
+                                    Object.entries(path.subTree).map(
+                                      ([subPathName, subPath]) => (
+                                        <NavLink
+                                          key={`${pathName}/${subPathName}`}
+                                          href={
+                                            workspace
+                                              ? generateAppPath(
+                                                  `/${pathName}/${subPathName}`,
+                                                  workspace,
+                                                )
+                                              : "#"
+                                          }
+                                          leftSection={
+                                            subPath.tablerIcon && (
+                                              <subPath.tablerIcon
+                                                size={"1em"}
+                                                color={
+                                                  subPath.isImplemented
+                                                    ? "var(--mantine-color-gray-6)"
+                                                    : "var(--mantine-color-gray-4)"
+                                                }
+                                              />
+                                            )
+                                          }
+                                          style={{
+                                            paddingLeft: "1em",
+                                            marginLeft: "1em",
+                                            borderLeft:
+                                              "1px solid var(--mantine-color-gray-3)",
+                                          }}
+                                          label={subPath.title}
+                                          c={
+                                            subPath.isImplemented
+                                              ? "var(--mantine-color-gray-8)"
+                                              : "var(--mantine-color-gray-4)"
+                                          }
+                                          active={isNavLinkActive(
+                                            pathName,
+                                            subPathName,
+                                          )}
+                                        />
+                                      ),
+                                    )}
+                                </Accordion.Panel>
+                              </Accordion.Item>
+                            ),
+                          )}
+                        </Accordion>
+                      </ScrollArea>
+                      <Stack gap={0}>
+                        <Divider />
+                        <NeedHelpNavLink />
+                      </Stack>
+                    </Stack>
+                  </Stack>
+                </AppShell.Navbar>
+              </Group>
+              <AppShell.Main
+                w={appShellContext.isCollapsed ? "calc(100% - 24em)" : "100%"}
+                pl={0}
+                h={"100dvh"}
+                bg={"var(--mantine-color-gray-0)"}
               >
-                {children}
-              </Box>
-            </AppShell.Main>
-          </AppShell>
+                {/*ScrollArea 를 사용할 경우 inner 로 table 이 들어가는 문제가 있습니다.*/}
+                <Box
+                  p={"2em"}
+                  w={"100%"}
+                  h={"100%"}
+                  style={{ overflowY: "scroll", position: "relative" }}
+                >
+                  {children}
+                </Box>
+              </AppShell.Main>
+            </AppShell>
+          </SearchByMemberContext.Provider>
           <SettingsModal />
         </SettingsModalContext.Provider>
       </ProoferInsightContext.Provider>

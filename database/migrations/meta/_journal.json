@@ -71,6 +71,13 @@
       "when": 1712454763595,
       "tag": "0009_real_black_knight",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1712458276360,
+      "tag": "0010_bouncy_tombstone",
+      "breakpoints": true
     }
   ]
 }
