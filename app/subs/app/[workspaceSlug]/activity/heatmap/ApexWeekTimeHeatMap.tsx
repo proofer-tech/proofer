@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
-import { Paper, Transition } from "@mantine/core";
+import { Paper } from "@mantine/core";
 import { InferSelectModel } from "drizzle-orm";
 import { ProcessedGitHubTimeSeries } from "@/database/schemas/github/processed";
 import { groupBy } from "lodash";

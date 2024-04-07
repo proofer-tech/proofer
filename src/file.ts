@@ -1,4 +1,4 @@
-import { File, Blob } from "@web-std/file";
+import { Blob, File } from "@web-std/file";
 
 export const blobToBase64 = (blob: Blob) => {
   const reader = new FileReader();

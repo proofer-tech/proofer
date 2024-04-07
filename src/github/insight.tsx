@@ -1,9 +1,8 @@
 import { ProcessedGitHubTimeSeries } from "@/database/schemas/github/processed";
 import { InferSelectModel } from "drizzle-orm";
-import { IconMoonStars, TablerIconsProps } from "@tabler/icons-react";
+import { IconMoonStars } from "@tabler/icons-react";
 import React from "react";
-import { Badge, Tooltip } from "@mantine/core";
-import dayjs from "dayjs";
+import { Badge } from "@mantine/core";
 
 function InsightBadge({
   leftSection,

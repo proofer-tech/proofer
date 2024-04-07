@@ -1,7 +1,6 @@
 import React from "react";
 import { ApexWeekTimeHeatMap } from "@/app/subs/app/[workspaceSlug]/activity/heatmap/ApexWeekTimeHeatMap";
-import { Badge, Group, Paper, Stack } from "@mantine/core";
-import { IconMoonStars } from "@tabler/icons-react";
+import { Group, Paper, Stack } from "@mantine/core";
 import { dz } from "@/database/engine";
 import { ProcessedGitHubTimeSeries } from "@/database/schemas/github/processed";
 import { and, eq, gte, inArray, InferSelectModel, lt } from "drizzle-orm";

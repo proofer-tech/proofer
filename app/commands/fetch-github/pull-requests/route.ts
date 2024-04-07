@@ -10,7 +10,6 @@ import { eq, InferSelectModel } from "drizzle-orm";
 import fromAsync from "array-from-async";
 import { BadRequest, NotFound } from "http-errors";
 import { GitHubApp } from "@/src/integrations/github";
-import { catchFKUserReferenceError } from "@/src/github/users";
 import {
   extractAllPullRequestReviewComments,
   extractAllPullRequestReviews,

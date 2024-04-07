@@ -1,12 +1,7 @@
 import { withCommand } from "@/src/decorators/api";
 import { dz } from "@/database/engine";
-import {
-  GitHubCommit,
-  GitHubInstallation,
-  GitHubRepository,
-  WorkspaceToGitHubInstallation,
-} from "@/database/schemas/github/raw";
-import { eq, InferSelectModel } from "drizzle-orm";
+import { GitHubCommit, GitHubRepository } from "@/database/schemas/github/raw";
+import { eq } from "drizzle-orm";
 import fromAsync from "array-from-async";
 import { extractAllBranches } from "@/src/github/branches";
 import { extractAllCommits } from "@/src/github/commits";

@@ -1,6 +1,7 @@
 import { Octokit, RequestError } from "octokit";
 import { InferSelectModel } from "drizzle-orm";
 import { GitHubRepository } from "@/database/schemas/github/raw";
+
 export async function* extractAllBranches(
   octokit: Octokit,
   repo: InferSelectModel<typeof GitHubRepository>,

@@ -1,10 +1,6 @@
 import { dz } from "@/database/engine";
-import {
-  GitHubPullRequest,
-  GitHubRepository,
-  WorkspaceToGitHubInstallation,
-} from "@/database/schemas/github/raw";
-import { desc, eq } from "drizzle-orm";
+import { WorkspaceToGitHubInstallation } from "@/database/schemas/github/raw";
+import { eq } from "drizzle-orm";
 
 export async function getWorkspaceIdFromInstallationId(
   installation_id: number,

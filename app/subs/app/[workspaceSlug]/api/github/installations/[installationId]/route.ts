@@ -9,10 +9,7 @@ import {
 } from "@/database/schemas/github/raw";
 import { and, eq } from "drizzle-orm";
 import { Workspace } from "@/database/schemas/workspace";
-import {
-  AppRouteHandlerFnContext,
-  withApiAuthRequired,
-} from "@auth0/nextjs-auth0";
+import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { withApiWorkspaceUserRequired } from "@/src/decorators/api";
 import moment from "moment";
 import { notFound } from "next/navigation";

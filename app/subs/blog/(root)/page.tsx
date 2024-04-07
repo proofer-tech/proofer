@@ -1,12 +1,12 @@
 import {
-  Text,
+  Anchor,
+  Box,
   Container,
   Group,
   Paper,
   Stack,
+  Text,
   Title,
-  Box,
-  Anchor,
 } from "@mantine/core";
 import { getArticlesWithTags } from "@/src/data/blog";
 import { truncateHtml } from "@/src/utils/text";

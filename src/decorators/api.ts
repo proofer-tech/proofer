@@ -3,11 +3,7 @@ import { NextRequest } from "next/server";
 import { Workspace } from "@/database/schemas/workspace";
 import { dz } from "@/database/engine";
 import { eq, InferSelectModel } from "drizzle-orm";
-import {
-  AppRouteHandlerFn,
-  AppRouteHandlerFnContext,
-  WithApiAuthRequired,
-} from "@auth0/nextjs-auth0";
+import { AppRouteHandlerFn, WithApiAuthRequired } from "@auth0/nextjs-auth0";
 import { findUserFromSession } from "@/src/data/user";
 import { notFound } from "next/navigation";
 import { findMember } from "@/src/data/workspace";

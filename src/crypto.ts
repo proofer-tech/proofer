@@ -1,4 +1,5 @@
 import crypto from "crypto";
+
 const secret = process.env.CRYPTO_SECRET!;
 const iv = process.env.CRYPTO_IV!;
 const algorithm = "aes-256-cbc";

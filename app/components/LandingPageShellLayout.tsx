@@ -9,9 +9,9 @@ import {
   InquireCompletedModal,
   NotReadyYetModal,
 } from "@/app/components/Modal";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { Anchor, AppShell, Box, Text, Transition } from "@mantine/core";
+import { Anchor, AppShell, Box, Text } from "@mantine/core";
 import Footer from "@/app/components/Footer";
 import Header, { HeaderPortal } from "@/app/components/Header";
 import { ReactChannelIO } from "react-channel-plugin";
@@ -22,6 +22,7 @@ import {
 } from "@/src/hooks/mediaQuery";
 import TallyContext from "@/src/contexts/TallyContext";
 import AgentContext from "@/src/contexts/AgentContext";
+
 interface LandingPageShellLayoutProps
   extends Omit<LandingPageShellProps, "isNavbarOpened"> {
   portals: readonly HeaderPortal[];
