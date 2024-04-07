@@ -25,6 +25,8 @@ export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
   ) => {
     const { workspaceSlug } = props.params;
     const user = await findUserFromSession();
+    let member;
+
     if (user === undefined) throw new Unauthorized("잘못된 접근입니다.");
     const workspace = (
       await dz.select().from(Workspace).where(eq(Workspace.slug, workspaceSlug))
@@ -33,14 +35,12 @@ export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
 
     if (workspaceSlug === WORKSPACE_DEMO_SLUG) {
     } else {
-      const member = await findMember(workspace.id, user.id);
+      member = await findMember(workspace.id, user.id);
       if (member === undefined)
         throw Forbidden("워크스페이스의 멤버만 호출할 수 있습니다.");
-      else if (!canManageWorkspace(member.role))
-        throw Forbidden("워크스페이스의 관리자만 호출할 수 있습니다.");
     }
 
-    return apiRoute(req, { workspace, user, ...props }, ...args);
+    return apiRoute(req, { user, workspace, member, ...props }, ...args);
   };
 
   return wrapper as AppRouteHandlerFn;

@@ -28,7 +28,7 @@ import { ReactChannelIO, useChannelIOApi } from "react-channel-plugin";
 import { Path } from "@/app/subs/app/components/types";
 import UserMenu from "@/app/subs/app/components/UserMenu";
 import { generateAppPath, getPathBlocks } from "@/src/path";
-import SearchByUserAvatarGroup from "@/app/subs/app/components/SearchByUserAvatarGroup";
+import SearchByMemberGroup from "@/app/subs/app/components/SearchByMemberGroup";
 import { usePathname } from "next/navigation";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import { InferSelectModel } from "drizzle-orm";
@@ -51,6 +51,9 @@ import SearchByMemberContext, {
   searchByMemberContextTools,
 } from "@/src/contexts/SearchByMemberContext";
 import fromAsync from "array-from-async";
+import useSWR from "swr";
+import { Health } from "@/src/types/health";
+import { apiFetcher } from "@/src/swr";
 
 function NeedHelpNavLink() {
   const { showMessenger } = useChannelIOApi();
@@ -142,38 +145,42 @@ export default function WorkspaceAppShell({
   const isNavLinkActive = (pathName: string, subPathName: string) =>
     pathName === pathBlock && subPathName === subPathBlock;
 
-  const [searchTarget, setSearchTarget] =
-    useState<InferSelectModel<typeof WorkspaceMember>>();
-  const [searchRelations, searchRelationsHandler] = useListState<
-    InferSelectModel<typeof WorkspaceMember>
-  >([]);
-  useEffect(() => {
-    setIsMounted(true);
-    async function loadSearchByMemberContextData() {
-      if (searchByMemberContextTools.targetId) {
-        const target: InferSelectModel<typeof WorkspaceMember> = await fetch(
-          generateAppPath(
-            `/${workspace?.slug}/api/workspace/members/${searchByMemberContextTools.targetId}`,
-          ),
-        ).then((r) => r.json());
-        setSearchTarget(target);
-      }
+  const searchTargetSWR = useSWR<InferSelectModel<typeof WorkspaceMember>>(
+    generateAppPath(
+      `/${workspace?.slug}/api/workspace/members/${searchByMemberContextTools.targetId}`,
+    ),
+    apiFetcher,
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      isPaused: () => !searchByMemberContextTools.targetId,
+    },
+  );
 
-      if (searchByMemberContextTools.relationIds?.length) {
-        const relations = (await fromAsync(
-          searchByMemberContextTools.relationIds?.map(async (id) =>
-            fetch(
-              generateAppPath(
-                `/${workspace?.slug}/api/workspace/members/${id}`,
-              ),
-            ).then((r) => r.json()),
-          ) || [],
-        )) as InferSelectModel<typeof WorkspaceMember>[];
-        searchRelationsHandler.insert(0, ...relations);
-      }
-    }
-    if (workspace) loadSearchByMemberContextData();
-  }, []);
+  const searchRelationsSWR = useSWR<InferSelectModel<typeof WorkspaceMember>[]>(
+    (() => {
+      const url = generateAppPath(
+        `/${workspace?.slug}/api/workspace/members/${searchByMemberContextTools.targetId}`,
+      );
+      const searchParams = new URLSearchParams(
+        searchByMemberContextTools.relationIds?.map((id) => [
+          "member_id",
+          id.toString(),
+        ]),
+      );
+      return (
+        new URL(url, window.location.href).toString() + searchParams.toString()
+      );
+    })(),
+    apiFetcher,
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      isPaused: () => !searchByMemberContextTools.targetId,
+    },
+  );
+
+  useEffect(() => setIsMounted(true), []);
 
   return (
     <ReactChannelIO
@@ -206,7 +213,10 @@ export default function WorkspaceAppShell({
           }}
         >
           <SearchByMemberContext.Provider
-            value={{ target: searchTarget, relations: searchRelations }}
+            value={{
+              target: searchTargetSWR.data,
+              relations: searchRelationsSWR.data,
+            }}
           >
             <AppShell
               navbar={{
@@ -284,7 +294,10 @@ export default function WorkspaceAppShell({
                     justify={"space-between"}
                     align={"center"}
                   >
-                    <SearchByUserAvatarGroup />
+                    <SearchByMemberGroup
+                      target={searchTargetSWR.data}
+                      relations={searchRelationsSWR.data}
+                    />
                     <UserMenu onSettingClick={openSettingModal} />
                   </Stack>
                 </Stack>

@@ -6,7 +6,7 @@ import { WorkspaceMember } from "@/database/schemas/workspace";
 import { and, eq } from "drizzle-orm";
 
 export const GET = withApiAuthRequired(
-  withApiWorkspaceUserRequired(async (_: any, { params, workspace }: any) => {
+  withApiWorkspaceUserRequired(async (_: any, { workspace, params }: any) => {
     const { memberId } = params;
     const member = (
       await dz

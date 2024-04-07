@@ -1,0 +1,1 @@
+ALTER TABLE "proofer"."workspace_member" ADD COLUMN "nickname" varchar(32) DEFAULT '' NOT NULL;

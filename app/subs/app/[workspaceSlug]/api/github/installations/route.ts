@@ -7,11 +7,17 @@ import { dz } from "@/database/engine";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { withApiWorkspaceUserRequired } from "@/src/decorators/api";
+import { canManageWorkspace } from "@/src/services/role";
+import { Forbidden } from "http-errors";
 
 export const GET = withApiAuthRequired(
-  withApiWorkspaceUserRequired(async (_: any, { workspace }: any) => {
+  withApiWorkspaceUserRequired(async (_: any, { workspace, member }: any) => {
+    if (!canManageWorkspace(member.role)) {
+      throw Forbidden("워크스페이스의 관리자만 호출할 수 있습니다.");
+    }
+
     const querySet = await dz
-      .select()
+      .select({ installation: GitHubInstallation })
       .from(WorkspaceToGitHubInstallation)
       .innerJoin(
         GitHubInstallation,
@@ -21,6 +27,6 @@ export const GET = withApiAuthRequired(
         ),
       )
       .where(eq(WorkspaceToGitHubInstallation.workspace_id, workspace.id));
-    return NextResponse.json(querySet.map((qs) => qs.github_installation));
+    return NextResponse.json(querySet.map((qs) => qs.installation));
   }),
 );

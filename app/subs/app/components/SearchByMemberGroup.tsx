@@ -4,10 +4,18 @@ import { IconArrowMerge } from "@tabler/icons-react";
 import React, { useContext } from "react";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import SearchByMemberContext from "@/src/contexts/SearchByMemberContext";
+import { InferSelectModel } from "drizzle-orm";
+import { WorkspaceMember } from "@/database/schemas/workspace";
 
-export default function SearchByUserAvatarGroup() {
+interface SearchByMemberGroupProps {
+  target?: InferSelectModel<typeof WorkspaceMember>;
+  relations?: InferSelectModel<typeof WorkspaceMember>[];
+}
+export default function SearchByMemberGroup({
+  target,
+  relations,
+}: SearchByMemberGroupProps) {
   const { isMounted } = useContext(ProoferInsightContext);
-  const { target, relations } = useContext(SearchByMemberContext);
   return (
     <>
       {isMounted ? (

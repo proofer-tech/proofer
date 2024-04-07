@@ -78,6 +78,20 @@
       "when": 1712458276360,
       "tag": "0010_bouncy_tombstone",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1712458602748,
+      "tag": "0011_illegal_multiple_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "5",
+      "when": 1712461777956,
+      "tag": "0012_serious_silver_centurion",
+      "breakpoints": true
     }
   ]
 }

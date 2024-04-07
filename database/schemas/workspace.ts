@@ -1,5 +1,13 @@
 import { schema } from "@/database/engine";
-import { boolean, integer, serial, text, varchar } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  index,
+  integer,
+  serial,
+  text,
+  uniqueIndex,
+  varchar,
+} from "drizzle-orm/pg-core";
 import { User } from "@/database/schemas/auth";
 import { createEnumType } from "@/src/utils/drizzle";
 export enum WorkspaceRole {
@@ -31,7 +39,28 @@ export const WorkspaceMember = schema.table("workspace_member", {
   user_id: integer("user_id").references(() => User.id),
   role: WorkspaceRoleEnum("role").default(WorkspaceRole.MEMBER),
 
+  nickname: varchar("nickname", { length: 32 }).notNull().default(""),
   avatar_url: varchar("avatar_url", { length: 512 }),
   // deprecated
   is_manager: boolean("is_manager").default(false).notNull(),
 });
+
+export const WorkspaceMemberEmail = schema.table(
+  "workspace_member_email",
+  {
+    id: serial("id").primaryKey(),
+    workspace_id: integer("workspace_id")
+      .notNull()
+      .references(() => Workspace.id),
+    workspace_member_id: integer("workspace_member_id")
+      .notNull()
+      .references(() => WorkspaceMember.id),
+    email: varchar("email", { length: 128 }).notNull(),
+  },
+  (table) => ({
+    workspace_email_uidx: uniqueIndex("uidx_wme_workspace_id_email").on(
+      table.workspace_id,
+      table.email,
+    ),
+  }),
+);

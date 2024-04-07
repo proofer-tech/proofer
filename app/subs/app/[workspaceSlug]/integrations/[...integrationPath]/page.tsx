@@ -1,6 +1,5 @@
 import React from "react";
 import { Center } from "@mantine/core";
-import { fswitch } from "@/utils";
 import { dz } from "@/database/engine";
 import {
   Integration,
@@ -13,6 +12,7 @@ import GitHubSetupPage from "@/app/subs/app/[workspaceSlug]/integrations/compone
 import IntegrationPage from "@/app/subs/app/[workspaceSlug]/integrations/components/IntegrationPage";
 import NotReadyYetLetter from "@/app/components/NotReadyYetLetter";
 import { WorkspacePageProps } from "@/app/subs/app/[workspaceSlug]/types";
+import { cond, constant, matches, stubTrue } from "lodash";
 
 interface IntegrationPageProps extends WorkspacePageProps {
   params: WorkspacePageProps["params"] & {
@@ -40,23 +40,30 @@ export default async function Page({
   const integration = querySet[0].integration;
   const integrationTags = querySet.map((qs) => qs.integration_tag);
 
-  return fswitch(appName)
-    .case("github", () => (
-      <GitHubPage
-        workspaceSlug={workspaceSlug}
-        integration={integration}
-        integrationTags={integrationTags}
-        pathBlocks={pathBlocks}
-      />
-    ))
-    .default(() => (
-      <IntegrationPage
-        integration={integration}
-        integrationTags={integrationTags}
-      >
-        <Center h={"100%"} py={"3em"}>
-          <NotReadyYetLetter title={"아직 구현되지 않은 앱입니다."} />
-        </Center>
-      </IntegrationPage>
-    ));
+  return cond([
+    [
+      matches("github"),
+      constant(
+        <GitHubPage
+          workspaceSlug={workspaceSlug}
+          integration={integration}
+          integrationTags={integrationTags}
+          pathBlocks={pathBlocks}
+        />,
+      ),
+    ],
+    [
+      stubTrue,
+      constant(
+        <IntegrationPage
+          integration={integration}
+          integrationTags={integrationTags}
+        >
+          <Center h={"100%"} py={"3em"}>
+            <NotReadyYetLetter title={"아직 구현되지 않은 앱입니다."} />
+          </Center>
+        </IntegrationPage>,
+      ),
+    ],
+  ])(appName);
 }
