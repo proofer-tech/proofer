@@ -17,6 +17,7 @@ import { Forbidden, NotFound, Unauthorized } from "http-errors";
 import { Command, CommandState } from "@/database/schemas/command";
 import { withLock } from "@/src/redis";
 import { NextHandler, NextHandlerContext } from "@/src/types/general";
+import { canManageWorkspace } from "@/src/services/role";
 
 export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
   apiRoute: AppRouteHandlerFn,
@@ -39,7 +40,7 @@ export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
       const member = await findMember(workspace.id, user.id);
       if (member === undefined)
         throw Forbidden("워크스페이스의 멤버만 호출할 수 있습니다.");
-      else if (!member.is_manager)
+      else if (!canManageWorkspace(member.role))
         throw Forbidden("워크스페이스의 관리자만 호출할 수 있습니다.");
     }
 

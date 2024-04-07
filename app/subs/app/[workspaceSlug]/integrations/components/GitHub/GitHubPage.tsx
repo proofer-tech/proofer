@@ -19,6 +19,7 @@ import { generateAppPath } from "@/src/path";
 import { headers } from "next/headers";
 import IntegrationPage from "@/app/subs/app/[workspaceSlug]/integrations/components/IntegrationPage";
 import { WORKSPACE_DEMO_SLUG } from "@/src/constants";
+import { canManageWorkspace } from "@/src/services/role";
 
 async function generateInstallation(formData: FormData) {
   "use server";
@@ -36,7 +37,7 @@ async function generateInstallation(formData: FormData) {
   if (workspaceSlug === WORKSPACE_DEMO_SLUG)
     member = await getFirstMember(workspace.id);
   else member = await findMember(workspace.id, user.id);
-  if (!(member && member.is_manager)) return;
+  if (!(member && canManageWorkspace(member.role))) return;
 
   const installation = (
     await dz

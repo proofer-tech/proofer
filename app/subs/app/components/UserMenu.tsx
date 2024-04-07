@@ -12,6 +12,8 @@ import { settingsPathTree } from "@/app/subs/app/settings/tree";
 import React, { useContext } from "react";
 import { Path } from "./types";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
+import { WorkspaceRole } from "@/database/schemas/workspace";
+import { canManageWorkspace } from "@/src/services/role";
 
 interface UserMenuProps extends MenuProps {
   onSettingClick: (path: Path) => void;
@@ -64,7 +66,7 @@ export default function UserMenu({ onSettingClick }: UserMenuProps) {
                 </Stack>
               </Group>
             </Menu.Item>
-            {workspace?.member?.is_manager ? (
+            {canManageWorkspace(workspace?.member?.role) ? (
               <>
                 <Menu.Divider />
                 <Menu.Label>업그레이드</Menu.Label>
