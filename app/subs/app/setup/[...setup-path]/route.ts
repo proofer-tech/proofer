@@ -24,7 +24,8 @@ export const GET = withApiAuthRequired(async function GET(req: NextRequest) {
   if (!installationBridge) return notFound();
 
   const appPath = generateAppPath(
-    `/${installationBridge.workspace.slug}/integrations/github/setup`,
+    "/integrations/github/setup",
+    installationBridge.workspace.slug,
   );
   const setupURL = new URL(
     req.nextUrl.protocol + "//" + req.nextUrl.host + appPath,

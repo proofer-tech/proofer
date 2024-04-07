@@ -23,7 +23,7 @@ export default function WorkspaceChoice({
       }))}
       size={"lg"}
       onChange={(value) => {
-        const path = value && generateAppPath(`/${value}`);
+        const path = value && generateAppPath("/", value);
         if (path) {
           router.push(path);
           router.refresh();

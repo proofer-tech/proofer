@@ -16,7 +16,7 @@ import {
   Text,
 } from "@mantine/core";
 import Image from "next/image";
-import { useDisclosure, useListState } from "@mantine/hooks";
+import { useDisclosure } from "@mantine/hooks";
 import "@mantine/charts/styles.css";
 import {
   IconHeadset,
@@ -25,7 +25,6 @@ import {
 } from "@tabler/icons-react";
 import { pathTree } from "@/app/subs/app/tree";
 import { ReactChannelIO, useChannelIOApi } from "react-channel-plugin";
-import { Path } from "@/app/subs/app/components/types";
 import UserMenu from "@/app/subs/app/components/UserMenu";
 import { generateAppPath, getPathBlocks } from "@/src/path";
 import SearchByMemberGroup from "@/app/subs/app/components/SearchByMemberGroup";
@@ -50,10 +49,9 @@ import { SUB_DOMAIN } from "@/src/constants";
 import SearchByMemberContext, {
   searchByMemberContextTools,
 } from "@/src/contexts/SearchByMemberContext";
-import fromAsync from "array-from-async";
 import useSWR from "swr";
-import { Health } from "@/src/types/health";
 import { apiFetcher } from "@/src/swr";
+import { SettingPath } from "@/app/subs/app/settings/tree";
 
 function NeedHelpNavLink() {
   const { showMessenger } = useChannelIOApi();
@@ -137,7 +135,8 @@ export default function WorkspaceAppShell({
 
   const appShellContext = useContext(WorkspaceAppShellContext);
 
-  const openSettingModal = (path: Path) => {
+  const openSettingModal = (path: SettingPath) => {
+    settingsModal.setWithSubmit(path.canSubmit);
     settingsModal.setPath(path);
     settingsModal.disclosure.open();
   };
@@ -160,7 +159,8 @@ export default function WorkspaceAppShell({
   const searchRelationsSWR = useSWR<InferSelectModel<typeof WorkspaceMember>[]>(
     (() => {
       const url = generateAppPath(
-        `/${workspace?.slug}/api/workspace/members/${searchByMemberContextTools.targetId}`,
+        `/api/workspace/members/${searchByMemberContextTools.targetId}`,
+        workspace?.slug,
       );
       const searchParams = new URLSearchParams(
         searchByMemberContextTools.relationIds?.map((id) => [
@@ -201,6 +201,8 @@ export default function WorkspaceAppShell({
             setPath: settingsModal.setPath,
 
             opened: settingsModal.opened,
+            withSubmit: settingsModal.withSubmit,
+            setWithSubmit: settingsModal.setWithSubmit,
 
             open: settingsModal.disclosure.open,
             close: settingsModal.disclosure.close,
@@ -265,7 +267,7 @@ export default function WorkspaceAppShell({
                   >
                     {appShellContext.isCollapsed ? (
                       <Anchor
-                        href={generateAppPath(`/${workspace?.slug || ""}`)}
+                        href={generateAppPath("/", workspace?.slug)}
                         underline="never"
                         fz={0}
                       >
@@ -414,7 +416,7 @@ export default function WorkspaceAppShell({
                                             workspace
                                               ? generateAppPath(
                                                   `/${pathName}/${subPathName}`,
-                                                  workspace,
+                                                  workspace.slug,
                                                 )
                                               : "#"
                                           }

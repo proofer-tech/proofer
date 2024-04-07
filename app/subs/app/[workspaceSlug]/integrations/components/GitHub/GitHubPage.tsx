@@ -27,10 +27,10 @@ async function generateInstallation(formData: FormData) {
   const user = await findUserFromSession();
   if (user === undefined) return;
 
-  const workspaceSlug = formData.get("workspace-slug");
+  const workspaceSlug = formData.get("workspace-slug") as string;
   if (workspaceSlug === null) return;
 
-  const workspace = await findWorkspace(workspaceSlug as string);
+  const workspace = await findWorkspace(workspaceSlug);
   if (workspace === undefined) return;
 
   let member;
@@ -51,7 +51,7 @@ async function generateInstallation(formData: FormData) {
     headerList.get("X-Forwarded-Proto") +
     "://" +
     headerList.get("host") +
-    generateAppPath(`/${workspaceSlug}/integrations/github/setup`);
+    generateAppPath("/integrations/github/setup", workspaceSlug);
   redirect(
     `https://github.com/apps/proofer-tech/installations/select_target?state=${installation.uuid}&redirect_url=${setupUrl}`,
   );
@@ -79,7 +79,8 @@ export default function GitHubPage({
         installationId ? (
           <Anchor
             href={generateAppPath(
-              `/${workspaceSlug}/integrations/${integration.slug}`,
+              `/integrations/${integration.slug}`,
+              workspaceSlug,
             )}
             underline={"never"}
           >

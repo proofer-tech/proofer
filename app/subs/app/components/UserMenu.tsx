@@ -8,14 +8,14 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
-import { settingsPathTree } from "@/app/subs/app/settings/tree";
+import { SettingPath, settingTree } from "@/app/subs/app/settings/tree";
 import React, { useContext } from "react";
 import { Path } from "./types";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import { canManageWorkspace } from "@/src/services/role";
 
 interface UserMenuProps extends MenuProps {
-  onSettingClick: (path: Path) => void;
+  onSettingClick: (path: SettingPath) => void;
 }
 export default function UserMenu({ onSettingClick }: UserMenuProps) {
   const { user, workspace } = useContext(ProoferInsightContext);
@@ -76,7 +76,7 @@ export default function UserMenu({ onSettingClick }: UserMenuProps) {
                   </Group>
                 </Menu.Item>
                 <Menu.Divider />
-                {Object.entries(settingsPathTree).map(([pathName, path]) => (
+                {Object.entries(settingTree).map(([pathName, path]) => (
                   <Menu.Item
                     key={pathName}
                     component="button"

@@ -22,7 +22,7 @@ export default function IntegrationSettingsBody() {
     optIn: IntegrationDto[];
     others: IntegrationDto[];
   }>(
-    generateAppPath(`/${workspace?.instance.slug}/api/workspace/integrations`),
+    generateAppPath("/api/workspace/integrations", workspace?.instance.slug),
     apiFetcher,
     { isPaused: () => workspace === undefined },
   );
@@ -49,7 +49,8 @@ export default function IntegrationSettingsBody() {
                     <Anchor
                       key={integration.id}
                       href={generateAppPath(
-                        `/${workspace.instance.slug}/integrations/${integration.slug}`,
+                        `/integrations/${integration.slug}`,
+                        workspace.instance.slug,
                       )}
                       underline={"never"}
                       w={"100%"}
@@ -68,7 +69,8 @@ export default function IntegrationSettingsBody() {
                     <Anchor
                       key={integration.id}
                       href={generateAppPath(
-                        `/${workspace.instance.slug}/integrations/${integration.slug}`,
+                        `/integrations/${integration.slug}`,
+                        workspace.instance.slug,
                       )}
                       underline={"never"}
                       w={"100%"}

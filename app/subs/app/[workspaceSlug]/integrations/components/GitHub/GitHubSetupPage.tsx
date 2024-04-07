@@ -17,6 +17,7 @@ export default async function GitHubSetupPage({
   params,
   searchParams,
 }: PageProps) {
+  const { workspaceSlug } = params;
   const headerList = headers();
   const installationId = parseInt(searchParams.installation_id);
   const installationUUID = searchParams.state;
@@ -68,7 +69,8 @@ export default async function GitHubSetupPage({
   }
 
   const appPath = generateAppPath(
-    `/${params["workspaceSlug"]}/integrations/github/${installationId}`,
+    `/integrations/github/${installationId}`,
+    workspaceSlug,
   );
   const setupURL = new URL(
     headerList.get("X-Forwarded-Proto") +

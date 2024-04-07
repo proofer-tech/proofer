@@ -7,6 +7,7 @@ import {
   Avatar,
   Card,
   Center,
+  Divider,
   Group,
   LoadingOverlay,
   Menu,
@@ -26,6 +27,55 @@ import { apiFetcher } from "@/src/swr";
 import { useRouter } from "next/navigation";
 import { cond, constant, matches } from "lodash";
 
+function MemberCard({
+  member,
+}: {
+  member: InferSelectModel<typeof WorkspaceMember>;
+  withChangeRole?: boolean;
+}) {
+  return (
+    <Card withBorder>
+      <Card.Section withBorder inheritPadding py="xs">
+        <Group justify="space-between">
+          <Group>
+            <Avatar src={member.avatar_url} />
+            <Text fw={700} size={"sm"}>
+              {member.nickname}
+            </Text>
+            <Text fw={700} size={"sm"}>
+              (
+              {cond([
+                [matches(WorkspaceRole.OWNER), constant("소유자")],
+                [matches(WorkspaceRole.MANAGER), constant("관리자")],
+                [matches(WorkspaceRole.MEMBER), constant("멤버")],
+              ])(member.role)}
+              )
+            </Text>
+          </Group>
+          <Menu withinPortal position="bottom-end" shadow="sm">
+            <Menu.Target>
+              <ActionIcon variant="subtle" color="gray">
+                <IconDots size={"1em"} />
+              </ActionIcon>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Item>멤버 정보수정</Menu.Item>
+              {member.role !== WorkspaceRole.OWNER ? (
+                <>
+                  <Menu.Divider />
+                  <Menu.Item c={"red"}>멤버 제거</Menu.Item>
+                </>
+              ) : (
+                ""
+              )}
+            </Menu.Dropdown>
+          </Menu>
+        </Group>
+      </Card.Section>
+    </Card>
+  );
+}
+
 export default function MemberSettingsBody() {
   const router = useRouter();
   const { workspace } = useContext(ProoferInsightContext);
@@ -34,7 +84,7 @@ export default function MemberSettingsBody() {
 
   const [delayedJobs, delayedJobHandler] = useListState<() => Promise<any>>([]);
   const membersSWR = useSWR<InferSelectModel<typeof WorkspaceMember>[]>(
-    generateAppPath(`/${workspace?.instance.slug}/api/workspace/members`),
+    generateAppPath("/api/workspace/members", workspace?.instance.slug),
     apiFetcher,
     {
       isPaused() {
@@ -76,47 +126,28 @@ export default function MemberSettingsBody() {
 
   return (
     <Stack>
-      {membersSWR.isLoading ? (
-        <>
-          {[...Array(5)].map((_, index) => (
-            <Skeleton key={index} height={"2em"} />
-          ))}
-        </>
-      ) : (
-        ""
-      )}
-      {!membersSWR.isLoading
-        ? membersSWR.data?.map((member) => (
-            <Card key={member.id} withBorder>
-              <Card.Section withBorder inheritPadding py="xs">
-                <Group justify="space-between">
-                  <Group>
-                    <Avatar src={member.avatar_url} />
-                    <Text fw={700} size={"sm"}>
-                      {member.nickname}
-                    </Text>
-                    <Text fw={700} size={"sm"}>
-                      (
-                      {cond([
-                        [matches(WorkspaceRole.OWNER), constant("소유자")],
-                        [matches(WorkspaceRole.MANAGER), constant("관리자")],
-                        [matches(WorkspaceRole.MEMBER), constant("멤버")],
-                      ])(member.role)}
-                      )
-                    </Text>
-                  </Group>
-                  <Menu withinPortal position="bottom-end" shadow="sm">
-                    <Menu.Target>
-                      <ActionIcon variant="subtle" color="gray">
-                        <IconDots size={"1em"} />
-                      </ActionIcon>
-                    </Menu.Target>
-                  </Menu>
-                </Group>
-              </Card.Section>
-            </Card>
-          ))
-        : ""}
+      <Stack pb={"2em"}>
+        <Divider label="Owner" labelPosition="left" w={"100%"} />
+        {!membersSWR.isLoading ? (
+          membersSWR.data
+            ?.filter((member) => member.role === WorkspaceRole.OWNER)
+            .map((member) => <MemberCard key={member.id} member={member} />)
+        ) : (
+          <Skeleton height={"2.5em"} />
+        )}
+      </Stack>
+      <Stack pb={"2em"}>
+        <Divider label="Others" labelPosition="left" w={"100%"} />
+        {!membersSWR.isLoading
+          ? membersSWR.data
+              ?.filter((member) => member.role !== WorkspaceRole.OWNER)
+              .map((member) => (
+                <MemberCard key={member.id} member={member} withChangeRole />
+              ))
+          : [...Array(5)].map((_, index) => (
+              <Skeleton key={index} height={"2.5em"} />
+            ))}
+      </Stack>
     </Stack>
   );
 }

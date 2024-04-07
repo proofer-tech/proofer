@@ -54,7 +54,7 @@ export default function WorkspaceSettingsBody() {
     } else {
       delete formValues.logo_url;
     }
-    fetch(generateAppPath(`/${workspace.instance.slug}/api/workspace`), {
+    fetch(generateAppPath("/api/workspace", workspace.instance.slug), {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

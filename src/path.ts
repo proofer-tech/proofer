@@ -24,12 +24,9 @@ export const generateSubdomainPath = (path: string, subDomain?: string) => {
   return workspacePathBlocks.join("/").replace("//", "/");
 };
 
-export const generateAppPath = (
-  path: string,
-  workspace?: InferSelectModel<typeof Workspace>,
-) => {
+export const generateAppPath = (path: string, workspaceSlug?: string) => {
   const workspacePathBlocks = [];
-  if (workspace) workspacePathBlocks.push(workspace.slug);
+  if (workspaceSlug) workspacePathBlocks.push(workspaceSlug);
   if (path) workspacePathBlocks.push(path);
 
   return generateSubdomainPath(workspacePathBlocks.join("/"), SUB_DOMAIN.app);

@@ -39,7 +39,7 @@ export default async function Page() {
           ) : (
             <>
               <Anchor
-                href={generateAppPath(`/${WORKSPACE_DEMO_SLUG}`)}
+                href={generateAppPath(`/`, WORKSPACE_DEMO_SLUG)}
                 w={"100%"}
               >
                 <Button variant="light" w={"100%"}>

@@ -5,7 +5,7 @@ import { useContext, useEffect } from "react";
 import { SettingsModalContext } from "@/app/subs/app/settings/modal";
 import { Box, LoadingOverlay } from "@mantine/core";
 import { digTree } from "@/app/subs/app/components/types";
-import { settingsPathTree } from "@/app/subs/app/settings/tree";
+import { SettingPath, settingTree } from "@/app/subs/app/settings/tree";
 import { notFound } from "next/navigation";
 import { WorkspacePageProps } from "@/app/subs/app/[workspaceSlug]/types";
 
@@ -19,7 +19,7 @@ export default function Page({ params }: SettingPageProps) {
   const settingsModalContext = useContext(SettingsModalContext);
 
   useEffect(() => {
-    const path = digTree(settingsPathTree, params.path);
+    const path = digTree<SettingPath>(settingTree, params.path);
     if (path) {
       settingsModalContext.setPath?.(path);
       settingsModalContext.open();
