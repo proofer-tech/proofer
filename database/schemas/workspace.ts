@@ -40,7 +40,7 @@ export const WorkspaceMember = schema.table("workspace_member", {
   role: WorkspaceRoleEnum("role").default(WorkspaceRole.MEMBER),
 
   nickname: varchar("nickname", { length: 32 }).notNull().default(""),
-  avatar_url: varchar("avatar_url", { length: 512 }),
+  avatar_url: text("avatar_url"),
   // deprecated
   is_manager: boolean("is_manager").default(false).notNull(),
 });

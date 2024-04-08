@@ -10,28 +10,34 @@ interface SearchByMemberContextToolsProps {
 
 export const searchByMemberContextTools: SearchByMemberContextToolsProps = {
   get targetId() {
-    const targetId = window.localStorage.getItem(
-      "SearchByMemberContext.target",
-    );
+    const targetId =
+      typeof window === "undefined"
+        ? ""
+        : window.localStorage.getItem("SearchByMemberContext.target");
     return targetId ? parseInt(targetId) : undefined;
   },
   get relationIds() {
-    const relationIds = window.localStorage.getItem(
-      "SearchByMemberContext.relations",
-    );
+    const relationIds =
+      typeof window === "undefined"
+        ? ""
+        : window.localStorage.getItem("SearchByMemberContext.relations");
     return relationIds ? JSON.parse(relationIds) : undefined;
   },
 
   setTarget: (targetId: number) =>
-    window.localStorage.setItem(
-      "SearchByMemberContext.target",
-      targetId.toString(),
-    ),
+    typeof window === "undefined"
+      ? ""
+      : window.localStorage.setItem(
+          "SearchByMemberContext.target",
+          targetId.toString(),
+        ),
   setRelations: (relationIds: number[]) =>
-    window.localStorage.setItem(
-      "SearchByMemberContext.relations",
-      JSON.stringify(relationIds),
-    ),
+    typeof window === "undefined"
+      ? ""
+      : window.localStorage.setItem(
+          "SearchByMemberContext.relations",
+          JSON.stringify(relationIds),
+        ),
 };
 export interface SearchByMemberContextProps
   extends SearchByMemberContextToolsProps {

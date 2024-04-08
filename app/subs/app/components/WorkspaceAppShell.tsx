@@ -146,7 +146,8 @@ export default function WorkspaceAppShell({
 
   const searchTargetSWR = useSWR<InferSelectModel<typeof WorkspaceMember>>(
     generateAppPath(
-      `/${workspace?.slug}/api/workspace/members/${searchByMemberContextTools.targetId}`,
+      `/api/workspace/members/${searchByMemberContextTools.targetId}`,
+      workspace?.slug,
     ),
     apiFetcher,
     {
@@ -168,15 +169,19 @@ export default function WorkspaceAppShell({
           id.toString(),
         ]),
       );
-      return (
-        new URL(url, window.location.href).toString() + searchParams.toString()
-      );
+      if (typeof window !== "undefined")
+        return (
+          new URL(url, window.location.href).toString() +
+          searchParams.toString()
+        );
+      return url;
     })(),
     apiFetcher,
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-      isPaused: () => !searchByMemberContextTools.targetId,
+      isPaused: () =>
+        typeof window === "undefined" || !searchByMemberContextTools.targetId,
     },
   );
 
