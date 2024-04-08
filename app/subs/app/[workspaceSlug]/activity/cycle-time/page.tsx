@@ -1,14 +1,14 @@
 import { Paper, Stack, Title } from "@mantine/core";
 import React from "react";
 import CycleTimeAverage from "@/app/subs/app/[workspaceSlug]/activity/cycle-time/CycleTimeAverage";
-import { SearchGroup } from "@/src/modules/SearchByMember/SearchGroup";
+import { SearchBarContainer } from "@/src/modules/SearchBarControl/SearchBarContainer";
 import { CycleTimeBreakdown } from "@/app/subs/app/[workspaceSlug]/activity/cycle-time/CycleTimeBreakdown";
 import CycleTimeTable from "@/app/subs/app/[workspaceSlug]/activity/cycle-time/CycleTimeTable";
 
 export default function Page() {
   return (
     <Stack>
-      <SearchGroup />
+      <SearchBarContainer />
       <Stack>
         <Paper shadow="xs" p={"xl"}>
           <Stack>

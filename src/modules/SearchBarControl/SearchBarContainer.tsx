@@ -19,44 +19,32 @@ import { notifications } from "@mantine/notifications";
 import SearchByMemberGroup, {
   useMembersSWR,
 } from "@/app/subs/app/components/SearchByMemberGroup";
-import { Workspace } from "@/database/schemas/workspace";
-import { InferSelectModel } from "drizzle-orm";
-import SearchByMemberContext from "@/src/modules/SearchByMember/context";
+import SearchByMemberContext from "@/src/modules/SearchBarControl/context";
+import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 
 interface SearchGroupProps {
-  workspace?: InferSelectModel<typeof Workspace>;
   initialRange?: [Date | null, Date | null];
   onRangeChange?: (value: [Date, Date]) => void;
-  initialQuery?: string;
-  onQueryChange?: (value: string) => void;
   onSubmit?: () => void;
 
   weekCalendar?: boolean;
 }
-export function SearchGroup({
-  workspace,
+export function SearchBarContainer({
   initialRange,
   onRangeChange,
-  initialQuery,
-  onQueryChange,
   weekCalendar,
 }: SearchGroupProps) {
-  const membersSWR = useMembersSWR(workspace);
+  const { workspace } = useContext(ProoferInsightContext);
+  const membersSWR = useMembersSWR(workspace?.instance);
   const searchByMemberContext = useContext(SearchByMemberContext);
   const [range, setRange] = useState<[Date | null, Date | null]>(
     initialRange || [null, null],
   );
-  const [query, setQuery] = useState<string>(initialQuery || "");
 
   useEffect(() => {
     if (range[0] === null || range[1] === null) return;
     onRangeChange && onRangeChange(range as [Date, Date]);
   }, [range]);
-
-  useEffect(() => {
-    if (range[0] === null || range[1] === null) return;
-    onQueryChange && onQueryChange(query);
-  }, [query]);
 
   return (
     <Group justify={"space-between"} align={"start"} wrap={"nowrap"}>

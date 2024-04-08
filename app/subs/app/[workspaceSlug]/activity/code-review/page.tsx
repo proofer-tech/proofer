@@ -9,7 +9,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { SearchGroup } from "@/src/modules/SearchByMember/SearchGroup";
+import { SearchBarContainer } from "@/src/modules/SearchBarControl/SearchBarContainer";
 import CountCard from "./CountCard";
 import StrengthCard from "@/app/subs/app/[workspaceSlug]/activity/code-review/StrengthCard";
 import ColumnChart from "@/app/subs/app/[workspaceSlug]/activity/code-review/ColumnChart";
@@ -17,7 +17,7 @@ import ColumnChart from "@/app/subs/app/[workspaceSlug]/activity/code-review/Col
 export default function Page() {
   return (
     <Stack>
-      <SearchGroup />
+      <SearchBarContainer />
       <Paper shadow="xs" p={"sm"} py={"lg"}>
         <Group wrap={"nowrap"} gap={0}>
           <CountCard title={"전체 리뷰"} count={12} color={"gray"} />

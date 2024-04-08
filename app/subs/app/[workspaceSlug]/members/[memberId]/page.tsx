@@ -64,7 +64,7 @@ export default async function MemberPage({ params }: PageProps) {
   const { workspaceSlug, memberId } = params;
   const member: any = mapJoinData(
     WorkspaceMember,
-    [WorkspaceMemberEmail],
+    { many: [WorkspaceMemberEmail] },
     await dz
       .select()
       .from(WorkspaceMember)

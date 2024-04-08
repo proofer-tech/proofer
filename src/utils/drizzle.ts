@@ -33,15 +33,27 @@ export function createEnumType(enumName: string, enumType: {}) {
 
 export function mapJoinData(
   targetSchema: PgTable,
-  relationSchemas: PgTable[],
+  relations: {
+    one?: PgTable[];
+    many?: PgTable[];
+  },
   rows: { [key: string]: any }[],
 ) {
   const targetTableName = getTableName(targetSchema);
   const schemaTypeOrigin = Object.fromEntries(
-    relationSchemas.map((schema) => [
-      `${getTableName(schema)}_set`,
-      [] as InferSelectModel<typeof schema>[],
-    ]),
+    new Map(
+      (
+        relations.one?.map((schema) => [
+          getTableName(schema),
+          [] as InferSelectModel<typeof schema>[],
+        ]) || []
+      ).concat(
+        relations.many?.map((schema) => [
+          `${getTableName(schema)}_set`,
+          [] as InferSelectModel<typeof schema>[],
+        ]) || [],
+      ) as [string, any][],
+    ),
   );
 
   const aggregated = rows.reduce<
@@ -55,9 +67,19 @@ export function mapJoinData(
       acc[target.id] = { ...target };
     }
 
-    for (const relationSchema of relationSchemas) {
+    for (const relationSchema of relations?.one || []) {
       const relationTableName = getTableName(relationSchema);
       if (row[relationTableName]) {
+        acc[target.id][relationTableName] = row[relationTableName];
+      }
+    }
+
+    for (const relationSchema of relations?.many || []) {
+      const relationTableName = getTableName(relationSchema);
+      if (row[relationTableName]) {
+        if (!acc[target.id][`${relationTableName}_set`]) {
+          acc[target.id][`${relationTableName}_set`] = [];
+        }
         acc[target.id][`${relationTableName}_set`].push(row[relationTableName]);
       }
     }

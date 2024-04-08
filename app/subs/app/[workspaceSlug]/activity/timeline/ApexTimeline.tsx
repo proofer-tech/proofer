@@ -4,6 +4,8 @@ import Chart from "react-apexcharts";
 import moment from "moment";
 import { Paper } from "@mantine/core";
 import { ApexOptions } from "apexcharts";
+import { InferSelectModel } from "drizzle-orm";
+import { ProcessedGitHubTimeSeries } from "@/database/schemas/github/processed";
 
 function generateData(range: [Date, Date], count: number, y: number) {
   const [startDate, endDate] = range;
@@ -20,7 +22,8 @@ function generateData(range: [Date, Date], count: number, y: number) {
   }
   return series;
 }
-export function SimpleBubbleChart() {
+type tsType = InferSelectModel<typeof ProcessedGitHubTimeSeries>;
+export function ApexTimeline({ timeSeries }: { timeSeries: tsType[] }) {
   const [series] = useState([
     {
       name: "[임한솔] Commit",

@@ -48,7 +48,7 @@ import {
   GlobalAlertMold,
 } from "@/app/components/GlobalAlert";
 import { SUB_DOMAIN } from "@/src/constants";
-import SearchByMemberContext from "@/src/modules/SearchByMember/context";
+import SearchByMemberContext from "@/src/modules/SearchBarControl/context";
 import { SettingPath } from "@/app/subs/app/settings/tree";
 
 function NeedHelpNavLink() {

@@ -1,35 +1,27 @@
 "use client";
 import dayjs from "@/src/utils/dayjs";
-import { SearchGroup } from "@/src/modules/SearchByMember/SearchGroup";
+import { SearchBarContainer } from "@/src/modules/SearchBarControl/SearchBarContainer";
 import React, { useContext, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { InferSelectModel } from "drizzle-orm";
-import { Workspace } from "@/database/schemas/workspace";
 import SearchByMemberContext, {
   searchByMemberContextTools,
-} from "@/src/modules/SearchByMember/context";
+} from "@/src/modules/SearchBarControl/context";
 import { useDebouncedState } from "@mantine/hooks";
 import { isEqual } from "lodash";
 
-export interface SearchControlProps {
+export interface SearchBarControlProps {
   range: [string, string];
-  q?: string;
-  targetId?: number;
-  relationIds?: number[];
+  target?: string;
+  relations?: string[];
 }
 type SearchByMemberTupleType = [number | undefined, number[]];
-export default function SearchControl({
-  range,
-  q,
-  workspace,
-  targetId,
-  relationIds,
-}: SearchControlProps & {
-  workspace: InferSelectModel<typeof Workspace>;
-}) {
+export default function SearchBarControl(props: SearchBarControlProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
+
+  const targetId = props.target ? parseInt(props.target) : undefined;
+  const relationIds = props.relations ? props.relations.map(parseInt) : [];
 
   const [href, setHref] = useState("");
   useEffect(() => {
@@ -58,11 +50,13 @@ export default function SearchControl({
     setSearchByMemberTuple(changedValue);
   }, [target, relations]);
 
-  const [searchByRange, setSearchByRange] = useState<[string, string]>(range);
+  const [searchByRange, setSearchByRange] = useState<[string, string]>(
+    props.range,
+  );
   useEffect(() => {
     const newSearchParams = new URLSearchParams(searchParams.toString());
 
-    if (searchByRange && !isEqual(searchByRange, range)) {
+    if (searchByRange && !isEqual(searchByRange, props.range)) {
       newSearchParams.delete("range");
       for (const r of searchByRange) {
         newSearchParams.append("range", r);
@@ -98,12 +92,13 @@ export default function SearchControl({
   }, [searchByRange, searchByMemberTuple]);
 
   return (
-    <SearchGroup
-      workspace={workspace}
+    <SearchBarContainer
       initialRange={
-        range && [dayjs(range[0]).toDate(), dayjs(range[1]).toDate()]
+        props.range && [
+          dayjs(props.range[0]).toDate(),
+          dayjs(props.range[1]).toDate(),
+        ]
       }
-      initialQuery={q}
       weekCalendar={true}
       onRangeChange={([start, end]) => {
         if (!href) return;

@@ -16,20 +16,20 @@ import {
 import { Workspace, WorkspaceMemberEmail } from "@/database/schemas/workspace";
 import { WorkspacePageProps } from "@/app/subs/app/[workspaceSlug]/types";
 import dayjs, { endOfWeek, startOfWeek } from "@/src/utils/dayjs";
-import SearchControl, {
-  SearchControlProps,
-} from "@/src/modules/SearchByMember/SearchControl";
-import { TimeSeriesTable } from "@/app/subs/app/[workspaceSlug]/activity/heatmap/TimeSeriesTable";
 import { GitHubEvent } from "@/src/github/types";
-import HeatmapSegmentedControl from "@/app/subs/app/[workspaceSlug]/activity/heatmap/HeatmapSegmentedControl";
-import { HeatmapSegment } from "@/src/types/heatmap";
 import { analyzeTimeSeries } from "@/src/github/insight";
 import { isString } from "lodash";
 import { GitHubUser } from "@/database/schemas/github/raw";
 import { mapJoinData } from "@/src/utils/drizzle";
+import SearchBarControl, {
+  SearchBarControlProps,
+} from "@/src/modules/SearchBarControl/SearchBarControl";
+import SegmentControl from "@/src/modules/SegmentControl/SegmentControl";
+import { TimeSeriesTable } from "@/src/modules/TimeSeriesTable";
+import { GitHubSegment } from "@/src/modules/SegmentControl/types";
 
 interface HeatmapPageProps extends WorkspacePageProps {
-  searchParams: SearchControlProps & {
+  searchParams: SearchBarControlProps & {
     segment?: string;
     target?: string;
     relations?: string[];
@@ -41,7 +41,7 @@ export default async function Page({ params, searchParams }: HeatmapPageProps) {
     await dz.select().from(Workspace).where(eq(Workspace.slug, workspaceSlug))
   )[0];
 
-  let { range, q, segment, target, relations } = searchParams;
+  let { range, segment, target, relations } = searchParams;
   relations = isString(relations) ? [relations] : relations || [];
 
   if (!range) {
@@ -69,12 +69,12 @@ export default async function Page({ params, searchParams }: HeatmapPageProps) {
     .orderBy(ProcessedGitHubTimeSeries.timestamp);
 
   switch (segment ? parseInt(segment) : 0) {
-    case HeatmapSegment.Commit:
+    case GitHubSegment.Commit:
       andConditions.push(
         eq(ProcessedGitHubTimeSeries.event, GitHubEvent.commit),
       );
       break;
-    case HeatmapSegment["Pull Request"]:
+    case GitHubSegment["Pull Request"]:
       andConditions.push(
         inArray(ProcessedGitHubTimeSeries.event, [
           GitHubEvent["pull_request_review.submitted"],
@@ -84,7 +84,7 @@ export default async function Page({ params, searchParams }: HeatmapPageProps) {
         ]),
       );
       break;
-    case HeatmapSegment["Issue"]:
+    case GitHubSegment["Issue"]:
       andConditions.push(
         inArray(ProcessedGitHubTimeSeries.event, [
           GitHubEvent["issues.opened"],
@@ -97,7 +97,7 @@ export default async function Page({ params, searchParams }: HeatmapPageProps) {
   if (target) {
     const githubUsers = mapJoinData(
       GitHubUser,
-      [],
+      {},
       await dz
         .select()
         .from(GitHubUser)
@@ -118,7 +118,7 @@ export default async function Page({ params, searchParams }: HeatmapPageProps) {
   if (relations.length > 0) {
     const githubUsers = mapJoinData(
       GitHubUser,
-      [],
+      {},
       await dz
         .select()
         .from(GitHubUser)
@@ -151,20 +151,14 @@ export default async function Page({ params, searchParams }: HeatmapPageProps) {
   const timeSeriesSet: InferSelectModel<typeof ProcessedGitHubTimeSeries>[] =
     mapJoinData(
       ProcessedGitHubTimeSeries,
-      [],
+      {},
       // @ts-ignore
       await querySet.where(...conditions),
     );
 
   return (
     <Stack>
-      <SearchControl
-        workspace={workspace}
-        range={range}
-        q={q}
-        targetId={target ? parseInt(target) : undefined}
-        relationIds={relations?.map(parseInt)}
-      />
+      <SearchBarControl range={range} target={target} relations={relations} />
       <Paper shadow="xs" p="sm">
         <Group align={"center"}>
           {[...analyzeTimeSeries(timeSeriesSet)].map((badge, idx) => (
@@ -174,7 +168,7 @@ export default async function Page({ params, searchParams }: HeatmapPageProps) {
       </Paper>
       <Stack>
         <ApexWeekTimeHeatMap timeSeries={timeSeriesSet} />
-        <HeatmapSegmentedControl segment={segment ? parseInt(segment) : 0} />
+        <SegmentControl segment={segment ? parseInt(segment) : 0} />
         <TimeSeriesTable timeSeries={timeSeriesSet} />
       </Stack>
     </Stack>
