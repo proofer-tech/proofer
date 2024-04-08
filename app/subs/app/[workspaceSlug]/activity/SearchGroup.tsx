@@ -10,24 +10,27 @@ import { DatePickerInput } from "@mantine/dates";
 import dayjs from "dayjs";
 import { endOfWeek, startOfWeek } from "@/src/utils/dayjs";
 import { notifications } from "@mantine/notifications";
+import SearchByMemberGroup from "@/app/subs/app/components/SearchByMemberGroup";
+import { Workspace } from "@/database/schemas/workspace";
+import { InferSelectModel } from "drizzle-orm";
 
 interface SearchGroupProps {
+  workspace?: InferSelectModel<typeof Workspace>;
   initialRange?: [Date | null, Date | null];
   onRangeChange?: (value: [Date, Date]) => void;
   initialQuery?: string;
   onQueryChange?: (value: string) => void;
   onSubmit?: () => void;
-  avatars?: { src: string; isTarget: boolean }[];
 
   weekCalendar?: boolean;
 }
 export function SearchGroup({
+  workspace,
   initialRange,
   onRangeChange,
   initialQuery,
   onQueryChange,
   onSubmit,
-  avatars,
   weekCalendar,
 }: SearchGroupProps) {
   const [range, setRange] = useState<[Date | null, Date | null]>(
@@ -79,31 +82,7 @@ export function SearchGroup({
           value={query}
           onChange={(e) => setQuery(e.currentTarget.value)}
         />
-        <Group gap={0}>
-          <Avatar
-            src={"/assets/images/sample/avatar/1.jpg"}
-            style={{
-              border: "3px solid var(--color-primary)",
-            }}
-          />
-          <Group px={"0.5em"} align={"center"}>
-            <IconArrowMerge
-              style={{ transform: "rotate(-90deg)" }}
-              size={"1.2em"}
-            />
-          </Group>
-          <Avatar.Group>
-            {avatars
-              ?.reverse()
-              .slice(-3)
-              .map((avatar) => <Avatar key={avatar.src} src={avatar.src} />)}
-            {avatars && avatars.length > 3 ? (
-              <Avatar>+{avatars.length - 3}</Avatar>
-            ) : (
-              ""
-            )}
-          </Avatar.Group>
-        </Group>
+        <SearchByMemberGroup workspace={workspace} horizontal={true} />
       </Group>
     </Group>
   );

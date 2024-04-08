@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { InferSelectModel } from "drizzle-orm";
 import { GitHubUser } from "@/database/schemas/github/raw";
+import { Workspace } from "@/database/schemas/workspace";
 
 export interface HeatmapSearchGroupProps {
   range?: string[];
@@ -13,9 +14,9 @@ export interface HeatmapSearchGroupProps {
 export default function HeatmapSearchGroup({
   range,
   q,
-  githubUsers,
+  workspace,
 }: HeatmapSearchGroupProps & {
-  githubUsers: InferSelectModel<typeof GitHubUser>[];
+  workspace: InferSelectModel<typeof Workspace>;
 }) {
   const router = useRouter();
   const [href, setHref] = useState("");
@@ -26,6 +27,7 @@ export default function HeatmapSearchGroup({
 
   return (
     <SearchGroup
+      workspace={workspace}
       initialRange={
         range && [dayjs(range[0]).toDate(), dayjs(range[1]).toDate()]
       }
@@ -42,10 +44,6 @@ export default function HeatmapSearchGroup({
         router.push(newURL.toString());
         router.refresh();
       }}
-      avatars={githubUsers.map((gu) => ({
-        src: gu.avatar_url || "",
-        isTarget: false,
-      }))}
     />
   );
 }

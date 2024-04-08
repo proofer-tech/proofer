@@ -302,8 +302,8 @@ export default function WorkspaceAppShell({
                     align={"center"}
                   >
                     <SearchByMemberGroup
-                      target={searchTargetSWR.data}
-                      relations={searchRelationsSWR.data}
+                      workspace={workspace}
+                      vertical={true}
                     />
                     <UserMenu onSettingClick={openSettingModal} />
                   </Stack>

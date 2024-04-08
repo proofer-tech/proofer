@@ -73,19 +73,9 @@ export default async function Page({ params, searchParams }: HeatmapPageProps) {
   }
 
   const timeSeriesSet = await querySet.where(and(...conditions));
-  const timeSeriesUsers = (await dz
-    // @ts-ignore
-    .selectDistinctOn([GitHubUser.user_id], GitHubUser)
-    .from(GitHubUser)
-    .innerJoin(
-      ProcessedGitHubTimeSeries,
-      eq(ProcessedGitHubTimeSeries.user_id, GitHubUser.user_id),
-    )
-    .where(and(...conditions))) as InferSelectModel<typeof GitHubUser>[];
-
   return (
     <Stack>
-      <HeatmapSearchGroup range={range} q={q} githubUsers={timeSeriesUsers} />
+      <HeatmapSearchGroup workspace={workspace} range={range} q={q} />
       <Paper shadow="xs" p="sm">
         <Group align={"center"}>
           {[...analyzeTimeSeries(timeSeriesSet)].map((badge, idx) => (
