@@ -1,9 +1,12 @@
 import { Octokit, RequestError } from "octokit";
-import { InferInsertModel } from "drizzle-orm";
+import { eq, InferInsertModel } from "drizzle-orm";
 import { GitHubUser } from "@/database/schemas/github/raw";
 import moment from "moment";
 import { VercelPgDatabase } from "drizzle-orm/vercel-postgres";
 import { NotFound } from "http-errors";
+import { cached } from "@/src/redis";
+import { dz } from "@/database/engine";
+import { conflictUpdateSetAllColumns } from "@/src/utils/drizzle";
 
 function serializeUser(data: any): InferInsertModel<typeof GitHubUser> {
   return {
@@ -27,6 +30,30 @@ export async function getUser(octokit: Octokit, user_id: number) {
   return null;
 }
 
+export const ensureGitHubUser = cached(async function ensureUser(
+  octokit: Octokit,
+  user_id: number,
+) {
+  const dbUser = (
+    await dz.select().from(GitHubUser).where(eq(GitHubUser.user_id, user_id))
+  )[0];
+  if (dbUser) return dbUser;
+
+  const githubUser = await getUser(octokit, user_id);
+  if (githubUser === null) throw NotFound(`User with id ${user_id} not found`);
+
+  return (
+    await dz
+      .insert(GitHubUser)
+      .values(githubUser)
+      .onConflictDoUpdate({
+        target: GitHubUser.user_id,
+        set: conflictUpdateSetAllColumns(GitHubUser),
+      })
+      .returning()
+  )[0];
+});
+
 export async function catchFKUserReferenceError(
   tx: VercelPgDatabase,
   octokit: Octokit,
@@ -36,9 +63,5 @@ export async function catchFKUserReferenceError(
   const userIdExp = new RegExp(/=\((\d+)\)/);
   const userId = userIdExp.exec(e.detail)?.[1];
   if (!userId) throw e;
-
-  const user = await getUser(octokit, parseInt(userId));
-  if (user === null) throw NotFound(`User with id ${userId} not found`);
-
-  return tx.insert(GitHubUser).values(user).onConflictDoNothing();
+  return ensureGitHubUser(octokit, parseInt(userId));
 }

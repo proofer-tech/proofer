@@ -3,23 +3,27 @@ import { ApexWeekTimeHeatMap } from "@/app/subs/app/[workspaceSlug]/activity/hea
 import { Group, Paper, Stack } from "@mantine/core";
 import { dz } from "@/database/engine";
 import { ProcessedGitHubTimeSeries } from "@/database/schemas/github/processed";
-import { and, eq, gte, inArray, InferSelectModel, lt } from "drizzle-orm";
-import { Workspace } from "@/database/schemas/workspace";
+import { and, eq, gte, inArray, InferSelectModel, lt, or } from "drizzle-orm";
+import { Workspace, WorkspaceMemberEmail } from "@/database/schemas/workspace";
 import { WorkspacePageProps } from "@/app/subs/app/[workspaceSlug]/types";
 import dayjs, { endOfWeek, startOfWeek } from "@/src/utils/dayjs";
-import HeatmapSearchGroup, {
-  HeatmapSearchGroupProps,
-} from "@/app/subs/app/[workspaceSlug]/activity/heatmap/HeatmapSearchGroup";
+import SearchControl, {
+  SearchControlProps,
+} from "@/src/modules/SearchByMember/SearchControl";
 import { TimeSeriesTable } from "@/app/subs/app/[workspaceSlug]/activity/heatmap/TimeSeriesTable";
 import { GitHubEvent } from "@/src/github/types";
 import HeatmapSegmentedControl from "@/app/subs/app/[workspaceSlug]/activity/heatmap/HeatmapSegmentedControl";
 import { HeatmapSegment } from "@/src/types/heatmap";
 import { analyzeTimeSeries } from "@/src/github/insight";
+import { isString } from "lodash";
 import { GitHubUser } from "@/database/schemas/github/raw";
+import { mapJoinData } from "@/src/utils/drizzle";
 
 interface HeatmapPageProps extends WorkspacePageProps {
-  searchParams: HeatmapSearchGroupProps & {
+  searchParams: SearchControlProps & {
     segment?: string;
+    target?: string;
+    relations?: string[];
   };
 }
 export default async function Page({ params, searchParams }: HeatmapPageProps) {
@@ -28,7 +32,9 @@ export default async function Page({ params, searchParams }: HeatmapPageProps) {
     await dz.select().from(Workspace).where(eq(Workspace.slug, workspaceSlug))
   )[0];
 
-  let { range, q, segment } = searchParams;
+  let { range, q, segment, target, relations } = searchParams;
+  relations = isString(relations) ? [relations] : relations || [];
+
   if (!range) {
     const today = new Date();
     range = [
@@ -38,22 +44,29 @@ export default async function Page({ params, searchParams }: HeatmapPageProps) {
   }
 
   const [start, end] = range;
-  const conditions = [
+  const andConditions = [
     eq(ProcessedGitHubTimeSeries.workspace_id, workspace.id),
     gte(ProcessedGitHubTimeSeries.timestamp, dayjs(start).toDate()),
     lt(ProcessedGitHubTimeSeries.timestamp, dayjs(end).toDate()),
   ];
+  const orConditions = [];
   const querySet = dz
     .select()
     .from(ProcessedGitHubTimeSeries)
+    .innerJoin(
+      GitHubUser,
+      eq(ProcessedGitHubTimeSeries.user_id, GitHubUser.user_id),
+    )
     .orderBy(ProcessedGitHubTimeSeries.timestamp);
 
   switch (segment ? parseInt(segment) : 0) {
     case HeatmapSegment.Commit:
-      conditions.push(eq(ProcessedGitHubTimeSeries.event, GitHubEvent.commit));
+      andConditions.push(
+        eq(ProcessedGitHubTimeSeries.event, GitHubEvent.commit),
+      );
       break;
     case HeatmapSegment["Pull Request"]:
-      conditions.push(
+      andConditions.push(
         inArray(ProcessedGitHubTimeSeries.event, [
           GitHubEvent["pull_request_review.submitted"],
           GitHubEvent["pull_request.opened"],
@@ -63,7 +76,7 @@ export default async function Page({ params, searchParams }: HeatmapPageProps) {
       );
       break;
     case HeatmapSegment["Issue"]:
-      conditions.push(
+      andConditions.push(
         inArray(ProcessedGitHubTimeSeries.event, [
           GitHubEvent["issues.opened"],
           GitHubEvent["issue_comment.created"],
@@ -72,10 +85,77 @@ export default async function Page({ params, searchParams }: HeatmapPageProps) {
       break;
   }
 
-  const timeSeriesSet = await querySet.where(and(...conditions));
+  if (target) {
+    const githubUsers = mapJoinData(
+      GitHubUser,
+      [],
+      await dz
+        .select()
+        .from(GitHubUser)
+        .innerJoin(
+          WorkspaceMemberEmail,
+          eq(GitHubUser.email, WorkspaceMemberEmail.email),
+        )
+        .where(eq(WorkspaceMemberEmail.workspace_member_id, parseInt(target))),
+    );
+    const githubUserEmails: any = githubUsers
+      .filter((ghu) => ghu.email !== null)
+      .map((ghu) => ghu.email);
+
+    if (githubUserEmails.length === 0)
+      orConditions.push(inArray(GitHubUser.email, [""]));
+    else orConditions.push(inArray(GitHubUser.email, githubUserEmails));
+  }
+  if (relations.length > 0) {
+    const githubUsers = mapJoinData(
+      GitHubUser,
+      [],
+      await dz
+        .select()
+        .from(GitHubUser)
+        .innerJoin(
+          WorkspaceMemberEmail,
+          eq(GitHubUser.email, WorkspaceMemberEmail.email),
+        )
+        .where(
+          inArray(
+            WorkspaceMemberEmail.workspace_member_id,
+            relations.map(parseInt),
+          ),
+        ),
+    );
+    const githubUserEmails: any = githubUsers
+      .filter((ghu) => ghu.email !== null)
+      .map((ghu) => ghu.email);
+
+    if (githubUserEmails.length === 0)
+      orConditions.push(inArray(GitHubUser.email, [""]));
+    else orConditions.push(inArray(GitHubUser.email, githubUserEmails));
+  }
+
+  const conditions = [];
+  if (orConditions.length === 1) andConditions.push(orConditions[0]);
+  else conditions.push(or(...orConditions));
+  conditions.push(and(...andConditions));
+
+  // @ts-ignore
+  const timeSeriesSet: InferSelectModel<typeof ProcessedGitHubTimeSeries>[] =
+    mapJoinData(
+      ProcessedGitHubTimeSeries,
+      [],
+      // @ts-ignore
+      await querySet.where(...conditions),
+    );
+
   return (
     <Stack>
-      <HeatmapSearchGroup workspace={workspace} range={range} q={q} />
+      <SearchControl
+        workspace={workspace}
+        range={range}
+        q={q}
+        targetId={target ? parseInt(target) : undefined}
+        relationIds={relations?.map(parseInt)}
+      />
       <Paper shadow="xs" p="sm">
         <Group align={"center"}>
           {[...analyzeTimeSeries(timeSeriesSet)].map((badge, idx) => (

@@ -17,7 +17,7 @@ import {
   WorkspaceMemberEmail,
 } from "@/database/schemas/workspace";
 import { useForm } from "@mantine/form";
-import { IconRowInsertBottom, IconMail, IconXboxX } from "@tabler/icons-react";
+import { IconMail, IconRowInsertBottom, IconXboxX } from "@tabler/icons-react";
 import ThumbnailFileInput from "@/src/components/ThumbnailFileInput";
 import { generateNextFormAction } from "@/src/utils/mantine";
 

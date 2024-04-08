@@ -7,20 +7,17 @@ import {
   Anchor,
   Avatar,
   Card,
-  Center,
   Divider,
   Group,
-  LoadingOverlay,
   Menu,
   Skeleton,
   Stack,
   Text,
-  Title,
 } from "@mantine/core";
-import { IconDots, IconSunset } from "@tabler/icons-react";
+import { IconDots } from "@tabler/icons-react";
 import { SettingsModalContext } from "@/app/subs/app/settings/modal";
 import { useListState } from "@mantine/hooks";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 import { InferSelectModel } from "drizzle-orm";
 import {
   Workspace,

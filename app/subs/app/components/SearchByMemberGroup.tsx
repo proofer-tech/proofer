@@ -4,7 +4,7 @@ import { IconArrowMerge } from "@tabler/icons-react";
 import React, { useContext, useEffect, useState } from "react";
 import SearchByMemberContext, {
   searchByMemberContextTools,
-} from "@/src/contexts/SearchByMemberContext";
+} from "@/src/modules/SearchByMember/context";
 import { InferSelectModel } from "drizzle-orm";
 import { Workspace, WorkspaceMember } from "@/database/schemas/workspace";
 import useSWR from "swr";

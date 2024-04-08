@@ -7,11 +7,9 @@ import {
 import {
   getTableConfig,
   pgEnum,
-  PgJoin,
   PgTable,
   PgUpdateSetSource,
 } from "drizzle-orm/pg-core";
-import { merge } from "lodash";
 
 export function conflictUpdateSetAllColumns<TTable extends PgTable>(
   table: TTable,
@@ -53,11 +51,12 @@ export function mapJoinData(
     >
   >((acc, row) => {
     const target = row[targetTableName];
+    if (!acc[target.id]) {
+      acc[target.id] = { ...target };
+    }
+
     for (const relationSchema of relationSchemas) {
       const relationTableName = getTableName(relationSchema);
-      if (!acc[target.id]) {
-        acc[target.id] = { ...target, [`${relationTableName}_set`]: [] };
-      }
       if (row[relationTableName]) {
         acc[target.id][`${relationTableName}_set`].push(row[relationTableName]);
       }

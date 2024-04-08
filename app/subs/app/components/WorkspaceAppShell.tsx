@@ -48,11 +48,7 @@ import {
   GlobalAlertMold,
 } from "@/app/components/GlobalAlert";
 import { SUB_DOMAIN } from "@/src/constants";
-import SearchByMemberContext, {
-  searchByMemberContextTools,
-} from "@/src/contexts/SearchByMemberContext";
-import useSWR from "swr";
-import { apiFetcher } from "@/src/swr";
+import SearchByMemberContext from "@/src/modules/SearchByMember/context";
 import { SettingPath } from "@/app/subs/app/settings/tree";
 
 function NeedHelpNavLink() {

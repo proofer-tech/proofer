@@ -1,14 +1,8 @@
-import { Path, PathTree } from "@/app/subs/app/components/types";
-import {
-  IconApps,
-  IconFolder,
-  IconUsers,
-  TablerIconsProps,
-} from "@tabler/icons-react";
+import { Path } from "@/app/subs/app/components/types";
+import { IconApps, IconFolder, IconUsers } from "@tabler/icons-react";
 import WorkspaceSettingsBody from "@/app/subs/app/settings/workspace/WorkspaceSettingsBody";
 import MemberSettingsBody from "@/app/subs/app/settings/member/MemberSettingsBody";
 import IntegrationSettingsBody from "@/app/subs/app/settings/integration/IntegrationSettingBody";
-import React from "react";
 
 export interface SettingPath extends Path {
   subTree?: SettingTree;

@@ -10,7 +10,6 @@ import {
 } from "@mantine/core";
 import { SettingPath, settingTree } from "@/app/subs/app/settings/tree";
 import React, { useContext } from "react";
-import { Path } from "./types";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import { canManageWorkspace } from "@/src/services/role";
 

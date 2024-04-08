@@ -11,8 +11,6 @@ import { mapJoinData } from "@/src/utils/drizzle";
 import MemberForm from "@/app/subs/app/[workspaceSlug]/members/[memberId]/MemberForm";
 import { NotFound, Unauthorized } from "http-errors";
 import { findUserFromSession } from "@/src/data/user";
-import { findWorkspace } from "@/src/data/workspace";
-import { base64ToFile } from "@/src/file";
 import { put } from "@vercel/blob";
 
 async function handleSubmit(formData: FormData) {

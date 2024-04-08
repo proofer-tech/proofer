@@ -59,15 +59,17 @@ export const GET = withCommand(async function (req) {
           dz
             .insert(ProcessedGitHubTimeSeries)
             .values(
-              commits.map((commit) => ({
-                workspace_id: workspace_id,
-                event: GitHubEvent.commit,
-                reference_id: commit.sha,
-                installation_id: repository.installation_id,
-                repository_id: repository.id,
-                user_id: commit.author_id,
-                timestamp: commit.timestamp,
-              })),
+              commits.map((commit) => {
+                return {
+                  workspace_id: workspace_id,
+                  event: GitHubEvent.commit,
+                  reference_id: commit.sha,
+                  installation_id: repository.installation_id,
+                  repository_id: repository.id,
+                  user_id: commit.author_id,
+                  timestamp: commit.timestamp,
+                };
+              }),
             )
             .onConflictDoUpdate({
               target: [

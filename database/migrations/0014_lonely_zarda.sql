@@ -1,0 +1,1 @@
+ALTER TABLE "proofer"."processed_github_time_series" ADD COLUMN "user_email" varchar(100);

@@ -9,7 +9,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { SearchGroup } from "@/app/subs/app/[workspaceSlug]/activity/SearchGroup";
+import { SearchGroup } from "@/src/modules/SearchByMember/SearchGroup";
 import CountCard from "./CountCard";
 import StrengthCard from "@/app/subs/app/[workspaceSlug]/activity/code-review/StrengthCard";
 import ColumnChart from "@/app/subs/app/[workspaceSlug]/activity/code-review/ColumnChart";

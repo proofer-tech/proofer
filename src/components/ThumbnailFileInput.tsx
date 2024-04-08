@@ -1,6 +1,7 @@
 "use client";
 import { Avatar, AvatarProps, FileInput, FileInputProps } from "@mantine/core";
 import React from "react";
+
 interface ThumbnailFileInputProps {
   avatarProps?: AvatarProps;
   fileInputProps?: FileInputProps;

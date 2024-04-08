@@ -13,7 +13,6 @@ import { Forbidden, NotFound, Unauthorized } from "http-errors";
 import { Command, CommandState } from "@/database/schemas/command";
 import { withLock } from "@/src/redis";
 import { NextHandler, NextHandlerContext } from "@/src/types/general";
-import { canManageWorkspace } from "@/src/services/role";
 
 export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
   apiRoute: AppRouteHandlerFn,

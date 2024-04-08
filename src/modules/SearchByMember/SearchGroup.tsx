@@ -21,9 +21,7 @@ import SearchByMemberGroup, {
 } from "@/app/subs/app/components/SearchByMemberGroup";
 import { Workspace } from "@/database/schemas/workspace";
 import { InferSelectModel } from "drizzle-orm";
-import SearchByMemberContext, {
-  searchByMemberContextTools,
-} from "@/src/contexts/SearchByMemberContext";
+import SearchByMemberContext from "@/src/modules/SearchByMember/context";
 
 interface SearchGroupProps {
   workspace?: InferSelectModel<typeof Workspace>;

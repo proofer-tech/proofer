@@ -1,5 +1,3 @@
-import { Workspace } from "@/database/schemas/workspace";
-import { InferSelectModel } from "drizzle-orm";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 import { SUB_DOMAIN } from "@/src/constants";
 
