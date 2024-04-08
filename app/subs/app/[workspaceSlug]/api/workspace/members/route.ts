@@ -3,7 +3,7 @@ import { withApiWorkspaceUserRequired } from "@/src/decorators/api";
 import { NextRequest, NextResponse } from "next/server";
 import { dz } from "@/database/engine";
 import { WorkspaceMember } from "@/database/schemas/workspace";
-import { eq, or, SQL } from "drizzle-orm";
+import { and, eq, or, SQL } from "drizzle-orm";
 
 export const GET = withApiAuthRequired(
   withApiWorkspaceUserRequired(async (req: NextRequest, { workspace }: any) => {
@@ -21,7 +21,7 @@ export const GET = withApiAuthRequired(
       .select()
       .from(WorkspaceMember)
       // @ts-ignore
-      .where(...andConditions);
+      .where(and(...andConditions));
 
     return NextResponse.json(members);
   }),

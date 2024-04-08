@@ -27,7 +27,9 @@ import { pathTree } from "@/app/subs/app/tree";
 import { ReactChannelIO, useChannelIOApi } from "react-channel-plugin";
 import UserMenu from "@/app/subs/app/components/UserMenu";
 import { generateAppPath, getPathBlocks } from "@/src/path";
-import SearchByMemberGroup from "@/app/subs/app/components/SearchByMemberGroup";
+import SearchByMemberGroup, {
+  useSearchByMemberSWR,
+} from "@/app/subs/app/components/SearchByMemberGroup";
 import { usePathname } from "next/navigation";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import { InferSelectModel } from "drizzle-orm";
@@ -143,47 +145,8 @@ export default function WorkspaceAppShell({
 
   const isNavLinkActive = (pathName: string, subPathName: string) =>
     pathName === pathBlock && subPathName === subPathBlock;
-
-  const searchTargetSWR = useSWR<InferSelectModel<typeof WorkspaceMember>>(
-    generateAppPath(
-      `/api/workspace/members/${searchByMemberContextTools.targetId}`,
-      workspace?.slug,
-    ),
-    apiFetcher,
-    {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-      isPaused: () => !searchByMemberContextTools.targetId,
-    },
-  );
-
-  const searchRelationsSWR = useSWR<InferSelectModel<typeof WorkspaceMember>[]>(
-    (() => {
-      const url = generateAppPath(
-        `/api/workspace/members/${searchByMemberContextTools.targetId}`,
-        workspace?.slug,
-      );
-      const searchParams = new URLSearchParams(
-        searchByMemberContextTools.relationIds?.map((id) => [
-          "member_id",
-          id.toString(),
-        ]),
-      );
-      if (typeof window !== "undefined")
-        return (
-          new URL(url, window.location.href).toString() +
-          searchParams.toString()
-        );
-      return url;
-    })(),
-    apiFetcher,
-    {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-      isPaused: () =>
-        typeof window === "undefined" || !searchByMemberContextTools.targetId,
-    },
-  );
+  const { target, relations, setTarget, setRelations, isLoading } =
+    useSearchByMemberSWR(workspace);
 
   useEffect(() => setIsMounted(true), []);
 
@@ -221,8 +184,11 @@ export default function WorkspaceAppShell({
         >
           <SearchByMemberContext.Provider
             value={{
-              target: searchTargetSWR.data,
-              relations: searchRelationsSWR.data,
+              target,
+              setTarget,
+              relations,
+              setRelations,
+              isLoading: isLoading,
             }}
           >
             <AppShell
@@ -253,6 +219,7 @@ export default function WorkspaceAppShell({
                   gap={0}
                   w={"4em"}
                   h={"100%"}
+                  justify={"start"}
                   align={"center"}
                   bg={"var(--mantine-color-white)"}
                   style={{
@@ -301,10 +268,7 @@ export default function WorkspaceAppShell({
                     justify={"space-between"}
                     align={"center"}
                   >
-                    <SearchByMemberGroup
-                      workspace={workspace}
-                      vertical={true}
-                    />
+                    <SearchByMemberGroup vertical={true} />
                     <UserMenu onSettingClick={openSettingModal} />
                   </Stack>
                 </Stack>

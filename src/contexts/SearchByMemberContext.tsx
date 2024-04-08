@@ -4,8 +4,8 @@ import { WorkspaceMember } from "@/database/schemas/workspace";
 interface SearchByMemberContextToolsProps {
   targetId?: number;
   relationIds?: number[];
-  setTarget?: (targetId: number) => void;
-  setRelations?: (relationIds: number[]) => void;
+  setTargetId?: (targetId: number) => void;
+  setRelationIds?: (relationIds: number[]) => void;
 }
 
 export const searchByMemberContextTools: SearchByMemberContextToolsProps = {
@@ -24,14 +24,14 @@ export const searchByMemberContextTools: SearchByMemberContextToolsProps = {
     return relationIds ? JSON.parse(relationIds) : undefined;
   },
 
-  setTarget: (targetId: number) =>
+  setTargetId: (targetId: number) =>
     typeof window === "undefined"
       ? ""
       : window.localStorage.setItem(
           "SearchByMemberContext.target",
           targetId.toString(),
         ),
-  setRelations: (relationIds: number[]) =>
+  setRelationIds: (relationIds: number[]) =>
     typeof window === "undefined"
       ? ""
       : window.localStorage.setItem(
@@ -39,14 +39,18 @@ export const searchByMemberContextTools: SearchByMemberContextToolsProps = {
           JSON.stringify(relationIds),
         ),
 };
-export interface SearchByMemberContextProps
-  extends SearchByMemberContextToolsProps {
+export interface SearchByMemberContextProps {
   target?: InferSelectModel<typeof WorkspaceMember>;
   relations?: InferSelectModel<typeof WorkspaceMember>[];
+  setTarget?: (target: InferSelectModel<typeof WorkspaceMember>) => void;
+  setRelations?: (
+    relations: InferSelectModel<typeof WorkspaceMember>[],
+  ) => void;
+  isLoading: boolean;
 }
 
-const SearchByMemberContext = createContext<SearchByMemberContextProps>(
-  searchByMemberContextTools,
-);
+const SearchByMemberContext = createContext<SearchByMemberContextProps>({
+  isLoading: true,
+});
 
 export default SearchByMemberContext;

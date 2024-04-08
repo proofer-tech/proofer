@@ -1,18 +1,29 @@
 "use client";
-import { Avatar, Group, TextInput, Tooltip } from "@mantine/core";
 import {
-  IconArrowMerge,
-  IconCalendarMonth,
-  IconSearch,
-} from "@tabler/icons-react";
-import React, { useEffect, useState } from "react";
+  Divider,
+  FocusTrap,
+  Group,
+  MultiSelect,
+  Popover,
+  Select,
+  Stack,
+  TextInput,
+  Tooltip,
+} from "@mantine/core";
+import { IconCalendarMonth, IconSearch } from "@tabler/icons-react";
+import React, { useContext, useEffect, useState } from "react";
 import { DatePickerInput } from "@mantine/dates";
 import dayjs from "dayjs";
 import { endOfWeek, startOfWeek } from "@/src/utils/dayjs";
 import { notifications } from "@mantine/notifications";
-import SearchByMemberGroup from "@/app/subs/app/components/SearchByMemberGroup";
+import SearchByMemberGroup, {
+  useMembersSWR,
+} from "@/app/subs/app/components/SearchByMemberGroup";
 import { Workspace } from "@/database/schemas/workspace";
 import { InferSelectModel } from "drizzle-orm";
+import SearchByMemberContext, {
+  searchByMemberContextTools,
+} from "@/src/contexts/SearchByMemberContext";
 
 interface SearchGroupProps {
   workspace?: InferSelectModel<typeof Workspace>;
@@ -30,9 +41,10 @@ export function SearchGroup({
   onRangeChange,
   initialQuery,
   onQueryChange,
-  onSubmit,
   weekCalendar,
 }: SearchGroupProps) {
+  const membersSWR = useMembersSWR(workspace);
+  const searchByMemberContext = useContext(SearchByMemberContext);
   const [range, setRange] = useState<[Date | null, Date | null]>(
     initialRange || [null, null],
   );
@@ -49,7 +61,7 @@ export function SearchGroup({
   }, [query]);
 
   return (
-    <Group justify={"space-between"}>
+    <Group justify={"space-between"} align={"start"} wrap={"nowrap"}>
       <Tooltip
         label={"주 단위로 검색할 수 있습니다."}
         disabled={!weekCalendar}
@@ -73,16 +85,76 @@ export function SearchGroup({
           miw={"10em"}
           leftSection={<IconCalendarMonth size={"1em"} />}
           withCellSpacing={false}
+          style={{ whiteSpace: "nowrap" }}
         />
       </Tooltip>
       <Group>
-        <TextInput
-          placeholder={"대상인원을 검색하여 선택"}
-          rightSection={<IconSearch />}
-          value={query}
-          onChange={(e) => setQuery(e.currentTarget.value)}
-        />
-        <SearchByMemberGroup workspace={workspace} horizontal={true} />
+        <SearchByMemberGroup horizontal={true} />
+        <Popover width={300} position="bottom" withArrow shadow="md">
+          <Popover.Target>
+            <TextInput
+              placeholder={"대상인원을 검색하여 선택"}
+              rightSection={<IconSearch />}
+              readOnly
+            />
+          </Popover.Target>
+          <Popover.Dropdown>
+            <Stack>
+              <FocusTrap.InitialFocus />
+              <Select
+                label="데이터의 기준이 될 인원을 선택해주세요"
+                placeholder="1명을 선택"
+                data={
+                  membersSWR.data?.map((member) => ({
+                    label: member.nickname,
+                    value: member.id.toString(),
+                  })) || []
+                }
+                searchable
+                comboboxProps={{ withinPortal: false }}
+                value={searchByMemberContext.target?.id.toString()}
+                onChange={(value) => {
+                  if (value === null || membersSWR.data === undefined) return;
+                  const target = membersSWR.data.find(
+                    (member) => member.id === parseInt(value),
+                  );
+                  if (!target) return;
+                  searchByMemberContext.setTarget?.(target);
+                }}
+              />
+              <Divider />
+
+              <MultiSelect
+                label="데이터에 참고할 인원을 선택해주세요"
+                placeholder="여러명 선택"
+                data={
+                  membersSWR.data
+                    ?.filter(
+                      (member) =>
+                        member.id !== searchByMemberContext.target?.id,
+                    )
+                    .map((member) => ({
+                      label: member.nickname,
+                      value: member.id.toString(),
+                    })) || []
+                }
+                searchable
+                comboboxProps={{ withinPortal: false }}
+                value={searchByMemberContext.relations?.map((member) =>
+                  member.id.toString(),
+                )}
+                onChange={(value) => {
+                  if (value === null || membersSWR.data === undefined) return;
+                  const relations = membersSWR.data.filter((member) =>
+                    value.includes(member.id.toString()),
+                  );
+                  if (!relations) return;
+                  searchByMemberContext.setRelations?.(relations);
+                }}
+              />
+            </Stack>
+          </Popover.Dropdown>
+        </Popover>
       </Group>
     </Group>
   );
