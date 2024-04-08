@@ -4,6 +4,7 @@ import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext
 import NeedToSelectWorkspace from "@/app/subs/app/components/NeedToSelectWorkspace";
 import {
   ActionIcon,
+  Anchor,
   Avatar,
   Card,
   Center,
@@ -21,15 +22,21 @@ import { SettingsModalContext } from "@/app/subs/app/settings/modal";
 import { useListState } from "@mantine/hooks";
 import useSWR, { mutate } from "swr";
 import { InferSelectModel } from "drizzle-orm";
-import { WorkspaceMember, WorkspaceRole } from "@/database/schemas/workspace";
+import {
+  Workspace,
+  WorkspaceMember,
+  WorkspaceRole,
+} from "@/database/schemas/workspace";
 import { generateAppPath } from "@/src/path";
 import { apiFetcher } from "@/src/swr";
 import { useRouter } from "next/navigation";
 import { cond, constant, matches } from "lodash";
 
 function MemberCard({
+  workspace,
   member,
 }: {
+  workspace: InferSelectModel<typeof Workspace>;
   member: InferSelectModel<typeof WorkspaceMember>;
   withChangeRole?: boolean;
 }) {
@@ -59,11 +66,17 @@ function MemberCard({
               </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown>
-              <Menu.Item>멤버 정보수정</Menu.Item>
+              <Anchor
+                href={generateAppPath(`/members/${member.id}`, workspace.slug)}
+              >
+                <Menu.Item>멤버 정보수정</Menu.Item>
+              </Anchor>
               {member.role !== WorkspaceRole.OWNER ? (
                 <>
                   <Menu.Divider />
-                  <Menu.Item c={"red"}>멤버 제거</Menu.Item>
+                  <Menu.Item c={"red"} disabled>
+                    멤버 제거 (미구현)
+                  </Menu.Item>
                 </>
               ) : (
                 ""
@@ -131,7 +144,13 @@ export default function MemberSettingsBody() {
         {!membersSWR.isLoading ? (
           membersSWR.data
             ?.filter((member) => member.role === WorkspaceRole.OWNER)
-            .map((member) => <MemberCard key={member.id} member={member} />)
+            .map((member) => (
+              <MemberCard
+                key={member.id}
+                workspace={workspace.instance}
+                member={member}
+              />
+            ))
         ) : (
           <Skeleton height={"2.5em"} />
         )}
@@ -142,7 +161,12 @@ export default function MemberSettingsBody() {
           ? membersSWR.data
               ?.filter((member) => member.role !== WorkspaceRole.OWNER)
               .map((member) => (
-                <MemberCard key={member.id} member={member} withChangeRole />
+                <MemberCard
+                  key={member.id}
+                  workspace={workspace.instance}
+                  member={member}
+                  withChangeRole
+                />
               ))
           : [...Array(5)].map((_, index) => (
               <Skeleton key={index} height={"2.5em"} />
