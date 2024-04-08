@@ -88,7 +88,9 @@ export default async function Page({ params, searchParams }: HeatmapPageProps) {
       <HeatmapSearchGroup range={range} q={q} githubUsers={timeSeriesUsers} />
       <Paper shadow="xs" p="sm">
         <Group align={"center"}>
-          {[...analyzeTimeSeries(timeSeriesSet)].map((badge) => badge)}
+          {[...analyzeTimeSeries(timeSeriesSet)].map((badge, idx) => (
+            <div key={idx}>{badge}</div>
+          ))}
         </Group>
       </Paper>
       <Stack>

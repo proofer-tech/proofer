@@ -9,7 +9,7 @@ interface TimeSeriesTableProps {
 }
 export function TimeSeriesTable({ timeSeries }: TimeSeriesTableProps) {
   return (
-    <Paper shadow="xs" p="sm">
+    <Paper shadow="xs" p="sm" style={{ overflowX: "scroll" }}>
       <Table striped highlightOnHover>
         <Table.Thead>
           <Table.Tr>
@@ -22,7 +22,9 @@ export function TimeSeriesTable({ timeSeries }: TimeSeriesTableProps) {
         <Table.Tbody>
           {timeSeries.map((row) => (
             <Table.Tr key={row.id}>
-              <Table.Td ta={"right"}>{row.timestamp.toLocaleString()}</Table.Td>
+              <Table.Td ta={"right"} style={{ whiteSpace: "nowrap" }}>
+                {row.timestamp.toLocaleString()}
+              </Table.Td>
               <Table.Td>{row.event}</Table.Td>
               <Table.Td>{row.reference_id}</Table.Td>
               <Table.Td>{row.user_id}</Table.Td>
