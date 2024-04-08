@@ -3,7 +3,16 @@ import { ApexWeekTimeHeatMap } from "@/app/subs/app/[workspaceSlug]/activity/hea
 import { Group, Paper, Stack } from "@mantine/core";
 import { dz } from "@/database/engine";
 import { ProcessedGitHubTimeSeries } from "@/database/schemas/github/processed";
-import { and, eq, gte, inArray, InferSelectModel, lt, or } from "drizzle-orm";
+import {
+  and,
+  eq,
+  gte,
+  inArray,
+  InferSelectModel,
+  lt,
+  or,
+  SQL,
+} from "drizzle-orm";
 import { Workspace, WorkspaceMemberEmail } from "@/database/schemas/workspace";
 import { WorkspacePageProps } from "@/app/subs/app/[workspaceSlug]/types";
 import dayjs, { endOfWeek, startOfWeek } from "@/src/utils/dayjs";
@@ -135,7 +144,7 @@ export default async function Page({ params, searchParams }: HeatmapPageProps) {
 
   const conditions = [];
   if (orConditions.length === 1) andConditions.push(orConditions[0]);
-  else conditions.push(or(...orConditions));
+  else andConditions.push(or(...orConditions) as SQL);
   conditions.push(and(...andConditions));
 
   // @ts-ignore
