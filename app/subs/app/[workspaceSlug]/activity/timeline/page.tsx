@@ -38,15 +38,6 @@ export default async function Page({ params, searchParams }: PageProps) {
 
   let { range, segment, target, relations } = searchParams;
   relations = isString(relations) ? [relations] : relations || [];
-
-  if (!range) {
-    const today = new Date();
-    range = [
-      startOfWeek(dayjs(today).subtract(4, "weeks").toDate()).toISOString(),
-      endOfWeek(today).toISOString(),
-    ];
-  }
-  const [start, end] = range;
   const querySet = dz
     .select()
     .from(ProcessedGitHubTimeSeries)
@@ -67,10 +58,22 @@ export default async function Page({ params, searchParams }: PageProps) {
   const conditions: SQL<any>[] = [];
   const andConditions: SQL<any>[] = [
     eq(ProcessedGitHubTimeSeries.workspace_id, workspace.id),
-    gte(ProcessedGitHubTimeSeries.timestamp, dayjs(start).toDate()),
-    lt(ProcessedGitHubTimeSeries.timestamp, dayjs(end).toDate()),
   ];
   const orConditions: SQL<any>[] = [];
+  if (range) {
+    const [start, end] = range;
+    andConditions.push(
+      gte(
+        ProcessedGitHubTimeSeries.timestamp,
+        dayjs(start).set("hour", 0).set("minute", 0).set("second", 0).toDate(),
+      ),
+      lt(
+        ProcessedGitHubTimeSeries.timestamp,
+        dayjs(end).set("hour", 23).set("minute", 59).set("second", 59).toDate(),
+      ),
+    );
+  }
+
   switch (segment ? parseInt(segment) : 0) {
     case GitHubSegment.Commit:
       andConditions.push(
@@ -151,12 +154,14 @@ export default async function Page({ params, searchParams }: PageProps) {
 
   // @ts-ignore
   const timeSeriesSet: InferSelectModel<typeof ProcessedGitHubTimeSeries>[] =
-    mapJoinData(
-      ProcessedGitHubTimeSeries,
-      { one: [WorkspaceMember] },
-      // @ts-ignore
-      await querySet.where(...conditions),
-    );
+    range && target
+      ? mapJoinData(
+          ProcessedGitHubTimeSeries,
+          { one: [WorkspaceMember] },
+          // @ts-ignore
+          await querySet.where(...conditions),
+        )
+      : [];
 
   return (
     <Stack>

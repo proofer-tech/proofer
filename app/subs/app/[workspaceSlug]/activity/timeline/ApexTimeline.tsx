@@ -17,7 +17,7 @@ export function ApexTimeline({
   range,
 }: {
   timeSeries: tsType[];
-  range: [string, string];
+  range?: [string, string];
   segment: GitHubSegment;
 }) {
   const userIdMap = keyBy(
@@ -117,8 +117,8 @@ export function ApexTimeline({
       },
       xaxis: {
         type: "datetime",
-        min: dayjs(range[0]).toDate().getTime(),
-        max: dayjs(range[1]).toDate().getTime(),
+        min: range && dayjs(range[0]).toDate().getTime(),
+        max: range && dayjs(range[1]).toDate().getTime(),
       },
     });
   }, [timeSeries]);

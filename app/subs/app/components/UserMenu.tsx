@@ -12,6 +12,7 @@ import { SettingPath, settingTree } from "@/app/subs/app/settings/tree";
 import React, { useContext } from "react";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import { canManageWorkspace } from "@/src/services/role";
+import { generateAppPath } from "@/src/path";
 
 interface UserMenuProps extends MenuProps {
   onSettingClick: (path: SettingPath) => void;
@@ -92,6 +93,9 @@ export default function UserMenu({ onSettingClick }: UserMenuProps) {
               ""
             )}
             <Menu.Divider />
+            <Menu.Item component={"a"} href={generateAppPath(`/`)}>
+              다른 워크스페이스 선택
+            </Menu.Item>
             <Menu.Item component={"a"} href={`/api/auth/logout`} c={"red"}>
               로그아웃
             </Menu.Item>

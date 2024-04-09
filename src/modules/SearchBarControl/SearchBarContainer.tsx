@@ -98,7 +98,7 @@ export function SearchBarContainer({
                 }
                 searchable
                 comboboxProps={{ withinPortal: false }}
-                value={searchByMemberContext.target?.id.toString()}
+                value={searchByMemberContext.target?.id?.toString()}
                 onChange={(value) => {
                   if (value === null || membersSWR.data === undefined) return;
                   const target = membersSWR.data.find(

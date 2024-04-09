@@ -1,5 +1,5 @@
 "use client";
-import dayjs from "@/src/utils/dayjs";
+import dayjs, { endOfWeek, startOfWeek } from "@/src/utils/dayjs";
 import { SearchBarContainer } from "@/src/modules/SearchBarControl/SearchBarContainer";
 import React, { useContext, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -10,7 +10,7 @@ import { useDebouncedState } from "@mantine/hooks";
 import { isEqual } from "lodash";
 
 export interface SearchBarControlProps {
-  range: [string, string];
+  range?: [string, string];
   target?: string;
   relations?: string[];
 }
@@ -30,13 +30,10 @@ export default function SearchBarControl(props: SearchBarControlProps) {
 
   const { target, relations, isLoading } = useContext(SearchByMemberContext);
   const [searchByMemberTuple, setSearchByMemberTuple] =
-    useDebouncedState<SearchByMemberTupleType>(
-      [
-        targetId || searchByMemberContextTools.targetId,
-        relationIds || searchByMemberContextTools.relationIds || [],
-      ],
-      500,
-    );
+    useState<SearchByMemberTupleType>([
+      targetId || searchByMemberContextTools.targetId,
+      relationIds || searchByMemberContextTools.relationIds || [],
+    ]);
   useEffect(() => {
     if (isLoading || !target?.id) return;
 
@@ -49,18 +46,22 @@ export default function SearchBarControl(props: SearchBarControlProps) {
     if (isEqual(searchByMemberTuple, changedValue)) return;
     setSearchByMemberTuple(changedValue);
   }, [target, relations]);
-
   const [searchByRange, setSearchByRange] = useState<[string, string]>(
-    props.range,
+    props.range
+      ? props.range
+      : [
+          startOfWeek(
+            dayjs(new Date()).subtract(4, "weeks").toDate(),
+          ).toISOString(),
+          endOfWeek(new Date()).toISOString(),
+        ],
   );
   useEffect(() => {
     const newSearchParams = new URLSearchParams(searchParams.toString());
 
-    if (searchByRange && !isEqual(searchByRange, props.range)) {
-      newSearchParams.delete("range");
-      for (const r of searchByRange) {
-        newSearchParams.append("range", r);
-      }
+    newSearchParams.delete("range");
+    for (const r of searchByRange) {
+      newSearchParams.append("range", dayjs(r).format("YYYY-MM-DD"));
     }
 
     if (
@@ -94,9 +95,9 @@ export default function SearchBarControl(props: SearchBarControlProps) {
   return (
     <SearchBarContainer
       initialRange={
-        props.range && [
-          dayjs(props.range[0]).toDate(),
-          dayjs(props.range[1]).toDate(),
+        searchByRange && [
+          dayjs(searchByRange[0]).toDate(),
+          dayjs(searchByRange[1]).toDate(),
         ]
       }
       weekCalendar={true}
