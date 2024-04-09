@@ -126,13 +126,7 @@ export default function SearchByMemberGroup({
   const { target, relations, isLoading } = useContext(SearchByMemberContext);
   return (
     <>
-      {isLoading ? (
-        <Avatar
-          style={{
-            border: "3px solid (--mantine-color-gray-6)",
-          }}
-        />
-      ) : vertical ? (
+      {vertical ? (
         <Stack justify={"start"} align={"center"}>
           <Avatar
             src={target?.avatar_url}
