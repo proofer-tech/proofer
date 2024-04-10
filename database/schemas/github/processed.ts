@@ -1,10 +1,11 @@
 import { schema } from "@/database/engine";
 import {
-  varchar,
+  index,
+  integer,
   serial,
   timestamp,
   uniqueIndex,
-  integer,
+  varchar,
 } from "drizzle-orm/pg-core";
 import { Workspace } from "@/database/schemas/workspace";
 import {
@@ -51,5 +52,30 @@ export const ProcessedGitHubTimeSeries = schema.table(
       table.event,
       table.reference_id,
     ),
+  }),
+);
+
+export const ProcessedGitHubPullRequest = schema.table(
+  "processed_github_pull_request",
+  {
+    id: serial("id").primaryKey(),
+    installation_id: integer("installation_id").notNull(),
+    repository_id: integer("repository_id").notNull(),
+
+    pull_request_id: integer("pull_request_id").unique(
+      "uidx_pghpr_pull_request_id",
+    ),
+    pull_number: integer("number").notNull(),
+
+    title: varchar("title", { length: 100 }).notNull(),
+    html_url: varchar("html_url", { length: 512 }).notNull(),
+
+    coding_time: integer("coding_time"),
+    pickup_time: integer("pickup_time"),
+    review_time: integer("review_time"),
+    deploy_time: integer("deploy_time"),
+  },
+  (table) => ({
+    idx_pull_number: index("idx_pghpr_pull_number").on(table.pull_number),
   }),
 );

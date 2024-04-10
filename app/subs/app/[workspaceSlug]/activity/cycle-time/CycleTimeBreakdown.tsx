@@ -1,70 +1,76 @@
 "use client";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
+import { ProcessedGitHubPullRequest } from "@/database/schemas/github/processed";
+import { InferSelectModel } from "drizzle-orm";
+import { formatDuration } from "@/src/utils/dayjs";
+import { setSelection } from "@testing-library/user-event/event/selection/setSelection";
 
-export function CycleTimeBreakdown() {
-  const [series] = useState([
-    {
-      name: "코딩에 걸리는 시간",
-      data: [44, 55, 41, 37, 22],
-    },
-    {
-      name: "리뷰를 픽업하는 시간",
-      data: [53, 32, 33, 52, 13],
-    },
-    {
-      name: "리뷰에 걸리는 시간",
-      data: [12, 17, 11, 9, 15],
-    },
-    {
-      name: "배포에 걸리는 시간",
-      data: [9, 7, 5, 8, 6],
-    },
-  ]);
+interface CycleTimeBreakdownProps {
+  pullRequests: InferSelectModel<typeof ProcessedGitHubPullRequest>[];
+}
+export function CycleTimeBreakdown({ pullRequests }: CycleTimeBreakdownProps) {
+  const [series, setSeries] = useState<any[]>([]);
+  const [options, setOptions] = useState<ApexOptions>();
 
-  const [options] = useState<ApexOptions>({
-    chart: {
-      stacked: true,
-      toolbar: { show: false },
-    },
-    plotOptions: {
-      bar: {
-        horizontal: true,
-        dataLabels: {
-          total: {
-            enabled: true,
-            offsetX: 0,
-            style: {
-              fontSize: "13px",
-              fontWeight: 900,
-            },
+  useEffect(() => {
+    setSeries([
+      {
+        name: "코딩에 걸리는 시간",
+        data: pullRequests.map((pr) => pr.coding_time),
+        color: "#3c98ff",
+      },
+      {
+        name: "리뷰를 픽업하는 시간",
+        data: pullRequests.map((pr) => pr.pickup_time),
+        color: "#287af4",
+      },
+      {
+        name: "리뷰에 걸리는 시간",
+        data: pullRequests.map((pr) => pr.review_time),
+        color: "#1452e0",
+      },
+      {
+        name: "배포에 걸리는 시간",
+        data: pullRequests.map((pr) => pr.deploy_time),
+        color: "#0052cc",
+      },
+    ]);
+    setOptions({
+      chart: {
+        stacked: true,
+        toolbar: { show: false },
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true,
+        },
+      },
+      xaxis: {
+        categories: pullRequests.map((pr) => pr.title),
+      },
+      tooltip: {
+        y: {
+          formatter: function (val: number) {
+            return formatDuration(val);
           },
         },
       },
-    },
-    xaxis: {
-      categories: ["PR 이름 1", "PR 이름 2", "PR 이름 3", "PR 이름 4"],
-    },
-    tooltip: {
-      y: {
-        formatter: function (val: number) {
-          return "평균 " + val + "분";
-        },
+      legend: {
+        position: "top",
+        horizontalAlign: "left",
+        offsetX: 40,
       },
-    },
-    legend: {
-      position: "top",
-      horizontalAlign: "left",
-      offsetX: 40,
-    },
-    dataLabels: {
-      enabled: false,
-    },
-  });
+      dataLabels: {
+        enabled: false,
+      },
+    });
+  }, [pullRequests]);
+
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    options && (
       <Chart options={options} series={series} type="bar" height={300} />
-    </Suspense>
+    )
   );
 }

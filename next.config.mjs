@@ -1,5 +1,13 @@
 import bundleAnalyzer from "@next/bundle-analyzer";
 import pwaAnalyzer from "next-pwa";
+import dayjs from "dayjs";
+import "dayjs/locale/ko.js";
+import customParseFormat from "dayjs/plugin/customParseFormat.js";
+import duration from "dayjs/plugin/duration.js";
+
+dayjs.locale("ko");
+dayjs.extend(customParseFormat);
+dayjs.extend(duration);
 
 const withPWAAnalyzer =
   process.env.VERCEL_ENV === "production"

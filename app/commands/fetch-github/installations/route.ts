@@ -94,6 +94,12 @@ export const GET = withCommand(async function (req, { command }) {
             repository_id: repository_id.toString(),
           }),
         }),
+        bookCommand("fetch-github/cycle-time", {
+          parents: command,
+          searchParams: new URLSearchParams({
+            repository_id: repository_id.toString(),
+          }),
+        }),
       ]),
     ),
   );
