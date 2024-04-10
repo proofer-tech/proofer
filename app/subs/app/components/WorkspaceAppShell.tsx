@@ -289,11 +289,10 @@ export default function WorkspaceAppShell({
                         borderBottom: "1px solid var(--mantine-color-gray-3)",
                         flexShrink: 0,
                       }}
+                      wrap={"nowrap"}
                     >
                       <Text fw={700}>
-                        {workspace
-                          ? workspace.name
-                          : "Choose workspace to get insight"}
+                        {workspace ? workspace.name : "Choose workspace"}
                       </Text>
                       <Button
                         variant={"subtle"}
