@@ -19,6 +19,7 @@ import PlanCard from "@/app/components/PlanCard";
 import Inquire from "@/app/components/Inquire";
 import TallyContext from "@/src/contexts/TallyContext";
 import AgentContext from "@/src/contexts/AgentContext";
+
 export default function Page() {
   const { tallyOptions, setTallyOptions, openTallyPopup } =
     useContext(TallyContext);

@@ -1,7 +1,7 @@
-import { prooferSchema } from "@/database/engine";
+import { schema } from "@/database/engine";
 import { index, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
-export const Article = prooferSchema.table(
+export const Article = schema.table(
   "article",
   {
     id: serial("id").primaryKey(),
@@ -21,12 +21,12 @@ export const Article = prooferSchema.table(
   }),
 );
 
-export const Tag = prooferSchema.table("tag", {
+export const Tag = schema.table("tag", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 64 }).notNull().unique("tag_uidx_name"),
 });
 
-export const ArticleToTag = prooferSchema.table("article_to_tag", {
+export const ArticleToTag = schema.table("article_to_tag", {
   id: serial("id").primaryKey(),
   article_id: serial("article_id").references(() => Article.id, {
     onDelete: "cascade",

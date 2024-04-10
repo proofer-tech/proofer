@@ -1,0 +1,1 @@
+ALTER TABLE "proofer"."workspace_member" ALTER COLUMN "avatar_url" SET DATA TYPE text;

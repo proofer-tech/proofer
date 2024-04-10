@@ -1,0 +1,1 @@
+ALTER TABLE "proofer"."processed_github_time_series" DROP COLUMN IF EXISTS "user_email";

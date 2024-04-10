@@ -28,79 +28,80 @@ export const pathTree: PathTree = {
     tablerIcon: IconActivity,
     subTree: {
       heatmap: {
-        title: "히트맵",
+        title: "Heatmap",
         isImplemented: true,
         tablerIcon: IconBrandDeezer,
         component: () => (
           <Notification
-            title="히트맵을 어떻게 활용하면 좋을까요?"
+            title="How can I use heatmaps?"
             withCloseButton={false}
             w={"100%"}
           >
-            각 개발자의 작업 선호 시간과 팀원 간 협업 패턴을 파악할 수 있습니다.
-            이는 팀 미팅이나 코드 리뷰 세션 스케줄링을 최적화하고, 개인의
-            생산성을 높이는 데 도움이 됩니다.
-            <br /> 또한, 프로젝트의 중요 시점에서의 활동 증가를 식별하여 리소스
-            배분과 우선순위 설정에 기여, 프로젝트 관리를 효율적으로 개선할 수
-            있는 기반을 마련합니다.
+            You can learn about each developer’s work preference and
+            collaboration patterns among team members. This helps optimize
+            scheduling of team meetings or code review sessions and increases
+            individual productivity. It also identifies activity increases at
+            project milestones, contributes to resource allocation and priority
+            setting, and lays the foundation for efficient project management.
           </Notification>
         ),
       },
       timeline: {
-        title: "타임라인",
+        title: "Timeline",
         isImplemented: true,
         tablerIcon: IconTimelineEventText,
         component: () => (
           <Notification
-            title="타임라인을 어떻게 활용하면 좋을까요?"
+            title="How can I utilize the timeline?"
             withCloseButton={false}
             w={"100%"}
           >
-            각 개발자가 기여하고 있는 프로젝트의 진행 상황을 한눈에 파악할 수
-            있습니다. 프로젝트에 속한 팀원들 간의 작업 협업과 의존성을 명확히
-            드러내줍니다.
+            You can quickly understand the progress of projects each developer
+            is contributing to. It clearly reveals the work collaboration and
+            dependencies among team members involved in the project.
           </Notification>
         ),
       },
       "cycle-time": {
-        title: "사이클타임",
+        title: "Cycle Time",
         isImplemented: true,
         tablerIcon: IconClockCode,
         component: () => (
           <Notification
-            title="사이클타임을 어떻게 활용하면 좋을까요?"
+            title="How can cycle time be utilized?"
             withCloseButton={false}
             w={"100%"}
           >
-            개발자 마다의 작업의 시작부터 완료까지 걸리는 시간을 정확히 파악할
-            수 있습니다. 프로세스의 효율성을 개선하고, 프로젝트의 진행 상태를
-            실시간으로 모니터링하여 필요한 조정을 할 수 있습니다. 병목 현상이나
-            지연의 원인을 식별하고, 개선 조치를 취할 수 있습니다.
+            It allows for the precise measurement of the time each developer
+            takes from starting a task to completing it. This enhances process
+            efficiency and enables real-time monitoring of the project&apos;s
+            progress for necessary adjustments. It identifies the causes of
+            bottlenecks or delays, and allows for taking corrective actions.
           </Notification>
         ),
       },
       "code-review": {
-        title: "코드리뷰",
+        title: "Code Review",
         isImplemented: true,
         tablerIcon: IconMessageCode,
         component: () => (
           <Notification
-            title="코드리뷰를 어떻게 활용하면 좋을까요?"
+            title="How can code reviews be utilized?"
             withCloseButton={false}
             w={"100%"}
           >
-            개발자가 속한 코드리뷰에 대한 통계지표를 제공합니다. 코드리뷰 내
-            리뷰어와 제출자 간의 피드백 주고받기가 적절히 이루어지고 있는지를
-            확인할 수 있습니다.
+            It provides statistical metrics about the code reviews a developer
+            is involved in. You can check if feedback exchange between reviewers
+            and submitters is appropriately happening in code reviews.
           </Notification>
         ),
       },
       project: {
-        title: "프로젝트",
+        title: "Project",
         tablerIcon: IconLayoutKanban,
       },
       communication: {
-        title: "커뮤니케이션",
+        title: "Communication",
         tablerIcon: IconMessages,
       },
     },
@@ -110,15 +111,15 @@ export const pathTree: PathTree = {
     tablerIcon: IconHeartbeat,
     subTree: {
       engagement: {
-        title: "개발 몰입도",
+        title: "Developer Engagement",
         tablerIcon: IconFocus2,
       },
       enps: {
-        title: "개발자 만족도",
+        title: "Developer Satisfaction",
         tablerIcon: IconMoodSearch,
       },
       workload: {
-        title: "업무로드 분석",
+        title: "Workload Analysis",
         tablerIcon: IconHourglassOff,
       },
     },
@@ -128,11 +129,11 @@ export const pathTree: PathTree = {
     tablerIcon: IconAntennaBars5,
     subTree: {
       resources: {
-        title: "리소스 현황",
+        title: "Resource Status",
         tablerIcon: IconReorder,
       },
       roi: {
-        title: "ROI 계산",
+        title: "ROI Calculation",
         tablerIcon: IconReportMoney,
       },
     },
@@ -146,7 +147,7 @@ export const pathTree: PathTree = {
         tablerIcon: IconTransformPoint,
       },
       benchmark: {
-        title: "업계 벤치마크",
+        title: "Industry Benchmark",
         tablerIcon: IconTelescope,
       },
     },

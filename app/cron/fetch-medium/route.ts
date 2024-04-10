@@ -8,7 +8,7 @@ import { flatten, keyBy } from "lodash";
 import { Dictionary } from "ts-essentials";
 import { conflictUpdateSetAllColumns } from "@/src/utils/drizzle";
 import { notFound } from "next/navigation";
-import { withCronApi } from "@/src/api-decorators";
+import { withBearer } from "@/src/decorators/api";
 
 const parser = new Parser();
 
@@ -87,27 +87,29 @@ async function insertArticles(items: Item[]) {
   });
 }
 
-export const GET = withCronApi(async function (_: NextRequest) {
-  const response = await fetch("https://medium.com/feed/@proofer.tech", {
-    cache: "no-store",
-  });
-  const responseText = await response.text();
-  const feed = (await parser.parseString(responseText)) as unknown as Feed;
-  if (feed.items.length === 0) return notFound();
+export const GET = withBearer(
+  process.env.CRON_SECRET,
+  async function (_: NextRequest) {
+    const response = await fetch("https://medium.com/feed/@proofer.tech", {
+      cache: "no-store",
+    });
+    const responseText = await response.text();
+    const feed = (await parser.parseString(responseText)) as unknown as Feed;
+    if (feed.items.length === 0) return notFound();
 
-  const lastArticle = (
-    await dz.select().from(Article).orderBy(desc(Article.updated_at)).limit(1)
-  )[0];
-  if (
-    !lastArticle ||
-    dayjs(feed.lastBuildDate).isAfter(lastArticle.updated_at)
-  ) {
-    try {
-      await insertArticles(feed.items);
-    } catch (e) {
-      console.error(e);
+    const lastArticle = (
+      await dz.select().from(Article).orderBy(desc(Article.updated_at)).limit(1)
+    )[0];
+    if (
+      !lastArticle ||
+      dayjs(feed.lastBuildDate).isAfter(lastArticle.updated_at)
+    ) {
+      try {
+        await insertArticles(feed.items);
+      } catch (e) {
+        console.error(e);
+      }
     }
-  }
-
-  return NextResponse.json({});
-});
+    return NextResponse.json({});
+  },
+);

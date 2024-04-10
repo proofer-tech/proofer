@@ -8,13 +8,14 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
-import { settingsPathTree } from "@/app/subs/app/settings/tree";
+import { SettingPath, settingTree } from "@/app/subs/app/settings/tree";
 import React, { useContext } from "react";
-import { Path } from "./types";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
+import { canManageWorkspace } from "@/src/services/role";
+import { generateAppPath } from "@/src/path";
 
 interface UserMenuProps extends MenuProps {
-  onSettingClick: (path: Path) => void;
+  onSettingClick: (path: SettingPath) => void;
 }
 export default function UserMenu({ onSettingClick }: UserMenuProps) {
   const { user, workspace } = useContext(ProoferInsightContext);
@@ -37,7 +38,7 @@ export default function UserMenu({ onSettingClick }: UserMenuProps) {
             </Anchor>
           </Menu.Target>
           <Menu.Dropdown>
-            <Menu.Label>로그인 페이지로 이동중입니다.</Menu.Label>
+            <Menu.Label>Redirecting to login page.</Menu.Label>
           </Menu.Dropdown>
         </>
       ) : (
@@ -52,7 +53,7 @@ export default function UserMenu({ onSettingClick }: UserMenuProps) {
             />
           </Menu.Target>
           <Menu.Dropdown>
-            <Menu.Label>계정</Menu.Label>
+            <Menu.Label>Account</Menu.Label>
             <Menu.Item>
               <Group gap={16}>
                 <Avatar src={user.picture} />
@@ -64,18 +65,18 @@ export default function UserMenu({ onSettingClick }: UserMenuProps) {
                 </Stack>
               </Group>
             </Menu.Item>
-            {workspace?.member?.is_manager ? (
+            {canManageWorkspace(workspace?.member?.role) ? (
               <>
                 <Menu.Divider />
-                <Menu.Label>업그레이드</Menu.Label>
+                <Menu.Label>Upgrade</Menu.Label>
                 <Menu.Item component={"a"} href={"https://proofer.tech#price"}>
                   <Group justify={"space-between"}>
-                    <Text size={"sm"}>Professional 플랜을 사용해 보세요</Text>
-                    <Badge size={"xs"}>무료 14일 평가판</Badge>
+                    <Text size={"sm"}>Try the Professional plan</Text>
+                    <Badge size={"xs"}>Free 14-day trial</Badge>
                   </Group>
                 </Menu.Item>
                 <Menu.Divider />
-                {Object.entries(settingsPathTree).map(([pathName, path]) => (
+                {Object.entries(settingTree).map(([pathName, path]) => (
                   <Menu.Item
                     key={pathName}
                     component="button"
@@ -92,8 +93,11 @@ export default function UserMenu({ onSettingClick }: UserMenuProps) {
               ""
             )}
             <Menu.Divider />
+            <Menu.Item component={"a"} href={generateAppPath(`/`)}>
+              Switch workspace
+            </Menu.Item>
             <Menu.Item component={"a"} href={`/api/auth/logout`} c={"red"}>
-              로그아웃
+              Log out
             </Menu.Item>
           </Menu.Dropdown>
         </>

@@ -4,6 +4,7 @@ import { dz } from "../engine.js";
 
 async function main() {
   await migrate(dz, {
+    migrationsSchema: "drizzle",
     migrationsFolder: "./database/migrations",
   });
   console.log("Migration completed");

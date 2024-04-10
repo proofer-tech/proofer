@@ -5,11 +5,11 @@ import Chart from "react-apexcharts";
 export default function ColumnChart() {
   const [series, setSeries] = useState([
     {
-      name: "PR 제출",
+      name: "PR submitted",
       data: [1, 0, 2, 1, 0, 0, 2, 1, 0],
     },
     {
-      name: "코드리뷰",
+      name: "Code review",
       data: [3, 4, 4, 5, 1, 2, 7, 3, 2],
     },
   ]);
@@ -52,7 +52,7 @@ export default function ColumnChart() {
     tooltip: {
       y: {
         formatter: function (val: number) {
-          return `${val} 회`;
+          return `${val}`;
         },
       },
     },

@@ -1,12 +1,12 @@
-import moment from "moment/moment";
 import {
   GitHubPullRequest,
   GitHubPullRequestReview,
   GitHubPullRequestReviewComment,
   GitHubRepository,
-} from "@/database/schemas/github";
+} from "@/database/schemas/github/raw";
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
-import { Octokit } from "octokit";
+import { Octokit, RequestError } from "octokit";
+import dayjs from "@/src/utils/dayjs";
 
 const serializePullRequests = (
   repoId: number,
@@ -19,49 +19,37 @@ const serializePullRequests = (
   title: data.title,
   body: data.body,
   html_url: data.html_url,
-  created_at: moment(data.created_at).toDate(),
-  updated_at: data.updated_at && moment(data.updated_at).toDate(),
-  closed_at: data.closed_at && moment(data.closed_at).toDate(),
-  merged_at: data.merged_at && moment(data.merged_at).toDate(),
+  created_at: dayjs(data.created_at).toDate(),
+  updated_at: data.updated_at && dayjs(data.updated_at).toDate(),
+  closed_at: data.closed_at && dayjs(data.closed_at).toDate(),
+  merged_at: data.merged_at && dayjs(data.merged_at).toDate(),
   merge_commit_sha: data.merge_commit_sha,
   user_id: data.user.id,
   assignee_id: data.assignee?.id,
-  timestamp: moment(data.created_at).toDate(),
+  timestamp: dayjs(data.created_at).toDate(),
 });
 
 interface extractAllPullRequestsOptions {
-  repositories: InferSelectModel<typeof GitHubRepository>[];
-  bundle?: boolean;
+  repository: InferSelectModel<typeof GitHubRepository>;
 }
 
 export async function* extractAllPullRequests(
   octokit: Octokit,
-  options: extractAllPullRequestsOptions,
+  { repository }: extractAllPullRequestsOptions,
 ) {
-  for (const repo of options.repositories) {
-    const [ownerName, repoName] = repo.full_name.split("/");
-
-    let page = 1;
-    do {
-      const response = await octokit.rest.pulls.list({
-        owner: ownerName,
-        repo: repoName,
-        state: "all",
-        sort: "created",
-        direction: "desc",
-        per_page: 100,
-        page: page,
-      });
-      if (response.data.length === 0) break;
-
-      const pullRequests = response.data.map((pr) =>
-        serializePullRequests(repo.id, pr),
-      );
-      for (const pr of pullRequests) {
-        if (!options?.bundle) yield pr;
-      }
-      if (options?.bundle) yield pullRequests;
-    } while (page++);
+  const [ownerName, repoName] = repository.full_name.split("/");
+  try {
+    const pulls = await octokit.paginate(octokit.rest.pulls.list, {
+      owner: ownerName,
+      repo: repoName,
+      state: "all",
+      sort: "created",
+      direction: "desc",
+      per_page: 100,
+    });
+    for (const pull of pulls) yield serializePullRequests(repository.id, pull);
+  } catch (e) {
+    if (!(e instanceof RequestError && e.status === 404)) throw e;
   }
 }
 
@@ -74,10 +62,9 @@ const serializePullRequestReviews = (
   html_url: data.html_url,
   state: data.state,
   user_id: data.user.id,
-  updated_at: moment(data.updated_at).toDate(),
-  created_at: moment(data.created_at).toDate(),
+  submitted_at: dayjs(data.submitted_at).toDate(),
   body: data.body,
-  timestamp: moment(data.created_at).toDate(),
+  timestamp: dayjs(data.submitted_at).toDate(),
 });
 
 export async function* extractAllPullRequestReviews(
@@ -88,16 +75,19 @@ export async function* extractAllPullRequestReviews(
 ) {
   const [ownerName, repoName] = repo.full_name.split("/");
 
-  const reviews = await octokit.paginate(
-    octokit.rest.pulls.listReviews.endpoint.merge({
-      owner: ownerName,
-      repo: repoName,
-      pull_number: pullNumber,
-      per_page: 100,
-    }),
-  );
-  for (const review of reviews) {
-    yield serializePullRequestReviews(pull_request_id, review);
+  try {
+    const reviews = await octokit.paginate(
+      octokit.rest.pulls.listReviews.endpoint.merge({
+        owner: ownerName,
+        repo: repoName,
+        pull_number: pullNumber,
+        per_page: 100,
+      }),
+    );
+    for (const review of reviews)
+      yield serializePullRequestReviews(pull_request_id, review);
+  } catch (e) {
+    if (!(e instanceof RequestError && e.status === 404)) throw e;
   }
 }
 
@@ -110,9 +100,9 @@ const serializePullRequestReviewComments = (
     user_id: data.user.id,
     body: data.body,
     html_url: data.html_url,
-    created_at: moment(data.created_at).toDate(),
-    updated_at: moment(data.updated_at).toDate(),
-    timestamp: moment(data.created_at).toDate(),
+    created_at: dayjs(data.created_at).toDate(),
+    updated_at: dayjs(data.updated_at).toDate(),
+    timestamp: dayjs(data.created_at).toDate(),
   };
 };
 export async function* extractAllPullRequestReviewComments(
@@ -121,15 +111,18 @@ export async function* extractAllPullRequestReviewComments(
   pullNumber: number,
 ) {
   const [ownerName, repoName] = repo.full_name.split("/");
-  const comments = await octokit.paginate(
-    octokit.rest.pulls.listReviewComments.endpoint.merge({
-      owner: ownerName,
-      repo: repoName,
-      pull_number: pullNumber,
-      per_page: 100,
-    }),
-  );
-  for (const comment of comments) {
-    yield serializePullRequestReviewComments(comment);
+  try {
+    const comments = await octokit.paginate(
+      octokit.rest.pulls.listReviewComments.endpoint.merge({
+        owner: ownerName,
+        repo: repoName,
+        pull_number: pullNumber,
+        per_page: 100,
+      }),
+    );
+    for (const comment of comments)
+      yield serializePullRequestReviewComments(comment);
+  } catch (e) {
+    if (!(e instanceof RequestError && e.status === 404)) throw e;
   }
 }

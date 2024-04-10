@@ -6,7 +6,7 @@ import {
   GitHubInstallationDetailCardSection,
   GitHubInstallationListCardSection,
 } from "@/app/subs/app/[workspaceSlug]/integrations/components/GitHub/client";
-import { WorkspaceToGitHubInstallation } from "@/database/schemas/github";
+import { WorkspaceToGitHubInstallation } from "@/database/schemas/github/raw";
 import { dz } from "@/database/engine";
 import {
   findMember,
@@ -19,6 +19,7 @@ import { generateAppPath } from "@/src/path";
 import { headers } from "next/headers";
 import IntegrationPage from "@/app/subs/app/[workspaceSlug]/integrations/components/IntegrationPage";
 import { WORKSPACE_DEMO_SLUG } from "@/src/constants";
+import { canManageWorkspace } from "@/src/services/role";
 
 async function generateInstallation(formData: FormData) {
   "use server";
@@ -26,17 +27,17 @@ async function generateInstallation(formData: FormData) {
   const user = await findUserFromSession();
   if (user === undefined) return;
 
-  const workspaceSlug = formData.get("workspace-slug");
+  const workspaceSlug = formData.get("workspace-slug") as string;
   if (workspaceSlug === null) return;
 
-  const workspace = await findWorkspace(workspaceSlug as string);
+  const workspace = await findWorkspace(workspaceSlug);
   if (workspace === undefined) return;
 
   let member;
   if (workspaceSlug === WORKSPACE_DEMO_SLUG)
     member = await getFirstMember(workspace.id);
   else member = await findMember(workspace.id, user.id);
-  if (!(member && member.is_manager)) return;
+  if (!(member && canManageWorkspace(member.role))) return;
 
   const installation = (
     await dz
@@ -50,7 +51,7 @@ async function generateInstallation(formData: FormData) {
     headerList.get("X-Forwarded-Proto") +
     "://" +
     headerList.get("host") +
-    generateAppPath(`/${workspaceSlug}/integrations/github/setup`);
+    generateAppPath("/integrations/github/setup", workspaceSlug);
   redirect(
     `https://github.com/apps/proofer-tech/installations/select_target?state=${installation.uuid}&redirect_url=${setupUrl}`,
   );
@@ -78,12 +79,13 @@ export default function GitHubPage({
         installationId ? (
           <Anchor
             href={generateAppPath(
-              `/${workspaceSlug}/integrations/${integration.slug}`,
+              `/integrations/${integration.slug}`,
+              workspaceSlug,
             )}
             underline={"never"}
           >
             <Button w={"100%"} variant={"light"}>
-              뒤로가기
+              Back
             </Button>
           </Anchor>
         ) : (
@@ -94,7 +96,7 @@ export default function GitHubPage({
               value={workspaceSlug}
             />
             <Button type={"submit"} w={"100%"}>
-              앱 연동하기
+              Connect
             </Button>
           </form>
         )

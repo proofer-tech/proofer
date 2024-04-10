@@ -3,12 +3,12 @@ import { Article, Tag } from "@/database/schemas/blog";
 import {
   Anchor,
   Badge,
+  Button,
   Group,
   Space,
   Stack,
   Title,
   TypographyStylesProvider,
-  Button,
 } from "@mantine/core";
 import styles from "./styles.module.scss";
 

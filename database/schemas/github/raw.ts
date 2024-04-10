@@ -1,16 +1,16 @@
-import { prooferSchema } from "@/database/engine";
+import { schema } from "@/database/engine";
 import {
+  index,
   integer,
-  varchar,
   serial,
   text,
-  uuid,
-  uniqueIndex,
   timestamp,
-  index,
+  uniqueIndex,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
 
-export const WorkspaceToGitHubInstallation = prooferSchema.table(
+export const WorkspaceToGitHubInstallation = schema.table(
   "workspace_to_github_installation",
   {
     id: serial("id").primaryKey(),
@@ -28,7 +28,7 @@ export const WorkspaceToGitHubInstallation = prooferSchema.table(
   },
 );
 
-export const GitHubInstallation = prooferSchema.table("github_installation", {
+export const GitHubInstallation = schema.table("github_installation", {
   id: serial("id").primaryKey(),
   installation_id: integer("installation_id")
     .notNull()
@@ -45,7 +45,7 @@ export const GitHubInstallation = prooferSchema.table("github_installation", {
   created_at: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const GitHubUser = prooferSchema.table("github_user", {
+export const GitHubUser = schema.table("github_user", {
   id: serial("id").primaryKey(),
   user_id: integer("user_id").notNull().unique("ghu_uidx_user_id"),
   login: varchar("login", { length: 100 }).notNull(),
@@ -57,7 +57,7 @@ export const GitHubUser = prooferSchema.table("github_user", {
   created_at: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const GitHubRepository = prooferSchema.table(
+export const GitHubRepository = schema.table(
   "github_repository",
   {
     id: serial("id").primaryKey(),
@@ -85,7 +85,7 @@ export const GitHubRepository = prooferSchema.table(
   }),
 );
 
-export const GitHubCommit = prooferSchema.table(
+export const GitHubCommit = schema.table(
   "github_commit",
   {
     id: serial("id").primaryKey(),
@@ -93,7 +93,9 @@ export const GitHubCommit = prooferSchema.table(
 
     repository_id: integer("repository_id")
       .notNull()
-      .references(() => GitHubRepository.id, { onDelete: "cascade" }),
+      .references(() => GitHubRepository.id, {
+        onDelete: "cascade",
+      }),
     author_id: integer("author_id")
       .notNull()
       .references(() => GitHubUser.user_id),
@@ -112,13 +114,15 @@ export const GitHubCommit = prooferSchema.table(
     timestamp_idx: index("idx_ghc_timestamp").on(table.timestamp),
   }),
 );
-export const GitHubIssue = prooferSchema.table(
+export const GitHubIssue = schema.table(
   "github_issue",
   {
     id: serial("id").primaryKey(),
     repository_id: integer("repository_id")
       .notNull()
-      .references(() => GitHubRepository.id, { onDelete: "cascade" }),
+      .references(() => GitHubRepository.id, {
+        onDelete: "cascade",
+      }),
     issue_id: varchar("issue_id", { length: 32 })
       .notNull()
       .unique("uidx_ghi_issue_id"),
@@ -144,13 +148,41 @@ export const GitHubIssue = prooferSchema.table(
   }),
 );
 
-export const GitHubPullRequest = prooferSchema.table(
+export const GitHubIssueComment = schema.table(
+  "github_issue_comment",
+  {
+    id: serial("id").primaryKey(),
+    issue_id: varchar("issue_id", { length: 32 })
+      .notNull()
+      .references(() => GitHubIssue.issue_id, {
+        onDelete: "cascade",
+      }),
+    comment_id: integer("comment_id").notNull().unique("uidx_ghic_comment_id"),
+    body: text("body"),
+    html_url: varchar("html_url", { length: 512 }).notNull(),
+    created_at: timestamp("created_at").defaultNow().notNull(),
+    updated_at: timestamp("updated_at").defaultNow().notNull(),
+    user_id: integer("user_id")
+      .notNull()
+      .references(() => GitHubUser.user_id),
+
+    timestamp: timestamp("timestamp").notNull(),
+  },
+  (table) => ({
+    created_at_idx: index("idx_ghic_created_at").on(table.created_at),
+    timestamp_idx: index("idx_ghic_timestamp").on(table.timestamp),
+  }),
+);
+
+export const GitHubPullRequest = schema.table(
   "github_pull_request",
   {
     id: serial("id").primaryKey(),
     repository_id: integer("repository_id")
       .notNull()
-      .references(() => GitHubRepository.id, { onDelete: "cascade" }),
+      .references(() => GitHubRepository.id, {
+        onDelete: "cascade",
+      }),
     pull_request_id: integer("pull_request_id")
       .notNull()
       .unique("uidx_ghpr_pull_request_id"),
@@ -178,7 +210,7 @@ export const GitHubPullRequest = prooferSchema.table(
   }),
 );
 
-export const GitHubPullRequestReview = prooferSchema.table(
+export const GitHubPullRequestReview = schema.table(
   "github_pull_request_review",
   {
     id: serial("id").primaryKey(),
@@ -192,8 +224,7 @@ export const GitHubPullRequestReview = prooferSchema.table(
     state: varchar("state", { length: 16 }).notNull(),
     body: text("body"),
     html_url: varchar("html_url", { length: 512 }).notNull(),
-    created_at: timestamp("created_at").defaultNow().notNull(),
-    updated_at: timestamp("updated_at").defaultNow().notNull(),
+    submitted_at: timestamp("submitted_at").defaultNow().notNull(),
     user_id: integer("user_id")
       .notNull()
       .references(() => GitHubUser.user_id),
@@ -201,11 +232,11 @@ export const GitHubPullRequestReview = prooferSchema.table(
     timestamp: timestamp("timestamp").notNull(),
   },
   (table) => ({
-    created_at_idx: index("idx_ghprr_created_at").on(table.created_at),
+    submitted_at_idx: index("idx_ghprr_submitted_at").on(table.submitted_at),
     timestamp_idx: index("idx_ghprr_timestamp").on(table.timestamp),
   }),
 );
-export const GitHubPullRequestReviewComment = prooferSchema.table(
+export const GitHubPullRequestReviewComment = schema.table(
   "github_pull_request_review_comment",
   {
     id: serial("id").primaryKey(),

@@ -11,7 +11,7 @@ export interface Path {
 
 export type PathTree = { [key: string]: Path };
 
-export const digTree = (tree: PathTree, pathBlocks: string[]) => {
+export function digTree<T>(tree: any, pathBlocks: string[]): T | undefined {
   let searchTree = tree;
   for (const pathBlock of pathBlocks) {
     const path = searchTree[pathBlock];
@@ -21,4 +21,4 @@ export const digTree = (tree: PathTree, pathBlocks: string[]) => {
     }
   }
   return undefined;
-};
+}

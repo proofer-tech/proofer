@@ -1,0 +1,1 @@
+ALTER TABLE "proofer"."workspace_member" ADD COLUMN "avatar_url" varchar(512);

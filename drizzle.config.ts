@@ -8,7 +8,4 @@ export default {
     // @ts-ignore
     connectionString: process.env.POSTGRES_URL,
   },
-  introspect: {
-    casing: "camel",
-  },
 } satisfies Config;

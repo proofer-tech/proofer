@@ -30,15 +30,17 @@ export default function Page() {
         <Stack align={"center"}>
           <Image
             src={"/assets/images/integrations.png"}
-            alt={"연동"}
+            alt={"integrations"}
             w={"10em"}
           />
           <Title order={1} ta={"center"}>
-            우리 개발자가 어떻게 일하고 있는지 궁금하다면?
+            Are your developers doing their jobs well?
           </Title>
           <Group>
             <IconSquareArrowLeft size={"1em"} />
-            <Text>좌측 메뉴를 클릭하여 다양한 인사이트들을 확인해보세요!</Text>
+            <Text>
+              Click the menu on the left to check out various insights!
+            </Text>
           </Group>
         </Stack>
       </Center>

@@ -9,7 +9,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { SearchGroup } from "@/app/subs/app/[workspaceSlug]/activity/SearchGroup";
+import { SearchBarContainer } from "@/src/modules/SearchBarControl/SearchBarContainer";
 import CountCard from "./CountCard";
 import StrengthCard from "@/app/subs/app/[workspaceSlug]/activity/code-review/StrengthCard";
 import ColumnChart from "@/app/subs/app/[workspaceSlug]/activity/code-review/ColumnChart";
@@ -17,13 +17,13 @@ import ColumnChart from "@/app/subs/app/[workspaceSlug]/activity/code-review/Col
 export default function Page() {
   return (
     <Stack>
-      <SearchGroup />
+      <SearchBarContainer />
       <Paper shadow="xs" p={"sm"} py={"lg"}>
         <Group wrap={"nowrap"} gap={0}>
-          <CountCard title={"전체 리뷰"} count={12} color={"gray"} />
-          <CountCard title={"진행 중인 리뷰"} count={3} color={"blue"} />
-          <CountCard title={"완료된 리뷰"} count={6} color={"green"} />
-          <CountCard title={"미완료 리뷰"} count={3} color={"red"} />
+          <CountCard title={"Total Reviews"} count={12} color={"gray"} />
+          <CountCard title={"Reviews in Progress"} count={3} color={"blue"} />
+          <CountCard title={"Completed Reviews"} count={6} color={"green"} />
+          <CountCard title={"Pending Reviews"} count={3} color={"red"} />
         </Group>
       </Paper>
       <Paper shadow="xs" p={"sm"} py={"lg"}>
@@ -31,22 +31,22 @@ export default function Page() {
       </Paper>
       <Paper shadow="xs" p="lg">
         <Stack>
-          <Title order={4}>제출자 지표</Title>
+          <Title order={4}>Submitter Metrics</Title>
           <Group wrap={"nowrap"} align={"start"}>
             <StrengthCard
-              title={"평균응답시간"}
+              title={"Average Response Time"}
               description={
-                "PR 제출자가 새로운 커밋이나 의견을 통해 피드백에 얼마나 빠르게 반응하는지를 나타냅니다."
+                "Indicates how quickly a PR submitter reacts to feedback through new commits or comments."
               }
               value={3.5}
               maxValue={24}
-              unit={"시간"}
+              unit={"hours"}
               color={"green"}
             />
             <StrengthCard
-              title={"처리된 리뷰 코멘트"}
+              title={"Processed Review Comments"}
               description={
-                "리뷰 코멘트를 통해 받은 피드백이나 의견으로 변경한 코멘트의 비율을 나타냅니다."
+                "The percentage of comments changed based on feedback or suggestions received through review comments."
               }
               value={16.5}
               maxValue={100}
@@ -54,9 +54,9 @@ export default function Page() {
               color={"green"}
             />
             <StrengthCard
-              title={"리뷰수용성"}
+              title={"Review Acceptance"}
               description={
-                "코드 리뷰 과정에서 리뷰어의 피드백을 적극적으로 받아들이며, 필요한 경우 코드 개선을 위해 그 의견을 수용하는 정도를 나타냅니다."
+                "Indicates the extent to which a submitter actively accepts feedback during the code review process and makes necessary code improvements."
               }
               value={3}
               maxValue={100}
@@ -64,9 +64,9 @@ export default function Page() {
               color={"green"}
             />
             <StrengthCard
-              title={"리뷰없이 배포된 PR"}
+              title={"PRs Deployed Without Review"}
               description={
-                "리뷰되지 않은 상태로 머지 후 배포된 PR 의 비율입니다. 이 비율이 높을수록 코드 품질이 떨어질 수 있습니다."
+                "The percentage of PRs that are merged and deployed without being reviewed. A higher ratio could indicate a decrease in code quality."
               }
               value={2}
               maxValue={100}
@@ -78,8 +78,9 @@ export default function Page() {
             <Space h={"sm"} />
             <Divider variant={"dashed"} />
             <Text size={"xs"} c={"var(--mantine-color-gray-6)"}>
-              해당 개발자가 제출한 PR에 리뷰어가 리뷰한 횟수. 리뷰어로 지정된
-              횟수가 많을수록 제출자가 리뷰어로써 신임을 주고 있을 수 있습니다.
+              The number of times a reviewer has reviewed PRs submitted by this
+              developer. A higher number of reviews as a reviewer can indicate
+              trustworthiness in the reviewer&apos;s role.
             </Text>
             <Group px={"1ex"} w={"100%"} gap={"3em"}>
               <Group align={"center"}>
@@ -87,32 +88,32 @@ export default function Page() {
                   src={"/assets/images/sample/avatar/2.jpg"}
                   size={"sm"}
                 />
-                <Text size={"sm"}>홍제형</Text>
-                <Text>17회</Text>
+                <Text size={"sm"}>Je-Hyung Hong</Text>
+                <Text>17 times</Text>
               </Group>
               <Group align={"center"}>
                 <Avatar
                   src={"/assets/images/sample/avatar/3.jpg"}
                   size={"sm"}
                 />
-                <Text size={"sm"}>김개발</Text>
-                <Text>8회</Text>
+                <Text size={"sm"}>Kim Developer</Text>
+                <Text>8 times</Text>
               </Group>
               <Group align={"center"}>
                 <Avatar
                   src={"/assets/images/sample/avatar/4.jpg"}
                   size={"sm"}
                 />
-                <Text size={"sm"}>박개발</Text>
-                <Text>7회</Text>
+                <Text size={"sm"}>Park Developer</Text>
+                <Text>7 times</Text>
               </Group>
               <Group align={"center"}>
                 <Avatar
                   src={"/assets/images/sample/avatar/5.jpg"}
                   size={"sm"}
                 />
-                <Text size={"sm"}>최개발</Text>
-                <Text>3회</Text>
+                <Text size={"sm"}>Choi Developer</Text>
+                <Text>3 times</Text>
               </Group>
             </Group>
           </Stack>
@@ -120,22 +121,22 @@ export default function Page() {
       </Paper>
       <Paper shadow="xs" p="lg">
         <Stack>
-          <Title order={4}>리뷰어 지표</Title>
+          <Title order={4}>Reviewer Metrics</Title>
           <Group wrap={"nowrap"} align={"start"}>
             <StrengthCard
-              title={"평균시작시간"}
+              title={"Average Start Time"}
               description={
-                "PR이 제출된 후 리뷰어로 지정되었을 때에 리뷰하는데까지의 시간입니다. 리뷰어가 얼마나 빨리 코드리뷰에 협조하는지를 나타냅니다."
+                "The time it takes from when a PR is submitted to when the assigned reviewer starts the review. It indicates how quickly a reviewer collaborates in the code review process."
               }
               value={0.6}
               maxValue={24}
-              unit={"시간"}
+              unit={"hours"}
               color={"blue"}
             />
             <StrengthCard
-              title={"리뷰 참여도"}
+              title={"Review Participation"}
               description={
-                "전체 PR 중 해당 개발자가 참여한 리뷰의 비율입니다. 이는 리뷰어가 그룹 내의 코드 품질 향상에 얼마만큼 기여하고 있는지를 나타냅니다."
+                "The percentage of total PRs that a developer has participated in reviewing. It shows how much a reviewer contributes to improving code quality within the group."
               }
               value={36.2}
               maxValue={100}
@@ -143,9 +144,9 @@ export default function Page() {
               color={"blue"}
             />
             <StrengthCard
-              title={"리뷰 영향력"}
+              title={"Review Influence"}
               description={
-                "검토 프로세스 중에 제공된 피드백과 제안이 코드에 얼마나 반영되는지에 대한 비율입니다. 이는 리뷰어가 코드 품질 향상에 얼마나 기여하는지를 나타냅니다."
+                "The ratio of feedback and suggestions provided during the review process that are implemented in the code. It shows the contribution of a reviewer to enhancing code quality."
               }
               value={63.7}
               maxValue={100}
@@ -153,9 +154,9 @@ export default function Page() {
               color={"blue"}
             />
             <StrengthCard
-              title={"리뷰 커버리지"}
+              title={"Review Coverage"}
               description={
-                "제출된 리뷰를 위하여 충분한 범위의 코드를 검토했는지를 나타내는 지표입니다. 이는 리뷰어가 코드의 전체적인 품질을 검토하고 있는지를 나타냅니다."
+                "Indicates whether a sufficient range of code has been reviewed for submitted reviews. It shows if the reviewer is assessing the overall quality of the code."
               }
               value={94.8}
               maxValue={100}
@@ -168,25 +169,25 @@ export default function Page() {
           <Space h={"sm"} />
           <Divider variant={"dashed"} />
           <Text size={"xs"} c={"var(--mantine-color-gray-6)"}>
-            PR을 제출한 사람들 중 해당 개발자가 리뷰어로 지정된 횟수. 리뷰어로
-            지정된 횟수가 많을수록 제출자에게 리뷰어로써 신임을 받고 있을 수
-            있습니다.
+            The number of times this developer has been assigned as a reviewer
+            among the submitted PRs. A higher number of assignments as a
+            reviewer can indicate trust from the submitters.
           </Text>
           <Group px={"1ex"} w={"100%"} gap={"3em"}>
             <Group align={"center"}>
               <Avatar src={"/assets/images/sample/avatar/2.jpg"} size={"sm"} />
-              <Text size={"sm"}>홍제형</Text>
-              <Text>8회</Text>
+              <Text size={"sm"}>Je-Hyung Hong</Text>
+              <Text>8 times</Text>
             </Group>
             <Group align={"center"}>
               <Avatar src={"/assets/images/sample/avatar/3.jpg"} size={"sm"} />
-              <Text size={"sm"}>김개발</Text>
-              <Text>2회</Text>
+              <Text size={"sm"}>Kim Developer</Text>
+              <Text>2 times</Text>
             </Group>
             <Group align={"center"}>
               <Avatar src={"/assets/images/sample/avatar/5.jpg"} size={"sm"} />
-              <Text size={"sm"}>최개발</Text>
-              <Text>1회</Text>
+              <Text size={"sm"}>Choi Developer</Text>
+              <Text>1 time</Text>
             </Group>
           </Group>
         </Stack>

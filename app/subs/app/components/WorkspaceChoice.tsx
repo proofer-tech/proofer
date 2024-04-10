@@ -16,14 +16,14 @@ export default function WorkspaceChoice({
   const router = useRouter();
   return (
     <Select
-      placeholder="워크스페이스를 선택해주세요"
+      placeholder="Choose workspace"
       data={workspaces.map((workspace) => ({
         label: workspace.name,
         value: workspace.slug,
       }))}
       size={"lg"}
       onChange={(value) => {
-        const path = value && generateAppPath(`/${value}`);
+        const path = value && generateAppPath("/", value);
         if (path) {
           router.push(path);
           router.refresh();

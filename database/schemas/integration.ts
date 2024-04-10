@@ -1,14 +1,14 @@
-import { prooferSchema } from "@/database/engine";
+import { schema } from "@/database/engine";
 import {
-  varchar,
-  serial,
-  uniqueIndex,
-  text,
-  integer,
   boolean,
+  integer,
+  serial,
+  text,
+  uniqueIndex,
+  varchar,
 } from "drizzle-orm/pg-core";
 
-export const Integration = prooferSchema.table("integration", {
+export const Integration = schema.table("integration", {
   id: serial("id").primaryKey(),
   category_str: varchar("category_str", { length: 16 }).notNull(),
 
@@ -22,13 +22,13 @@ export const Integration = prooferSchema.table("integration", {
   is_implemented: boolean("is_implemented").default(false),
 });
 
-export const IntegrationTag = prooferSchema.table("integration_tag", {
+export const IntegrationTag = schema.table("integration_tag", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 16 }).notNull().unique("itt_uidx_name"),
   color: varchar("color", { length: 16 }).default("gray"),
 });
 
-export const IntegrationToTag = prooferSchema.table(
+export const IntegrationToTag = schema.table(
   "integration_to_tag",
   {
     id: serial("id").primaryKey(),

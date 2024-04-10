@@ -26,7 +26,7 @@ export default function IntegrationNavbar({
         <Stack gap={"2em"}>
           <Stack gap={"1ex"}>
             <Text fw={700} size={"xs"}>
-              태그:
+              Tags:
             </Text>
             <Group gap={"1ex"}>
               {integrationTags.map((t) => (
@@ -43,13 +43,13 @@ export default function IntegrationNavbar({
           </Stack>
           <Stack gap={"1ex"}>
             <Text fw={700} size={"xs"}>
-              카테고리:
+              Category:
             </Text>
             <Text size={"sm"}>{integration.category_str}</Text>
           </Stack>
           <Stack gap={"1ex"}>
             <Text fw={700} size={"xs"}>
-              앱 설명:
+              Description:
             </Text>
             <Text size={"sm"} c={"var(--mantine-color-gray-8)"}>
               {integration.description}

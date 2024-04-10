@@ -6,13 +6,15 @@ import {
   GitHubInstallation,
   GitHubRepository,
   WorkspaceToGitHubInstallation,
-} from "@/database/schemas/github";
+} from "@/database/schemas/github/raw";
 import { and, eq } from "drizzle-orm";
 import { Workspace } from "@/database/schemas/workspace";
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
-import { withApiWorkspaceUserRequired } from "@/src/api-decorators";
+import { withApiWorkspaceUserRequired } from "@/src/decorators/api";
 import moment from "moment";
 import { notFound } from "next/navigation";
+import { canManageWorkspace } from "@/src/services/role";
+import { Forbidden } from "http-errors";
 
 interface Repository {
   name: string;
@@ -32,103 +34,118 @@ export interface Installation {
   repositories: Repository[];
 }
 export const GET = withApiAuthRequired(
-  withApiWorkspaceUserRequired(async (_: any, { params, workspace }: any) => {
-    const { installationId } = params;
-    const row = (
-      await dz
-        .select()
-        .from(GitHubInstallation)
-        .where(eq(GitHubInstallation.installation_id, installationId))
-        .innerJoin(
-          WorkspaceToGitHubInstallation,
-          and(
-            eq(WorkspaceToGitHubInstallation.workspace_id, workspace.id),
-            eq(WorkspaceToGitHubInstallation.installation_id, installationId),
-          ),
-        )
-    )[0];
-    if (!row) return notFound();
+  withApiWorkspaceUserRequired(
+    async (_: any, { workspace, member, params }: any) => {
+      if (!canManageWorkspace(member.role)) {
+        throw Forbidden("You don't have permission to access this page.");
+      }
 
-    let installation = row.github_installation;
-    if (installation.updated_at < moment().subtract(1, "hours").toDate()) {
-      const octokit = await GitHubApp.getInstallationOctokit(installationId);
-      const installationResponse = await octokit.rest.apps.getInstallation({
-        installation_id: installationId,
-      });
-      const accountResponse = await octokit.rest.users.getByUsername({
-        username: installationResponse.data.account?.name!,
-      });
-      installation = (
+      const { installationId } = params;
+      const row = (
         await dz
-          .update(GitHubInstallation)
-          .set(
-            Object.assign(
-              { updated_at: new Date() },
-              pick(installationResponse.data, [
-                "target_type",
-                "repository_selection",
-              ]),
-              pick(accountResponse.data as {}, [
-                "avatar_url",
-                "name",
-                "bio",
-                "blog",
-              ]),
+          .select()
+          .from(GitHubInstallation)
+          .where(eq(GitHubInstallation.installation_id, installationId))
+          .innerJoin(
+            WorkspaceToGitHubInstallation,
+            and(
+              eq(WorkspaceToGitHubInstallation.workspace_id, workspace.id),
+              eq(WorkspaceToGitHubInstallation.installation_id, installationId),
             ),
           )
-          .where(eq(GitHubInstallation.installation_id, installationId))
-          .returning()
       )[0];
-    }
+      if (!row) return notFound();
 
-    const repositories = await dz
-      .select()
-      .from(GitHubRepository)
-      .where(eq(GitHubRepository.installation_id, installationId));
+      let installation = row.github_installation;
+      if (installation.updated_at < moment().subtract(1, "hours").toDate()) {
+        const octokit = await GitHubApp.getInstallationOctokit(installationId);
+        const installationResponse = await octokit.rest.apps.getInstallation({
+          installation_id: installationId,
+        });
+        const accountResponse = await octokit.rest.users.getByUsername({
+          username: installationResponse.data.account?.name!,
+        });
+        installation = (
+          await dz
+            .update(GitHubInstallation)
+            .set(
+              Object.assign(
+                { updated_at: new Date() },
+                pick(installationResponse.data, [
+                  "target_type",
+                  "repository_selection",
+                ]),
+                pick(accountResponse.data as {}, [
+                  "avatar_url",
+                  "name",
+                  "bio",
+                  "blog",
+                ]),
+              ),
+            )
+            .where(eq(GitHubInstallation.installation_id, installationId))
+            .returning()
+        )[0];
+      }
 
-    return NextResponse.json(Object.assign(installation, { repositories }));
-  }),
+      const repositories = await dz
+        .select()
+        .from(GitHubRepository)
+        .where(eq(GitHubRepository.installation_id, installationId));
+
+      return NextResponse.json(Object.assign(installation, { repositories }));
+    },
+  ),
 );
 export const DELETE = withApiAuthRequired(
-  withApiWorkspaceUserRequired(async (_: any, { params }: any) => {
-    const { workspaceSlug, installationId } = params;
-    try {
-      await GitHubApp.octokit.rest.apps.deleteInstallation({
-        installation_id: installationId,
-      });
-    } catch (e) {
-      if (e.status !== 404) throw e;
-    }
+  withApiWorkspaceUserRequired(
+    async (_: any, { workspace, member, params }: any) => {
+      if (!canManageWorkspace(member.role)) {
+        throw Forbidden("You don't have permission to access this page.");
+      }
 
-    await dz.transaction(async (db) => {
-      const { workspace_to_github_installation } = (
+      const { installationId } = params;
+      try {
+        await GitHubApp.octokit.rest.apps.deleteInstallation({
+          installation_id: installationId,
+        });
+      } catch (e) {
+        if (e.status !== 404) throw e;
+      }
+
+      await dz.transaction(async (db) => {
+        const { workspace_to_github_installation } = (
+          await db
+            .select()
+            .from(WorkspaceToGitHubInstallation)
+            .innerJoin(
+              Workspace,
+              eq(WorkspaceToGitHubInstallation.workspace_id, Workspace.id),
+            )
+            .where(
+              and(
+                eq(
+                  WorkspaceToGitHubInstallation.installation_id,
+                  installationId,
+                ),
+                eq(Workspace.slug, workspace.slug),
+              ),
+            )
+        )[0];
+        if (!workspace_to_github_installation) return notFound();
         await db
-          .select()
-          .from(WorkspaceToGitHubInstallation)
-          .innerJoin(
-            Workspace,
-            eq(WorkspaceToGitHubInstallation.workspace_id, Workspace.id),
-          )
+          .delete(WorkspaceToGitHubInstallation)
           .where(
-            and(
-              eq(WorkspaceToGitHubInstallation.installation_id, installationId),
-              eq(Workspace.slug, workspaceSlug),
+            eq(
+              WorkspaceToGitHubInstallation.uuid,
+              workspace_to_github_installation.uuid,
             ),
-          )
-      )[0];
-      if (!workspace_to_github_installation) return notFound();
-      await db
-        .delete(WorkspaceToGitHubInstallation)
-        .where(
-          eq(
-            WorkspaceToGitHubInstallation.uuid,
-            workspace_to_github_installation.uuid,
-          ),
-        );
-      await db
-        .delete(GitHubInstallation)
-        .where(eq(GitHubInstallation.installation_id, installationId));
-    });
-    return new Response(null, { status: 204 });
-  }),
+          );
+        await db
+          .delete(GitHubInstallation)
+          .where(eq(GitHubInstallation.installation_id, installationId));
+      });
+      return new Response(null, { status: 204 });
+    },
+  ),
 );

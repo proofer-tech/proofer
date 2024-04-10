@@ -1,7 +1,7 @@
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { notFound, redirect } from "next/navigation";
 import { generateAppPath } from "@/src/path";
-import { WorkspaceToGitHubInstallation } from "@/database/schemas/github";
+import { WorkspaceToGitHubInstallation } from "@/database/schemas/github/raw";
 import { dz } from "@/database/engine";
 import { eq } from "drizzle-orm";
 import { Workspace } from "@/database/schemas/workspace";
@@ -24,7 +24,8 @@ export const GET = withApiAuthRequired(async function GET(req: NextRequest) {
   if (!installationBridge) return notFound();
 
   const appPath = generateAppPath(
-    `/${installationBridge.workspace.slug}/integrations/github/setup`,
+    "/integrations/github/setup",
+    installationBridge.workspace.slug,
   );
   const setupURL = new URL(
     req.nextUrl.protocol + "//" + req.nextUrl.host + appPath,

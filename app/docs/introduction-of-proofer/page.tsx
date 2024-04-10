@@ -2,11 +2,12 @@
 import { Viewer, Worker } from "@react-pdf-viewer/core";
 import { getFilePlugin, RenderDownloadProps } from "@react-pdf-viewer/get-file";
 import "@react-pdf-viewer/core/lib/styles/index.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useWindowScroll } from "@mantine/hooks";
 import { Affix, Box, Button, Center, Loader, Transition } from "@mantine/core";
 import { IconDownload } from "@tabler/icons-react";
 import { useChannelIOEvent } from "react-channel-plugin";
+import { nprogress } from "@mantine/nprogress";
 
 export default function IntroductionOfProofer() {
   const [scroll, _] = useWindowScroll();
@@ -18,6 +19,11 @@ export default function IntroductionOfProofer() {
 
   const [isChannelIOLoaded, setIsChannelIOLoaded] = useState<boolean>(false);
   useChannelIOEvent("onBoot", () => setIsChannelIOLoaded(true));
+
+  useEffect(() => {
+    if (loadingPercent === 100) nprogress.complete();
+    else nprogress.set(loadingPercent);
+  }, [loadingPercent]);
 
   return (
     <>

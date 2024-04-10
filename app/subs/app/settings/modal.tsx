@@ -13,19 +13,21 @@ import {
   Text,
 } from "@mantine/core";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { Path } from "@/app/subs/app/components/types";
 import { IconSearch } from "@tabler/icons-react";
-import { settingsPathTree } from "@/app/subs/app/settings/tree";
+import { SettingPath, settingTree } from "@/app/subs/app/settings/tree";
 import { useDisclosure } from "@mantine/hooks";
 import { usePathname, useRouter } from "next/navigation";
 
 export type Triggers = "" | "cancel" | "save" | "submit";
 interface SettingsModalProps {
-  path?: Path;
-  setPath?: (path: Path) => void;
+  path?: SettingPath;
+  setPath?: (setting: SettingPath) => void;
 
   opened: boolean;
   fullScreen: boolean;
+
+  withSubmit: boolean;
+  setWithSubmit: (withSubmit: boolean) => void;
 
   open: () => void;
   close: () => void;
@@ -37,6 +39,8 @@ interface SettingsModalProps {
 export const SettingsModalContext = createContext<SettingsModalProps>({
   opened: false,
   fullScreen: false,
+  withSubmit: false,
+  setWithSubmit: () => {},
 
   open: () => {},
   close: () => {},
@@ -48,13 +52,16 @@ export const SettingsModalContext = createContext<SettingsModalProps>({
 
 export function useSettingsModal() {
   const [settingsModalOpened, settingsModalDisclosure] = useDisclosure(false);
-  const [settingPath, setSettingPath] = useState<Path>();
+  const [settingPath, setSettingPath] = useState<SettingPath>();
+  const [withSubmit, setWithSubmit] = useState<boolean>(false);
 
   return {
     opened: settingsModalOpened,
     disclosure: settingsModalDisclosure,
     path: settingPath,
     setPath: setSettingPath,
+    withSubmit: withSubmit,
+    setWithSubmit: setWithSubmit,
   };
 }
 export function SettingsModal() {
@@ -87,12 +94,12 @@ export function SettingsModal() {
             <Text size={"1em"} fw={700}>
               {settingsModalContext.path
                 ? settingsModalContext.path.title
-                : "환경설정"}
+                : "Settings"}
             </Text>
           </Modal.Title>
           <Modal.CloseButton />
         </Modal.Header>
-        <Modal.Body pl={settingsModalContext.fullScreen ? "5em" : 0}>
+        <Modal.Body pl={settingsModalContext.fullScreen ? "5em" : 0} h={"100%"}>
           <Flex
             direction={settingsModalContext.fullScreen ? "column" : "row"}
             gap={0}
@@ -107,13 +114,13 @@ export function SettingsModal() {
             >
               <Input
                 fz={"0.8em"}
-                placeholder="설정이름 검색"
+                placeholder="Search settings"
                 leftSection={<IconSearch size={"1em"} />}
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
               />
               <ScrollArea.Autosize>
-                {Object.entries(settingsPathTree)
+                {Object.entries(settingTree)
                   .filter(
                     ([_, v]) =>
                       searchText.length < 1 || v.title.includes(searchText),
@@ -136,6 +143,7 @@ export function SettingsModal() {
                           if (pathname.split("/").reverse()[1] === "settings")
                             router.push(slug);
                           settingsModalContext.setPath?.(setting);
+                          settingsModalContext.setWithSubmit(setting.canSubmit);
                         }}
                       />
                     );
@@ -153,37 +161,46 @@ export function SettingsModal() {
                 }
               />
             </Box>
-            <Stack px={"1em"} w={"100%"}>
+            <Stack px={"1em"} w={"100%"} mih={"30vh"}>
               {settingsModalContext.path?.component && (
-                <Stack w={"100%"}>
+                <Stack
+                  w={"100%"}
+                  h={"100%"}
+                  justify={"space-between"}
+                  style={{ position: "relative", flexGrow: 1 }}
+                >
                   <settingsModalContext.path.component />
-                  <Group justify={"end"} gap={"0.5em"}>
-                    <Button
-                      size={"xs"}
-                      color={"red"}
-                      variant={"subtle"}
-                      onClick={() => settingsModalContext.trigger("cancel")}
-                    >
-                      취소
-                    </Button>
-                    <Button
-                      type={"submit"}
-                      size={"xs"}
-                      color={"gray"}
-                      variant={"subtle"}
-                      onClick={() => settingsModalContext.trigger("save")}
-                    >
-                      저장
-                    </Button>
-                    <Button
-                      type={"submit"}
-                      size={"xs"}
-                      variant={"outline"}
-                      onClick={() => settingsModalContext.trigger("submit")}
-                    >
-                      확인
-                    </Button>
-                  </Group>
+                  {settingsModalContext.withSubmit ? (
+                    <Group justify={"end"} gap={"0.5em"}>
+                      <Button
+                        size={"xs"}
+                        color={"red"}
+                        variant={"subtle"}
+                        onClick={() => settingsModalContext.trigger("cancel")}
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        type={"submit"}
+                        size={"xs"}
+                        color={"gray"}
+                        variant={"subtle"}
+                        onClick={() => settingsModalContext.trigger("save")}
+                      >
+                        Save
+                      </Button>
+                      <Button
+                        type={"submit"}
+                        size={"xs"}
+                        variant={"outline"}
+                        onClick={() => settingsModalContext.trigger("submit")}
+                      >
+                        Save and exit
+                      </Button>
+                    </Group>
+                  ) : (
+                    ""
+                  )}
                 </Stack>
               )}
             </Stack>

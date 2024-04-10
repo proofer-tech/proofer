@@ -21,8 +21,8 @@ import {
 import useSWR from "swr";
 import { apiFetcher } from "@/src/swr";
 import { Health, HealthState } from "@/src/types/health";
-import { fswitch } from "@/utils";
 import { useSearchParams } from "next/navigation";
+import { cond, constant, matches, stubTrue } from "lodash";
 
 const HealthStateLabel = {
   [HealthState.UP]: "운영중",
@@ -54,25 +54,35 @@ export default function HealthPage() {
           <Loader color="rgba(0, 0, 0, 0.1)" size={"9em"} />
         ) : (
           error ||
-          fswitch(serviceHealth(data)?.state)
-            .case(HealthState.DOWN, () => (
-              <IconAlertCircleFilled
-                size={"10em"}
-                style={{ color: "var(--color-red)" }}
-              />
-            ))
-            .case(HealthState.MAINTENANCE, () => (
-              <IconInfoCircleFilled
-                size={"10em"}
-                style={{ color: "var(--color-primary)" }}
-              />
-            ))
-            .default(() => (
-              <IconCircleCheckFilled
-                size={"10em"}
-                style={{ color: "var(--color-green)" }}
-              />
-            ))
+          cond([
+            [
+              matches(HealthState.DOWN),
+              constant(
+                <IconAlertCircleFilled
+                  size={"10em"}
+                  style={{ color: "var(--color-red)" }}
+                />,
+              ),
+            ],
+            [
+              matches(HealthState.MAINTENANCE),
+              constant(
+                <IconInfoCircleFilled
+                  size={"10em"}
+                  style={{ color: "var(--color-primary)" }}
+                />,
+              ),
+            ],
+            [
+              stubTrue,
+              constant(
+                <IconCircleCheckFilled
+                  size={"10em"}
+                  style={{ color: "var(--color-green)" }}
+                />,
+              ),
+            ],
+          ])(serviceHealth(data)?.state)
         )}
       </Center>
       <Stack py={"3em"} align={"center"}>
@@ -80,45 +90,65 @@ export default function HealthPage() {
           <Skeleton width={"80%"} height={"2em"} radius="xl" />
         ) : (
           error ||
-          fswitch(serviceHealth(data)?.state)
-            .case(HealthState.DOWN, () => (
-              <Title order={1} ta={"center"}>
-                {serviceHealth(data)?.name} 서비스에 문제를 발견하여
-                확인중입니다.
-              </Title>
-            ))
-            .case(HealthState.MAINTENANCE, () => (
-              <Title order={1} ta={"center"}>
-                {serviceHealth(data)?.name} 서비스가 점검중입니다.
-              </Title>
-            ))
-            .default(() => (
-              <Title order={1} ta={"center"}>
-                {serviceHealth(data)?.name} 서비스가 정상동작중입니다.
-              </Title>
-            ))
+          cond([
+            [
+              matches(HealthState.DOWN),
+              constant(
+                <Title order={1} ta={"center"}>
+                  {serviceHealth(data)?.name} 서비스에 문제를 발견하여
+                  확인중입니다.
+                </Title>,
+              ),
+            ],
+            [
+              matches(HealthState.MAINTENANCE),
+              constant(
+                <Title order={1} ta={"center"}>
+                  {serviceHealth(data)?.name} 서비스가 점검중입니다.
+                </Title>,
+              ),
+            ],
+            [
+              stubTrue,
+              constant(
+                <Title order={1} ta={"center"}>
+                  {serviceHealth(data)?.name} 서비스가 정상동작중입니다.
+                </Title>,
+              ),
+            ],
+          ])(serviceHealth(data)?.state)
         )}
         {isLoading ? (
           <Skeleton width={"90%"} height={"1em"} radius="xl" />
         ) : (
-          fswitch(serviceHealth(data)?.state)
-            .case(HealthState.DOWN, () => (
-              <Text ta={"center"}>
-                최대한 빠르게 복구하겠습니다. 양해해주셔서 감사합니다!
-              </Text>
-            ))
-            .case(HealthState.MAINTENANCE, () => (
-              <Text ta={"center"}>
-                궁금하신 사항은 아래 채널톡을 통해 문의해주시면 최대한 빠르게
-                답변드리겠습니다.
-              </Text>
-            ))
-            .default(() => (
-              <Text ta={"center"}>
-                혹시 문제를 겪고 계시나요? 문제상황을 채널톡으로 전달해주시면
-                빠르게 확인 후 답변해드리겠습니다!
-              </Text>
-            ))
+          cond([
+            [
+              matches(HealthState.DOWN),
+              constant(
+                <Text ta={"center"}>
+                  최대한 빠르게 복구하겠습니다. 양해해주셔서 감사합니다!
+                </Text>,
+              ),
+            ],
+            [
+              matches(HealthState.MAINTENANCE),
+              constant(
+                <Text ta={"center"}>
+                  궁금하신 사항은 아래 채널톡을 통해 문의해주시면 최대한 빠르게
+                  답변드리겠습니다.
+                </Text>,
+              ),
+            ],
+            [
+              stubTrue,
+              constant(
+                <Text ta={"center"}>
+                  혹시 문제를 겪고 계시나요? 문제상황을 채널톡으로 전달해주시면
+                  빠르게 확인 후 답변해드리겠습니다!
+                </Text>,
+              ),
+            ],
+          ])(serviceHealth(data)?.state)
         )}
       </Stack>
       <Group gap={"1em"} justify={"center"} py={"2em"}>
@@ -133,7 +163,11 @@ export default function HealthPage() {
             ))
           : data &&
             Object.entries(data).map(([k, h]) => (
-              <Tooltip.Floating key={k} label={h.description}>
+              <Tooltip.Floating
+                key={k}
+                label={h.description}
+                disabled={h.description.length > 0}
+              >
                 <Badge
                   size="xl"
                   variant="dot"

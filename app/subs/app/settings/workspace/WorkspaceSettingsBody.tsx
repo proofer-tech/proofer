@@ -1,3 +1,4 @@
+"use client";
 import React, { useContext, useEffect, useState } from "react";
 import ProoferInsightContext from "@/app/subs/app/contexts/ProoferInsightContext";
 import NeedToSelectWorkspace from "@/app/subs/app/components/NeedToSelectWorkspace";
@@ -26,7 +27,7 @@ export default function WorkspaceSettingsBody() {
 
   const [logoUrl, setLogoUrl] = useState<string>(workspace?.instance.logo_url!);
 
-  const slugRuleText = "알파벳 소문자 또는 특수문자 '-'";
+  const slugRuleText = "Only lowercase alphabets or the special character '-'";
   const form = useForm({
     initialValues: {
       name: workspace?.instance.name,
@@ -34,14 +35,13 @@ export default function WorkspaceSettingsBody() {
       logo_url: new File([], logoUrl?.split("/").pop()?.slice(-32) || ""),
     },
     validate: {
-      name: (value) =>
-        value === "" ? "워크스페이스 이름을 입력해주세요." : null,
+      name: (value) => (value === "" ? "Please enter a workspace name." : null),
       slug: (value) =>
         value === ""
-          ? "워크스페이스 식별자를 입력해주세요."
+          ? "Please enter a workspace identifier."
           : /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value!)
             ? null
-            : `${slugRuleText} 만 입력 가능합니다.`,
+            : `Only ${slugRuleText} are allowed.`,
     },
   });
 
@@ -54,7 +54,7 @@ export default function WorkspaceSettingsBody() {
     } else {
       delete formValues.logo_url;
     }
-    fetch(generateAppPath(`/${workspace.instance.slug}/api/workspace`), {
+    fetch(generateAppPath("/api/workspace", workspace.instance.slug), {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -108,7 +108,7 @@ export default function WorkspaceSettingsBody() {
   }, [isLoading]);
 
   return workspace === undefined ? (
-    <NeedToSelectWorkspace serviceName={"워크스페이스 설정"} />
+    <NeedToSelectWorkspace serviceName={"Workspace Settings"} />
   ) : (
     <form onSubmit={form.onSubmit(onSubmit)}>
       <LoadingOverlay
@@ -116,7 +116,7 @@ export default function WorkspaceSettingsBody() {
         zIndex={100}
         overlayProps={{ radius: "sm", blur: 1 }}
       />
-      <Fieldset legend="기본정보">
+      <Fieldset legend="Basic Information">
         <Group wrap={"nowrap"} align={"center"}>
           <BackgroundImage
             src={logoUrl}
@@ -129,8 +129,8 @@ export default function WorkspaceSettingsBody() {
             }}
           />
           <FileInput
-            label="워크스페이스 로고 이미지"
-            description={"1:1 비율의 정사각형 이미지를 추천합니다."}
+            label="Workspace Logo Image"
+            description={"A square image with a 1:1 ratio is recommended."}
             placeholder={logoUrl?.split("/").pop()?.slice(-32)}
             w={"100%"}
             {...form.getInputProps("logo_url")}
@@ -143,15 +143,15 @@ export default function WorkspaceSettingsBody() {
         </Group>
         <Space h={"1em"} />
         <TextInput
-          label="워크스페이스 이름"
-          placeholder="이름을 입력해주세요."
+          label="Workspace Name"
+          placeholder="Please enter a name."
           {...form.getInputProps("name")}
           onBlur={() => form.validate()}
         />
         <Space h={"1em"} />
         <TextInput
-          label="식별자"
-          placeholder="URL 식별자를 입력해주세요."
+          label="Identifier"
+          placeholder="Please enter a URL identifier."
           description={`(${slugRuleText})`}
           {...form.getInputProps("slug")}
         />
