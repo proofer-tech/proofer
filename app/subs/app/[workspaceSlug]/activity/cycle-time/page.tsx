@@ -1,7 +1,6 @@
 import { Paper, Stack, Title } from "@mantine/core";
 import React from "react";
 import CycleTimeAverage from "@/app/subs/app/[workspaceSlug]/activity/cycle-time/CycleTimeAverage";
-import { SearchBarContainer } from "@/src/modules/SearchBarControl/SearchBarContainer";
 import { CycleTimeBreakdown } from "@/app/subs/app/[workspaceSlug]/activity/cycle-time/CycleTimeBreakdown";
 import CycleTimeTable from "@/app/subs/app/[workspaceSlug]/activity/cycle-time/CycleTimeTable";
 import SearchBarControl from "@/src/modules/SearchBarControl/SearchBarControl";
@@ -22,14 +21,9 @@ import {
   SQL,
 } from "drizzle-orm";
 import { isString } from "lodash";
-import {
-  ProcessedGitHubPullRequest,
-  ProcessedGitHubTimeSeries,
-} from "@/database/schemas/github/processed";
+import { ProcessedGitHubPullRequest } from "@/database/schemas/github/processed";
 import { GitHubPullRequest, GitHubUser } from "@/database/schemas/github/raw";
 import dayjs from "@/src/utils/dayjs";
-import { GitHubSegment } from "@/src/modules/SegmentControl/types";
-import { GitHubEvent } from "@/src/github/types";
 import { mapJoinData } from "@/src/utils/drizzle";
 import { PageProps } from "@/src/types/general";
 

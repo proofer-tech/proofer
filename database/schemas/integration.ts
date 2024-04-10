@@ -1,11 +1,11 @@
 import { schema } from "@/database/engine";
 import {
-  varchar,
-  serial,
-  uniqueIndex,
-  text,
-  integer,
   boolean,
+  integer,
+  serial,
+  text,
+  uniqueIndex,
+  varchar,
 } from "drizzle-orm/pg-core";
 
 export const Integration = schema.table("integration", {

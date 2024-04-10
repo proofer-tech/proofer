@@ -6,7 +6,6 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import SearchByMemberContext, {
   searchByMemberContextTools,
 } from "@/src/modules/SearchBarControl/context";
-import { useDebouncedState } from "@mantine/hooks";
 import { isEqual } from "lodash";
 
 export interface SearchBarControlProps {

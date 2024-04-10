@@ -1,5 +1,5 @@
 import React from "react";
-import { SegmentedControl, Stack } from "@mantine/core";
+import { Stack } from "@mantine/core";
 import { ApexTimeline } from "@/app/subs/app/[workspaceSlug]/activity/timeline/ApexTimeline";
 import SearchBarControl from "@/src/modules/SearchBarControl/SearchBarControl";
 import { dz } from "@/database/engine";
@@ -19,7 +19,7 @@ import {
   SQL,
 } from "drizzle-orm";
 import { isString } from "lodash";
-import dayjs, { endOfWeek, startOfWeek } from "@/src/utils/dayjs";
+import dayjs from "@/src/utils/dayjs";
 import { PageProps } from "@/src/types/general";
 import SegmentControl from "@/src/modules/SegmentControl/SegmentControl";
 import { TimeSeriesTable } from "@/src/modules/TimeSeriesTable";

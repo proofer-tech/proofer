@@ -1,6 +1,6 @@
 import { migrate } from "drizzle-orm/vercel-postgres/migrator";
 import "dotenv/config";
-import { dz, schema } from "../engine.js";
+import { dz } from "../engine.js";
 
 async function main() {
   await migrate(dz, {

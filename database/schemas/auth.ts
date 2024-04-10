@@ -1,5 +1,5 @@
 import { schema } from "@/database/engine";
-import { varchar, serial } from "drizzle-orm/pg-core";
+import { serial, varchar } from "drizzle-orm/pg-core";
 
 export const User = schema.table("user", {
   id: serial("id").primaryKey(),

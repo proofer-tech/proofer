@@ -20,6 +20,7 @@ import {
 import { PathTree } from "@/app/subs/app/components/types";
 import { Notification } from "@mantine/core";
 import React from "react";
+
 export const pathTree: PathTree = {
   activity: {
     title: "Activity",

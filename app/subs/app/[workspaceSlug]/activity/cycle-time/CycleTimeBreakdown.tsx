@@ -1,11 +1,10 @@
 "use client";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 import { ProcessedGitHubPullRequest } from "@/database/schemas/github/processed";
 import { InferSelectModel } from "drizzle-orm";
 import { formatDuration } from "@/src/utils/dayjs";
-import { setSelection } from "@testing-library/user-event/event/selection/setSelection";
 
 interface CycleTimeBreakdownProps {
   pullRequests: InferSelectModel<typeof ProcessedGitHubPullRequest>[];

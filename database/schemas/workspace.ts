@@ -1,7 +1,6 @@
 import { schema } from "@/database/engine";
 import {
   boolean,
-  index,
   integer,
   serial,
   text,
@@ -10,6 +9,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { User } from "@/database/schemas/auth";
 import { createEnumType } from "@/src/utils/drizzle";
+
 export enum WorkspaceRole {
   OWNER = "OWNER",
   MANAGER = "MANAGER",

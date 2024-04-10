@@ -15,7 +15,7 @@ import {
 } from "drizzle-orm";
 import { Workspace, WorkspaceMemberEmail } from "@/database/schemas/workspace";
 import { WorkspacePageProps } from "@/app/subs/app/[workspaceSlug]/types";
-import dayjs, { endOfWeek, startOfWeek } from "@/src/utils/dayjs";
+import dayjs from "@/src/utils/dayjs";
 import { GitHubEvent } from "@/src/github/types";
 import { analyzeTimeSeries } from "@/src/github/insight";
 import { isString } from "lodash";

@@ -1,13 +1,13 @@
 import { schema } from "@/database/engine";
 import {
+  index,
   integer,
-  varchar,
   serial,
   text,
-  uuid,
-  uniqueIndex,
   timestamp,
-  index,
+  uniqueIndex,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
 
 export const WorkspaceToGitHubInstallation = schema.table(
