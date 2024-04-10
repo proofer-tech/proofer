@@ -37,7 +37,7 @@ export const GET = withApiAuthRequired(
   withApiWorkspaceUserRequired(
     async (_: any, { workspace, member, params }: any) => {
       if (!canManageWorkspace(member.role)) {
-        throw Forbidden("워크스페이스의 관리자만 호출할 수 있습니다.");
+        throw Forbidden("You don't have permission to access this page.");
       }
 
       const { installationId } = params;
@@ -101,7 +101,7 @@ export const DELETE = withApiAuthRequired(
   withApiWorkspaceUserRequired(
     async (_: any, { workspace, member, params }: any) => {
       if (!canManageWorkspace(member.role)) {
-        throw Forbidden("워크스페이스의 관리자만 호출할 수 있습니다.");
+        throw Forbidden("You don't have permission to access this page.");
       }
 
       const { installationId } = params;

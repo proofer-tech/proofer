@@ -149,13 +149,12 @@ export default async function Page({ params, searchParams }: PageProps) {
       <Stack>
         <Paper shadow="xs" p={"xl"}>
           <Stack>
-            <Title order={5}>평균 6일 8시간 소요</Title>
             <CycleTimeAverage pullRequests={pullRequests} />
           </Stack>
         </Paper>
         <Paper shadow="xs" px={"xl"} py={"lg"}>
           <Stack gap={"2em"}>
-            <Title order={5}>PR 별 평균 사이클 타임</Title>
+            <Title order={5}>Average cycle time by PR</Title>
             <CycleTimeBreakdown pullRequests={pullRequests} />
           </Stack>
         </Paper>

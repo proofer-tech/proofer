@@ -28,7 +28,7 @@ export default function IntegrationSettingsBody() {
   );
 
   if (workspace === undefined) {
-    return <NeedToSelectWorkspace serviceName={"워크스페이스 설정"} />;
+    return <NeedToSelectWorkspace serviceName={"Workspace"} />;
   }
 
   return (

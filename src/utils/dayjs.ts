@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import "dayjs/locale/ko";
+import "dayjs/locale/en";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import duration from "dayjs/plugin/duration";
 
@@ -42,16 +42,16 @@ export const formatDuration = (milliseconds: number): string => {
 
   let formattedDuration = [];
   if (nbDays > 0) {
-    formattedDuration.push(`${nbDays}일`);
+    formattedDuration.push(`${nbDays} Days`);
   }
   if (nbHours > 0) {
-    formattedDuration.push(`${nbHours}시간`);
+    formattedDuration.push(`${nbHours} Hours`);
   }
   if (nbMinutes > 0) {
-    formattedDuration.push(`${nbMinutes}분`);
+    formattedDuration.push(`${nbMinutes} Minutes`);
   }
-  if (nbSeconds > 0) {
-    formattedDuration.push(`${nbSeconds}초`);
+  if (formattedDuration.length === 0 && nbSeconds > 0) {
+    formattedDuration.push(`${nbSeconds} Seconds`);
   }
 
   if (formattedDuration.length === 0) formattedDuration.push("-");

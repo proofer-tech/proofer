@@ -49,9 +49,9 @@ function MemberCard({
             <Text fw={700} size={"sm"}>
               (
               {cond([
-                [matches(WorkspaceRole.OWNER), constant("소유자")],
-                [matches(WorkspaceRole.MANAGER), constant("관리자")],
-                [matches(WorkspaceRole.MEMBER), constant("멤버")],
+                [matches(WorkspaceRole.OWNER), constant("Owner")],
+                [matches(WorkspaceRole.MANAGER), constant("Manager")],
+                [matches(WorkspaceRole.MEMBER), constant("Member")],
               ])(member.role)}
               )
             </Text>
@@ -66,13 +66,13 @@ function MemberCard({
               <Anchor
                 href={generateAppPath(`/members/${member.id}`, workspace.slug)}
               >
-                <Menu.Item>멤버 정보수정</Menu.Item>
+                <Menu.Item>Show member detail</Menu.Item>
               </Anchor>
               {member.role !== WorkspaceRole.OWNER ? (
                 <>
                   <Menu.Divider />
                   <Menu.Item c={"red"} disabled>
-                    멤버 제거 (미구현)
+                    Delete member (Not ready yet)
                   </Menu.Item>
                 </>
               ) : (
@@ -131,7 +131,7 @@ export default function MemberSettingsBody() {
   }, [triggered]);
 
   if (workspace === undefined) {
-    return <NeedToSelectWorkspace serviceName={"워크스페이스 설정"} />;
+    return <NeedToSelectWorkspace serviceName={"Workspace"} />;
   }
 
   return (

@@ -12,21 +12,21 @@ export interface SettingPath extends Path {
 export type SettingTree = { [key: string]: SettingPath };
 export const settingTree: SettingTree = {
   workspace: {
-    title: "워크스페이스 설정",
+    title: "Workspace",
     isImplemented: true,
     tablerIcon: IconFolder,
     component: WorkspaceSettingsBody,
     canSubmit: true,
   },
   members: {
-    title: "멤버 관리",
+    title: "Members",
     isImplemented: true,
     tablerIcon: IconUsers,
     component: MemberSettingsBody,
     canSubmit: false,
   },
   integrations: {
-    title: "연결된 앱 관리",
+    title: "Integrations",
     isImplemented: true,
     tablerIcon: IconApps,
     component: IntegrationSettingsBody,

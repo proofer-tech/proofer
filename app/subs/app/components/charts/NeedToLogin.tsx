@@ -13,10 +13,10 @@ export default function NeedToLogin(props: NeedToLoginProps) {
         <IconKey size={"5em"} />
         <Stack w={"100%"} align={"center"}>
           <Title order={1} ta={"center"}>
-            로그인해주세요.
+            Please Sign-in first.
           </Title>
           <Text ta={"center"}>
-            내용을 확인하려면, 먼저 로그인이 필요합니다.
+            To check the contents, you must Sign-in first.
           </Text>
           <>{props.children}</>
         </Stack>

@@ -51,11 +51,10 @@ export function GitHubInstallationDetailCardSection({
     alertContext.open({
       children: (
         <Stack w={"100%"} px={"1em"}>
-          <Title order={5}>정말 해제하시겠습니까?</Title>
+          <Title order={5}>Are you sure you want to disconnect?</Title>
           <Text>
-            연동을 해제할 경우 지금까지의 기록도 함께 제거되며
-            <br />
-            다시 되돌릴 수 없습니다.
+            If you cancel the linkage, the records up to now will also be
+            removed and can not turning back.
           </Text>
           <Group justify={"end"} w={"100%"}>
             <Button
@@ -63,11 +62,9 @@ export function GitHubInstallationDetailCardSection({
               color={"red"}
               onClick={() => doUninstall()}
             >
-              해제합니다
+              Disconnect
             </Button>
-            <Button onClick={() => alertContext.close()}>
-              해제하지 않습니다
-            </Button>
+            <Button onClick={() => alertContext.close()}>Do nothing</Button>
           </Group>
         </Stack>
       ),
@@ -79,7 +76,8 @@ export function GitHubInstallationDetailCardSection({
     setIsPageLoading(true);
     await fetch(installationAPIPath, { method: "DELETE" });
     alertContext.open({
-      children: "연동이 해제되었습니다. 잠시 후 소개 페이지로 이동됩니다.",
+      children:
+        "Integration is disconnected. After a while, you will be taken to the introduction page.",
       variant: "filled",
       closeOnSeconds: 3,
       onClose: () => {
@@ -165,7 +163,7 @@ export function GitHubInstallationDetailCardSection({
                 variant="light"
                 onClick={() => uninstall()}
               >
-                앱 연동 해제하기
+                Disconnect
               </Button>
             </Group>
           </Card.Section>
@@ -212,7 +210,7 @@ export function GitHubInstallationListCardSection({}) {
             </Stack>
           ) : (
             <Center c={"var(--mantine-color-gray-6)"} h={"100%"}>
-              {'"앱 연동하기"'} 버튼을 눌러 프루퍼 인사이트에 앱을 연동해보세요.
+              Press Connect button to connect integration to Proofer Insight
             </Center>
           )}
         </Stack>

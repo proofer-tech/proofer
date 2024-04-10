@@ -1,5 +1,5 @@
 "use client";
-import { Avatar, Group, Stack } from "@mantine/core";
+import { Avatar, Group, Stack, Tooltip } from "@mantine/core";
 import { IconArrowMerge } from "@tabler/icons-react";
 import React, { useContext, useEffect, useState } from "react";
 import SearchByMemberContext, {
@@ -128,12 +128,14 @@ export default function SearchByMemberGroup({
     <>
       {vertical ? (
         <Stack justify={"start"} align={"center"}>
-          <Avatar
-            src={target?.avatar_url}
-            style={{
-              border: "3px solid var(--color-primary)",
-            }}
-          />
+          <Tooltip label={target?.nickname} disabled={!target}>
+            <Avatar
+              src={target?.avatar_url}
+              style={{
+                border: "3px solid var(--color-primary)",
+              }}
+            />
+          </Tooltip>
           {relations?.length ? (
             <>
               <IconArrowMerge size={"1em"} />
@@ -145,7 +147,9 @@ export default function SearchByMemberGroup({
                 }}
               >
                 {relations.slice(0, 3).map((relation) => (
-                  <Avatar key={relation.id} src={relation.avatar_url} />
+                  <Tooltip key={relation.id} label={relation.nickname}>
+                    <Avatar src={relation.avatar_url} />
+                  </Tooltip>
                 ))}
                 {relations.length > 3 ? (
                   <Avatar>+{relations.length - 3}</Avatar>
@@ -160,12 +164,14 @@ export default function SearchByMemberGroup({
         </Stack>
       ) : horizontal ? (
         <Group gap={0} justify={"end"} align={"center"} wrap={"nowrap"}>
-          <Avatar
-            src={target?.avatar_url}
-            style={{
-              border: "3px solid var(--color-primary)",
-            }}
-          />
+          <Tooltip label={target?.nickname} disabled={!target}>
+            <Avatar
+              src={target?.avatar_url}
+              style={{
+                border: "3px solid var(--color-primary)",
+              }}
+            />
+          </Tooltip>
           {relations?.length ? (
             <>
               <Group px={"0.5em"} align={"center"}>
@@ -176,7 +182,9 @@ export default function SearchByMemberGroup({
               </Group>
               <Avatar.Group>
                 {relations.slice(0, 3).map((relation) => (
-                  <Avatar key={relation.id} src={relation.avatar_url} />
+                  <Tooltip key={relation.id} label={relation.nickname}>
+                    <Avatar src={relation.avatar_url} />
+                  </Tooltip>
                 ))}
                 {relations.length > 3 ? (
                   <Avatar>+{relations.length - 3}</Avatar>

@@ -25,7 +25,7 @@ export default function SubPathLayout({ children }: { children: any }) {
   if (path && !subPath?.isImplemented)
     return (
       <NotReadyYetLetter
-        title={"아직 준비중인 기능이에요."}
+        title={"This feature is not ready yet."}
         c={"var(--mantine-color-gray-8)"}
       />
     );

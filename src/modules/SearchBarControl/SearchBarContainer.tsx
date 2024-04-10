@@ -49,20 +49,20 @@ export function SearchBarContainer({
   return (
     <Group justify={"space-between"} align={"start"} wrap={"nowrap"}>
       <Tooltip
-        label={"주 단위로 검색할 수 있습니다."}
+        label={"You can search by week"}
         disabled={!weekCalendar}
         position={"bottom-start"}
       >
         <DatePickerInput
           type={"range"}
-          placeholder="날짜 선택"
+          placeholder="Select the date range"
           value={range}
           onChange={([start, end]) => {
             if (dayjs(end).diff(start, "months") > 3) {
               notifications.show({
                 color: "red",
-                title: "날짜 검색범위 설정에 실패했습니다.",
-                message: "3달 이내 범위의 기록까지만 검색할 수 있습니다.",
+                title: "Setting the date search range failed.",
+                message: "You can only search records within 3 months.",
               });
               return;
             }
@@ -79,7 +79,7 @@ export function SearchBarContainer({
         <Popover width={300} position="bottom" withArrow shadow="md">
           <Popover.Target>
             <TextInput
-              placeholder={"대상인원을 검색하여 선택"}
+              placeholder={"Select the target"}
               rightSection={<IconSearch />}
               readOnly
             />
@@ -88,8 +88,8 @@ export function SearchBarContainer({
             <Stack>
               <FocusTrap.InitialFocus />
               <Select
-                label="데이터의 기준이 될 인원을 선택해주세요"
-                placeholder="1명을 선택"
+                label="Basis for the data"
+                placeholder="Choose 1 person"
                 data={
                   membersSWR.data?.map((member) => ({
                     label: member.nickname,
@@ -111,8 +111,8 @@ export function SearchBarContainer({
               <Divider />
 
               <MultiSelect
-                label="데이터에 참고할 인원을 선택해주세요"
-                placeholder="여러명 선택"
+                label="Relations for the data"
+                placeholder="Choose many people"
                 data={
                   membersSWR.data
                     ?.filter(

@@ -60,7 +60,7 @@ export default async function Page({
           integrationTags={integrationTags}
         >
           <Center h={"100%"} py={"3em"}>
-            <NotReadyYetLetter title={"아직 구현되지 않은 앱입니다."} />
+            <NotReadyYetLetter title={"This App is not ready yet."} />
           </Center>
         </IntegrationPage>,
       ),

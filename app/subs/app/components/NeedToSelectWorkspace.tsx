@@ -16,12 +16,12 @@ export default function NeedToSelectWorkspace(
         <IconFolderX size={"5em"} />
         <Stack w={"100%"} align={"center"}>
           <Title order={1} ta={"center"}>
-            워크스페이스를 먼저 생성해주세요.
+            Please create a workspace first.
           </Title>
           <Text ta={"center"}>
-            {props.serviceName ? `${props.serviceName} ` : ""}내용을 확인하려면,
-            먼저 워크스페이스를 생성해주신 후 업무에 사용되는 앱을 연동해야
-            합니다.
+            Cannot use {props.serviceName ? `${props.serviceName} ` : ""}. To
+            check the contents: First, you must create a workspace and then link
+            the apps used for work. do.
           </Text>
           <>{props.children}</>
         </Stack>

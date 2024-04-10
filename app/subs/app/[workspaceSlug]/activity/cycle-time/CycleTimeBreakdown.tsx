@@ -17,22 +17,22 @@ export function CycleTimeBreakdown({ pullRequests }: CycleTimeBreakdownProps) {
   useEffect(() => {
     setSeries([
       {
-        name: "코딩에 걸리는 시간",
+        name: "Time Spent Coding",
         data: pullRequests.map((pr) => pr.coding_time),
         color: "#3c98ff",
       },
       {
-        name: "리뷰를 픽업하는 시간",
+        name: "Time to Pick Up Review",
         data: pullRequests.map((pr) => pr.pickup_time),
         color: "#287af4",
       },
       {
-        name: "리뷰에 걸리는 시간",
+        name: "Review Time",
         data: pullRequests.map((pr) => pr.review_time),
         color: "#1452e0",
       },
       {
-        name: "배포에 걸리는 시간",
+        name: "Deployment Time",
         data: pullRequests.map((pr) => pr.deploy_time),
         color: "#0052cc",
       },

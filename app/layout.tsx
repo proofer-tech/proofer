@@ -3,7 +3,7 @@ import "./globals.scss";
 import "@mantine/dates/styles.css";
 import "@mantine/nprogress/styles.css";
 import "@mantine/notifications/styles.css";
-import "dayjs/locale/ko";
+import "dayjs/locale/en";
 import React from "react";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { theme } from "@/theme";
@@ -37,7 +37,7 @@ export const metadata = generateMetadataFromTitle(
 
 export default async function RootLayout({ children }: { children: any }) {
   return (
-    <html lang="ko">
+    <html lang="en">
       <head>
         <ColorSchemeScript />
         <meta

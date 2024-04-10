@@ -1,7 +1,7 @@
 import bundleAnalyzer from "@next/bundle-analyzer";
 import pwaAnalyzer from "next-pwa";
 import dayjs from "dayjs";
-import "dayjs/locale/ko.js";
+import "dayjs/locale/en.js";
 import customParseFormat from "dayjs/plugin/customParseFormat.js";
 import duration from "dayjs/plugin/duration.js";
 

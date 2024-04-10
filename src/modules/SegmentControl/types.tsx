@@ -1,5 +1,5 @@
 export enum GitHubSegment {
-  "전체",
+  "All",
   "Commit",
   "Pull Request",
   "Issue",

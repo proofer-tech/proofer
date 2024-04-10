@@ -47,9 +47,10 @@ export default function MemberForm({
       emails: emails.map((email) => email.email),
     },
     validate: {
-      id: (value) => (value !== member.id ? "ID 값을 수정하지 마세요." : null),
-      nickname: (value) => (value === "" ? "이름을 입력해주세요." : null),
-      emails: (value) => (value.length === 0 ? "이메일을 입력해주세요." : null),
+      id: (value) =>
+        value !== member.id ? "Do not modify the ID value." : null,
+      nickname: (value) => (value === "" ? "Please enter a name." : null),
+      emails: (value) => (value.length === 0 ? "Please enter an email." : null),
     },
   });
 
@@ -85,14 +86,14 @@ export default function MemberForm({
             />
           </Stack>
           <Stack w={"100%"}>
-            <Fieldset legend="기본정보">
+            <Fieldset legend="Basic Information">
               <Input
                 type={"text"}
-                placeholder={"이름을 입력해주세요."}
+                placeholder={"Please enter a name."}
                 {...form.getInputProps("nickname")}
               />
             </Fieldset>
-            <Fieldset legend="할당된 이메일 목록">
+            <Fieldset legend="Assigned Email List">
               <Stack gap={"0.5ex"}>
                 {form
                   .getInputProps("emails")
@@ -102,7 +103,7 @@ export default function MemberForm({
                         <Input
                           w={"100%"}
                           type={"email"}
-                          placeholder="이메일을 입력해주세요."
+                          placeholder="Please enter an email."
                           {...form.getInputProps(`emails.${idx}`)}
                           leftSection={<IconMail size={"1em"} />}
                           {...(focusedEmailIdx === idx
@@ -141,10 +142,10 @@ export default function MemberForm({
         </Group>
         <Group justify={"end"}>
           <Button variant={"outline"} size={"sm"}>
-            수정
+            Edit
           </Button>
           <Button type={"submit"} size={"sm"}>
-            저장
+            Save
           </Button>
         </Group>
       </Stack>

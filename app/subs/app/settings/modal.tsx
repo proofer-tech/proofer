@@ -94,7 +94,7 @@ export function SettingsModal() {
             <Text size={"1em"} fw={700}>
               {settingsModalContext.path
                 ? settingsModalContext.path.title
-                : "환경설정"}
+                : "Settings"}
             </Text>
           </Modal.Title>
           <Modal.CloseButton />
@@ -114,7 +114,7 @@ export function SettingsModal() {
             >
               <Input
                 fz={"0.8em"}
-                placeholder="설정이름 검색"
+                placeholder="Search settings"
                 leftSection={<IconSearch size={"1em"} />}
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
@@ -178,7 +178,7 @@ export function SettingsModal() {
                         variant={"subtle"}
                         onClick={() => settingsModalContext.trigger("cancel")}
                       >
-                        취소
+                        Cancel
                       </Button>
                       <Button
                         type={"submit"}
@@ -187,7 +187,7 @@ export function SettingsModal() {
                         variant={"subtle"}
                         onClick={() => settingsModalContext.trigger("save")}
                       >
-                        저장
+                        Save
                       </Button>
                       <Button
                         type={"submit"}
@@ -195,7 +195,7 @@ export function SettingsModal() {
                         variant={"outline"}
                         onClick={() => settingsModalContext.trigger("submit")}
                       >
-                        확인
+                        Save and exit
                       </Button>
                     </Group>
                   ) : (

@@ -8,7 +8,7 @@ import { ProcessedGitHubTimeSeries } from "@/database/schemas/github/processed";
 import { groupBy } from "lodash";
 import dayjs, { getDay } from "@/src/utils/dayjs";
 
-const dayOfTheWeekLabels = ["월", "화", "수", "목", "금", "토", "일"];
+const dayOfTheWeekLabels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 type tsType = InferSelectModel<typeof ProcessedGitHubTimeSeries>;
 export function ApexWeekTimeHeatMap({ timeSeries }: { timeSeries: tsType[] }) {
@@ -23,11 +23,11 @@ export function ApexWeekTimeHeatMap({ timeSeries }: { timeSeries: tsType[] }) {
     colors: ["#4caf50"],
     tooltip: {
       x: {
-        formatter: (value: number) => `${value}요일 평균시간`,
+        formatter: (value: number) => `${value}day working days`,
       },
       y: {
         title: { formatter: (value: string) => `${value}` },
-        formatter: (value: number) => `${value} 일`,
+        formatter: (value: number) => `${value} Days`,
       },
       marker: { show: true },
     },
@@ -50,7 +50,7 @@ export function ApexWeekTimeHeatMap({ timeSeries }: { timeSeries: tsType[] }) {
           });
 
           return {
-            name: `${time}시`,
+            name: `${time}H`,
             data: preData,
           };
         })

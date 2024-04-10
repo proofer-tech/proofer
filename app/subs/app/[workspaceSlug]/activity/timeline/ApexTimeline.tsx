@@ -37,7 +37,7 @@ export function ApexTimeline({
         const member = userIdMap[userId].workspace_member;
 
         let tsSegmentMap;
-        if (segment === GitHubSegment.전체)
+        if (segment === GitHubSegment.All)
           tsSegmentMap = groupBy(tsList, (ts) =>
             ts.event?.startsWith("commit")
               ? GitHubSegment.Commit
@@ -45,7 +45,7 @@ export function ApexTimeline({
                 ? GitHubSegment["Pull Request"]
                 : ts.event?.startsWith("issue")
                   ? GitHubSegment.Issue
-                  : GitHubSegment.전체,
+                  : GitHubSegment.All,
           );
         else tsSegmentMap = { [segment]: tsList };
         const data: { x: string; y: [number | null, number | null] }[] =
@@ -86,9 +86,9 @@ export function ApexTimeline({
             }),
           );
 
-        if (segment === GitHubSegment.전체) {
+        if (segment === GitHubSegment.All) {
           Object.keys(GitHubSegment)
-            .filter((k) => isNaN(parseInt(k)) && k !== "전체")
+            .filter((k) => isNaN(parseInt(k)) && k !== "All")
             .map((x) => {
               if (!data.find((d) => d.x === x))
                 data.push({

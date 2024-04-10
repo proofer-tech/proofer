@@ -45,19 +45,19 @@ export function* analyzeTimeSeries(
   };
 
   if (analyzeResult.weekendWorkRatio > 0) {
-    yield <InsightBadge text={"주말에도 일을 합니다"} />;
+    yield <InsightBadge text={"Works on weekends"} />;
   }
 
   if (analyzeResult.midnightWorkRatio > 10) {
     yield (
       <InsightBadge
         leftSection={<IconMoonStars size={"1em"} />}
-        text={"새벽에도 일을 합니다"}
+        text={"Works into the early hours"}
       />
     );
   }
 
   if (analyzeResult.midnightWorkRatio > 10) {
-    yield <InsightBadge text={"업무시간 외에도 일을 합니다"} />;
+    yield <InsightBadge text={"Works outside of business hours"} />;
   }
 }

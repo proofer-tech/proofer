@@ -56,7 +56,7 @@ function NeedHelpNavLink() {
   return (
     <NavLink
       href="#"
-      label="도움이 필요하신가요?"
+      label="Need for help?"
       leftSection={<IconHeadset size={"1em"} />}
       onClick={() => showMessenger()}
     />
@@ -241,7 +241,7 @@ export default function WorkspaceAppShell({
                       >
                         <Image
                           src="/assets/images/branding.svg"
-                          alt="프루퍼 로고"
+                          alt="logo"
                           width={24}
                           height={24}
                         />
@@ -293,7 +293,7 @@ export default function WorkspaceAppShell({
                       <Text fw={700}>
                         {workspace
                           ? workspace.name
-                          : "워크스페이스를 선택해주세요"}
+                          : "Choose workspace to get insight"}
                       </Text>
                       <Button
                         variant={"subtle"}

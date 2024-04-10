@@ -1,7 +1,6 @@
 import React from "react";
 import { SegmentedControl, Stack } from "@mantine/core";
 import { ApexTimeline } from "@/app/subs/app/[workspaceSlug]/activity/timeline/ApexTimeline";
-import { ActivityTable } from "@/app/subs/app/[workspaceSlug]/activity/ActivityTable";
 import SearchBarControl from "@/src/modules/SearchBarControl/SearchBarControl";
 import { dz } from "@/database/engine";
 import {

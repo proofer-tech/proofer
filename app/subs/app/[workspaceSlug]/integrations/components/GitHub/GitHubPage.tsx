@@ -85,7 +85,7 @@ export default function GitHubPage({
             underline={"never"}
           >
             <Button w={"100%"} variant={"light"}>
-              뒤로가기
+              Back
             </Button>
           </Anchor>
         ) : (
@@ -96,7 +96,7 @@ export default function GitHubPage({
               value={workspaceSlug}
             />
             <Button type={"submit"} w={"100%"}>
-              앱 연동하기
+              Connect
             </Button>
           </form>
         )

@@ -1,8 +1,6 @@
 "use client";
-import { Box, Group, Stack, Text } from "@mantine/core";
+import { Box, Group, Stack, Text, Title } from "@mantine/core";
 import React from "react";
-import moment from "moment";
-import "moment-duration-format";
 import { InferSelectModel } from "drizzle-orm";
 import { ProcessedGitHubPullRequest } from "@/database/schemas/github/processed";
 import { meanBy } from "lodash";
@@ -21,19 +19,19 @@ interface CycleTimeColumnProps {
 }
 function CycleTimeColumn({ cycleTime }: CycleTimeColumnProps) {
   let bg = "transparent";
-  let performance = "보통";
+  let performance = "Medium";
   if (cycleTime.score === null) {
     bg = "black";
     performance = "";
   } else if (cycleTime.score < 30) {
     bg = "red";
-    performance = "나쁜";
+    performance = "Low";
   } else if (cycleTime.score < 80) {
     bg = "yellow";
-    performance = "중간";
+    performance = "Medium";
   } else {
     bg = "green";
-    performance = "높은";
+    performance = "High";
   }
 
   return (
@@ -47,10 +45,10 @@ function CycleTimeColumn({ cycleTime }: CycleTimeColumnProps) {
             <Text c={bg} fw={700}>
               {performance}
             </Text>
-            <Text>퍼포먼스</Text>
+            <Text>Performance</Text>
           </>
         ) : (
-          <Text>데이터 없음</Text>
+          <Text>No data</Text>
         )}
       </Group>
       <Text fw={700} c={bg}>
@@ -85,8 +83,8 @@ export default function CycleTimeAverage({
   const dayMill = hourMill * 24;
   const cycleTimes: CycleTimeColumnItf[] = [
     {
-      title: "코딩에 걸리는 시간",
-      description: "첫 번째 커밋부터 PR 생성까지 경과된 시간입니다.",
+      title: "Time Spent Coding",
+      description: "The time elapsed from the first commit to PR creation.",
       milliseconds: codingTimeAvg,
       score:
         pullRequests.length > 0
@@ -103,9 +101,9 @@ export default function CycleTimeAverage({
       color: "#3c98ff",
     },
     {
-      title: "리뷰를 픽업하는 시간",
+      title: "Time to Pick Up Review",
       description:
-        "PR이 공개된 시점과 해당 PR을 처음 검토하는 시점 사이의 시간입니다. 리뷰어가 동료의 PR을 얼마나 빨리 픽업하는지를 나타냅니다.",
+        "The time between when a PR is opened and when it first gets reviewed. Indicates how quickly a reviewer picks up a colleague's PR.",
       milliseconds: pickupTimeAvg,
       score:
         pullRequests.length > 0
@@ -122,9 +120,9 @@ export default function CycleTimeAverage({
       color: "#287af4",
     },
     {
-      title: "리뷰에 걸리는 시간",
+      title: "Review Time",
       description:
-        "PR의 첫 번째 검토부터 해당 PR이 병합될 때까지의 시간입니다. 제출자가 코드리뷰를 얼마나 빨리 통합할 수 있는지를 나타냅니다.",
+        "The time from the first review of a PR to its merge. Reflects how quickly a submitter can integrate code reviews.",
       milliseconds: reviewTimeAvg,
       score:
         pullRequests.length > 0
@@ -141,9 +139,9 @@ export default function CycleTimeAverage({
       color: "#1452e0",
     },
     {
-      title: "배포에 걸리는 시간",
+      title: "Deployment Time",
       description:
-        "PR이 병합되는 시점부터 프로덕션에 배포되는 시점까지의 시간입니다. 코드를 얼마나 빨리 배포할 수 있는지를 나타냅니다.",
+        "The time from PR merge to deployment in production. Shows how quickly code can be deployed.",
       milliseconds: deployTimeAvg,
       score:
         pullRequests.length > 0
@@ -163,6 +161,12 @@ export default function CycleTimeAverage({
 
   return (
     <Stack gap={"0.5em"}>
+      <Title order={5}>
+        Total:{" "}
+        {formatDuration(
+          codingTimeAvg + pickupTimeAvg + reviewTimeAvg + deployTimeAvg,
+        )}{" "}
+      </Title>
       <Group
         wrap={"nowrap"}
         gap={"0.5em"}
