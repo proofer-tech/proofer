@@ -1,16 +1,8 @@
 {
   "crons": [
     {
-      "path": "/cron/fetch-github",
-      "schedule": "0 */2 * * *"
-    },
-    {
       "path": "/cron/fetch-medium",
       "schedule": "0 0 * * *"
-    },
-    {
-      "path": "/cron/execute-command",
-      "schedule": "* * * * *"
     }
   ]
 }
