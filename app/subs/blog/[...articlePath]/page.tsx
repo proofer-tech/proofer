@@ -31,7 +31,7 @@ export async function generateMetadata(
             return root(el).text().toString();
           }),
         ).join(" "),
-        { length: 253, separator: "..." },
+        { length: 125, separator: "..." },
       ),
       {
         keywords: ["프루퍼", ...article.tags.map((tag) => tag.name)],
