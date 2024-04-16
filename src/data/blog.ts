@@ -33,5 +33,5 @@ export const getArticlesWithTags = cached(async function getArticlesWithTags({
       });
       return acc;
     }, {}),
-  );
+  ).sort((a, b) => b.created_at.getTime() - a.created_at.getTime());
 });
