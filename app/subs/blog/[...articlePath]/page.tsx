@@ -23,16 +23,19 @@ export async function generateMetadata(
   if (article) {
     const root = cheerio.load(article.contents);
     return generateMetadataFromTitle(
-      "프루퍼",
-      article.title,
-      truncate(
-        Array.from(
-          root("p").map((_, el) => {
-            return root(el).text().toString();
-          }),
-        ).join(" "),
-        { length: 125, separator: "..." },
-      ),
+      {
+        title: "프루퍼",
+        shortTitle: article.title,
+        fullTitle: article.title,
+        description: truncate(
+          Array.from(
+            root("p").map((_, el) => {
+              return root(el).text().toString();
+            }),
+          ).join(" "),
+          { length: 125, separator: "..." },
+        ),
+      },
       {
         keywords: ["프루퍼", ...article.tags.map((tag) => tag.name)],
       },

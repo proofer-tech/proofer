@@ -8,14 +8,11 @@ import { generateAppPath } from "@/src/path";
 import { WORKSPACE_DEMO_SLUG } from "@/src/constants";
 import { generateMetadataFromTitle } from "@/src/manifest";
 
-const title = "Proofer Insight";
-const shortTitle = "Main";
-const description = "Are your developers doing their jobs well?";
-export const metadata = generateMetadataFromTitle(
-  title,
-  shortTitle,
-  description,
-);
+export const metadata = generateMetadataFromTitle({
+  title: "Proofer Insight",
+  shortTitle: "Main",
+  description: "Are your developers doing their jobs well?",
+});
 
 export default async function Page() {
   const session = await getSession();

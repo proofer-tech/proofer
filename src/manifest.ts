@@ -1,13 +1,17 @@
 import { Metadata } from "next";
 import { merge } from "lodash";
 
+interface MetadataGenerationProps {
+  title: string;
+  shortTitle?: string;
+  fullTitle?: string;
+  description: string;
+}
 export function generateMetadataFromTitle(
-  title: string,
-  shortTitle: string,
-  description: string,
+  { title, shortTitle = "", fullTitle, description }: MetadataGenerationProps,
   parentMetadata?: Metadata,
 ) {
-  const fullTitle = [title, shortTitle].filter((v) => v).join(" | ");
+  fullTitle = fullTitle || [title, shortTitle].filter((v) => v).join(" | ");
   const baseMetadata = {
     metadataBase: new URL("https://proofer.tech"),
     keywords: [

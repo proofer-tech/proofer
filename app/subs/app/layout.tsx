@@ -14,14 +14,10 @@ import { findUserFromSession } from "@/src/data/user";
 import { SUB_DOMAIN, WORKSPACE_DEMO_SLUG } from "@/src/constants";
 import { generateMetadataFromTitle } from "@/src/manifest";
 
-const title = "Proofer Insight";
-const shortTitle = "";
-const description = "Are your developers doing their jobs well?";
-export const metadata = generateMetadataFromTitle(
-  title,
-  shortTitle,
-  description,
-);
+export const metadata = generateMetadataFromTitle({
+  title: "Proofer Insight",
+  description: "Are your developers doing their jobs well?",
+});
 export default async function AppLayout({ children }: { children: any }) {
   const user = await findUserFromSession();
 
