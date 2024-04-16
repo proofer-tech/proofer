@@ -90,7 +90,7 @@ async function insertArticles(items: Item[]) {
 export const GET = withBearer(
   process.env.CRON_SECRET,
   async function (_: NextRequest) {
-    const response = await fetch("https://medium.com/feed/@proofer.tech", {
+    const response = await fetch("https://medium.com/feed/proofer-blog", {
       cache: "no-store",
     });
     const responseText = await response.text();
