@@ -41,21 +41,7 @@ export default withPWAAnalyzer(
       return [
         {
           source: "/medium/:slug*",
-          destination: "https://medium.com/@proofer.tech/:slug*",
-        },
-      ];
-    },
-    async redirects() {
-      return [
-        {
-          source: "/blog",
-          destination: "https://medium.com/@proofer.tech",
-          permanent: true,
-        },
-        {
-          source: "/blog/:slug*",
-          destination: "https://medium.com/@proofer.tech/:slug*",
-          permanent: true,
+          destination: "https://medium.com/proofer-blog/:slug*",
         },
       ];
     },

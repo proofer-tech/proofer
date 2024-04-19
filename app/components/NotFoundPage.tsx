@@ -73,9 +73,7 @@ export default function NotFoundPage() {
   useEffect(() => {
     if (isFounded === true) {
       setTitle("페이지를 찾았어요!");
-      setDescription(
-        "잠시 후 프루퍼의 기술블로그 @proofer.tech 로 이동합니다.",
-      );
+      setDescription("잠시 후 프루퍼의 블로그 proofer-blog 로 이동합니다.");
       setCountNumber(3);
     } else if (isFounded === false) {
       setTitle("페이지를 찾을 수 없습니다.");
@@ -88,7 +86,7 @@ export default function NotFoundPage() {
   useEffect(() => {
     if (countNumber === undefined) return;
     else if (countNumber === 0)
-      redirect(`https://medium.com/@proofer.tech${window.location.pathname}`);
+      redirect(`https://medium.com/proofer-blog${window.location.pathname}`);
 
     setTimeout(() => setCountNumber(countNumber - 1), 1000);
   }, [countNumber]);

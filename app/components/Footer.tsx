@@ -88,7 +88,7 @@ export default function Footer({ linkGroups }: FooterProps) {
             <Text fw={700}>Follow Us On</Text>
             <Group gap={"0.5em"} wrap={"nowrap"}>
               <Anchor
-                href="https://medium.com/@proofer.tech"
+                href="https://medium.com/proofer-blog"
                 target="_blank"
                 underline="never"
               >
@@ -100,7 +100,7 @@ export default function Footer({ linkGroups }: FooterProps) {
                 >
                   <Image
                     src="/assets/images/bi-medium.png"
-                    alt="@proofer.tech in Medium"
+                    alt="proofer in Medium"
                   />
                 </Avatar>
               </Anchor>
@@ -117,7 +117,7 @@ export default function Footer({ linkGroups }: FooterProps) {
                 >
                   <Image
                     src="/assets/images/bi-linkedin.png"
-                    alt="@proofer.tech in linkedin"
+                    alt="proofer in linkedin"
                   />
                 </Avatar>
               </Anchor>
