@@ -43,6 +43,11 @@ export default withPWAAnalyzer(
           source: "/medium/:slug*",
           destination: "https://medium.com/proofer-blog/:slug*",
         },
+        {
+          source: "/subscribe",
+          destination:
+            "https://medium.com/proofer-blog/newsletters/measurable-developer",
+        },
       ];
     },
   }),

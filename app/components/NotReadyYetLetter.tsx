@@ -58,7 +58,12 @@ export default function NotReadyYetLetter({
         <Text size={"xs"} ta={"right"}>
           새로운 소식과 유용한 기술 아티클을 제일 먼저 받아보세요.
         </Text>
-        <Anchor href={"https://proofer.tech/subscribe"} target={"_blank"}>
+        <Anchor
+          href={
+            "https://medium.com/proofer-blog/newsletters/measurable-developer"
+          }
+          target={"_blank"}
+        >
           <Button>뉴스레터 구독하기</Button>
         </Anchor>
       </Stack>
