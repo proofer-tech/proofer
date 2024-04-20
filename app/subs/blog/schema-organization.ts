@@ -3,7 +3,7 @@ import { generateUrl } from "@/src/path";
 
 const organizationSchema = {
   "@type": "Organization",
-  name: SUB_DOMAIN_NAMES[SUB_DOMAIN.blog],
+  name: `프루퍼 ${SUB_DOMAIN_NAMES[SUB_DOMAIN.blog]}`,
   url: generateUrl("/", SUB_DOMAIN.blog),
   logo: {
     "@type": "ImageObject",
