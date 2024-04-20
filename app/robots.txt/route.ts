@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     default:
       rulesMap.push({
         userAgent: "*",
-        disallow: ["/assets/", "/subs/"],
+        disallow: ["/subs/"],
       });
   }
 
