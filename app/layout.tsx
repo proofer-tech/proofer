@@ -46,8 +46,7 @@ export const metadata = merge(
     },
   },
   generateMetadataFromTitle({
-    title: "프루퍼",
-    shortTitle: "최고의 개발자 성과측정 SaaS 솔루션",
+    title: "프루퍼, 최고의 개발자 성과측정 SaaS 솔루션",
     description:
       "실리콘밸리의 프레임워크로 개발자 성과평가 인사이트 제공. 무료 상담과 14일 무료 평가판으로 성과 향상 여정 시작. 지금 연락하세요!",
   }),

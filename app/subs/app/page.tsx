@@ -7,13 +7,11 @@ import { getUserWorkspaces } from "@/src/data/workspace";
 import { generateAppPath } from "@/src/path";
 import { WORKSPACE_DEMO_SLUG } from "@/src/constants";
 import { generateMetadataFromTitle } from "@/src/manifest";
-
 export const metadata = generateMetadataFromTitle({
-  title: "Proofer Insight",
-  shortTitle: "Main",
-  description: "Are your developers doing their jobs well?",
+  title: "Are your developers doing their jobs well?",
+  description:
+    "Get a demo of Proofer or sign in to see how your developers are doing.",
 });
-
 export default async function Page() {
   const session = await getSession();
   const user = await findUserByEmail(session?.user?.email);

@@ -28,9 +28,8 @@ export async function generateMetadata(
   if (article) {
     return generateMetadataFromTitle(
       {
-        title: "프루퍼",
-        shortTitle: article.title,
-        fullTitle: article.title,
+        title: article.title,
+        applicationName: SUB_DOMAIN_NAMES[SUB_DOMAIN.blog],
         description: truncateDescription(article.contents),
       },
       {

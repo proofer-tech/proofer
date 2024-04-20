@@ -3,23 +3,32 @@ import { merge, truncate } from "lodash";
 import * as cheerio from "cheerio";
 
 interface MetadataGenerationProps {
-  title: string;
-  shortTitle?: string;
+  title?: string;
+  applicationName?: string;
   fullTitle?: string;
   description: string;
 }
 export function generateMetadataFromTitle(
-  { title, shortTitle = "", fullTitle, description }: MetadataGenerationProps,
+  {
+    title = "",
+    applicationName = "",
+    fullTitle,
+    description,
+  }: MetadataGenerationProps,
   parentMetadata?: Metadata,
 ) {
-  fullTitle = fullTitle || [title, shortTitle].filter((v) => v).join(" | ");
+  fullTitle =
+    fullTitle ||
+    [title, ["프루퍼", applicationName].filter((v) => v).join(" ")]
+      .filter((v) => v)
+      .join(" | ");
 
   return merge(parentMetadata, {
-    applicationName: title,
+    applicationName: applicationName,
     title: fullTitle,
     description: description,
     openGraph: {
-      siteName: title,
+      siteName: applicationName,
       title: fullTitle,
       description: description,
     },
