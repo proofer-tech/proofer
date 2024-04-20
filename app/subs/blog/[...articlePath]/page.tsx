@@ -12,9 +12,9 @@ import { generateUrl, getURLFromHeaderList } from "@/src/path";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { NextHandlerContext, PageProps } from "@/src/types/general";
-import { SUB_DOMAIN } from "@/src/constants";
+import { SUB_DOMAIN, SUB_DOMAIN_NAMES } from "@/src/constants";
 import React from "react";
-import Head from "next/head";
+import organizationSchema from "@/app/subs/blog/schema-organization";
 
 export async function generateMetadata(
   { params }: NextHandlerContext,
@@ -82,7 +82,7 @@ export default async function Page({ params }: PageProps) {
             datePublished: article.created_at,
             dateModified: article.updated_at,
             headline: article.title,
-            name: `${article.title} - 프루퍼 블로그`,
+            name: `${article.title} - 프루퍼 ${SUB_DOMAIN_NAMES[SUB_DOMAIN.blog]}`,
             description: truncateDescription(article.contents),
             identifier: article.slug,
             author: {
@@ -91,17 +91,7 @@ export default async function Page({ params }: PageProps) {
               url: "https://medium.com/proofer-blog",
             },
             creator: [`${article.author} (proofer)`],
-            publisher: {
-              "@type": "Organization",
-              name: "프루퍼 블로그",
-              url: generateUrl("/", SUB_DOMAIN.blog),
-              logo: {
-                "@type": "ImageObject",
-                width: 308,
-                height: 60,
-                url: generateUrl("/assets/images/ic_launcher.png"),
-              },
-            },
+            publisher: organizationSchema,
             mainEntityOfPage: generateUrl(`/${article.slug}`, SUB_DOMAIN.blog),
             wordCount: getTextOf(article.contents).length,
           }),

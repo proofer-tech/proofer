@@ -66,7 +66,7 @@ async function handleSubdomainMiddleware(
   const subDomain = hostname.split(".")[0];
   const path = getPath(req);
 
-  if (Object.values(SUB_DOMAIN).includes(subDomain)) {
+  if (Object.values(SUB_DOMAIN).includes(subDomain as SUB_DOMAIN)) {
     let rewritePath = path;
     if (
       path.startsWith("/api/auth") ||
