@@ -1,8 +1,9 @@
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 import { SUB_DOMAIN } from "@/src/constants";
 
+export const withSubs = Boolean(parseInt(process.env.NEXT_PUBLIC_WITH_SUBS!));
 export function getPathPrefix(subDomain?: string) {
-  let pathPrefix = process.env.NEXT_PUBLIC_PATH_PREFIX || "";
+  let pathPrefix = withSubs ? "/subs" : "";
   if (pathPrefix && subDomain) pathPrefix = `${pathPrefix}/${subDomain}`;
   return pathPrefix;
 }

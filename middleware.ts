@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { get } from "@vercel/edge-config";
 import { Health } from "@/src/types/health";
 import { SUB_DOMAIN } from "@/src/constants";
-import { getPathPrefix } from "@/src/path";
+import { withSubs } from "@/src/path";
 const isProduction = process.env.VERCEL_ENV === "production";
 
 function getPath(req: NextRequest): string {
@@ -13,10 +13,15 @@ function getPath(req: NextRequest): string {
 async function isStaticFile(req: NextRequest): Promise<boolean> {
   const path = getPath(req);
   const staticPaths = ["/_", "/assets"];
+  const isRootFile =
+    !path.slice(1).includes("/") &&
+    path.includes(".") &&
+    // sitemap 은 각자의 subdomain 파일을 따라가도록 한다.
+    !path.includes("sitemap.xml");
 
   return (
     staticPaths.some((staticPath) => path.startsWith(staticPath)) ||
-    (path !== "/" && !path.slice(1).includes("/") && path.includes("."))
+    (path !== "/" && isRootFile)
   );
 }
 
@@ -60,11 +65,11 @@ async function handleMaintenanceMiddleware(
 async function handleSubdomainMiddleware(
   req: NextRequest,
 ): Promise<NextResponse | undefined> {
-  if (getPathPrefix()) return;
-
   const hostname = req.headers.get("host") || req.nextUrl.host;
   const subDomain = hostname.split(".")[0];
   const path = getPath(req);
+
+  if (subDomain === "www") return;
 
   if (Object.values(SUB_DOMAIN).includes(subDomain as SUB_DOMAIN)) {
     let rewritePath = path;
@@ -79,7 +84,7 @@ async function handleSubdomainMiddleware(
 
     rewritePath = `/subs/${subDomain}` + rewritePath;
     return NextResponse.rewrite(new URL(rewritePath, req.url));
-  } else if (path.startsWith(`/subs`)) {
+  } else if (!withSubs && path.startsWith(`/subs`)) {
     const pathBlocks = path.split("/");
     const subDomainOnPath = pathBlocks.slice(2)[0];
 
