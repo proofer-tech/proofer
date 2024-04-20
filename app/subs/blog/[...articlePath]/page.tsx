@@ -14,6 +14,7 @@ import { NextHandlerContext, PageProps } from "@/src/types/general";
 import { SUB_DOMAIN, SUB_DOMAIN_NAMES } from "@/src/constants";
 import React from "react";
 import organizationSchema from "@/app/subs/blog/schema-organization";
+import { NotFound } from "http-errors";
 
 export async function generateMetadata(
   { params }: NextHandlerContext,
@@ -64,6 +65,8 @@ export default async function Page({ params }: PageProps) {
   }
   const articles = await getArticlesWithTags({ slug });
   const article = articles[0];
+
+  if (!article) throw NotFound("블로그 아티클을 찾을 수 없습니다.");
 
   return (
     <>

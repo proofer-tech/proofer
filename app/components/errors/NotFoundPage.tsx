@@ -1,7 +1,16 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { Center, Container, Space, Stack, Text, Title } from "@mantine/core";
+import {
+  Button,
+  Center,
+  Code,
+  Container,
+  Space,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
 import { redirect } from "next/navigation";
 
 const magnifierComponents = [
@@ -34,7 +43,11 @@ const magnifierComponents = [
     height={240}
   />,
 ];
-export default function NotFoundPage() {
+interface NotFoundPageProps {
+  error: Error;
+  reset: () => void;
+}
+export default function NotFoundPage({ error, reset }: NotFoundPageProps) {
   const [title, setTitle] = useState<string>("페이지를 찾는 중이에요.");
   const [description, setDescription] = useState<string>(
     "기술 블로그에 찾고 계시는 페이지가 있다면, 페이지로 연결될거에요.",
@@ -66,6 +79,7 @@ export default function NotFoundPage() {
             break;
         }
       })
+      .catch(() => setIsFounded(false))
       .finally(() => clearInterval(interval));
   }, []);
 
@@ -78,7 +92,7 @@ export default function NotFoundPage() {
     } else if (isFounded === false) {
       setTitle("페이지를 찾을 수 없습니다.");
       setDescription(
-        "혹시 찾고 계시는 페이지의 URL이 잘못 입력된건 아닌지 한번 더 확인해보세요.",
+        "혹시 찾고 계시는 페이지의 URL이 잘못 입력된건 아닌지 한번 더 확인해보세요",
       );
     }
   }, [isFounded]);
@@ -102,7 +116,17 @@ export default function NotFoundPage() {
         <Text c={"var(--mantine-color-gray-6)"} ta={"center"}>
           {description}
         </Text>
-        {countNumber !== undefined ? <Text>{countNumber}</Text> : ""}
+
+        {countNumber !== undefined ? (
+          <Text>{countNumber}</Text>
+        ) : (
+          <Stack>
+            <Code p={"1em 2em"}>{error.message}</Code>
+            <Button onClick={() => reset()} variant={"outline"} size={"xs"}>
+              새로고침하여 다시 시도해보기
+            </Button>
+          </Stack>
+        )}
       </Stack>
     </Container>
   );

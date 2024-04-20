@@ -82,6 +82,14 @@ async function handleSubdomainMiddleware(
       return NextResponse.next();
     }
 
+    if (path.startsWith("/health")) {
+      return NextResponse.redirect(
+        new URL(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/health?service=${subDomain}`,
+        ),
+      );
+    }
+
     rewritePath = `/subs/${subDomain}` + rewritePath;
     return NextResponse.rewrite(new URL(rewritePath, req.url));
   } else if (!withSubs && path.startsWith(`/subs`)) {
