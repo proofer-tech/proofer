@@ -29,14 +29,12 @@ export const metadata = merge(
   {
     metadataBase: new URL("https://proofer.tech"),
     keywords: [
-      "프루퍼",
       "개발자 성과",
-      "Developer Velocity",
-      "DORA Metrics",
-      "SPACE Framework",
-      "DevEx",
-      "proofer",
-      "proofer tech",
+      "개발자 평가",
+      "개발자 성과 평가",
+      "성과 평가",
+      "HR SaaS",
+      "개발자 성과 관리",
     ],
     openGraph: {
       locale: "ko",
@@ -46,9 +44,9 @@ export const metadata = merge(
     },
   },
   generateMetadataFromTitle({
-    title: "프루퍼, 최고의 개발자 성과측정 SaaS 솔루션",
+    title: "프루퍼, 최고의 개발자 성과 평가 SaaS 솔루션",
     description:
-      "실리콘밸리의 프레임워크로 개발자 성과평가 인사이트 제공. 무료 상담과 14일 무료 평가판으로 성과 향상 여정 시작. 지금 연락하세요!",
+      "프루퍼는 개발자의 성과를 정확하게 평가하고 개선할 수 있는 데이터 기반의 HR SaaS 솔루션을 제공합니다. 무료 상담과 14일 평가판으로 성과 향상 여정 시작. 지금 바로 연락해보세요!",
   }),
 );
 
@@ -91,7 +89,6 @@ export default async function RootLayout({ children }: { children: any }) {
           </MantineProvider>
           <Analytics />
           <SpeedInsights />
-
           <GoogleAnalytics gaId="G-L765E402KF" />
         </UserProvider>
       </body>
