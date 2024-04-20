@@ -54,7 +54,7 @@ export default function LandingPageShellLayout({
   });
   const isMounted = useIsMounted();
   const [_, scrollTo] = useWindowScroll();
-  const [hash, setHash] = useHash();
+  const [hash] = useHash();
   useEffect(() => {
     if (isMounted && hash) {
       setTimeout(() => {
