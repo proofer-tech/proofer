@@ -10,7 +10,7 @@ import {
   NotReadyYetModal,
 } from "@/app/components/Modal";
 import React, { useEffect } from "react";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useHash, useWindowScroll } from "@mantine/hooks";
 import { Anchor, AppShell, Box, Text } from "@mantine/core";
 import Footer from "@/app/components/Footer";
 import Header, { HeaderPortal } from "@/app/components/Header";
@@ -22,6 +22,7 @@ import {
 } from "@/src/hooks/mediaQuery";
 import TallyContext from "@/src/contexts/TallyContext";
 import AgentContext from "@/src/contexts/AgentContext";
+import { useIsMounted } from "@react-pdf-viewer/core";
 
 interface LandingPageShellLayoutProps
   extends Omit<LandingPageShellProps, "isNavbarOpened"> {
@@ -51,18 +52,20 @@ export default function LandingPageShellLayout({
   const tallyInquireForm = useTallyInquireForm({
     onSubmit: () => inquireCompletedModal.open(),
   });
-
+  const isMounted = useIsMounted();
+  const [_, scrollTo] = useWindowScroll();
+  const [hash, setHash] = useHash();
   useEffect(() => {
-    if (window.location.hash) {
-      const hashAnchor = document.getElementById(
-        window.location.hash.replace("#", ""),
-      );
-      if (hashAnchor !== null) {
-        const y = hashAnchor.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: y, behavior: "smooth" });
-      }
+    if (isMounted && hash) {
+      setTimeout(() => {
+        const hashAnchor = document.getElementById(hash.replace("#", ""));
+        if (hashAnchor !== null) {
+          const y = hashAnchor.getBoundingClientRect().top + window.scrollY;
+          scrollTo({ y: y });
+        }
+      }, 600);
     }
-  }, []);
+  }, [isMounted, hash]);
 
   return (
     <ReactChannelIO
