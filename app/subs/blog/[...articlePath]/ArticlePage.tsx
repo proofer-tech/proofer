@@ -11,6 +11,9 @@ import {
   TypographyStylesProvider,
 } from "@mantine/core";
 import styles from "./styles.module.scss";
+import { headers } from "next/headers";
+import React from "react";
+import ShareIcons from "@/app/subs/blog/[...articlePath]/ShareIcons";
 
 interface ArticleProps {
   article: InferSelectModel<typeof Article> & {
@@ -19,6 +22,8 @@ interface ArticleProps {
 }
 
 export default function ArticlePage({ article }: ArticleProps) {
+  const headerList = headers();
+  const xUrl = headerList.get("x-url") as string;
   return (
     <Stack py={"xl"}>
       <Group justify={"space-between"} align={"end"}>
@@ -43,6 +48,8 @@ export default function ArticlePage({ article }: ArticleProps) {
           dangerouslySetInnerHTML={{ __html: article.contents }}
         />
       </TypographyStylesProvider>
+      <ShareIcons url={xUrl} />
+      <Space h={"xl"} />
     </Stack>
   );
 }
