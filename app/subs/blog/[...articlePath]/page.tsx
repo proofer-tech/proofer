@@ -1,14 +1,19 @@
-import { Container, Stack } from "@mantine/core";
+import { Container } from "@mantine/core";
 import ArticlePage from "@/app/subs/blog/[...articlePath]/ArticlePage";
-import { generateMetadataFromTitle } from "@/src/manifest";
+import {
+  generateMetadataFromTitle,
+  getTextOf,
+  truncateDescription,
+} from "@/src/manifest";
 import { Metadata, ResolvingMetadata } from "next";
 import { getArticlesWithTags } from "@/src/data/blog";
-import * as cheerio from "cheerio";
-import { truncate } from "lodash";
-import { getURLFromHeaderList } from "@/src/path";
+import { generateUrl, getURLFromHeaderList } from "@/src/path";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { NextHandlerContext, PageProps } from "@/src/types/general";
+import { SUB_DOMAIN, SUB_DOMAIN_NAMES } from "@/src/constants";
+import React from "react";
+import organizationSchema from "@/app/subs/blog/schema-organization";
 
 export async function generateMetadata(
   { params }: NextHandlerContext,
@@ -21,23 +26,23 @@ export async function generateMetadata(
   const parentMetadata = await parent;
 
   if (article) {
-    const root = cheerio.load(article.contents);
     return generateMetadataFromTitle(
       {
         title: "프루퍼",
         shortTitle: article.title,
         fullTitle: article.title,
-        description: truncate(
-          Array.from(
-            root("p").map((_, el) => {
-              return root(el).text().toString();
-            }),
-          ).join(" "),
-          { length: 125, separator: "..." },
-        ),
+        description: truncateDescription(article.contents),
       },
       {
         keywords: ["프루퍼", ...article.tags.map((tag) => tag.name)],
+        openGraph: {
+          type: "article",
+          // @ts-ignore
+          publishedTime: article.created_at,
+          authors: [article.author, "프루퍼 (proofer)"],
+          url: `https://blog.proofer.tech/${article.slug}`,
+          tags: article.tags.map((tag) => tag.name),
+        },
       },
     );
   }
@@ -58,15 +63,41 @@ export default async function Page({ params }: PageProps) {
 
     return redirect(newURL);
   }
-
   const articles = await getArticlesWithTags({ slug });
+  const article = articles[0];
+
   return (
-    <Stack>
-      {articles.map((article) => (
-        <Container key={article.id}>
-          <ArticlePage article={article} />
-        </Container>
-      ))}
-    </Stack>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "NewsArticle",
+            image: generateUrl("/assets/images/og-image.png"),
+            url: generateUrl(`/${article.slug}`, SUB_DOMAIN.blog),
+            dateCreated: article.created_at,
+            datePublished: article.created_at,
+            dateModified: article.updated_at,
+            headline: article.title,
+            name: `${article.title} - 프루퍼 ${SUB_DOMAIN_NAMES[SUB_DOMAIN.blog]}`,
+            description: truncateDescription(article.contents),
+            identifier: article.slug,
+            author: {
+              "@type": "Person",
+              name: `${article.author} (proofer)`,
+              url: "https://medium.com/proofer-blog",
+            },
+            creator: [`${article.author} (proofer)`],
+            publisher: organizationSchema,
+            mainEntityOfPage: generateUrl(`/${article.slug}`, SUB_DOMAIN.blog),
+            wordCount: getTextOf(article.contents).length,
+          }),
+        }}
+      />
+      <Container key={article.id}>
+        <ArticlePage article={article} />
+      </Container>
+    </>
   );
 }

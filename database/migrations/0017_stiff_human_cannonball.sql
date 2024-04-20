@@ -1,0 +1,1 @@
+ALTER TABLE "proofer"."article" ADD COLUMN "author" varchar(64) DEFAULT '프루퍼' NOT NULL;

@@ -13,6 +13,8 @@ export const Article = schema.table(
     title: varchar("title", { length: 256 }).notNull(),
     contents: text("contents").notNull(),
 
+    author: varchar("author", { length: 64 }).default("프루퍼").notNull(),
+
     created_at: timestamp("created_at").defaultNow().notNull(),
     updated_at: timestamp("updated_at").defaultNow().notNull(),
   },

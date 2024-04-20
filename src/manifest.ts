@@ -1,5 +1,6 @@
 import { Metadata } from "next";
-import { merge } from "lodash";
+import { merge, truncate } from "lodash";
+import * as cheerio from "cheerio";
 
 interface MetadataGenerationProps {
   title: string;
@@ -12,27 +13,8 @@ export function generateMetadataFromTitle(
   parentMetadata?: Metadata,
 ) {
   fullTitle = fullTitle || [title, shortTitle].filter((v) => v).join(" | ");
-  const baseMetadata = {
-    metadataBase: new URL("https://proofer.tech"),
-    keywords: [
-      "프루퍼",
-      "개발자 성과",
-      "Developer Velocity",
-      "DORA Metrics",
-      "SPACE Framework",
-      "DevEx",
-      "proofer",
-      "proofer tech",
-    ],
-    openGraph: {
-      locale: "ko",
-      type: "website",
-      url: "https://proofer.tech",
-      images: ["/assets/images/og-image.png"],
-    },
-  };
 
-  return merge(baseMetadata, parentMetadata, {
+  return merge(parentMetadata, {
     applicationName: title,
     title: fullTitle,
     description: description,
@@ -42,4 +24,20 @@ export function generateMetadataFromTitle(
       description: description,
     },
   });
+}
+
+export function getTextOf(html: string) {
+  const root = cheerio.load(html);
+  return Array.from(
+    root("p").map((_, el) => {
+      return root(el).text().toString();
+    }),
+  ).join(" ");
+}
+
+export function truncateDescription(description: string, options: {} = {}) {
+  return truncate(
+    getTextOf(description),
+    merge({ length: 125, separator: "..." }, options),
+  );
 }
