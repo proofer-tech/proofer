@@ -7,7 +7,6 @@ import {
 } from "@/src/manifest";
 import { Metadata, ResolvingMetadata } from "next";
 import { getArticlesWithTags } from "@/src/data/blog";
-import * as cheerio from "cheerio";
 import { generateUrl, getURLFromHeaderList } from "@/src/path";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -27,7 +26,6 @@ export async function generateMetadata(
   const parentMetadata = await parent;
 
   if (article) {
-    const root = cheerio.load(article.contents);
     return generateMetadataFromTitle(
       {
         title: "프루퍼",
