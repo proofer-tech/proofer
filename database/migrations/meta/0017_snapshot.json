@@ -73,7 +73,7 @@
           "type": "varchar(64)",
           "primaryKey": false,
           "notNull": true,
-          "default": "'프루퍼 (proofer)'"
+          "default": "'프루퍼'"
         },
         "created_at": {
           "name": "created_at",
