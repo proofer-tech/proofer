@@ -56,6 +56,7 @@ async function insertArticles(items: Item[]) {
           origin: item.guid,
           title: item.title,
           contents: item["content:encoded"],
+          author: item["dc:creator"],
           created_at: dayjs(item.pubDate).toDate(),
           updated_at: dayjs(item["atom:updated"]).toDate(),
         })),

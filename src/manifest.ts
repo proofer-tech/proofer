@@ -1,5 +1,6 @@
 import { Metadata } from "next";
-import { merge } from "lodash";
+import { merge, truncate } from "lodash";
+import * as cheerio from "cheerio";
 
 interface MetadataGenerationProps {
   title: string;
@@ -23,4 +24,20 @@ export function generateMetadataFromTitle(
       description: description,
     },
   });
+}
+
+export function getTextOf(html: string) {
+  const root = cheerio.load(html);
+  return Array.from(
+    root("p").map((_, el) => {
+      return root(el).text().toString();
+    }),
+  ).join(" ");
+}
+
+export function truncateDescription(description: string, options: {} = {}) {
+  return truncate(
+    getTextOf(description),
+    merge({ length: 125, separator: "..." }, options),
+  );
 }

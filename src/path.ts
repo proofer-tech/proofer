@@ -37,3 +37,16 @@ export function getURLFromHeaderList(headerList: ReadonlyHeaders) {
 
   return new URL(headerList.get("x-url") || `${protocol}${host}${nextURL}`);
 }
+
+export const generateUrl = (path: string, subDomain?: string) => {
+  const prefix = getPathPrefix();
+  if (prefix)
+    return new URL(
+      generateSubdomainPath(path, subDomain),
+      process.env.NEXT_PUBLIC_BASE_URL,
+    ).toString();
+
+  const hostURL = new URL(process.env.NEXT_PUBLIC_BASE_URL!);
+  if (subDomain) hostURL.hostname = `${subDomain}.${hostURL.hostname}`;
+  return new URL(generateSubdomainPath(path, subDomain), hostURL).toString();
+};
