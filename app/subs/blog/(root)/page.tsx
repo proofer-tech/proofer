@@ -10,8 +10,8 @@ import {
 } from "@mantine/core";
 import { getArticlesWithTags } from "@/src/data/blog";
 import { truncateHtml } from "@/src/utils/text";
-import { generateSubdomainPath, generateUrl } from "@/src/path";
-import { SUB_DOMAIN, SUB_DOMAIN_NAMES } from "@/src/constants";
+import { generateSubdomainPath } from "@/src/path";
+import { SUB_DOMAIN } from "@/src/constants";
 import styles from "./styles.module.scss";
 import organizationSchema from "@/app/subs/blog/schema-organization";
 
