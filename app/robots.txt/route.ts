@@ -1,10 +1,12 @@
 import { NextRequest } from "next/server";
 import { resolveRobots } from "next/dist/build/webpack/loaders/metadata/resolve-route-data";
 import { SUB_DOMAIN } from "@/src/constants";
+import { generateUrl } from "@/src/path";
 
 export async function GET(req: NextRequest) {
   const hostname = req.headers.get("host") || req.nextUrl.host;
-  const subDomain = hostname.split(".")[0];
+  let subDomain = hostname.split(".")[0];
+  subDomain = subDomain === "www" ? "" : subDomain;
   const rulesMap = [];
 
   switch (subDomain) {
@@ -18,14 +20,13 @@ export async function GET(req: NextRequest) {
     default:
       rulesMap.push({
         userAgent: "*",
-        disallow: ["/subs/"],
       });
   }
 
   const response = new Response(
     resolveRobots({
       rules: rulesMap,
-      sitemap: "https://proofer.tech/sitemap.xml",
+      sitemap: generateUrl("/sitemap.xml", subDomain),
     }),
   );
   response.headers.set("content-type", "text/plain;charset=UTF-8");
