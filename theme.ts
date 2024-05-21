@@ -1,9 +1,16 @@
 "use client";
 
-import { createTheme } from "@mantine/core";
+import { createTheme, rem } from "@mantine/core";
 
 export const theme = createTheme({
   fontFamily: "LINESeedKR",
+  fontSizes: {
+    xs: rem(12),
+    sm: rem(14),
+    md: rem(16),
+    lg: rem(24),
+    xl: rem(48),
+  },
   primaryColor: "primary",
   colors: {
     primary: [

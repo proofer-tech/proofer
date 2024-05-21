@@ -62,6 +62,7 @@ export default function Header({
                       c="var(--color-foreground)"
                       href={menu.href}
                       underline={"never"}
+                      size={"md"}
                     >
                       {menu.title}
                     </Anchor>
@@ -94,7 +95,9 @@ export default function Header({
             </Group>
             <Group>
               {onInquireClick && (
-                <Button onClick={onInquireClick}>무료상담 신청</Button>
+                <Button onClick={onInquireClick} radius="md">
+                  무료상담 신청
+                </Button>
               )}
               {onBurgerClick && (
                 <Burger

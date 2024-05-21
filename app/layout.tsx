@@ -29,12 +29,13 @@ export const metadata = merge(
   {
     metadataBase: new URL("https://proofer.tech"),
     keywords: [
-      "개발자 성과",
-      "개발자 평가",
-      "개발자 성과 평가",
-      "성과 평가",
+      "성과측정",
+      "성과평가",
+      "성과관리",
+      "HRDT",
+      "Digital Transformation",
+      "디지털 전환",
       "HR SaaS",
-      "개발자 성과 관리",
     ],
     openGraph: {
       locale: "ko",
@@ -44,15 +45,15 @@ export const metadata = merge(
     },
   },
   generateMetadataFromTitle({
-    title: "프루퍼, 최고의 개발자 성과 평가 SaaS 솔루션",
+    title: "프루퍼, SMART 한 데이터 기반 성과 평가",
     description:
-      "프루퍼는 개발자의 성과를 정확하게 평가하고 개선할 수 있는 데이터 기반의 HR SaaS 솔루션을 제공합니다. 무료 상담과 14일 평가판으로 성과 향상 여정 시작. 지금 바로 연락해보세요!",
+      "프루퍼는 업무 데이터를 자동으로 수집하여 성과를 빠르게 측정하고 정확하게 평가하여 개선할 수 있는 데이터 기반의 HR SaaS 솔루션을 제공합니다. 지금 바로 상담을 통해 HR 성과 데이터 분석을 시작해보세요!",
   }),
 );
 
 export default async function RootLayout({ children }: { children: any }) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <head>
         <ColorSchemeScript />
         <meta
