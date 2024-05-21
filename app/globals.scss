@@ -1,85 +1,89 @@
 @font-face {
-    font-family: LINESeedKR;
-    src: url("/assets/fonts/LINESeedKR-Th.woff2") format("woff2");
-    font-weight: 200;
+  font-family: LINESeedKR;
+  src: url("/assets/fonts/LINESeedKR-Th.woff2") format("woff2");
+  font-weight: 200;
 }
 
 @font-face {
-    font-family: LINESeedKR;
-    src: url("/assets/fonts/LINESeedKR-Rg.woff2") format("woff2");
-    font-weight: 400;
+  font-family: LINESeedKR;
+  src: url("/assets/fonts/LINESeedKR-Rg.woff2") format("woff2");
+  font-weight: 400;
 }
 
 @font-face {
-    font-family: LINESeedKR;
-    src: url("/assets/fonts/LINESeedKR-Bd.woff2") format("woff2");
-    font-weight: 600;
+  font-family: LINESeedKR;
+  src: url("/assets/fonts/LINESeedKR-Bd.woff2") format("woff2");
+  font-weight: 600;
 }
 
 :root {
-    --color-white: #fff;
-    --color-grayscale-1: #eee;
-    --color-grayscale-2: #e0e0e0;
-    --color-grayscale-3: #bdbdbd;
-    --color-grayscale-4: #9e9e9e;
-    --color-grayscale-5: #757575;
-    --color-grayscale-6: #616161;
-    --color-gray: var( --color-grayscale-6);
-    --color-grayscale-7: #424242;
-    --color-grayscale-8: #333;
-    --color-grayscale-9: #2b2b2b;
-    --color-black: #000;
-    --color-green: #4caf50;
-    --color-blue: #0052cc;
-    --color-red: #ff6347;
-    --color-yellow: #fffacd;
-    --color-purple: #dda0dd;
-    --color-primary: #0052cc;
-    --color-secondary: #4caf50;
-    --color-info: var(--color-purple);
-    --color-warn: var(--color-yellow);
-    --color-danger: var(--color-red);
-    --color-success: var(--color-green);
-    --color-primarygray: var(--color-grayscale-9);
-    --color-darkgray: var(--color-grayscale-8);
-    --color-darkgray-2: var(--color-grayscale-6);
-    --color-lightgray: var(--color-grayscale-3);
-    --color-lightgray-2: var(--color-grayscale-1);
-    --color-foreground: var(--color-primarygray);
-    --color-background: var(--color-white);
-    --color-layer: var(--color-grayscale-1);
+  --color-white: #fff;
+  --color-grayscale-1: #eee;
+  --color-grayscale-2: #e0e0e0;
+  --color-grayscale-3: #bdbdbd;
+  --color-grayscale-4: #9e9e9e;
+  --color-grayscale-5: #757575;
+  --color-grayscale-6: #616161;
+  --color-gray: var(--color-grayscale-6);
+  --color-grayscale-7: #424242;
+  --color-grayscale-8: #333;
+  --color-grayscale-9: #2b2b2b;
+  --color-black: #000;
+  --color-green: #4caf50;
+  --color-blue: #0052cc;
+  --color-red: #ff6347;
+  --color-yellow: #fffacd;
+  --color-purple: #dda0dd;
+  --color-primary: #0052cc;
+  --color-secondary: #4caf50;
+  --color-info: var(--color-purple);
+  --color-warn: var(--color-yellow);
+  --color-danger: var(--color-red);
+  --color-success: var(--color-green);
+  --color-primarygray: var(--color-grayscale-9);
+  --color-darkgray: var(--color-grayscale-8);
+  --color-darkgray-2: var(--color-grayscale-6);
+  --color-lightgray: var(--color-grayscale-3);
+  --color-lightgray-2: var(--color-grayscale-1);
+  --color-foreground: var(--color-primarygray);
+  --color-background: var(--color-white);
+  --color-layer: var(--color-grayscale-1);
 }
 
 @media (prefers-color-scheme: dark) {
-    /* empty block */
+  /* empty block */
 }
 
 
 html {
-    font-size: 16px;
-    min-width: 320px;
+  font-size: 16px;
+  min-width: 320px;
+}
+
+body {
+  background-color: rgb(253, 253, 253);
 }
 
 @media screen and (width <= 1024px) {
-    html {
-        font-size: 15px;
-    }
+  html {
+    font-size: 15px;
+  }
 }
 
 @media screen and (width <= 768px) {
-    html {
-        font-size: 14px;
-    }
+  html {
+    font-size: 14px;
+  }
 }
 
 @media screen and (width <= 512px) {
-    html {
-        font-size: 13px;
-    }
+  html {
+    font-size: 13px;
+  }
 }
 
 @media screen and (width <= 320px) {
-    html {
-        font-size: 12px;
-    }
+  html {
+    font-size: 12px;
+  }
 }

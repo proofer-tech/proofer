@@ -2,7 +2,6 @@ import React from "react";
 import Background from "@/app/components/Background";
 import {
   Badge,
-  Button,
   Card,
   CardSection,
   Container,
@@ -79,7 +78,7 @@ export default function Page() {
           실제 업무 데이터에 기반한 평가로 임직원들이 느끼는 업무와 평가의
           괴리를 해소하여 명확한 피드백과 목표를 바탕으로 자신의 역량을
           객관적으로 이해하여 성장하는데 도움을 주고, 더 나아가 조직 전체의
-          인재밀도를 향상시켜 비즈니스에 가치를 더해줍니다.
+          인재밀도를 향상시켜 비즈니스에 가치를 더해보세요.
         </Text>
         <Space h={"2em"} />
         <Stepper
@@ -105,14 +104,20 @@ export default function Page() {
           />
         </Stepper>
       </Container>
-      <Space h={"8em"} />
+      <Space h={"8em"} id={"price"} />
       <Container py={"1em"}>
         <Flex className={style.services} columnGap={"1em"} rowGap={"3em"}>
-          <Stack className={style.service} gap={"2em"} id={"price"}>
+          <Stack className={style.service} gap={"2em"}>
             <Title order={2} ta={"center"} c={"var(--mantine-color-gray-8)"}>
-              성과관리 시스템
+              성과관리 시스템 (SaaS)
             </Title>
-            <Card shadow="sm" radius="md" padding={"md"} withBorder>
+            <Card
+              shadow="sm"
+              radius="md"
+              padding={"md"}
+              withBorder
+              bg={"white"}
+            >
               <CardSection p={"md"} withBorder>
                 <Text fw={500}>어떤 서비스인가요?</Text>
                 <Space h={"1em"} />
@@ -240,7 +245,7 @@ export default function Page() {
             <Title order={2} ta={"center"} c={"var(--mantine-color-gray-8)"}>
               성과추출 솔루션
             </Title>
-            <Card shadow="sm" padding="lg" radius="md" withBorder>
+            <Card shadow="sm" padding="lg" radius="md" withBorder bg={"white"}>
               <CardSection p={"md"} withBorder>
                 <Text fw={500}>어떤 서비스인가요?</Text>
                 <Space h={"1em"} />

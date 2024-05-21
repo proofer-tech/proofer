@@ -57,6 +57,7 @@ export function InquireForm({
               onChange={(e) => setInquireEmail(e.target.value)}
               onFocus={() => setPopoverOpened(true)}
               onBlur={() => setPopoverOpened(false)}
+              radius={"md"}
             />
           </Popover.Target>
           <Popover.Dropdown>
@@ -68,7 +69,11 @@ export function InquireForm({
       ) : (
         <></>
       )}
-      <Button size={"md"} onClick={() => openTallyPopup()} {...btnProps}>
+      <Button
+        size={"md"}
+        onClick={() => openTallyPopup()}
+        {...{ color: "var(--color-primary)", ...btnProps }}
+      >
         무료상담 신청
       </Button>
     </>

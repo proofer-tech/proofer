@@ -37,7 +37,7 @@ export default function Header({
 
   return (
     <>
-      <AppShell.Header>
+      <AppShell.Header bg={"white"}>
         <Container display={"flex"} h={"100%"}>
           <Group h="100%" px="md" style={{ flex: 1 }}>
             <Group justify="space-between" style={{ flex: 1 }}>
