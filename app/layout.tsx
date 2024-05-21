@@ -29,12 +29,13 @@ export const metadata = merge(
   {
     metadataBase: new URL("https://proofer.tech"),
     keywords: [
-      "개발자 성과",
-      "개발자 평가",
-      "개발자 성과 평가",
-      "성과 평가",
+      "성과측정",
+      "성과평가",
+      "성과관리",
+      "HRDT",
+      "Digital Transformation",
+      "디지털 전환",
       "HR SaaS",
-      "개발자 성과 관리",
     ],
     openGraph: {
       locale: "ko",
@@ -52,7 +53,7 @@ export const metadata = merge(
 
 export default async function RootLayout({ children }: { children: any }) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <head>
         <ColorSchemeScript />
         <meta
