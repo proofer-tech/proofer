@@ -35,7 +35,7 @@ export default function Footer({ linkGroups }: FooterProps) {
           <Image src="/assets/images/logo.svg" w={"8em"} alt={"프루퍼 로고"} />
           <Stack gap={1}>
             <Text c={"var(--color-darkgray-2)"}>
-              경기도 광명시 오리로 362, 4층
+              서울특별시 마포구 마포대로 122, 602호
             </Text>
             <Text c={"var(--color-darkgray-2)"}>
               사업자등록번호: 327-87-02020
@@ -43,12 +43,12 @@ export default function Footer({ linkGroups }: FooterProps) {
             <Text c={"var(--color-darkgray-2)"}>
               개인정보관리책임자: 홍제형(
               <Anchor
-                href="mailto:info@campersground.kr"
+                href="mailto:jay@proofer.tech"
                 target="_blank"
                 underline="never"
                 c={"var(--color-darkgray-2)"}
               >
-                info@campersground.kr
+                jay@proofer.tech
               </Anchor>
               )
             </Text>
