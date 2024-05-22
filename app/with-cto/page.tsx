@@ -111,7 +111,7 @@ export default function Page() {
           </Group>
         </Stack>
       </Container>
-      <Space py={"4em"}>
+      <Space py={"4em"} id={"timetable"}>
         <Done />
       </Space>
       <Container>
