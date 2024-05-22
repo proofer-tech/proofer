@@ -24,7 +24,7 @@ export default function Page() {
         <Stack h={"100%"} justify={"space-between"}>
           <Stack gap={0} justify={"center"} h={"100%"}>
             <Text size={"md"} c={"var(--mantine-color-gray-8)"}>
-              CTO들의 위대한 시작 그 첫번째 모임
+              CTO들의 위대한 시작, 그 첫번째 모임
             </Text>
             <Group align={"end"}>
               <Text
