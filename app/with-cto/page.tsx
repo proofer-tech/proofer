@@ -26,7 +26,7 @@ export default function Page() {
             <Text size={"md"} c={"var(--mantine-color-gray-8)"}>
               CTO들의 위대한 시작, 그 첫번째 모임
             </Text>
-            <Group align={"end"}>
+            <Group align={"center"}>
               <Text
                 size={"xl"}
                 variant="gradient"
@@ -36,6 +36,7 @@ export default function Page() {
                   deg: 1,
                 }}
                 mt={"-0.5em"}
+                mb={"-0.3em"}
                 span
               >
                 <Text fz={"1em"} span>
