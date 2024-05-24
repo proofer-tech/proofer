@@ -5,7 +5,6 @@ import {
   TypographyStylesProvider,
 } from "@mantine/core";
 import React from "react";
-import "notion-page-to-html";
 import NotionPageToHtml from "notion-page-to-html";
 import { cached } from "@/src/redis";
 
