@@ -87,7 +87,7 @@ type withLockConfig = {
 export async function withLock(
   config: withLockConfig,
   onAcquire: (lock: Lock) => void,
-  onFail: (lock: Lock) => void = (lock: Lock) => {},
+  onFail: (lock: Lock) => void = () => {},
 ) {
   const lock = new Lock(
     Object.assign({ lease: 3000 }, config, {
@@ -103,11 +103,12 @@ export async function withLock(
   }
 }
 export function cached<T extends (...args: any[]) => Promise<any>>(
+  funcName: string,
   func: T,
   options?: SetCommandOptions,
 ): T {
   const cache = async (...args: Parameters<T>): Promise<ReturnType<T>> => {
-    const key = `${func.name}:${JSON.stringify(args)}`;
+    const key = `${funcName}:${JSON.stringify(args)}`;
     await kv.get(key);
     const cachedValue: any = await kv.get(key);
 

@@ -30,29 +30,30 @@ export async function getUser(octokit: Octokit, user_id: number) {
   return null;
 }
 
-export const ensureGitHubUser = cached(async function ensureUser(
-  octokit: Octokit,
-  user_id: number,
-) {
-  const dbUser = (
-    await dz.select().from(GitHubUser).where(eq(GitHubUser.user_id, user_id))
-  )[0];
-  if (dbUser) return dbUser;
+export const ensureGitHubUser = cached(
+  "ensureGitHubUser",
+  async function (octokit: Octokit, user_id: number) {
+    const dbUser = (
+      await dz.select().from(GitHubUser).where(eq(GitHubUser.user_id, user_id))
+    )[0];
+    if (dbUser) return dbUser;
 
-  const githubUser = await getUser(octokit, user_id);
-  if (githubUser === null) throw NotFound(`User with id ${user_id} not found`);
+    const githubUser = await getUser(octokit, user_id);
+    if (githubUser === null)
+      throw NotFound(`User with id ${user_id} not found`);
 
-  return (
-    await dz
-      .insert(GitHubUser)
-      .values(githubUser)
-      .onConflictDoUpdate({
-        target: GitHubUser.user_id,
-        set: conflictUpdateSetAllColumns(GitHubUser),
-      })
-      .returning()
-  )[0];
-});
+    return (
+      await dz
+        .insert(GitHubUser)
+        .values(githubUser)
+        .onConflictDoUpdate({
+          target: GitHubUser.user_id,
+          set: conflictUpdateSetAllColumns(GitHubUser),
+        })
+        .returning()
+    )[0];
+  },
+);
 
 export async function catchFKUserReferenceError(
   tx: VercelPgDatabase,

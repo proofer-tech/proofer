@@ -2,10 +2,9 @@ import { dz } from "@/database/engine";
 import { Article, ArticleToTag, Tag } from "@/database/schemas/blog";
 import { eq, InferSelectModel } from "drizzle-orm";
 import { cached } from "@/src/redis";
+import { truncateHtml } from "@/src/utils/text";
 
-export const getArticlesWithTags = cached(async function getArticlesWithTags({
-  slug,
-}: { slug?: string } = {}) {
+async function _getArticlesWithTags({ slug }: { slug?: string } = {}) {
   let querySet = dz
     .select()
     .from(Article)
@@ -34,4 +33,19 @@ export const getArticlesWithTags = cached(async function getArticlesWithTags({
       return acc;
     }, {}),
   ).sort((a, b) => b.created_at.getTime() - a.created_at.getTime());
-});
+}
+export async function getSerializedArticles() {
+  let articles = await dz.select().from(Article);
+
+  return articles.map((article) => ({
+    id: article.id,
+    title: article.title,
+    slug: article.slug,
+    truncatedContents: truncateHtml(article.contents),
+  }));
+}
+
+export const getArticlesWithTags = cached(
+  "getArticlesWithTags",
+  _getArticlesWithTags,
+);

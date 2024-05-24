@@ -8,7 +8,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { getArticlesWithTags } from "@/src/data/blog";
+import { getArticlesWithTags, getSerializedArticles } from "@/src/data/blog";
 import { truncateHtml } from "@/src/utils/text";
 import { generateSubdomainPath } from "@/src/path";
 import { SUB_DOMAIN, SUB_DOMAIN_NAMES } from "@/src/constants";
@@ -22,7 +22,7 @@ export const metadata = generateMetadataFromTitle({
     "진짜 업무 데이터를 활용하는 성과 측정/평가/관리 통합 솔루션 프루퍼의 블로그입니다.",
 });
 export default async function Page() {
-  const articles = await getArticlesWithTags();
+  const articles = await getSerializedArticles();
   return (
     <>
       <script
@@ -47,7 +47,7 @@ export default async function Page() {
                 <Paper p={"1em 2em"} className={styles.card} shadow={"xs"}>
                   <Group>
                     <Title order={3}>{article.title}</Title>
-                    <Text>{truncateHtml(article.contents)}</Text>
+                    <Text>{article.truncatedContents}</Text>
                   </Group>
                 </Paper>
               </Anchor>
