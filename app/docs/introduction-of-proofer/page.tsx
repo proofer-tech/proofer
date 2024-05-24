@@ -48,7 +48,7 @@ export default function IntroductionOfProofer() {
       <Affix position={{ bottom: 16, right: isChannelIOLoaded ? 80 : 16 }}>
         <Transition transition="slide-up" mounted={scroll.y > 0}>
           {(styles) => (
-            <Button style={styles} size="xl">
+            <Button style={styles} size={"lg"}>
               <getFilePluginInstance.Download>
                 {(props: RenderDownloadProps) => (
                   <Button
