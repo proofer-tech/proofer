@@ -5,22 +5,7 @@ import {
   TypographyStylesProvider,
 } from "@mantine/core";
 import React from "react";
-import NotionPageToHtml from "notion-page-to-html";
-import { cached } from "@/src/redis";
-
-const getCachedTermsOfServicePage = cached(
-  async function getTermsOfServicePage() {
-    const { title, html } = await NotionPageToHtml.convert(
-      "https://www.notion.so/d9127501250a4a3bb1002f6792593d3e",
-      { bodyContentOnly: true },
-    );
-    return {
-      title,
-      html,
-    };
-  },
-  { ex: 60 * 60 * 24 },
-);
+import { getCachedTermsOfServicePage } from "@/src/notionPage";
 export default async function TermsOfServicePage() {
   const { title, html } = await getCachedTermsOfServicePage();
   return (
