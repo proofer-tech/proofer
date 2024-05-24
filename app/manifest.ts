@@ -4,8 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "프루퍼",
     short_name: "프루퍼",
-    description:
-      "정확한 개발자 성과측정을 위해 실리콘 밸리 빅테크기업들에서 검증된 프레임워크를 기반한 플랫폼을 제공하는 엔지니어링 매니징 파트너",
+    description: "진짜 업무 데이터를 활용하는 성과 측정/평가/관리 통합 솔루션",
     start_url: "/",
     display: "minimal-ui",
     background_color: "#ffffff",

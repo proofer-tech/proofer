@@ -1,18 +1,38 @@
-import FullPageIframe from "@/app/docs/components/FullPageIframe";
-import { generateMetadataFromTitle } from "@/src/manifest";
+import {
+  Container,
+  Stack,
+  Title,
+  TypographyStylesProvider,
+} from "@mantine/core";
+import React from "react";
+import "notion-page-to-html";
+import NotionPageToHtml from "notion-page-to-html";
+import { cached } from "@/src/redis";
 
-export const metadata = generateMetadataFromTitle({
-  title: "개인정보처리방침",
-  description:
-    "정확한 개발자 성과측정을 위한 엔지니어링 매니징 파트너 프루퍼는 여러분의 개인정보를 최고의 보안으로 철저히 보호합니다.",
-});
+const getCachedPrivacyPage = cached(
+  async function getPrivacyPage() {
+    const { title, html } = await NotionPageToHtml.convert(
+      "https://www.notion.so/7f1752d2fb9c40f09c86ffc2cf1b74b3",
+      { bodyContentOnly: true },
+    );
+    return {
+      title,
+      html,
+    };
+  },
+  { ex: 60 * 60 * 24 },
+);
 
-export default function PrivacyPage() {
+export default async function PrivacyPage() {
+  const { title, html } = await getCachedPrivacyPage();
   return (
-    <FullPageIframe
-      src={
-        "https://e.notionhero.io/e1/p/36fd58e-b6436b479d667db2ec9f0f705fffdb7"
-      }
-    />
+    <Container>
+      <Stack py={"xl"}>
+        <Title order={1}>{title}</Title>
+        <TypographyStylesProvider>
+          <div dangerouslySetInnerHTML={{ __html: html }} />
+        </TypographyStylesProvider>
+      </Stack>
+    </Container>
   );
 }

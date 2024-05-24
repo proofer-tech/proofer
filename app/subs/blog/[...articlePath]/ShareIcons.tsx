@@ -17,7 +17,9 @@ export default function ShareIcons({ url }: { url: string }) {
       <FacebookShareButton
         url={url}
         quote={`페이스북으로 이 글을 공유해보세요!`}
-        hashtag={"#프루퍼 #성과평가 #개발자평가 #데이터HR"}
+        hashtag={
+          "#프루퍼 #성과평가 #데이터기반 #HR애널리틱스 #개발자평가 #데이터HR"
+        }
       >
         <FacebookIcon size={32} round />
       </FacebookShareButton>
