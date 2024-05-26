@@ -5,6 +5,7 @@ import {
   Card,
   CardSection,
   Container,
+  Divider,
   Flex,
   Group,
   MantineSize,
@@ -68,6 +69,12 @@ export default function Page() {
         <Down />
       </Space>
       <Container>
+        <Title order={1} ta={"center"} c={"var(--mantine-color-gray-7)"}>
+          프루퍼의 미션
+        </Title>
+        <Group pt={"lg"} pb={"xl"} justify={"center"}>
+          <Divider w={"5em"} />
+        </Group>
         <Title order={2} c={"var(--mantine-color-gray-8)"} fw={400}>
           인재밀도 == 기업가치
         </Title>
@@ -106,10 +113,16 @@ export default function Page() {
       </Container>
       <Space h={"8em"} id={"price"} />
       <Container py={"1em"}>
+        <Title order={1} ta={"center"} c={"var(--mantine-color-gray-7)"}>
+          프루퍼 기능
+        </Title>
+        <Group pt={"lg"} pb={"xl"} justify={"center"}>
+          <Divider w={"5em"} />
+        </Group>
         <Flex className={style.services} columnGap={"1em"} rowGap={"3em"}>
           <Stack className={style.service} gap={"2em"}>
             <Title order={2} ta={"center"} c={"var(--mantine-color-gray-8)"}>
-              성과관리 시스템 (SaaS)
+              프루퍼 성과관리 시스템 (SaaS)
             </Title>
             <Card
               shadow="sm"
@@ -243,7 +256,7 @@ export default function Page() {
           </Stack>
           <Stack className={style.service} gap={"2em"}>
             <Title order={2} ta={"center"} c={"var(--mantine-color-gray-8)"}>
-              성과추출 솔루션
+              프루퍼 성과추출 솔루션
             </Title>
             <Card shadow="sm" padding="lg" radius="md" withBorder bg={"white"}>
               <CardSection p={"md"} withBorder>
@@ -305,6 +318,12 @@ export default function Page() {
         <Down />
       </Space>
       <Container>
+        <Title order={1} ta={"center"} c={"var(--mantine-color-gray-7)"}>
+          프루퍼 FAQ
+        </Title>
+        <Group pt={"lg"} pb={"xl"} justify={"center"}>
+          <Divider w={"5em"} />
+        </Group>
         <SimpleGrid className={style.faqCards}>
           <Stack className={style.faqCard}>
             <Title order={2} c={"var(--mantine-color-gray-8)"} fw={400}>
