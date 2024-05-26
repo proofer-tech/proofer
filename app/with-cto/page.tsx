@@ -129,20 +129,20 @@ export default function Page() {
             <NavLink
               active
               href="#"
-              label="러닝쉐어 - 연사 발표"
-              leftSection={<Code>20:00 ~ 20:20</Code>}
+              label="러닝쉐어(연사강연) - 지속 성장하는 조직 만들기"
+              leftSection={<Code>20:00 ~ 20:30</Code>}
             />
             <NavLink
               active
               href="#"
               label="쉬는시간"
-              leftSection={<Code>20:20 ~ 20:30</Code>}
+              leftSection={<Code>20:30 ~ 20:40</Code>}
             />
             <NavLink
               active
               href="#"
               label="러닝쉐어 - 개발자 성과평가에 대한 해외의 다양한 연구와 사례분석"
-              leftSection={<Code>20:30 ~ 21:00</Code>}
+              leftSection={<Code>20:40 ~ 21:00</Code>}
             />
             <NavLink
               active
