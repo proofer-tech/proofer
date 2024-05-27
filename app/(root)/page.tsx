@@ -34,9 +34,10 @@ export default function Page() {
             프루퍼, S.M.A.R.T 한 데이터 기반 성과관리
           </Text>
           <Text
+            component={"h1"}
+            fw={700}
             size={"xl"}
             ta="center"
-            fw={700}
             lh={1.3}
             variant="gradient"
             gradient={{
@@ -69,16 +70,16 @@ export default function Page() {
         <Down />
       </Space>
       <Container>
-        <Title order={1} ta={"center"} c={"var(--mantine-color-gray-7)"}>
+        <Title order={4} ta={"center"} c={"var(--mantine-color-gray-7)"}>
           프루퍼의 미션
         </Title>
         <Group pt={"lg"} pb={"xl"} justify={"center"}>
           <Divider w={"5em"} />
         </Group>
-        <Title order={2} c={"var(--mantine-color-gray-8)"} fw={400}>
+        <Title order={4} c={"var(--mantine-color-gray-8)"} fw={400}>
           인재밀도 == 기업가치
         </Title>
-        <Title order={1}>데이터를 통해 비즈니스 가치를 더합니다.</Title>
+        <Title order={3}>데이터를 통해 비즈니스 가치를 더합니다.</Title>
         <Space h={"1em"} />
         <Text size={"md"} maw={"60em"}>
           이제는 성과관리에도 데이터 기반의 의사결정이 필요합니다. 프루퍼를 통해
@@ -113,7 +114,7 @@ export default function Page() {
       </Container>
       <Space h={"8em"} id={"price"} />
       <Container py={"1em"}>
-        <Title order={1} ta={"center"} c={"var(--mantine-color-gray-7)"}>
+        <Title order={4} ta={"center"} c={"var(--mantine-color-gray-7)"}>
           프루퍼 기능
         </Title>
         <Group pt={"lg"} pb={"xl"} justify={"center"}>
@@ -121,7 +122,7 @@ export default function Page() {
         </Group>
         <Flex className={style.services} columnGap={"1em"} rowGap={"3em"}>
           <Stack className={style.service} gap={"2em"}>
-            <Title order={2} ta={"center"} c={"var(--mantine-color-gray-8)"}>
+            <Title order={5} ta={"center"} c={"var(--mantine-color-gray-8)"}>
               프루퍼 성과관리 시스템 (SaaS)
             </Title>
             <Card
@@ -255,7 +256,7 @@ export default function Page() {
             </Card>
           </Stack>
           <Stack className={style.service} gap={"2em"}>
-            <Title order={2} ta={"center"} c={"var(--mantine-color-gray-8)"}>
+            <Title order={5} ta={"center"} c={"var(--mantine-color-gray-8)"}>
               프루퍼 성과추출 솔루션
             </Title>
             <Card shadow="sm" padding="lg" radius="md" withBorder bg={"white"}>
@@ -318,7 +319,7 @@ export default function Page() {
         <Down />
       </Space>
       <Container>
-        <Title order={1} ta={"center"} c={"var(--mantine-color-gray-7)"}>
+        <Title order={4} ta={"center"} c={"var(--mantine-color-gray-7)"}>
           프루퍼 FAQ
         </Title>
         <Group pt={"lg"} pb={"xl"} justify={"center"}>
@@ -326,11 +327,13 @@ export default function Page() {
         </Group>
         <SimpleGrid className={style.faqCards}>
           <Stack className={style.faqCard}>
-            <Title order={2} c={"var(--mantine-color-gray-8)"} fw={400}>
+            <Title order={5} c={"var(--mantine-color-gray-8)"} fw={400}>
               새로운 툴을 도입하는게 망설여지신다고요?
             </Title>
-            <Title order={1}>
-              단 한 번의 도입으로 지속적인 효과를 누리세요.
+            <Title order={4}>
+              단 한 번의 도입으로
+              <br />
+              지속적인 효과를 누리세요.
             </Title>
             <Space h={"1em"} />
             <Text size={"md"} maw={"60em"}>
@@ -343,11 +346,13 @@ export default function Page() {
             </Text>
           </Stack>
           <Stack className={style.faqCard}>
-            <Title order={2} c={"var(--mantine-color-gray-8)"} fw={400}>
+            <Title order={5} c={"var(--mantine-color-gray-8)"} fw={400}>
               외부 위협에 어떻게 대비하고 있나요?
             </Title>
-            <Title order={1}>
-              철저한 보안과 데이터 보호를 원칙으로 합니다.
+            <Title order={4}>
+              철저한 보안과
+              <br />
+              데이터 보호를 원칙으로 합니다.
             </Title>
             <Space h={"1em"} />
             <Text size={"md"} maw={"60em"}>
@@ -361,11 +366,13 @@ export default function Page() {
             </Text>
           </Stack>
           <Stack className={style.faqCard}>
-            <Title order={2} c={"var(--mantine-color-gray-8)"} fw={400}>
+            <Title order={5} c={"var(--mantine-color-gray-8)"} fw={400}>
               인재밀도가 진짜 높아질까요?
             </Title>
-            <Title order={1}>
-              자기주도적인 성장과 업무 생산성을 지원합니다.
+            <Title order={4}>
+              자기주도적인 성장과
+              <br />
+              업무 생산성을 지원합니다.
             </Title>
             <Space h={"1em"} />
             <Text size={"md"} maw={"60em"}>
@@ -378,10 +385,14 @@ export default function Page() {
             </Text>
           </Stack>
           <Stack className={style.faqCard}>
-            <Title order={2} c={"var(--mantine-color-gray-8)"} fw={400}>
+            <Title order={5} c={"var(--mantine-color-gray-8)"} fw={400}>
               어디에 먼저 도입하면 좋을까요?
             </Title>
-            <Title order={1}>비즈니스를 위해 일한다면, 모두 가능합니다.</Title>
+            <Title order={4}>
+              비즈니스를 위해 일한다면,
+              <br />
+              모두 가능합니다.
+            </Title>
             <Space h={"1em"} />
             <Text size={"md"} maw={"60em"}>
               프루퍼 시스템은 직군이나 도메인에 상관없이 어디든 폭넓게 적용할 수
@@ -399,11 +410,11 @@ export default function Page() {
         <Done />
       </Space>
       <Container>
-        <Title order={2} c={"var(--mantine-color-gray-8)"} fw={400}>
+        <Title order={4} c={"var(--mantine-color-gray-8)"} fw={400}>
           아직도 고민하고 계신가요?
         </Title>
         <Space h={"sm"} />
-        <Title order={1}>도입 상담 후 고민해도 늦지 않습니다.</Title>
+        <Title order={3}>도입 상담 후 고민해도 늦지 않습니다.</Title>
         <Space h={"lg"} />
         <Text>
           프루퍼팀의 도입 상담을 통해 성과관리 시스템을 혁신하세요. 저희

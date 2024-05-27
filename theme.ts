@@ -8,8 +8,39 @@ export const theme = createTheme({
     xs: rem(12),
     sm: rem(14),
     md: rem(16),
-    lg: rem(24),
-    xl: rem(32),
+    lg: rem(32),
+    xl: rem(48),
+  },
+  headings: {
+    fontFamily: "LINESeedKR",
+    fontWeight: "bold",
+    textWrap: "pretty",
+    sizes: {
+      h1: {
+        fontSize: "2.8em",
+        lineHeight: "1.3",
+      },
+      h2: {
+        fontSize: "2.4em",
+        lineHeight: "1.3",
+      },
+      h3: {
+        fontSize: "2.2em",
+        lineHeight: "1.2",
+      },
+      h4: {
+        fontSize: "1.8em",
+        lineHeight: "1.2",
+      },
+      h5: {
+        fontSize: "1.5em",
+        lineHeight: "1.1",
+      },
+      h6: {
+        fontSize: "1em",
+        lineHeight: "1.1",
+      },
+    },
   },
   primaryColor: "primary",
   colors: {
