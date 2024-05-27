@@ -85,7 +85,10 @@ export default async function Layout({ children }: any) {
     },
   ];
   return (
-    <LandingPageShellLayout portals={portals}>
+    <LandingPageShellLayout
+      portals={portals}
+      logoSrc={"/assets/images/with-cto/pwa-512x512.png"}
+    >
       {children}
     </LandingPageShellLayout>
   );

@@ -25,6 +25,7 @@ export interface HeaderProps {
   portals?: readonly HeaderPortal[];
   onBurgerClick?: () => void;
   onInquireClick?: () => void;
+  logoSrc?: string;
 }
 
 export default function Header({
@@ -32,6 +33,7 @@ export default function Header({
   onBurgerClick,
   portals = [],
   onInquireClick,
+  logoSrc,
 }: HeaderProps) {
   const userContext = useUser();
 
@@ -47,11 +49,7 @@ export default function Header({
                   style={{ width: "2em", height: "2em" }}
                   p={0}
                 >
-                  <Image
-                    src="/assets/images/branding.svg"
-                    alt="프루퍼 로고"
-                    width={"100%"}
-                  />
+                  <Image src={logoSrc} alt="프루퍼 로고" width={"100%"} />
                 </Button>
               </Anchor>
               <Group justify="space-between" style={{ flex: 1 }}>

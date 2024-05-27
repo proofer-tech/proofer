@@ -32,11 +32,13 @@ interface LandingPageShellLayoutProps
     isTablet?: boolean;
     isMobile?: boolean;
   };
+  logoSrc?: string;
 }
 export default function LandingPageShellLayout({
   portals,
   children,
   userAgent,
+  logoSrc = "/assets/images/branding.svg",
   ...props
 }: LandingPageShellLayoutProps) {
   const isDesktopMedia = useIsDesktopMedia(userAgent?.isDesktop ?? true);
@@ -86,6 +88,7 @@ export default function LandingPageShellLayout({
             portals={portals}
             onBurgerClick={navbarDisclosure[1].toggle}
             onInquireClick={() => tallyInquireForm.openTallyPopup()}
+            logoSrc={logoSrc}
           />
           <AppShell.Main px={0} pt={"var(--app-shell-header-height)"}>
             <TallyContext.Provider value={tallyInquireForm}>
