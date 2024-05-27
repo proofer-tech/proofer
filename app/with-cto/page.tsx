@@ -23,45 +23,40 @@ export default function Page() {
       <Container h={"calc(100vh - var(--app-shell-header-height))"}>
         <Stack h={"100%"} justify={"space-between"}>
           <Stack gap={0} justify={"center"} h={"100%"}>
-            <Text size={"md"} c={"var(--mantine-color-gray-8)"}>
-              CTO들의 위대한 시작, 그 첫번째 모임
-            </Text>
-            <Group align={"center"}>
-              <Text
-                size={"xl"}
-                variant="gradient"
-                gradient={{
-                  from: "var(--color-primary)",
-                  to: "var(--color-secondary)",
-                  deg: 1,
-                }}
-                mt={"-0.5em"}
-                mb={"-0.3em"}
-                span
-              >
-                <Text fz={"1em"} span>
-                  with
-                </Text>{" "}
-                <Text fz={"2em"} fw={700} span>
-                  CTO:
+            <Stack gap={0} mb={"md"}>
+              <Text size={"md"} c={"var(--mantine-color-gray-8)"}>
+                CTO들의 위대한 시작, 그 첫번째 모임
+              </Text>
+              <Group align={"center"} p={0}>
+                <Image
+                  src={"/assets/images/with-cto/logo.png"}
+                  width={512}
+                  height={512}
+                  alt={"with CTO:"}
+                  style={{
+                    maxWidth: "40vw",
+                    maxHeight: "50vh",
+                    width: "auto",
+                    height: "auto",
+                  }}
+                />
+                <Text c={"var(--mantine-color-gray-5)"} size={"xl"}>
+                  1st meet
                 </Text>
+              </Group>
+              <Text>
+                on <Code>2024.06.07 19:30</Code> at{" "}
+                <Code>Google Startup Campus</Code>
               </Text>
-              <Text c={"var(--mantine-color-gray-5)"} size={"xl"}>
-                1st meet
-              </Text>
-            </Group>
-            <Text>
-              on <Code>2024.06.07 19:30</Code> at{" "}
-              <Code>Google Startup Campus</Code>
-            </Text>
-            <Group py={"xl"}>
+            </Stack>
+            <Group>
               <Button size={"lg"} component="a" href="https://bit.ly/with-cto">
                 참여등록 하러가기
               </Button>
               <CopyWithCTOButton size={"lg"} />
             </Group>
           </Stack>
-          <Space py={"4em"}>
+          <Space pb={"md"}>
             <Down />
           </Space>
         </Stack>

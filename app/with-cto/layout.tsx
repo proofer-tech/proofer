@@ -15,6 +15,53 @@ export const metadata = merge(
       url: "https://proofer.tech/with-cto",
       images: ["/assets/images/with-cto/og-image.png"],
     },
+    icons: [
+      {
+        rel: "shortcut icon",
+        media: "(prefers-color-scheme: light)",
+        url: "/favicon.ico",
+        href: "/assets/images/with-cto/favicon.ico",
+      },
+      {
+        rel: "shortcut icon",
+        media: "(prefers-color-scheme: dark)",
+        url: "/favicon.ico",
+        href: "/assets/images/with-cto/favicon.ico",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "512x512",
+        url: "/pwa-512x512.png",
+        href: "/assets/images/with-cto/pwa-512x512.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "192x192",
+        url: "/pwa-192x192.png",
+        href: "/assets/images/with-cto/pwa-192x192.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "64x64",
+        url: "/pwa-64x64.png",
+        href: "/assets/images/with-cto/pwa-64x64.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        url: "/apple-touch-icon-180x180.png",
+        href: "/assets/images/with-cto/apple-touch-icon-180x180.png",
+      },
+      {
+        rel: "mask-icon",
+        color: "#0052cc",
+        url: "/maskable-icon-512x512.png",
+        href: "/assets/images/with-cto/maskable-icon-512x512.png",
+      },
+    ],
   },
   generateMetadataFromTitle({
     title: "with CTO: 1st meet",

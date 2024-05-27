@@ -43,6 +43,53 @@ export const metadata = merge(
       url: "https://proofer.tech",
       images: ["/assets/images/og-image.png"],
     },
+    icons: [
+      {
+        rel: "shortcut icon",
+        media: "(prefers-color-scheme: light)",
+        url: "/favicon.ico",
+        href: "/favicon.ico",
+      },
+      {
+        rel: "shortcut icon",
+        media: "(prefers-color-scheme: dark)",
+        url: "/favicon.ico",
+        href: "/favicon.ico",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "512x512",
+        url: "/pwa-512x512.png",
+        href: "/pwa-512x512.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "192x192",
+        url: "/pwa-192x192.png",
+        href: "/pwa-192x192.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "64x64",
+        url: "/pwa-64x64.png",
+        href: "/pwa-64x64.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        url: "/apple-touch-icon-180x180.png",
+        href: "/apple-touch-icon-180x180.png",
+      },
+      {
+        rel: "mask-icon",
+        color: "#0052cc",
+        url: "/maskable-icon-512x512.png",
+        href: "/maskable-icon-512x512.png",
+      },
+    ],
   },
   generateMetadataFromTitle({
     title: "프루퍼, SMART 한 데이터 기반 성과 평가",
@@ -59,26 +106,6 @@ export default async function RootLayout({ children }: { children: any }) {
         <meta
           name="naver-site-verification"
           content="66a885dd71e438eca763ad82a8131045e4dabb59"
-        />
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="512x512"
-          href="/pwa-512x512.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="192x192"
-          href="/pwa-192x192.png"
-        />
-        <link rel="icon" type="image/png" sizes="64x64" href="/pwa-64x64.png" />
-        <link
-          rel="mask-icon"
-          href="/maskable-icon-512x512.png"
-          color="#0052cc"
         />
         <script async src="https://tally.so/widgets/embed.js"></script>
       </head>
