@@ -162,7 +162,7 @@ export default function Page() {
           </Text>
           <Space h={"1em"} />
           <Text>
-            그럼 2024년 6월 7일 수요일 저녁 7시 30분 구글 스타트업 캠퍼스에서
+            그럼 2024년 6월 7일 금요일 저녁 7시 30분 구글 스타트업 캠퍼스에서
             만나요!
           </Text>
           <Group py={"xl"}>

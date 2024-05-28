@@ -66,7 +66,7 @@ export const metadata = merge(
   generateMetadataFromTitle({
     title: "with CTO: 1st meet",
     description:
-      "CTO들의 위대한 시작, 그 첫번째 모임. 프루퍼팀에서 준비한 with CTO: 2024년 6월 7일 수요일 저녁 7시 30분 구글 스타트업 캠퍼스 에서 만나요!",
+      "CTO들의 위대한 시작, 그 첫번째 모임. 프루퍼팀에서 준비한 with CTO: 2024년 6월 7일 금요일 저녁 7시 30분 구글 스타트업 캠퍼스 에서 만나요!",
   }),
 );
 export default async function Layout({ children }: any) {
