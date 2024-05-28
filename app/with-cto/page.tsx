@@ -34,7 +34,7 @@ export default function Page() {
                   height={512}
                   alt={"with CTO:"}
                   style={{
-                    maxWidth: "40vw",
+                    maxWidth: "300px",
                     maxHeight: "50vh",
                     width: "auto",
                     height: "auto",
