@@ -48,6 +48,10 @@
   --color-foreground: var(--color-primarygray);
   --color-background: var(--color-white);
   --color-layer: var(--color-grayscale-1);
+
+  .mantine-Paper-root {
+    background-color: var(--color-background);
+  }
 }
 
 @media (prefers-color-scheme: dark) {

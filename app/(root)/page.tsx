@@ -21,7 +21,7 @@ import {
 import style from "./style.module.scss";
 import { Done, Down } from "@/app/components/Divider";
 import { IconCheck } from "@tabler/icons-react";
-import { InquireForm, InquireWidget } from "./Inquire";
+import { InquireForm, InquireWidget } from "../components/Inquire";
 
 export default function Page() {
   return (
@@ -62,7 +62,7 @@ export default function Page() {
             업무 데이터를 더하여 &quot;진짜&quot; 성과를 알아보세요!
           </Text>
           <Group justify={"center"} mt={"xl"}>
-            <InquireForm withEmail={true} />
+            <InquireForm btnText={"무료상담 신청"} withEmail={true} />
           </Group>
         </Stack>
       </Container>
@@ -252,7 +252,10 @@ export default function Page() {
                   전반적으로 함께 해드립니다.
                 </Text>
               </CardSection>
-              <InquireForm btnProps={{ fullWidth: true, mt: "md" }} />
+              <InquireForm
+                btnText={"무료상담 신청"}
+                btnProps={{ fullWidth: true, mt: "md" }}
+              />
             </Card>
           </Stack>
           <Stack className={style.service} gap={"2em"}>
@@ -310,7 +313,10 @@ export default function Page() {
                   효과를 확인 해보시는 것도 괜찮습니다.
                 </Text>
               </CardSection>
-              <InquireForm btnProps={{ fullWidth: true, mt: "md" }} />
+              <InquireForm
+                btnText={"무료상담 신청"}
+                btnProps={{ fullWidth: true, mt: "md" }}
+              />
             </Card>
           </Stack>
         </Flex>
@@ -424,7 +430,14 @@ export default function Page() {
           데이터 기반의 정확한 성과 평가와 맞춤형 솔루션을 경험해보세요.
         </Text>
         <Space h={"lg"} />
-        <InquireWidget />
+        <InquireWidget btnText={"무료상담 신청"}>
+          <Text size={"sm"} c={"var(--color-white)"}>
+            상담을 통한 온보딩과 함께
+          </Text>
+          <Text size={"lg"} fw={700} c={"var(--color-white)"}>
+            무료로 체험해보기
+          </Text>
+        </InquireWidget>
       </Container>
       <Space h={"10vh"} />
     </>

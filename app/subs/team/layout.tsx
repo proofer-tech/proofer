@@ -7,7 +7,15 @@ import { generateMetadataFromTitle } from "@/src/manifest";
 export const metadata = merge(
   {
     metadataBase: new URL("https://proofer.tech/"),
-    keywords: ["프루퍼", "프루퍼 테크", "프루퍼팀", "홍제형", "임한솔"],
+    keywords: [
+      "프루퍼",
+      "프루퍼 테크",
+      "프루퍼팀",
+      "프루퍼 주식회사",
+      "주식회사 프루퍼",
+      "홍제형",
+      "임한솔",
+    ],
     openGraph: {
       locale: "ko",
       type: "website",
@@ -17,7 +25,7 @@ export const metadata = merge(
   },
   generateMetadataFromTitle({
     title: "HR의 어려움을 해결하는 팀",
-    fullTitle: "프루퍼팀은 HR의 어려움을 해결합니다.",
+    fullTitle: "프루퍼팀은 HR 업무를 편하게 만듭니다.",
     description:
       "인사업무에서 어렵고 힘든 부분들에 대해 진심으로 공감하는 사람들이 모였습니다. 프루퍼팀이 HR팀 업무의 어려움을 덜어드리겠습니다.",
   }),

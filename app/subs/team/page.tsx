@@ -6,7 +6,6 @@ import {
   Space,
   Box,
   SimpleGrid,
-  Paper,
   Group,
   Anchor,
   Divider,
@@ -15,6 +14,7 @@ import {
 import React from "react";
 import Image from "next/image";
 import styles from "./style.module.scss";
+import { InquireWidget } from "@/app/components/Inquire";
 
 export default function Page() {
   return (
@@ -106,7 +106,7 @@ export default function Page() {
               underline={"never"}
               c={"black"}
             >
-              <Paper py={"lg"} px={"xl"} shadow="xs" radius={"lg"}>
+              <Card py={"lg"} px={"xl"} shadow="xs" radius={"lg"}>
                 <Stack gap={"xl"}>
                   <Stack gap={"sm"}>
                     <Group>
@@ -135,7 +135,7 @@ export default function Page() {
                     </Text>
                   </Stack>
                 </Stack>
-              </Paper>
+              </Card>
             </Anchor>
             <Anchor
               className={styles.responsiveGridColumn}
@@ -143,7 +143,7 @@ export default function Page() {
               underline={"never"}
               c={"black"}
             >
-              <Paper py={"lg"} px={"xl"} shadow="xs" radius={"lg"}>
+              <Card py={"lg"} px={"xl"} shadow="xs" radius={"lg"}>
                 <Stack gap={"xl"}>
                   <Stack gap={"sm"}>
                     <Group>
@@ -170,7 +170,7 @@ export default function Page() {
                     </Text>
                   </Stack>
                 </Stack>
-              </Paper>
+              </Card>
             </Anchor>
             <Anchor
               className={styles.responsiveGridColumn}
@@ -178,7 +178,7 @@ export default function Page() {
               underline={"never"}
               c={"black"}
             >
-              <Paper py={"lg"} px={"xl"} shadow="xs" radius={"lg"}>
+              <Card py={"lg"} px={"xl"} shadow="xs" radius={"lg"}>
                 <Stack gap={"xl"}>
                   <Stack gap={"sm"}>
                     <Group>
@@ -205,7 +205,7 @@ export default function Page() {
                     </Text>
                   </Stack>
                 </Stack>
-              </Paper>
+              </Card>
             </Anchor>
           </SimpleGrid>
         </Container>
@@ -235,10 +235,8 @@ export default function Page() {
                   합니다.
                 </Text>
                 <Text>
-                  고객의 성공이 우리의 성공이라고 생각합니다.
-                  <br />
-                  프루퍼팀이 할 수 있는 것으로 고객의 비즈니스 성공에 기여하는
-                  것을 목표로 합니다.
+                  고객의 성공이 곧 우리의 성공입니다. 프루퍼팀은 고객의 비즈니스
+                  성공을 위해 일합니다.
                 </Text>
               </Stack>
             </Card>
@@ -290,6 +288,23 @@ export default function Page() {
               </Stack>
             </Card>
           </SimpleGrid>
+        </Container>
+        <Container>
+          <Title order={1} ta={"center"}>
+            프루퍼팀과 이야기를 나눠보세요.
+          </Title>
+          <Group py={"lg"} justify={"center"}>
+            <Divider w={"5em"} />
+          </Group>
+          <Space py={"lg"}></Space>
+          <InquireWidget btnText={"대화하기"}>
+            <Text size={"sm"} c={"var(--color-white)"}>
+              제휴제안, 입사지원, 기타 문의사항 어떤 것이든
+            </Text>
+            <Text size={"lg"} fw={700} c={"var(--color-white)"}>
+              프루퍼팀과 대화 해보기
+            </Text>
+          </InquireWidget>
         </Container>
       </Stack>
     </Box>

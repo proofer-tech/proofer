@@ -19,12 +19,14 @@ import TallyContext from "@/src/contexts/TallyContext";
 import { useMediaQuery } from "@mantine/hooks";
 
 interface InquireFormProps {
+  btnText: string;
   withEmail?: boolean;
   btnProps?: ButtonProps;
 }
 export function InquireForm({
   withEmail = false,
   btnProps = {},
+  btnText,
 }: InquireFormProps) {
   const [isPopoverOpened, setPopoverOpened] = useState<boolean>(false);
   const [inquireEmail, setInquireEmail] = useState<string>("");
@@ -62,7 +64,7 @@ export function InquireForm({
           </Popover.Target>
           <Popover.Dropdown>
             <Text size="xs">
-              이메일을 입력하고, 무료상담 신청 버튼을 눌러주세요.
+              이메일을 입력하고, {btnText} 버튼을 눌러주세요.
             </Text>
           </Popover.Dropdown>
         </Popover>
@@ -74,13 +76,19 @@ export function InquireForm({
         onClick={() => openTallyPopup()}
         {...{ color: "var(--color-primary)", ...btnProps }}
       >
-        무료상담 신청
+        {btnText}
       </Button>
     </>
   );
 }
 
-export function InquireWidget() {
+export function InquireWidget({
+  btnText,
+  children,
+}: {
+  btnText: string;
+  children: React.ReactNode;
+}) {
   const isMobile = useMediaQuery("(max-width: 48em)");
 
   const [scroll] = useWindowScroll();
@@ -139,12 +147,7 @@ export function InquireWidget() {
                 gap={"1.3em"}
               >
                 <Stack gap={0} w={isMobile ? "100%" : "auto"}>
-                  <Text size={"sm"} c={"var(--color-white)"}>
-                    상담을 통한 온보딩과 함께
-                  </Text>
-                  <Text size={"lg"} fw={700} c={"var(--color-white)"}>
-                    무료로 체험해보기
-                  </Text>
+                  {children}
                 </Stack>
                 <Flex
                   w={isMobile ? "100%" : "auto"}
@@ -154,6 +157,7 @@ export function InquireWidget() {
                   gap={8}
                 >
                   <InquireForm
+                    btnText={btnText}
                     withEmail={true}
                     btnProps={{ color: "var(--color-secondary)" }}
                   />
