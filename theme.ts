@@ -8,8 +8,8 @@ export const theme = createTheme({
     xs: rem(12),
     sm: rem(14),
     md: rem(16),
-    lg: rem(32),
-    xl: rem(48),
+    lg: rem(24),
+    xl: rem(32),
   },
   headings: {
     fontFamily: "LINESeedKR",

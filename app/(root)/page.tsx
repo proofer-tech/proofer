@@ -36,7 +36,7 @@ export default function Page() {
           <Text
             component={"h1"}
             fw={700}
-            size={"xl"}
+            size={rem(54)}
             ta="center"
             lh={1.3}
             variant="gradient"
@@ -335,7 +335,7 @@ export default function Page() {
               <br />
               지속적인 효과를 누리세요.
             </Title>
-            <Space h={"1em"} />
+            <Space h={"sm"} />
             <Text size={"md"} maw={"60em"}>
               프루퍼 성과관리 시스템은 단 한번 업무 툴 연동 및 성과지표를
               설정하면 매번 데이터를 넣어주거나 조정할 필요 없이 자동으로
@@ -354,7 +354,7 @@ export default function Page() {
               <br />
               데이터 보호를 원칙으로 합니다.
             </Title>
-            <Space h={"1em"} />
+            <Space h={"sm"} />
             <Text size={"md"} maw={"60em"}>
               모든 네트워크 통신 및 사용자 데이터는 암호화되어 처리되며, CI
               단계에서 SAST(정적 애플리케이션 보안 테스트) 방식으로 코드를
@@ -374,7 +374,7 @@ export default function Page() {
               <br />
               업무 생산성을 지원합니다.
             </Title>
-            <Space h={"1em"} />
+            <Space h={"sm"} />
             <Text size={"md"} maw={"60em"}>
               프루퍼 성과관리 시스템은 임직원의 성장과 효율성을 지원하기 위해
               설계된 도구입니다. 이 시스템은 성과평가에 그치지 않고, 임직원들이
@@ -393,7 +393,7 @@ export default function Page() {
               <br />
               모두 가능합니다.
             </Title>
-            <Space h={"1em"} />
+            <Space h={"sm"} />
             <Text size={"md"} maw={"60em"}>
               프루퍼 시스템은 직군이나 도메인에 상관없이 어디든 폭넓게 적용할 수
               있습니다. 특히, 현재는 서비스 개발자의 성과를 평가하는 데 주로
