@@ -105,6 +105,7 @@ export default function Page() {
               href={"https://proofer.tech/"}
               underline={"never"}
               c={"black"}
+              target="_blank"
             >
               <Card py={"lg"} px={"xl"} shadow="xs" radius={"lg"}>
                 <Stack gap={"xl"}>
@@ -142,6 +143,7 @@ export default function Page() {
               href={"https://proofer.tech/with-cto"}
               underline={"never"}
               c={"black"}
+              target="_blank"
             >
               <Card py={"lg"} px={"xl"} shadow="xs" radius={"lg"}>
                 <Stack gap={"xl"}>
@@ -177,6 +179,7 @@ export default function Page() {
               href={"https://medium.com/proofer-blog/newsletter"}
               underline={"never"}
               c={"black"}
+              target="_blank"
             >
               <Card py={"lg"} px={"xl"} shadow="xs" radius={"lg"}>
                 <Stack gap={"xl"}>
