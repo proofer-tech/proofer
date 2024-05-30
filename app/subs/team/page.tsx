@@ -9,7 +9,6 @@ import {
   Paper,
   Group,
   Anchor,
-  Code,
   Divider,
   Card,
 } from "@mantine/core";
