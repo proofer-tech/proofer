@@ -118,22 +118,21 @@ export default function Page() {
                         alt={"프루퍼 성과관리"}
                         style={{ width: "auto", height: "1.5em" }}
                       />
-                      <Title order={5}>프루퍼 성과관리</Title>
+                      <Stack gap={0}>
+                        <Text size={"xs"}>
+                          진짜 업무 데이터를 활용하는 성과 측정/평가/관리 통합
+                          솔루션
+                        </Text>
+                        <Title order={5}>프루퍼 성과관리</Title>
+                      </Stack>
                     </Group>
-                    <Code>
-                      진짜 업무 데이터를 활용하는 성과 측정/평가/관리 통합
-                      솔루션
-                    </Code>
                   </Stack>
                   <Stack gap={0}>
                     <Text>
-                      성과를 <b>데이터 기반</b>으로 정확히 측정함으로써
-                    </Text>
-                    <Text>공정하고 효율적인 업무환경을 조성하고,</Text>
-                    <Space h={"1em"} />
-                    <Text>성과평가의 기술적인 혁신을 통해</Text>
-                    <Text>
-                      <b>비즈니스의 성공</b>을 견인한다.
+                      성과관리 컨설팅을 통해 정의된 성과지표의 산식에 들어가는
+                      변수를 실제 업무 중 생산되는 데이터를 자동으로 추출하고
+                      수집·가공하여 채워넣음으로써 조직의 성과평가가 실무를
+                      제대로 반영할 수 있도록 하는 솔루션입니다.
                     </Text>
                   </Stack>
                 </Stack>
@@ -156,9 +155,13 @@ export default function Page() {
                         alt={"with CTO:"}
                         style={{ width: "auto", height: "2.5em" }}
                       />
-                      <Title order={5}>with CTO:</Title>
+                      <Stack gap={0}>
+                        <Text size={"xs"}>
+                          CTO들의 위대한 시작, 함께 성장하는 커뮤니티
+                        </Text>
+                        <Title order={5}>with CTO:</Title>
+                      </Stack>
                     </Group>
-                    <Code>CTO들의 위대한 시작, 함께 성장하는 커뮤니티</Code>
                   </Stack>
                   <Stack gap={0}>
                     <Text>
@@ -187,9 +190,13 @@ export default function Page() {
                         alt={"Measurable Developer"}
                         style={{ width: "auto", height: "1.5em" }}
                       />
-                      <Title order={5}>Measurable Developer</Title>
+                      <Stack gap={0}>
+                        <Text size={"xs"}>
+                          개발자의 생산성은 분명히 측정할 수 있습니다.
+                        </Text>
+                        <Title order={5}>Measurable Developer</Title>
+                      </Stack>
                     </Group>
-                    <Code>개발자의 생산성은 분명히 측정할 수 있습니다.</Code>
                   </Stack>
                   <Stack gap={0}>
                     <Text>
