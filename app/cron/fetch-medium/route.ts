@@ -43,9 +43,11 @@ async function insertArticles(items: Item[]) {
     await db
       .insert(Tag)
       .values(
-        flatten(items.map((item) => item.categories)).map((name) => ({
-          name: name,
-        })),
+        flatten(items.map((item) => item.categories))
+          .filter((i) => i !== undefined)
+          .map((name) => ({
+            name: name,
+          })),
       )
       .onConflictDoNothing();
     const articles = await db
@@ -75,15 +77,17 @@ async function insertArticles(items: Item[]) {
       await db
         .delete(ArticleToTag)
         .where(eq(ArticleToTag.article_id, articleId));
-      await db
-        .insert(ArticleToTag)
-        .values(
-          item.categories.map((categoryName: string) => ({
-            article_id: articleId,
-            tag_name: categoryName,
-          })),
-        )
-        .onConflictDoNothing();
+      if (item.categories) {
+        await db
+          .insert(ArticleToTag)
+          .values(
+            item.categories.map((categoryName: string) => ({
+              article_id: articleId,
+              tag_name: categoryName,
+            })),
+          )
+          .onConflictDoNothing();
+      }
     }
   });
 }
@@ -106,7 +110,7 @@ export const GET = withBearer(
       dayjs(feed.lastBuildDate).isAfter(lastArticle.updated_at)
     ) {
       try {
-        await insertArticles(feed.items);
+        await insertArticles(feed.items.filter((i) => i !== undefined));
       } catch (e) {
         console.error(e);
       }
