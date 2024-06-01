@@ -7,8 +7,16 @@ import { get } from "@vercel/edge-config";
 export default async function Layout({ children }: any) {
   const portals: readonly HeaderPortal[] = (await get("portals")) || [];
   return (
-    <LandingPageShellLayout portals={portals}>
-      {children}
-    </LandingPageShellLayout>
+    <>
+      <head>
+        <meta
+          name="naver-site-verification"
+          content="f9b91d4a15d7caa887ca361142c225a3da52a6fc"
+        />
+      </head>
+      <LandingPageShellLayout portals={portals}>
+        {children}
+      </LandingPageShellLayout>
+    </>
   );
 }

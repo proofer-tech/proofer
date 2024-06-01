@@ -103,10 +103,6 @@ export default async function RootLayout({ children }: { children: any }) {
     <html lang="ko">
       <head>
         <ColorSchemeScript />
-        <meta
-          name="naver-site-verification"
-          content="66a885dd71e438eca763ad82a8131045e4dabb59"
-        />
         <script async src="https://tally.so/widgets/embed.js"></script>
       </head>
       <body>
