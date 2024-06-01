@@ -36,8 +36,16 @@ export default async function Layout({ children }: any) {
     { title: "블로그", href: "https://medium.com/proofer-blog" },
   ]);
   return (
-    <LandingPageShellLayout portals={portals}>
-      {children}
-    </LandingPageShellLayout>
+    <>
+      <head>
+        <meta
+          name="naver-site-verification"
+          content="a044ad12d46fb84c4b43c9132cd443911989605d"
+        />
+      </head>
+      <LandingPageShellLayout portals={portals}>
+        {children}
+      </LandingPageShellLayout>
+    </>
   );
 }
