@@ -15,6 +15,7 @@ import { SUB_DOMAIN, SUB_DOMAIN_NAMES } from "@/src/constants";
 import React from "react";
 import organizationSchema from "@/app/subs/blog/schema-organization";
 import { NotFound } from "http-errors";
+import { merge } from "lodash";
 
 export async function generateMetadata(
   { params }: NextHandlerContext,
@@ -27,23 +28,30 @@ export async function generateMetadata(
   const parentMetadata = await parent;
 
   if (article) {
-    return generateMetadataFromTitle(
+    return merge(
       {
-        title: article.title,
-        applicationName: SUB_DOMAIN_NAMES[SUB_DOMAIN.blog],
-        description: truncateDescription(article.contents),
-      },
-      {
-        keywords: ["프루퍼", ...article.tags.map((tag) => tag.name)],
-        openGraph: {
-          type: "article",
-          // @ts-ignore
-          publishedTime: article.created_at,
-          authors: [article.author, "프루퍼 (proofer)"],
-          url: `https://blog.proofer.tech/${article.slug}`,
-          tags: article.tags.map((tag) => tag.name),
+        alternates: {
+          canonical: `https://blog.proofer.tech/${article.slug}`,
         },
       },
+      generateMetadataFromTitle(
+        {
+          title: article.title,
+          applicationName: SUB_DOMAIN_NAMES[SUB_DOMAIN.blog],
+          description: truncateDescription(article.contents),
+        },
+        {
+          keywords: ["프루퍼", ...article.tags.map((tag) => tag.name)],
+          openGraph: {
+            type: "article",
+            // @ts-ignore
+            publishedTime: article.created_at,
+            authors: [article.author, "프루퍼 (proofer)"],
+            url: `https://blog.proofer.tech/${article.slug}`,
+            tags: article.tags.map((tag) => tag.name),
+          },
+        },
+      ),
     );
   }
 

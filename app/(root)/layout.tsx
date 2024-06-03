@@ -4,6 +4,11 @@ import { HeaderPortal } from "@/app/components/Header";
 import LandingPageShellLayout from "@/app/components/LandingPageShellLayout";
 import { get } from "@vercel/edge-config";
 
+export const metadata = {
+  alternates: {
+    canonical: "https://proofer.tech",
+  },
+};
 export default async function Layout({ children }: any) {
   const portals: readonly HeaderPortal[] = (await get("portals")) || [];
   return (

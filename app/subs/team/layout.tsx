@@ -22,6 +22,9 @@ export const metadata = merge(
       url: "https://team.proofer.tech/",
       images: ["/assets/images/og-image.png"],
     },
+    alternates: {
+      canonical: "https://team.proofer.tech",
+    },
   },
   generateMetadataFromTitle({
     title: "HR의 어려움을 해결하는 팀",

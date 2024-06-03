@@ -62,6 +62,9 @@ export const metadata = merge(
         href: "/assets/images/with-cto/maskable-icon-512x512.png",
       },
     ],
+    alternates: {
+      canonical: "https://proofer.tech/with-cto",
+    },
   },
   generateMetadataFromTitle({
     title: "with CTO: 1st meet",
