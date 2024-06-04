@@ -65,14 +65,15 @@ export default function Page() {
       <Container py={"xl"}>
         <Stack h={"100%"} justify={"space-between"}>
           <Paper bg={"var(--mantine-color-gray-1)"} p={"lg"} radius={"md"}>
+            <AspectRatio ratio={16 / 9} w={"100%"}>
+              <Image
+                src={"/assets/images/with-cto/page1.webp"}
+                fill
+                alt={"첨부 이미지 1"}
+              />
+            </AspectRatio>
+            <Space h={"lg"} />
             <Group wrap={"nowrap"}>
-              <AspectRatio ratio={16 / 9} w={"30vw"} miw={"160px"}>
-                <Image
-                  src={"/assets/images/with-cto/page1.webp"}
-                  fill
-                  alt={"첨부 이미지 1"}
-                />
-              </AspectRatio>
               <Text>
                 DEVIEW, if KAKAO, SLASH 등 현업 개발자들을 타겟팅한 컨퍼런스,
                 커뮤니티는 많습니다.
@@ -83,8 +84,6 @@ export default function Page() {
                 고민들도 매번 어렵다고요!)
               </Text>
             </Group>
-          </Paper>
-          <Paper bg={"var(--mantine-color-gray-1)"} p={"lg"} radius={"md"}>
             <Group wrap={"nowrap"}>
               <Text>
                 회사의 CTO로서 여러분들이 겪고 있는 고민과 도전, 그리고 그
@@ -98,13 +97,6 @@ export default function Page() {
                 계속 이어져 함께 성장을 도모할 수 있는 자리가 될 수 있도록
                 꾸준히 함께하겠습니다!
               </Text>
-              <AspectRatio ratio={16 / 9} w={"50vw"} miw={"160px"}>
-                <Image
-                  src={"/assets/images/with-cto/page3.webp"}
-                  fill
-                  alt={"첨부 이미지 3"}
-                />
-              </AspectRatio>
             </Group>
           </Paper>
         </Stack>
