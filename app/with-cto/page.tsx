@@ -11,6 +11,7 @@ import {
   Space,
   NavLink,
   Title,
+  Paper,
 } from "@mantine/core";
 import Image from "next/image";
 import CopyWithCTOButton from "@/app/with-cto/CopyWithCTOButton";
@@ -61,50 +62,51 @@ export default function Page() {
           </Space>
         </Stack>
       </Container>
-      <Container>
+      <Container py={"xl"}>
         <Stack h={"100%"} justify={"space-between"}>
-          <Group wrap={"nowrap"} py={"xl"}>
-            <AspectRatio ratio={16 / 9} w={"30vw"} miw={"160px"}>
-              <Image
-                src={"/assets/images/with-cto/page1.webp"}
-                fill
-                alt={"첨부 이미지 1"}
-              />
-            </AspectRatio>
-            <Text>
-              DEVIEW, if KAKAO, SLASH 등 현업 개발자들을 타겟팅한 컨퍼런스,
-              커뮤니티는 많습니다.
-            </Text>
-          </Group>
-          <Group wrap={"nowrap"} py={"xl"}>
-            <Text>
-              하지만 조직 내에서 CTO 역할을 맡게 된 분들을 위한 컨퍼런스나
-              모임은 굉장히 찾기 힘든 것 같습니다(기술적인 의사결정, 인사적인
-              고민들도 매번 어렵다고요!)
-            </Text>
-            <AspectRatio ratio={16 / 9} w={"50vw"} miw={"160px"}>
-              <Image
-                src={"/assets/images/with-cto/page2.webp"}
-                alt={"첨부 이미지 2"}
-                fill
-              />
-            </AspectRatio>
-          </Group>
-          <Group wrap={"nowrap"} py={"xl"}>
-            <AspectRatio ratio={16 / 9} w={"50vw"} miw={"160px"}>
-              <Image
-                src={"/assets/images/with-cto/page3.webp"}
-                fill
-                alt={"첨부 이미지 3"}
-              />
-            </AspectRatio>
-            <Text>
-              회사의 CTO로서 여러분들이 겪고 있는 고민과 도전, 그리고 그
-              사례들을 서로 나눌 수 있는 자리를 프루퍼팀의 CTO도 찾다 찾다가
-              없어서, 안되겠다 우리가 만들어야겠다! 싶어 자리를 만들어보려고
-              합니다.
-            </Text>
-          </Group>
+          <Paper bg={"var(--mantine-color-gray-1)"} p={"lg"} radius={"md"}>
+            <Group wrap={"nowrap"}>
+              <AspectRatio ratio={16 / 9} w={"30vw"} miw={"160px"}>
+                <Image
+                  src={"/assets/images/with-cto/page1.webp"}
+                  fill
+                  alt={"첨부 이미지 1"}
+                />
+              </AspectRatio>
+              <Text>
+                DEVIEW, if KAKAO, SLASH 등 현업 개발자들을 타겟팅한 컨퍼런스,
+                커뮤니티는 많습니다.
+                <br />
+                <br />
+                하지만 조직 내에서 CTO 역할을 맡게 된 분들을 위한 컨퍼런스나
+                모임은 굉장히 찾기 힘든 것 같습니다(기술적인 의사결정, 인사적인
+                고민들도 매번 어렵다고요!)
+              </Text>
+            </Group>
+          </Paper>
+          <Paper bg={"var(--mantine-color-gray-1)"} p={"lg"} radius={"md"}>
+            <Group wrap={"nowrap"}>
+              <Text>
+                회사의 CTO로서 여러분들이 겪고 있는 고민과 도전, 그리고 그
+                사례들을 서로 나눌 수 있는 자리를 프루퍼팀의 CTO도 찾다 찾다가
+                없어서, 안되겠다 우리가 만들어야겠다! 싶어 자리를 만들어보려고
+                합니다.
+                <br />
+                <br />
+                이번 자리가 바쁜 CTO 여러분들에게 시간이 아깝지 않은 유익한
+                자리가 되기를 바라며, 한번의 이벤트로 끝날 게 아니라 앞으로도
+                계속 이어져 함께 성장을 도모할 수 있는 자리가 될 수 있도록
+                꾸준히 함께하겠습니다!
+              </Text>
+              <AspectRatio ratio={16 / 9} w={"50vw"} miw={"160px"}>
+                <Image
+                  src={"/assets/images/with-cto/page3.webp"}
+                  fill
+                  alt={"첨부 이미지 3"}
+                />
+              </AspectRatio>
+            </Group>
+          </Paper>
         </Stack>
       </Container>
       <Space py={"4em"} id={"timetable"}>
@@ -153,12 +155,6 @@ export default function Page() {
           <Text fw={700}>
             참여비는 없습니다! CTO님 혼자서 외롭게 고민하던 내용과 이제부턴
             함께할 마음만 들고오시면 됩니다!!
-          </Text>
-          <Text>
-            이번 자리가 바쁜 CTO 여러분들에게 시간이 아깝지 않은 유익한 자리가
-            되기를 바라며, 한번의 이벤트로 끝날 게 아니라 앞으로도 계속 이어져
-            함께 성장을 도모할 수 있는 자리가 될 수 있도록 꾸준히
-            함께하겠습니다!
           </Text>
           <Space h={"1em"} />
           <Text>
