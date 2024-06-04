@@ -2,6 +2,7 @@ import React from "react";
 import Background from "@/app/components/Background";
 import {
   Badge,
+  Box,
   Card,
   CardSection,
   Container,
@@ -123,7 +124,11 @@ export default function Page() {
         <Flex className={style.services} columnGap={"1em"} rowGap={"3em"}>
           <Stack className={style.service} gap={"2em"}>
             <Title order={5} ta={"center"} c={"var(--mantine-color-gray-8)"}>
-              프루퍼 성과관리 플랫폼 (SaaS & On-premise)
+              프루퍼 성과관리 플랫폼{" "}
+              <Box component={"span"} hiddenFrom={"sm"}>
+                <br />
+              </Box>
+              (SaaS or On-premise)
             </Title>
             <Card
               shadow="sm"

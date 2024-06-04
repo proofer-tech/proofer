@@ -28,6 +28,7 @@ export function InquireForm({
   btnProps = {},
   btnText,
 }: InquireFormProps) {
+  const isMobile = useMediaQuery("(max-width: 48em)");
   const [isPopoverOpened, setPopoverOpened] = useState<boolean>(false);
   const [inquireEmail, setInquireEmail] = useState<string>("");
 
@@ -54,12 +55,13 @@ export function InquireForm({
             <Input
               placeholder="이메일 입력 ..."
               type={"email"}
-              size={"md"}
               value={inquireEmail}
               onChange={(e) => setInquireEmail(e.target.value)}
               onFocus={() => setPopoverOpened(true)}
               onBlur={() => setPopoverOpened(false)}
               radius={"md"}
+              size={"md"}
+              w={isMobile ? "100%" : "auto"}
             />
           </Popover.Target>
           <Popover.Dropdown>
@@ -73,6 +75,7 @@ export function InquireForm({
       )}
       <Button
         size={"md"}
+        w={isMobile ? "100%" : "auto"}
         onClick={() => openTallyPopup()}
         {...{ color: "var(--color-primary)", ...btnProps }}
       >
