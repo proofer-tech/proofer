@@ -123,7 +123,7 @@ export default function Page() {
         <Flex className={style.services} columnGap={"1em"} rowGap={"3em"}>
           <Stack className={style.service} gap={"2em"}>
             <Title order={5} ta={"center"} c={"var(--mantine-color-gray-8)"}>
-              프루퍼 성과관리 시스템 (SaaS)
+              프루퍼 성과관리 플랫폼 (SaaS & On-premise)
             </Title>
             <Card
               shadow="sm"
@@ -301,13 +301,13 @@ export default function Page() {
               </CardSection>
               <CardSection px={"md"} py={"sm"}>
                 <Group justify="space-between" mt="md" mb="xs">
-                  <Text fw={500}>성과관리 시스템 도입연계</Text>
+                  <Text fw={500}>성과관리 플랫폼 도입연계</Text>
                   <Badge color="grey" size={"sm"}>
                     무료
                   </Badge>
                 </Group>
                 <Text size="sm" c="dimmed">
-                  성과추출 솔루션을 도입하면, 성과관리 시스템을 도입할 때에 해당
+                  성과추출 솔루션을 도입하면, 성과관리 플랫폼을 도입할 때에 해당
                   데이터를 활용하여 더 효율적으로 도입을 연계해드릴 수 있습니다.
                   시스템 도입이 망설여지신다면 성과추출 솔루션을 먼저 도입하여
                   효과를 확인 해보시는 것도 괜찮습니다.
@@ -343,7 +343,7 @@ export default function Page() {
             </Title>
             <Space h={"sm"} />
             <Text size={"md"} maw={"60em"}>
-              프루퍼 성과관리 시스템은 단 한번 업무 툴 연동 및 성과지표를
+              프루퍼 성과관리 플랫폼은 단 한번 업무 툴 연동 및 성과지표를
               설정하면 매번 데이터를 넣어주거나 조정할 필요 없이 자동으로
               계산되어 반영됩니다. 기존의 방식과 비교했을 때 시간이 지날수록
               평가를 위한 운영비용은 줄어들고, 기존보다 더 정확하게 성과를
@@ -382,7 +382,7 @@ export default function Page() {
             </Title>
             <Space h={"sm"} />
             <Text size={"md"} maw={"60em"}>
-              프루퍼 성과관리 시스템은 임직원의 성장과 효율성을 지원하기 위해
+              프루퍼 성과관리 플랫폼은 임직원의 성장과 효율성을 지원하기 위해
               설계된 도구입니다. 이 시스템은 성과평가에 그치지 않고, 임직원들이
               스스로의 성장을 도모할 수 있도록 돕는 업무 파트너로서의 역할을
               합니다. 뿐만 아니라 개인화된 데이터를 활용하여 어느 정도의 역량을
@@ -423,7 +423,7 @@ export default function Page() {
         <Title order={3}>도입 상담 후 고민해도 늦지 않습니다.</Title>
         <Space h={"lg"} />
         <Text>
-          프루퍼팀의 도입 상담을 통해 성과관리 시스템을 혁신하세요. 저희
+          프루퍼팀의 도입 상담을 통해 성과관리 플랫폼을 혁신하세요. 저희
           전문가들은 요구와 환경을 철저히 분석하여 최적의 성과관리 솔루션을
           제안해드립니다. 도입 여부에 상관없이, 상담 과정에서 얻은 인사이트는
           조직의 성과 향상에 큰 도움이 될 것입니다. 지금 상담을 신청하시고,
