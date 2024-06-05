@@ -3,6 +3,13 @@
 import { createTheme, rem } from "@mantine/core";
 
 export const theme = createTheme({
+  breakpoints: {
+    xs: "576px",
+    sm: "768px",
+    md: "992px",
+    lg: "1200px",
+    xl: "1408px",
+  },
   fontFamily: "LINESeedKR",
   fontSizes: {
     xs: rem(12),

@@ -8,20 +8,15 @@ export const metadata = {
   alternates: {
     canonical: "https://proofer.tech",
   },
+  other: {
+    "naver-site-verification": "66a885dd71e438eca763ad82a8131045e4dabb59",
+  },
 };
 export default async function Layout({ children }: any) {
   const portals: readonly HeaderPortal[] = (await get("portals")) || [];
   return (
-    <>
-      <head>
-        <meta
-          name="naver-site-verification"
-          content="66a885dd71e438eca763ad82a8131045e4dabb59"
-        />
-      </head>
-      <LandingPageShellLayout portals={portals}>
-        {children}
-      </LandingPageShellLayout>
-    </>
+    <LandingPageShellLayout portals={portals}>
+      {children}
+    </LandingPageShellLayout>
   );
 }

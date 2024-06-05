@@ -8,10 +8,10 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
-import React, { useContext } from "react";
+import React from "react";
 import { IconPhoneCall } from "@tabler/icons-react";
-import AgentContext from "@/src/contexts/AgentContext";
 import Image from "next/image";
+import { useIsDesktopMedia } from "@/src/hooks/mediaQuery";
 
 function FooterMenuItem({ children }: any) {
   return <List.Item py={"0.3em"}>{children}</List.Item>;
@@ -22,13 +22,13 @@ interface FooterProps {
 }
 
 export default function Footer({ linkGroups }: FooterProps) {
-  const agentContext = useContext(AgentContext);
+  const isDesktop = useIsDesktopMedia();
   return (
     <Box py={"3em"} px={"2em"}>
       <Flex
-        direction={agentContext.isDesktop ? "row" : "column-reverse"}
+        direction={isDesktop ? "row" : "column-reverse"}
         align={"start"}
-        justify={agentContext.isDesktop ? "space-between" : "revert"}
+        justify={isDesktop ? "space-between" : "revert"}
         gap={"5em"}
       >
         <Stack gap={"3em"}>
@@ -72,7 +72,7 @@ export default function Footer({ linkGroups }: FooterProps) {
           </Group>
         </Stack>
         <Group
-          w={agentContext.isDesktop ? "auto" : "100%"}
+          w={isDesktop ? "auto" : "100%"}
           justify={"end"}
           align={"start"}
           gap={"5em"}

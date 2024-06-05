@@ -93,6 +93,7 @@ export const metadata = merge(
   },
   generateMetadataFromTitle({
     title: "프루퍼, SMART 한 데이터 기반 성과 평가",
+    fullTitle: "프루퍼, SMART 한 데이터 기반 성과 평가",
     description:
       "프루퍼는 업무 데이터를 자동으로 수집하여 성과를 빠르게 측정하고 정확하게 평가하여 개선할 수 있는 데이터 기반의 HR SaaS 솔루션을 제공합니다. 지금 바로 상담을 통해 HR 성과 데이터 분석을 시작해보세요!",
   }),

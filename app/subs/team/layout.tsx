@@ -25,6 +25,9 @@ export const metadata = merge(
     alternates: {
       canonical: "https://team.proofer.tech",
     },
+    other: {
+      "naver-site-verification": "a044ad12d46fb84c4b43c9132cd443911989605d",
+    },
   },
   generateMetadataFromTitle({
     title: "HR의 어려움을 해결하는 팀",
@@ -39,16 +42,8 @@ export default async function Layout({ children }: any) {
     { title: "블로그", href: "https://medium.com/proofer-blog" },
   ]);
   return (
-    <>
-      <head>
-        <meta
-          name="naver-site-verification"
-          content="a044ad12d46fb84c4b43c9132cd443911989605d"
-        />
-      </head>
-      <LandingPageShellLayout portals={portals}>
-        {children}
-      </LandingPageShellLayout>
-    </>
+    <LandingPageShellLayout portals={portals}>
+      {children}
+    </LandingPageShellLayout>
   );
 }

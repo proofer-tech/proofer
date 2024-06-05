@@ -16,7 +16,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { useWindowScroll } from "@mantine/hooks";
 import { useChannelIOEvent } from "react-channel-plugin";
 import TallyContext from "@/src/contexts/TallyContext";
-import { useMediaQuery } from "@mantine/hooks";
+import { useIsMobileMedia } from "@/src/hooks/mediaQuery";
 
 interface InquireFormProps {
   btnText: string;
@@ -28,7 +28,7 @@ export function InquireForm({
   btnProps = {},
   btnText,
 }: InquireFormProps) {
-  const isMobile = useMediaQuery("(max-width: 48em)");
+  const isMobile = useIsMobileMedia();
   const [isPopoverOpened, setPopoverOpened] = useState<boolean>(false);
   const [inquireEmail, setInquireEmail] = useState<string>("");
 
@@ -92,7 +92,7 @@ export function InquireWidget({
   btnText: string;
   children: React.ReactNode;
 }) {
-  const isMobile = useMediaQuery("(max-width: 48em)");
+  const isMobile = useIsMobileMedia();
 
   const [scroll] = useWindowScroll();
   const offsetPinRef = useRef<HTMLDivElement>(null);
