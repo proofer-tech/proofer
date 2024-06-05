@@ -4,7 +4,6 @@ import {
   Box,
   Flex,
   Group,
-  Image,
   List,
   Stack,
   Text,
@@ -12,6 +11,7 @@ import {
 import React, { useContext } from "react";
 import { IconPhoneCall } from "@tabler/icons-react";
 import AgentContext from "@/src/contexts/AgentContext";
+import Image from "next/image";
 
 function FooterMenuItem({ children }: any) {
   return <List.Item py={"0.3em"}>{children}</List.Item>;
@@ -32,7 +32,13 @@ export default function Footer({ linkGroups }: FooterProps) {
         gap={"5em"}
       >
         <Stack gap={"3em"}>
-          <Image src="/assets/images/logo.svg" w={"8em"} alt={"프루퍼 로고"} />
+          <Image
+            src="/assets/images/logo.svg"
+            width={320}
+            height={137.2}
+            style={{ width: "8em", height: "auto" }}
+            alt={"프루퍼 로고"}
+          />
           <Stack gap={1}>
             <Text c={"var(--color-darkgray-2)"}>
               서울특별시 마포구 마포대로 122, 602호
@@ -100,6 +106,8 @@ export default function Footer({ linkGroups }: FooterProps) {
                 >
                   <Image
                     src="/assets/images/bi-medium.png"
+                    width={21}
+                    height={21}
                     alt="proofer in Medium"
                   />
                 </Avatar>
@@ -117,6 +125,8 @@ export default function Footer({ linkGroups }: FooterProps) {
                 >
                   <Image
                     src="/assets/images/bi-linkedin.png"
+                    width={16}
+                    height={16}
                     alt="proofer in linkedin"
                   />
                 </Avatar>

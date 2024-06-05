@@ -23,7 +23,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   minimumScale: 1,
   width: "device-width",
-  userScalable: false,
+  userScalable: true,
 };
 export const metadata = merge(
   {

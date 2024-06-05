@@ -49,7 +49,12 @@ export default function Header({
                   style={{ width: "2em", height: "2em" }}
                   p={0}
                 >
-                  <Image src={logoSrc} alt="프루퍼 로고" width={"100%"} />
+                  <Image
+                    src={logoSrc}
+                    alt="프루퍼 로고"
+                    width={"100%"}
+                    height={"100%"}
+                  />
                 </Button>
               </Anchor>
               <Group justify="space-between" style={{ flex: 1 }}>
