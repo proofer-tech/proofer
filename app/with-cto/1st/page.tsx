@@ -26,7 +26,7 @@ export default function Page() {
           <Stack gap={0} justify={"center"} h={"100%"}>
             <Stack gap={0} mb={"md"}>
               <Text size={"md"} c={"var(--mantine-color-gray-8)"}>
-                CTO들의 위대한 시작, 그 두번째 만남
+                CTO들의 위대한 시작, 그 첫번째 모임
               </Text>
               <Group align={"center"} p={0}>
                 <Image
@@ -42,16 +42,16 @@ export default function Page() {
                   }}
                 />
                 <Text c={"var(--mantine-color-gray-5)"} size={"xl"}>
-                  2nd meet
+                  1st meet
                 </Text>
               </Group>
               <Text>
-                on <Code>2024.07.12 19:00</Code> at{" "}
+                on <Code>2024.06.07 19:30</Code> at{" "}
                 <Code>Google Startup Campus</Code>
               </Text>
             </Stack>
             <Group>
-              <Button size={"lg"} component="a" href="/with-cto/join">
+              <Button size={"lg"} component="a" href="https://bit.ly/with-cto">
                 참여등록 하러가기
               </Button>
               <CopyWithCTOButton size={"lg"} />
@@ -150,11 +150,11 @@ export default function Page() {
           </Text>
           <Space h={"1em"} />
           <Text>
-            그럼 2024년 7월 12일 금요일 저녁 7시 구글 스타트업 캠퍼스에서
+            그럼 2024년 6월 7일 금요일 저녁 7시 30분 구글 스타트업 캠퍼스에서
             만나요!
           </Text>
           <Group py={"xl"}>
-            <Button size={"lg"} component="a" href="/with-cto/join">
+            <Button size={"lg"} component="a" href="https://bit.ly/with-cto">
               참여등록 하러가기
             </Button>
             <CopyWithCTOButton size={"lg"} />
