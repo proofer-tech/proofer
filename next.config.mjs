@@ -37,6 +37,16 @@ export default withPWAAnalyzer(
       config.externals.push({ canvas: "commonjs canvas" });
       return config;
     },
+    async redirects() {
+      return [
+        {
+          source: "/with-cto/join",
+          destination:
+            "https://proofer-tech.notion.site/with-CTO-2nd-meet-6a871a3f90544e3bbab5a92fd5eea0ab?pvs=4",
+          permanent: false,
+        },
+      ];
+    },
     async rewrites() {
       return [
         {

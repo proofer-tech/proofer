@@ -108,41 +108,69 @@ export default function Page() {
         <Stack justify={"center"} h={"100%"}>
           <Title order={1}>타임테이블</Title>
           <Space h={"1em"} />
+          19:00-19:25 | 사전 네트워킹 19:25-19:30 | 오프닝 19:30-20:00 |
+          러닝쉐어(연사 강연) 20:00-20:15 | Q&A 20:15-20:30 | 테이블 토크
+          20:30-20:40 | 쉬는 시간 20:40-20:50 | 네트워킹 안내 20:50-22:00 |
+          케이터링 & 네트워킹
           <>
             <NavLink
               active
               href="#"
               label="사전 네트워킹"
-              leftSection={<Code>19:30 ~ 20:00</Code>}
+              leftSection={<Code>19:00 ~ 19:25</Code>}
             />
+
             <NavLink
               active
               href="#"
-              label="러닝쉐어(연사강연) - 지속 성장하는 조직 만들기"
-              leftSection={<Code>20:00 ~ 20:30</Code>}
+              label="오프닝"
+              leftSection={<Code>19:25 ~ 19:30</Code>}
             />
+
+            <NavLink
+              active
+              href="#"
+              label="러닝쉐어(연사강연)"
+              leftSection={<Code>19:30 ~ 20:00</Code>}
+            />
+
+            <NavLink
+              active
+              href="#"
+              label="Q&A"
+              leftSection={<Code>20:00 ~ 20:15</Code>}
+            />
+
+            <NavLink
+              active
+              href="#"
+              label="테이블 토크"
+              leftSection={<Code>20:15 ~ 20:30</Code>}
+            />
+
             <NavLink
               active
               href="#"
               label="쉬는시간"
               leftSection={<Code>20:30 ~ 20:40</Code>}
             />
+
             <NavLink
               active
               href="#"
-              label="러닝쉐어 - 개발자 성과평가에 대한 해외의 다양한 연구와 사례분석"
-              leftSection={<Code>20:40 ~ 21:00</Code>}
+              label="네트워킹 안내"
+              leftSection={<Code>20:40 ~ 20:50</Code>}
             />
             <NavLink
               active
               href="#"
               label="케이터링 & 네트워킹"
-              leftSection={<Code>21:00 ~ 22:00</Code>}
+              leftSection={<Code>20:50 ~ 23:00</Code>}
             />
           </>
           <Text>
-            네트워킹 시간에 즐기실 수 있도록 케이터링과 위스키가 제공될
-            예정입니다.
+            네트워킹 시간에 즐기실 수 있도록 다과와 주류를 포함한 케이터링이
+            제공될 예정입니다.
           </Text>
           <Text fw={700}>
             참여비는 없습니다! CTO님 혼자서 외롭게 고민하던 내용과 이제부턴
