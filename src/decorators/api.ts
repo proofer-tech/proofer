@@ -2,16 +2,14 @@
 import { NextRequest } from "next/server";
 import { Workspace } from "@/database/schemas/workspace";
 import { dz } from "@/database/engine";
-import { eq, InferSelectModel } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { AppRouteHandlerFn, WithApiAuthRequired } from "@auth0/nextjs-auth0";
 import { findUserFromSession } from "@/src/data/user";
 import { notFound } from "next/navigation";
 import { findMember } from "@/src/data/workspace";
 import { NextApiRequest } from "next";
 import { WORKSPACE_DEMO_SLUG } from "@/src/constants";
-import { Forbidden, NotFound, Unauthorized } from "http-errors";
-import { Command, CommandState } from "@/database/schemas/command";
-import { withLock } from "@/src/redis";
+import { Forbidden, Unauthorized } from "http-errors";
 import { NextHandler, NextHandlerContext } from "@/src/types/general";
 
 export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
@@ -61,65 +59,3 @@ export const withBearer = (token?: string, apiRoute: NextHandler) => {
 
   return wrapper as NextHandler;
 };
-
-export type CommandHandlerContext = NextHandlerContext & {
-  command: InferSelectModel<typeof Command>;
-};
-export type CommandHandler = (
-  req: NextRequest,
-  ctx: CommandHandlerContext,
-) => Promise<Response> | Response | void | Promise<void>;
-export const withCommand = (apiRoute: CommandHandler) =>
-  withBearer(
-    process.env.EDA_SECRET,
-    async (
-      req: NextRequest & NextApiRequest,
-      props: CommandHandlerContext,
-      ...args: []
-    ) => {
-      const hash = req.headers.get("x-command-hash");
-      if (!hash) throw Forbidden();
-      const command = (
-        await dz.select().from(Command).where(eq(Command.hash, hash)).limit(1)
-      )[0];
-      if (!command) throw NotFound();
-
-      let response = new Response();
-      await withLock(
-        { id: `command:${command.hash}`, lease: 1000 },
-        async () => {
-          try {
-            response =
-              (await apiRoute(
-                req,
-                Object.assign(props, { command }),
-                ...args,
-              )) || response;
-
-            await dz
-              .update(Command)
-              .set({ state: CommandState.SUCCESS })
-              .where(eq(Command.id, command.id));
-          } catch (e) {
-            const uuid = crypto.randomUUID();
-            console.error("Command error occurred: ", uuid);
-            console.log(uuid, e);
-
-            await dz
-              .update(Command)
-              .set({ state: CommandState.FAILED, memo: uuid })
-              .where(eq(Command.id, command.id));
-          }
-        },
-        async () =>
-          await dz
-            .update(Command)
-            .set({
-              state: CommandState.PENDING,
-              memo: `lock acquire failed at: ${new Date().toISOString()}`,
-            })
-            .where(eq(Command.id, command.id)),
-      );
-      return response;
-    },
-  );
