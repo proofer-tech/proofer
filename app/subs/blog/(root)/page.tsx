@@ -1,20 +1,15 @@
-import {
-  Anchor,
-  Box,
-  Container,
-  Group,
-  Paper,
-  Stack,
-  Text,
-  Title,
-} from "@mantine/core";
+import { Container, Group, Space, Stack } from "@mantine/core";
 import { getSerializedArticles } from "@/src/data/blog";
-import { generateSubdomainPath } from "@/src/path";
 import { SUB_DOMAIN, SUB_DOMAIN_NAMES } from "@/src/constants";
-import styles from "./styles.module.scss";
 import organizationSchema from "@/app/subs/blog/schema-organization";
 import { generateMetadataFromTitle } from "@/src/manifest";
 import { merge } from "lodash";
+import React from "react";
+import BlogPagination from "@/app/subs/blog/(root)/components/BlogPagination";
+import BlogSearchInput from "@/app/subs/blog/(root)/components/BlogSearchInput";
+import NotFoundPage from "@/app/components/errors/NotFoundPage";
+import BlogArticleGrid from "@/app/subs/blog/(root)/components/BlogArticleGrid";
+import { PageProps } from "@/src/types/general";
 
 export const metadata = merge(
   {
@@ -28,8 +23,18 @@ export const metadata = merge(
       "진짜 업무 데이터를 활용하는 성과 측정/평가/관리 통합 솔루션 프루퍼의 블로그입니다.",
   }),
 );
-export default async function Page() {
-  const articles = await getSerializedArticles();
+
+export default async function Page({ searchParams }: PageProps) {
+  const { page, q } = searchParams;
+  const currentPage = parseInt((page as string) || "1");
+  const searchQuery = (q || "") as string;
+
+  const { total, articles } = await getSerializedArticles(
+    currentPage,
+    8,
+    searchQuery,
+  );
+
   return (
     <>
       <script
@@ -41,27 +46,22 @@ export default async function Page() {
           }),
         }}
       />
-      <Box w={"100%"} h={"100%"} bg={"#f5f5f5"}>
-        <Container pb={"5em"}>
-          <Stack py={"3em"}>
-            {articles.map((article) => (
-              <Anchor
-                key={article.id}
-                href={generateSubdomainPath(article.slug, SUB_DOMAIN.blog)}
-                underline={"never"}
-                c={"var(--mantine-color-gray-8)"}
-              >
-                <Paper p={"1em 2em"} className={styles.card} shadow={"xs"}>
-                  <Group>
-                    <Title order={3}>{article.title}</Title>
-                    <Text>{article.truncatedContents}</Text>
-                  </Group>
-                </Paper>
-              </Anchor>
-            ))}
-          </Stack>
-        </Container>
-      </Box>
+      <Container pb={"5em"}>
+        <Space h={"xl"} />
+        <Group justify={"end"} py={"xs"}>
+          <BlogSearchInput query={searchQuery} queryKey={"q"} />
+        </Group>
+        <Stack align={"center"} gap={"xl"}>
+          {articles.length === 0 ? (
+            <NotFoundPage error={"아티클을 찾을 수 없습니다."} />
+          ) : (
+            <>
+              <BlogArticleGrid articles={articles} />
+              <BlogPagination page={currentPage} total={total} />
+            </>
+          )}
+        </Stack>
+      </Container>
     </>
   );
 }

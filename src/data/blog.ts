@@ -1,6 +1,6 @@
 import { dz } from "@/database/engine";
 import { Article, ArticleToTag, Tag } from "@/database/schemas/blog";
-import { eq, InferSelectModel } from "drizzle-orm";
+import { count, desc, eq, InferSelectModel, like } from "drizzle-orm";
 import { cached } from "@/src/redis";
 import { truncateHtml } from "@/src/utils/text";
 
@@ -8,8 +8,8 @@ async function _getArticlesWithTags({ slug }: { slug?: string } = {}) {
   let querySet = dz
     .select()
     .from(Article)
-    .innerJoin(ArticleToTag, eq(Article.id, ArticleToTag.article_id))
-    .innerJoin(Tag, eq(ArticleToTag.tag_name, Tag.name));
+    .leftJoin(ArticleToTag, eq(Article.id, ArticleToTag.article_id))
+    .leftJoin(Tag, eq(ArticleToTag.tag_name, Tag.name));
 
   // @ts-ignore
   if (slug) querySet = querySet.where(eq(Article.slug, slug));
@@ -28,24 +28,53 @@ async function _getArticlesWithTags({ slug }: { slug?: string } = {}) {
 
       acc[article.id] = Object.assign(originArticle, {
         ...article,
-        tags: [tag, ...(originArticle.tags || [])],
+        tags: [tag, ...(originArticle.tags || [])].filter((i) => i),
       });
       return acc;
     }, {}),
   ).sort((a, b) => b.created_at.getTime() - a.created_at.getTime());
 }
-export async function getSerializedArticles() {
-  let articles = await dz.select().from(Article);
+export async function getSerializedArticles(
+  page: number,
+  perPage: number,
+  query: string,
+) {
+  let queryset: any = dz
+    .select({
+      id: Article.id,
+      slug: Article.slug,
+      title: Article.title,
+      description: Article.description,
+      image: Article.image,
+    })
+    .from(Article);
+  let rows: any = dz
+    .select({
+      count: count(),
+    })
+    .from(Article);
 
-  return articles.map((article) => ({
-    id: article.id,
-    title: article.title,
-    slug: article.slug,
-    truncatedContents: truncateHtml(article.contents),
-  }));
+  queryset = queryset
+    .orderBy(desc(Article.created_at))
+    .limit(perPage)
+    .offset((page - 1) * perPage);
+  if (query) {
+    queryset = queryset.where(like(Article.title, `%${query}%`));
+    rows = rows.where(like(Article.title, `%${query}%`));
+  }
+
+  const articles = await queryset;
+  const totalRows = await rows;
+
+  return {
+    total: Math.floor((totalRows[0]?.count || 0) / perPage),
+    articles: articles as InferSelectModel<typeof Article>[],
+  };
 }
 
-export const getArticlesWithTags = cached(
-  "getArticlesWithTags",
-  _getArticlesWithTags,
-);
+// export const getArticlesWithTags = cached(
+//   "getArticlesWithTags",
+//   _getArticlesWithTags,
+// );
+
+export const getArticlesWithTags = _getArticlesWithTags;

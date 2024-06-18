@@ -1,13 +1,13 @@
-import { Container } from "@mantine/core";
+import { Anchor, Button, Container, Group, Space } from "@mantine/core";
 import ArticlePage from "@/app/subs/blog/[...articlePath]/ArticlePage";
-import {
-  generateMetadataFromTitle,
-  getTextOf,
-  truncateDescription,
-} from "@/src/manifest";
+import { generateMetadataFromTitle, getTextOf } from "@/src/manifest";
 import { Metadata, ResolvingMetadata } from "next";
 import { getArticlesWithTags } from "@/src/data/blog";
-import { generateUrl, getURLFromHeaderList } from "@/src/path";
+import {
+  generateSubdomainPath,
+  generateUrl,
+  getURLFromHeaderList,
+} from "@/src/path";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { NextHandlerContext, PageProps } from "@/src/types/general";
@@ -16,13 +16,15 @@ import React from "react";
 import organizationSchema from "@/app/subs/blog/schema-organization";
 import { NotFound } from "http-errors";
 import { merge } from "lodash";
+import { IconChevronLeft } from "@tabler/icons-react";
+import ShareIcons from "@/app/subs/blog/[...articlePath]/ShareIcons";
 
 export async function generateMetadata(
   { params }: NextHandlerContext,
   parent: ResolvingMetadata,
 ): Promise<Metadata | ResolvingMetadata> {
   const { articlePath } = params;
-  const [slug] = articlePath;
+  const [slug, func] = articlePath;
   const articles = await getArticlesWithTags({ slug });
   const article = articles[0];
   const parentMetadata = await parent;
@@ -38,7 +40,7 @@ export async function generateMetadata(
         {
           title: article.title,
           applicationName: SUB_DOMAIN_NAMES[SUB_DOMAIN.blog],
-          description: truncateDescription(article.contents),
+          description: article.description || "",
         },
         {
           keywords: ["프루퍼", ...article.tags.map((tag) => tag.name)],
@@ -61,10 +63,11 @@ export async function generateMetadata(
 export default async function Page({ params }: PageProps) {
   const { articlePath } = params;
   const [slug, ...path] = articlePath;
-  if (path.length > 0) {
-    const headerList = headers();
-    const url = getURLFromHeaderList(headerList);
 
+  const headerList = headers();
+  const url = getURLFromHeaderList(headerList);
+
+  if (path.length > 0) {
     // sld.tld 로 치환
     url.hostname = url.hostname.split(".").slice(-2).join(".");
     const newURL = new URL("/" + path.join("/"), url.toString()).toString();
@@ -91,7 +94,7 @@ export default async function Page({ params }: PageProps) {
             dateModified: article.updated_at,
             headline: article.title,
             name: `${article.title} - 프루퍼 ${SUB_DOMAIN_NAMES[SUB_DOMAIN.blog]}`,
-            description: truncateDescription(article.contents),
+            description: article.description || "",
             identifier: article.slug,
             author: {
               "@type": "Person",
@@ -101,12 +104,24 @@ export default async function Page({ params }: PageProps) {
             creator: [`${article.author} (proofer)`],
             publisher: organizationSchema,
             mainEntityOfPage: generateUrl(`/${article.slug}`, SUB_DOMAIN.blog),
-            wordCount: getTextOf(article.contents).length,
+            wordCount: Math.max(getTextOf(article.contents || "").length, 100),
           }),
         }}
       />
-      <Container key={article.id}>
+      <Container>
+        <Space h={"xl"} />
         <ArticlePage article={article} />
+        <Group py={"lg"} justify={"space-between"}>
+          <Anchor href={generateSubdomainPath("/", SUB_DOMAIN.blog)}>
+            <Button
+              leftSection={<IconChevronLeft size={"1em"} />}
+              variant="default"
+            >
+              아티클 목록
+            </Button>
+          </Anchor>
+          <ShareIcons url={url.toString()} />
+        </Group>
       </Container>
     </>
   );

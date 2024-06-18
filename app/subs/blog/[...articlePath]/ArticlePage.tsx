@@ -1,9 +1,7 @@
 import { InferSelectModel } from "drizzle-orm";
 import { Article, Tag } from "@/database/schemas/blog";
 import {
-  Anchor,
   Badge,
-  Button,
   Group,
   Space,
   Stack,
@@ -11,9 +9,7 @@ import {
   TypographyStylesProvider,
 } from "@mantine/core";
 import styles from "./styles.module.scss";
-import { headers } from "next/headers";
 import React from "react";
-import ShareIcons from "@/app/subs/blog/[...articlePath]/ShareIcons";
 
 interface ArticleProps {
   article: InferSelectModel<typeof Article> & {
@@ -22,34 +18,32 @@ interface ArticleProps {
 }
 
 export default function ArticlePage({ article }: ArticleProps) {
-  const headerList = headers();
-  const xUrl = headerList.get("x-url") as string;
   return (
-    <Stack py={"xl"}>
-      <Group justify={"space-between"} align={"end"}>
-        <Title>{article.title}</Title>
-        <Anchor href={article.origin} target="_blank">
-          <Button size={"xs"} variant="white">
-            원문 보기
-          </Button>
-        </Anchor>
-      </Group>
-      <Group gap={"xs"}>
-        {article.tags.map((tag) => (
-          <Badge key={tag.id} color="gray">
-            {tag.name}
-          </Badge>
-        ))}
-      </Group>
-      <Space h={"lg"} />
+    <Stack>
+      <Title order={1} fz={"xl"}>
+        {article.title}
+      </Title>
+      {article.tags.length > 0 ? (
+        <>
+          <Group gap={"xs"}>
+            {article.tags.map((tag) => (
+              <Badge key={tag.id} color="gray">
+                {tag.name}
+              </Badge>
+            ))}
+          </Group>
+          <Space h={"lg"} />
+        </>
+      ) : (
+        <></>
+      )}
       <TypographyStylesProvider>
         <div
           className={styles.article}
+          // @ts-ignore
           dangerouslySetInnerHTML={{ __html: article.contents }}
         />
       </TypographyStylesProvider>
-      <ShareIcons url={xUrl} />
-      <Space h={"xl"} />
     </Stack>
   );
 }

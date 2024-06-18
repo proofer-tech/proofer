@@ -8,10 +8,13 @@ export const Article = schema.table(
     slug: varchar("slug", { length: 256 })
       .notNull()
       .unique("article_uidx_slug"),
-    origin: varchar("origin", { length: 512 }).notNull(),
 
     title: varchar("title", { length: 256 }).notNull(),
-    contents: text("contents").notNull(),
+    description: varchar("description", { length: 80 }),
+    image: text("image"),
+
+    contents: text("contents"),
+    origin: varchar("origin", { length: 512 }),
 
     author: varchar("author", { length: 64 }).default("프루퍼").notNull(),
 
@@ -20,6 +23,7 @@ export const Article = schema.table(
   },
   (table) => ({
     created_at_idx: index("article_idx_created_at").on(table.created_at),
+    title_idx: index("article_idx_title").on(table.title),
   }),
 );
 

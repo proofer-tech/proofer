@@ -134,6 +134,20 @@
       "when": 1718605482726,
       "tag": "0018_sour_scrambler",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "5",
+      "when": 1718610691973,
+      "tag": "0019_mushy_black_panther",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "5",
+      "when": 1718690060714,
+      "tag": "0020_curious_pet_avengers",
+      "breakpoints": true
     }
   ]
 }

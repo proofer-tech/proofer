@@ -1,5 +1,5 @@
 "use client";
-import { Group } from "@mantine/core";
+import { Group, Text } from "@mantine/core";
 import {
   FacebookIcon,
   FacebookShareButton,
@@ -10,7 +10,7 @@ import React from "react";
 
 export default function ShareIcons({ url }: { url: string }) {
   return (
-    <Group justify={"end"}>
+    <Group justify={"end"} align={"center"}>
       <LinkedinShareButton url={url}>
         <LinkedinIcon size={32} round />
       </LinkedinShareButton>

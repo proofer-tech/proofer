@@ -9,6 +9,7 @@ import { Dictionary } from "ts-essentials";
 import { conflictUpdateSetAllColumns } from "@/src/utils/drizzle";
 import { notFound } from "next/navigation";
 import { withBearer } from "@/src/decorators/api";
+import { getTextOf, truncateDescription } from "@/src/manifest";
 
 const parser = new Parser();
 
@@ -58,6 +59,12 @@ async function insertArticles(items: Item[]) {
           origin: item.guid,
           title: item.title,
           contents: item["content:encoded"],
+          description: truncateDescription(
+            getTextOf(item["content:encoded"] || ""),
+            {
+              length: 77,
+            },
+          ),
           author: item["dc:creator"],
           created_at: dayjs(item.pubDate).toDate(),
           updated_at: dayjs(item["atom:updated"]).toDate(),

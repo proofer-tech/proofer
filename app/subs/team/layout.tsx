@@ -39,7 +39,7 @@ export const metadata = merge(
 export default async function Layout({ children }: any) {
   // @ts-ignore
   const portals: any[] = Array.from(await get("portals")).concat([
-    { title: "블로그", href: "https://medium.com/proofer-blog" },
+    { title: "블로그", href: "https://blog.proofer.tech" },
   ]);
   return (
     <LandingPageShellLayout portals={portals}>

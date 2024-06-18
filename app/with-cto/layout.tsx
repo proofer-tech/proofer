@@ -18,13 +18,6 @@ export const metadata = merge(
     icons: [
       {
         rel: "shortcut icon",
-        media: "(prefers-color-scheme: light)",
-        url: "/favicon.ico",
-        href: "/assets/images/with-cto/favicon.ico",
-      },
-      {
-        rel: "shortcut icon",
-        media: "(prefers-color-scheme: dark)",
         url: "/favicon.ico",
         href: "/assets/images/with-cto/favicon.ico",
       },

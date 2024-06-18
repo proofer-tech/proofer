@@ -1,0 +1,1 @@
+CREATE INDEX IF NOT EXISTS "article_idx_title" ON "proofer"."article" ("title");

@@ -44,8 +44,8 @@ const magnifierComponents = [
   />,
 ];
 interface NotFoundPageProps {
-  error: Error;
-  reset: () => void;
+  error: Error | string;
+  reset?: () => void;
 }
 export default function NotFoundPage({ error, reset }: NotFoundPageProps) {
   const [title, setTitle] = useState<string>("페이지를 찾는 중이에요.");
@@ -121,10 +121,16 @@ export default function NotFoundPage({ error, reset }: NotFoundPageProps) {
           <Text>{countNumber}</Text>
         ) : (
           <Stack>
-            <Code p={"1em 2em"}>{error.message}</Code>
-            <Button onClick={() => reset()} variant={"outline"} size={"xs"}>
-              새로고침하여 다시 시도해보기
-            </Button>
+            <Code p={"1em 2em"}>
+              {error instanceof Error ? error.message : error}
+            </Code>
+            {reset !== undefined ? (
+              <Button onClick={() => reset()} variant={"outline"} size={"xs"}>
+                새로고침하여 다시 시도해보기
+              </Button>
+            ) : (
+              <></>
+            )}
           </Stack>
         )}
       </Stack>
