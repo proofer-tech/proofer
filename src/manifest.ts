@@ -46,7 +46,7 @@ export function getTextOf(html: string) {
 
 export function truncateDescription(description: string, options: {} = {}) {
   return truncate(
-    getTextOf(description),
+    description,
     merge({ length: 125, separator: "..." }, options),
   );
 }
