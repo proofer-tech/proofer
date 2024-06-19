@@ -1,6 +1,17 @@
 import { cached } from "@/src/redis";
 import NotionPageToHtml from "notion-page-to-html";
 
+export const getPageContent = async function (pageId: string) {
+  const { title, html } = await NotionPageToHtml.convert(
+    `https://www.notion.so/${pageId}`,
+    { bodyContentOnly: true },
+  );
+  return {
+    title,
+    html,
+  };
+};
+
 export const getCachedTermsOfServicePage = cached(
   "getTermsOfServicePage",
   async function () {
