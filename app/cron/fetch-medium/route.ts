@@ -22,6 +22,7 @@ interface Item {
   pubDate: string;
   "atom:updated": string;
   "content:encoded": string;
+  "content:encodedSnippet": string;
 }
 
 interface Feed {
@@ -59,12 +60,9 @@ async function insertArticles(items: Item[]) {
           origin: item.guid,
           title: item.title,
           contents: item["content:encoded"],
-          description: truncateDescription(
-            getTextOf(item["content:encoded"] || ""),
-            {
-              length: 77,
-            },
-          ),
+          description: truncateDescription(item["content:encodedSnippet"], {
+            length: 77,
+          }),
           author: item["dc:creator"],
           created_at: dayjs(item.pubDate).toDate(),
           updated_at: dayjs(item["atom:updated"]).toDate(),
