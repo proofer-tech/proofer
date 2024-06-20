@@ -34,14 +34,6 @@ async function createNewArticle(formData: FormData) {
   });
 
   await dz.transaction(async (db) => {
-    await db
-      .insert(Tag)
-      .values(
-        tags.map((name) => ({
-          name: name,
-        })),
-      )
-      .onConflictDoNothing();
     const articles = await db
       .insert(Article)
       .values({
@@ -58,8 +50,16 @@ async function createNewArticle(formData: FormData) {
         set: conflictUpdateSetAllColumns(Article),
       })
       .returning();
-    for (const article of articles) {
-      if (tags.length > 0) {
+    if (tags.length > 0) {
+      await db
+        .insert(Tag)
+        .values(
+          tags.map((name) => ({
+            name: name,
+          })),
+        )
+        .onConflictDoNothing();
+      for (const article of articles) {
         await db
           .insert(ArticleToTag)
           .values(
