@@ -20,7 +20,9 @@ async function createNewArticle(formData: FormData) {
   const description = formData.get("description") as string;
   const contents = formData.get("contents") as string;
   const imageBase64 = formData.get("image") as string;
-  const tags = ((formData.get("tags") as string) || "").split(",");
+  const tags = ((formData.get("tags") as string) || "")
+    .split(",")
+    .filter((i) => i);
 
   const sluggedTitle = title.trim().replace(/\s+/g, "-");
   const slug = encodeURIComponent(sluggedTitle);
@@ -57,15 +59,17 @@ async function createNewArticle(formData: FormData) {
       })
       .returning();
     for (const article of articles) {
-      await db
-        .insert(ArticleToTag)
-        .values(
-          tags.map((name: string) => ({
-            article_id: article.id,
-            tag_name: name,
-          })),
-        )
-        .onConflictDoNothing();
+      if (tags.length > 0) {
+        await db
+          .insert(ArticleToTag)
+          .values(
+            tags.map((name: string) => ({
+              article_id: article.id,
+              tag_name: name,
+            })),
+          )
+          .onConflictDoNothing();
+      }
     }
   });
   redirect(generateSubdomainPath(`${slug}`, SUB_DOMAIN.blog));

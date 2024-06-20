@@ -1,4 +1,4 @@
-import { Container, Group, Space, Stack } from "@mantine/core";
+import { Anchor, Button, Container, Group, Space, Stack } from "@mantine/core";
 import { getPublishedArticles } from "@/src/data/blog";
 import { SUB_DOMAIN, SUB_DOMAIN_NAMES } from "@/src/constants";
 import organizationSchema from "@/app/subs/blog/schema-organization";
@@ -10,6 +10,8 @@ import BlogSearchInput from "@/app/subs/blog/(root)/components/BlogSearchInput";
 import NotFoundPage from "@/app/components/errors/NotFoundPage";
 import BlogArticleGrid from "@/app/subs/blog/(root)/components/BlogArticleGrid";
 import { PageProps } from "@/src/types/general";
+import { generateUrl } from "@/src/path";
+import { findUserFromSession } from "@/src/data/user";
 
 export const metadata = merge(
   {
@@ -25,6 +27,7 @@ export const metadata = merge(
 );
 
 export default async function Page({ searchParams }: PageProps) {
+  const user = await findUserFromSession();
   const { page, q } = searchParams;
   const currentPage = parseInt((page as string) || "1");
   const searchQuery = (q || "") as string;
@@ -48,8 +51,19 @@ export default async function Page({ searchParams }: PageProps) {
       />
       <Container pb={"5em"}>
         <Space h={"xl"} />
-        <Group justify={"end"} py={"xs"}>
-          <BlogSearchInput query={searchQuery} queryKey={"q"} />
+        <Group justify={"space-between"} py={"xs"} wrap={"nowrap"}>
+          {user ? (
+            <Anchor href={generateUrl("/new", SUB_DOMAIN.blog)}>
+              <Button size={"sm"} variant={"default"}>
+                아티클 작성하기
+              </Button>
+            </Anchor>
+          ) : (
+            <></>
+          )}
+          <Group justify={"end"} w={"100%"}>
+            <BlogSearchInput query={searchQuery} queryKey={"q"} />
+          </Group>
         </Group>
         <Stack align={"center"} gap={"xl"}>
           {articles.length === 0 ? (

@@ -3,7 +3,7 @@ import {
   BackgroundImage,
   Card,
   CardSection,
-  Group,
+  Stack,
   Text,
   Title,
 } from "@mantine/core";
@@ -26,10 +26,10 @@ export default function BlogCard({
           <AspectRatio ratio={1200 / 630}></AspectRatio>
         </BackgroundImage>
       </CardSection>
-      <Group py={"md"}>
+      <Stack py={"md"}>
         <Title order={5}>{title}</Title>
         <Text size={"sm"}>{description}</Text>
-      </Group>
+      </Stack>
     </Card>
   );
 }
