@@ -1,5 +1,5 @@
 import { Container, Group, Space, Stack } from "@mantine/core";
-import { getSerializedArticles } from "@/src/data/blog";
+import { getPublishedArticles } from "@/src/data/blog";
 import { SUB_DOMAIN, SUB_DOMAIN_NAMES } from "@/src/constants";
 import organizationSchema from "@/app/subs/blog/schema-organization";
 import { generateMetadataFromTitle } from "@/src/manifest";
@@ -29,7 +29,7 @@ export default async function Page({ searchParams }: PageProps) {
   const currentPage = parseInt((page as string) || "1");
   const searchQuery = (q || "") as string;
 
-  const { total, articles } = await getSerializedArticles(
+  const { total, articles } = await getPublishedArticles(
     currentPage,
     8,
     searchQuery,

@@ -1,8 +1,7 @@
 import { dz } from "@/database/engine";
 import { Article, ArticleToTag, Tag } from "@/database/schemas/blog";
-import { count, desc, eq, InferSelectModel, like } from "drizzle-orm";
+import { and, count, desc, eq, InferSelectModel, like } from "drizzle-orm";
 import { cached } from "@/src/redis";
-import { truncateHtml } from "@/src/utils/text";
 
 async function _getArticlesWithTags({ slug }: { slug?: string } = {}) {
   let querySet = dz
@@ -34,7 +33,7 @@ async function _getArticlesWithTags({ slug }: { slug?: string } = {}) {
     }, {}),
   ).sort((a, b) => b.created_at.getTime() - a.created_at.getTime());
 }
-export async function getSerializedArticles(
+export async function getPublishedArticles(
   page: number,
   perPage: number,
   query: string,
@@ -58,13 +57,14 @@ export async function getSerializedArticles(
     .orderBy(desc(Article.created_at))
     .limit(perPage)
     .offset((page - 1) * perPage);
+
+  const andConditions = [eq(Article.is_published, true)];
   if (query) {
-    queryset = queryset.where(like(Article.title, `%${query}%`));
-    rows = rows.where(like(Article.title, `%${query}%`));
+    andConditions.push(like(Article.title, `%${query}%`));
   }
 
-  const articles = await queryset;
-  const totalRows = await rows;
+  const articles = await queryset.where(and(...andConditions));
+  const totalRows = await rows.where(and(...andConditions));
 
   return {
     total: Math.floor((totalRows[0]?.count || 0) / perPage),
@@ -72,9 +72,7 @@ export async function getSerializedArticles(
   };
 }
 
-// export const getArticlesWithTags = cached(
-//   "getArticlesWithTags",
-//   _getArticlesWithTags,
-// );
-
-export const getArticlesWithTags = _getArticlesWithTags;
+export const getArticlesWithTags = cached(
+  "getArticlesWithTags",
+  _getArticlesWithTags,
+);

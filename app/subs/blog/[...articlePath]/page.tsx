@@ -14,10 +14,11 @@ import { NextHandlerContext, PageProps } from "@/src/types/general";
 import { SUB_DOMAIN, SUB_DOMAIN_NAMES } from "@/src/constants";
 import React from "react";
 import organizationSchema from "@/app/subs/blog/schema-organization";
-import { NotFound } from "http-errors";
+import { NotFound, Unauthorized } from "http-errors";
 import { merge } from "lodash";
 import { IconChevronLeft } from "@tabler/icons-react";
 import ShareIcons from "@/app/subs/blog/[...articlePath]/ShareIcons";
+import { findUserFromSession } from "@/src/data/user";
 
 export async function generateMetadata(
   { params }: NextHandlerContext,
@@ -78,6 +79,12 @@ export default async function Page({ params }: PageProps) {
   const article = articles[0];
 
   if (!article) throw NotFound("블로그 아티클을 찾을 수 없습니다.");
+
+  if (!article.is_published) {
+    const user = await findUserFromSession();
+    if (user === undefined)
+      throw new Unauthorized("로그인이 필요한 페이지입니다.");
+  }
 
   return (
     <>
