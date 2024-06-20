@@ -1,10 +1,16 @@
 import { MetadataRoute } from "next";
-import { getArticlesWithTags } from "@/src/data/blog";
 import { generateUrl } from "@/src/path";
 import { SUB_DOMAIN } from "@/src/constants";
+import { dz } from "@/database/engine";
+import { Article } from "@/database/schemas/blog";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const articles = await getArticlesWithTags();
+  const articles = await dz
+    .select({
+      slug: Article.slug,
+      updated_at: Article.updated_at,
+    })
+    .from(Article);
   return [
     {
       url: generateUrl("/", SUB_DOMAIN.blog),
