@@ -123,3 +123,8 @@ export function cached<T extends (...args: any[]) => Promise<any>>(
 
   return cache as T;
 }
+
+export function clearCache(funcName: string, ...args: any[]) {
+  const key = `${funcName}:${JSON.stringify(args)}`;
+  return kv.del(key);
+}

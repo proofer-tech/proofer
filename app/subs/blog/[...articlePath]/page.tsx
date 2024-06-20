@@ -1,4 +1,4 @@
-import { Anchor, Button, Container, Group, Space } from "@mantine/core";
+import { Anchor, Button, Card, Container, Group, Space } from "@mantine/core";
 import ArticlePage from "@/app/subs/blog/[...articlePath]/ArticlePage";
 import { generateMetadataFromTitle, getTextOf } from "@/src/manifest";
 import { Metadata, ResolvingMetadata } from "next";
@@ -14,17 +14,61 @@ import { NextHandlerContext, PageProps } from "@/src/types/general";
 import { SUB_DOMAIN, SUB_DOMAIN_NAMES } from "@/src/constants";
 import React from "react";
 import organizationSchema from "@/app/subs/blog/schema-organization";
-import { NotFound } from "http-errors";
+import { NotFound, Unauthorized } from "http-errors";
 import { merge } from "lodash";
 import { IconChevronLeft } from "@tabler/icons-react";
 import ShareIcons from "@/app/subs/blog/[...articlePath]/ShareIcons";
+import { findUserFromSession } from "@/src/data/user";
+import { dz } from "@/database/engine";
+import { eq } from "drizzle-orm";
+import { Article } from "@/database/schemas/blog";
+import { clearCache } from "@/src/redis";
+
+async function publishArticle(formData: FormData) {
+  "use server";
+  const slug = formData.get("slug") as string;
+  await dz.transaction(async (db) => {
+    const articles = await db
+      .select({ id: Article.id })
+      .from(Article)
+      .where(eq(Article.slug, slug));
+    if (articles.length === 0) throw NotFound();
+
+    await db
+      .update(Article)
+      .set({ is_published: true })
+      .where(eq(Article.slug, slug));
+  });
+
+  clearCache("getArticlesWithTags", { slug });
+  redirect(generateSubdomainPath(`/${slug}`, SUB_DOMAIN.blog));
+}
+async function unPublishArticle(formData: FormData) {
+  "use server";
+  const slug = formData.get("slug") as string;
+  await dz.transaction(async (db) => {
+    const articles = await db
+      .select({ id: Article.id })
+      .from(Article)
+      .where(eq(Article.slug, slug));
+    if (articles.length === 0) throw NotFound();
+
+    await db
+      .update(Article)
+      .set({ is_published: false })
+      .where(eq(Article.slug, slug));
+  });
+
+  clearCache("getArticlesWithTags", { slug });
+  redirect(generateSubdomainPath(`/${slug}`, SUB_DOMAIN.blog));
+}
 
 export async function generateMetadata(
   { params }: NextHandlerContext,
   parent: ResolvingMetadata,
 ): Promise<Metadata | ResolvingMetadata> {
   const { articlePath } = params;
-  const [slug, func] = articlePath;
+  const [slug] = articlePath;
   const articles = await getArticlesWithTags({ slug });
   const article = articles[0];
   const parentMetadata = await parent;
@@ -79,6 +123,12 @@ export default async function Page({ params }: PageProps) {
 
   if (!article) throw NotFound("블로그 아티클을 찾을 수 없습니다.");
 
+  const user = await findUserFromSession();
+  if (!article.is_published) {
+    if (user === undefined)
+      throw new Unauthorized("로그인이 필요한 페이지입니다.");
+  }
+
   return (
     <>
       <script
@@ -111,17 +161,38 @@ export default async function Page({ params }: PageProps) {
       <Container>
         <Space h={"xl"} />
         <ArticlePage article={article} />
-        <Group py={"lg"} justify={"space-between"}>
-          <Anchor href={generateSubdomainPath("/", SUB_DOMAIN.blog)}>
-            <Button
-              leftSection={<IconChevronLeft size={"1em"} />}
-              variant="default"
-            >
-              아티클 목록
-            </Button>
-          </Anchor>
-          <ShareIcons url={url.toString()} />
-        </Group>
+        <Card p={"md"} mt={"lg"} withBorder>
+          <Group justify={"space-between"}>
+            <Group>
+              <Anchor href={generateSubdomainPath("/", SUB_DOMAIN.blog)}>
+                <Button
+                  leftSection={<IconChevronLeft size={"1em"} />}
+                  variant="default"
+                >
+                  아티클 목록
+                </Button>
+              </Anchor>
+              {user ? (
+                <form
+                  action={
+                    article.is_published ? unPublishArticle : publishArticle
+                  }
+                >
+                  <input type={"hidden"} name={"slug"} value={article.slug} />
+                  <Button
+                    type={"submit"}
+                    variant={article.is_published ? "default" : "filled"}
+                  >
+                    {article.is_published ? "발행 취소하기" : "발행하기"}
+                  </Button>
+                </form>
+              ) : (
+                <></>
+              )}
+            </Group>
+            <ShareIcons url={url.toString()} />
+          </Group>
+        </Card>
       </Container>
     </>
   );

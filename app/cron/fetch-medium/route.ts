@@ -9,7 +9,7 @@ import { Dictionary } from "ts-essentials";
 import { conflictUpdateSetAllColumns } from "@/src/utils/drizzle";
 import { notFound } from "next/navigation";
 import { withBearer } from "@/src/decorators/api";
-import { getTextOf, truncateDescription } from "@/src/manifest";
+import { truncateDescription } from "@/src/manifest";
 
 const parser = new Parser();
 

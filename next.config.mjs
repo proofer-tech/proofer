@@ -40,7 +40,11 @@ export default withSentryConfig(
         return config;
       },
       images: {
-        domains: ["proofer.tech", "miro.medium.com"],
+        domains: [
+          "proofer.tech",
+          "miro.medium.com",
+          "asgkzse2rqmcnxxg.public.blob.vercel-storage.com",
+        ],
       },
       async redirects() {
         return [

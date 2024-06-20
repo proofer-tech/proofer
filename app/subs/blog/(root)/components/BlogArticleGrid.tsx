@@ -1,21 +1,12 @@
 "use client";
-import {
-  Anchor,
-  Card,
-  CardSection,
-  Grid,
-  GridCol,
-  Group,
-  Text,
-  Title,
-} from "@mantine/core";
+import { Anchor, Grid, GridCol } from "@mantine/core";
 import { generateSubdomainPath } from "@/src/path";
 import { SUB_DOMAIN } from "@/src/constants";
 import React from "react";
 import { InferSelectModel } from "drizzle-orm";
 import { Article } from "@/database/schemas/blog";
 import { useIsMobileMedia, useIsTabletMedia } from "@/src/hooks/mediaQuery";
-import Image from "next/image";
+import BlogCard from "@/app/subs/blog/components/BlogCard";
 
 interface BlogArticleGridProps {
   articles: InferSelectModel<typeof Article>[];
@@ -32,21 +23,13 @@ export default function BlogArticleGrid({ articles }: BlogArticleGridProps) {
             underline={"never"}
             c={"var(--mantine-color-gray-8)"}
           >
-            <Card shadow="sm" padding="lg" radius="md" withBorder>
-              <CardSection>
-                <Image
-                  src={article.image || "/assets/images/og-image-article.webp"}
-                  width={1200}
-                  height={630}
-                  alt={article.title}
-                  style={{ width: "100%", height: "auto" }}
-                />
-              </CardSection>
-              <Group py={"md"}>
-                <Title order={5}>{article.title}</Title>
-                <Text size={"sm"}>{article.description}</Text>
-              </Group>
-            </Card>
+            <BlogCard
+              thumbnail={
+                article.image || "/assets/images/og-image-article.webp"
+              }
+              title={article.title}
+              description={article.description || ""}
+            />
           </Anchor>
         </GridCol>
       ))}

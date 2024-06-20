@@ -1,5 +1,12 @@
 import { schema } from "@/database/engine";
-import { index, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  index,
+  serial,
+  text,
+  timestamp,
+  varchar,
+} from "drizzle-orm/pg-core";
 
 export const Article = schema.table(
   "article",
@@ -20,10 +27,13 @@ export const Article = schema.table(
 
     created_at: timestamp("created_at").defaultNow().notNull(),
     updated_at: timestamp("updated_at").defaultNow().notNull(),
+
+    is_published: boolean("is_published").default(false).notNull(),
   },
   (table) => ({
     created_at_idx: index("article_idx_created_at").on(table.created_at),
     title_idx: index("article_idx_title").on(table.title),
+    is_published_idx: index("article_idx_is_published").on(table.is_published),
   }),
 );
 

@@ -103,7 +103,7 @@ export default async function RootLayout({ children }: { children: any }) {
       <body>
         <UserProvider>
           <MantineProvider theme={theme}>
-            <Notifications />
+            <Notifications position={"top-left"} />
             {children}
           </MantineProvider>
           <Analytics />

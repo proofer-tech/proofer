@@ -26,3 +26,11 @@ export const base64ToFile = (base64String: string, filename?: string): File => {
     `${filename || crypto.randomUUID()}.${extension}`,
   );
 };
+export const fileToDataURL = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+};
