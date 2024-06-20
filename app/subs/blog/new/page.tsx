@@ -1,32 +1,72 @@
-import {
-  Container,
-  Title,
-  Text,
-  Group,
-  Space,
-  TabsTab,
-  TabsList,
-  Tabs,
-  TabsPanel,
-  Stack,
-} from "@mantine/core";
+import { Container, Group, Space, Stack, Text } from "@mantine/core";
 import React from "react";
 import Image from "next/image";
-import { IconBrandMedium, IconBrandNotion } from "@tabler/icons-react";
 import NotionArticleLoadForm from "@/app/subs/blog/new/component/NotionArticleLoadForm";
-import MediumArticleLoadForm from "@/app/subs/blog/new/component/MediumArticleLoadForm";
+import { dz } from "@/database/engine";
+import { Article, ArticleToTag, Tag } from "@/database/schemas/blog";
+import { put } from "@vercel/blob";
+import { redirect } from "next/navigation";
+import { generateSubdomainPath } from "@/src/path";
+import { SUB_DOMAIN } from "@/src/constants";
+import { base64ToFile } from "@/src/file";
+import { conflictUpdateSetAllColumns } from "@/src/utils/drizzle";
 
 async function createNewArticle(formData: FormData) {
   "use server";
-  const title = formData.get("title");
-  const description = formData.get("description");
-  const contents = formData.get("contents");
-  const imageBase64 = formData.get("image");
+
+  const title = formData.get("title") as string;
+  const description = formData.get("description") as string;
+  const contents = formData.get("contents") as string;
+  const imageBase64 = formData.get("image") as string;
   const tags = ((formData.get("tags") as string) || "").split(",");
 
-  console.log(title);
-  console.log(description);
-  console.log(tags);
+  const sluggedTitle = title.trim().replace(/\s+/g, "-");
+  const slug = encodeURIComponent(sluggedTitle);
+
+  const imageFile = base64ToFile(imageBase64);
+  const ext = imageFile.name.split(".").pop();
+  const blob = await put(`/blog/articles/${slug}.${ext}`, imageFile, {
+    access: "public",
+  });
+
+  await dz.transaction(async (db) => {
+    await db
+      .insert(Tag)
+      .values(
+        tags.map((name) => ({
+          name: name,
+        })),
+      )
+      .onConflictDoNothing();
+    const articles = await db
+      .insert(Article)
+      .values({
+        slug,
+        title,
+        description,
+        contents,
+        author: "프루퍼",
+        image: blob.url,
+        is_published: false,
+      })
+      .onConflictDoUpdate({
+        target: [Article.slug],
+        set: conflictUpdateSetAllColumns(Article),
+      })
+      .returning();
+    for (const article of articles) {
+      await db
+        .insert(ArticleToTag)
+        .values(
+          tags.map((name: string) => ({
+            article_id: article.id,
+            tag_name: name,
+          })),
+        )
+        .onConflictDoNothing();
+    }
+  });
+  redirect(generateSubdomainPath(`${slug}`, SUB_DOMAIN.blog));
 }
 
 export default function Page() {
@@ -51,28 +91,7 @@ export default function Page() {
         </Stack>
       </Group>
       <Space h={"md"} />
-      <Tabs defaultValue="notion">
-        <TabsList>
-          <TabsTab
-            value="notion"
-            leftSection={<IconBrandNotion size={"1em"} />}
-          >
-            노션에서 불러오기
-          </TabsTab>
-          <TabsTab
-            value="medium"
-            leftSection={<IconBrandMedium size={"1em"} />}
-          >
-            미디엄에서 불러오기
-          </TabsTab>
-        </TabsList>
-        <TabsPanel value="notion" p={"md"}>
-          <NotionArticleLoadForm onSubmit={createNewArticle} />
-        </TabsPanel>
-        <TabsPanel value="medium" p={"md"}>
-          <MediumArticleLoadForm />
-        </TabsPanel>
-      </Tabs>
+      <NotionArticleLoadForm onSubmit={createNewArticle} />
     </Container>
   );
 }

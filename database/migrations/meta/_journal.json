@@ -148,6 +148,13 @@
       "when": 1718690060714,
       "tag": "0020_curious_pet_avengers",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "5",
+      "when": 1718851009283,
+      "tag": "0021_quiet_outlaw_kid",
+      "breakpoints": true
     }
   ]
 }

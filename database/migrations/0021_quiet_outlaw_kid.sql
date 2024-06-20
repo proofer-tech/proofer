@@ -1,0 +1,2 @@
+ALTER TABLE "proofer"."article" ADD COLUMN "is_published" boolean DEFAULT false NOT NULL;--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "article_idx_is_published" ON "proofer"."article" ("is_published");

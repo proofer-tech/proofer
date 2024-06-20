@@ -1,12 +1,13 @@
 "use client";
 import {
+  Badge,
   Blockquote,
-  Box,
   Button,
-  Container,
   Divider,
+  FileInput,
   Group,
   Input,
+  LoadingOverlay,
   Skeleton,
   Space,
   Stack,
@@ -16,7 +17,7 @@ import {
   Title,
   TypographyStylesProvider,
 } from "@mantine/core";
-import { useInputState } from "@mantine/hooks";
+import { useDisclosure, useInputState } from "@mantine/hooks";
 import {
   IconChevronLeft,
   IconChevronRight,
@@ -24,6 +25,7 @@ import {
   IconFileUpload,
   IconInfoCircle,
   IconLink,
+  IconPhotoPlus,
 } from "@tabler/icons-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -31,7 +33,8 @@ import { NotionPage } from "notion-page-to-html/dist/main/protocols/notion-page"
 import { isValidHttpUrl } from "@/src/utils/text";
 import { notifications } from "@mantine/notifications";
 import { getTextOf, truncateDescription } from "@/src/manifest";
-import { useIsDesktopMedia } from "@/src/hooks/mediaQuery";
+import { base64ToFile, fileToDataURL } from "@/src/file";
+import BlogCard from "@/app/subs/blog/components/BlogCard";
 
 interface NotionArticleLoadFormProps {
   onSubmit: (formData: FormData) => void;
@@ -43,12 +46,12 @@ export default function NotionArticleLoadForm({
   const [articleTitle, setArticleTitle] = useInputState<string>("");
   const [articleDescription, setArticleDescription] = useInputState<string>("");
   const [articleTags, setArticleTags] = useState<string[]>([]);
+  const [articleCoverImage, setArticleCoverImage] = useState<string>();
 
   const [step, setStep] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, isLoadingDisclosure] = useDisclosure(false);
   const goNextStep = () => setStep((current) => current + 1);
   const [notionPage, setNotionPage] = useState<NotionPage>();
-  const isDesktopMedia = useIsDesktopMedia();
 
   const loadNotionPage = async (notionPageURL: string) => {
     if (!notionPageURL) return;
@@ -90,21 +93,23 @@ export default function NotionArticleLoadForm({
           separator: "",
         }),
       );
+    if (!articleCoverImage) setArticleCoverImage(notionPage.cover);
   }, [notionPage]);
 
   return (
     <>
+      <LoadingOverlay
+        visible={isLoading}
+        zIndex={1000}
+        overlayProps={{ radius: "sm", blur: 2 }}
+      />
       <Stepper
         active={step}
         onStepClick={setStep}
         iconSize={"2em"}
         orientation={"vertical"}
         allowNextStepsSelect={false}
-        py={isDesktopMedia ? 0 : "md"}
-        px={isDesktopMedia ? "xl" : 0}
-        style={
-          isDesktopMedia ? { position: "fixed", right: 0, zIndex: 30 } : {}
-        }
+        py={"md"}
       >
         <Stepper.Step label="노션에서 공개&게시 설정해주세요.">
           <Group justify={"end"}>
@@ -139,7 +144,11 @@ export default function NotionArticleLoadForm({
         </Stepper.Step>
         <Stepper.Completed>
           {notionPage ? (
-            <form action={onSubmit} method={"POST"}>
+            <form
+              action={onSubmit}
+              method={"POST"}
+              onSubmit={() => isLoadingDisclosure.open()}
+            >
               <input type="hidden" name="title" value={articleTitle} />
               <input
                 type="hidden"
@@ -147,7 +156,7 @@ export default function NotionArticleLoadForm({
                 value={articleDescription}
               />
               <input type="hidden" name="contents" value={notionPage.html} />
-              <input type="hidden" name="image" value={notionPage.cover} />
+              <input type="hidden" name="image" value={articleCoverImage} />
               <input type="hidden" name="tags" value={articleTags.join(",")} />
 
               <Stack>
@@ -212,7 +221,7 @@ export default function NotionArticleLoadForm({
               leftSection={<IconLink size={"1em"} />}
               onBlur={async (event) => {
                 const notionPageURL = event.target.value;
-                setIsLoading(true);
+                isLoadingDisclosure.open();
                 try {
                   const notionPage = await loadNotionPage(notionPageURL);
                   setNotionPage(notionPage);
@@ -222,22 +231,35 @@ export default function NotionArticleLoadForm({
                     message: e.message,
                   });
                 }
-                setIsLoading(false);
+                isLoadingDisclosure.close();
               }}
             />
           </Input.Wrapper>
           {notionPage ? (
             <Stack>
-              <Input.Wrapper
-                label={"커버 이미지"}
-                description={"노션 커버이미지를 자동으로 사용합니다"}
-                w={"100%"}
-              >
-                {notionPage?.cover ? (
+              <Stack gap={0}>
+                <FileInput
+                  leftSection={<IconPhotoPlus size={"1em"} />}
+                  label="커버 이미지"
+                  description={"노션 커버이미지를 자동으로 사용합니다"}
+                  placeholder="클릭하여 새로운 이미지 업로드하기"
+                  w={"100%"}
+                  leftSectionPointerEvents="none"
+                  value={
+                    articleCoverImage ? base64ToFile(articleCoverImage) : null
+                  }
+                  onChange={(file) => {
+                    if (file === null) return;
+                    fileToDataURL(file).then((dataURL) =>
+                      setArticleCoverImage(dataURL),
+                    );
+                  }}
+                />
+                {articleCoverImage ? (
                   <>
                     <Space h={"xs"} />
                     <Image
-                      src={notionPage?.cover}
+                      src={articleCoverImage}
                       alt={"커버 이미지"}
                       width={1200}
                       height={630}
@@ -247,7 +269,7 @@ export default function NotionArticleLoadForm({
                 ) : (
                   <></>
                 )}
-              </Input.Wrapper>
+              </Stack>
               <Input.Wrapper
                 label={"아티클 제목"}
                 description={"최대 32자"}
@@ -299,6 +321,12 @@ export default function NotionArticleLoadForm({
             <></>
           )}
         </Stack>
+      ) : step === 2 ? (
+        <BlogCard
+          thumbnail={articleCoverImage!}
+          title={articleTitle}
+          description={articleDescription}
+        />
       ) : (
         <></>
       )}
@@ -307,6 +335,20 @@ export default function NotionArticleLoadForm({
           <Title order={1} fz={"xl"}>
             {articleTitle}
           </Title>
+          {articleTags.length > 0 ? (
+            <>
+              <Group gap={"xs"}>
+                {articleTags.map((tag, idx) => (
+                  <Badge key={idx} color="gray">
+                    {tag}
+                  </Badge>
+                ))}
+              </Group>
+              <Space h={"lg"} />
+            </>
+          ) : (
+            <></>
+          )}
           <TypographyStylesProvider>
             <div
               dangerouslySetInnerHTML={{
