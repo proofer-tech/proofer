@@ -10,6 +10,8 @@ import { generateSubdomainPath } from "@/src/path";
 import { SUB_DOMAIN } from "@/src/constants";
 import { base64ToFile } from "@/src/file";
 import { conflictUpdateSetAllColumns } from "@/src/utils/drizzle";
+import { Unauthorized } from "http-errors";
+import { findUserFromSession } from "@/src/data/user";
 
 async function createNewArticle(formData: FormData) {
   "use server";
@@ -69,7 +71,11 @@ async function createNewArticle(formData: FormData) {
   redirect(generateSubdomainPath(`${slug}`, SUB_DOMAIN.blog));
 }
 
-export default function Page() {
+export default async function Page() {
+  const user = await findUserFromSession();
+  if (user === undefined)
+    throw new Unauthorized("로그인이 필요한 페이지입니다.");
+
   return (
     <Container py={"xl"}>
       <Group align={"center"}>

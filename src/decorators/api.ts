@@ -12,6 +12,22 @@ import { WORKSPACE_DEMO_SLUG } from "@/src/constants";
 import { Forbidden, Unauthorized } from "http-errors";
 import { NextHandler, NextHandlerContext } from "@/src/types/general";
 
+export const withApiUserRequired: WithApiAuthRequired = (
+  apiRoute: AppRouteHandlerFn,
+) => {
+  const wrapper = async (
+    req: NextRequest & NextApiRequest,
+    props: NextHandlerContext,
+    ...args: []
+  ) => {
+    const user = await findUserFromSession();
+    if (user === undefined) throw new Unauthorized("Need to login");
+
+    return apiRoute(req, { user, ...props }, ...args);
+  };
+  return wrapper as AppRouteHandlerFn;
+};
+
 export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
   apiRoute: AppRouteHandlerFn,
 ) => {
