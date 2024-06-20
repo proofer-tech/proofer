@@ -3,6 +3,7 @@ import { get } from "@vercel/edge-config";
 import LandingPageShellLayout from "@/app/components/LandingPageShellLayout";
 import { merge } from "lodash";
 import { generateMetadataFromTitle } from "@/src/manifest";
+import { HeaderPortal } from "@/app/components/Header";
 
 export const metadata = merge(
   {
@@ -37,10 +38,7 @@ export const metadata = merge(
   }),
 );
 export default async function Layout({ children }: any) {
-  // @ts-ignore
-  const portals: any[] = Array.from(await get("portals")).concat([
-    { title: "블로그", href: "https://blog.proofer.tech" },
-  ]);
+  const portals: readonly HeaderPortal[] = (await get("portals")) || [];
   return (
     <LandingPageShellLayout portals={portals}>
       {children}
