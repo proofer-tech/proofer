@@ -34,7 +34,7 @@ export default async function Page({ searchParams }: PageProps) {
 
   const { total, articles } = await getPublishedArticles(
     currentPage,
-    8,
+    12,
     searchQuery,
   );
 
