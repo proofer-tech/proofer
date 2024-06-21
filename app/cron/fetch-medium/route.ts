@@ -64,6 +64,7 @@ async function insertArticles(items: Item[]) {
             length: 77,
           }),
           author: item["dc:creator"],
+          is_published: true,
           created_at: dayjs(item.pubDate).toDate(),
           updated_at: dayjs(item["atom:updated"]).toDate(),
         })),
