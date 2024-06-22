@@ -1,20 +1,20 @@
 import Background from "@/app/components/Background";
 import React from "react";
 import {
-  Container,
-  Text,
-  Stack,
-  Code,
-  Group,
   AspectRatio,
   Button,
-  Space,
+  Code,
+  Container,
+  Group,
   NavLink,
-  Title,
   Paper,
+  Space,
+  Stack,
+  Text,
+  Title,
 } from "@mantine/core";
 import Image from "next/image";
-import CopyWithCTOButton from "@/app/with-cto/CopyWithCTOButton";
+import CopyWithCTOButton from "@/app/with-cto/components/CopyWithCTOButton";
 import { Done, Down } from "@/app/components/Divider";
 
 export default function Page() {

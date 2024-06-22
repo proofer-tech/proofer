@@ -50,8 +50,7 @@ export default withSentryConfig(
         return [
           {
             source: "/with-cto/join",
-            destination:
-              "https://proofer-tech.notion.site/with-CTO-2nd-meet-6a871a3f90544e3bbab5a92fd5eea0ab?pvs=4",
+            destination: "/with-cto",
             permanent: false,
           },
         ];
