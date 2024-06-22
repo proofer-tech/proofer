@@ -4,6 +4,7 @@ import { HeaderPortal } from "@/app/components/Header";
 import LandingPageShellLayout from "@/app/components/LandingPageShellLayout";
 import { merge } from "lodash";
 import { generateMetadataFromTitle } from "@/src/manifest";
+import { get } from "@vercel/edge-config";
 
 export const metadata = merge(
   {
@@ -66,20 +67,7 @@ export const metadata = merge(
   }),
 );
 export default async function Layout({ children }: any) {
-  const portals: readonly HeaderPortal[] = [
-    {
-      title: "프루퍼 홈",
-      href: "https://proofer.tech",
-    },
-    {
-      title: "with CTO:",
-      href: "#",
-    },
-    {
-      title: "타임테이블",
-      href: "#timetable",
-    },
-  ];
+  const portals: readonly HeaderPortal[] = (await get("portals")) || [];
   return (
     <LandingPageShellLayout
       portals={portals}
