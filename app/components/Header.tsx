@@ -98,7 +98,11 @@ export default function Header({
             </Group>
             <Group>
               {onInquireClick && (
-                <Button onClick={onInquireClick} radius="md">
+                <Button
+                  onClick={onInquireClick}
+                  radius="xl"
+                  variant={"outline"}
+                >
                   무료상담 신청
                 </Button>
               )}
