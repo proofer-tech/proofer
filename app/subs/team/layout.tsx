@@ -21,7 +21,7 @@ export const metadata = merge(
       locale: "ko",
       type: "website",
       url: "https://team.proofer.tech/",
-      images: ["/assets/images/og-image.png"],
+      images: ["/assets/images/og-image.webp"],
     },
     alternates: {
       canonical: "https://team.proofer.tech",

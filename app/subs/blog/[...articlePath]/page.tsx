@@ -137,7 +137,7 @@ export default async function Page({ params }: PageProps) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "NewsArticle",
-            image: generateUrl("/assets/images/og-image.png"),
+            image: generateUrl("/assets/images/og-image.webp"),
             url: generateUrl(`/${article.slug}`, SUB_DOMAIN.blog),
             dateCreated: article.created_at,
             datePublished: article.created_at,

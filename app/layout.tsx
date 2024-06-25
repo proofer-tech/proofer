@@ -42,7 +42,7 @@ export const metadata = merge(
       locale: "ko",
       type: "website",
       url: "https://proofer.tech",
-      images: ["/assets/images/og-image.png"],
+      images: ["/assets/images/og-image.webp"],
     },
     icons: [
       {

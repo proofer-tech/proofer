@@ -1,15 +1,15 @@
 import {
-  Container,
-  Stack,
-  Title,
-  Text,
-  Space,
-  Box,
-  SimpleGrid,
-  Group,
   Anchor,
-  Divider,
+  Box,
   Card,
+  Container,
+  Divider,
+  Group,
+  SimpleGrid,
+  Space,
+  Stack,
+  Text,
+  Title,
 } from "@mantine/core";
 import React from "react";
 import Image from "next/image";
@@ -78,7 +78,7 @@ export default function Page() {
           </SimpleGrid>
           <Space py={"xl"}>
             <Image
-              src={"/assets/images/team/proofer.tech.png"}
+              src={"/assets/images/team/proofer.tech.webp"}
               width={1600}
               height={311}
               style={{ width: "100%", height: "auto" }}
@@ -150,7 +150,7 @@ export default function Page() {
                   <Stack gap={"sm"}>
                     <Group>
                       <Image
-                        src={"/assets/images/with-cto/logo.png"}
+                        src={"/assets/images/with-cto/logo.svg"}
                         width={100}
                         height={100}
                         alt={"with CTO:"}
@@ -186,7 +186,7 @@ export default function Page() {
                   <Stack gap={"sm"}>
                     <Group>
                       <Image
-                        src={"/assets/images/team/measurable-developer.png"}
+                        src={"/assets/images/team/measurable-developer.webp"}
                         width={100}
                         height={100}
                         alt={"Measurable Developer"}

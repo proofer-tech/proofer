@@ -9,7 +9,7 @@ const organizationSchema = {
     "@type": "ImageObject",
     width: 308,
     height: 60,
-    url: generateUrl("/assets/images/ic_launcher.png"),
+    url: generateUrl("/assets/images/ic_launcher.webp"),
   },
 };
 export default organizationSchema;

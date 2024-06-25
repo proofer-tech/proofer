@@ -30,7 +30,7 @@ export default function Page() {
               </Text>
               <Group align={"center"} p={0}>
                 <Image
-                  src={"/assets/images/with-cto/logo.png"}
+                  src={"/assets/images/with-cto/logo.svg"}
                   width={512}
                   height={512}
                   alt={"with CTO:"}

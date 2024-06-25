@@ -14,7 +14,7 @@ export const metadata = merge(
       locale: "ko",
       type: "website",
       url: "https://proofer.tech/with-cto",
-      images: ["/assets/images/with-cto/og-image.png"],
+      images: ["/assets/images/with-cto/og-image.webp"],
     },
     icons: [
       {
