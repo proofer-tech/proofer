@@ -2,15 +2,23 @@
 import { Container, Group, rem, Space, Stack, Text } from "@mantine/core";
 import { InquireForm } from "@/app/components/Inquire";
 import React from "react";
-import { useIsMobileMedia } from "@/src/hooks/mediaQuery";
+import { useIsDesktopMedia, useIsTabletMedia } from "@/src/hooks/mediaQuery";
+
 export default function Hero() {
-  const isMobile = useIsMobileMedia();
+  const [isDesktopMedia, isTabletMedia] = [
+    useIsDesktopMedia(),
+    useIsTabletMedia(),
+  ];
   return (
     <Container
       style={{
         display: "flex",
         justifyContent: "center",
-        alignItems: isMobile ? "start" : "center",
+        alignItems: isDesktopMedia
+          ? "center"
+          : isTabletMedia
+            ? "center"
+            : "start",
       }}
       h={"calc(100vh - 8em)"}
     >

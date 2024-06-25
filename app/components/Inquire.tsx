@@ -28,7 +28,7 @@ export function InquireForm({
   btnProps = {},
   btnText,
 }: InquireFormProps) {
-  const isMobile = useIsMobileMedia();
+  const isMobileMedia = useIsMobileMedia();
   const [isPopoverOpened, setPopoverOpened] = useState<boolean>(false);
   const [inquireEmail, setInquireEmail] = useState<string>("");
 
@@ -61,7 +61,7 @@ export function InquireForm({
               onBlur={() => setPopoverOpened(false)}
               radius={"md"}
               size={"md"}
-              w={isMobile ? "100%" : "auto"}
+              w={isMobileMedia ? "100%" : "auto"}
             />
           </Popover.Target>
           <Popover.Dropdown>
@@ -75,7 +75,7 @@ export function InquireForm({
       )}
       <Button
         size={"md"}
-        w={isMobile ? "100%" : "auto"}
+        w={isMobileMedia ? "100%" : "auto"}
         onClick={() => openTallyPopup()}
         {...{ color: "var(--color-primary)", ...btnProps }}
       >
@@ -92,7 +92,7 @@ export function InquireWidget({
   btnText: string;
   children: React.ReactNode;
 }) {
-  const isMobile = useIsMobileMedia();
+  const isMobileMedia = useIsMobileMedia();
 
   const [scroll] = useWindowScroll();
   const offsetPinRef = useRef<HTMLDivElement>(null);
@@ -137,10 +137,10 @@ export function InquireWidget({
             >
               <Flex
                 p={isWidget ? "0.8em 1.6em" : "3em 5em"}
-                direction={isMobile ? "column" : "row"}
+                direction={isMobileMedia ? "column" : "row"}
                 justify={
                   isWidget
-                    ? isMobile
+                    ? isMobileMedia
                       ? "center"
                       : "space-between"
                     : "space-between"
@@ -148,14 +148,14 @@ export function InquireWidget({
                 align={isWidget ? "center" : "space-between"}
                 gap={"1.3em"}
               >
-                <Stack gap={0} w={isMobile ? "100%" : "auto"}>
+                <Stack gap={0} w={isMobileMedia ? "100%" : "auto"}>
                   {children}
                 </Stack>
                 <Flex
-                  w={isMobile ? "100%" : "auto"}
-                  direction={isMobile ? "column" : "row"}
-                  justify={isMobile ? "normal" : "center"}
-                  align={isMobile ? "normal" : "start"}
+                  w={isMobileMedia ? "100%" : "auto"}
+                  direction={isMobileMedia ? "column" : "row"}
+                  justify={isMobileMedia ? "normal" : "center"}
+                  align={isMobileMedia ? "normal" : "start"}
                   gap={8}
                 >
                   <InquireForm
