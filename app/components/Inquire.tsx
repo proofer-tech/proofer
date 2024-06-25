@@ -14,9 +14,9 @@ import {
 } from "@mantine/core";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useWindowScroll } from "@mantine/hooks";
-import { useChannelIOEvent } from "react-channel-plugin";
 import TallyContext from "@/src/contexts/TallyContext";
 import { useIsMobileMedia } from "@/src/hooks/mediaQuery";
+import { useIsChannelIOLoaded } from "@/src/hooks/channel";
 
 interface InquireFormProps {
   btnText: string;
@@ -99,8 +99,7 @@ export function InquireWidget({
 
   const [isWidget, setIsWidget] = useState<boolean>(false);
 
-  const [isChannelIOLoaded, setIsChannelIOLoaded] = useState<boolean>(false);
-  useChannelIOEvent("onBoot", () => setIsChannelIOLoaded(true));
+  const isChannelIOLoaded = useIsChannelIOLoaded();
 
   useEffect(() => {
     if (offsetPinRef.current === null) return;

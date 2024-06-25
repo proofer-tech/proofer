@@ -1,3 +1,5 @@
+@import "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css";
+
 @font-face {
   font-family: LINESeedKR;
   src: url("/assets/fonts/LINESeedKR-Th.woff2") format("woff2");
@@ -29,13 +31,13 @@
   --color-grayscale-8: #333;
   --color-grayscale-9: #2b2b2b;
   --color-black: #000;
-  --color-green: #4caf50;
-  --color-blue: #0052cc;
+  --color-green: #45AF66;
+  --color-blue: #344FE0;
   --color-red: #ff6347;
   --color-yellow: #fffacd;
   --color-purple: #dda0dd;
-  --color-primary: #0052cc;
-  --color-secondary: #4caf50;
+  --color-primary: #344FE0;
+  --color-secondary: #45AF66;
   --color-info: var(--color-purple);
   --color-warn: var(--color-yellow);
   --color-danger: var(--color-red);

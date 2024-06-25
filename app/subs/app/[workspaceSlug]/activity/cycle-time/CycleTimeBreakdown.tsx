@@ -33,7 +33,7 @@ export function CycleTimeBreakdown({ pullRequests }: CycleTimeBreakdownProps) {
       {
         name: "Deployment Time",
         data: pullRequests.map((pr) => pr.deploy_time),
-        color: "#0052cc",
+        color: "#344FE0",
       },
     ]);
     setOptions({

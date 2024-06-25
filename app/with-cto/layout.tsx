@@ -51,7 +51,7 @@ export const metadata = merge(
       },
       {
         rel: "mask-icon",
-        color: "#0052cc",
+        color: "#344FE0",
         url: "/maskable-icon-512x512.png",
         href: "/assets/images/with-cto/maskable-icon-512x512.png",
       },
@@ -72,6 +72,9 @@ export default async function Layout({ children }: any) {
     <LandingPageShellLayout
       portals={portals}
       logoSrc={"/assets/images/with-cto/pwa-512x512.png"}
+      channelIO={{
+        hideChannelButtonOnBoot: true,
+      }}
     >
       {children}
     </LandingPageShellLayout>

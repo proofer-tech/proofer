@@ -30,12 +30,16 @@ export default function Page() {
                 mb={"-20px"}
               >
                 <Image
-                  src={"/assets/images/with-cto/logo.png"}
+                  src={"/assets/images/with-cto/logo.svg"}
                   width={80}
                   height={80}
                   alt={"with CTO: 로고"}
                 />
-                <Divider w={"100%"} />
+                <Divider
+                  w={"100%"}
+                  color={"var(--color-primary)"}
+                  size={"2px"}
+                />
               </Group>
               <Title order={1} ta={"right"} size={"1.8em"}>
                 CTO들의 위대한 시작
