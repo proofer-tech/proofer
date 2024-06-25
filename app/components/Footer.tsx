@@ -1,3 +1,4 @@
+"use client";
 import {
   Anchor,
   Avatar,
@@ -11,7 +12,7 @@ import {
 import React from "react";
 import { IconPhoneCall } from "@tabler/icons-react";
 import Image from "next/image";
-import { useIsDesktopMedia } from "@/src/hooks/mediaQuery";
+import { useIsDesktopMedia, useIsMobileMedia } from "@/src/hooks/mediaQuery";
 
 function FooterMenuItem({ children }: any) {
   return <List.Item py={"0.3em"}>{children}</List.Item>;
@@ -22,14 +23,19 @@ interface FooterProps {
 }
 
 export default function Footer({ linkGroups }: FooterProps) {
-  const isDesktop = useIsDesktopMedia();
+  const [isMobileMedia, isDesktopMedia] = [
+    useIsMobileMedia(),
+    useIsDesktopMedia(),
+  ];
+
   return (
     <Box py={"3em"} px={"2em"}>
       <Flex
-        direction={isDesktop ? "row" : "column-reverse"}
+        direction={isDesktopMedia ? "row" : "column-reverse"}
         align={"start"}
-        justify={isDesktop ? "space-between" : "revert"}
+        justify={isDesktopMedia ? "space-between" : "revert"}
         gap={"5em"}
+        style={{ position: "relative" }}
       >
         <Stack gap={"3em"}>
           <Image
@@ -72,12 +78,13 @@ export default function Footer({ linkGroups }: FooterProps) {
           </Group>
         </Stack>
         <Group
-          w={isDesktop ? "auto" : "100%"}
+          w={isDesktopMedia ? "auto" : "100%"}
           justify={"end"}
           align={"start"}
           gap={"5em"}
           flex={1}
           wrap={"nowrap"}
+          style={isMobileMedia ? { position: "absolute", top: 0 } : {}}
         >
           {linkGroups &&
             Object.keys(linkGroups).map((k) => (
@@ -91,7 +98,9 @@ export default function Footer({ linkGroups }: FooterProps) {
               </Stack>
             ))}
           <Stack>
-            <Text fw={700}>Follow Us On</Text>
+            <Text fw={700} visibleFrom={"sm"}>
+              Follow Us On
+            </Text>
             <Group gap={"0.5em"} wrap={"nowrap"}>
               <Anchor
                 href="https://medium.com/proofer-blog"
