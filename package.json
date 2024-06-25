@@ -22,7 +22,7 @@
     "analyze": "ANALYZE=true next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "generate-pwa": "pwa-assets-generator --preset all public/ic_launcher.svg",
+    "generate-pwa": "pwa-assets-generator --preset minimal-2023 public/ic_launcher.svg",
     "lint": "next lint && npm run lint:stylelint",
     "lint:stylelint": "stylelint '**/*.css' --cache",
     "jest": "jest --passWithNoTests",
