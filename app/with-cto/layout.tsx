@@ -5,7 +5,6 @@ import LandingPageShellLayout from "@/app/components/LandingPageShellLayout";
 import { merge } from "lodash";
 import { generateMetadataFromTitle } from "@/src/manifest";
 import { get } from "@vercel/edge-config";
-import WithCTOCustomerServiceWidget from "@/app/with-cto/components/WithCTOCustomerServiceWidget";
 
 export const metadata = merge(
   {
@@ -77,7 +76,6 @@ export default async function Layout({ children }: any) {
         hideChannelButtonOnBoot: true,
       }}
     >
-      <WithCTOCustomerServiceWidget />
       {children}
     </LandingPageShellLayout>
   );
