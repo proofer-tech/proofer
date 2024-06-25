@@ -6,7 +6,7 @@ export default function FirstSection() {
   return (
     <Box
       w={"100%"}
-      h={"calc(100vh - var(--app-shell-header-height))"}
+      mih={"calc(100vh - var(--app-shell-header-height))"}
       maw={"1040px"}
       mx={"auto"}
     >
