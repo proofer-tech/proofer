@@ -21,11 +21,16 @@ interface LandingPageShellLayoutProps
   extends Omit<LandingPageShellProps, "isNavbarOpened"> {
   portals: readonly HeaderPortal[];
   logoSrc?: string;
+  channelIO?: {
+    hideChannelButtonOnBoot: boolean;
+    customLauncherSelector?: string;
+  };
 }
 export default function LandingPageShellLayout({
   portals,
   children,
   logoSrc = "/assets/images/branding.svg",
+  channelIO,
   ...props
 }: LandingPageShellLayoutProps) {
   const navbarDisclosure = useDisclosure(false);
@@ -56,6 +61,7 @@ export default function LandingPageShellLayout({
       pluginKey={process.env.NEXT_PUBLIC_CHANNEL_ID_PLUGIN_KEY!}
       language="ko"
       autoBoot
+      {...channelIO}
     >
       <LandingPageShell isNavbarOpened={navbarDisclosure[0]} {...props}>
         <Header

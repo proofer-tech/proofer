@@ -20,7 +20,7 @@ export function ApexWeekTimeHeatMap({ timeSeries }: { timeSeries: tsType[] }) {
     dataLabels: {
       enabled: false,
     },
-    colors: ["#4caf50"],
+    colors: ["#45AF66"],
     tooltip: {
       x: {
         formatter: (value: number) => `${value}day working days`,

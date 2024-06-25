@@ -6,8 +6,8 @@ import React, { useEffect, useState } from "react";
 import { useWindowScroll } from "@mantine/hooks";
 import { Affix, Box, Button, Center, Loader, Transition } from "@mantine/core";
 import { IconDownload } from "@tabler/icons-react";
-import { useChannelIOEvent } from "react-channel-plugin";
 import { nprogress } from "@mantine/nprogress";
+import { useIsChannelIOLoaded } from "@/src/hooks/channel";
 
 export default function IntroductionOfProofer() {
   const [scroll, _] = useWindowScroll();
@@ -17,8 +17,7 @@ export default function IntroductionOfProofer() {
 
   const [loadingPercent, setLoadingPercent] = useState<number>(0);
 
-  const [isChannelIOLoaded, setIsChannelIOLoaded] = useState<boolean>(false);
-  useChannelIOEvent("onBoot", () => setIsChannelIOLoaded(true));
+  const isChannelIOLoaded = useIsChannelIOLoaded();
 
   useEffect(() => {
     if (loadingPercent === 100) nprogress.complete();

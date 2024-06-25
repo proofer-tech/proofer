@@ -19,7 +19,7 @@ import { Notifications } from "@mantine/notifications";
 import { merge } from "lodash";
 
 export const viewport: Viewport = {
-  themeColor: "#0052cc",
+  themeColor: "#344FE0",
   initialScale: 1,
   minimumScale: 1,
   width: "device-width",
@@ -79,7 +79,7 @@ export const metadata = merge(
       },
       {
         rel: "mask-icon",
-        color: "#0052cc",
+        color: "#344FE0",
         url: "/maskable-icon-512x512.png",
         href: "/maskable-icon-512x512.png",
       },

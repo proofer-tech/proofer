@@ -46,15 +46,6 @@ export default withSentryConfig(
           "asgkzse2rqmcnxxg.public.blob.vercel-storage.com",
         ],
       },
-      async redirects() {
-        return [
-          {
-            source: "/with-cto/join",
-            destination: "/with-cto",
-            permanent: false,
-          },
-        ];
-      },
       async rewrites() {
         return [
           {

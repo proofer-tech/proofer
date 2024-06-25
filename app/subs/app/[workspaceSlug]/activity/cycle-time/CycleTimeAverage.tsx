@@ -155,7 +155,7 @@ export default function CycleTimeAverage({
                   ? 80
                   : 100
           : null,
-      color: "#0052cc",
+      color: "#344FE0",
     },
   ];
 

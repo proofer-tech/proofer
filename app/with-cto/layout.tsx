@@ -5,6 +5,7 @@ import LandingPageShellLayout from "@/app/components/LandingPageShellLayout";
 import { merge } from "lodash";
 import { generateMetadataFromTitle } from "@/src/manifest";
 import { get } from "@vercel/edge-config";
+import WithCTOCustomerServiceWidget from "@/app/with-cto/components/WithCTOCustomerServiceWidget";
 
 export const metadata = merge(
   {
@@ -51,7 +52,7 @@ export const metadata = merge(
       },
       {
         rel: "mask-icon",
-        color: "#0052cc",
+        color: "#344FE0",
         url: "/maskable-icon-512x512.png",
         href: "/assets/images/with-cto/maskable-icon-512x512.png",
       },
@@ -72,7 +73,11 @@ export default async function Layout({ children }: any) {
     <LandingPageShellLayout
       portals={portals}
       logoSrc={"/assets/images/with-cto/pwa-512x512.png"}
+      channelIO={{
+        hideChannelButtonOnBoot: true,
+      }}
     >
+      <WithCTOCustomerServiceWidget />
       {children}
     </LandingPageShellLayout>
   );
