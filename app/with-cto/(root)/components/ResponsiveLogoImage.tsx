@@ -11,7 +11,7 @@ export default function ResponsiveLogoImage() {
       width={440}
       height={440}
       alt={"with CTO: 로고"}
-      style={{ width: isMobileMedia ? "24em" : "20em", height: "auto" }}
+      style={{ width: isMobileMedia ? "20em" : "24em", height: "auto" }}
     />
   );
 }
