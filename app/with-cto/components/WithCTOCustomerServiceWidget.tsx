@@ -30,7 +30,7 @@ export default function WithCTOCustomerServiceWidget() {
               h={"80px"}
               color={"var(--color-primary)"}
               radius={100}
-              fw={"semi-bold"}
+              fw={600}
               fz={"md"}
             >
               참여
@@ -48,7 +48,7 @@ export default function WithCTOCustomerServiceWidget() {
                 h={"80px"}
                 color={!copied ? "black" : "grey"}
                 radius={100}
-                fw={"semi-bold"}
+                fw={600}
                 fz={"md"}
                 onClick={copy}
               >
@@ -74,7 +74,7 @@ export default function WithCTOCustomerServiceWidget() {
             h={"80px"}
             color={"black"}
             radius={100}
-            fw={"semi-bold"}
+            fw={600}
             fz={"md"}
             onClick={() => (isChannelIOLoaded ? showMessenger() : null)}
           >

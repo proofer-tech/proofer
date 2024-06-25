@@ -10,6 +10,7 @@
 .speechBubble {
   position: relative;
   top: -16px;
+  opacity: .9;
 
   &:after {
     content: " ";
