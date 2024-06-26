@@ -20,11 +20,11 @@ export default function BlogCard({
   description,
 }: BlogCardProps) {
   return (
-    <Card shadow="sm" padding="lg" radius="md" withBorder>
+    <Card shadow="sm" padding="lg" radius="md" withBorder w={"100%"}>
       <CardSection p={0}>
-        <BackgroundImage src={thumbnail}>
-          <AspectRatio ratio={1200 / 630}></AspectRatio>
-        </BackgroundImage>
+        <AspectRatio ratio={1200 / 630}>
+          <BackgroundImage src={thumbnail}></BackgroundImage>
+        </AspectRatio>
       </CardSection>
       <Stack py={"md"}>
         <Title order={5}>{title}</Title>
