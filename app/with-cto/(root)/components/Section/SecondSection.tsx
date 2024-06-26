@@ -106,15 +106,15 @@ export default function SecondSection() {
       maw={"1040px"}
       mx={"auto"}
     >
-      <Container h={"100%"}>
+      <Container h={"100%"} py={isMobileMedia ? 0 : "xl"}>
         <Group
           w={"100%"}
           h={"100%"}
           align={isMobileMedia ? "start" : "center"}
-          py={"lg"}
+          py={"xl"}
         >
           <Stack
-            px={"lg"}
+            p={"lg"}
             style={{ position: "relative" }}
             w={isMobileMedia ? "100%" : "50%"}
           >
