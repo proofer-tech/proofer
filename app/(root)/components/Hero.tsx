@@ -30,7 +30,7 @@ export default function Hero() {
         <Text
           component={"h1"}
           fw={700}
-          size={rem(54)}
+          size={isDesktopMedia ? rem(54) : isTabletMedia ? rem(48) : rem(32)}
           ta="center"
           lh={1.3}
           variant="gradient"
