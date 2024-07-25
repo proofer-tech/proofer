@@ -1,6 +1,6 @@
 import { Box, Container, Group, Stack, Title } from "@mantine/core";
-import FirstBackground from "@/app/with-cto/(root)/components/Background/FirstBackground";
-import ResponsiveLogoImage from "@/app/with-cto/(root)/components/ResponsiveLogoImage";
+import FirstBackground from "@/app/with-cto/2nd/components/Background/FirstBackground";
+import ResponsiveLogoImage from "@/app/with-cto/2nd/components/ResponsiveLogoImage";
 
 export default function FirstSection() {
   return (

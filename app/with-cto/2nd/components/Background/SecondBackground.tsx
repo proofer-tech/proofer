@@ -1,6 +1,6 @@
 "use client";
 import { Box } from "@mantine/core";
-import AnimatedDottedCircle from "@/app/with-cto/(root)/components/AnimatedDottedCircle";
+import AnimatedDottedCircle from "@/app/with-cto/2nd/components/AnimatedDottedCircle";
 import { useIsMobileMedia } from "@/src/hooks/mediaQuery";
 
 export default function SecondBackground() {
