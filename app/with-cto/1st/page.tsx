@@ -1,13 +1,13 @@
 import Background from "@/app/components/Background";
 import React from "react";
 import {
-  AspectRatio,
   Button,
+  Card,
+  CardSection,
   Code,
   Container,
   Group,
   NavLink,
-  Paper,
   Space,
   Stack,
   Text,
@@ -64,16 +64,17 @@ export default function Page() {
       </Container>
       <Container py={"xl"}>
         <Stack h={"100%"} justify={"space-between"}>
-          <Paper bg={"var(--mantine-color-gray-1)"} p={"lg"} radius={"md"}>
-            <AspectRatio ratio={16 / 9} w={"100%"}>
+          <Card bg={"var(--mantine-color-gray-1)"} p={"lg"} radius={"md"}>
+            <CardSection>
               <Image
                 src={"/assets/images/with-cto/page1.webp"}
-                fill
                 alt={"첨부 이미지 1"}
+                width={1792}
+                height={1024}
+                style={{ width: "100%", height: "auto" }}
               />
-            </AspectRatio>
-            <Space h={"lg"} />
-            <Group wrap={"nowrap"}>
+            </CardSection>
+            <CardSection py={"sm"}>
               <Text>
                 DEVIEW, if KAKAO, SLASH 등 현업 개발자들을 타겟팅한 컨퍼런스,
                 커뮤니티는 많습니다.
@@ -83,8 +84,6 @@ export default function Page() {
                 모임은 굉장히 찾기 힘든 것 같습니다(기술적인 의사결정, 인사적인
                 고민들도 매번 어렵다고요!)
               </Text>
-            </Group>
-            <Group wrap={"nowrap"}>
               <Text>
                 회사의 CTO로서 여러분들이 겪고 있는 고민과 도전, 그리고 그
                 사례들을 서로 나눌 수 있는 자리를 프루퍼팀의 CTO도 찾다 찾다가
@@ -97,8 +96,8 @@ export default function Page() {
                 계속 이어져 함께 성장을 도모할 수 있는 자리가 될 수 있도록
                 꾸준히 함께하겠습니다!
               </Text>
-            </Group>
-          </Paper>
+            </CardSection>
+          </Card>
         </Stack>
       </Container>
       <Space py={"4em"} id={"timetable"}>
