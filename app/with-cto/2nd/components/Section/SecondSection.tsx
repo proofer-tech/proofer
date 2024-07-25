@@ -119,11 +119,11 @@ export default function SecondSection() {
             w={isMobileMedia ? "100%" : "50%"}
           >
             <Title order={1} fz={"2em"} c={"#151410"}>
-              2024년 8월 9일 금요일
+              2024년 7월 12일 금요일
               <br />
-              오후 7시 엔스페이스
+              오후 7시 구글 스타트업
               <br />
-              에서 만나요
+              캠퍼스에서 만나요
             </Title>
             <Space h={"lg"} />
             <Graphic

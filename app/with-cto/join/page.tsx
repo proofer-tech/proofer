@@ -43,7 +43,8 @@ export default function Page() {
               </Group>
               <Title order={1} ta={"right"} size={"1.8em"}>
                 CTO들의 위대한 시작
-                <br />그 두번째 만남
+                <br />
+                with CTO: the agora of CTO
               </Title>
               <Box>
                 <Text>
@@ -80,7 +81,7 @@ export default function Page() {
             mobileSize={"100%"}
           >
             <iframe
-              src="https://docs.google.com/forms/d/e/1FAIpQLScnUKe7hbjBU5tvaaSdxqsCbqg3uACGxDhaHpF43ecktYld3Q/viewform?embedded=true"
+              src="https://docs.google.com/forms/d/e/1FAIpQLScLVdSIVNUm8I8RIhevh0rvg80lKYxqTitC3BNFiLv9LDyKvw/viewform?embedded=true"
               style={{
                 width: "100%",
                 height: "3000px",

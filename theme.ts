@@ -3,6 +3,7 @@
 import { createTheme, rem } from "@mantine/core";
 
 export const theme = createTheme({
+  defaultRadius: "xs",
   breakpoints: {
     xs: "576px",
     sm: "768px",
@@ -80,6 +81,4 @@ export const theme = createTheme({
   },
   white: "var(--color-white)",
   black: "var(--color-black)",
-
-  defaultRadius: "sm",
 });

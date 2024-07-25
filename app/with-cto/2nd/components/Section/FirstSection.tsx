@@ -22,8 +22,7 @@ export default function FirstSection() {
           >
             <Title order={1} fz={"2em"} c={"#151410"}>
               CTO들의 위대한 시작,
-              <br />
-              with CTO: the agora of CTO
+              <br />그 두번째 만남
             </Title>
             <ResponsiveLogoImage />
           </Stack>
