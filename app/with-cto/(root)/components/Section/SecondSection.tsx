@@ -121,9 +121,9 @@ export default function SecondSection() {
             <Title order={1} fz={"2em"} c={"#151410"}>
               2024년 8월 9일 금요일
               <br />
-              오후 7시 엔스페이스
+              오후 6시 30분
               <br />
-              에서 만나요
+              엔스페이스에서 만나요
             </Title>
             <Space h={"lg"} />
             <Graphic
