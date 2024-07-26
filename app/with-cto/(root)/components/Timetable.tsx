@@ -150,7 +150,7 @@ export default function Timetable() {
         end
         timeSet={[
           { time: "19:35-20:00", content: "Q&A" },
-          { time: "20:10-20:10", content: "러닝쉐어" },
+          { time: "20:00-20:10", content: "러닝쉐어" },
           { time: "20:10-21:10", content: "자유 네트워킹" },
         ]}
       />
