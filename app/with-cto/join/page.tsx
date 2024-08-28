@@ -82,7 +82,9 @@ export default function Page() {
             mobileSize={"100%"}
           >
             <GoogleFormsIframe
-              key={"1FAIpQLSc8ztv1XEZh4lk4i6WIO5-C82akF_pXEplL1QyMq8SMR_nsqA"}
+              embeddedKey={
+                "1FAIpQLSc8ztv1XEZh4lk4i6WIO5-C82akF_pXEplL1QyMq8SMR_nsqA"
+              }
             />
           </ResponsiveFlexChild>
         </Group>

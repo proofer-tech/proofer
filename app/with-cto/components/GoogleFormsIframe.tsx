@@ -1,9 +1,13 @@
 import React from "react";
 
-export default function GoogleFormsIframe({ key }: { key: string }) {
+export default function GoogleFormsIframe({
+  embeddedKey,
+}: {
+  embeddedKey: string;
+}) {
   return (
     <iframe
-      src={`https://docs.google.com/forms/d/e/${key}/viewform?embedded=true`}
+      src={`https://docs.google.com/forms/d/e/${embeddedKey}/viewform?embedded=true`}
       style={{
         width: "100%",
         height: "3000px",
