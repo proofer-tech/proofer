@@ -4,7 +4,6 @@ import { Box, Divider, Group, Stack, Text, Title } from "@mantine/core";
 import Image from "next/image";
 import ResponsiveFlexChild from "@/app/with-cto/components/ResponsiveFlexChild";
 import CopyWithCTOButton from "@/app/with-cto/components/CopyWithCTOButton";
-import GoogleFormsIframe from "@/app/with-cto/components/GoogleFormsIframe";
 
 export default function Page() {
   return (
@@ -81,9 +80,16 @@ export default function Page() {
             tabletSize={"400px"}
             mobileSize={"100%"}
           >
-            <GoogleFormsIframe
-              key={"1G-2Tqqrc4_PboAgmkkj6TCPQUi8s8HyGnHdqBug5MKw"}
-            />
+            <iframe
+              src="https://docs.google.com/forms/d/e/1FAIpQLScLVdSIVNUm8I8RIhevh0rvg80lKYxqTitC3BNFiLv9LDyKvw/viewform?embedded=true"
+              style={{
+                width: "100%",
+                height: "3000px",
+                border: 0,
+              }}
+            >
+              로드 중…
+            </iframe>
           </ResponsiveFlexChild>
         </Group>
       </ResponsiveFlexChild>
