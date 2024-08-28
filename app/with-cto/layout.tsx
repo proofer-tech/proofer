@@ -63,7 +63,7 @@ export const metadata = merge(
   generateMetadataFromTitle({
     title: "with CTO: the agora of CTO",
     description:
-      "프루퍼팀에서 준비한 CTO 커뮤니티 CTO들의 위대한 시작, with CTO: the agora of CTO ... 구글 스타트업 캠퍼스 에서 만나요!",
+      "프루퍼팀에서 준비한 CTO 커뮤니티 CTO들의 위대한 시작, with CTO: the agora of CTO, 그 어디에서도 볼 수 없었던 CTO 들의 모임!",
   }),
 );
 export default async function Layout({ children }: any) {
