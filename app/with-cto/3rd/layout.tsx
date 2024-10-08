@@ -12,7 +12,7 @@ export const metadata = merge(
       locale: "ko",
       type: "website",
       url: "https://proofer.tech/with-cto/3rd",
-      images: ["/assets/images/with-cto/og-image-3rd.png"],
+      images: ["/assets/images/with-cto/og-image-3rd.webp"],
     },
   },
   generateMetadataFromTitle({
