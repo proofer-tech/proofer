@@ -24,34 +24,11 @@ export default function Page() {
           <Title order={1}>HR팀 업무의 어려움을 덜어드리겠습니다.</Title>
           <Space h={"lg"} />
           <Text size={"lg"} c={"var(--mantine-color-gray-6)"}>
-            인사업무에서 어렵고 힘든 부분들에 대해 진심으로 공감하는 사람들이
-            모였습니다.
+            인사업무에서 어렵고 힘든 부분들에 대해 진심으로 공감하고 함께
+            해결해나갑니다.
           </Text>
           <Space h={"5vh"} />
-          <SimpleGrid className={styles.responsiveGridColumns}>
-            <Stack align={"center"}>
-              <Image
-                src={"/assets/images/team/jay.png"}
-                alt={"jay"}
-                width={800}
-                height={800}
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  maxWidth: "320px",
-                  borderRadius: "16px",
-                }}
-              />
-              <Title order={3}>CEO 홍제형</Title>
-              <Stack align={"center"} gap={"xs"}>
-                <Text>토론토 대학교 경제학&환경경영 복수전공</Text>
-                <Text>와인수입사, 캠핑플랫폼 등 다양한 사업 경험</Text>
-                <Text>두 번의 투자유치 경험</Text>
-                <Text>AUX 일본 키친웨어 국내 총판사 운영</Text>
-                <Text>그외 다수의 B2B 협업 경험</Text>
-              </Stack>
-              <Space h={"xl"} />
-            </Stack>
+          <Group justify={"center"}>
             <Stack align={"center"}>
               <Image
                 src={"/assets/images/team/hsol.png"}
@@ -65,7 +42,7 @@ export default function Page() {
                   borderRadius: "16px",
                 }}
               />
-              <Title order={3}>CTO 임한솔</Title>
+              <Title order={3}>임한솔</Title>
               <Stack align={"center"} gap={"xs"}>
                 <Text>건국대학교 산업융합학부 경영공학 전공</Text>
                 <Text>토스 재직중 사내직원관리 및 통합서비스</Text>
@@ -75,7 +52,7 @@ export default function Page() {
               </Stack>
               <Space h={"xl"} />
             </Stack>
-          </SimpleGrid>
+          </Group>
           <Space py={"xl"}>
             <Image
               src={"/assets/images/team/proofer.tech.webp"}
