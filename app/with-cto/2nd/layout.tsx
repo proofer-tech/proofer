@@ -24,7 +24,7 @@ export const metadata = merge(
 export default function Layout({ children }: any) {
   return (
     <>
-      <WithCTOCustomerServiceWidget />
+      <WithCTOCustomerServiceWidget withJoinBtn={false} />
       {children}
     </>
   );
