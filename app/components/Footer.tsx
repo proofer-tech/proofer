@@ -65,12 +65,12 @@ export default function Footer({ linkGroups }: FooterProps) {
           <Group>
             <IconPhoneCall color="var(--color-darkgray-2)" size={"1em"} />
             <Anchor
-              href="tel:031-623-0193"
+              href="tel:010-5182-0520"
               target="_blank"
               underline="never"
               c={"var(--color-darkgray-2)"}
             >
-              031-623-0193
+              010-5182-0520
             </Anchor>
           </Group>
         </Stack>
