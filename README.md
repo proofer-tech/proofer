@@ -1,12 +1,12 @@
 # 프루퍼 (Proofer) Monorepo
 
-"진짜" 업무 데이터를 활용하는 성과 측정/평가/관리 통합 솔루션
+프루퍼팀 통합 홈페이지
 
 ## Features
 
 - www: 랜딩 페이지
-- team: 팀 페이지
-- app: 프루퍼 인사이트
+- insight: 프루퍼 인사이트
+- insight-demo: 프루퍼 인사이트 데모
 
 ## Stacks
 

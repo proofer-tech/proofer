@@ -23,14 +23,6 @@ export const generateSubdomainPath = (path: string, subDomain?: string) => {
   return workspacePathBlocks.join("/").replace("//", "/");
 };
 
-export const generateAppPath = (path: string, workspaceSlug?: string) => {
-  const workspacePathBlocks = [];
-  if (workspaceSlug) workspacePathBlocks.push(workspaceSlug);
-  if (path) workspacePathBlocks.push(path);
-
-  return generateSubdomainPath(workspacePathBlocks.join("/"), SUB_DOMAIN.app);
-};
-
 export function getURLFromHeaderList(headerList: ReadonlyHeaders) {
   const protocol = headerList.get("X-Forwarded-Proto") + "://";
   const host = headerList.get("host") || "";

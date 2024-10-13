@@ -2,7 +2,9 @@ import { dz } from "@/database/engine";
 import { User } from "@/database/schemas/auth";
 import { eq, InferSelectModel } from "drizzle-orm";
 import { getSession, touchSession } from "@auth0/nextjs-auth0";
-import { UserDto } from "@/app/subs/app/dto/user";
+import { UserProfile } from "@auth0/nextjs-auth0/client";
+
+export type UserDto = UserProfile & InferSelectModel<typeof User>;
 
 export async function findUserByEmail(
   email: string,

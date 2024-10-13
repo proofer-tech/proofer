@@ -1,0 +1,34 @@
+.services {
+  flex-direction: row;
+  .service {
+    &:nth-child(1) {
+      width: 60%;
+    }
+    &:nth-child(2) {
+      width: 40%;
+    }
+  }
+  @media screen and (max-width: 48em) {
+    flex-direction: column;
+    .service {
+      &:nth-child(1) {
+        width: 100%;
+      }
+      &:nth-child(2) {
+        width: 100%;
+      }
+    }
+  }
+}
+.faqCards {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-column-gap: 1em;
+  grid-row-gap: 6em;
+  .faqCard {
+  }
+  @media screen and (max-width: 48em) {
+    grid-template-columns: 1fr;
+    .faqCard {
+    }
+  }
+}

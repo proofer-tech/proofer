@@ -16,7 +16,6 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { generateMetadataFromTitle } from "@/src/manifest";
 import { Notifications } from "@mantine/notifications";
-import { merge } from "lodash";
 
 export const viewport: Viewport = {
   themeColor: "#344FE0",
@@ -25,19 +24,14 @@ export const viewport: Viewport = {
   width: "device-width",
   userScalable: true,
 };
-export const metadata = merge(
+export const metadata = generateMetadataFromTitle(
+  {
+    title: "",
+    description: "프루퍼 홈페이지입니다.",
+  },
   {
     metadataBase: new URL("https://proofer.tech"),
-    keywords: [
-      "프루퍼",
-      "성과측정",
-      "성과평가",
-      "성과관리",
-      "HRDT",
-      "Digital Transformation",
-      "디지털 전환",
-      "HR SaaS",
-    ],
+    keywords: ["프루퍼"],
     openGraph: {
       locale: "ko",
       type: "website",
@@ -85,12 +79,6 @@ export const metadata = merge(
       },
     ],
   },
-  generateMetadataFromTitle({
-    title: "프루퍼, SMART 한 데이터 기반 성과 평가",
-    fullTitle: "프루퍼, SMART 한 데이터 기반 성과 평가",
-    description:
-      "프루퍼는 실제 업무 데이터 기반으로 성과를 측정하고 평가하여 관리하는 솔루션을 제공합니다. 무료상담을 통해 '진짜' 성과평가를 경험해보세요!",
-  }),
 );
 
 export default async function RootLayout({ children }: { children: any }) {

@@ -47,20 +47,17 @@ export default function Footer({ linkGroups }: FooterProps) {
           />
           <Stack gap={1}>
             <Text c={"var(--color-darkgray-2)"}>
-              서울특별시 마포구 마포대로 122, 602호
+              서울특별시 서대문구 증가로12가길 58-14 202호
             </Text>
             <Text c={"var(--color-darkgray-2)"}>
-              사업자등록번호: 327-87-02020
-            </Text>
-            <Text c={"var(--color-darkgray-2)"}>
-              개인정보관리책임자: 홍제형(
+              개인정보관리책임자: 임한솔(
               <Anchor
-                href="mailto:jay@proofer.tech"
+                href="mailto:hsol@proofer.tech"
                 target="_blank"
                 underline="never"
                 c={"var(--color-darkgray-2)"}
               >
-                jay@proofer.tech
+                hsol@proofer.tech
               </Anchor>
               )
             </Text>
