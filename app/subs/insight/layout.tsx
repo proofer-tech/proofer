@@ -80,7 +80,11 @@ export const metadata = generateMetadataFromTitle(
   },
 );
 export default async function Layout({ children }: any) {
-  const portals: readonly HeaderPortal[] = (await get("portals")) || [];
+  const portals: readonly HeaderPortal[] = [
+    ...((await get("portals")) as HeaderPortal[]),
+    { title: "서비스소개", href: "https://insight.proofer.tech/introduction" },
+    { title: "데모", href: "https://insight-demo.proofer.tech" },
+  ];
   return (
     <LandingPageShellLayout portals={portals}>
       {children}
