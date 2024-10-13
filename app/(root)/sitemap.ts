@@ -1,0 +1,26 @@
+import { MetadataRoute } from "next";
+import { generateUrl } from "@/src/path";
+import { SUB_DOMAIN } from "@/src/constants";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  return [
+    {
+      url: "/",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 1.0,
+    },
+    {
+      url: generateUrl("/", SUB_DOMAIN.blog),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 1.0,
+    },
+    {
+      url: generateUrl("/", SUB_DOMAIN.insight),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 1.0,
+    },
+  ];
+}
