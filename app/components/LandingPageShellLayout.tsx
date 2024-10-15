@@ -82,48 +82,31 @@ export default function LandingPageShellLayout({
           <Footer
             linkGroups={{
               프루퍼: [
-                <Text key={0} onClick={() => notReadyYetModal.open()}>
+                <Anchor
+                  key={2}
+                  href="https://proofer.tech"
+                  underline="never"
+                  c={"black"}
+                >
                   About 프루퍼
-                </Text>,
+                </Anchor>,
                 <Text key={1} onClick={() => tallyInquireForm.openTallyPopup()}>
                   문의 & 지원
                 </Text>,
                 <Anchor key={2} href="/health" underline="never" c={"black"}>
                   서비스 상태보기
                 </Anchor>,
-                <Anchor
-                  key={2}
-                  href="/docs/terms-of-service"
-                  underline="never"
-                  c={"black"}
-                >
-                  서비스이용약관
-                </Anchor>,
-                <Anchor
-                  key={3}
-                  href="/docs/privacy"
-                  underline="never"
-                  c={"black"}
-                >
-                  개인정보처리방침
-                </Anchor>,
               ],
-              바로가기: [
-                <Text key={0} onClick={() => tallyInquireForm.openTallyPopup()}>
-                  무료로 체험해보기
-                </Text>,
-                <Anchor key={1} href="/#price" underline="never" c={"black"}>
-                  가격
-                </Anchor>,
+              바로가기: portals.map((portal) => (
                 <Anchor
-                  key={2}
-                  href="/docs/introduction-of-proofer"
+                  key={portal.title}
+                  href={portal.href}
                   underline="never"
                   c={"black"}
                 >
-                  서비스 소개
-                </Anchor>,
-              ],
+                  {portal.title}
+                </Anchor>
+              )),
             }}
           />
         </AppShell.Footer>
