@@ -141,17 +141,17 @@ export default function Timetable() {
       <TimetableRows
         start
         timeSet={[
-          { time: "18:30-19:00", content: "사전 네트워킹" },
-          { time: "19:00-19:05", content: "오프닝" },
-          { time: "19:05-19:35", content: "연사강연" },
+          { time: "18:30-19:00", content: "준비중입니다" },
+          { time: "19:00-19:05", content: "준비중입니다" },
+          { time: "19:05-19:35", content: "준비중입니다" },
         ]}
       />
       <TimetableRows
         end
         timeSet={[
-          { time: "19:35-20:00", content: "Q&A" },
-          { time: "20:00-20:10", content: "러닝쉐어" },
-          { time: "20:10-21:10", content: "자유 네트워킹" },
+          { time: "19:35-20:00", content: "준비중입니다" },
+          { time: "20:00-20:10", content: "준비중입니다" },
+          { time: "20:10-22:30", content: "준비중입니다" },
         ]}
       />
     </Flex>
