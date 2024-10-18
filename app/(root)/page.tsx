@@ -328,7 +328,8 @@ export default function Page() {
               <Stack>
                 <Title order={5}>기존 것을 배우고, 새 것을 발견합니다.</Title>
                 <Text>
-                  HR 은 긴 역사와 어려운 전문지식들을 지닌 분야입니다.
+                  기존에 해오던 행동들에 기반하여, 더 효과적인 방법을 함께
+                  찾아갑니다.
                 </Text>
                 <Text>
                   전문가들이 지금까지 해오던 기존의 방법을 옛 것으로 치부하지
