@@ -12,7 +12,7 @@ import { useIsChannelIOLoaded } from "@/src/hooks/channel";
 export default function IntroductionOfProofer() {
   const [scroll, _] = useWindowScroll();
   const getFilePluginInstance = getFilePlugin({
-    fileNameGenerator: () => "프루퍼 서비스 소개서.pdf",
+    fileNameGenerator: () => "프루퍼 인사이트 서비스소개서.pdf",
   });
 
   const [loadingPercent, setLoadingPercent] = useState<number>(0);
