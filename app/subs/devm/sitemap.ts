@@ -5,7 +5,7 @@ import { SUB_DOMAIN } from "@/src/constants";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: generateUrl("/", SUB_DOMAIN.insight),
+      url: generateUrl("/", SUB_DOMAIN.devm),
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1.0,
