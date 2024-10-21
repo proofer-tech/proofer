@@ -7,19 +7,19 @@ import { generateMetadataFromTitle } from "@/src/manifest";
 
 export const metadata = generateMetadataFromTitle(
   {
-    title: "프루퍼 인사이트, 쉽고 빠른 노코드 대시보드 빌더",
-    fullTitle: "프루퍼 인사이트, 쉽고 빠른 노코드 대시보드 빌더",
+    title: "프루퍼 데브엠, 우리 회사만을 위한 개발자 성과추적 대시보드",
+    fullTitle: "프루퍼 데브엠, 우리 회사만을 위한 개발자 성과추적 대시보드",
     description:
-      "프루퍼 인사이트는 실제 업무 데이터를 볼 수 있는 대시보드를 쉽고 빠르게 만들 수 있는 솔루션을 제공합니다. 무료상담을 통해 '진짜' 업무에 대한 데이터가 무엇인지 확인해보세요!",
+      "프루퍼 데브엠과 함께라면 CTO 나 시니어 개발자들이 없어도 최소한의 비용으로 회사에 지속적인 개발자 성과추적 시스템을 구축할 수 있습니다. 무료상담을 통해 우리 회사 개발자들이 어떻게 일하는지 확인해보세요!",
   },
   {
     alternates: {
-      canonical: "https://insight.proofer.tech",
+      canonical: "https://devm.proofer.tech",
     },
     other: {
       "naver-site-verification": "66a885dd71e438eca763ad82a8131045e4dabb59",
     },
-    metadataBase: new URL("https://insight.proofer.tech"),
+    metadataBase: new URL("https://devm.proofer.tech"),
     keywords: [
       "프루퍼",
       "생산성",
@@ -35,7 +35,7 @@ export const metadata = generateMetadataFromTitle(
       locale: "ko",
       type: "website",
       url: "https://insight.proofer.tech",
-      images: ["/assets/images/insight/og-image.webp"],
+      images: ["/assets/images/devm/og-image.webp"],
     },
     icons: [
       {
@@ -82,8 +82,7 @@ export const metadata = generateMetadataFromTitle(
 export default async function Layout({ children }: any) {
   const portals: readonly HeaderPortal[] = [
     ...((await get("portals")) as HeaderPortal[]),
-    { title: "서비스소개", href: "https://insight.proofer.tech/introduction" },
-    { title: "데모", href: "http://insight-demo.proofer.tech" },
+    { title: "서비스소개", href: "https://devm.proofer.tech/introduction" },
   ];
   return (
     <LandingPageShellLayout portals={portals}>

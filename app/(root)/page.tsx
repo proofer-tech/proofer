@@ -254,7 +254,7 @@ export default function Page() {
                         src={"/assets/images/branding.svg"}
                         width={100}
                         height={100}
-                        alt={"프루퍼 성과관리"}
+                        alt={"프루퍼 인사이트"}
                         style={{ width: "auto", height: "1.5em" }}
                       />
                       <Stack gap={0}>
@@ -269,6 +269,45 @@ export default function Page() {
                       비용을 지불 해야만 했던 대시보드 제작 난이도를 낮추고
                       속도는 높여 필요한 시점에 필요한 팀에게 업무 데이터
                       가시성을 제공할 수 있게 됩니다.
+                    </Text>
+                  </Stack>
+                </Stack>
+              </Card>
+            </Anchor>
+            <Anchor
+              className={styles.responsiveGridColumn}
+              href={"https://devm.proofer.tech/"}
+              underline={"never"}
+              c={"black"}
+              target="_blank"
+            >
+              <Card py={"lg"} px={"xl"} shadow="xs" radius={"lg"}>
+                <Stack gap={"xl"}>
+                  <Stack gap={"sm"}>
+                    <Group>
+                      <Image
+                        src={"/assets/images/branding.svg"}
+                        width={100}
+                        height={100}
+                        alt={"프루퍼 데브엠"}
+                        style={{ width: "auto", height: "1.5em" }}
+                      />
+                      <Stack gap={0}>
+                        <Text size={"xs"}>
+                          우리 회사만을 위한 개발자 성과추적 대시보드
+                        </Text>
+                        <Title order={5}>프루퍼 데브엠</Title>
+                      </Stack>
+                    </Group>
+                  </Stack>
+                  <Stack gap={0}>
+                    <Text>
+                      대표님 회사의 개발자들은 지금 어떻게 일하고 있나요?
+                    </Text>
+                    <Text>
+                      프루퍼 데브엠과 함께라면 이제 개발자들이 어떻게 일하고
+                      있는지 볼수있습니다. 앞으로 개발자들을 어떻게 관리해야
+                      할지 알수있습니다.
                     </Text>
                   </Stack>
                 </Stack>
