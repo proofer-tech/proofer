@@ -5,6 +5,7 @@ import {
   Container,
   Divider,
   Group,
+  Image,
   List,
   ListItem,
   Space,
@@ -21,7 +22,17 @@ export default function Page() {
     <>
       <Background />
       <Hero />
+      <Group justify={"center"} px={"md"}>
+        <Image
+          fit={"cover"}
+          radius={"md"}
+          alt={"대시보드 예시"}
+          src={"/assets/images/devm/dashboard-example.png"}
+          className={"shadow-sm"}
+        />
+      </Group>
       <Container>
+        <Space h={"xl"} />
         <Space py={"xl"}>
           <Down />
         </Space>
@@ -29,9 +40,9 @@ export default function Page() {
         <Stack>
           <Stack gap={0}>
             <Text c={"var(--mantine-color-gray-8)"} fw={400} size={"lg"}>
-              개발자 관리에 대하여 ...
+              개발자 관리 컨설팅
             </Text>
-            <Title order={3}>일단 개발자는 채용했는데</Title>
+            <Title order={3}>일단 개발자는 채용했는데 ...</Title>
           </Stack>
           <Blockquote color="green" p={"xl"}>
             <List spacing={"xs"} size={"md"}>
@@ -49,17 +60,17 @@ export default function Page() {
         <Stack>
           <Stack gap={0}>
             <Text c={"var(--mantine-color-gray-8)"} fw={400} size={"lg"}>
-              비즈니스에 대하여 ...
+              비즈니스 기술 로드맵 설계
             </Text>
-            <Title order={3}>지속적인 비즈니스 측면에서</Title>
+            <Title order={3}>기술이 중요한건 알겠는데 ...</Title>
           </Stack>
           <Blockquote color="green" p={"xl"}>
             <List spacing={"xs"} size={"md"}>
               <ListItem>
-                앞으로의 비즈니스 로드맵에 기술적인 시야가 필요하신가요?
+                비즈니스 로드맵에 기술적인 시야가 모자란 것 같으신가요?
               </ListItem>
               <ListItem>
-                앞으로 개발팀을 어떻게 구성해야 할 지도 고민이 많으실 겁니다.
+                앞으로 개발팀을 어떻게 구성해야 할 지 고민도 되시겠죠.
               </ListItem>
             </List>
           </Blockquote>
@@ -78,9 +89,10 @@ export default function Page() {
               <Divider w={"5em"} />
             </Group>
             <Text ta={"center"}>
-              2주간 회사의 개발팀을 진단하고 비즈니스의 목표와 개발자들의 성장을
-              고려하여 지표를 설정하여 지속적으로 확인해볼 수 있는 실시간 업무
-              데이터 기반 개발자 성과추적 대시보드를 제공합니다.
+              2주간 개발자 1:1 미팅과 대표님과의 긴밀한 협업을 통해 회사의
+              개발팀을 진단하고 비즈니스 목표와 개발자들의 성장이 고려된 지표를
+              설계하여 앞으로도 지속적으로 확인해볼 수 있는 실시간 업무 데이터
+              기반 개발자 성과추적 대시보드를 제공합니다.
             </Text>
           </Stack>
           <InquireWidget btnText={"무료상담 신청"}>

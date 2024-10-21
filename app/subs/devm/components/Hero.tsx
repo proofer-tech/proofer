@@ -1,5 +1,13 @@
 "use client";
-import { Container, Group, rem, Space, Stack, Text } from "@mantine/core";
+import {
+  Container,
+  Group,
+  Image,
+  rem,
+  Space,
+  Stack,
+  Text,
+} from "@mantine/core";
 import { InquireForm } from "@/app/components/Inquire";
 import React from "react";
 import { useIsDesktopMedia, useIsTabletMedia } from "@/src/hooks/mediaQuery";
@@ -16,7 +24,8 @@ export default function Hero() {
         justifyContent: "center",
         alignItems: "center",
       }}
-      h={"60vh"}
+      pt={"10vh"}
+      pb={"5vh"}
     >
       <Stack gap={"xs"}>
         <Text size={"md"} ta={"center"} c={"var(--mantine-color-gray-8)"}>
