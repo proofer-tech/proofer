@@ -82,6 +82,9 @@ export default function Page() {
         </Space>
         <Stack>
           <Stack gap={"xs"} align={"center"}>
+            <Group justify={"center"} pb={"xl"}>
+              <Image src={"/assets/images/devm/reference.png"} />
+            </Group>
             <Title order={4} ta={"center"} c={"var(--mantine-color-gray-7)"}>
               프루퍼 데브엠이 해결 해줄 수 있습니다
             </Title>
