@@ -34,7 +34,7 @@ export const metadata = generateMetadataFromTitle(
     openGraph: {
       locale: "ko",
       type: "website",
-      url: "https://insight.proofer.tech",
+      url: "https://devm.proofer.tech",
       images: ["/assets/images/devm/og-image.webp"],
     },
     icons: [
