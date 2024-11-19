@@ -3,6 +3,7 @@ import WithCTOCustomerServiceWidget from "@/app/with-cto/components/WithCTOCusto
 import React from "react";
 import { merge } from "lodash";
 import { generateMetadataFromTitle } from "@/src/manifest";
+import "swiper/css/bundle";
 
 export const metadata = merge(
   {

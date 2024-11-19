@@ -94,7 +94,7 @@ export default function WithCTOCustomerServiceWidget({
         ]}
         guidelines={[
           <Text key={"title"} fw={"bold"}>
-            프루퍼에 궁금하신게 있나요?
+            행사에 대해 궁금하신게 있나요?
           </Text>,
           <Text key={"content"}>몇 분 내 답변을 드릴게요</Text>,
         ]}
