@@ -154,7 +154,8 @@ export default function Timetable() {
           { time: "20:20-20:40", content: "2024 KPT 작성" },
           { time: "20:40-21:00", content: "스낵타임 & 조별 KPT 공유" },
           { time: "21:00-21:10", content: "이벤트 추첨 & 행사 KPT 안내" },
-          { time: "21:10-23:00", content: "자유 네트워킹 (자율귀가)" },
+          { time: "21:10-22:00", content: "자유 네트워킹" },
+          { time: "22:00-23:00", content: "자율 귀가" },
         ]}
       />
     </Flex>

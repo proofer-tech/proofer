@@ -131,11 +131,11 @@ export default function SecondSection() {
             </Group>
             <Group>
               <Swiper
-                spaceBetween={50}
+                spaceBetween={16}
                 modules={[Navigation, Pagination, A11y]}
                 navigation
                 pagination={{ clickable: true }}
-                slidesPerView={isMobileMedia ? 1 : 2}
+                slidesPerView={isMobileMedia ? 1 : 2.5}
               >
                 <SwiperSlide>
                   <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -149,7 +149,7 @@ export default function SecondSection() {
 
                     <Group justify="space-between" mt="md" mb="xs">
                       <Text fw={500}>with CTO: 1st meet, 첫번째 만남</Text>
-                      <Badge color="primary">2024.06.08</Badge>
+                      <Badge color="grey">2024.06.08</Badge>
                     </Group>
 
                     <Text size="sm" c="dimmed">
@@ -184,7 +184,7 @@ export default function SecondSection() {
 
                     <Group justify="space-between" mt="md" mb="xs">
                       <Text fw={500}>with CTO: 2nd meet, 두번째 만남</Text>
-                      <Badge color="primary">2024.07.12</Badge>
+                      <Badge color="grey">2024.07.12</Badge>
                     </Group>
 
                     <Text size="sm" c="dimmed">
@@ -221,7 +221,7 @@ export default function SecondSection() {
 
                     <Group justify="space-between" mt="md" mb="xs">
                       <Text fw={500}>with CTO: 3rd meet, 세번째 행사</Text>
-                      <Badge color="primary">2024.08.09</Badge>
+                      <Badge color="grey">2024.08.09</Badge>
                     </Group>
 
                     <Text size="sm" c="dimmed">

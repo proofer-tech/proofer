@@ -1,4 +1,14 @@
-import { Box, Center, Container, Stack, Text, Title } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Center,
+  Container,
+  Group,
+  Space,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
 import Timetable from "@/app/with-cto/(root)/components/Timetable";
 
 export default function ThirdSection() {
@@ -20,6 +30,22 @@ export default function ThirdSection() {
               </Text>
             </Stack>
             <Timetable />
+            <Space h={"xl"} />
+            <Stack>
+              <Text ta={"center"}>설마 아직도 고민중이신가요?</Text>
+              <Group justify={"center"}>
+                <Button
+                  w={"100%"}
+                  size={"xl"}
+                  component={"a"}
+                  href={
+                    "https://proofer.tech/with-cto/join?utm_source=proofer&utm_medium=landing&utm_campaign=cta&utm_content=join"
+                  }
+                >
+                  with CTO: 4회차 참여하기
+                </Button>
+              </Group>
+            </Stack>
           </Stack>
         </Center>
       </Container>
