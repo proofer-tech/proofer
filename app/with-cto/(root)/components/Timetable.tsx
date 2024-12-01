@@ -145,17 +145,15 @@ export default function Timetable() {
           { time: "18:35-18:50", content: "스폰서십 & 온라인 커뮤니티 안내" },
           { time: "18:50-18:55", content: "행사 프로그램 및 조편성 안내" },
           { time: "18:55-19:20", content: "참여자 자기소개" },
-          { time: "19:20-20:20", content: "토크쇼 - 5 Tracks / 1 Session" },
         ]}
       />
       <TimetableRows
         end
         timeSet={[
-          { time: "20:20-20:40", content: "2024 KPT 작성" },
-          { time: "20:40-21:00", content: "스낵타임 & 조별 KPT 공유" },
+          { time: "19:20-20:20", content: "토크쇼 - 5 Tracks / 1 Session" },
+          { time: "20:20-21:00", content: "2024 Keep, Problem, Try" },
           { time: "21:00-21:10", content: "이벤트 추첨 & 행사 KPT 안내" },
-          { time: "21:10-22:00", content: "자유 네트워킹" },
-          { time: "22:00-23:00", content: "자율 귀가" },
+          { time: "21:10-23:00", content: "자유 네트워킹" },
         ]}
       />
     </Flex>
