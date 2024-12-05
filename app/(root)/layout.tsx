@@ -30,10 +30,11 @@ export const metadata = merge(
     },
   },
   generateMetadataFromTitle({
-    title: "업무 자동화&효율화 전문 프루퍼팀",
-    fullTitle: "업무 자동화&효율화 전문 프루퍼팀",
+    title: "프루퍼 : 비즈니스에 기술을 더하다",
+    fullTitle:
+      "프루퍼 : 비즈니스에 기술을 더하다 - 소프트웨어 외주, 기술자문, DX상담",
     description:
-      "고객을 직접 만나 업무 프로세스를 듣고 관찰하여 고통스럽거나 골치아픈 문제를 해결하고, 비효율적인 과정을 찾아 효율적으로 개선할 수 있는 방법을 함께 고민하여 제공합니다.",
+      "프루퍼는 소프트웨어 외주, 기술자문, DX상담, 고객을 직접 만나 업무 프로세스를 듣고 관찰하여 고통스럽거나 골치아픈 문제를 해결하고, 비효율적인 과정을 찾아 효율적으로 개선할 수 있는 방법을 함께 고민하여 제공합니다.",
   }),
 );
 export default async function Layout({ children }: any) {
