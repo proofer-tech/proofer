@@ -141,24 +141,22 @@ export default function SecondSection() {
                   <Card shadow="sm" padding="lg" radius="md" withBorder>
                     <Card.Section>
                       <Image
-                        src="https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/assets/with-cto/4st/1_zW5VcB9lVvjd78EBb7dQ3w-7EIQYyQrJ7GrIYde7du3QQEqZi2mEN.webp"
-                        alt="4st meet"
+                        src="https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/assets/with-cto/1st/thumbnail-Mrea4XSVJuYaM1dcxbTiTFQSXgEsCV.webp"
                         fit={"cover"}
+                        alt="1st meet"
                       />
                     </Card.Section>
 
                     <Group justify="space-between" mt="md" mb="xs">
-                      <Text fw={500}>
-                        with CTO: 4st meet, 성장과 네트워킹의 밤
-                      </Text>
-                      <Badge color="grey">2024.12.13</Badge>
+                      <Text fw={500}>with CTO: 1st meet, 첫번째 만남</Text>
+                      <Badge color="grey">2024.06.08</Badge>
                     </Group>
 
                     <Text size="sm" c="dimmed">
-                      스타트업과 테크 기업의 CTO, Tech Lead, Head of
-                      Engineering, 리드 프로그래머 등 다양한 40여명의 분들이
-                      모여 현업의 고민과 실 사례를 통해 인사이트를 나누는 뜻
-                      깊은 자리였습니다.
+                      with CTO: 의 첫 번째 모임은 32명의 등록인원 중 24명이 참여
+                      해주셨으며 다양한 회사의 CTO, ex-CTO, VPE, Tech Lead
+                      분들이 7시반부터 10시반까지 장장 3시간 동안 행사를 즐기고
+                      가 주셨습니다.
                     </Text>
 
                     <Button
@@ -166,47 +164,8 @@ export default function SecondSection() {
                       fullWidth
                       mt="md"
                       radius="md"
-                      component={"a"}
-                      href={
-                        "https://medium.com/proofer-blog/%ED%86%A0%ED%81%AC%EC%87%BC%EB%B6%80%ED%84%B0-%EC%97%B0%EB%A7%90-%ED%9A%8C%EA%B3%A0%EA%B9%8C%EC%A7%80-with-cto-4%ED%9A%8C%EC%B0%A8-40%EC%97%AC%EB%AA%85%EC%9D%98-cto%EC%99%80-%ED%95%A8%EA%BB%98%ED%95%9C-%EC%84%B1%EC%9E%A5%EA%B3%BC-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%82%B9%EC%9D%98-%EB%B0%A4-393f1dbbbf64"
-                      }
-                      target={"_blank"}
-                    >
-                      보러가기
-                    </Button>
-                  </Card>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Card shadow="sm" padding="lg" radius="md" withBorder>
-                    <Card.Section>
-                      <Image
-                        src="https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/assets/with-cto/3rd/thumbnail-VM16aGyGx1tVIjG0XqCBRMMkPFxqnh.webp"
-                        alt="3rd meet"
-                        fit={"cover"}
-                      />
-                    </Card.Section>
-
-                    <Group justify="space-between" mt="md" mb="xs">
-                      <Text fw={500}>with CTO: 3rd meet, 세번째 행사</Text>
-                      <Badge color="grey">2024.08.09</Badge>
-                    </Group>
-
-                    <Text size="sm" c="dimmed">
-                      스타트업 얼라이언스 앤스페이스에서 with CTO: 3rd meet이
-                      열렸습니다. 서로의 경험과 도전을 공유하고, 기술적인
-                      의사결정과 인사적인 고민을 해결할 수 있는 인사이트를
-                      나누는 자리였습니다.
-                    </Text>
-
-                    <Button
-                      color="secondary"
-                      fullWidth
-                      mt="md"
-                      radius="md"
-                      component={"a"}
-                      href={
-                        "https://medium.com/proofer-blog/27%EB%85%84-%EA%B2%BD%EB%A0%A5-%EC%8B%A4%EB%A6%AC%EC%BD%98%EB%B0%B8%EB%A6%AC-1%EC%84%B8%EB%8C%80-%ED%95%9C%EC%9D%B8-%EA%B0%9C%EB%B0%9C%EC%9E%90-%ED%95%9C%EA%B8%B0%EC%9A%A9%EB%8B%98%EA%B3%BC-%ED%95%A8%EA%BB%98%ED%95%9C-with-cto-%EA%B7%B8-%EC%84%B8%EB%B2%88%EC%A7%B8-%EB%AA%A8%EC%9E%84-666822fdcb50"
-                      }
+                      component="a"
+                      href="https://medium.com/proofer-blog/cto-%EB%93%A4%EC%9D%98-%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0-with-cto-%EC%9D%98-%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%96%89%EC%82%AC%EB%A5%BC-%EC%84%B1%EA%B3%B5%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%B9%98%EB%A4%98%EC%8A%B5%EB%8B%88%EB%8B%A4-5a172b849bdf"
                       target={"_blank"}
                     >
                       보러가기
@@ -254,22 +213,22 @@ export default function SecondSection() {
                   <Card shadow="sm" padding="lg" radius="md" withBorder>
                     <Card.Section>
                       <Image
-                        src="https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/assets/with-cto/1st/thumbnail-Mrea4XSVJuYaM1dcxbTiTFQSXgEsCV.webp"
+                        src="https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/assets/with-cto/3rd/thumbnail-VM16aGyGx1tVIjG0XqCBRMMkPFxqnh.webp"
+                        alt="3rd meet"
                         fit={"cover"}
-                        alt="1st meet"
                       />
                     </Card.Section>
 
                     <Group justify="space-between" mt="md" mb="xs">
-                      <Text fw={500}>with CTO: 1st meet, 첫번째 만남</Text>
-                      <Badge color="grey">2024.06.08</Badge>
+                      <Text fw={500}>with CTO: 3rd meet, 세번째 행사</Text>
+                      <Badge color="grey">2024.08.09</Badge>
                     </Group>
 
                     <Text size="sm" c="dimmed">
-                      with CTO: 의 첫 번째 모임은 32명의 등록인원 중 24명이 참여
-                      해주셨으며 다양한 회사의 CTO, ex-CTO, VPE, Tech Lead
-                      분들이 7시반부터 10시반까지 장장 3시간 동안 행사를 즐기고
-                      가 주셨습니다.
+                      스타트업 얼라이언스 앤스페이스에서 with CTO: 3rd meet이
+                      열렸습니다. 서로의 경험과 도전을 공유하고, 기술적인
+                      의사결정과 인사적인 고민을 해결할 수 있는 인사이트를
+                      나누는 자리였습니다.
                     </Text>
 
                     <Button
@@ -277,8 +236,10 @@ export default function SecondSection() {
                       fullWidth
                       mt="md"
                       radius="md"
-                      component="a"
-                      href="https://medium.com/proofer-blog/cto-%EB%93%A4%EC%9D%98-%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0-with-cto-%EC%9D%98-%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%96%89%EC%82%AC%EB%A5%BC-%EC%84%B1%EA%B3%B5%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%B9%98%EB%A4%98%EC%8A%B5%EB%8B%88%EB%8B%A4-5a172b849bdf"
+                      component={"a"}
+                      href={
+                        "https://medium.com/proofer-blog/27%EB%85%84-%EA%B2%BD%EB%A0%A5-%EC%8B%A4%EB%A6%AC%EC%BD%98%EB%B0%B8%EB%A6%AC-1%EC%84%B8%EB%8C%80-%ED%95%9C%EC%9D%B8-%EA%B0%9C%EB%B0%9C%EC%9E%90-%ED%95%9C%EA%B8%B0%EC%9A%A9%EB%8B%98%EA%B3%BC-%ED%95%A8%EA%BB%98%ED%95%9C-with-cto-%EA%B7%B8-%EC%84%B8%EB%B2%88%EC%A7%B8-%EB%AA%A8%EC%9E%84-666822fdcb50"
+                      }
                       target={"_blank"}
                     >
                       보러가기

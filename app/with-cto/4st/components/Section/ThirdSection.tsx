@@ -42,7 +42,7 @@ export default function ThirdSection() {
                     "https://proofer.tech/with-cto/join?utm_source=proofer&utm_medium=landing&utm_campaign=cta&utm_content=join"
                   }
                 >
-                  with CTO: 5회차 참여하기
+                  with CTO: 4회차 참여하기
                 </Button>
               </Group>
             </Stack>
