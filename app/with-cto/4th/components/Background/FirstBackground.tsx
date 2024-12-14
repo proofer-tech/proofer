@@ -1,6 +1,6 @@
 "use client";
 import { Box, Paper } from "@mantine/core";
-import AnimatedDottedCircle from "@/app/with-cto/(root)/components/AnimatedDottedCircle";
+import AnimatedDottedCircle from "@/app/with-cto/4th/components/AnimatedDottedCircle";
 import { useIsMobileMedia } from "@/src/hooks/mediaQuery";
 
 export default function FirstBackground() {

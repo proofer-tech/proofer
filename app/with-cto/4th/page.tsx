@@ -1,7 +1,7 @@
 import { Box } from "@mantine/core";
-import FirstSection from "@/app/with-cto/(root)/components/Section/FirstSection";
-import SecondSection from "@/app/with-cto/(root)/components/Section/SecondSection";
-import ThirdSection from "@/app/with-cto/(root)/components/Section/ThirdSection";
+import FirstSection from "@/app/with-cto/4th/components/Section/FirstSection";
+import SecondSection from "@/app/with-cto/4th/components/Section/SecondSection";
+import ThirdSection from "@/app/with-cto/4th/components/Section/ThirdSection";
 
 export default function Page() {
   return (

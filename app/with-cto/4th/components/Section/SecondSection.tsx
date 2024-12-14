@@ -14,8 +14,8 @@ import {
   Title,
   Image,
 } from "@mantine/core";
-import SecondBackground from "@/app/with-cto/(root)/components/Background/SecondBackground";
-import AnimatedDottedCircle from "@/app/with-cto/(root)/components/AnimatedDottedCircle";
+import SecondBackground from "@/app/with-cto/4th/components/Background/SecondBackground";
+import AnimatedDottedCircle from "@/app/with-cto/4th/components/AnimatedDottedCircle";
 import { useIsMobileMedia } from "@/src/hooks/mediaQuery";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, A11y } from "swiper/modules";
