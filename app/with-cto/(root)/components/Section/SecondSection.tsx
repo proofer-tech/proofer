@@ -301,11 +301,11 @@ export default function SecondSection() {
               w={isMobileMedia ? "100%" : "50%"}
             >
               <Title order={1} fz={"2em"} c={"#151410"}>
-                2024년 12월 13일 금요일
+                2024년 03월 07일 금요일
                 <br />
                 오후 6시 30분
                 <br />
-                구글스타트업캠퍼스에서 만나요
+                장소가 확정되면 알려드려요!
               </Title>
               <Space h={"lg"} />
               <Graphic
