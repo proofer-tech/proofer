@@ -142,14 +142,14 @@ export default function SecondSection() {
                     <Card.Section>
                       <Image
                         src="https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/assets/with-cto/4st/1_zW5VcB9lVvjd78EBb7dQ3w-7EIQYyQrJ7GrIYde7du3QQEqZi2mEN.webp"
-                        alt="4st meet"
+                        alt="4th meet"
                         fit={"cover"}
                       />
                     </Card.Section>
 
                     <Group justify="space-between" mt="md" mb="xs">
                       <Text fw={500}>
-                        with CTO: 4st meet, 성장과 네트워킹의 밤
+                        with CTO: 4th meet, 성장과 네트워킹의 밤
                       </Text>
                       <Badge color="grey">2024.12.13</Badge>
                     </Group>
