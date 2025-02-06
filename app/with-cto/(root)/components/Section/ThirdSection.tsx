@@ -39,7 +39,7 @@ export default function ThirdSection() {
                   size={"xl"}
                   component={"a"}
                   href={
-                    "https://proofer.tech/with-cto/join?utm_source=proofer&utm_medium=landing&utm_campaign=cta&utm_content=join"
+                    "join?utm_source=proofer&utm_medium=landing&utm_campaign=cta&utm_content=join"
                   }
                 >
                   with CTO: 5회차 참여하기

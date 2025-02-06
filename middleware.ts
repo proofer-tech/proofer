@@ -90,7 +90,11 @@ async function handleSubdomainMiddleware(
       );
     }
 
-    rewritePath = `/subs/${subDomain}` + rewritePath;
+    if (subDomain === "with-cto") {
+      rewritePath = "/with-cto" + rewritePath;
+    } else {
+      rewritePath = `/subs/${subDomain}` + rewritePath;
+    }
     return NextResponse.rewrite(new URL(rewritePath, req.url));
   } else if (!withSubs && path.startsWith(`/subs`)) {
     const pathBlocks = path.split("/");
