@@ -305,7 +305,7 @@ export default function SecondSection() {
                 <br />
                 오후 6시 30분
                 <br />
-                장소가 확정되면 알려드려요!
+                구글스타트업캠퍼스에서 만나요
               </Title>
               <Space h={"lg"} />
               <Graphic
