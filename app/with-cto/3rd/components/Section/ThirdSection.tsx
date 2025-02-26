@@ -1,5 +1,5 @@
 import { Box, Center, Container, Stack, Text, Title } from "@mantine/core";
-import Timetable from "@/app/with-cto/(root)/components/Timetable";
+import Timetable from "@/app/with-cto/3rd/components/Timetable";
 
 export default function ThirdSection() {
   return (
