@@ -9,7 +9,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import Timetable from "@/app/with-cto/(root)/components/Timetable";
+import Timetable from "@/app/with-cto/5th/components/Timetable";
 
 export default function ThirdSection() {
   return (
@@ -42,7 +42,7 @@ export default function ThirdSection() {
                     "join?utm_source=proofer&utm_medium=landing&utm_campaign=cta&utm_content=join"
                   }
                 >
-                  with CTO: 6회차 참여하기
+                  with CTO: 5회차 참여하기
                 </Button>
               </Group>
             </Stack>

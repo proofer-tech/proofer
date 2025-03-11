@@ -14,14 +14,13 @@ import {
   Title,
   Image,
 } from "@mantine/core";
-import SecondBackground from "@/app/with-cto/(root)/components/Background/SecondBackground";
-import AnimatedDottedCircle from "@/app/with-cto/(root)/components/AnimatedDottedCircle";
+import SecondBackground from "@/app/with-cto/5th/components/Background/SecondBackground";
+import AnimatedDottedCircle from "@/app/with-cto/5th/components/AnimatedDottedCircle";
 import { useIsMobileMedia } from "@/src/hooks/mediaQuery";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, A11y } from "swiper/modules";
 
 interface GraphicProps extends StackProps {}
-
 function Graphic(props: GraphicProps) {
   return (
     <Stack gap={0} align={"center"} {...props} py={"1em"}>
@@ -138,45 +137,6 @@ export default function SecondSection() {
                 pagination={{ clickable: true }}
                 slidesPerView={isMobileMedia ? 1 : 2.5}
               >
-                <SwiperSlide>
-                  <Card shadow="sm" padding="lg" radius="md" withBorder>
-                    <Card.Section>
-                      <Image
-                        src="https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/assets/with-cto/5th/download-mGoKtEGZzz3bm7vMebJmZVl2q2B8J6.webp"
-                        alt="5th meet"
-                        fit={"cover"}
-                      />
-                    </Card.Section>
-
-                    <Group justify="space-between" mt="md" mb="xs">
-                      <Text fw={500}>
-                        with CTO: 5th meet, 가치를 나누는 커뮤니티
-                      </Text>
-                      <Badge color="grey">2024.12.13</Badge>
-                    </Group>
-
-                    <Text size="sm" c="dimmed">
-                      with CTO: 커뮤니티가 단순한 네트워킹 모임을 넘어 실질적인
-                      도움을 주고받는 장으로 자리 잡아가고 있다는 점입니다.
-                      앞으로도 더 많은 분들과 함께할 수 있도록, 지속적으로
-                      발전해 나가겠습니다.
-                    </Text>
-
-                    <Button
-                      color="secondary"
-                      fullWidth
-                      mt="md"
-                      radius="md"
-                      component={"a"}
-                      href={
-                        "https://medium.com/proofer-blog/한-번-오면-계속-오고-싶어진다-cto-들의-커뮤니티-with-cto-5th-meet-910dba14ef50"
-                      }
-                      target={"_blank"}
-                    >
-                      보러가기
-                    </Button>
-                  </Card>
-                </SwiperSlide>
                 <SwiperSlide>
                   <Card shadow="sm" padding="lg" radius="md" withBorder>
                     <Card.Section>
@@ -341,9 +301,11 @@ export default function SecondSection() {
               w={isMobileMedia ? "100%" : "50%"}
             >
               <Title order={1} fz={"2em"} c={"#151410"}>
-                2025년 언젠가의 금요일
+                2025년 03월 07일 금요일
                 <br />
-                장소가 정해지면 안내드리겠습니다!
+                오후 6시 30분
+                <br />
+                구글스타트업캠퍼스에서 만나요
               </Title>
               <Space h={"lg"} />
               <Graphic
