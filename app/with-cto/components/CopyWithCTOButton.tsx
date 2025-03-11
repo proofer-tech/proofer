@@ -5,7 +5,7 @@ import React from "react";
 interface CopyWithCTOButtonProps extends ButtonProps {}
 export default function CopyWithCTOButton(props: CopyWithCTOButtonProps) {
   return (
-    <CopyButton value="https://proofer.tech/with-cto/join?utm_source=proofer&utm_medium=landing&utm_campaign=cta&utm_content=share">
+    <CopyButton value="https://with-cto.proofer.tech/join?utm_source=proofer&utm_medium=landing&utm_campaign=cta&utm_content=share">
       {({ copied, copy }) => (
         <Button
           color={copied ? "secondary" : "primary"}

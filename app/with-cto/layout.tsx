@@ -13,7 +13,7 @@ export const metadata = merge(
     openGraph: {
       locale: "ko",
       type: "website",
-      url: "https://proofer.tech/with-cto",
+      url: "https://with-cto.proofer.tech",
       images: ["/assets/images/with-cto/og-image.webp"],
     },
     icons: [
@@ -57,7 +57,7 @@ export const metadata = merge(
       },
     ],
     alternates: {
-      canonical: "https://proofer.tech/with-cto",
+      canonical: "https://with-cto.proofer.tech",
     },
   },
   generateMetadataFromTitle({

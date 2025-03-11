@@ -170,7 +170,7 @@ export default function Page() {
           >
             <Anchor
               className={styles.responsiveGridColumn}
-              href={"https://proofer.tech/with-cto"}
+              href={"https://with-cto.proofer.tech"}
               underline={"never"}
               c={"black"}
               target="_blank"

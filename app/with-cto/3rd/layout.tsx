@@ -11,7 +11,7 @@ export const metadata = merge(
     openGraph: {
       locale: "ko",
       type: "website",
-      url: "https://proofer.tech/with-cto/3rd",
+      url: "https://with-cto.proofer.tech/3rd",
       images: ["/assets/images/with-cto/og-image-3rd.webp"],
     },
   },

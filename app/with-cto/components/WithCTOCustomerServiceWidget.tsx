@@ -28,7 +28,7 @@ export default function WithCTOCustomerServiceWidget({
             <Anchor
               key={"join"}
               href={
-                "https://proofer.tech/with-cto/join?utm_source=proofer&utm_medium=landing&utm_campaign=cta&utm_content=join"
+                "https://with-cto.proofer.tech/join?utm_source=proofer&utm_medium=landing&utm_campaign=cta&utm_content=join"
               }
             >
               <Button
@@ -49,7 +49,7 @@ export default function WithCTOCustomerServiceWidget({
           ),
           <CopyButton
             key={"share"}
-            value="https://proofer.tech/with-cto/join?utm_source=proofer&utm_medium=landing&utm_campaign=cta&utm_content=share"
+            value="https://with-cto.proofer.tech/join?utm_source=proofer&utm_medium=landing&utm_campaign=cta&utm_content=share"
           >
             {({ copied, copy }) => (
               <Button
@@ -105,7 +105,7 @@ export default function WithCTOCustomerServiceWidget({
           <Anchor
             key={"join"}
             href={
-              "https://proofer.tech/with-cto/join?utm_source=proofer&utm_medium=landing&utm_campaign=cta&utm_content=join"
+              "https://with-cto.proofer.tech/join?utm_source=proofer&utm_medium=landing&utm_campaign=cta&utm_content=join"
             }
           >
             <Button color={"black"} w={"100%"} h={"80px"} radius={0}>
