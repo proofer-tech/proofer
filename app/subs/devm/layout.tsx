@@ -85,7 +85,7 @@ export default async function Layout({ children }: any) {
     { title: "서비스소개", href: "https://devm.proofer.tech/introduction" },
   ];
   return (
-    <LandingPageShellLayout portals={portals}>
+    <LandingPageShellLayout portals={portals} isServiceEnded={true}>
       {children}
     </LandingPageShellLayout>
   );

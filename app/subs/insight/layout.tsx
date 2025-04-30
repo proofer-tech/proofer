@@ -86,7 +86,7 @@ export default async function Layout({ children }: any) {
     { title: "데모", href: "http://insight-demo.proofer.tech" },
   ];
   return (
-    <LandingPageShellLayout portals={portals}>
+    <LandingPageShellLayout portals={portals} isServiceEnded={true}>
       {children}
     </LandingPageShellLayout>
   );

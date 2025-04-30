@@ -7,6 +7,7 @@ import useTallyInquireForm from "@/src/hooks/tally";
 import {
   InquireCompletedModal,
   NotReadyYetModal,
+  ServiceEndedModal,
 } from "@/app/components/Modal";
 import React, { useEffect } from "react";
 import { useDisclosure, useHash, useWindowScroll } from "@mantine/hooks";
@@ -25,16 +26,20 @@ interface LandingPageShellLayoutProps
     hideChannelButtonOnBoot: boolean;
     customLauncherSelector?: string;
   };
+  isServiceEnded?: boolean;
 }
 export default function LandingPageShellLayout({
   portals,
   children,
   logoSrc = "/assets/images/branding.svg",
   channelIO,
+  isServiceEnded = false,
   ...props
 }: LandingPageShellLayoutProps) {
   const navbarDisclosure = useDisclosure(false);
 
+  const [serviceEndedModalOpened, serviceEndedModal] =
+    useDisclosure(isServiceEnded);
   const [notReadyYetModalOpened, notReadyYetModal] = useDisclosure(false);
   const [isInquireCompletedModalOpened, inquireCompletedModal] =
     useDisclosure(false);
@@ -118,6 +123,10 @@ export default function LandingPageShellLayout({
       <NotReadyYetModal
         isOpened={notReadyYetModalOpened}
         onCloseClick={notReadyYetModal.close}
+      />
+      <ServiceEndedModal
+        isOpened={serviceEndedModalOpened}
+        onCloseClick={serviceEndedModal.close}
       />
     </ReactChannelIO>
   );
