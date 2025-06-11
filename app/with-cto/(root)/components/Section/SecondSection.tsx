@@ -341,9 +341,11 @@ export default function SecondSection() {
               w={isMobileMedia ? "100%" : "50%"}
             >
               <Title order={1} fz={"2em"} c={"#151410"}>
-                2025년 언젠가의 금요일
+                2025년 7월 18일 금요일
                 <br />
-                장소가 정해지면 안내드리겠습니다!
+                오후 6시 30분 구글 스타트업
+                <br />
+                캠퍼스에서 만나요
               </Title>
               <Space h={"lg"} />
               <Graphic

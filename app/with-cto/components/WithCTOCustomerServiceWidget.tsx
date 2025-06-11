@@ -28,7 +28,7 @@ export default function WithCTOCustomerServiceWidget({
             <Anchor
               key={"join"}
               href={
-                "https://with-cto.proofer.tech/join?utm_source=proofer&utm_medium=landing&utm_campaign=cta&utm_content=join"
+                "https://event-us.kr/withcto/event/106074/applicant?utm_source=proofer&utm_medium=organic"
               }
             >
               <Button
@@ -47,10 +47,7 @@ export default function WithCTOCustomerServiceWidget({
           ) : (
             <></>
           ),
-          <CopyButton
-            key={"share"}
-            value="https://with-cto.proofer.tech/join?utm_source=proofer&utm_medium=landing&utm_campaign=cta&utm_content=share"
-          >
+          <CopyButton key={"share"} value="https://with-cto.proofer.tech">
             {({ copied, copy }) => (
               <Button
                 w={"80px"}

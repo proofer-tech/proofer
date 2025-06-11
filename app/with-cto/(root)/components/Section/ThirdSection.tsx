@@ -39,7 +39,7 @@ export default function ThirdSection() {
                   size={"xl"}
                   component={"a"}
                   href={
-                    "join?utm_source=proofer&utm_medium=landing&utm_campaign=cta&utm_content=join"
+                    "https://event-us.kr/withcto/event/106074/applicant?utm_source=proofer&utm_medium=organic"
                   }
                 >
                   with CTO: 6회차 참여하기

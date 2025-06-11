@@ -116,3 +116,49 @@ export function ServiceEndedModal({
     </Modal>
   );
 }
+
+interface AnnouncementModalProps {
+  title: React.ReactNode;
+  content: React.ReactNode;
+  isOpened: boolean;
+  onCloseClick: () => void;
+}
+
+export function AnnouncementModal({
+  title,
+  content,
+  isOpened,
+  onCloseClick,
+}: AnnouncementModalProps) {
+  const { showMessenger } = useChannelIOApi();
+  return (
+    <Modal
+      opened={isOpened}
+      onClose={onCloseClick}
+      withCloseButton={false}
+      closeOnEscape={false}
+      closeOnClickOutside={false}
+      centered
+      title={
+        <Group>
+          <Box w={"1em"} h={"1em"}>
+            <Image
+              src="/assets/images/branding.svg"
+              alt="프루퍼 로고"
+              width={"100%"}
+            />
+          </Box>
+          <Text fz={"1.3em"} fw={700}>
+            {title}
+          </Text>
+        </Group>
+      }
+    >
+      <Stack>
+        <Text>{content}</Text>
+        <Text>문의는 아래 문의하기를 통해 부탁드리겠습니다.</Text>
+        <Button onClick={() => showMessenger()}>문의하기</Button>
+      </Stack>
+    </Modal>
+  );
+}
