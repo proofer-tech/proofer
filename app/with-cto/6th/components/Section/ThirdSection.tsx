@@ -9,7 +9,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import Timetable from "@/app/with-cto/(root)/components/Timetable";
+import Timetable from "@/app/with-cto/6th/components/Timetable";
 
 export default function ThirdSection() {
   return (

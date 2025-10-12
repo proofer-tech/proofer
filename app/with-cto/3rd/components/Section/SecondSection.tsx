@@ -10,8 +10,8 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import SecondBackground from "@/app/with-cto/(root)/components/Background/SecondBackground";
-import AnimatedDottedCircle from "@/app/with-cto/(root)/components/AnimatedDottedCircle";
+import SecondBackground from "@/app/with-cto/3rd/components/Background/SecondBackground";
+import AnimatedDottedCircle from "@/app/with-cto/3rd/components/AnimatedDottedCircle";
 import { useIsMobileMedia } from "@/src/hooks/mediaQuery";
 
 interface GraphicProps extends StackProps {}
