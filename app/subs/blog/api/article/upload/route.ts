@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { base64ToFile } from "@/src/file";
 import { put } from "@vercel/blob";
-import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { withApiUserRequired } from "@/src/decorators/api";
+import { Auth0Client } from "@auth0/nextjs-auth0/server";
 
-export const POST = withApiAuthRequired(
-  withApiUserRequired(async (req: NextRequest) => {
+const auth0 = new Auth0Client();
+
+export const POST = async (req: NextRequest) => {
+  const session = await auth0.getSession();
+  if (!session?.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  return withApiUserRequired(async (req: NextRequest) => {
     const { title, image }: any = await req.json();
 
     const imageFile = base64ToFile(image);
@@ -15,5 +21,5 @@ export const POST = withApiAuthRequired(
     });
 
     return NextResponse.json({ url: blob.url });
-  }),
-);
+  })(req);
+};

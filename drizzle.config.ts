@@ -3,7 +3,7 @@ export default {
   schemaFilter: ["proofer"],
   schema: "./database/schemas/**/*.ts",
   out: "./database/migrations",
-  driver: "pg",
+  dialect: "postgresql",
   dbCredentials: {
     // @ts-ignore
     connectionString: process.env.POSTGRES_URL,

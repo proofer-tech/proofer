@@ -1,4 +1,6 @@
-import { getSession } from "@auth0/nextjs-auth0";
+import { Auth0Client } from "@auth0/nextjs-auth0/server";
+
+const auth0 = new Auth0Client();
 import { Anchor, Button, Stack, Text } from "@mantine/core";
 import { notFound, redirect } from "next/navigation";
 import { User } from "@/database/schemas/auth";
@@ -8,16 +10,16 @@ import { findUserByEmail } from "@/src/data/user";
 import { PageProps } from "@/src/types/general";
 
 export default async function Page({ searchParams }: PageProps) {
-  const session = await getSession();
+  const session = await auth0.getSession();
   if (!session?.user) return redirect("/auth/login");
 
-  if (session.user.email_verified) {
+  if (session.user.email_verified && session.user.email) {
     const user = await findUserByEmail(session.user.email);
     if (!user) {
       await withLock(
         { id: `email-verification(${searchParams.email})` },
         async () => {
-          await dz.insert(User).values({ email: session.user.email });
+          await dz.insert(User).values({ email: session.user.email! });
         },
         async () => notFound(),
       );

@@ -13,7 +13,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
-import { UserProvider } from "@auth0/nextjs-auth0/client";
+import { Auth0Provider } from "@auth0/nextjs-auth0/client";
 import { generateMetadataFromTitle } from "@/src/manifest";
 import { Notifications } from "@mantine/notifications";
 
@@ -83,21 +83,21 @@ export const metadata = generateMetadataFromTitle(
 
 export default async function RootLayout({ children }: { children: any }) {
   return (
-    <html lang="ko">
+    <html lang="ko" suppressHydrationWarning>
       <head>
-        <ColorSchemeScript />
+        <ColorSchemeScript defaultColorScheme="light" />
         <script async src="https://tally.so/widgets/embed.js"></script>
       </head>
       <body>
-        <UserProvider>
-          <MantineProvider theme={theme}>
+        <Auth0Provider>
+          <MantineProvider theme={theme} defaultColorScheme="light">
             <Notifications position={"top-left"} />
             {children}
           </MantineProvider>
           <Analytics />
           <SpeedInsights />
           <GoogleAnalytics gaId="G-L765E402KF" />
-        </UserProvider>
+        </Auth0Provider>
       </body>
     </html>
   );

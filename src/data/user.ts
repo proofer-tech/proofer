@@ -1,10 +1,19 @@
 import { dz } from "@/database/engine";
 import { User } from "@/database/schemas/auth";
 import { eq, InferSelectModel } from "drizzle-orm";
-import { getSession, touchSession } from "@auth0/nextjs-auth0";
-import { UserProfile } from "@auth0/nextjs-auth0/client";
+import { Auth0Client } from "@auth0/nextjs-auth0/server";
 
-export type UserDto = UserProfile & InferSelectModel<typeof User>;
+const auth0 = new Auth0Client();
+
+export type UserDto = {
+  email?: string;
+  email_verified?: boolean;
+  name?: string;
+  nickname?: string;
+  picture?: string;
+  sub?: string;
+  updated_at?: string;
+} & InferSelectModel<typeof User>;
 
 export async function findUserByEmail(
   email: string,
@@ -14,15 +23,13 @@ export async function findUserByEmail(
 }
 
 export async function findUserFromSession(): Promise<UserDto | undefined> {
-  await touchSession();
-
-  const session = await getSession();
-  if (!session?.user) return;
+  const session = await auth0.getSession();
+  if (!session?.user?.email) return;
 
   const userRecords = await dz
     .select()
     .from(User)
-    .where(eq(User.email, session?.user?.email));
+    .where(eq(User.email, session.user.email));
   const dbUser = userRecords[0];
   if (!dbUser) return;
 

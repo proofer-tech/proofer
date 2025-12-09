@@ -25,14 +25,11 @@ export default withSentryConfig(
   withPWAAnalyzer(
     withBundleAnalyzer({
       reactStrictMode: false,
-      eslint: {
-        ignoreDuringBuilds: true,
-      },
       experimental: {
         optimizePackageImports: ["@mantine/core", "@mantine/hooks"],
       },
       sassOptions: {
-        prependData: `@import "./_mantine.scss";`,
+        // sass options
       },
       webpack: (config, ..._) => {
         // @ts-ignore
@@ -40,10 +37,19 @@ export default withSentryConfig(
         return config;
       },
       images: {
-        domains: [
-          "proofer.tech",
-          "miro.medium.com",
-          "asgkzse2rqmcnxxg.public.blob.vercel-storage.com",
+        remotePatterns: [
+          {
+            protocol: "https",
+            hostname: "proofer.tech",
+          },
+          {
+            protocol: "https",
+            hostname: "miro.medium.com",
+          },
+          {
+            protocol: "https",
+            hostname: "asgkzse2rqmcnxxg.public.blob.vercel-storage.com",
+          },
         ],
       },
       async rewrites() {

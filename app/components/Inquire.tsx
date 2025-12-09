@@ -52,17 +52,19 @@ export function InquireForm({
           shadow="md"
         >
           <Popover.Target>
-            <Input
-              placeholder="이메일 입력 ..."
-              type={"email"}
-              value={inquireEmail}
-              onChange={(e) => setInquireEmail(e.target.value)}
-              onFocus={() => setPopoverOpened(true)}
-              onBlur={() => setPopoverOpened(false)}
-              radius={"md"}
-              size={"md"}
-              w={isMobileMedia ? "100%" : "auto"}
-            />
+            <div suppressHydrationWarning>
+              <Input
+                placeholder="이메일 입력 ..."
+                type={"email"}
+                value={inquireEmail}
+                onChange={(e) => setInquireEmail(e.target.value)}
+                onFocus={() => setPopoverOpened(true)}
+                onBlur={() => setPopoverOpened(false)}
+                radius={"md"}
+                size={"md"}
+                w={isMobileMedia ? "100%" : "auto"}
+              />
+            </div>
           </Popover.Target>
           <Popover.Dropdown>
             <Text size="xs">
@@ -104,10 +106,13 @@ export function InquireWidget({
   useEffect(() => {
     if (offsetPinRef.current === null) return;
     const rect = offsetPinRef.current.getBoundingClientRect();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsWidget(
       !(
         scroll.y >= offsetPinRef.current.offsetTop ||
-        (rect.top >= 0 && rect.bottom <= window.innerHeight)
+        (rect.top >= 0 &&
+          rect.bottom <=
+            (typeof window !== "undefined" ? window.innerHeight : 0))
       ),
     );
   }, [offsetPinRef, scroll]);

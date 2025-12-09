@@ -108,7 +108,7 @@ export default async function Page({ params }: PageProps) {
   const { articlePath } = params;
   const [slug, ...path] = articlePath;
 
-  const headerList = headers();
+  const headerList = await headers();
   const url = getURLFromHeaderList(headerList);
 
   if (path.length > 0) {
