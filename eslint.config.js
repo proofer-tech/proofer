@@ -6,6 +6,13 @@ import tseslint from "@typescript-eslint/eslint-plugin";
 import tsparser from "@typescript-eslint/parser";
 
 export default [
+  {
+    ignores: [
+      "components/ui/**/*",
+      "src/hooks/use-toast.ts",
+      "src/hooks/use-mobile.tsx",
+    ],
+  },
   js.configs.recommended,
   {
     files: ["**/*.{js,jsx}"],
