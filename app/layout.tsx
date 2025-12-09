@@ -16,6 +16,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { Auth0Provider } from "@auth0/nextjs-auth0/client";
 import { generateMetadataFromTitle } from "@/src/manifest";
 import { Notifications } from "@mantine/notifications";
+import { Toaster } from "@/components/ui/toaster";
 
 export const viewport: Viewport = {
   themeColor: "#344FE0",
@@ -93,6 +94,7 @@ export default async function RootLayout({ children }: { children: any }) {
           <MantineProvider theme={theme} defaultColorScheme="light">
             <Notifications position={"top-left"} />
             {children}
+            <Toaster />
           </MantineProvider>
           <Analytics />
           <SpeedInsights />
