@@ -71,7 +71,11 @@ async function handleSubdomainMiddleware(
 
   if (subDomain === "www") return;
 
-  if (Object.values(SUB_DOMAIN).includes(subDomain as SUB_DOMAIN)) {
+  if (
+    Object.values(SUB_DOMAIN).includes(
+      subDomain as (typeof SUB_DOMAIN)[keyof typeof SUB_DOMAIN],
+    )
+  ) {
     let rewritePath = path;
     if (
       path.startsWith("/api/auth") ||

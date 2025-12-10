@@ -53,17 +53,7 @@ export default withSentryConfig(
         ],
       },
       async rewrites() {
-        return [
-          {
-            source: "/medium/:slug*",
-            destination: "https://medium.com/proofer-blog/:slug*",
-          },
-          {
-            source: "/subscribe",
-            destination:
-              "https://medium.com/proofer-blog/newsletters/measurable-developer",
-          },
-        ];
+        return [];
       },
     }),
   ),
