@@ -114,7 +114,7 @@ async function handleSubdomainMiddleware(
   }
 }
 
-export default async function wrapper(req: NextRequest): Promise<NextResponse> {
+export default async function proxy(req: NextRequest): Promise<NextResponse> {
   const middlewares = [
     handleStaticMiddleware,
     handleMaintenanceMiddleware,

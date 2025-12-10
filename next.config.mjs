@@ -31,6 +31,7 @@ export default withSentryConfig(
       sassOptions: {
         // sass options
       },
+      serverExternalPackages: ["canvas", "pdfjs-dist"],
       webpack: (config, ..._) => {
         // @ts-ignore
         config.externals.push({ canvas: "commonjs canvas" });

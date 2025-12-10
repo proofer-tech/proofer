@@ -1,3 +1,0 @@
-[submodule "warehouse"]
-	path = warehouse
-	url = git@github.com:proofer-tech/warehouse.git
