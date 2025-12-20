@@ -47,7 +47,7 @@ export default function Footer({ linkGroups }: FooterProps) {
           />
           <Stack gap={1}>
             <Text c={"var(--color-darkgray-2)"}>
-              서울특별시 강남구 논현로 79 길 48-1, 2 층 1074 호
+              서울특별시 강남구 강남대로112길 47, 2층 421A호
             </Text>
             <Text c={"var(--color-darkgray-2)"}>
               개인정보관리책임자: 임한솔(
