@@ -41,9 +41,12 @@ export default async function Layout({ children }: any) {
   const portals: readonly HeaderPortal[] = (await get(
     "portals",
   )) as HeaderPortal[];
+
   return (
-    <LandingPageShellLayout portals={portals}>
-      {children}
-    </LandingPageShellLayout>
+    <>
+      <LandingPageShellLayout portals={portals}>
+        {children}
+      </LandingPageShellLayout>
+    </>
   );
 }
