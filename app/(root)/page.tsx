@@ -17,6 +17,7 @@ import {
 } from "@mantine/core";
 import React from "react";
 import Image from "next/image";
+import Script from "next/script";
 import styles from "./style.module.scss";
 import { InquireWidget } from "@/app/components/Inquire";
 import { Down } from "@/app/components/Divider";
@@ -62,6 +63,12 @@ const jsonLd = {
 export default function Page() {
   return (
     <>
+      <Script
+        src="https://platform.linkedin.com/badges/js/profile.js"
+        async
+        defer
+        type="text/javascript"
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -159,78 +166,74 @@ export default function Page() {
                   온다면 미리 문제를 알고있기에 가장 빠르게 움직일 수 있는
                   팀입니다.
                 </Text>
-                <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-                  <Anchor
-                    href="https://www.linkedin.com/in/hsolim/"
-                    target="_blank"
-                  >
-                    <Card shadow="sm" padding="lg" radius="md" withBorder>
-                      <Stack gap={"xs"} style={{ flex: 1, zIndex: 1 }}>
-                        <Group align="end">
-                          <Title order={3}>임한솔</Title>
-                          <Text>대표</Text>
-                        </Group>
-                        <Stack gap={0}>
-                          <Text size="sm">건국대학교 경영공학 전공</Text>
-                          <Text size="sm">
-                            토스 등 10년 이상의 현업 개발경력
-                          </Text>
-                          <Text size="sm">2025년 예비창업패키지 선정</Text>
-                          <Text size="sm">
-                            기획, 개발, 디자인까지 능통한 진짜 서비스 전문가
-                          </Text>
-                        </Stack>
+
+                <Card
+                  shadow="sm"
+                  padding={"xs"}
+                  radius="md"
+                  withBorder
+                  flex={1}
+                >
+                  <Group wrap={"wrap"}>
+                    <Stack gap={"md"} p={"md"} flex={1} miw={"280px"}>
+                      <Group align="end">
+                        <Title order={3}>임한솔</Title>
+                        <Text>대표</Text>
+                      </Group>
+                      <Stack gap={"xs"}>
+                        <Text size="sm">건국대학교 경영공학 전공</Text>
+                        <Text size="sm">토스 등 10년 이상의 현업 개발경력</Text>
+                        <Text size="sm">2025년 예비창업패키지 선정</Text>
+                        <Text size="sm">
+                          기획, 개발, 디자인까지 능통한 진짜 서비스 전문가
+                        </Text>
                       </Stack>
-                      <Image
-                        src={"/assets/images/team/hansol.png"}
-                        alt={"임한솔"}
-                        width={150}
-                        height={150}
-                        objectFit="contain"
-                        style={{
-                          position: "absolute",
-                          bottom: 0,
-                          right: 0,
-                          zIndex: 0,
-                        }}
-                      />
-                    </Card>
-                  </Anchor>
-                  <Anchor
-                    href="https://www.linkedin.com/in/dukman-lim-54b291101/"
-                    target="_blank"
-                  >
-                    <Card shadow="sm" padding="lg" radius="md" withBorder>
-                      <Stack gap={"xs"} style={{ flex: 1, zIndex: 1 }}>
-                        <Group align="end">
-                          <Title order={3}>임덕만</Title>
-                          <Text>이사</Text>
-                        </Group>
-                        <Stack gap={0}>
-                          <Text size="sm">연세대학교 MBA</Text>
-                          <Text size="sm">쿠팡 등 20년 이상의 HR 전문가</Text>
-                          <Text size="sm">HR 벤처기업 가디언즈랩 CEO</Text>
-                          <Text size="sm">
-                            오랜 사업 운영으로 다져진 사업 전문성
-                          </Text>
-                        </Stack>
+                    </Stack>
+                    <div
+                      className="LI-profile-badge"
+                      data-version="v1"
+                      data-size="small"
+                      data-locale="ko_KR"
+                      data-type="horizontal"
+                      data-theme="light"
+                      data-vanity="hsolim"
+                    />
+                  </Group>
+                </Card>
+
+                <Card
+                  shadow="sm"
+                  padding={"xs"}
+                  radius="md"
+                  withBorder
+                  flex={1}
+                >
+                  <Group>
+                    <Stack gap={"md"} p={"md"} flex={1} miw={"280px"}>
+                      <Group align="end">
+                        <Title order={3}>임덕만</Title>
+                        <Text>이사</Text>
+                      </Group>
+                      <Stack gap={"xs"}>
+                        <Text size="sm">연세대학교 MBA</Text>
+                        <Text size="sm">쿠팡 등 20년 이상의 HR 전문가</Text>
+                        <Text size="sm">HR 벤처기업 가디언즈랩 CEO</Text>
+                        <Text size="sm">
+                          오랜 사업 운영으로 다져진 사업 전문성
+                        </Text>
                       </Stack>
-                      <Image
-                        src={"/assets/images/team/dukman.png"}
-                        alt={"임덕만"}
-                        width={150}
-                        height={150}
-                        objectFit="contain"
-                        style={{
-                          position: "absolute",
-                          bottom: 0,
-                          right: 0,
-                          zIndex: 0,
-                        }}
-                      />
-                    </Card>
-                  </Anchor>
-                </SimpleGrid>
+                    </Stack>
+                    <div
+                      className="LI-profile-badge"
+                      data-version="v1"
+                      data-size="small"
+                      data-locale="ko_KR"
+                      data-type="horizontal"
+                      data-theme="light"
+                      data-vanity="dukman-lim-54b291101"
+                    />
+                  </Group>
+                </Card>
               </Stack>
             </Stack>
           </Container>
@@ -284,6 +287,33 @@ export default function Page() {
                   </Stack>
                 </Card>
               </Anchor>
+              <Card py={"lg"} px={"xl"} shadow="xs" radius={"lg"}>
+                <Stack gap={"xl"}>
+                  <Stack gap={"sm"}>
+                    <Group>
+                      <Image
+                        src={"/assets/images/stream/logo.png"}
+                        width={100}
+                        height={100}
+                        alt={"스트림(Stream)"}
+                        style={{ width: "auto", height: "2.5em" }}
+                      />
+                      <Stack gap={0}>
+                        <Text size={"xs"}>통합 인재풀 관리 시스템</Text>
+                        <Title order={5}>스트림(Stream)</Title>
+                      </Stack>
+                    </Group>
+                  </Stack>
+                  <Stack gap={0}>
+                    <Text>
+                      스트림 자체 통합 인재검색 시스템을 통해 기업에서 사용하고
+                      있는 다양한 인재DB 솔루션으로부터 후보자를 알아서
+                      수집하고, 최신화시켜 우리 회사만의 살아 숨쉬는 인재풀을
+                      만들 수 있습니다.
+                    </Text>
+                  </Stack>
+                </Stack>
+              </Card>
             </SimpleGrid>
             <Accordion
               variant="separated"
