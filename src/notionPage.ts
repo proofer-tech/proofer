@@ -15,9 +15,8 @@ export const getPageContent = async function (pageId: string) {
 export const getCachedTermsOfServicePage = cached(
   "getTermsOfServicePage",
   async function () {
-    const { title, html } = await NotionPageToHtml.convert(
-      "https://www.notion.so/d9127501250a4a3bb1002f6792593d3e",
-      { bodyContentOnly: true },
+    const { title, html } = await getPageContent(
+      "2e72bebfdc21800ea186d1cdb0ed9d2c",
     );
     return {
       title,
@@ -30,9 +29,8 @@ export const getCachedTermsOfServicePage = cached(
 export const getCachedPrivacyPage = cached(
   "getPrivacyPage",
   async function () {
-    const { title, html } = await NotionPageToHtml.convert(
-      "https://www.notion.so/7f1752d2fb9c40f09c86ffc2cf1b74b3",
-      { bodyContentOnly: true },
+    const { title, html } = await getPageContent(
+      "2e72bebfdc21808098b6c363467653b8",
     );
     return {
       title,
