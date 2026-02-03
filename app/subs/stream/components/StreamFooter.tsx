@@ -7,7 +7,7 @@ export default function StreamFooter() {
       <Container size="lg">
         <Box className={styles.footerBottom}>
           <Text size="sm" c="dimmed">
-            © 2026 Stream by Proofer Tech. All rights reserved.
+            © 2026 Stream by Proofer Inc. All rights reserved.
           </Text>
         </Box>
       </Container>
