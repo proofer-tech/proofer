@@ -1,0 +1,120 @@
+/* Stream 다크 테마: #090915, primary #534EE3 */
+
+.eyebrow {
+  letter-spacing: 0.05em;
+  color: var(--color-primary) !important;
+}
+
+.sectionTitle {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #fff !important;
+}
+
+.sectionIntro {
+  margin-left: 0;
+}
+
+/* 태그라인 스트립 */
+.taglineStrip {
+  background: var(--stream-bg-alt, #0d0d1c);
+  border-top: 1px solid var(--stream-border, rgb(255 255 255 / 8%));
+  border-bottom: 1px solid var(--stream-border, rgb(255 255 255 / 8%));
+}
+
+/* 교차 배경 섹션 */
+.sectionAlt {
+  background: var(--stream-bg-alt, #0d0d1c);
+}
+
+/* 배너 이미지 */
+.bannerImage {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 40%);
+  border-radius: var(--mantine-radius-md);
+}
+
+.coreServiceGrid {
+  margin-top: 0.5rem;
+}
+
+.coreServiceCard {
+  padding: 1.75rem;
+  background: var(--stream-card, #12121f);
+  border-radius: var(--mantine-radius-lg);
+  border: 1px solid var(--stream-border, rgb(255 255 255 / 8%));
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 8px 32px rgb(83 78 227 / 15%);
+    transform: translateY(-2px);
+    border-color: rgb(83 78 227 / 30%);
+  }
+}
+
+.talentGrid {
+  margin-top: 0.5rem;
+}
+
+.talentCard {
+  padding: 1.25rem;
+  background: var(--stream-card, #12121f);
+  border-radius: var(--mantine-radius-md);
+  border: 1px solid var(--stream-border, rgb(255 255 255 / 8%));
+  text-align: center;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: rgb(83 78 227 / 25%);
+    box-shadow: 0 4px 20px rgb(83 78 227 / 10%);
+  }
+}
+
+.securityGrid {
+  margin-top: 0.5rem;
+}
+
+.securityCard {
+  padding: 1.5rem;
+  background: var(--stream-card, #12121f);
+  border-radius: var(--mantine-radius-md);
+  border: 1px solid var(--stream-border, rgb(255 255 255 / 8%));
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 24px rgb(83 78 227 / 10%);
+    border-color: rgb(83 78 227 / 20%);
+  }
+}
+
+.demoImage {
+  width: 100%;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 35%);
+  border-radius: var(--mantine-radius-md);
+}
+
+.finalCta {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    #433bc9 50%,
+    #2d2880 100%
+  );
+  color: white;
+}
+
+.finalCtaTitle {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: #fff !important;
+}

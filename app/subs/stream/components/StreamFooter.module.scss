@@ -1,0 +1,59 @@
+.footer {
+  background: var(--stream-bg-darker, #050509);
+  border-top: 1px solid var(--stream-border, #1a1a2e);
+  padding: 80px 0 32px;
+}
+
+.footerContent {
+  margin-bottom: 48px;
+}
+
+.footerBrand {
+  img {
+    margin-bottom: 16px;
+  }
+}
+
+.footerTagline {
+  font-size: 14px;
+  color: var(--stream-text-secondary, #b4b4c8);
+  line-height: 1.6;
+}
+
+.footerLinks {
+  margin-top: 0;
+}
+
+.footerSectionTitle {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+  color: #fff;
+}
+
+.footerList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin-bottom: 12px;
+  }
+
+  a {
+    font-size: 14px;
+    color: var(--stream-text-secondary, #b4b4c8);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--primary-color, #534ee3);
+    }
+  }
+}
+
+.footerBottom {
+  text-align: center;
+  padding-top: 32px;
+}

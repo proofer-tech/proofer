@@ -23,6 +23,8 @@ import { InquireWidget } from "@/app/components/Inquire";
 import { Down } from "@/app/components/Divider";
 import SpeechBubble from "@/app/(root)/components/SpeechBubble";
 import Background from "@/app/components/Background";
+import { generateUrl } from "@/src/path";
+import { SUB_DOMAIN } from "@/src/constants";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -287,33 +289,41 @@ export default function Page() {
                   </Stack>
                 </Card>
               </Anchor>
-              <Card py={"lg"} px={"xl"} shadow="xs" radius={"lg"}>
-                <Stack gap={"xl"}>
-                  <Stack gap={"sm"}>
-                    <Group>
-                      <Image
-                        src={"/assets/images/stream/logo.png"}
-                        width={100}
-                        height={100}
-                        alt={"스트림(Stream)"}
-                        style={{ width: "auto", height: "2.5em" }}
-                      />
-                      <Stack gap={0}>
-                        <Text size={"xs"}>통합 인재풀 관리 시스템</Text>
-                        <Title order={5}>스트림(Stream)</Title>
-                      </Stack>
-                    </Group>
+              <Anchor
+                className={styles.responsiveGridColumn}
+                href={generateUrl("/", SUB_DOMAIN.stream)}
+                underline={"never"}
+                c={"black"}
+                target="_blank"
+              >
+                <Card py={"lg"} px={"xl"} shadow="xs" radius={"lg"}>
+                  <Stack gap={"xl"}>
+                    <Stack gap={"sm"}>
+                      <Group>
+                        <Image
+                          src={"/assets/images/stream/logo.png"}
+                          width={100}
+                          height={100}
+                          alt={"스트림(Stream)"}
+                          style={{ width: "auto", height: "2.5em" }}
+                        />
+                        <Stack gap={0}>
+                          <Text size={"xs"}>통합 인재풀 관리 시스템</Text>
+                          <Title order={5}>스트림(Stream)</Title>
+                        </Stack>
+                      </Group>
+                    </Stack>
+                    <Stack gap={0}>
+                      <Text>
+                        스트림 자체 통합 인재검색 시스템을 통해 기업에서
+                        사용하고 있는 다양한 인재DB 솔루션으로부터 후보자를
+                        알아서 수집하고, 최신화시켜 우리 회사만의 살아 숨쉬는
+                        인재풀을 만들 수 있습니다.
+                      </Text>
+                    </Stack>
                   </Stack>
-                  <Stack gap={0}>
-                    <Text>
-                      스트림 자체 통합 인재검색 시스템을 통해 기업에서 사용하고
-                      있는 다양한 인재DB 솔루션으로부터 후보자를 알아서
-                      수집하고, 최신화시켜 우리 회사만의 살아 숨쉬는 인재풀을
-                      만들 수 있습니다.
-                    </Text>
-                  </Stack>
-                </Stack>
-              </Card>
+                </Card>
+              </Anchor>
             </SimpleGrid>
             <Accordion
               variant="separated"

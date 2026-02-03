@@ -1,0 +1,76 @@
+.contactSection {
+  padding: 120px 0;
+  background: var(--stream-bg-darker, #050509);
+}
+
+.contactGrid {
+  align-items: start;
+}
+
+.contactInfo {
+  @media (width <= 1024px) {
+    order: 1;
+  }
+}
+
+.contactTitle {
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: #fff;
+
+  @media (width <= 768px) {
+    font-size: 32px;
+  }
+}
+
+.contactDescription {
+  font-size: 16px;
+  color: var(--stream-text-secondary, #b4b4c8);
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+
+.contactMethods {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.contactMethod {
+  display: flex;
+  gap: 20px;
+}
+
+.methodIcon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #534ee3 0%, #8b87ff 100%);
+  border-radius: 12px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.methodContent {
+  flex: 1;
+}
+
+.methodValue {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--primary-color, #534ee3);
+  }
+}
+
+.contactFormWrapper {
+  @media (width <= 1024px) {
+    order: 0;
+  }
+}

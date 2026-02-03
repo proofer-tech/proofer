@@ -1,0 +1,93 @@
+.usecasesSection {
+  padding: 120px 0;
+  background: var(--stream-bg, #090915);
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.sectionTag {
+  display: inline-block;
+  padding: 6px 16px;
+  background: rgb(83 78 227 / 10%);
+  border: 1px solid rgb(83 78 227 / 30%);
+  border-radius: 100px;
+  color: var(--primary-color, #534ee3);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #fff;
+
+  @media (width <= 1024px) {
+    font-size: 40px;
+  }
+
+  @media (width <= 768px) {
+    font-size: 32px;
+  }
+}
+
+.gradientText {
+  background: linear-gradient(135deg, #534ee3 0%, #8b87ff 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.usecasesGrid {
+  margin-top: 0;
+}
+
+.usecaseCard {
+  background: var(--stream-card, #0f0f1e);
+  border: 1px solid var(--stream-border, #1a1a2e);
+  border-radius: 20px;
+  padding: 48px;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    transform: translateY(-8px);
+    border-color: rgb(83 78 227 / 50%);
+    box-shadow: 0 12px 32px rgb(83 78 227 / 20%);
+  }
+
+  @media (width <= 480px) {
+    padding: 32px;
+  }
+}
+
+.usecaseIcon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #534ee3 0%, #8b87ff 100%);
+  border-radius: 20px;
+  color: #fff;
+  box-shadow: 0 8px 24px rgb(83 78 227 / 30%);
+}
+
+.usecaseTitle {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #fff;
+}
+
+.usecaseDescription {
+  font-size: 15px;
+  color: var(--stream-text-secondary, #b4b4c8);
+  line-height: 1.7;
+}

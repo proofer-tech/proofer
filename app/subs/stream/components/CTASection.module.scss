@@ -1,0 +1,110 @@
+.ctaSection {
+  padding: 120px 0;
+  background: linear-gradient(
+    180deg,
+    var(--stream-bg-darker, #050509) 0%,
+    var(--stream-bg, #090915) 100%
+  );
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(
+      circle,
+      rgb(83 78 227 / 15%) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+}
+
+.ctaContent {
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.ctaIcon {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 32px;
+  padding: 20px;
+  background: var(--stream-card, #0f0f1e);
+  border: 2px solid var(--primary-color, #534ee3);
+  border-radius: 24px;
+  box-shadow: 0 12px 32px rgb(83 78 227 / 30%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ctaTitle {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 24px;
+  color: #fff;
+
+  @media (width <= 768px) {
+    font-size: 36px;
+  }
+}
+
+.ctaDescription {
+  font-size: 18px;
+  color: var(--stream-text-secondary, #b4b4c8);
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+
+.ctaButtons {
+  margin-bottom: 48px;
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 40px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 12px;
+  background: rgb(255 255 255 / 5%);
+  color: #fff;
+  border: 1px solid rgb(255 255 255 / 10%);
+  text-decoration: none;
+
+  &:hover {
+    background: rgb(255 255 255 / 10%);
+    border-color: rgb(255 255 255 / 20%);
+    color: #fff;
+  }
+}
+
+.ctaFeatures {
+  gap: 32px;
+
+  @media (width <= 768px) {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.ctaFeature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--stream-text-secondary, #b4b4c8);
+}
+
+.ctaFeatureIcon {
+  color: var(--primary-color, #534ee3);
+  font-size: 18px;
+}

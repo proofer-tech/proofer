@@ -5,28 +5,16 @@ import { SUB_DOMAIN } from "@/src/constants";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "/",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1.0,
-    },
-    {
-      url: generateUrl("/", SUB_DOMAIN.insight),
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1.0,
-    },
-    {
-      url: generateUrl("/", SUB_DOMAIN.devm),
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1.0,
-    },
-    {
       url: generateUrl("/", SUB_DOMAIN.stream),
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1.0,
+    },
+    {
+      url: generateUrl("introduction", SUB_DOMAIN.stream),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
   ];
 }

@@ -1,0 +1,23 @@
+/* Stream 서브: 에이전시 데모 변수 (primary #534EE3, 다크 #090915) */
+.streamRoot {
+  --color-primary: #534ee3;
+  --primary-color: #534ee3;
+  --primary-dark: #3d39c5;
+  --primary-light: #6b67f0;
+  --stream-bg: #090915;
+  --stream-bg-darker: #050509;
+  --stream-card: #0f0f1e;
+  --stream-card-hover: #16162a;
+  --stream-border: #1a1a2e;
+  --stream-text: #fff;
+  --stream-text-secondary: #b4b4c8;
+  --stream-text-tertiary: #8585a3;
+  --stream-gradient: linear-gradient(135deg, #534ee3 0%, #8b87ff 100%);
+  --stream-shadow-sm: 0 2px 8px rgb(0 0 0 / 30%);
+  --stream-shadow-md: 0 4px 16px rgb(0 0 0 / 40%);
+  --stream-shadow-lg: 0 8px 32px rgb(0 0 0 / 50%);
+
+  background: var(--stream-bg);
+  color: var(--stream-text);
+  min-height: 100vh;
+}
