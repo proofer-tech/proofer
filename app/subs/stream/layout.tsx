@@ -5,6 +5,8 @@ import LandingPageShellLayout from "@/app/components/LandingPageShellLayout";
 import { get } from "@vercel/edge-config";
 import { generateMetadataFromTitle } from "@/src/manifest";
 import streamLayoutStyles from "./layout.module.scss";
+import { generateSubdomainPath } from "@/src/path";
+import { SUB_DOMAIN } from "@/src/constants";
 
 export const metadata = generateMetadataFromTitle(
   {
@@ -86,10 +88,14 @@ export default async function Layout({ children }: any) {
   const basePortals = (await get("portals")) as HeaderPortal[];
   const portals: readonly HeaderPortal[] = [
     ...basePortals,
-    { title: "기능", href: "/subs/stream#features" },
-    { title: "핵심가치", href: "/subs/stream#value" },
-    { title: "문의하기", href: "/subs/stream#contact" },
-    { title: "데모 신청", href: "/subs/stream#demo" },
+    {
+      title: "기능소개",
+      href: generateSubdomainPath("#features", SUB_DOMAIN.stream),
+    },
+    {
+      title: "문의하기",
+      href: generateSubdomainPath("#contact", SUB_DOMAIN.stream),
+    },
   ];
   return (
     <LandingPageShellLayout
