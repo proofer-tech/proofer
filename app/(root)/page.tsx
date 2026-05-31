@@ -41,7 +41,7 @@ const jsonLd = {
   url: "https://proofer.tech/",
   logo: "https://proofer.tech/assets/images/logo.svg",
   description:
-    "프루퍼는 소프트웨어 외주, 기술자문, DX상담, 고객을 직접 만나 업무 프로세스를 듣고 관찰하여 고통스럽거나 골치아픈 문제를 해결하고, 비효율적인 과정을 찾아 효율적으로 개선할 수 있는 방법을 함께 고민하여 제공합니다.",
+    "프루퍼 주식회사는 소프트웨어 외주, 기술자문, DX상담, 고객을 직접 만나 업무 프로세스를 듣고 관찰하여 고통스럽거나 골치아픈 문제를 해결하고, 비효율적인 과정을 찾아 효율적으로 개선할 수 있는 방법을 함께 고민하여 제공합니다.",
   address: {
     "@type": "PostalAddress",
     streetAddress: "강남대로112길 47, 2층 421A호",
@@ -289,41 +289,6 @@ export default function Page() {
                   </Stack>
                 </Card>
               </Anchor>
-              <Anchor
-                className={styles.responsiveGridColumn}
-                href={generateUrl("/", SUB_DOMAIN.stream)}
-                underline={"never"}
-                c={"black"}
-                target="_blank"
-              >
-                <Card py={"lg"} px={"xl"} shadow="xs" radius={"lg"}>
-                  <Stack gap={"xl"}>
-                    <Stack gap={"sm"}>
-                      <Group>
-                        <Image
-                          src={"/assets/images/stream/logo.png"}
-                          width={100}
-                          height={100}
-                          alt={"스트림(Stream)"}
-                          style={{ width: "auto", height: "2.5em" }}
-                        />
-                        <Stack gap={0}>
-                          <Text size={"xs"}>통합 인재풀 관리 시스템</Text>
-                          <Title order={5}>스트림(Stream)</Title>
-                        </Stack>
-                      </Group>
-                    </Stack>
-                    <Stack gap={0}>
-                      <Text>
-                        스트림 자체 통합 인재검색 시스템을 통해 기업에서
-                        사용하고 있는 다양한 인재DB 솔루션으로부터 후보자를
-                        알아서 수집하고, 최신화시켜 우리 회사만의 살아 숨쉬는
-                        인재풀을 만들 수 있습니다.
-                      </Text>
-                    </Stack>
-                  </Stack>
-                </Card>
-              </Anchor>
             </SimpleGrid>
             <Accordion
               variant="separated"
@@ -424,6 +389,35 @@ export default function Page() {
                             우리 회사만을 위한 개발자 성과추적 대시보드.
                             개발자들이 어떻게 일하고 있는지 볼수있고, 앞으로
                             개발자들을 어떻게 관리해야 할지 알수있습니다.
+                          </Text>
+                        </Stack>
+                      </Group>
+                    </Anchor>
+                    <Anchor
+                      href={generateUrl("/", SUB_DOMAIN.stream)}
+                      underline={"never"}
+                      c={"black"}
+                      target="_blank"
+                    >
+                      <Group gap={"md"} align={"flex-start"} wrap="nowrap">
+                        <Image
+                          src={"/assets/images/stream/logo.png"}
+                          width={40}
+                          height={40}
+                          alt={"스트림(Stream)"}
+                          style={{
+                            width: "auto",
+                            height: "1.5em",
+                            flexShrink: 0,
+                          }}
+                        />
+                        <Stack gap={4}>
+                          <Title order={5}>스트림(Stream)</Title>
+                          <Text size={"sm"} c={"var(--mantine-color-gray-6)"}>
+                            스트림 자체 통합 인재검색 시스템을 통해 기업에서
+                            사용하고 있는 다양한 인재DB 솔루션으로부터 후보자를
+                            알아서 수집하고, 최신화시켜 우리 회사만의 살아 숨쉬는
+                            인재풀을 만들 수 있습니다.
                           </Text>
                         </Stack>
                       </Group>

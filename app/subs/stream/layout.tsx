@@ -100,7 +100,7 @@ export default async function Layout({ children }: any) {
   return (
     <LandingPageShellLayout
       portals={portals}
-      isServiceEnded={false}
+      isServiceEnded={true}
       logoSrc="/assets/images/stream/logo.png"
     >
       <div className={streamLayoutStyles.streamRoot}>{children}</div>
