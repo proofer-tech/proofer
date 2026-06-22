@@ -1,9 +1,12 @@
 import React from "react";
-import { get } from "@vercel/edge-config";
-import LandingPageShellLayout from "@/app/components/LandingPageShellLayout";
 import { merge } from "lodash";
 import { generateMetadataFromTitle } from "@/src/manifest";
-import { HeaderPortal } from "@/app/components/Header";
+import "./home.scss";
+import Providers from "./components/Providers";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Dock from "./components/Dock";
+import Effects from "./components/Effects";
 
 export const metadata = merge(
   {
@@ -11,7 +14,6 @@ export const metadata = merge(
     keywords: [
       "프루퍼",
       "프루퍼 테크",
-      "프루퍼팀",
       "프루퍼 주식회사",
       "주식회사 프루퍼",
       "임한솔",
@@ -34,19 +36,43 @@ export const metadata = merge(
     fullTitle:
       "프루퍼 : 비즈니스에 기술을 더하다 - 소프트웨어 외주, 기술자문, DX상담",
     description:
-      "프루퍼 주식회사는 소프트웨어 외주, 기술자문, DX상담, 고객을 직접 만나 업무 프로세스를 듣고 관찰하여 고통스럽거나 골치아픈 문제를 해결하고, 비효율적인 과정을 찾아 효율적으로 개선할 수 있는 방법을 함께 고민하여 제공합니다.",
+      "프루퍼 주식회사는 현장을 직접 보고 문제부터 진단합니다. 사람으로 풀 일은 컨설팅으로, 도구가 필요한 일은 직접 만들어 해결합니다.",
   }),
 );
-export default async function Layout({ children }: any) {
-  const portals: readonly HeaderPortal[] = (await get(
-    "portals",
-  )) as HeaderPortal[];
 
+const DOTS = [
+  { href: "#hero", label: "홈" },
+  { href: "#problem", label: "문제" },
+  { href: "#solution", label: "해결" },
+  { href: "#consulting", label: "컨설팅" },
+  { href: "#proof", label: "만든 것·변화" },
+  { href: "#work", label: "일하는 법" },
+  { href: "#team", label: "회사소개" },
+  { href: "#contact", label: "문의" },
+];
+
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <LandingPageShellLayout portals={portals}>
+    <Providers>
+      <div className="home-root">
+        <div id="progress" />
+        <Header />
+        <nav className="dotnav" aria-label="섹션 내비게이션">
+          {DOTS.map((d) => (
+            <a
+              key={d.href}
+              href={d.href}
+              title={d.label}
+              aria-label={d.label}
+            />
+          ))}
+        </nav>
+        <a id="top" />
         {children}
-      </LandingPageShellLayout>
-    </>
+        <Footer />
+        <Dock />
+        <Effects />
+      </div>
+    </Providers>
   );
 }

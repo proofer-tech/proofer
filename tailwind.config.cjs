@@ -17,6 +17,16 @@ module.exports = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+  			proofer: {
+  				blue: 'var(--proofer-blue)',
+  				'blue-deep': 'var(--proofer-blue-deep)',
+  				'blue-soft': 'var(--proofer-blue-soft)',
+  				green: 'var(--proofer-green)',
+  				'green-soft': 'var(--proofer-green-soft)',
+  				ink: 'var(--proofer-ink)',
+  				gray: 'var(--proofer-gray)',
+  				line: 'var(--proofer-line)'
+  			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

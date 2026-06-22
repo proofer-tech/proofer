@@ -7,19 +7,22 @@
 @font-face {
   font-family: LINESeedKR;
   src: url("/assets/fonts/LINESeedKR-Th.woff2") format("woff2");
-  font-weight: 200;
+  font-weight: 300;
+  font-display: swap;
 }
 
 @font-face {
   font-family: LINESeedKR;
   src: url("/assets/fonts/LINESeedKR-Rg.woff2") format("woff2");
   font-weight: 400;
+  font-display: swap;
 }
 
 @font-face {
   font-family: LINESeedKR;
   src: url("/assets/fonts/LINESeedKR-Bd.woff2") format("woff2");
-  font-weight: 600;
+  font-weight: 700;
+  font-display: swap;
 }
 
 :root {
@@ -55,6 +58,16 @@
   --color-background: var(--color-white);
   --color-layer: var(--color-grayscale-1);
 
+  /* 프루퍼 브랜드 토큰 (리뉴얼) */
+  --proofer-blue: #344fe0;
+  --proofer-blue-deep: #0020b6;
+  --proofer-blue-soft: #eef2ff;
+  --proofer-green: #45af66;
+  --proofer-green-soft: #e7f6ec;
+  --proofer-ink: #0b1020;
+  --proofer-gray: #5b6172;
+  --proofer-line: #e9ebf2;
+
   /* shadcn/ui CSS variables */
   --background: 0 0% 100%;
   --foreground: 222.2 84% 4.9%;
@@ -62,7 +75,7 @@
   --card-foreground: 222.2 84% 4.9%;
   --popover: 0 0% 100%;
   --popover-foreground: 222.2 84% 4.9%;
-  --primary: 221.2 83.2% 53.3%;
+  --primary: 231 74% 54%;
   --primary-foreground: 210 40% 98%;
   --secondary: 210 40% 96.1%;
   --secondary-foreground: 222.2 47.4% 11.2%;
@@ -74,7 +87,7 @@
   --destructive-foreground: 210 40% 98%;
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
-  --ring: 221.2 83.2% 53.3%;
+  --ring: 231 74% 54%;
   --radius: 0.5rem;
   --chart-1: 12 76% 61%;
   --chart-2: 173 58% 39%;
