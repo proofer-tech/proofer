@@ -429,6 +429,13 @@ html.snapping {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    /* background-clip:text 는 그라데이션을 인라인 박스(=line-height 높이)에만
+       칠하는데, 빡빡한 line-height 에서 한글 글리프 상단이 박스 위로 솟아
+       그라데이션이 안 칠해져 윗부분이 깎인 듯 보인다. inline-block + 여유 있는
+       세로 박스로 글리프 전체를 덮어 잘림을 방지한다. */
+    display: inline-block;
+    line-height: 1.18;
+    padding-top: 0.06em;
   }
 
   .caret {
@@ -739,6 +746,12 @@ html.snapping {
   }
 
   .layer .lh {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .layer .lh-title {
     display: flex;
     align-items: center;
     gap: 14px;
@@ -1556,6 +1569,17 @@ html.snapping {
     .consult-grid {
       grid-template-columns: 1fr;
       gap: 22px;
+    }
+
+    /* 컨설팅 카드 헤더: 뱃지가 제목을 밀지 않도록 제목 줄과 뱃지를 위아래로 쌓는다. */
+    .layer .lh {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .layer .tagr {
+      margin-left: 0;
     }
 
     .made-row,

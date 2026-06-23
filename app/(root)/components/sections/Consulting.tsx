@@ -25,8 +25,10 @@ export default function Consulting() {
         <div className="stack">
           <div className="layer l3">
             <div className="lh">
-              <span className="num">03</span>
-              <h3>조직 &amp; 팀 설계</h3>
+              <div className="lh-title">
+                <span className="num">03</span>
+                <h3>조직 &amp; 팀 설계</h3>
+              </div>
               <span className="tagr">조직을 키우는 팀</span>
             </div>
             <div className="desc">
@@ -36,8 +38,10 @@ export default function Consulting() {
           </div>
           <div className="layer l2">
             <div className="lh">
-              <span className="num">02</span>
-              <h3>개발 &amp; 구축</h3>
+              <div className="lh-title">
+                <span className="num">02</span>
+                <h3>개발 &amp; 구축</h3>
+              </div>
               <span className="tagr">만들 사람이 필요한 팀</span>
             </div>
             <div className="desc">
@@ -47,8 +51,10 @@ export default function Consulting() {
           </div>
           <div className="layer l1 open">
             <div className="lh">
-              <span className="num">01</span>
-              <h3>진단 &amp; 전환 (DX·AX)</h3>
+              <div className="lh-title">
+                <span className="num">01</span>
+                <h3>진단 &amp; 전환 (DX·AX)</h3>
+              </div>
               <span className="tagr">막막한 팀</span>
             </div>
             <div className="desc">
