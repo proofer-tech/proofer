@@ -1546,6 +1546,13 @@ html.snapping {
   }
 
   @media (max-width: 880px) {
+    /* 모바일에선 다른 섹션과 달리 히어로는 첫 화면을 꽉 채우고 콘텐츠를 세로 중앙에 둔다. */
+    #hero {
+      min-height: 100vh;
+      min-height: 100svh;
+      justify-content: center;
+    }
+
     .hero-grid {
       grid-template-columns: 1fr;
       gap: 6px;
