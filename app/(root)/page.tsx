@@ -4,7 +4,6 @@ import Problem from "./components/sections/Problem";
 import Solution from "./components/sections/Solution";
 import Consulting from "./components/sections/Consulting";
 import Proof from "./components/sections/Proof";
-import Work from "./components/sections/Work";
 import Team from "./components/sections/Team";
 import Contact from "./components/sections/Contact";
 
@@ -52,7 +51,6 @@ export default function Page() {
       <Solution />
       <Consulting />
       <Proof />
-      <Work />
       <Team />
       <Contact />
     </>

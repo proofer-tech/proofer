@@ -46,7 +46,6 @@ const DOTS = [
   { href: "#solution", label: "해결" },
   { href: "#consulting", label: "컨설팅" },
   { href: "#proof", label: "만든 것·변화" },
-  { href: "#work", label: "일하는 법" },
   { href: "#team", label: "회사소개" },
   { href: "#contact", label: "문의" },
 ];

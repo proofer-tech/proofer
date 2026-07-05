@@ -5,7 +5,7 @@ import { useEffect } from "react";
 /**
  * 메인 페이지의 클라이언트 인터랙션을 담당한다.
  * 스크롤 스냅 토글, 진입 reveal, 히어로/마무리 타이핑, 카운트업,
- * 컨설팅 카드 펼침, 플로우 자동 순회, 마그네틱 버튼, 히어로 패럴랙스,
+ * 컨설팅 카드 펼침, 마그네틱 버튼, 히어로 패럴랙스,
  * 도킹 CTA, 도트 내비, 스크롤 프로그레스를 담당한다.
  */
 export default function Effects() {
@@ -150,48 +150,6 @@ export default function Effects() {
     );
     pages.forEach((p) => pio.observe(p));
     cleanups.push(() => pio.disconnect());
-
-    // HOW WE WORK: 자동 강조 순회 + 호버
-    const flow = $("#flow");
-    if (flow) {
-      const cards = Array.from(
-        flow.querySelectorAll<HTMLElement>(".flow-card"),
-      );
-      let fi = 0;
-      let ftimer: ReturnType<typeof setInterval> | null = null;
-      const lit = (i: number) => {
-        fi = i;
-        cards.forEach((c, k) => c.classList.toggle("lit", k === i));
-      };
-      const stopF = () => {
-        if (ftimer) {
-          clearInterval(ftimer);
-          ftimer = null;
-        }
-      };
-      const startF = () => {
-        stopF();
-        if (reduce) return;
-        ftimer = setInterval(() => lit((fi + 1) % cards.length), 2800);
-      };
-      cards.forEach((c, k) =>
-        c.addEventListener("mouseenter", () => {
-          stopF();
-          lit(k);
-        }),
-      );
-      flow.addEventListener("mouseleave", startF);
-      const work = $("#work");
-      if (work) {
-        const fwio = new IntersectionObserver(
-          (es) => es.forEach((e) => (e.isIntersecting ? startF() : stopF())),
-          { threshold: 0.4 },
-        );
-        fwio.observe(work);
-        cleanups.push(() => fwio.disconnect());
-      }
-      cleanups.push(stopF);
-    }
 
     // 컨설팅 레이어 클릭 (모바일 친화)
     const layers = Array.from(document.querySelectorAll<HTMLElement>(".layer"));

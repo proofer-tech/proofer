@@ -10,7 +10,7 @@ export default function Team() {
           style={{ margin: "0 auto 18px" }}
         >
           <div className="eyebrow">TEAM</div>
-          <h2>프루퍼를 만드는 사람들</h2>
+          <h2>그 모든 걸 만드는 사람들</h2>
         </div>
         <div className="team-lead reveal d1">
           <p className="team-lead-head">
@@ -82,6 +82,12 @@ export default function Team() {
             </div>
           </a>
         </div>
+        <p
+          className="muted center reveal d4"
+          style={{ marginTop: 22, fontSize: 13, opacity: 0.6 }}
+        >
+          고객 먼저 · 존중하되 부딪히기 · 배우고 발견하기 · 진짜를 추구
+        </p>
       </div>
     </section>
   );

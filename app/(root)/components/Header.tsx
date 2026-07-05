@@ -5,7 +5,6 @@ import InquireButton from "./InquireButton";
 const MENU = [
   { href: "#consulting", label: "컨설팅" },
   { href: "#proof", label: "만든 것들" },
-  { href: "#work", label: "일하는 법" },
   { href: "#team", label: "팀 소개" },
 ];
 
