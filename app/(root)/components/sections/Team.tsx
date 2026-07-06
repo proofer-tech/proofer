@@ -54,33 +54,25 @@ export default function Team() {
               </div>
             </div>
           </a>
-          <a
-            className="tcard reveal d3"
-            href="https://www.linkedin.com/in/dukman-lim-54b291101"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <div className="tcard reveal d3">
             <div className="pic green">
-              <Image
-                src="/assets/images/team/dukman.png"
-                alt="임덕만"
-                width={120}
-                height={120}
-              />
+              <span className="pic-ph" aria-hidden="true">
+                L
+              </span>
             </div>
             <div className="tinfo">
               <h3>
-                임덕만 <span>이사</span>
+                Louis <span>이사</span>
               </h3>
               <p className="role">20년 동안 사람과 조직을 키워 왔습니다.</p>
               <div className="tags">
                 <span>연세대 MBA</span>
                 <span>쿠팡</span>
                 <span>HR 20년+</span>
-                <span>가디언즈랩 대표</span>
+                <span>스타트업 대표</span>
               </div>
             </div>
-          </a>
+          </div>
         </div>
         <p
           className="muted center reveal d4"
