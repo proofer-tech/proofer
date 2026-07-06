@@ -8,10 +8,12 @@ export default function Contact() {
       <span className="orb o2" />
       <span className="orb o3" />
       <div className="wrap final-wrap reveal">
-        <h2>프루퍼와 이야기 나눠 보세요</h2>
-        <p>
-          컨설팅, 업무 상담, 외주 문의, 제휴까지. 무엇이든 편하게 말씀해 주세요.
-        </p>
+        <h2>
+          기업가치를 증명할
+          <br />
+          준비가 되셨다면.
+        </h2>
+        <p>컨설팅 · 밸류업 · 외주 · 제휴. 무엇이든 편하게 말씀해 주세요.</p>
         <div id="finalCTA">
           <InquireButton className="btn cta-big">
             무료상담 신청{" "}
@@ -27,7 +29,7 @@ export default function Contact() {
             </svg>
           </InquireButton>
         </div>
-        <div className="final-echo">비즈니스에 기술을 더하다</div>
+        <div className="final-echo">PROOF OF VALUE</div>
       </div>
     </section>
   );

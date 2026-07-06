@@ -43,9 +43,12 @@ export const metadata = merge(
 const DOTS = [
   { href: "#hero", label: "홈" },
   { href: "#problem", label: "문제" },
-  { href: "#solution", label: "해결" },
+  { href: "#solution", label: "우리의 답" },
   { href: "#consulting", label: "컨설팅" },
-  { href: "#proof", label: "만든 것·변화" },
+  { href: "#proof", label: "케이스" },
+  { href: "#signals", label: "대상" },
+  { href: "#why", label: "차별점" },
+  { href: "#engagement", label: "참여방식" },
   { href: "#team", label: "회사소개" },
   { href: "#contact", label: "문의" },
 ];

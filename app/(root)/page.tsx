@@ -4,6 +4,9 @@ import Problem from "./components/sections/Problem";
 import Solution from "./components/sections/Solution";
 import Consulting from "./components/sections/Consulting";
 import Proof from "./components/sections/Proof";
+import Signals from "./components/sections/Signals";
+import Why from "./components/sections/Why";
+import Engagement from "./components/sections/Engagement";
 import Team from "./components/sections/Team";
 import Contact from "./components/sections/Contact";
 
@@ -15,7 +18,7 @@ const jsonLd = {
   url: "https://proofer.tech/",
   logo: "https://proofer.tech/assets/images/logo.svg",
   description:
-    "프루퍼 주식회사는 현장을 직접 보고 문제부터 진단합니다. 사람으로 풀 일은 컨설팅으로, 도구가 필요한 일은 직접 만들어 해결합니다.",
+    "프루퍼 주식회사는 운영효율을 극한까지 끌어올려 '팔리는 회사'를 직접 만드는 그로스 컨설팅 파트너입니다. 진단부터 실행·개발·조직·운영까지 직접 책임지며 기업가치를 증명합니다.",
   address: {
     "@type": "PostalAddress",
     streetAddress: "강남대로112길 47, 2층 421A호",
@@ -51,6 +54,9 @@ export default function Page() {
       <Solution />
       <Consulting />
       <Proof />
+      <Signals />
+      <Why />
+      <Engagement />
       <Team />
       <Contact />
     </>

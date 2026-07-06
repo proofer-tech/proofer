@@ -3,8 +3,9 @@ import Image from "next/image";
 import InquireButton from "./InquireButton";
 
 const MENU = [
-  { href: "#consulting", label: "컨설팅" },
-  { href: "#proof", label: "만든 것들" },
+  { href: "#proof", label: "케이스" },
+  { href: "#why", label: "차별점" },
+  { href: "#engagement", label: "참여방식" },
   { href: "#team", label: "팀 소개" },
 ];
 

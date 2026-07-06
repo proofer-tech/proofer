@@ -56,7 +56,7 @@ export default function Effects() {
       requestAnimationFrame(step);
     };
 
-    // 히어로 타이핑 ("비즈니스에" / "기술을 더하다")
+    // 히어로 타이핑 ("기업가치를" / "'증명'합니다")
     const typeEl = $("#heroType");
     let typing = false;
     const typeHero = () => {
@@ -65,8 +65,8 @@ export default function Effects() {
       typing = true;
       typeEl.innerHTML = "";
       const full = [
-        { t: "비즈니스에", c: 0 },
-        { t: "기술을 더하다", c: 1 },
+        { t: "기업가치를", c: 0 },
+        { t: "'증명'합니다", c: 1 },
       ];
       let li = 0;
       let ci = 0;
@@ -99,15 +99,14 @@ export default function Effects() {
       const host = $("#closeText");
       if (!host || host.dataset.t) return;
       if (reduce) {
-        host.textContent =
-          "익숙하시다면, 바로 그 지점부터 프루퍼가 함께합니다.";
+        host.textContent = "밸류업 없이는, 엑싯도 없습니다.";
         return;
       }
       host.dataset.t = "1";
       host.innerHTML = "";
       const parts = [
-        { t: "익숙하시다면, 바로 그 지점부터 ", c: 0 },
-        { t: "프루퍼가 함께합니다.", c: 1 },
+        { t: "밸류업 없이는, ", c: 0 },
+        { t: "엑싯도 없습니다.", c: 1 },
       ];
       let li = 0;
       let ci = 0;
@@ -143,7 +142,7 @@ export default function Effects() {
           if (e.isIntersecting) {
             e.target.querySelectorAll<HTMLElement>(".count").forEach(runCount);
             if (e.target.id === "hero") typeHero();
-            if (e.target.id === "problem") setTimeout(typeClosing, 2200);
+            if (e.target.id === "problem") setTimeout(typeClosing, 900);
           }
         }),
       { threshold: 0.35 },
