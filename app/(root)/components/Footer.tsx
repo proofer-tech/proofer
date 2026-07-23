@@ -17,7 +17,15 @@ export default function Footer() {
             <b>프루퍼주식회사</b> · 대표 임한솔
           </div>
           <div>사업자등록번호 337-81-03650</div>
+          <div>벤처기업확인 제20260722010048호</div>
           <div>서울 강남구 강남대로112길 47, 2층 421A</div>
+          <Image
+            className="venture-mark"
+            src="/assets/images/venturein/벤처기업확인마크_가로조합.png"
+            alt="벤처확인기업"
+            width={380}
+            height={111}
+          />
         </div>
         <div>
           <div>
