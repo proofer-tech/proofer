@@ -506,6 +506,11 @@ html.snapping {
     right: 0;
     bottom: 26px;
     overflow: hidden;
+    /* 우측은 스크림 밖(영상 위)이라 회색 텍스트가 묻힘 → 프로스티드 배경으로 전 구간 가독성 확보 */
+    padding: 8px 0;
+    background: rgba(255, 255, 255, 0.55);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
     mask-image: linear-gradient(
       90deg,
       transparent,
@@ -1987,6 +1992,16 @@ html.snapping {
     }
   }
 
+  /* 히어로 콘텐츠는 짧아(~450px) 낮은 화면에서도 풀높이를 유지 → 하단 절대배치 marquee 가
+     섹션이 아니라 뷰포트 바닥에 붙는다. (노트북 실사용 높이 ≤640px 대응) */
+  @media (max-height: 640px) {
+    #hero {
+      min-height: 100vh;
+      min-height: 100svh;
+      justify-content: center;
+    }
+  }
+
   @media (max-width: 780px) {
     .menu {
       display: none;
@@ -2006,9 +2021,25 @@ html.snapping {
       gap: 6px;
     }
 
+    /* 모바일은 텍스트가 풀폭 → 좌→우 페이드 대신 세로 흰색 베일로 전체를 덮어 가독성 확보 */
+    .hero-scrim {
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.5) 0%,
+        rgba(255, 255, 255, 0.85) 30%,
+        rgba(255, 255, 255, 0.85) 72%,
+        rgba(255, 255, 255, 0.45) 100%
+      );
+    }
+
     .hero-marquee {
       position: static;
       margin-top: 24px;
+      /* 정적 배치(페이지 흰 배경 위)에선 프로스티드 배경 불필요 */
+      padding: 0;
+      background: none;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
     }
 
     #solution .inner {
