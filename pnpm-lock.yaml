@@ -167,6 +167,9 @@ importers:
       '@upstash/lock':
         specifier: ^0.1.0
         version: 0.1.0(typescript@5.9.3)
+      '@upstash/redis':
+        specifier: ^1.25.1
+        version: 1.25.1
       '@vercel/analytics':
         specifier: ^1.2.2
         version: 1.6.1(next@16.0.8(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.101.3))(react@18.3.1)
