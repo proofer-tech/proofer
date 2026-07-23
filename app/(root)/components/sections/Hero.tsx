@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import InquireButton from "../InquireButton";
 
 const MARQUEE = [
@@ -19,6 +18,17 @@ const MARQUEE_TRACK = [...MARQUEE_GROUP, ...MARQUEE_GROUP];
 export default function Hero() {
   return (
     <section className="page snap" id="hero" data-sec="홈">
+      <video
+        className="hero-bg"
+        src="/assets/images/jewelry.mp4"
+        poster="/assets/images/jewelry.png"
+        aria-hidden="true"
+        autoPlay
+        muted
+        loop
+        playsInline
+      />
+      <div className="hero-scrim" aria-hidden="true" />
       <div className="wrap hero-grid">
         <div>
           <div className="eyebrow reveal">
@@ -60,35 +70,6 @@ export default function Hero() {
               무료상담 신청
             </InquireButton>
           </div>
-        </div>
-        <div className="hero-art reveal d2">
-          <Image
-            className="photo floaty"
-            id="heroPhoto"
-            src="/assets/images/magnifier-2.png"
-            alt="현장을 진단하는 프루퍼"
-            width={410}
-            height={410}
-            priority
-          />
-          <Image
-            className="mark"
-            id="markA"
-            src="/assets/images/branding.svg"
-            style={{ width: 30, height: "auto", top: "6%", left: "6%" }}
-            alt=""
-            width={30}
-            height={30}
-          />
-          <Image
-            className="mark"
-            id="markB"
-            src="/assets/images/branding.svg"
-            style={{ width: 22, height: "auto", bottom: "14%", right: "4%" }}
-            alt=""
-            width={22}
-            height={22}
-          />
         </div>
       </div>
       <div className="hero-marquee">

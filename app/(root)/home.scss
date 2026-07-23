@@ -406,7 +406,7 @@ html.snapping {
 
   .hero-grid {
     display: grid;
-    grid-template-columns: 1.06fr 0.94fr;
+    grid-template-columns: minmax(0, 620px);
     gap: 30px;
     align-items: center;
   }
@@ -467,19 +467,31 @@ html.snapping {
     color: var(--line);
   }
 
-  .hero-art {
-    position: relative;
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+
+    /* 영상 로드 전(poster 페치 포함)까지 png 로 배경을 채운다 */
+    background: url("/assets/images/jewelry.png") center / cover no-repeat;
   }
 
-  .hero-art .photo {
-    width: 82%;
-    max-width: 410px;
-    display: block;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-    will-change: transform;
-    height: auto;
+  /* 좌측 텍스트 가독성을 위한 밝은 스크림(왼→오 페이드) */
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      100deg,
+      var(--bg) 20%,
+      rgba(255, 255, 255, 0.72) 45%,
+      transparent 75%
+    );
   }
 
   .mark {
@@ -1992,11 +2004,6 @@ html.snapping {
     .hero-grid {
       grid-template-columns: 1fr;
       gap: 6px;
-    }
-
-    /* 모바일에서는 히어로 일러스트가 어색해 숨긴다(텍스트 중심 구성). */
-    .hero-art {
-      display: none;
     }
 
     .hero-marquee {

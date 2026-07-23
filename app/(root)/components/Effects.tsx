@@ -163,37 +163,13 @@ export default function Effects() {
     });
     cleanups.push(() => layerHandlers.forEach((fn) => fn()));
 
-    // 히어로 패럴랙스
-    const hero = $("#hero");
-    const hp = $("#heroPhoto");
-    const mA = $("#markA");
-    const mB = $("#markB");
-    if (hero && !reduce) {
-      const move = (e: MouseEvent) => {
-        const r = hero.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - 0.5;
-        const y = (e.clientY - r.top) / r.height - 0.5;
-        if (hp) hp.style.transform = `translate(${x * 16}px,${y * 14}px)`;
-        if (mA) mA.style.transform = `translate(${x * -30}px,${y * -26}px)`;
-        if (mB) mB.style.transform = `translate(${x * 26}px,${y * 22}px)`;
-      };
-      const leave = () => {
-        if (hp) hp.style.transform = "";
-        if (mA) mA.style.transform = "";
-        if (mB) mB.style.transform = "";
-      };
-      hero.addEventListener("mousemove", move);
-      hero.addEventListener("mouseleave", leave);
-      cleanups.push(() => {
-        hero.removeEventListener("mousemove", move);
-        hero.removeEventListener("mouseleave", leave);
-      });
-    }
+    // 히어로 패럴랙스(마우스 반응) 제거됨
 
     // 도킹 CTA: 히어로 이후 노출, 문의 섹션에서 안착
     const dock = $("#dock-cta");
     const finalCTA = $("#finalCTA");
     const contact = $("#contact");
+    const hero = $("#hero");
     let heroVis = true;
     let contactVis = false;
     const upd = () => dock?.classList.toggle("on", !heroVis && !contactVis);

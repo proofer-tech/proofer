@@ -1,9 +1,19 @@
 {
   "compilerOptions": {
-    "typeRoots": ["./node_modules/@types", "./@types"],
-    "types": ["node", "jest"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./@types"
+    ],
+    "types": [
+      "node",
+      "jest"
+    ],
     "target": "esnext",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,7 +29,9 @@
     "jsx": "react-jsx",
     "incremental": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     },
     "plugins": [
       {
@@ -32,7 +44,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    ".next/dev/types/**/*.ts",
+    ".next/dev/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

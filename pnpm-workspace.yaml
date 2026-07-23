@@ -1,0 +1,18 @@
+# Next.js serverExternalPackages must resolve from the project root;
+# hoist these out of .pnpm into top-level node_modules.
+publicHoistPattern:
+  - canvas
+  - pdfjs-dist
+  - import-in-the-middle
+  - require-in-the-middle
+
+allowBuilds:
+  '@parcel/watcher': true
+  '@sentry/cli': true
+  bufferutil: true
+  canvas: true
+  esbuild: true
+  iconv: true
+  sharp: true
+  unrs-resolver: true
+  utf-8-validate: true
