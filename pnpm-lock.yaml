@@ -345,6 +345,9 @@ importers:
       '@eslint/eslintrc':
         specifier: ^3.3.3
         version: 3.3.6
+      '@eslint/js':
+        specifier: ^10.0.1
+        version: 10.0.1(eslint@9.39.5(jiti@1.21.7))
       '@next/eslint-plugin-next':
         specifier: ^16.0.8
         version: 16.2.11
@@ -413,7 +416,7 @@ importers:
         version: 9.39.5(jiti@1.21.7)
       eslint-config-mantine:
         specifier: ^4.0.3
-        version: 4.0.3(@eslint/js@9.39.5)(eslint-plugin-jsx-a11y@6.10.2(eslint@9.39.5(jiti@1.21.7)))(eslint-plugin-react@7.37.5(eslint@9.39.5(jiti@1.21.7)))(eslint@9.39.5(jiti@1.21.7))(typescript-eslint@8.65.0(eslint@9.39.5(jiti@1.21.7))(typescript@5.9.3))
+        version: 4.0.3(@eslint/js@10.0.1(eslint@9.39.5(jiti@1.21.7)))(eslint-plugin-jsx-a11y@6.10.2(eslint@9.39.5(jiti@1.21.7)))(eslint-plugin-react@7.37.5(eslint@9.39.5(jiti@1.21.7)))(eslint@9.39.5(jiti@1.21.7))(typescript-eslint@8.65.0(eslint@9.39.5(jiti@1.21.7))(typescript@5.9.3))
       eslint-plugin-import:
         specifier: ^2.32.0
         version: 2.32.0(@typescript-eslint/parser@8.65.0(eslint@9.39.5(jiti@1.21.7))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.5(jiti@1.21.7))
@@ -1706,6 +1709,15 @@ packages:
   '@eslint/eslintrc@3.3.6':
     resolution: {integrity: sha512-l2Ul9PrHsPCKcEY/ac7VgFj9D80C7S68sOKc618SyHDPK36s1XcFebXY0iTzUVn4Yq+YbwvSnDmCz9yxjX+QrA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@eslint/js@10.0.1':
+    resolution: {integrity: sha512-zeR9k5pd4gxjZ0abRoIaxdc7I3nDktoXZk2qOv9gCNWx3mVwEn32VRhyLaRsDiJjTs0xq/T8mfPtyuXu7GWBcA==}
+    engines: {node: ^20.19.0 || ^22.13.0 || >=24}
+    peerDependencies:
+      eslint: ^10.0.0
+    peerDependenciesMeta:
+      eslint:
+        optional: true
 
   '@eslint/js@9.39.5':
     resolution: {integrity: sha512-QywQuszQh77pIXCsq998c8hbhSTI/azTty1Z6N53dmAudKHhy573j3yvRLsX2BSp8YpLtoCEG8E9DJe+8zUh4A==}
@@ -11448,6 +11460,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@eslint/js@10.0.1(eslint@9.39.5(jiti@1.21.7))':
+    optionalDependencies:
+      eslint: 9.39.5(jiti@1.21.7)
+
   '@eslint/js@9.39.5': {}
 
   '@eslint/object-schema@2.1.7': {}
@@ -16025,9 +16041,9 @@ snapshots:
     optionalDependencies:
       source-map: 0.6.1
 
-  eslint-config-mantine@4.0.3(@eslint/js@9.39.5)(eslint-plugin-jsx-a11y@6.10.2(eslint@9.39.5(jiti@1.21.7)))(eslint-plugin-react@7.37.5(eslint@9.39.5(jiti@1.21.7)))(eslint@9.39.5(jiti@1.21.7))(typescript-eslint@8.65.0(eslint@9.39.5(jiti@1.21.7))(typescript@5.9.3)):
+  eslint-config-mantine@4.0.3(@eslint/js@10.0.1(eslint@9.39.5(jiti@1.21.7)))(eslint-plugin-jsx-a11y@6.10.2(eslint@9.39.5(jiti@1.21.7)))(eslint-plugin-react@7.37.5(eslint@9.39.5(jiti@1.21.7)))(eslint@9.39.5(jiti@1.21.7))(typescript-eslint@8.65.0(eslint@9.39.5(jiti@1.21.7))(typescript@5.9.3)):
     dependencies:
-      '@eslint/js': 9.39.5
+      '@eslint/js': 10.0.1(eslint@9.39.5(jiti@1.21.7))
       eslint: 9.39.5(jiti@1.21.7)
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.5(jiti@1.21.7))
       eslint-plugin-react: 7.37.5(eslint@9.39.5(jiti@1.21.7))
