@@ -4,6 +4,7 @@ export const SUB_DOMAIN = {
   devm: "devm",
   stream: "stream",
   withCto: "with-cto",
+  payapp: "payapp",
 } as const;
 export const SUB_DOMAIN_NAMES = {
   [SUB_DOMAIN.insight]: "프루퍼 인사이트",
