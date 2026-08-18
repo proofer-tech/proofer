@@ -480,7 +480,11 @@ html.snapping {
     background: url("/assets/images/jewelry.png") center / cover no-repeat;
   }
 
-  /* 좌측 텍스트 가독성을 위한 밝은 스크림(왼→오 페이드) */
+  /* 좌측 텍스트 가독성을 위한 밝은 스크림(왼→오 페이드)
+     카피 컬럼은 .wrap(1160px) 안의 620px 이라 화면 폭의 약 6~55% 를 차지한다.
+     그래서 55% 까지만 확실히 덮고 68% 부터는 완전히 비워 영상을 그대로 보여준다.
+     구 값(불투명 20%, 페이드 75%)은 카피가 없는 구간까지 덮어 영상 가시 영역이
+     우측 25% 뿐이었다. */
   .hero-scrim {
     position: absolute;
     inset: 0;
@@ -488,9 +492,10 @@ html.snapping {
     pointer-events: none;
     background: linear-gradient(
       100deg,
-      var(--bg) 20%,
-      rgba(255, 255, 255, 0.72) 45%,
-      transparent 75%
+      var(--bg) 6%,
+      rgba(255, 255, 255, 0.8) 38%,
+      rgba(255, 255, 255, 0.45) 55%,
+      transparent 68%
     );
   }
 

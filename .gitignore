@@ -59,3 +59,4 @@ workbox-*.js.map
 .env.sentry-build-plugin
 .env*
 .gstack/
+.dira
