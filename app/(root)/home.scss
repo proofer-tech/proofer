@@ -477,7 +477,7 @@ html.snapping {
     pointer-events: none;
 
     /* 영상 로드 전(poster 페치 포함)까지 png 로 배경을 채운다 */
-    background: url("/assets/images/jewelry.png") center / cover no-repeat;
+    background: url("/assets/images/hero-bg.png") center / cover no-repeat;
   }
 
   /* 좌측 텍스트 가독성을 위한 밝은 스크림(왼→오 페이드)

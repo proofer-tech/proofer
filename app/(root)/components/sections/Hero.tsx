@@ -20,8 +20,8 @@ export default function Hero() {
     <section className="page snap" id="hero" data-sec="홈">
       <video
         className="hero-bg"
-        src="/assets/images/jewelry.mp4"
-        poster="/assets/images/jewelry.png"
+        src="/assets/images/hero-bg.mp4"
+        poster="/assets/images/hero-bg.png"
         aria-hidden="true"
         autoPlay
         muted
