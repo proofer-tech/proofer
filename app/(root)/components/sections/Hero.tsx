@@ -25,7 +25,6 @@ export default function Hero() {
         aria-hidden="true"
         autoPlay
         muted
-        loop
         playsInline
       />
       <div className="hero-scrim" aria-hidden="true" />
