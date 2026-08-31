@@ -204,7 +204,8 @@
       padding: 88px 0 56px;
     }
 
-    .plans-grid {
+    .plans-grid,
+    .prob-grid {
       grid-template-columns: 1fr;
     }
 
@@ -241,6 +242,15 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 4px;
+    }
+
+    .path-steps {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .path-arrow {
+      transform: rotate(90deg);
     }
   }
 
@@ -882,6 +892,106 @@
       justify-content: center;
     }
   }
-}
 
-/* PERSIST_TEST_A */
+  #hero h1 {
+    font-size: clamp(32px, 5.2vw, 56px);
+    line-height: 1.16;
+    margin-top: 16px;
+  }
+
+  .sub {
+    font-size: clamp(15.5px, 1.7vw, 18px);
+    color: var(--gray);
+    margin: 18px 0 22px;
+    max-width: 560px;
+  }
+
+  .mini-metrics {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    color: var(--gray);
+    font-size: 13px;
+    margin-bottom: 30px;
+  }
+
+  .mini-metrics .dotx {
+    color: var(--line);
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-secondary {
+    background: var(--bg);
+    color: var(--ink);
+    border: 1.6px solid var(--line);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+
+  .prob-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 12px;
+  }
+
+  .prob-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .prob-card p {
+    margin: 0;
+    color: var(--gray);
+    font-size: 14.5px;
+  }
+
+  .path-steps {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 34px;
+  }
+
+  .path-step {
+    flex: 1;
+    min-width: 180px;
+    background: rgb(255 255 255 / 10%);
+    border: 1px solid rgb(255 255 255 / 24%);
+    border-radius: var(--r);
+    padding: 20px 22px;
+  }
+
+  .path-step-label {
+    font-weight: 700;
+    font-size: 17px;
+    margin-bottom: 6px;
+  }
+
+  .path-step-desc {
+    color: #dfe6ff;
+    font-size: 14.5px;
+  }
+
+  .path-arrow {
+    flex: 0 0 auto;
+    font-size: 22px;
+    color: #cdd8ff;
+  }
+
+  .solution-message {
+    margin-top: 28px;
+    font-size: clamp(16px, 2vw, 19px);
+    font-weight: 700;
+    color: #fff;
+  }
+}
