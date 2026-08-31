@@ -557,6 +557,11 @@
   }
 
   .plan-price {
+    // ponytail: .plan-card is a column flex box, so auto margin here pushes the
+    // divider, the price and the button below it to the card bottom. Cards in the
+    // 3-column grid stretch to the tallest one, so the three buttons line up.
+    // In the single-column mobile grid there is no free space, so this is a no-op.
+    margin-top: auto;
     font-weight: 700;
     font-size: 18px;
     padding-top: 6px;
