@@ -228,6 +228,20 @@
     #contact .wrap > .btn {
       display: none;
     }
+
+    .level-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .level-meta {
+      grid-template-columns: 1fr;
+    }
+
+    .stage-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
   }
 
   .why-scroll {
@@ -297,6 +311,185 @@
 
   .why-note b {
     color: var(--blue);
+  }
+
+  .curriculum-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .tab-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .tab-label {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 999px;
+    border: 1.6px solid var(--line);
+    font-weight: 700;
+    font-size: 14.5px;
+    color: var(--gray);
+    cursor: pointer;
+    transition:
+      background 0.18s,
+      color 0.18s,
+      border-color 0.18s;
+  }
+
+  .tab-input:checked + .tab-label {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
+  }
+
+  .tab-input:focus-visible + .tab-label {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+  }
+
+  .tab-panel {
+    display: none;
+    flex: 0 0 100%;
+    margin-top: 24px;
+  }
+
+  #tab-lecture:checked ~ .panel-lecture,
+  #tab-hackathon:checked ~ .panel-hackathon,
+  #tab-consulting:checked ~ .panel-consulting {
+    display: block;
+  }
+
+  .level-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .level-summary {
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .level-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .level-summary:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 4px;
+  }
+
+  .level-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .level-code {
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .level-meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 16px;
+    margin: 0;
+  }
+
+  .level-meta dt {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gray);
+  }
+
+  .level-meta dd {
+    margin: 2px 0 0;
+    font-size: 14px;
+  }
+
+  .level-card[open] {
+    box-shadow: var(--shadow);
+  }
+
+  .level-detail {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+
+  .level-note {
+    margin: 14px 0 0;
+    font-size: 13px;
+    color: var(--gray);
+  }
+
+  .stage-timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .stage-item {
+    border: 1.6px solid var(--line);
+    border-radius: var(--r);
+    background: var(--bg);
+    padding: 20px 22px;
+  }
+
+  .stage-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .stage-duration {
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .stage-items {
+    margin: 0 0 12px;
+    padding-left: 20px;
+    color: var(--gray);
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .stage-deliverable {
+    font-size: 13.5px;
+    font-weight: 700;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+  }
+
+  .stage-deliverable-label {
+    color: var(--gray);
+    font-weight: 700;
+    margin-right: 8px;
   }
 
   .plans-grid {
