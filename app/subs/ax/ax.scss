@@ -199,61 +199,6 @@
     display: none;
   }
 
-  @media (width <= 880px) {
-    .page {
-      padding: 88px 0 56px;
-    }
-
-    .plans-grid,
-    .prob-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .mobile-cta {
-      display: flex;
-      position: fixed;
-      z-index: 40;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
-      background: var(--bg);
-      border-top: 1px solid var(--line);
-    }
-
-    .mobile-cta .btn {
-      width: 100%;
-      justify-content: center;
-    }
-
-    #contact .wrap > .btn {
-      display: none;
-    }
-
-    .level-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .level-meta {
-      grid-template-columns: 1fr;
-    }
-
-    .stage-head {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 4px;
-    }
-
-    .path-steps {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .path-arrow {
-      transform: rotate(90deg);
-    }
-  }
-
   .why-scroll {
     overflow-x: auto;
     margin-top: 28px;
@@ -873,31 +818,6 @@
     color: var(--blue-deep);
   }
 
-  @media (width <= 880px) {
-    .made-row {
-      grid-template-columns: 1fr;
-    }
-
-    .case-metrics {
-      grid-template-columns: 1fr;
-    }
-
-    .team-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (width <= 560px) {
-    .tcard {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .tags {
-      justify-content: center;
-    }
-  }
-
   #hero h1 {
     font-size: clamp(32px, 5.2vw, 56px);
     line-height: 1.16;
@@ -1019,9 +939,88 @@
     transition: 0.2s;
   }
 
+  // Responsive overrides live here, at the very end of .ax-root.
+  // Same specificity as the base rules, so anything placed earlier gets
+  // overridden by the base rule that follows it.
   @media (width <= 880px) {
+    .page {
+      padding: 88px 0 56px;
+    }
+
+    .plans-grid,
+    .prob-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .mobile-cta {
+      display: flex;
+      position: fixed;
+      z-index: 40;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
+      background: var(--bg);
+      border-top: 1px solid var(--line);
+    }
+
+    .mobile-cta .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    #contact .wrap > .btn {
+      display: none;
+    }
+
+    .level-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .level-meta {
+      grid-template-columns: 1fr;
+    }
+
+    .stage-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    .path-steps {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .path-arrow {
+      transform: rotate(90deg);
+    }
+
+    .made-row {
+      grid-template-columns: 1fr;
+    }
+
+    .case-metrics {
+      grid-template-columns: 1fr;
+    }
+
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+
     .dotnav {
       display: none;
+    }
+  }
+
+  @media (width <= 560px) {
+    .tcard {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .tags {
+      justify-content: center;
     }
   }
 }
