@@ -55,10 +55,35 @@ const jsonLd = [
   },
 ];
 
+const DOTS = [
+  { href: "#hero", label: "홈" },
+  { href: "#problem", label: "문제" },
+  { href: "#solution", label: "우리의 답" },
+  { href: "#curriculum", label: "커리큘럼" },
+  { href: "#proof", label: "근거" },
+  { href: "#signals", label: "대상" },
+  { href: "#why", label: "차별점" },
+  { href: "#plans", label: "플랜" },
+  { href: "#faq", label: "FAQ" },
+  { href: "#contact", label: "상담" },
+];
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Providers>
-      <div className="ax-root">{children}</div>
+      <div className="ax-root">
+        <nav className="dotnav" aria-label="섹션 내비게이션">
+          {DOTS.map((d) => (
+            <a
+              key={d.href}
+              href={d.href}
+              title={d.label}
+              aria-label={d.label}
+            />
+          ))}
+        </nav>
+        {children}
+      </div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
