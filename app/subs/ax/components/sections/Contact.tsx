@@ -6,10 +6,11 @@ export default function Contact() {
     <section className="page snap" id="contact" data-sec="상담">
       <div className="wrap">
         <div className="section-head">
-          <h2>우리 회사에 무엇부터 맞을지 같이 봐 드립니다.</h2>
+          <h2>상담 한 번으로 품의서에 붙일 커리큘럼 초안과 견적을 드립니다.</h2>
           <p className="contact-body">
-            상담은 무료이고, 커리큘럼 초안과 견적까지 드립니다. 도입 결정은 그
-            뒤에 하셔도 됩니다.
+            미리 준비해 오실 것은 없습니다. 인원과 일정, 사내 보안 조건만 알려
+            주시면 어느 플랜부터 시작할지 같이 정합니다. 도입 결정은 그 뒤에
+            하셔도 됩니다.
           </p>
         </div>
         <AxInquireButton className="btn btn-primary">
