@@ -1,13 +1,13 @@
 import React from "react";
 import Hero from "@/app/subs/ax/components/sections/Hero";
 import Problem from "@/app/subs/ax/components/sections/Problem";
-import Solution from "@/app/subs/ax/components/sections/Solution";
-import Curriculum from "@/app/subs/ax/components/sections/Curriculum";
-import Proof from "@/app/subs/ax/components/sections/Proof";
-import Signals from "@/app/subs/ax/components/sections/Signals";
-import Why from "@/app/subs/ax/components/sections/Why";
-import Plans from "@/app/subs/ax/components/sections/Plans";
-import Faq from "@/app/subs/ax/components/sections/Faq";
+import Approach from "@/app/subs/ax/components/sections/Approach";
+import System from "@/app/subs/ax/components/sections/System";
+import Lecture from "@/app/subs/ax/components/sections/Lecture";
+import Hackathon from "@/app/subs/ax/components/sections/Hackathon";
+import Consulting from "@/app/subs/ax/components/sections/Consulting";
+import Package from "@/app/subs/ax/components/sections/Package";
+import Outcome from "@/app/subs/ax/components/sections/Outcome";
 import Contact from "@/app/subs/ax/components/sections/Contact";
 
 export default function Page() {
@@ -15,13 +15,13 @@ export default function Page() {
     <>
       <Hero />
       <Problem />
-      <Solution />
-      <Curriculum />
-      <Proof />
-      <Signals />
-      <Why />
-      <Plans />
-      <Faq />
+      <Approach />
+      <System />
+      <Lecture />
+      <Hackathon />
+      <Consulting />
+      <Package />
+      <Outcome />
       <Contact />
     </>
   );

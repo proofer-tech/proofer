@@ -1,7 +1,9 @@
 import React from "react";
+import Image from "next/image";
 import { generateMetadataFromTitle } from "@/src/manifest";
 import "./ax.scss";
 import Providers from "@/app/subs/ax/components/Providers";
+import AxInquireButton from "@/app/subs/ax/components/AxInquireButton";
 
 export const metadata = generateMetadataFromTitle(
   {
@@ -55,34 +57,69 @@ const jsonLd = [
   },
 ];
 
-const DOTS = [
-  { href: "#hero", label: "홈" },
-  { href: "#problem", label: "문제" },
-  { href: "#solution", label: "우리의 답" },
-  { href: "#curriculum", label: "커리큘럼" },
-  { href: "#proof", label: "근거" },
-  { href: "#signals", label: "대상" },
-  { href: "#why", label: "차별점" },
-  { href: "#plans", label: "플랜" },
-  { href: "#faq", label: "FAQ" },
-  { href: "#contact", label: "상담" },
+const NAV = [
+  { href: "#approach", label: "관점" },
+  { href: "#system", label: "커리큘럼" },
+  { href: "#lecture", label: "Lecture" },
+  { href: "#hackathon", label: "Hackathon" },
+  { href: "#consulting", label: "Consulting" },
+  { href: "#package", label: "패키지" },
 ];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Providers>
       <div className="ax-root">
-        <nav className="dotnav" aria-label="섹션 내비게이션">
-          {DOTS.map((d) => (
-            <a
-              key={d.href}
-              href={d.href}
-              title={d.label}
-              aria-label={d.label}
+        <header className="ax-header">
+          <a
+            href="#top"
+            className="ax-header__brand"
+            aria-label="proofer AX 홈"
+          >
+            <Image
+              src="/assets/images/stream/white_logo.png"
+              alt="proofer"
+              width={35}
+              height={22}
+              priority
             />
-          ))}
-        </nav>
+            <span className="ax-header__brand-mark">AX</span>
+          </a>
+          <nav className="ax-nav" aria-label="섹션 내비게이션">
+            {NAV.map((n) => (
+              <a key={n.href} href={n.href}>
+                {n.label}
+              </a>
+            ))}
+          </nav>
+          <AxInquireButton className="ax-btn">도입 문의</AxInquireButton>
+        </header>
         {children}
+        <footer className="ax-footer">
+          <div className="ax-container">
+            <div>
+              <Image
+                src="/assets/images/stream/white_logo.png"
+                alt="proofer"
+                width={39}
+                height={24}
+              />
+              <div className="ax-footer__biz">
+                <div>
+                  <strong>프루퍼주식회사</strong> · 대표 임한솔
+                </div>
+                <div>사업자등록번호 337-81-03650</div>
+                <div>서울 강남구 강남대로112길 47, 2층 421A</div>
+              </div>
+            </div>
+            <div className="ax-footer__contact">
+              <div className="ax-footer__contact-label">CONTACT</div>
+              <a href="mailto:info@proofer.tech">info@proofer.tech</a>
+              <a href="https://proofer.tech">proofer.tech</a>
+              <div>ax.proofer.tech</div>
+            </div>
+          </div>
+        </footer>
       </div>
       <script
         type="application/ld+json"
