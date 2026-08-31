@@ -5,10 +5,12 @@ export const SUB_DOMAIN = {
   stream: "stream",
   withCto: "with-cto",
   payapp: "payapp",
+  ax: "ax",
 } as const;
 export const SUB_DOMAIN_NAMES = {
   [SUB_DOMAIN.insight]: "프루퍼 인사이트",
   [SUB_DOMAIN.devm]: "프루퍼 데브엠",
   [SUB_DOMAIN.stream]: "스트림(Stream)",
   [SUB_DOMAIN.withCto]: "with CTO:",
+  [SUB_DOMAIN.ax]: "프루퍼 AX",
 };
