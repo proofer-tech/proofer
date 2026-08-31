@@ -1,9 +1,12 @@
 import React from "react";
 
 const STEPS = [
-  { label: "AX 강의", desc: "쓸 줄 알게 만든다" },
-  { label: "AX 해커톤", desc: "성과를 만들어 본다" },
-  { label: "AX 컨설팅", desc: "조직이 스스로 굴린다" },
+  { label: "AX 강의", desc: "직원이 자기 반복 업무 세 가지를 AI로 옮깁니다" },
+  {
+    label: "AX 해커톤",
+    desc: "팀이 부서 병목 하나를 동작하는 결과물로 만듭니다",
+  },
+  { label: "AX 컨설팅", desc: "사내 담당자가 다음 과제를 직접 굴립니다" },
 ];
 
 export default function Solution() {
@@ -30,7 +33,8 @@ export default function Solution() {
           ))}
         </div>
         <p className="solution-message">
-          프루퍼는 가르치고 끝나지 않고, 실제로 도는 것을 만들어 놓고 나옵니다.
+          어디서 시작하든 도착하는 자리는 같습니다. 프루퍼가 나간 뒤에도
+          사내에서 그 일이 계속 도는 데까지 같이 갑니다.
         </p>
       </div>
     </section>
