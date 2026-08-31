@@ -1,0 +1,160 @@
+.hero {
+  position: relative;
+  padding: 120px 40px 96px;
+  border-bottom: 1px solid var(--line);
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    900px 420px at 18% 8%,
+    rgb(52 79 224 / 28%),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.grid {
+  position: relative;
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 64px;
+  align-items: end;
+}
+
+.headline {
+  margin: 0;
+  font-size: 68px;
+  line-height: 1.14;
+  letter-spacing: -0.035em;
+  font-weight: 800;
+  color: #fff;
+  text-wrap: balance;
+}
+
+.lead {
+  margin: 32px 0 0;
+  font-size: 19px;
+  line-height: 1.72;
+  color: var(--muted);
+  max-width: 620px;
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 44px;
+  flex-wrap: wrap;
+}
+
+.tiles {
+  display: grid;
+  gap: 1px;
+  background: rgb(255 255 255 / 10%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.tile {
+  background: var(--bg-alt);
+  padding: 26px 28px;
+}
+
+.tileLabel {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: #6c7590;
+}
+
+.tileValue {
+  font-size: 34px;
+  font-weight: 800;
+  color: #fff;
+  margin-top: 10px;
+  letter-spacing: -0.03em;
+}
+
+.tileTools {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 10px;
+  letter-spacing: -0.01em;
+}
+
+.tileDesc {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.marqueeOuter {
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background: #0c0f1a;
+  padding: 16px 0;
+}
+
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marqueeTrack {
+    animation: none;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marqueeList {
+  display: flex;
+  gap: 36px;
+  padding-right: 36px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: #6c7590;
+  white-space: nowrap;
+}
+
+.marqueeDot {
+  color: var(--blue);
+}
+
+@media (width <= 880px) {
+  .grid {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+}
+
+@media (width <= 560px) {
+  .hero {
+    padding: 96px 24px 72px;
+  }
+
+  .headline {
+    font-size: 44px;
+  }
+
+  .lead {
+    font-size: 17px;
+  }
+}

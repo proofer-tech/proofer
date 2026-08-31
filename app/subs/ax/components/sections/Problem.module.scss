@@ -1,0 +1,78 @@
+.problem {
+  padding: 104px 40px;
+  border-bottom: 1px solid var(--line);
+}
+
+.grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 64px;
+}
+
+.headline {
+  margin: 20px 0 0;
+  font-size: 40px;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.body {
+  display: grid;
+  gap: 20px;
+}
+
+.lead {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.78;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgb(255 255 255 / 10%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.card {
+  background: var(--bg-alt);
+  padding: 24px;
+}
+
+.cardNum {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #6c7590;
+}
+
+.cardTitle {
+  margin-top: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.cardDesc {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #8b93a8;
+}
+
+@media (width <= 880px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
