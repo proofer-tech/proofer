@@ -139,5 +139,138 @@
     .page {
       padding: 88px 0 56px;
     }
+
+    .plans-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .why-scroll {
+    overflow-x: auto;
+    margin-top: 28px;
+  }
+
+  .why-table {
+    width: 100%;
+    min-width: 640px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--bg);
+    border: 1.6px solid var(--line);
+    border-radius: var(--r);
+    overflow: hidden;
+  }
+
+  .why-table th,
+  .why-table td {
+    padding: 16px 18px;
+    text-align: left;
+    font-size: 14.5px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .why-table thead th {
+    font-weight: 700;
+    color: var(--gray);
+    background: var(--bg-alt);
+    font-size: 13.5px;
+  }
+
+  .why-table th.col-us,
+  .why-table td.col-us {
+    background: var(--blue-soft);
+  }
+
+  .why-table thead th.col-us {
+    color: var(--blue-deep);
+  }
+
+  .why-table tbody th {
+    font-weight: 700;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  .why-table tbody tr:last-child th,
+  .why-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .why-note {
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 700;
+    font-size: clamp(15px, 2.2vw, 19px);
+    color: var(--ink);
+  }
+
+  .why-note b {
+    color: var(--blue);
+  }
+
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 12px;
+  }
+
+  .plan-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .plan-card.featured {
+    border-color: var(--blue);
+    box-shadow: var(--shadow);
+  }
+
+  .plan-badge {
+    position: absolute;
+    top: -13px;
+    right: 22px;
+    background: var(--blue);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+
+  .plan-tagline {
+    color: var(--blue);
+    font-weight: 700;
+  }
+
+  .plan-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+  }
+
+  .plan-info dt {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gray);
+  }
+
+  .plan-info dd {
+    margin: 2px 0 0;
+    font-size: 14.5px;
+  }
+
+  .plan-price {
+    font-weight: 700;
+    font-size: 18px;
+    padding-top: 6px;
+    border-top: 1px solid var(--line);
+  }
+
+  .plan-btn {
+    width: 100%;
+    justify-content: center;
   }
 }
