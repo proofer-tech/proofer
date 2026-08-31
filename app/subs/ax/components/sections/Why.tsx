@@ -4,17 +4,17 @@ const ROWS: { label: string; typical: string; proofer: string }[] = [
   {
     label: "커리큘럼",
     typical: "표준 교안 그대로",
-    proofer: "고객사 직무와 데이터에 맞춰 재설계",
+    proofer: "고객사 직무와 실제 데이터에 맞춰 모듈을 다시 짭니다",
   },
   {
     label: "실습 자료",
-    typical: "예제 데이터",
-    proofer: "고객사 실제 업무 자료(더미 처리)",
+    typical: "공개 예제 데이터",
+    proofer: "담당자가 실제로 다루는 업무 파일을 더미로 바꿔 씁니다",
   },
   {
     label: "강사",
-    typical: "교육 전문 강사",
-    proofer: "실제로 시스템을 만드는 사람",
+    typical: "교육을 전업으로 하는 강사",
+    proofer: "자체 서비스 3종을 직접 만들어 운영 중인 사람",
   },
   {
     label: "종료 시점",
@@ -24,12 +24,13 @@ const ROWS: { label: string; typical: string; proofer: string }[] = [
   {
     label: "사후",
     typical: "만족도 조사",
-    proofer: "현업 적용률 추적, 사내 담당자 양성",
+    proofer:
+      "현업 적용률까지 담은 결과 리포트를 내고, 이어 갈 사내 담당자를 남깁니다",
   },
   {
     label: "보안",
-    typical: "일반 안내",
-    proofer: "고객사 반출 기준에 맞춘 실무 가이드",
+    typical: "일반 보안 수칙 안내",
+    proofer: "분반이 다루는 자료를 기준으로 반출 금지선을 확정합니다",
   },
 ];
 
@@ -62,8 +63,8 @@ export default function Why() {
           </table>
         </div>
         <p className="why-note">
-          프루퍼가 개발과 운영을 직접 하는 회사라는 점이{" "}
-          <b>이 표 전체의 근거입니다.</b>
+          오른쪽 열은 프루퍼가 개발과 운영을 직접 하는 회사라서 적을 수 있는
+          것들입니다. 만드는 회사가 가르치면 남는 것이 달라집니다.
         </p>
       </div>
     </section>
