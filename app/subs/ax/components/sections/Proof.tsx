@@ -23,7 +23,8 @@ export default function Proof() {
               <span className="pill live">● 활동 중</span>
             </div>
             <p className="muted">
-              CTO들이 고민과 사례를 나누는 커뮤니티입니다.
+              프루퍼가 여는 커뮤니티입니다. CTO들이 각자 막힌 대목과 풀어낸
+              사례를 여기서 꺼내 놓습니다.
             </p>
             <a
               href="https://with-cto.proofer.tech"
@@ -46,7 +47,8 @@ export default function Proof() {
               <span className="pill soon">준비 중</span>
             </div>
             <p className="muted">
-              인재 데이터 허브 위에 채용 실무를 자동화하는 AX 솔루션.
+              인재 데이터를 한곳에 모으고 그 위에서 채용 실무를 자동화하는 AX
+              솔루션입니다. 프루퍼가 지금 만들고 있습니다.
             </p>
           </div>
           <div className="made-card">
@@ -59,7 +61,10 @@ export default function Proof() {
               />
               <span className="pill live">● 운영 중</span>
             </div>
-            <p className="muted">노코드로 대시보드를 만드는 서비스입니다.</p>
+            <p className="muted">
+              데이터만 붙이면 됩니다. 코드를 한 줄도 쓰지 않고 대시보드가 나오는
+              서비스이고, 기획부터 개발까지 프루퍼가 했습니다.
+            </p>
             <a
               href="https://insight.proofer.tech/"
               target="_blank"
@@ -83,7 +88,8 @@ export default function Proof() {
               </div>
               <div className="cm-tag">핵심 인력 교체</div>
               <div className="cm-desc">
-                사업구조 재설계 · 운영 시스템화로 조직 체질을 바꿨습니다.
+                사업구조를 다시 짜고, 손으로 굴러가던 운영을 시스템으로
+                옮겼습니다. 조직 체질이 따라 바뀌었습니다.
               </div>
             </div>
             <div className="case-metric">
@@ -94,9 +100,10 @@ export default function Proof() {
                 </span>
                 <small>%p</small>
               </div>
-              <div className="cm-tag">안정적인 영업이익률</div>
+              <div className="cm-tag">영업이익률 개선</div>
               <div className="cm-desc">
-                가맹점 마진율을 개선하고 불필요한 비용을 제거했습니다.
+                한 해만 오른 숫자가 아닙니다. 가맹점 마진율을 손보고 새는 비용을
+                하나씩 막아서 올린 폭입니다.
               </div>
             </div>
             <div className="case-metric">
@@ -106,14 +113,16 @@ export default function Proof() {
                 </span>
                 <small>개</small>
               </div>
-              <div className="cm-tag">가맹점 · 브랜드 가치 제고</div>
+              <div className="cm-tag">가맹점 확대</div>
               <div className="cm-desc">
-                주요 유통 채널과 협업해 브랜드 가치를 끌어올렸습니다.
+                주요 유통 채널과 손잡고 가맹점을 늘리면서 브랜드 가치도 같이
+                끌어올렸습니다.
               </div>
             </div>
           </div>
           <div className="case-exit">
-            사업구조 재설계 · 운영 시스템화 · 기업가치 제고 → <b>EXIT 성공</b>
+            어려워진 회사에 들어가 구조부터 다시 짰고, 1년 만에{" "}
+            <b>매각까지 끝냈습니다</b>
           </div>
         </div>
 
@@ -138,7 +147,10 @@ export default function Proof() {
                 <h3>
                   임한솔 <span>대표</span>
                 </h3>
-                <p className="role">12년동안 고객과 서비스에 집착해왔습니다.</p>
+                <p className="role">
+                  강의는 대표가 직접 맡습니다. 10년 넘게 현업에서 코드를 쓴
+                  사람이 그대로 강단에 섭니다.
+                </p>
                 <div className="tags">
                   <span>건국대 경영공학</span>
                   <span>토스</span>
@@ -157,7 +169,11 @@ export default function Proof() {
                 <h3>
                   Louis <span>이사</span>
                 </h3>
-                <p className="role">20년 동안 사람과 조직을 키워 왔습니다.</p>
+                <p className="role">
+                  교육을 조직에 심는 설계를 맡습니다. 20년을 HR에서 보내고
+                  스타트업 대표까지 해 봤으니, 배운 것이 조직에 남으려면 무엇을
+                  바꿔야 하는지 압니다.
+                </p>
                 <div className="tags">
                   <span>연세대 MBA</span>
                   <span>쿠팡</span>
