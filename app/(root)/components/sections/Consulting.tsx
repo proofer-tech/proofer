@@ -1,4 +1,6 @@
 import React from "react";
+import { generateUrl } from "@/src/path";
+import { SUB_DOMAIN } from "@/src/constants";
 
 export default function Consulting() {
   return (
@@ -45,6 +47,18 @@ export default function Consulting() {
                   시간이 없어 AI를 못 배우고, 사람마다 적응 속도가 다른 문제까지
                   함께 풀며, 도구보다 일하는 방식과 사람을 먼저 바꿉니다.
                 </p>
+                <a
+                  href={generateUrl("/", SUB_DOMAIN.ax)}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    color: "var(--blue)",
+                    fontWeight: 700,
+                    fontSize: 14,
+                  }}
+                >
+                  프루퍼 AX 자세히 보기
+                </a>
               </div>
             </div>
           </div>

@@ -154,7 +154,8 @@ export default function Effects() {
     const layers = Array.from(document.querySelectorAll<HTMLElement>(".layer"));
     const layerHandlers: Array<() => void> = [];
     layers.forEach((l) => {
-      const h = () => {
+      const h = (e: MouseEvent) => {
+        if ((e.target as HTMLElement).closest("a")) return;
         layers.forEach((x) => x.classList.remove("open"));
         l.classList.add("open");
       };
