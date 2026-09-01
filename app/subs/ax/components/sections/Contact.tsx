@@ -17,12 +17,12 @@ export default function Contact() {
           강의 · 해커톤 · 컨설팅. 어느 지점부터 시작할지 함께 정해봅시다.
         </p>
         <div className={styles.actions}>
-          <AxInquireButton className="ax-btn ax-btn--lg">
+          <AxInquireButton className={`ax-btn ${styles.btnLg}`}>
             도입 문의하기
           </AxInquireButton>
           <a
             href="https://proofer.tech"
-            className="ax-btn ax-btn--ghost ax-btn--lg"
+            className={`ax-btn ax-btn--ghost ${styles.btnLg}`}
           >
             프루퍼 소개
           </a>
