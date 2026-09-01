@@ -136,6 +136,14 @@ body:has(.ax-root) {
     background: rgb(10 12 20 / 82%);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--line);
+    transition:
+      background-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-bottom-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .ax-header--scrolled {
+    background: rgb(10 12 20 / 96%);
+    border-bottom-color: rgb(255 255 255 / 16%);
   }
 
   .ax-header__brand {
@@ -158,6 +166,10 @@ body:has(.ax-root) {
     gap: 28px;
     font-size: 14px;
     color: var(--muted);
+  }
+
+  .ax-nav a {
+    transition: color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
   .ax-nav a:hover {
@@ -235,6 +247,13 @@ body:has(.ax-root) {
   @media (width <= 560px) {
     .ax-h2 {
       font-size: 32px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ax-header,
+    .ax-nav a {
+      transition: none;
     }
   }
 }

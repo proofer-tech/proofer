@@ -3,7 +3,7 @@ import Image from "next/image";
 import { generateMetadataFromTitle } from "@/src/manifest";
 import "./ax.scss";
 import Providers from "@/app/subs/ax/components/Providers";
-import AxInquireButton from "@/app/subs/ax/components/AxInquireButton";
+import Header from "@/app/subs/ax/components/Header";
 
 export const metadata = generateMetadataFromTitle(
   {
@@ -57,43 +57,11 @@ const jsonLd = [
   },
 ];
 
-const NAV = [
-  { href: "#approach", label: "관점" },
-  { href: "#system", label: "커리큘럼" },
-  { href: "#lecture", label: "Lecture" },
-  { href: "#hackathon", label: "Hackathon" },
-  { href: "#consulting", label: "Consulting" },
-  { href: "#package", label: "패키지" },
-];
-
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Providers>
       <div className="ax-root">
-        <header className="ax-header">
-          <a
-            href="#top"
-            className="ax-header__brand"
-            aria-label="proofer AX 홈"
-          >
-            <Image
-              src="/assets/images/branding.svg"
-              alt="proofer"
-              width={21}
-              height={22}
-              priority
-            />
-            <span className="ax-header__brand-mark">AX</span>
-          </a>
-          <nav className="ax-nav" aria-label="섹션 내비게이션">
-            {NAV.map((n) => (
-              <a key={n.href} href={n.href}>
-                {n.label}
-              </a>
-            ))}
-          </nav>
-          <AxInquireButton className="ax-btn">도입 문의</AxInquireButton>
-        </header>
+        <Header />
         {children}
         <footer className="ax-footer">
           <div className="ax-container">
