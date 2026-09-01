@@ -293,10 +293,17 @@
   `Hackathon`(`#hackathon`), `Consulting`(`#consulting`), `패키지`(`#package`).
 - 오른쪽: `도입 문의` 버튼 -> 채널톡 열기.
 
-로고 자산은 레포에 있는 것을 씁니다. 디자인이 가리키는 `assets/proofer-logo-dark.png`는
-레포에 없습니다. 후보는 `public/assets/images/logo.svg`와
-`public/assets/images/stream/white_logo.png` 둘이고, 어두운 바탕에서 보이는 쪽을 화면으로
-확인해 고릅니다.
+로고 자산은 `public/assets/images/branding.svg`를 씁니다. 디자인이 가리키는
+`assets/proofer-logo-dark.png`는 레포에 없습니다. 이 파일은 프루퍼 심볼만 담고 있고 초록
+`#45AF66`과 브랜드 블루 `#344FE0`으로 칠해져 있어서 어두운 바탕에서 그대로 보입니다.
+탈락한 후보 둘을 남겨 둡니다. `public/assets/images/logo.svg`는 워드마크 획이
+`fill="black"`이라 이 바탕에서 안 보이고, `public/assets/images/stream/white_logo.png`는
+프루퍼 로고가 아니라 스트림 제품 로고입니다. 이 랜딩 밖의 랜딩 셸
+(`app/components/LandingPageShellLayout.tsx`)도 기본 로고로 `branding.svg`를 씁니다.
+
+`branding.svg`의 가로 대 세로 비율은 `117:123`입니다. 헤더와 푸터에 넣는 `width`와 `height`는
+이 비율을 유지하는 값이어야 합니다. 스트림 로고의 비율은 `646:402`이었으므로 치수를 그대로
+두고 파일만 바꾸면 로고가 납작하게 찌그러집니다.
 
 **푸터**(디자인 387-404줄). 바탕 `#080A11`, 위 경계선 `rgba(255,255,255,0.08)`입니다.
 
