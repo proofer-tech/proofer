@@ -55,7 +55,7 @@
   font-size: 20px;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--ink);
 }
 
 .layerDesc {
@@ -84,7 +84,7 @@
   font-size: 20px;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--ink);
 }
 
 .services {
@@ -141,7 +141,7 @@
 .flowStep--final {
   border: 1px solid rgb(52 79 224 / 60%);
   background: rgb(52 79 224 / 16%);
-  color: #fff;
+  color: var(--ink);
 }
 
 .flowArrow {
@@ -156,7 +156,7 @@
   text-wrap: pretty;
 
   strong {
-    color: #fff;
+    color: var(--ink);
     font-weight: 700;
   }
 }

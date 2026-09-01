@@ -17,7 +17,7 @@
   line-height: 1.22;
   letter-spacing: -0.03em;
   font-weight: 800;
-  color: #fff;
+  color: var(--ink);
   text-wrap: balance;
 }
 
@@ -51,7 +51,7 @@
 }
 
 .itemTextStrong {
-  color: #fff;
+  color: var(--ink);
   font-weight: 600;
 }
 

@@ -74,7 +74,7 @@
     font-weight: 800;
     letter-spacing: -0.035em;
     line-height: 1.2;
-    color: #fff;
+    color: var(--ink);
   }
 
   .ax-btn {
@@ -89,7 +89,7 @@
     cursor: pointer;
     font-family: inherit;
     background: var(--blue);
-    color: #fff;
+    color: var(--ink);
     white-space: nowrap;
     transition: background 0.18s;
   }
@@ -106,7 +106,7 @@
 
   .ax-btn--ghost:hover {
     border-color: #fff;
-    color: #fff;
+    color: var(--ink);
   }
 
   /* 헤더 */
@@ -129,7 +129,7 @@
     display: flex;
     align-items: baseline;
     gap: 10px;
-    color: #fff;
+    color: var(--ink);
   }
 
   .ax-header__brand-mark {
@@ -148,7 +148,7 @@
   }
 
   .ax-nav a:hover {
-    color: #fff;
+    color: var(--ink);
   }
 
   .ax-header .ax-btn {

@@ -48,7 +48,7 @@ export default function Approach() {
             프루퍼는 AI Native 기업입니다. 사내 시스템을 AI에 연결하는 도구를
             직접 만들어 쓰고, 반복 업무를 자동화 워크플로로 돌리며, 흩어진 사내
             지식을 AI가 활용하도록 구조화해 왔습니다.{" "}
-            <strong style={{ color: "#fff", fontWeight: 700 }}>
+            <strong style={{ color: "var(--ink)", fontWeight: 700 }}>
               남이 만든 커리큘럼을 전달하는 것이 아니라, 실제로 그렇게 일하는
               회사의 방식을 공유합니다.
             </strong>
