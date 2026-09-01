@@ -1,0 +1,53 @@
+.section {
+  position: relative;
+  padding: 120px 40px;
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    720px 340px at 50% 0%,
+    rgb(52 79 224 / 28%),
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  max-width: 840px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.headline {
+  margin: 24px 0 0;
+  font-size: 48px;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+  font-weight: 800;
+  color: #fff;
+  text-wrap: balance;
+}
+
+.desc {
+  margin: 22px 0 0;
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+@media (width <= 560px) {
+  .headline {
+    font-size: 32px;
+  }
+}
