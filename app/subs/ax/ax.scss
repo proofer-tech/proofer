@@ -51,9 +51,9 @@ body:has(.ax-root) {
     text-decoration: none;
   }
 
-  h1,
-  h2,
-  h3 {
+  /* :where()로 감싸 특이도를 0으로 낮춘다. 안 그러면 이 리셋(0-1-1)이
+     CSS 모듈 클래스(0-1-0)를 이겨서 모듈이 지정한 margin이 무시된다. */
+  :where(&) :where(h1, h2, h3) {
     font-weight: 700;
     letter-spacing: -0.02em;
     margin: 0;
