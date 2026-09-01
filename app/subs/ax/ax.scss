@@ -41,6 +41,8 @@ body:has(.ax-root) {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 
   * {
     box-sizing: border-box;
