@@ -49,7 +49,7 @@ export default function Hackathon() {
           <div className={styles.tag}>실전 전환</div>
         </div>
         <h2 className={`ax-h2 ${styles.headline}`}>
-          교육과 컨설팅을 잇는 다리
+          팀이 자기 업무를 들고 오는 사내 AI 해커톤
         </h2>
         <p className={styles.lead}>
           강의에서 배운 것을 사내 실제 문제에 붙여 돌아가는 결과물을 만드는 실전

@@ -39,12 +39,11 @@ export default function Consulting() {
           <div className={styles.stage}>성과 실행</div>
         </div>
         <h2 className={`ax-h2 ${styles.headline}`}>
-          진단부터 전환, 운영까지 이어집니다
+          AX 컨설팅으로 진단부터 운영까지 맡습니다
         </h2>
         <p className={styles.lede}>
-          진단부터 전환, 운영까지 이어집니다. AI 활용법을 가르치는 데 그치지
-          않고, 회사의 일하는 방식과 수익 구조를 AI로 다시 설계해 직접 만들고
-          운영합니다.
+          AI 활용법을 가르치는 데 그치지 않고, 회사의 일하는 방식과 수익 구조를
+          AI로 다시 설계해 직접 만들고 운영합니다.
         </p>
 
         <div className={styles.layers}>

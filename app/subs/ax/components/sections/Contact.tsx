@@ -13,9 +13,9 @@ export default function Contact() {
         </Enter>
         <Enter index={1}>
           <h2 className={styles.headline}>
-            AI 교육을 성과로 연결할
+            성과로 이어지는 기업 AI 교육 업체를
             <br />
-            준비가 되셨다면.
+            찾고 계셨다면.
           </h2>
         </Enter>
         <Enter index={2}>

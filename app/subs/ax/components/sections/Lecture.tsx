@@ -47,7 +47,7 @@ export default function Lecture() {
         </div>
         <Enter index={0}>
           <h2 className={`ax-h2 ${styles.headline}`}>
-            전 직원 리터러시부터
+            사내 AI 교육을 전 직원 리터러시부터
             <br />
             파워유저 양성까지
           </h2>
