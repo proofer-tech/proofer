@@ -77,9 +77,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             aria-label="proofer AX 홈"
           >
             <Image
-              src="/assets/images/stream/white_logo.png"
+              src="/assets/images/branding.svg"
               alt="proofer"
-              width={35}
+              width={21}
               height={22}
               priority
             />
@@ -99,9 +99,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="ax-container">
             <div>
               <Image
-                src="/assets/images/stream/white_logo.png"
+                src="/assets/images/branding.svg"
                 alt="proofer"
-                width={39}
+                width={23}
                 height={24}
               />
               <div className="ax-footer__biz">
