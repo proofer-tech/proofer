@@ -1,0 +1,74 @@
+.heading {
+  max-width: 760px;
+}
+
+.lead {
+  margin-top: 24px;
+  max-width: 760px;
+  font-size: 18px;
+  line-height: 1.78;
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+
+.card {
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 18px;
+  padding: 32px;
+  background: var(--bg);
+}
+
+.cardBadge {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgb(52 79 224 / 18%);
+  border: 1px solid rgb(52 79 224 / 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--accent);
+}
+
+.cardTitle {
+  margin: 22px 0 0;
+  font-size: 21px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.cardText {
+  margin: 12px 0 0;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #8b93a8;
+}
+
+.quote {
+  margin-top: 32px;
+  border-left: 2px solid var(--blue);
+  padding: 6px 0 6px 28px;
+}
+
+.quoteText {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.8;
+  color: #c6cbd9;
+  max-width: 900px;
+}
+
+@media (width <= 880px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
