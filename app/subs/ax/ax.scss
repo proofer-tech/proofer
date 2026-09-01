@@ -3,6 +3,19 @@
 
 @import "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap";
 
+/* app/globals.scss가 body에 루트 랜딩 값(#f8f8f8, LINESeedKR)을 씌워 놓아서
+   .ax-root만으로는 body 자체 값이 스펙과 어긋난다. :has()로 AX 경로에만 덮어쓴다. */
+body:has(.ax-root) {
+  background-color: #0a0c14;
+  font-family:
+    "Pretendard Variable",
+    Pretendard,
+    -apple-system,
+    "Apple SD Gothic Neo",
+    "Malgun Gothic",
+    sans-serif;
+}
+
 .ax-root {
   --bg: #0a0c14;
   --bg-alt: #0e1120;
