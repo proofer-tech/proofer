@@ -1,4 +1,5 @@
 import React from "react";
+import Enter from "@/app/subs/ax/components/Enter";
 import styles from "./Consulting.module.scss";
 
 const LAYERS = [
@@ -47,12 +48,14 @@ export default function Consulting() {
         </p>
 
         <div className={styles.layers}>
-          {LAYERS.map((layer) => (
-            <div key={layer.label} className={styles.layerCard}>
-              <div className={styles.layerLabel}>{layer.label}</div>
-              <h3 className={styles.layerTitle}>{layer.title}</h3>
-              <p className={styles.layerDesc}>{layer.desc}</p>
-            </div>
+          {LAYERS.map((layer, i) => (
+            <Enter key={layer.label} index={i}>
+              <div className={styles.layerCard}>
+                <div className={styles.layerLabel}>{layer.label}</div>
+                <h3 className={styles.layerTitle}>{layer.title}</h3>
+                <p className={styles.layerDesc}>{layer.desc}</p>
+              </div>
+            </Enter>
           ))}
         </div>
 
@@ -60,10 +63,12 @@ export default function Consulting() {
           <div>
             <h3 className={styles.blockTitle}>AX 특화 서비스</h3>
             <ul className={styles.services}>
-              {SERVICES.map((text) => (
+              {SERVICES.map((text, i) => (
                 <li key={text} className={styles.serviceItem}>
-                  <span className={styles.serviceBullet}>—</span>
-                  <span className={styles.serviceText}>{text}</span>
+                  <Enter index={i}>
+                    <span className={styles.serviceBullet}>—</span>
+                    <span className={styles.serviceText}>{text}</span>
+                  </Enter>
                 </li>
               ))}
             </ul>
@@ -79,17 +84,21 @@ export default function Consulting() {
             <div className={styles.flow}>
               {FLOW.map((step, i) => (
                 <React.Fragment key={step}>
-                  <span
-                    className={
-                      i === FLOW.length - 1
-                        ? `${styles.flowStep} ${styles["flowStep--final"]}`
-                        : styles.flowStep
-                    }
-                  >
-                    {step}
-                  </span>
+                  <Enter index={i * 2}>
+                    <span
+                      className={
+                        i === FLOW.length - 1
+                          ? `${styles.flowStep} ${styles["flowStep--final"]}`
+                          : styles.flowStep
+                      }
+                    >
+                      {step}
+                    </span>
+                  </Enter>
                   {i < FLOW.length - 1 && (
-                    <span className={styles.flowArrow}>→</span>
+                    <Enter index={i * 2 + 1}>
+                      <span className={styles.flowArrow}>→</span>
+                    </Enter>
                   )}
                 </React.Fragment>
               ))}

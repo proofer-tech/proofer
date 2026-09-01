@@ -36,6 +36,13 @@
   border-radius: 18px;
   padding: 34px;
   background: var(--bg);
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-4px);
+  }
 }
 
 .cardTop {

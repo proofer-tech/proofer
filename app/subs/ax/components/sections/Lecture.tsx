@@ -1,4 +1,5 @@
 import React from "react";
+import Enter from "@/app/subs/ax/components/Enter";
 import styles from "./Lecture.module.scss";
 
 const LEVELS = [
@@ -44,63 +45,71 @@ export default function Lecture() {
           <div className="ax-eyebrow">01 / AX LECTURE</div>
           <div className={styles.eyebrowSub}>저변 확대</div>
         </div>
-        <h2 className={`ax-h2 ${styles.headline}`}>
-          전 직원 리터러시부터
-          <br />
-          파워유저 양성까지
-        </h2>
+        <Enter index={0}>
+          <h2 className={`ax-h2 ${styles.headline}`}>
+            전 직원 리터러시부터
+            <br />
+            파워유저 양성까지
+          </h2>
+        </Enter>
         <p className={styles.desc}>
           임직원의 AI 활용력을 수준별로 끌어올리는 강의형 과정입니다. 조직의 AI
           저변을 넓히는 가장 빠른 경로입니다.
         </p>
 
         <div className={styles.grid}>
-          {LEVELS.map((lv) => (
-            <div key={lv.level} className={styles.card}>
-              <div className={styles.cardTop}>
-                <div className={styles.cardLevel}>{lv.level}</div>
-                <div className={styles.cardDuration}>{lv.duration}</div>
+          {LEVELS.map((lv, i) => (
+            <Enter key={lv.level} index={i}>
+              <div className={styles.card}>
+                <div className={styles.cardTop}>
+                  <div className={styles.cardLevel}>{lv.level}</div>
+                  <div className={styles.cardDuration}>{lv.duration}</div>
+                </div>
+                <h3 className={styles.cardTitle}>{lv.title}</h3>
+                <div className={styles.cardTarget}>{lv.target}</div>
+                <p className={styles.cardDesc}>{lv.desc}</p>
+                <div className={styles.cardFoot}>
+                  <span className={styles.cardFootLabel}>산출물 · </span>
+                  {lv.outcome}
+                </div>
               </div>
-              <h3 className={styles.cardTitle}>{lv.title}</h3>
-              <div className={styles.cardTarget}>{lv.target}</div>
-              <p className={styles.cardDesc}>{lv.desc}</p>
-              <div className={styles.cardFoot}>
-                <span className={styles.cardFootLabel}>산출물 · </span>
-                {lv.outcome}
-              </div>
-            </div>
+            </Enter>
           ))}
         </div>
 
-        <div className={styles.leader}>
-          <div className={styles.leaderLeft}>
-            <div className={styles.leaderLabel}>LEADERSHIP</div>
-            <h3 className={styles.leaderTitle}>리더 과정</h3>
-            <div className={styles.leaderMeta}>임원과 직책자 · 2~3시간</div>
-          </div>
-          <div className={styles.leaderRight}>
-            <p className={styles.leaderDesc}>
-              의사결정권자를 대상으로 AX 전략 판단, 투자 결정, 조직 도입
-              로드맵을 다룹니다. AI 도입을 비용이 아니라 영업이익과 기업가치의
-              지렛대로 보는 관점을 심고, 조직의 진짜 문제를 발굴합니다.
-            </p>
-            <div className={styles.leaderOutcome}>
-              <span className={styles.leaderOutcomeLabel}>산출물 · </span>
-              자사의 AX 우선순위 한 장
+        <Enter index={0}>
+          <div className={styles.leader}>
+            <div className={styles.leaderLeft}>
+              <div className={styles.leaderLabel}>LEADERSHIP</div>
+              <h3 className={styles.leaderTitle}>리더 과정</h3>
+              <div className={styles.leaderMeta}>임원과 직책자 · 2~3시간</div>
+            </div>
+            <div className={styles.leaderRight}>
+              <p className={styles.leaderDesc}>
+                의사결정권자를 대상으로 AX 전략 판단, 투자 결정, 조직 도입
+                로드맵을 다룹니다. AI 도입을 비용이 아니라 영업이익과 기업가치의
+                지렛대로 보는 관점을 심고, 조직의 진짜 문제를 발굴합니다.
+              </p>
+              <div className={styles.leaderOutcome}>
+                <span className={styles.leaderOutcomeLabel}>산출물 · </span>
+                자사의 AX 우선순위 한 장
+              </div>
             </div>
           </div>
-        </div>
+        </Enter>
 
-        <div className={styles.ops}>
-          <div className={styles.opsLabel}>운영 방식</div>
-          <p className={styles.opsDesc}>
-            당사에서의 집합 강의와 실습을 기본으로 하고, 필요하면 온라인 송출을
-            병행합니다. 주강사 한 명에 분반별 기술튜터를 붙여 실습 밀도를
-            확보하고, 실습 결과물은 공유 보드로 모으며 사전과 사후 설문을
-            표준화합니다. 과정이 끝나면 각 조직이 뽑은 적용 후보를 회수해 다음
-            단계로 이어갑니다.
-          </p>
-        </div>
+        <Enter index={0}>
+          <div className={styles.ops}>
+            <div className={styles.opsLabel}>운영 방식</div>
+            <p className={styles.opsDesc}>
+              당사에서의 집합 강의와 실습을 기본으로 하고, 필요하면 온라인
+              송출을 병행합니다. 주강사 한 명에 분반별 기술튜터를 붙여 실습
+              밀도를 확보하고, 실습 결과물은 공유 보드로 모으며 사전과 사후
+              설문을 표준화합니다. 과정이 끝나면 각 조직이 뽑은 적용 후보를
+              회수해 다음 단계로 이어갑니다.
+            </p>
+          </div>
+        </Enter>
       </div>
     </section>
   );

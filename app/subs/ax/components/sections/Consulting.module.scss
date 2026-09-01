@@ -41,6 +41,13 @@
   border-radius: 16px;
   padding: 30px;
   background: #0a0c14;
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .layerCard:hover {
+    transform: translateY(-4px);
+  }
 }
 
 .layerLabel {
@@ -95,7 +102,7 @@
   padding: 0;
 }
 
-.serviceItem {
+.serviceItem > div {
   display: flex;
   gap: 14px;
   align-items: flex-start;
