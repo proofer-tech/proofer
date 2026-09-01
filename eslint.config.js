@@ -8,12 +8,34 @@ import tsparser from "@typescript-eslint/parser";
 export default [
   {
     ignores: [
+      ".dira/**",
+      "public/**",
+      ".next/**",
+      "coverage/**",
       "components/ui/**/*",
       "src/hooks/use-toast.ts",
       "src/hooks/use-mobile.tsx",
     ],
   },
   js.configs.recommended,
+  {
+    // build/test config files run in Node, not the browser
+    files: ["**/*.cjs", "**/*.config.{js,mjs,cjs}", "jest.setup.cjs"],
+    languageOptions: {
+      globals: {
+        module: "readonly",
+        require: "readonly",
+        process: "readonly",
+        __dirname: "readonly",
+        global: "readonly",
+        jest: "readonly",
+        window: "readonly",
+      },
+    },
+    rules: {
+      "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+    },
+  },
   {
     files: ["**/*.{js,jsx}"],
     languageOptions: {
@@ -83,6 +105,12 @@ export default [
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
       "no-undef": "off",
+      // core no-unused-vars crashes on TS enums; the TS-aware rule replaces it
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      ],
     },
     settings: {
       react: {
