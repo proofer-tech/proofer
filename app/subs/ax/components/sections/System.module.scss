@@ -30,6 +30,11 @@
 @media (hover: hover) {
   .step:hover {
     border-color: var(--blue);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .step:hover {
     transform: translateY(-4px);
   }
 }

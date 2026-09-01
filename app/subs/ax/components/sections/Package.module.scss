@@ -32,6 +32,11 @@
 @media (hover: hover) {
   .card:hover {
     border-color: var(--blue);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card:hover {
     transform: translateY(-4px);
   }
 }

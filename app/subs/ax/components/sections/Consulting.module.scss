@@ -44,7 +44,7 @@
   transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .layerCard:hover {
     transform: translateY(-4px);
   }
