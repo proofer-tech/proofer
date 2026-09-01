@@ -18,7 +18,11 @@ const APPROACH_CARDS = [
 ];
 
 const FORMAT_ROWS = [
-  { format: "스프린트", duration: "하루", outcome: "문제 하나의 프로토타입" },
+  {
+    format: "스프린트",
+    duration: "하루",
+    outcome: "팀이 고른 문제의 프로토타입",
+  },
   {
     format: "해커톤",
     duration: "이틀에서 사흘",
@@ -96,7 +100,7 @@ export default function Hackathon() {
               </p>
               <div className={styles.callout}>
                 교육 예산을 실제로 쓰는 도구 자산으로 바꾸려는 고객사를 위해,
-                우승작 하나를 프루퍼가 짧은 스프린트로 배포 수준까지 끌어올리는
+                우승작을 프루퍼가 짧은 스프린트로 배포 수준까지 끌어올리는
                 옵션도 둡니다.
               </div>
             </div>

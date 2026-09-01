@@ -17,7 +17,7 @@ const LEVELS = [
     title: "도구 실무",
     target: "Claude · Copilot · Gemini 중 선택",
     desc: "사무직 실무자가 선택한 도구로 문서와 데이터와 보고서 업무를 자동화합니다. 고객사의 도구 환경에 맞춰 트랙을 고르고, 도구 사용법이 아니라 업무를 도구에 맞게 다시 설계하는 법에 초점을 둡니다.",
-    outcome: "자기 반복 업무 하나를 실제로 자동화한 워크플로",
+    outcome: "자기 반복 업무를 자동화한 워크플로",
   },
   {
     level: "L3",
@@ -33,7 +33,7 @@ const LEVELS = [
     title: "파워유저와 에이전트",
     target: "개발 인접 직무 · 사내 AI 챔피언",
     desc: "Claude Code나 Cursor로 직접 만들고, 여러 에이전트를 엮어 설계하며, 사내 시스템을 AI에 연결합니다. 프루퍼가 실제로 구축해 운영하는 사내 도구를 교보재로 삼아, 시연에서 끝나지 않고 배포까지 가는 것을 목표로 합니다.",
-    outcome: "팀에 배포하는 작은 도구 또는 에이전트 하나",
+    outcome: "팀에 배포하는 작은 도구 또는 에이전트",
   },
 ];
 
@@ -92,7 +92,7 @@ export default function Lecture() {
               </p>
               <div className={styles.leaderOutcome}>
                 <span className={styles.leaderOutcomeLabel}>산출물 · </span>
-                자사의 AX 우선순위 한 장
+                어디부터 도입할지 정한 자사 AX 우선순위
               </div>
             </div>
           </div>
