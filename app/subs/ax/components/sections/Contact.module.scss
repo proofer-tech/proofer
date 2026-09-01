@@ -12,6 +12,26 @@
     transparent 72%
   );
   pointer-events: none;
+  opacity: 1;
+
+  /* 히어로 글로우와 같은 값(스펙 4.3절 "도입 문의") - 순환 이징(linear)을 그대로 쓴다 */
+  animation: contact-glow 12s linear infinite alternate;
+}
+
+@keyframes contact-glow {
+  from {
+    opacity: 0.85;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow {
+    animation: none;
+  }
 }
 
 .content {
@@ -48,6 +68,16 @@
 
 .btnLg {
   padding: 17px 36px;
+}
+
+.btnPrimary {
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .btnPrimary:hover {
+    transform: translateY(-4px);
+  }
 }
 
 @media (width <= 560px) {

@@ -1,4 +1,5 @@
 import React from "react";
+import Enter from "@/app/subs/ax/components/Enter";
 import styles from "./Outcome.module.scss";
 
 const ITEMS = [
@@ -24,26 +25,30 @@ export default function Outcome() {
       <div className={`ax-container ${styles.wrap}`}>
         <div>
           <div className={styles.eyebrow}>EXPECTED OUTCOME</div>
-          <h2 className={styles.headline}>
-            교육 이후에
-            <br />
-            기업에 남는 것
-          </h2>
+          <Enter index={0}>
+            <h2 className={styles.headline}>
+              교육 이후에
+              <br />
+              기업에 남는 것
+            </h2>
+          </Enter>
         </div>
         <div className={styles.list}>
-          {ITEMS.map((item) => (
-            <div key={item.n} className={styles.item}>
-              <span className={styles.itemNumber}>{item.n}</span>
-              <span
-                className={
-                  item.strong
-                    ? `${styles.itemText} ${styles.itemTextStrong}`
-                    : styles.itemText
-                }
-              >
-                {item.text}
-              </span>
-            </div>
+          {ITEMS.map((item, i) => (
+            <Enter key={item.n} index={i + 1}>
+              <div className={styles.item}>
+                <span className={styles.itemNumber}>{item.n}</span>
+                <span
+                  className={
+                    item.strong
+                      ? `${styles.itemText} ${styles.itemTextStrong}`
+                      : styles.itemText
+                  }
+                >
+                  {item.text}
+                </span>
+              </div>
+            </Enter>
           ))}
         </div>
       </div>
