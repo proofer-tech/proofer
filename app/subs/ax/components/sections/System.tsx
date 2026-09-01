@@ -1,4 +1,5 @@
 import React from "react";
+import Enter from "@/app/subs/ax/components/Enter";
 import styles from "./System.module.scss";
 
 const STEPS = [
@@ -39,13 +40,19 @@ export default function System() {
         <div className={styles.grid}>
           {STEPS.map((step, i) => (
             <React.Fragment key={step.href}>
-              {i > 0 && <div className={styles.arrow}>→</div>}
-              <a href={step.href} className={styles.step}>
-                <div className={styles.stepEyebrow}>{step.eyebrow}</div>
-                <div className={styles.stepTitle}>{step.title}</div>
-                <div className={styles.stepSubtitle}>{step.subtitle}</div>
-                <div className={styles.stepText}>{step.text}</div>
-              </a>
+              {i > 0 && (
+                <Enter index={i * 2 - 1}>
+                  <div className={styles.arrow}>→</div>
+                </Enter>
+              )}
+              <Enter index={i * 2}>
+                <a href={step.href} className={styles.step}>
+                  <div className={styles.stepEyebrow}>{step.eyebrow}</div>
+                  <div className={styles.stepTitle}>{step.title}</div>
+                  <div className={styles.stepSubtitle}>{step.subtitle}</div>
+                  <div className={styles.stepText}>{step.text}</div>
+                </a>
+              </Enter>
             </React.Fragment>
           ))}
         </div>

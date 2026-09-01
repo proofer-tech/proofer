@@ -16,16 +16,22 @@
 
 .step {
   display: block;
+  height: 100%;
   border: 1px solid rgb(255 255 255 / 12%);
   border-radius: 18px;
   padding: 34px;
   background: var(--bg-alt);
   color: inherit;
-  transition: border-color 0.18s;
+  transition:
+    border-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.step:hover {
-  border-color: var(--blue);
+@media (hover: hover) {
+  .step:hover {
+    border-color: var(--blue);
+    transform: translateY(-4px);
+  }
 }
 
 .stepEyebrow {
@@ -58,6 +64,7 @@
 
 .arrow {
   display: flex;
+  height: 100%;
   align-items: center;
   justify-content: center;
   color: var(--blue);

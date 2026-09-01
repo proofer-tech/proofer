@@ -18,10 +18,21 @@
 }
 
 .card {
+  height: 100%;
   border: 1px solid rgb(255 255 255 / 12%);
   border-radius: 18px;
   padding: 32px;
   background: var(--bg);
+  transition:
+    border-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .card:hover {
+    border-color: var(--blue);
+    transform: translateY(-4px);
+  }
 }
 
 .cardBadge {

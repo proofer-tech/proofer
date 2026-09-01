@@ -1,4 +1,5 @@
 import React from "react";
+import Enter from "@/app/subs/ax/components/Enter";
 import styles from "./Approach.module.scss";
 
 const CARDS = [
@@ -24,36 +25,44 @@ export default function Approach() {
     <section id="approach" className="ax-section ax-section--alt">
       <div className="ax-container">
         <div className="ax-eyebrow">OUR VIEW</div>
-        <h2 className={`ax-h2 ${styles.heading}`}>
-          &quot;기업가치를 증명합니다&quot;를
-          <br />
-          교육에 그대로 옮겨 드립니다.
-        </h2>
-        <p className={styles.lead}>
-          받은 과제만 처리하는 대신 현장에 들어가 진짜 문제를 다시 정의하고,
-          필요하면 앱과 서버와 AI까지 직접 만들어 운영효율을 끌어올립니다.
-          그래서 세 가지가 다릅니다.
-        </p>
+        <Enter>
+          <h2 className={`ax-h2 ${styles.heading}`}>
+            &quot;기업가치를 증명합니다&quot;를
+            <br />
+            교육에 그대로 옮겨 드립니다.
+          </h2>
+        </Enter>
+        <Enter>
+          <p className={styles.lead}>
+            받은 과제만 처리하는 대신 현장에 들어가 진짜 문제를 다시 정의하고,
+            필요하면 앱과 서버와 AI까지 직접 만들어 운영효율을 끌어올립니다.
+            그래서 세 가지가 다릅니다.
+          </p>
+        </Enter>
         <div className={styles.grid}>
-          {CARDS.map((card) => (
-            <div key={card.number} className={styles.card}>
-              <div className={styles.cardBadge}>{card.number}</div>
-              <h3 className={styles.cardTitle}>{card.title}</h3>
-              <p className={styles.cardText}>{card.text}</p>
-            </div>
+          {CARDS.map((card, i) => (
+            <Enter key={card.number} index={i}>
+              <div className={styles.card}>
+                <div className={styles.cardBadge}>{card.number}</div>
+                <h3 className={styles.cardTitle}>{card.title}</h3>
+                <p className={styles.cardText}>{card.text}</p>
+              </div>
+            </Enter>
           ))}
         </div>
-        <div className={styles.quote}>
-          <p className={styles.quoteText}>
-            프루퍼는 AI Native 기업입니다. 사내 시스템을 AI에 연결하는 도구를
-            직접 만들어 쓰고, 반복 업무를 자동화 워크플로로 돌리며, 흩어진 사내
-            지식을 AI가 활용하도록 구조화해 왔습니다.{" "}
-            <strong style={{ color: "var(--ink)", fontWeight: 700 }}>
-              남이 만든 커리큘럼을 전달하는 것이 아니라, 실제로 그렇게 일하는
-              회사의 방식을 공유합니다.
-            </strong>
-          </p>
-        </div>
+        <Enter>
+          <div className={styles.quote}>
+            <p className={styles.quoteText}>
+              프루퍼는 AI Native 기업입니다. 사내 시스템을 AI에 연결하는 도구를
+              직접 만들어 쓰고, 반복 업무를 자동화 워크플로로 돌리며, 흩어진
+              사내 지식을 AI가 활용하도록 구조화해 왔습니다.{" "}
+              <strong style={{ color: "var(--ink)", fontWeight: 700 }}>
+                남이 만든 커리큘럼을 전달하는 것이 아니라, 실제로 그렇게 일하는
+                회사의 방식을 공유합니다.
+              </strong>
+            </p>
+          </div>
+        </Enter>
       </div>
     </section>
   );
