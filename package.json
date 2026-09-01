@@ -97,6 +97,7 @@
     "@vercel/speed-insights": "^1.0.10",
     "@web-std/file": "^3.0.3",
     "ably": "^2.0.1",
+    "animejs": "^4.5.0",
     "apexcharts": "^3.48.0",
     "array-from-async": "^3.0.0",
     "cheerio": "^1.0.0-rc.12",
