@@ -59,24 +59,48 @@ export const metadata = generateMetadataFromTitle(
   },
 );
 
+const ORG_ID = "https://ax.proofer.tech/#organization";
+
 const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": ORG_ID,
     name: "프루퍼",
+    legalName: "프루퍼주식회사",
     url: "https://ax.proofer.tech/",
+    logo: "https://ax.proofer.tech/assets/images/branding.svg",
+    email: "info@proofer.tech",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "서울 강남구 강남대로112길 47, 2층 421A",
+      addressCountry: "KR",
+    },
+    sameAs: ["https://proofer.tech"],
   },
   {
     "@context": "https://schema.org",
     "@type": "Course",
-    name: "기업 AX 교육, 해커톤, 컨설팅",
+    name: "AX 강의",
     description:
-      "AX 강의, AX 해커톤, AX 컨설팅으로 이어지는 기업 AX 도입 과정입니다.",
-    provider: {
-      "@type": "Organization",
-      name: "프루퍼",
-      sameAs: "https://proofer.tech",
-    },
+      "전 직원 리터러시 교육부터 직무별 실무 교육, 파워유저와 에이전트 교육까지 이어지는 사내 AI 교육입니다.",
+    provider: { "@id": ORG_ID },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: "AX 해커톤",
+    description:
+      "교육과 컨설팅을 잇는 사내 AI 해커톤입니다. 시연에서 끝내지 않고 성과로 이어지는 산출물을 만듭니다.",
+    provider: { "@id": ORG_ID },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: "AX 컨설팅",
+    description:
+      "진단부터 전환, 운영까지 이어지는 AI 전환 컨설팅입니다. 조직이 스스로 굴러가게 만드는 것을 목표로 합니다.",
+    provider: { "@id": ORG_ID },
   },
 ];
 
