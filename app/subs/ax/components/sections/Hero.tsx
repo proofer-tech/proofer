@@ -41,7 +41,7 @@ export default function Hero() {
             </Enter>
             <Enter index={1} immediate>
               <h1 className={styles.headline}>
-                교육만으로
+                임직원 AI 교육만으로
                 <br />
                 끝내지 않습니다
               </h1>
