@@ -18,8 +18,10 @@ import { ReactChannelIO } from "react-channel-plugin";
 import TallyContext from "@/src/contexts/TallyContext";
 import { useIsMounted } from "@react-pdf-viewer/core";
 
-interface LandingPageShellLayoutProps
-  extends Omit<LandingPageShellProps, "isNavbarOpened"> {
+interface LandingPageShellLayoutProps extends Omit<
+  LandingPageShellProps,
+  "isNavbarOpened"
+> {
   portals: readonly HeaderPortal[];
   logoSrc?: string;
   channelIO?: {

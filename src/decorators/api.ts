@@ -46,8 +46,7 @@ export const withApiWorkspaceUserRequired: WithApiAuthRequired = (
     )[0];
     if (!workspace) return notFound();
 
-    if (workspaceSlug === WORKSPACE_DEMO_SLUG) {
-    } else {
+    if (workspaceSlug !== WORKSPACE_DEMO_SLUG) {
       member = await findMember(workspace.id, user.id);
       if (member === undefined)
         throw Forbidden("You are not a member of this workspace");

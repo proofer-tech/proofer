@@ -105,6 +105,11 @@ export default [
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
       "no-undef": "off",
+      // TODO: react-hooks v7(React Compiler) 신규 규칙. 기존 위반 14건이 남아 있어
+      // 일단 warn. AnimatedDottedCircle 5개 사본의 애니메이션 버그를 고친 뒤 error로.
+      "react-hooks/immutability": "warn",
+      "react-hooks/purity": "warn",
+      "react-hooks/set-state-in-effect": "warn",
       // core no-unused-vars crashes on TS enums; the TS-aware rule replaces it
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": [

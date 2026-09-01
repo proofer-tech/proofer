@@ -3,8 +3,7 @@ import React from "react";
 import { ElementProps } from "@mantine/core/lib/core";
 
 export interface LandingPageShellProps
-  extends AppShellProps,
-    ElementProps<"div"> {
+  extends AppShellProps, ElementProps<"div"> {
   isNavbarOpened: boolean;
   children: React.ReactNode;
 }
