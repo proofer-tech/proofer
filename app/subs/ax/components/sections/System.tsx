@@ -31,9 +31,7 @@ export default function System() {
     <section id="system" className="ax-section">
       <div className="ax-container">
         <div className="ax-eyebrow">CURRICULUM SYSTEM</div>
-        <h2 className="ax-h2">
-          AI 교육 커리큘럼을 강의에서 컨설팅까지 잇습니다
-        </h2>
+        <h2 className="ax-h2">강의로 시작해 컨설팅을 넘어 실제 성과까지</h2>
         <p className={styles.lead}>
           강의로 조직 전반의 AI 활용력을 끌어올리고, 해커톤으로 그 힘을 사내
           실제 문제에 붙여 돌아가는 결과물을 만들고, 컨설팅으로 그 결과물을 실제
