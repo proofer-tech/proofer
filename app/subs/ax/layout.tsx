@@ -4,6 +4,7 @@ import { generateMetadataFromTitle } from "@/src/manifest";
 import "./ax.scss";
 import Providers from "@/app/subs/ax/components/Providers";
 import Header from "@/app/subs/ax/components/Header";
+import { FAQS } from "@/app/subs/ax/components/sections/Faq.data";
 
 const title = "기업 AI 교육, AX 해커톤, AX 컨설팅";
 const fullTitle = `${title} | 프루퍼`;
@@ -101,6 +102,18 @@ const jsonLd = [
     description:
       "진단부터 전환, 운영까지 이어지는 AI 전환 컨설팅입니다. 조직이 스스로 굴러가게 만드는 것을 목표로 합니다.",
     provider: { "@id": ORG_ID },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
   },
 ];
 

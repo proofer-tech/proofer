@@ -8,6 +8,7 @@ import Hackathon from "@/app/subs/ax/components/sections/Hackathon";
 import Consulting from "@/app/subs/ax/components/sections/Consulting";
 import Package from "@/app/subs/ax/components/sections/Package";
 import Outcome from "@/app/subs/ax/components/sections/Outcome";
+import Faq from "@/app/subs/ax/components/sections/Faq";
 import Contact from "@/app/subs/ax/components/sections/Contact";
 
 export default function Page() {
@@ -22,6 +23,7 @@ export default function Page() {
       <Consulting />
       <Package />
       <Outcome />
+      <Faq />
       <Contact />
     </>
   );

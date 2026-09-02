@@ -1,0 +1,139 @@
+.headline {
+  margin-top: 20px;
+}
+
+.list {
+  max-width: 800px;
+  margin-top: 52px;
+  border-top: 1px solid rgb(255 255 255 / 12%);
+}
+
+// 목록을 감싸는 상자에 테두리를 걸지 않고 문답 각각의 테두리로 구분선을 긋는다 -
+// 진입 연출이 문답마다 Enter 래퍼를 끼우기 때문에, 상자에 건 테두리는 진입 도중
+// 문답의 자리와 어긋난다(2.10절 목록과 같은 이유).
+.list > *:not(:first-child) > .item {
+  border-top: 1px solid rgb(255 255 255 / 12%);
+}
+
+.list > *:last-child > .item {
+  border-bottom: 1px solid rgb(255 255 255 / 12%);
+}
+
+.question {
+  display: flex;
+  align-items: flex-start;
+  list-style: none;
+  cursor: pointer;
+  padding: 22px 40px 22px 0;
+  outline: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.question:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.questionText {
+  flex: 1;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #c6cbd9;
+  transition: color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.item[open] .questionText {
+  color: var(--ink);
+}
+
+@media (hover: hover) {
+  .question:hover .questionText {
+    color: var(--ink);
+  }
+}
+
+.marker {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  transform: rotate(0deg);
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 7px;
+    height: 1.5px;
+    background: #a8aec0;
+    transition: background-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  &::before {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: right center;
+  }
+
+  &::after {
+    right: 0;
+    transform: rotate(-45deg);
+    transform-origin: left center;
+  }
+}
+
+.item[open] .marker {
+  transform: rotate(180deg);
+}
+
+.item[open] .marker::before,
+.item[open] .marker::after {
+  background: var(--ink);
+}
+
+@media (hover: hover) {
+  .question:hover .marker::before,
+  .question:hover .marker::after {
+    background: var(--ink);
+  }
+}
+
+.answer {
+  margin: 0;
+  padding: 0 40px 26px 0;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #c6cbd9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marker {
+    transition: none;
+  }
+}
+
+@media (width <= 880px) {
+  .list {
+    max-width: none;
+  }
+
+  .question {
+    padding: 18px 34px 18px 0;
+  }
+
+  .questionText {
+    font-size: 16px;
+  }
+
+  .answer {
+    font-size: 15px;
+    padding: 0 34px 22px 0;
+  }
+}
