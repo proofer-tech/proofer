@@ -222,7 +222,7 @@ body:has(.ax-root) {
     font-family: var(--mono);
     font-size: 11px;
     letter-spacing: 0.18em;
-    color: #4e566b;
+    color: var(--muted);
   }
 
   // Responsive overrides live here, at the very end of .ax-root.
