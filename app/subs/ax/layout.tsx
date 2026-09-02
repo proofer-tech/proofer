@@ -11,7 +11,7 @@ const fullTitle = `${title} | 프루퍼`;
 const description =
   "임직원 AI 교육을 강의로 끝내지 않습니다. 직무별 사내 AI 교육으로 쓸 줄 알게 만들고, " +
   "사내 AI 해커톤으로 성과를 내고, AX 컨설팅으로 조직이 스스로 굴러가게 합니다.";
-const ogImage = "/assets/images/og-image.webp";
+const ogImage = "/assets/images/ax/og-image.webp";
 
 export const metadata = generateMetadataFromTitle(
   {
