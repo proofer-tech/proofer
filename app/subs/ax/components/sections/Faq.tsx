@@ -7,9 +7,11 @@ export default function Faq() {
   return (
     <section id="faq" className="ax-section">
       <div className="ax-container">
-        <div className="ax-eyebrow">FAQ</div>
         <Enter index={0}>
-          <h2 className={`ax-h2 ${styles.headline}`}>자주 묻는 질문</h2>
+          <div>
+            <div className="ax-eyebrow">FAQ</div>
+            <h2 className={`ax-h2 ${styles.headline}`}>자주 묻는 질문</h2>
+          </div>
         </Enter>
         <div className={styles.list}>
           {FAQS.map((item, i) => (

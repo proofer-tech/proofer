@@ -5,13 +5,12 @@
 .list {
   max-width: 800px;
   margin-top: 52px;
-  border-top: 1px solid rgb(255 255 255 / 12%);
 }
 
 // 목록을 감싸는 상자에 테두리를 걸지 않고 문답 각각의 테두리로 구분선을 긋는다 -
 // 진입 연출이 문답마다 Enter 래퍼를 끼우기 때문에, 상자에 건 테두리는 진입 도중
-// 문답의 자리와 어긋난다(2.10절 목록과 같은 이유).
-.list > *:not(:first-child) > .item {
+// 문답의 자리와 어긋난다(2.10절 목록과 같은 이유). 첫 문답도 이 규칙으로 위쪽 선을 받는다.
+.list > * > .item {
   border-top: 1px solid rgb(255 255 255 / 12%);
 }
 
@@ -72,7 +71,7 @@
     top: 50%;
     width: 7px;
     height: 1.5px;
-    background: #a8aec0;
+    background: var(--muted);
     transition: background-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
