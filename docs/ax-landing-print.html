@@ -1,0 +1,957 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>프루퍼 AX — 기업 AI 교육 · 해커톤 · 컨설팅</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* ax.proofer.tech 랜딩의 배포용 인쇄본.
+   색 토큰은 app/subs/ax/ax.scss와 같고, 레이아웃만 A4에 맞춰 다시 짰다.
+   페이지마다 담을 내용을 손으로 나눠서 요소가 페이지 경계에 걸리지 않는다. */
+
+@page { size: A4; margin: 0; }
+
+:root {
+  --bg-footer: #05070f;
+  --bg: #080c1a;
+  --bg-alt: #0b1022;
+  --surface: #141d42;
+  --surface-hi: #18214a;
+  --ink: #e9ecf8;
+  --ink-soft: #c4cbe2;
+  --muted: #9aa3c0;
+  --dim: #848eae;
+  --blue: #344fe0;
+  --accent: #8fa5ff;
+  --accent-2: #9be3b4;
+  --green: #45af66;
+  --line: rgb(154 176 255 / 12%);
+  --line-card: rgb(154 176 255 / 18%);
+  --hero-bg: linear-gradient(168deg, #101838 0%, #0a0f26 46%, #080c1a 100%);
+  --cta-bg: linear-gradient(120deg, #0a1030 0%, #141d4e 50%, #0a1030 100%);
+  --mono: "IBM Plex Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: #16192099;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", sans-serif;
+  color: var(--ink);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.page {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  overflow: hidden;
+  background: var(--bg);
+  padding: 17mm 16mm 15mm;
+  display: flex;
+  flex-direction: column;
+  break-after: page;
+  page-break-after: always;
+}
+.page:last-of-type { break-after: auto; page-break-after: auto; }
+.page--alt { background: var(--bg-alt); }
+.page--hero { background: var(--hero-bg); }
+.page--cta { background: var(--cta-bg); }
+
+/* 러닝 헤더 / 페이지 번호 */
+.runhead {
+  position: absolute;
+  top: 9mm; left: 16mm; right: 16mm;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--mono);
+  font-size: 6.6pt;
+  letter-spacing: 0.18em;
+  color: var(--dim);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 3mm;
+}
+.runfoot {
+  position: absolute;
+  bottom: 8mm; left: 16mm; right: 16mm;
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family: var(--mono);
+  font-size: 6.6pt;
+  letter-spacing: 0.16em;
+  color: var(--dim);
+}
+
+/* 타이포 */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 7.6pt;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  margin: 0 0 5mm;
+}
+.eyebrow-row { display: flex; align-items: baseline; gap: 12px; margin: 0 0 5mm; }
+.eyebrow-row .eyebrow { margin: 0; }
+.tag {
+  font-size: 7.6pt; font-weight: 600; letter-spacing: 0.04em;
+  color: var(--accent-2);
+  border: 1px solid rgb(155 227 180 / 34%);
+  border-radius: 999px;
+  padding: 1.5mm 3mm;
+}
+h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.02em; }
+.h2 {
+  font-size: 21pt; font-weight: 800; letter-spacing: -0.035em;
+  line-height: 1.2; color: var(--ink);
+}
+.lead {
+  font-size: 10pt; line-height: 1.78; color: var(--ink-soft);
+  margin: 5mm 0 0; max-width: 155mm;
+}
+.body-sm { font-size: 8.8pt; line-height: 1.75; color: var(--muted); margin: 0; }
+
+/* 카드 공통 */
+.cards { display: grid; gap: 5mm; }
+.cards--3 { grid-template-columns: repeat(3, 1fr); }
+.cards--2 { grid-template-columns: repeat(2, 1fr); }
+.cards--4 { grid-template-columns: repeat(4, 1fr); }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line-card);
+  border-radius: 4mm;
+  padding: 6mm 5.5mm;
+  display: flex; flex-direction: column;
+}
+.card__num {
+  font-family: var(--mono); font-size: 7.4pt; letter-spacing: 0.2em;
+  color: var(--accent); margin-bottom: 3.5mm;
+}
+.card__title { font-size: 11pt; font-weight: 700; color: var(--ink); line-height: 1.4; }
+.card__desc { font-size: 8.6pt; line-height: 1.72; color: var(--muted); margin: 3mm 0 0; }
+
+.spacer { flex: 1 1 auto; min-height: 0; }
+/* 표지와 마지막 장을 뺀 본문은 스페이서가 벌어지는 폭을 묶어 두고,
+   남는 높이는 .grow 블록이 먹는다. 안 그러면 페이지 한가운데가 빈다. */
+.page:not(.page--hero):not(.page--cta) > .spacer { max-height: 16mm; }
+.grow { flex: 1 1 auto; }
+/* 늘어나되 무한정은 아니게. 남는 높이는 .spacer--free 가 받아 마지막 블록을
+   페이지 아래에 붙인다. */
+.spacer--free { max-height: none !important; }
+.cards.grow { align-content: stretch; grid-auto-rows: 1fr; }
+.cards.grow--center > .card { justify-content: center; }
+.steps.grow > .step { justify-content: center; }
+.faq.grow { align-content: space-between; }
+
+/* 담을 내용이 적은 장은 활자를 키워 지면을 채운다. */
+.page--airy .h2 { font-size: 30pt; }
+.page--airy .lead { font-size: 12pt; max-width: 170mm; }
+.page--airy .card { padding: 8mm 7mm; }
+.page--airy .card__num { font-size: 8.4pt; }
+.page--airy .card__title { font-size: 13.5pt; }
+.page--airy .card__desc { font-size: 10.2pt; }
+.page--airy .quote { padding: 8mm 9mm; }
+.page--airy .quote p { font-size: 11pt; }
+.page--airy .step { padding: 9mm 7mm; }
+.page--airy .step__eyebrow { font-size: 8pt; }
+.page--airy .step__title { font-size: 15.5pt; }
+.page--airy .step__sub { font-size: 9.2pt; }
+.page--airy .step__text { font-size: 10.2pt; }
+.page--airy .panel__desc { font-size: 10pt; }
+.panel.grow { align-items: center; }
+
+/* 커버 */
+.cover__brand { display: flex; align-items: center; gap: 3.5mm; }
+.cover__brand svg { width: 8mm; height: auto; }
+.cover__brand-name { font-size: 13pt; font-weight: 800; letter-spacing: -0.02em; }
+.cover__eyebrow {
+  font-family: var(--mono); font-size: 8pt; letter-spacing: 0.24em;
+  color: var(--accent); margin: 0 0 6mm;
+}
+.cover__headline {
+  font-size: 34pt; font-weight: 800; letter-spacing: -0.04em;
+  line-height: 1.18; color: var(--ink);
+}
+.cover__lead {
+  font-size: 10.5pt; line-height: 1.85; color: var(--ink-soft);
+  margin: 8mm 0 0; max-width: 140mm;
+}
+.cover__tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; margin-top: 12mm; }
+.tile {
+  background: rgb(20 29 66 / 72%);
+  border: 1px solid var(--line-card);
+  border-radius: 4mm;
+  padding: 6mm;
+}
+.tile__label {
+  font-family: var(--mono); font-size: 7pt; letter-spacing: 0.2em;
+  color: var(--accent); margin-bottom: 3mm;
+}
+.tile__value { font-size: 20pt; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); }
+.tile__tools { font-size: 11.5pt; font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
+.tile__desc { font-size: 8.4pt; line-height: 1.7; color: var(--muted); margin-top: 3mm; }
+.cover__rule { height: 1px; background: var(--line); margin: 0 0 5mm; }
+.cover__meta {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family: var(--mono); font-size: 7.6pt; letter-spacing: 0.14em; color: var(--muted);
+}
+
+/* 목차 */
+.toc { display: grid; gap: 0; margin-top: 8mm; }
+.toc__row {
+  display: grid; grid-template-columns: 14mm 1fr auto;
+  align-items: baseline; gap: 4mm;
+  padding: 4.6mm 0;
+  border-bottom: 1px solid var(--line);
+}
+.toc__num { font-family: var(--mono); font-size: 8pt; color: var(--accent); letter-spacing: 0.14em; }
+.toc__title { font-size: 11.5pt; font-weight: 700; color: var(--ink); }
+.toc__title span { display: block; font-size: 8.6pt; font-weight: 400; color: var(--muted); margin-top: 1.5mm; }
+.toc__page { font-family: var(--mono); font-size: 8.5pt; color: var(--dim); }
+
+/* 인용 블록 */
+.quote {
+  border-left: 2px solid var(--accent);
+  background: rgb(20 29 66 / 55%);
+  border-radius: 0 4mm 4mm 0;
+  padding: 6mm 7mm;
+}
+.quote p { margin: 0; font-size: 9.4pt; line-height: 1.85; color: var(--ink-soft); }
+.quote strong { color: var(--ink); font-weight: 700; }
+
+/* 3단계 시스템 */
+.steps { display: grid; grid-template-columns: 1fr 7mm 1fr 7mm 1fr; align-items: stretch; gap: 0; }
+.step {
+  background: var(--surface); border: 1px solid var(--line-card);
+  border-radius: 4mm; padding: 7mm 6mm;
+  display: flex; flex-direction: column;
+}
+.step__eyebrow { font-family: var(--mono); font-size: 7.2pt; letter-spacing: 0.2em; color: var(--accent); }
+.step__title { font-size: 15pt; font-weight: 800; letter-spacing: -0.03em; margin-top: 4mm; }
+.step__sub {
+  font-size: 8.2pt; font-weight: 600; color: var(--accent-2);
+  margin-top: 2.5mm; letter-spacing: 0.02em;
+}
+.step__text { font-size: 8.8pt; line-height: 1.7; color: var(--muted); margin-top: 4mm; }
+.step__arrow { display: flex; align-items: center; justify-content: center; color: var(--dim); font-size: 13pt; }
+
+/* 레벨 카드 */
+.lv__top { display: flex; align-items: center; justify-content: space-between; gap: 4mm; }
+.lv__level {
+  font-family: var(--mono); font-size: 9pt; font-weight: 500;
+  color: var(--bg); background: var(--accent);
+  border-radius: 2mm; padding: 1mm 2.5mm; letter-spacing: 0.08em;
+}
+.lv__dur { font-size: 8pt; color: var(--dim); font-family: var(--mono); letter-spacing: 0.06em; }
+.lv__title { font-size: 13pt; font-weight: 800; letter-spacing: -0.03em; margin-top: 4mm; }
+.lv__target { font-size: 8.2pt; color: var(--accent-2); margin-top: 2.5mm; line-height: 1.6; }
+.lv__desc { font-size: 8.5pt; line-height: 1.72; color: var(--muted); margin: 4mm 0 0; }
+.lv__foot {
+  margin-top: 4.5mm; padding-top: 3.5mm; border-top: 1px solid var(--line);
+  font-size: 8.4pt; color: var(--ink-soft); line-height: 1.6;
+}
+.lv__foot b { font-family: var(--mono); font-size: 7.4pt; letter-spacing: 0.16em; color: var(--accent); font-weight: 500; }
+
+/* 리더 과정 / 운영 방식 */
+.panel {
+  background: var(--surface-hi); border: 1px solid var(--line-card);
+  border-radius: 4mm; padding: 7mm;
+}
+.panel--split { display: grid; grid-template-columns: 52mm 1fr; gap: 8mm; }
+.panel__label { font-family: var(--mono); font-size: 7.2pt; letter-spacing: 0.2em; color: var(--accent); }
+.panel__title { font-size: 15pt; font-weight: 800; letter-spacing: -0.03em; margin-top: 3.5mm; }
+.panel__meta { font-size: 8.4pt; color: var(--dim); margin-top: 2.5mm; }
+.panel__desc { font-size: 9pt; line-height: 1.8; color: var(--ink-soft); margin: 0; }
+
+/* 표 */
+.table { border: 1px solid var(--line-card); border-radius: 4mm; overflow: hidden; }
+.table__head, .table__row { display: grid; grid-template-columns: 46mm 40mm 1fr; gap: 6mm; padding: 4.2mm 6mm; }
+.table__head {
+  background: rgb(20 29 66 / 85%);
+  font-family: var(--mono); font-size: 7.2pt; letter-spacing: 0.2em; color: var(--accent);
+}
+.table__row { font-size: 9pt; color: var(--muted); border-top: 1px solid var(--line); }
+.table__row b { color: var(--ink); font-weight: 700; }
+
+.callout {
+  border: 1px dashed rgb(155 227 180 / 40%);
+  border-radius: 4mm; padding: 5mm 6mm;
+  font-size: 8.8pt; line-height: 1.75; color: var(--accent-2);
+}
+
+/* 컨설팅 좌우 */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 9mm; }
+.block__title { font-size: 11.5pt; font-weight: 700; margin: 0 0 4.5mm; }
+.services { list-style: none; margin: 0; padding: 0; display: grid; gap: 3.5mm; }
+.services li { display: grid; grid-template-columns: 5mm 1fr; font-size: 8.8pt; line-height: 1.7; color: var(--muted); }
+.services li span:first-child { color: var(--accent); }
+.flow { display: flex; align-items: center; flex-wrap: wrap; gap: 2.5mm; margin: 5mm 0; }
+.flow__step {
+  font-size: 8.4pt; font-weight: 600; color: var(--ink-soft);
+  border: 1px solid var(--line-card); border-radius: 999px; padding: 1.8mm 3.4mm;
+}
+.flow__step--final { color: var(--bg); background: var(--accent-2); border-color: var(--accent-2); }
+.flow__arrow { color: var(--dim); font-size: 8pt; }
+
+/* 결과 목록 */
+.outcome { display: grid; gap: 5mm; }
+.outcome__item {
+  display: grid; grid-template-columns: 12mm 1fr; align-items: baseline;
+  border-bottom: 1px solid var(--line); padding-bottom: 5mm;
+}
+.outcome__num { font-family: var(--mono); font-size: 9pt; color: var(--accent); letter-spacing: 0.12em; }
+.outcome__text { font-size: 10.6pt; line-height: 1.7; color: var(--ink-soft); }
+.outcome__text--strong { color: var(--ink); font-weight: 700; }
+
+/* FAQ */
+.faq { display: grid; gap: 6mm; }
+.faq__item { border-bottom: 1px solid var(--line); padding-bottom: 6mm; }
+.faq__item:last-child { border-bottom: none; padding-bottom: 0; }
+.faq__q {
+  display: grid; grid-template-columns: 8mm 1fr; gap: 0;
+  font-size: 10.5pt; font-weight: 700; color: var(--ink); line-height: 1.5;
+}
+.faq__q i { font-family: var(--mono); font-style: normal; color: var(--accent); font-size: 9pt; }
+.faq__a {
+  margin: 3.5mm 0 0 8mm;
+  font-size: 8.8pt; line-height: 1.8; color: var(--muted);
+}
+
+/* 마지막 장 */
+.cta { display: flex; flex-direction: column; justify-content: center; height: 100%; }
+.cta__headline {
+  font-size: 27pt; font-weight: 800; letter-spacing: -0.04em;
+  line-height: 1.24; margin-top: 6mm;
+}
+.cta__desc { font-size: 10.5pt; line-height: 1.8; color: var(--ink-soft); margin: 7mm 0 0; }
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8mm;
+  margin-top: 14mm; padding-top: 8mm; border-top: 1px solid var(--line);
+}
+.contact__label { font-family: var(--mono); font-size: 7.2pt; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 4mm; }
+.contact__line { font-size: 9.4pt; line-height: 1.95; color: var(--ink-soft); }
+.contact__line strong { color: var(--ink); font-weight: 700; }
+
+/* 화면에서 열었을 때만 페이지 구분이 보이게 */
+@media screen {
+  body { padding: 24px 0; display: flex; flex-direction: column; align-items: center; gap: 20px; background: #2a2d36; }
+  .page { box-shadow: 0 10px 40px rgb(0 0 0 / 55%); }
+}
+</style>
+</head>
+<body>
+
+<!-- 1. 표지 -->
+<section class="page page--hero">
+  <div class="cover__brand">
+    <svg viewBox="0 0 117 123" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M63.6563 121.264C54.0909 118.016 48.969 107.63 52.2162 98.0644L80.9346 13.4673C84.1818 3.90187 94.5685 -1.22006 104.134 2.02714C113.699 5.27433 118.821 15.661 115.574 25.2264L86.8556 109.823C83.6084 119.389 73.2217 124.511 63.6563 121.264Z" fill="#45AF66"/><path d="M13.3197 121.116C3.75427 117.869 -1.36764 107.482 1.87955 97.9168L30.598 13.3197C33.8452 3.75428 44.2318 -1.36764 53.7972 1.87955C63.3626 5.12675 68.4845 15.5134 65.2373 25.0788L36.5189 109.676C33.2717 119.241 22.8851 124.363 13.3197 121.116Z" fill="#344FE0"/></svg>
+    <div class="cover__brand-name">프루퍼</div>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="cover__eyebrow">AX CURRICULUM · PROOF OF VALUE</div>
+  <h1 class="cover__headline">기업 성과로 이어지는<br>AI 교육 커리큘럼</h1>
+  <p class="cover__lead">
+    기업의 AI 도입은 도입 여부를 고민하는 단계를 지났습니다. 남은 질문은 도입한 AI를 어떻게
+    실제 성과로 바꾸느냐입니다. 프루퍼는 평범한 교육회사가 아닌 그로스 컨설팅 기업입니다.
+    현장에 들어가 직접 만들고 운영해 온 방식을 그대로 가르칩니다.
+  </p>
+
+  <div class="spacer"></div>
+  <div class="cover__tiles">
+    <div class="tile">
+      <div class="tile__label">FLAGSHIP RECORD</div>
+      <div class="tile__value">약 1,400억</div>
+      <div class="tile__desc">어려운 시기에 합류해 1년 만에 팔리는 회사로 만들고 이끈 매각 규모</div>
+    </div>
+    <div class="tile">
+      <div class="tile__label">TOOLS</div>
+      <div class="tile__tools">Claude · ChatGPT<br>Gemini · Cursor</div>
+      <div class="tile__desc">특정 도구에 얽매이지 않고 고객사 환경에 맞는 도구를 중립적으로 권합니다</div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="cover__rule"></div>
+  <div class="cover__meta">
+    <span>AI 리터러시 · 도구 실무 · 직무 특화 · 에이전트 · 리더 과정 · 해커톤 · 컨설팅</span>
+    <span>AX.PROOFER.TECH</span>
+  </div>
+</section>
+
+<!-- 2. 목차 -->
+<section class="page page--alt">
+  <div class="runhead"><span>PROOFER AX</span><span>CONTENTS</span></div>
+  <div class="eyebrow">CONTENTS</div>
+  <h2 class="h2">이 문서가 다루는 것</h2>
+  <p class="lead">
+    강의로 조직 전반의 AI 활용력을 끌어올리고, 해커톤으로 그 힘을 사내 실제 문제에 붙이고,
+    컨설팅으로 결과물을 실제 서비스와 성과로 연결합니다. 필요한 지점부터 읽으셔도 됩니다.
+  </p>
+  <div class="toc">
+    <div class="toc__row"><div class="toc__num">01</div><div class="toc__title">문제 인식<span>예산은 집행됐는데 일하는 방식은 그대로인가</span></div><div class="toc__page">03</div></div>
+    <div class="toc__row"><div class="toc__num">02</div><div class="toc__title">프루퍼의 관점<span>기업가치를 증명합니다를 교육에 그대로 옮긴다</span></div><div class="toc__page">04</div></div>
+    <div class="toc__row"><div class="toc__num">03</div><div class="toc__title">커리큘럼 시스템<span>강의 → 해커톤 → 컨설팅의 3단계</span></div><div class="toc__page">05</div></div>
+    <div class="toc__row"><div class="toc__num">04</div><div class="toc__title">AX Lecture<span>L1 리터러시부터 L4 에이전트까지</span></div><div class="toc__page">06</div></div>
+    <div class="toc__row"><div class="toc__num">05</div><div class="toc__title">리더 과정과 운영 방식<span>의사결정권자 과정 · 집합 강의 운영 표준</span></div><div class="toc__page">07</div></div>
+    <div class="toc__row"><div class="toc__num">06</div><div class="toc__title">AX Hackathon<span>팀이 자기 업무를 들고 오는 사내 AI 해커톤</span></div><div class="toc__page">08</div></div>
+    <div class="toc__row"><div class="toc__num">07</div><div class="toc__title">AX Consulting<span>진단부터 운영까지 직접 만들고 운영한다</span></div><div class="toc__page">09</div></div>
+    <div class="toc__row"><div class="toc__num">08</div><div class="toc__title">패키지와 기대 성과<span>필요한 단계부터 시작하는 네 가지 구성</span></div><div class="toc__page">10</div></div>
+    <div class="toc__row"><div class="toc__num">09</div><div class="toc__title">자주 묻는 질문<span>효과 측정 · 실습 자료 · 보안 · 도구 · 견적</span></div><div class="toc__page">11</div></div>
+    <div class="toc__row"><div class="toc__num">10</div><div class="toc__title">도입 문의<span>어느 지점부터 시작할지 함께 정합니다</span></div><div class="toc__page">12</div></div>
+  </div>
+  <div class="spacer"></div>
+  <div class="runfoot"><span>PROOFER INC.</span><span>02</span></div>
+</section>
+
+<!-- 3. PROBLEM -->
+<section class="page page--airy">
+  <div class="runhead"><span>01 · 문제 인식</span><span>PROBLEM</span></div>
+  <div class="eyebrow">PROBLEM</div>
+  <h2 class="h2">예산은 이미 집행되었는데,<br>일하는 방식은 그대로인가요?</h2>
+  <p class="lead">
+    시중의 AI 교육 대부분은 도구 사용법을 알려주는 데서 멈춥니다. 수강생은 강의장에서는
+    감탄하지만 자리로 돌아오면 자기 업무에 무엇을 어떻게 붙일지 막막해합니다.
+  </p>
+
+  <div class="spacer"></div>
+
+  <div class="cards cards--3 grow grow--center" style="max-height:68mm">
+    <div class="card">
+      <div class="card__num">01</div>
+      <div class="card__title">도구 사용법에서 멈춤</div>
+      <p class="card__desc">시연은 화려하지만 내 업무와 연결되지 않습니다.</p>
+    </div>
+    <div class="card">
+      <div class="card__num">02</div>
+      <div class="card__title">남는 자산이 없음</div>
+      <p class="card__desc">과정이 끝나면 워크시트도 프롬프트도 흩어집니다.</p>
+    </div>
+    <div class="card">
+      <div class="card__num">03</div>
+      <div class="card__title">성과로 이어지지 않음</div>
+      <p class="card__desc">영업이익과 기업가치까지 가는 경로가 없습니다.</p>
+    </div>
+  </div>
+
+  <div style="height:14mm"></div>
+
+  <div class="quote">
+    <p>
+      남은 질문은 도입한 AI를 어떻게 실제 성과로 바꾸느냐입니다.
+      <strong>교육의 끝이 “우리 회사에 무엇을 적용할까”로 이어지지 않으면, 집행된 예산은 자산으로 남지 않습니다.</strong>
+    </p>
+  </div>
+
+  <div class="spacer spacer--free"></div>
+  <div class="runfoot"><span>PROOFER INC.</span><span>03</span></div>
+</section>
+
+<!-- 4. OUR VIEW -->
+<section class="page page--alt">
+  <div class="runhead"><span>02 · 프루퍼의 관점</span><span>OUR VIEW</span></div>
+  <div class="eyebrow">OUR VIEW</div>
+  <h2 class="h2">“기업가치를 증명합니다”를<br>교육에 그대로 옮겨 드립니다.</h2>
+  <p class="lead">
+    받은 과제만 처리하는 대신 현장에 들어가 진짜 문제를 다시 정의하고, 필요하면 앱과 서버와
+    AI까지 직접 만들어 운영효율을 끌어올립니다. 그래서 세 가지가 다릅니다.
+  </p>
+
+  <div class="spacer"></div>
+
+  <div class="cards cards--3 grow" style="max-height:74mm">
+    <div class="card">
+      <div class="card__num">01</div>
+      <div class="card__title">강의만 하는 강사가 아닌 전문 FDE</div>
+      <p class="card__desc">실습 예제가 시연용이 아니라 현업에서 쓰던 것이며 강의에서 나온 피드백 또한 기업에 적용해드립니다.</p>
+    </div>
+    <div class="card">
+      <div class="card__num">02</div>
+      <div class="card__title">실무를 고려한 솔루션 선택</div>
+      <p class="card__desc">진짜 문제를 다뤄 왔기 때문에 고객사 환경에 맞는 도구 또는 SI 를 중립적으로 권할 수 있습니다.</p>
+    </div>
+    <div class="card">
+      <div class="card__num">03</div>
+      <div class="card__title">기업가치를 끌어올리는 지렛대</div>
+      <p class="card__desc">AI를 영업이익과 기업가치를 올리는 지렛대로 봅니다. 교육의 끝이 “우리 회사에 무엇을 적용할까”로 이어질 수 있도록 만듭니다.</p>
+    </div>
+  </div>
+
+  <div class="spacer spacer--free"></div>
+
+  <div class="quote">
+    <p>
+      프루퍼는 AI Native 기업입니다. 사내 시스템을 AI에 연결하는 도구를 직접 만들어 쓰고,
+      반복 업무를 자동화 워크플로로 돌리며, 흩어진 사내 지식을 AI가 활용하도록 구조화해 왔습니다.
+      <strong>남이 만든 커리큘럼을 전달하는 것이 아니라, 실제로 그렇게 일하는 회사의 방식을 공유합니다.</strong>
+    </p>
+  </div>
+
+  <div class="runfoot"><span>PROOFER INC.</span><span>04</span></div>
+</section>
+
+<!-- 5. CURRICULUM SYSTEM -->
+<section class="page page--airy">
+  <div class="runhead"><span>03 · 커리큘럼 시스템</span><span>CURRICULUM SYSTEM</span></div>
+  <div class="eyebrow">CURRICULUM SYSTEM</div>
+  <h2 class="h2">강의로 시작해 컨설팅을 넘어<br>실제 성과까지</h2>
+  <p class="lead">
+    강의로 조직 전반의 AI 활용력을 끌어올리고, 해커톤으로 그 힘을 사내 실제 문제에 붙여
+    돌아가는 결과물을 만들고, 컨설팅으로 그 결과물을 실제 서비스와 성과로 연결합니다.
+    고객사는 필요한 지점부터 시작하면 됩니다.
+  </p>
+
+  <div class="spacer"></div>
+
+  <div class="steps grow" style="max-height:72mm">
+    <div class="step">
+      <div class="step__eyebrow">STEP 01</div>
+      <div class="step__title">AX Lecture</div>
+      <div class="step__sub">저변 확대</div>
+      <div class="step__text">임직원의 AI 활용력을 수준별로 끌어올립니다.</div>
+    </div>
+    <div class="step__arrow">→</div>
+    <div class="step">
+      <div class="step__eyebrow">STEP 02</div>
+      <div class="step__title">AX Hackathon</div>
+      <div class="step__sub">실전 전환</div>
+      <div class="step__text">실제 문제에 붙여 돌아가는 결과물을 만듭니다.</div>
+    </div>
+    <div class="step__arrow">→</div>
+    <div class="step">
+      <div class="step__eyebrow">STEP 03</div>
+      <div class="step__title">AX Consulting</div>
+      <div class="step__sub">성과 실행</div>
+      <div class="step__text">결과물을 실제 서비스와 성과로 연결합니다.</div>
+    </div>
+  </div>
+
+  <div style="height:14mm"></div>
+
+  <div class="panel panel--split">
+    <div>
+      <div class="panel__label">HANDOVER</div>
+      <div class="panel__title">단계가 서로를<br>물고 갑니다</div>
+    </div>
+    <div>
+      <p class="panel__desc">
+        리더 과정에서 나온 우선순위와 해커톤에서 나온 결과물이 그대로 컨설팅 진단의 입력이 됩니다.
+        교육에서 찾은 문제를 컨설팅에서 실제 서비스로 만듭니다. 각 단계의 산출물이 다음 단계의
+        재료가 되기 때문에, 과정이 끝나도 조직에 자산이 남습니다.
+      </p>
+    </div>
+  </div>
+
+  <div class="spacer spacer--free"></div>
+  <div class="runfoot"><span>PROOFER INC.</span><span>05</span></div>
+</section>
+
+<!-- 6. AX LECTURE -->
+<section class="page page--alt">
+  <div class="runhead"><span>04 · AX Lecture</span><span>저변 확대</span></div>
+  <div class="eyebrow-row">
+    <div class="eyebrow">01 / AX LECTURE</div>
+    <div class="tag">저변 확대</div>
+  </div>
+  <h2 class="h2">사내 AI 교육을 전 직원 리터러시부터 파워유저 양성까지</h2>
+  <p class="lead">
+    임직원의 AI 활용력을 수준별로 끌어올리는 강의형 과정입니다.
+    조직의 AI 저변을 넓히는 가장 빠른 경로입니다.
+  </p>
+
+  <div class="cards cards--2 grow" style="margin-top:8mm">
+    <div class="card">
+      <div class="lv__top"><span class="lv__level">L1</span><span class="lv__dur">8시간 ~ 1일</span></div>
+      <div class="lv__title">AI 리터러시</div>
+      <div class="lv__target">전 직원</div>
+      <p class="lv__desc">생성형 AI의 기본기, 프롬프트 작성법, 업무 적용 감각, 보안과 윤리 기준을 다룹니다. 무엇이 되고 무엇이 안 되는지를 실패 사례로 짚어, 민감한 데이터나 규제 업무에서 선을 긋는 법까지 전달 드립니다.</p>
+      <div class="spacer"></div>
+      <div class="lv__foot"><b>산출물</b> 자기 업무 세 가지를 AI로 다시 설계한 워크시트</div>
+    </div>
+    <div class="card">
+      <div class="lv__top"><span class="lv__level">L2</span><span class="lv__dur">1일 ~ 2일</span></div>
+      <div class="lv__title">도구 실무</div>
+      <div class="lv__target">Claude · Copilot · Gemini 중 선택</div>
+      <p class="lv__desc">사무직 실무자가 선택한 도구로 문서와 데이터와 보고서 업무를 자동화합니다. 고객사의 도구 환경에 맞춰 트랙을 고르고, 도구 사용법이 아니라 업무를 도구에 맞게 다시 설계하는 법에 초점을 둡니다.</p>
+      <div class="spacer"></div>
+      <div class="lv__foot"><b>산출물</b> 자기 반복 업무를 자동화한 워크플로</div>
+    </div>
+    <div class="card">
+      <div class="lv__top"><span class="lv__level">L3</span><span class="lv__dur">직무 조직 단위</span></div>
+      <div class="lv__title">직무 특화</div>
+      <div class="lv__target">연구 · 기획 · 영업 · 인사 · 재무 · 안전 · 품질 · 물류</div>
+      <p class="lv__desc">타사의 사례가 아니라 현업의 실제 데이터와 문서로 실습합니다. 프루퍼가 사내 데이터를 구조화해 온 방식을 직무 맥락 설계에 적용해, 단발성 프롬프트가 아니라 조직에 남는 자산을 만듭니다.</p>
+      <div class="spacer"></div>
+      <div class="lv__foot"><b>산출물</b> 직무 표준 프롬프트와 재사용 워크플로</div>
+    </div>
+    <div class="card">
+      <div class="lv__top"><span class="lv__level">L4</span><span class="lv__dur">2일 ~ 3일</span></div>
+      <div class="lv__title">파워유저와 에이전트</div>
+      <div class="lv__target">개발 인접 직무 · 사내 AI 챔피언</div>
+      <p class="lv__desc">Claude Code나 Cursor로 직접 만들고, 여러 에이전트를 엮어 설계하며, 사내 시스템을 AI에 연결합니다. 프루퍼가 실제로 구축해 운영하는 사내 도구를 교보재로 삼아, 시연에서 끝나지 않고 배포까지 가는 것을 목표로 합니다.</p>
+      <div class="spacer"></div>
+      <div class="lv__foot"><b>산출물</b> 팀에 배포하는 작은 도구 또는 에이전트</div>
+    </div>
+  </div>
+
+  <div class="runfoot"><span>PROOFER INC.</span><span>06</span></div>
+</section>
+
+<!-- 7. 리더 과정 + 운영 방식 -->
+<section class="page page--alt">
+  <div class="runhead"><span>05 · 리더 과정과 운영 방식</span><span>LEADERSHIP &amp; OPERATIONS</span></div>
+  <div class="eyebrow">01 / AX LECTURE — 확장</div>
+  <h2 class="h2">의사결정권자부터 움직여야<br>조직이 따라옵니다</h2>
+  <p class="lead">
+    임직원 과정만으로는 조직이 바뀌지 않습니다. 도입을 결정하는 자리에서 먼저 관점을 맞추고,
+    강의를 실습이 살아 있는 형태로 운영해야 교육이 자산으로 남습니다.
+  </p>
+
+  <div style="height:12mm"></div>
+
+  <div class="panel panel--split">
+    <div>
+      <div class="panel__label">LEADERSHIP</div>
+      <div class="panel__title">리더 과정</div>
+      <div class="panel__meta">임원과 직책자 · 2~3시간</div>
+    </div>
+    <div>
+      <p class="panel__desc">
+        의사결정권자를 대상으로 AX 전략 판단, 투자 결정, 조직 도입 로드맵을 다룹니다.
+        AI 도입을 비용이 아니라 영업이익과 기업가치의 지렛대로 보는 관점을 심고,
+        조직의 진짜 문제를 발굴합니다.
+      </p>
+      <div class="lv__foot"><b>산출물</b> 어디부터 도입할지 정한 자사 AX 우선순위</div>
+    </div>
+  </div>
+
+  <div style="height:6mm"></div>
+
+  <div class="panel panel--split">
+    <div>
+      <div class="panel__label">OPERATIONS</div>
+      <div class="panel__title">운영 방식</div>
+      <div class="panel__meta">집합 강의 + 온라인 송출</div>
+    </div>
+    <div>
+      <p class="panel__desc">
+        당사에서의 집합 강의와 실습을 기본으로 하고, 필요하면 온라인 송출을 병행합니다.
+        주강사 한 명에 분반별 기술튜터를 붙여 실습 밀도를 확보하고, 실습 결과물은 공유 보드로
+        모으며 사전과 사후 설문을 표준화합니다. 과정이 끝나면 각 조직이 뽑은 적용 후보를
+        회수해 다음 단계로 이어갑니다.
+      </p>
+    </div>
+  </div>
+
+  <div class="spacer spacer--free"></div>
+
+  <div class="cards cards--3 grow grow--center" style="max-height:64mm">
+    <div class="card">
+      <div class="card__num">밀도</div>
+      <div class="card__title">주강사 + 기술튜터</div>
+      <p class="card__desc">분반마다 튜터를 붙여 실습이 관람으로 끝나지 않게 합니다.</p>
+    </div>
+    <div class="card">
+      <div class="card__num">기록</div>
+      <div class="card__title">공유 보드 회수</div>
+      <p class="card__desc">실습 결과물을 한곳에 모아 교육 이후에도 조직 자산으로 남깁니다.</p>
+    </div>
+    <div class="card">
+      <div class="card__num">측정</div>
+      <div class="card__title">사전·사후 설문</div>
+      <p class="card__desc">같은 문항으로 앞뒤를 재서 변화를 숫자로 확인합니다.</p>
+    </div>
+  </div>
+
+  <div class="runfoot"><span>PROOFER INC.</span><span>07</span></div>
+</section>
+
+<!-- 8. AX HACKATHON -->
+<section class="page">
+  <div class="runhead"><span>06 · AX Hackathon</span><span>실전 전환</span></div>
+  <div class="eyebrow-row">
+    <div class="eyebrow">02 / AX HACKATHON</div>
+    <div class="tag">실전 전환</div>
+  </div>
+  <h2 class="h2">팀이 자기 업무를 들고 오는<br>사내 AI 해커톤</h2>
+  <p class="lead">
+    강의에서 배운 것을 사내 실제 문제에 붙여 돌아가는 결과물을 만드는 실전 과정입니다.
+    프루퍼가 기업 AI 심화 해커톤을 코치한 경험 위에 섭니다.
+  </p>
+
+  <div class="spacer"></div>
+
+  <div class="cards cards--3">
+    <div class="card">
+      <div class="card__title">시연에서 끝나지 않습니다</div>
+      <p class="card__desc">프루퍼는 실제로 배포하고 운영하는 회사라, 쓸 만한 결과물을 실제 서비스로 잇는 길을 압니다.</p>
+    </div>
+    <div class="card">
+      <div class="card__title">심사 기준은 데모가 아니라 밸류</div>
+      <p class="card__desc">업무 시간을 얼마나 줄였는지, 실제 데이터로 돌아가는지, 다른 팀으로 넓힐 수 있는지를 봅니다.</p>
+    </div>
+    <div class="card">
+      <div class="card__title">코치가 실전 빌더</div>
+      <p class="card__desc">막히는 지점에서 실제 구현을 함께 풉니다.</p>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="table">
+    <div class="table__head"><div>포맷</div><div>기간</div><div>결과물</div></div>
+    <div class="table__row"><div><b>스프린트</b></div><div>하루</div><div>팀이 고른 문제의 프로토타입</div></div>
+    <div class="table__row"><div><b>해커톤</b></div><div>이틀에서 사흘</div><div>팀별 결과물과 심사</div></div>
+    <div class="table__row"><div><b>PBL 인큐베이터</b></div><div>4주에서 8주</div><div>파일럿 수준의 결과물</div></div>
+    <div class="table__row"><div><b>콘테스트</b></div><div>시즌 단위</div><div>사내 배포 후보 우승작</div></div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="panel panel--split">
+    <div>
+      <div class="panel__label">진행</div>
+      <div class="panel__title">문제 발굴에서<br>배포까지</div>
+    </div>
+    <div>
+      <p class="panel__desc">
+        문제 발굴 워크숍으로 시작합니다. 각 팀이 AI로 없앨 반복 업무나 풀고 싶은 문제를 정하고,
+        프루퍼가 그 문제의 크기를 함께 가늠합니다. 킥오프에서 도구를 세팅하고 팀을 짜고 데이터를
+        준비한 뒤, 코치가 붙어 빌드를 돕습니다. 심사는 절감 시간, 완성도, 재사용성, 배포 적합성을
+        기준으로 하고, 유망한 결과물은 컨설팅 과정으로 넘겨 실제 서비스로 만듭니다.
+      </p>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="callout">
+    교육 예산을 실제로 쓰는 도구 자산으로 바꾸려는 고객사를 위해, 우승작을 프루퍼가 짧은
+    스프린트로 배포 수준까지 끌어올리는 옵션도 둡니다.
+  </div>
+
+  <div class="runfoot"><span>PROOFER INC.</span><span>08</span></div>
+</section>
+
+<!-- 9. AX CONSULTING -->
+<section class="page page--alt">
+  <div class="runhead"><span>07 · AX Consulting</span><span>성과 실행</span></div>
+  <div class="eyebrow-row">
+    <div class="eyebrow">03 / AX CONSULTING</div>
+    <div class="tag">성과 실행</div>
+  </div>
+  <h2 class="h2">AX 컨설팅으로 진단부터<br>운영까지 맡습니다</h2>
+  <p class="lead">
+    AI 활용법을 가르치는 데 그치지 않고, 회사의 일하는 방식과 수익 구조를 AI로 다시 설계해
+    직접 만들고 운영합니다.
+  </p>
+
+  <div class="spacer"></div>
+
+  <div class="cards cards--3">
+    <div class="card">
+      <div class="card__num">LAYER 01</div>
+      <div class="card__title">비즈니스와 조직</div>
+      <p class="card__desc">사업과 수익 구조를 다시 설계하고, 채용과 육성, 역할을 재편합니다. AI 도입을 조직의 관점에서 봅니다.</p>
+    </div>
+    <div class="card">
+      <div class="card__num">LAYER 02</div>
+      <div class="card__title">개발과 구축</div>
+      <p class="card__desc">기획부터 앱, 서버, AI까지 직접 구현하고 검증합니다. 사내 도구와 에이전트를 만들고 데이터를 정비합니다.</p>
+    </div>
+    <div class="card">
+      <div class="card__num">LAYER 03</div>
+      <div class="card__title">진단과 전환</div>
+      <p class="card__desc">현행 프로세스를 진단하고 AI 전환의 우선순위를 세워 파일럿을 설계합니다.</p>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="split">
+    <div>
+      <h3 class="block__title">AX 특화 서비스</h3>
+      <ul class="services">
+        <li><span>—</span><span>프루퍼가 사내에서 쓰는 AI 기반 개발 방식을 고객사 조직에 이식합니다.</span></li>
+        <li><span>—</span><span>고객사의 사내 시스템과 문서, 데이터를 AI에 연결하는 도구를 구축합니다.</span></li>
+        <li><span>—</span><span>사내에 흩어진 지식과 데이터를 AI가 활용하도록 구조화합니다.</span></li>
+        <li><span>—</span><span>반복 업무를 실제 자동화 워크플로로 구현합니다.</span></li>
+        <li><span>—</span><span>규제와 민감 데이터 환경에서도 AI를 도입하도록 설계합니다.</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="block__title">참여 방식</h3>
+      <p class="body-sm">
+        진단으로 시작해 파일럿으로 효과를 확인하고, 실행 단계에서 실제로 만들어 운영하며,
+        성과를 기업가치 관점에서 검증합니다. 프루퍼는 실무에 직접 참여하고, 비용은 프로젝트
+        참여와 성과 인센티브로 구성합니다. 단순한 컨설턴트가 아닌 협업 대상자로 기능합니다.
+      </p>
+      <div class="flow">
+        <span class="flow__step">진단</span><span class="flow__arrow">→</span>
+        <span class="flow__step">파일럿</span><span class="flow__arrow">→</span>
+        <span class="flow__step">실행·운영</span><span class="flow__arrow">→</span>
+        <span class="flow__step flow__step--final">기업가치 검증</span>
+      </div>
+      <p class="body-sm">
+        리더 과정에서 나온 우선순위와 해커톤에서 나온 결과물이 그대로 이 진단의 입력이 됩니다.
+        <strong style="color:var(--ink)">교육에서 찾은 문제를 컨설팅에서 실제 서비스로 만듭니다.</strong>
+      </p>
+    </div>
+  </div>
+
+  <div class="runfoot"><span>PROOFER INC.</span><span>09</span></div>
+</section>
+
+<!-- 10. 패키지 + 기대 성과 -->
+<section class="page">
+  <div class="runhead"><span>08 · 패키지와 기대 성과</span><span>ROADMAP &amp; OUTCOME</span></div>
+  <div class="eyebrow">ROADMAP &amp; PACKAGES</div>
+  <h2 class="h2">필요한 단계부터 시작합니다</h2>
+
+  <div class="spacer"></div>
+
+  <div class="cards cards--4 grow" style="max-height:76mm">
+    <div class="card">
+      <div class="card__title">스타터</div>
+      <p class="card__desc">전 직원 리터러시<br>+ 리더 과정</p>
+      <div class="spacer"></div>
+      <div class="lv__foot">조직 전반의 인식 형성</div>
+    </div>
+    <div class="card">
+      <div class="card__title">그로스</div>
+      <p class="card__desc">직무 특화 강의<br>+ 해커톤</p>
+      <div class="spacer"></div>
+      <div class="lv__foot">실전 전환</div>
+    </div>
+    <div class="card">
+      <div class="card__title">트랜스폼</div>
+      <p class="card__desc">해커톤 우승작 배포 스프린트<br>+ 컨설팅 진단</p>
+      <div class="spacer"></div>
+      <div class="lv__foot">성과 실행 착수</div>
+    </div>
+    <div class="card" style="background:var(--blue);border-color:transparent">
+      <div class="card__title">엔터프라이즈</div>
+      <p class="card__desc" style="color:#dfe4ff">전 과정 롤아웃 + 사내 도구 구축 + 컨설팅 실행</p>
+      <div class="spacer"></div>
+      <div class="lv__foot" style="color:#fff;border-top-color:rgb(255 255 255 / 24%)">전사 전환</div>
+    </div>
+  </div>
+
+  <p class="body-sm" style="margin-top:5mm">
+    강의는 인원과 일수 기준으로, 해커톤은 기간과 코치 규모와 결과물 수준으로, 컨설팅은 프로젝트
+    참여와 성과 인센티브로 견적을 잡습니다. 어느 경우든 교육 예산을 실제 도구 자산과 성과로 잇는
+    경로를 함께 제시합니다.
+  </p>
+
+  <div class="spacer spacer--free"></div>
+
+  <div class="eyebrow">EXPECTED OUTCOME</div>
+  <h2 class="h2" style="font-size:17pt;margin-bottom:6mm">교육 이후에 기업에 남는 것</h2>
+  <div class="outcome">
+    <div class="outcome__item"><div class="outcome__num">01</div><div class="outcome__text">임직원이 수준별로 AI 활용력을 갖춥니다.</div></div>
+    <div class="outcome__item"><div class="outcome__num">02</div><div class="outcome__text">강의가 실습 산출물과 사내 도구로 남아 교육 이후에도 자산이 됩니다.</div></div>
+    <div class="outcome__item"><div class="outcome__num">03</div><div class="outcome__text">현업의 진짜 문제가 발굴되고, 그중 일부를 실제 서비스로 전환합니다.</div></div>
+    <div class="outcome__item" style="border-bottom:none;padding-bottom:0"><div class="outcome__num">04</div><div class="outcome__text outcome__text--strong">AI 도입을 영업이익과 기업가치로 잇는 경로를 만듭니다.</div></div>
+  </div>
+
+  <div class="runfoot"><span>PROOFER INC.</span><span>10</span></div>
+</section>
+
+<!-- 11. FAQ -->
+<section class="page page--alt">
+  <div class="runhead"><span>09 · 자주 묻는 질문</span><span>FAQ</span></div>
+  <div class="eyebrow">FAQ</div>
+  <h2 class="h2">자주 묻는 질문</h2>
+
+  <div class="faq grow" style="margin-top:8mm">
+    <div class="faq__item">
+      <div class="faq__q"><i>Q1</i><span>교육이 끝나고 효과는 무엇으로 확인합니까.</span></div>
+      <p class="faq__a">확인하는 방법이 상품마다 다릅니다. AX 강의에서는 사전과 사후 설문을 같은 문항으로 돌리고 수강생이 공유 보드에 올린 실습 결과물을 함께 검토합니다. AX 해커톤에서는 절감 시간과 완성도, 재사용성, 배포 적합성으로 심사합니다. AX 컨설팅에서는 도입 뒤의 성과를 기업가치 관점에서 검증하고, 비용을 프로젝트 참여 대가와 성과 인센티브로 구성합니다. 성과가 나야 프루퍼의 몫도 나옵니다.</p>
+    </div>
+    <div class="faq__item">
+      <div class="faq__q"><i>Q2</i><span>실습은 우리 회사 업무 자료로 합니까.</span></div>
+      <p class="faq__a">수강생 본인의 업무 자료로 실습하는 것이 원칙입니다. 이론을 설명한 다음에는 반드시 그 자료를 들고 실습하고, 만든 결과물을 공유 보드에 올려 서로 피드백을 받습니다. L3 직무 특화에서는 직무 조직 단위로 묶어 그 직무의 실제 데이터와 문서를 그대로 씁니다. 민감한 자료는 실습을 시작하기 전에 AI에 넣지 않을 자료로 정해 두고 더미 데이터로 대체합니다.</p>
+    </div>
+    <div class="faq__item">
+      <div class="faq__q"><i>Q3</i><span>사내 보안 정책상 외부 AI 도구를 쓰기 어렵습니다. 그래도 됩니까.</span></div>
+      <p class="faq__a">됩니다. 어느 과정이든 실습을 시작하기 전에 AI에 넣지 않을 자료의 목록과 더미 데이터 원칙을 먼저 정하고, AI에 입력하는 것이 곧 외부 전송이라는 전제를 수강생 전원에게 공유합니다. L1 AI 리터러시에서는 민감한 데이터와 규제 업무에서 선을 긋는 법을 실패 사례를 들어 설명합니다. 보안 정책 자체를 새로 세워야 하는 상황이라면 규제와 민감 데이터 환경에서도 AI를 도입하도록 설계하는 일까지 AX 컨설팅에서 맡습니다.</p>
+    </div>
+    <div class="faq__item">
+      <div class="faq__q"><i>Q4</i><span>우리가 이미 쓰는 AI 도구가 있는데 그 도구로 가르칩니까.</span></div>
+      <p class="faq__a">고객사가 쓰는 도구에 맞춰 트랙을 고릅니다. L2 도구 실무에서는 Claude, Copilot, Gemini 가운데 하나를 골라 진행하고, L4 파워유저와 에이전트에서는 수강생이 Claude Code나 Cursor로 직접 만듭니다. 프루퍼는 이 도구를 실무에서 다뤄 왔기 때문에 특정 도구에 얽매이지 않고 고객사 환경에 맞는 것을 중립적으로 권합니다. 아직 도구를 정하지 못했다면 무엇을 도입할지 고르는 일부터 함께 합니다.</p>
+    </div>
+    <div class="faq__item">
+      <div class="faq__q"><i>Q5</i><span>사업장이 흩어져 있는데 온라인으로 할 수 있습니까.</span></div>
+      <p class="faq__a">집합 강의와 실습이 기본이고 여기에 온라인 송출을 병행합니다. 한자리에 모이는 인원은 실습을 그대로 하고, 떨어진 사업장의 인원은 송출로 같은 회차를 함께 듣습니다. 사업장이 몇 군데인지, 어느 인원을 모을 수 있는지를 AX 도입 상담에서 확인하고 회차 구성을 함께 정합니다.</p>
+    </div>
+    <div class="faq__item">
+      <div class="faq__q"><i>Q6</i><span>견적과 일정은 언제 나옵니까.</span></div>
+      <p class="faq__a">AX 도입 상담이 먼저입니다. 조직 규모와 목표를 듣고 커리큘럼 초안과 견적, 일정을 함께 드립니다. 견적 기준은 상품마다 다릅니다. AX 강의는 인원과 일수로, AX 해커톤은 기간과 코치 규모와 결과물 수준으로, AX 컨설팅은 프로젝트 참여 대가와 성과 인센티브로 산정합니다. 도입 여부는 이것을 다 보신 다음에 정하시면 됩니다.</p>
+    </div>
+  </div>
+
+  <div class="runfoot"><span>PROOFER INC.</span><span>11</span></div>
+</section>
+
+<!-- 13. CONTACT -->
+<section class="page page--cta">
+  <div class="cta">
+    <div class="eyebrow">PROOF OF VALUE</div>
+    <h2 class="cta__headline">성과로 이어지는 기업 AI 교육 업체를<br>찾고 계셨다면.</h2>
+    <p class="cta__desc">강의 · 해커톤 · 컨설팅. 어느 지점부터 시작할지 함께 정해봅시다.</p>
+
+    <div class="contact-grid">
+      <div>
+        <div class="contact__label">CONTACT</div>
+        <div class="contact__line">
+          <strong>info@proofer.tech</strong><br>
+          ax.proofer.tech<br>
+          proofer.tech
+        </div>
+      </div>
+      <div>
+        <div class="contact__label">COMPANY</div>
+        <div class="contact__line">
+          <strong>프루퍼주식회사</strong> · 대표 임한솔<br>
+          사업자등록번호 337-81-03650<br>
+          서울 강남구 강남대로112길 47, 2층 421A
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="cover__brand">
+    <svg viewBox="0 0 117 123" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M63.6563 121.264C54.0909 118.016 48.969 107.63 52.2162 98.0644L80.9346 13.4673C84.1818 3.90187 94.5685 -1.22006 104.134 2.02714C113.699 5.27433 118.821 15.661 115.574 25.2264L86.8556 109.823C83.6084 119.389 73.2217 124.511 63.6563 121.264Z" fill="#45AF66"/><path d="M13.3197 121.116C3.75427 117.869 -1.36764 107.482 1.87955 97.9168L30.598 13.3197C33.8452 3.75428 44.2318 -1.36764 53.7972 1.87955C63.3626 5.12675 68.4845 15.5134 65.2373 25.0788L36.5189 109.676C33.2717 119.241 22.8851 124.363 13.3197 121.116Z" fill="#344FE0"/></svg>
+    <div class="cover__brand-name">프루퍼</div>
+  </div>
+</section>
+
+<script>
+// 페이지별 넘침 검사. 값을 title에 실어 --dump-dom으로 읽는다.
+// ?p=N 이면 그 페이지만 남겨 스크린샷을 찍는다.
+(async () => {
+  const q = new URLSearchParams(location.search);
+  const only = q.get("p");
+  if (only) {
+    document.querySelectorAll(".page").forEach((el, i) => {
+      if (i + 1 !== Number(only)) el.remove();
+    });
+  }
+  if (document.fonts) await document.fonts.ready;
+  const over = [];
+  document.querySelectorAll(".page").forEach((el, i) => {
+    const d = el.scrollHeight - el.clientHeight;
+    if (d > 1) over.push((i + 1) + ":+" + d);
+  });
+  document.title = "OVERFLOW[" + (over.join(",") || "none") + "]";
+})();
+</script>
+</body>
+</html>
