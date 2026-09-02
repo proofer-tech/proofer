@@ -11,11 +11,11 @@
 // 진입 연출이 문답마다 Enter 래퍼를 끼우기 때문에, 상자에 건 테두리는 진입 도중
 // 문답의 자리와 어긋난다(2.10절 목록과 같은 이유). 첫 문답도 이 규칙으로 위쪽 선을 받는다.
 .list > * > .item {
-  border-top: 1px solid rgb(255 255 255 / 12%);
+  border-top: 1px solid var(--line-card);
 }
 
 .list > *:last-child > .item {
-  border-bottom: 1px solid rgb(255 255 255 / 12%);
+  border-bottom: 1px solid var(--line-card);
 }
 
 .question {
@@ -42,7 +42,7 @@
   font-size: 17px;
   font-weight: 600;
   line-height: 1.6;
-  color: #c6cbd9;
+  color: var(--ink-soft);
   transition: color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -109,7 +109,7 @@
   padding: 0 40px 26px 0;
   font-size: 16px;
   line-height: 1.8;
-  color: #c6cbd9;
+  color: var(--ink-soft);
 }
 
 @media (prefers-reduced-motion: reduce) {

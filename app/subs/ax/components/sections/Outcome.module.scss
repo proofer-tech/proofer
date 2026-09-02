@@ -16,7 +16,7 @@
 
 .list {
   display: grid;
-  border: 1px solid rgb(255 255 255 / 10%);
+  border: 1px solid var(--line);
   border-radius: 16px;
   overflow: hidden;
 }
@@ -32,7 +32,7 @@
 // 항목을 감싸는 Enter 래퍼가 opacity: 0인 프레임에서도 .list 자체는 배경이 없으므로
 // 드러날 판이 없다 - 구분선은 .item 각각의 테두리로만 그린다.
 .list > *:not(:first-child) > .item {
-  border-top: 1px solid rgb(255 255 255 / 10%);
+  border-top: 1px solid var(--line);
 }
 
 .itemNumber {
@@ -44,7 +44,7 @@
 .itemText {
   font-size: 17px;
   line-height: 1.7;
-  color: #c6cbd9;
+  color: var(--ink-soft);
 }
 
 .itemTextStrong {

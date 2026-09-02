@@ -17,7 +17,7 @@
 .step {
   display: block;
   height: 100%;
-  border: 1px solid rgb(255 255 255 / 12%);
+  border: 1px solid var(--line-card);
   border-radius: 18px;
   padding: 34px;
   background: var(--bg-alt);
@@ -64,7 +64,7 @@
   margin-top: 18px;
   font-size: 15px;
   line-height: 1.7;
-  color: #8b93a8;
+  color: var(--muted);
 }
 
 .arrow {

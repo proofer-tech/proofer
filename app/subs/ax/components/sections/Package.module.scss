@@ -11,7 +11,7 @@
 
 .card {
   height: 100%;
-  border: 1px solid rgb(255 255 255 / 12%);
+  border: 1px solid var(--line-card);
   border-radius: 18px;
   padding: 30px;
   background: var(--bg-alt);
@@ -45,14 +45,14 @@
 .cardDesc {
   font-size: 15px;
   line-height: 1.7;
-  color: #c6cbd9;
+  color: var(--ink-soft);
 }
 
 .cardFoot {
   padding-top: 16px;
-  border-top: 1px solid rgb(255 255 255 / 10%);
+  border-top: 1px solid var(--line);
   font-size: 14px;
-  color: #8b93a8;
+  color: var(--muted);
 }
 
 .cardEnterprise {
@@ -69,15 +69,15 @@
 }
 
 .cardEnterprise .cardFoot {
-  border-top-color: rgb(255 255 255 / 14%);
-  color: #c6cbd9;
+  border-top-color: var(--line-card);
+  color: var(--ink-soft);
 }
 
 .note {
   margin: 36px 0 0;
   font-size: 16px;
   line-height: 1.8;
-  color: #8b93a8;
+  color: var(--muted);
   max-width: 900px;
   text-wrap: pretty;
 }

@@ -32,7 +32,7 @@
 
 .card {
   height: 100%;
-  border: 1px solid rgb(255 255 255 / 12%);
+  border: 1px solid var(--line-card);
   border-radius: 16px;
   padding: 30px;
   background: var(--bg-alt);
@@ -50,12 +50,12 @@
   margin: 12px 0 0;
   font-size: 15px;
   line-height: 1.75;
-  color: #8b93a8;
+  color: var(--muted);
 }
 
 .table {
   margin-top: 52px;
-  border: 1px solid rgb(255 255 255 / 12%);
+  border: 1px solid var(--line-card);
   border-radius: 18px;
   overflow: hidden;
 }
@@ -64,7 +64,7 @@
   display: grid;
   grid-template-columns: 1.1fr 1fr 1.6fr;
   padding: 16px 28px;
-  background: rgb(255 255 255 / 4%);
+  background: var(--surface);
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.16em;
@@ -77,7 +77,7 @@
   padding: 22px 28px;
   border-top: 1px solid var(--line);
   font-size: 16px;
-  color: #c6cbd9;
+  color: var(--ink-soft);
 }
 
 .tableFormat {
@@ -91,7 +91,7 @@
   gap: 40px;
   margin-top: 52px;
   padding-top: 36px;
-  border-top: 1px solid rgb(255 255 255 / 10%);
+  border-top: 1px solid var(--line);
 }
 
 .progressLabel {
@@ -109,7 +109,7 @@
   margin: 0;
   font-size: 16px;
   line-height: 1.8;
-  color: #8b93a8;
+  color: var(--muted);
   text-wrap: pretty;
 }
 
@@ -120,7 +120,7 @@
   background: rgb(52 79 224 / 10%);
   font-size: 15px;
   line-height: 1.75;
-  color: #c6cbd9;
+  color: var(--ink-soft);
 }
 
 @media (width <= 880px) {
