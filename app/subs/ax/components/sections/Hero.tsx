@@ -60,8 +60,11 @@ export default function Hero() {
                 </AxInquireButton>
               </Enter>
               <Enter index={4} immediate>
-                <a href="#system" className="ax-btn ax-btn--ghost">
-                  커리큘럼 보기
+                <a
+                  href="https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/assets/ax/proofer-ax.pdf?download=1"
+                  className="ax-btn ax-btn--ghost"
+                >
+                  커리큘럼 다운로드
                 </a>
               </Enter>
             </div>
