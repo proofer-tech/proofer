@@ -1,39 +1,8 @@
 .hero {
   position: relative;
   padding: 120px 40px 96px;
+  background: var(--hero-bg);
   border-bottom: 1px solid var(--line);
-}
-
-.glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    900px 420px at 18% 8%,
-    rgb(52 79 224 / 28%),
-    transparent 70%
-  );
-  pointer-events: none;
-  opacity: 1;
-
-  /* 스펙 4.2절 "순환" 이징(linear)을 그대로 쓴다 - 끊김 없이 도는 상시 모션이라는 성격이
-     흐름 띠와 같고, 4.2절이 정한 3종 밖의 이징을 새로 만들지 않는다 */
-  animation: hero-glow 12s linear infinite alternate;
-}
-
-@keyframes hero-glow {
-  from {
-    opacity: 0.85;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .glow {
-    animation: none;
-  }
 }
 
 .grid {

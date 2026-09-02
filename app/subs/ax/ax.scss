@@ -36,6 +36,8 @@ body:has(.ax-root) {
   --line: rgb(154 176 255 / 12%);
   --line-card: rgb(154 176 255 / 18%);
   --line-hover: rgb(154 176 255 / 34%);
+  --hero-bg: linear-gradient(168deg, #101838 0%, #0a0f26 46%, #080c1a 100%);
+  --cta-bg: linear-gradient(120deg, #0a1030 0%, #141d4e 50%, #0a1030 100%);
   --mono: "IBM Plex Mono", monospace;
 
   position: relative;

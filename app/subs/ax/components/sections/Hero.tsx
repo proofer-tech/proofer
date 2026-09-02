@@ -33,7 +33,6 @@ export default function Hero() {
   return (
     <>
       <section id="top" className={styles.hero}>
-        <div className={styles.glow} />
         <div className={styles.grid}>
           <div>
             <Enter index={0} immediate>

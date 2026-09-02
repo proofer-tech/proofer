@@ -6,7 +6,6 @@ import styles from "./Contact.module.scss";
 export default function Contact() {
   return (
     <section id="contact" className={styles.section}>
-      <div className={styles.glow} />
       <div className={styles.content}>
         <Enter index={0}>
           <div className="ax-eyebrow">PROOF OF VALUE</div>
