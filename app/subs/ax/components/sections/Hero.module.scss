@@ -94,7 +94,7 @@
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.16em;
-  color: #6c7590;
+  color: var(--dim);
 }
 
 .tileValue {
@@ -155,7 +155,7 @@
   font-family: var(--mono);
   font-size: 13px;
   letter-spacing: 0.14em;
-  color: #6c7590;
+  color: var(--dim);
   white-space: nowrap;
 }
 
