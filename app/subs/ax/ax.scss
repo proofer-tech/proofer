@@ -1,12 +1,13 @@
 /* ax.proofer.tech 랜딩 스타일. .ax-root 아래로 스코프.
-   토큰 값은 디자인 파일(.dira/attachments/4ccaf032-Proofer_AX_Landing.dc.html)을 그대로 따른다. */
+   치수와 레이아웃은 디자인 파일(.dira/attachments/4ccaf032-Proofer_AX_Landing.dc.html)을
+   따르고, 색 토큰은 docs/ax-landing-spec.md 3.2절을 따른다. */
 
 @import "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap";
 
 /* app/globals.scss가 body에 루트 랜딩 값(#f8f8f8, LINESeedKR)을 씌워 놓아서
    .ax-root만으로는 body 자체 값이 스펙과 어긋난다. :has()로 AX 경로에만 덮어쓴다. */
 body:has(.ax-root) {
-  background-color: #0a0c14;
+  background-color: #080c1a;
   font-family:
     "Pretendard Variable",
     Pretendard,
@@ -17,15 +18,24 @@ body:has(.ax-root) {
 }
 
 .ax-root {
-  --bg: #0a0c14;
-  --bg-alt: #0e1120;
-  --ink: #edeff5;
-  --muted: #a8aec0;
-  --dim: #7f879f;
+  --bg-footer: #05070f;
+  --bg: #080c1a;
+  --bg-alt: #0b1022;
+  --surface: #141d42;
+  --surface-hi: #18214a;
+  --ink: #e9ecf8;
+  --ink-soft: #c4cbe2;
+  --muted: #9aa3c0;
+  --dim: #848eae;
   --blue: #344fe0;
-  --blue-hover: #4a62e8;
-  --accent: #7c8af5;
-  --line: rgb(255 255 255 / 8%);
+  --blue-hover: #3d57e4;
+  --accent: #8fa5ff;
+  --accent-2: #9be3b4;
+  --focus: #9be3b4;
+  --green: #45af66;
+  --line: rgb(154 176 255 / 12%);
+  --line-card: rgb(154 176 255 / 18%);
+  --line-hover: rgb(154 176 255 / 34%);
   --mono: "IBM Plex Mono", monospace;
 
   position: relative;
@@ -136,7 +146,7 @@ body:has(.ax-root) {
     justify-content: space-between;
     gap: 24px;
     padding: 16px 40px;
-    background: rgb(10 12 20 / 82%);
+    background: rgb(8 12 26 / 82%);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--line);
     transition:
@@ -145,7 +155,7 @@ body:has(.ax-root) {
   }
 
   .ax-header--scrolled {
-    background: rgb(10 12 20 / 96%);
+    background: rgb(8 12 26 / 96%);
     border-bottom-color: rgb(255 255 255 / 16%);
   }
 
@@ -160,7 +170,7 @@ body:has(.ax-root) {
     font-family: var(--mono);
     font-size: 11px;
     letter-spacing: 0.18em;
-    color: var(--blue);
+    color: var(--accent);
   }
 
   .ax-nav {
@@ -189,7 +199,7 @@ body:has(.ax-root) {
   .ax-footer {
     padding: 56px 40px;
     border-top: 1px solid var(--line);
-    background: #080a11;
+    background: var(--bg-footer);
   }
 
   .ax-footer .ax-container {
