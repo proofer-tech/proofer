@@ -971,8 +971,15 @@ AI 전환 컨설팅, HRD AI 교육, 기업교육 AI, ChatGPT 기업 교육, Clau
 프롬프트 교육, AI 에이전트 교육, AI 리터러시 교육, 임원 AI 교육
 ```
 
-**오픈그래프 이미지** - 당분간 루트가 쓰는 `/assets/images/og-image.webp`를 그대로 씁니다.
-AX 전용 이미지를 새로 그리는 것은 이 요구사항의 범위 밖입니다.
+**오픈그래프 이미지** - AX 전용 이미지를 `public/assets/images/ax/og-image.webp`에 둡니다.
+`layout.tsx`의 `openGraph.images`와 `twitter.images`가 둘 다 이 한 경로를 가리킵니다.
+규격은 다른 하위 사이트(`insight`, `devm`, `with-cto`)가 이미 지키는 값을 그대로 따릅니다 -
+1200x630 픽셀, WebP, 200KB 이하입니다. 루트 랜딩이 쓰는 `/assets/images/og-image.webp`는
+이 페이지에서 더 이상 쓰지 않습니다.
+
+이미지에 무엇을 그릴지는 비주얼 디렉션이므로 3.2절 색 토큰 위에서 디자이너가 확정하고,
+그 결정을 3.2절 아래에 적습니다. 이 절이 정하는 것은 경로와 규격, 그리고 두 자리가
+같은 이미지를 가리킨다는 것까지입니다.
 
 **트위터 카드** - `summary_large_image`.
 
