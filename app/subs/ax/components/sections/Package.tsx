@@ -45,7 +45,7 @@ export default function Package() {
   return (
     <section id="package" className="ax-section">
       <div className="ax-container">
-        <div className={styles.eyebrow}>ROADMAP &amp; PACKAGES</div>
+        <div className="ax-eyebrow">ROADMAP &amp; PACKAGES</div>
         <Enter index={0}>
           <h2 className={`ax-h2 ${styles.headline}`}>
             필요한 단계부터 시작합니다

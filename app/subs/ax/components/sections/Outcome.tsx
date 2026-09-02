@@ -24,7 +24,7 @@ export default function Outcome() {
     <section id="outcome" className="ax-section ax-section--alt">
       <div className={`ax-container ${styles.wrap}`}>
         <div>
-          <div className={styles.eyebrow}>EXPECTED OUTCOME</div>
+          <div className="ax-eyebrow">EXPECTED OUTCOME</div>
           <Enter index={0}>
             <h2 className={styles.headline}>
               교육 이후에
