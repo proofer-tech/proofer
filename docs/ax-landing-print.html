@@ -122,6 +122,7 @@ h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.02em; }
 .cards--3 { grid-template-columns: repeat(3, 1fr); }
 .cards--2 { grid-template-columns: repeat(2, 1fr); }
 .cards--4 { grid-template-columns: repeat(4, 1fr); }
+.cards--5 { grid-template-columns: repeat(5, 1fr); }
 .card {
   background: var(--surface);
   border: 1px solid var(--line-card);
@@ -789,8 +790,8 @@ h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.02em; }
       <h3 class="block__title">참여 방식</h3>
       <p class="body-sm">
         진단으로 시작해 파일럿으로 효과를 확인하고, 실행 단계에서 실제로 만들어 운영하며,
-        성과를 기업가치 관점에서 검증합니다. 프루퍼는 실무에 직접 참여하고, 비용은 프로젝트
-        참여와 성과 인센티브로 구성합니다. 단순한 컨설턴트가 아닌 협업 대상자로 기능합니다.
+        성과를 기업가치 관점에서 검증합니다. 프루퍼는 실무에 직접 참여하고, 비용은 진단 범위와
+        산출물, 실제 투입 일수를 기준으로 구성합니다. 단순한 컨설턴트가 아닌 협업 대상자로 기능합니다.
       </p>
       <div class="flow">
         <span class="flow__step">진단</span><span class="flow__arrow">→</span>
@@ -816,12 +817,18 @@ h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.02em; }
 
   <div class="spacer"></div>
 
-  <div class="cards cards--4 grow" style="max-height:76mm">
+  <div class="cards cards--5 grow" style="max-height:76mm">
     <div class="card">
       <div class="card__title">스타터</div>
       <p class="card__desc">전 직원 리터러시<br>+ 리더 세션</p>
       <div class="spacer"></div>
       <div class="lv__foot">조직 전반의 인식 형성</div>
+    </div>
+    <div class="card">
+      <div class="card__title">리더십</div>
+      <p class="card__desc">리더 세션<br>+ 1:1 코칭<br>+ AX 진단</p>
+      <div class="spacer"></div>
+      <div class="lv__foot">의사결정 계층부터 바꿉니다</div>
     </div>
     <div class="card">
       <div class="card__title">그로스</div>
@@ -831,7 +838,7 @@ h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.02em; }
     </div>
     <div class="card">
       <div class="card__title">트랜스폼</div>
-      <p class="card__desc">해커톤 우승작 배포 스프린트<br>+ 컨설팅 진단</p>
+      <p class="card__desc">그로스 전 과정<br>+ AX 진단<br>+ 우승작 배포 스프린트</p>
       <div class="spacer"></div>
       <div class="lv__foot">성과 실행 착수</div>
     </div>
@@ -844,8 +851,8 @@ h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.02em; }
   </div>
 
   <p class="body-sm" style="margin-top:5mm">
-    강의는 인원과 일수 기준으로, 해커톤은 기간과 코치 규모와 결과물 수준으로, 컨설팅은 프로젝트
-    참여와 성과 인센티브로 견적을 잡습니다. 어느 경우든 교육 예산을 실제 도구 자산과 성과로 잇는
+    강의는 인원과 일수 기준으로, 해커톤은 기간과 코치 규모와 결과물 수준으로, 컨설팅은 진단
+    범위와 산출물 기준으로 견적을 잡습니다. 어느 경우든 교육 예산을 실제 도구 자산과 성과로 잇는
     경로를 함께 제시합니다.
   </p>
 
