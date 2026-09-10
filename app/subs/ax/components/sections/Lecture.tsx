@@ -81,7 +81,7 @@ export default function Lecture() {
           <div className={styles.leader}>
             <div className={styles.leaderLeft}>
               <div className={styles.leaderLabel}>LEADERSHIP</div>
-              <h3 className={styles.leaderTitle}>리더 과정</h3>
+              <h3 className={styles.leaderTitle}>리더 세션</h3>
               <div className={styles.leaderMeta}>임원과 직책자 · 2~3시간</div>
             </div>
             <div className={styles.leaderRight}>

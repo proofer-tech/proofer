@@ -5,12 +5,12 @@ import styles from "./Package.module.scss";
 const CARDS = [
   {
     title: "스타터",
-    lines: ["전 직원 리터러시", "리더 과정"],
+    lines: ["전 직원 리터러시", "리더 세션"],
     foot: "조직 전반의 인식 형성",
   },
   {
     title: "리더십",
-    lines: ["리더 과정", "AX Mark 1:1", "AX 진단"],
+    lines: ["리더 세션", "1:1 코칭", "AX 진단"],
     foot: "의사결정 계층부터 바꿉니다",
   },
   {

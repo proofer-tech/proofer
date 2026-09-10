@@ -104,7 +104,7 @@ export default function Consulting() {
               ))}
             </div>
             <p className={styles.engageNote}>
-              리더 과정에서 나온 우선순위와 해커톤에서 나온 결과물이 그대로 이
+              리더 세션에서 나온 우선순위와 해커톤에서 나온 결과물이 그대로 이
               진단의 입력이 됩니다.{" "}
               <strong>
                 교육에서 찾은 문제를 컨설팅에서 실제 서비스로 만듭니다.
