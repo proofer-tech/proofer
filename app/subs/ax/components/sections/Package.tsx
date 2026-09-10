@@ -63,7 +63,7 @@ export default function Package() {
               </div>
             </Enter>
           ))}
-          <Enter index={CARDS.length + 1}>
+          <Enter index={CARDS.length + 1} className={styles.cardEnterpriseWrap}>
             <div className={`${styles.card} ${styles.cardEnterprise}`}>
               <div className={styles.enterpriseMain}>
                 <div className={styles.cardTitle}>엔터프라이즈</div>

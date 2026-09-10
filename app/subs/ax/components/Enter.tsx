@@ -24,12 +24,15 @@ interface EnterProps {
   index?: number;
   /** 관찰 없이 로드 직후 재생한다. 첫 화면에 이미 들어와 있는 요소에만 쓴다 */
   immediate?: boolean;
+  /** wrapper `<div>`에 그대로 전달한다. grid item 자체에 걸어야 하는 클래스(grid-column 등)에 쓴다 */
+  className?: string;
 }
 
 export default function Enter({
   children,
   index = 0,
   immediate = false,
+  className,
 }: EnterProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -83,5 +86,9 @@ export default function Enter({
     };
   }, [index, immediate]);
 
-  return <div ref={ref}>{children}</div>;
+  return (
+    <div ref={ref} className={className}>
+      {children}
+    </div>
+  );
 }
