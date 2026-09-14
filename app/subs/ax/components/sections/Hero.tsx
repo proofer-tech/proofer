@@ -75,7 +75,7 @@ export default function Hero() {
               </Enter>
               <Enter index={4} immediate>
                 <a
-                  href="https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/assets/ax/proofer-ax.pdf?download=1"
+                  href="https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/assets/ax/proofer-ax.pdf?download=1&v=20260914"
                   className="ax-btn ax-btn--ghost"
                 >
                   커리큘럼 다운로드

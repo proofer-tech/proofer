@@ -1158,15 +1158,17 @@ linear-gradient(168deg, #101838 0%, #0A0F26 46%, #080C1A 100%)
 - **배포물: Vercel Blob의 `assets/ax/proofer-ax.pdf`.** 원고를 헤드리스 크롬
   `--print-to-pdf`로 뽑아 올린 파일입니다. 레포에는 두지 않습니다(5장 결정 9).
 - **히어로 보조 버튼 `커리큘럼 다운로드`가 그 파일의 다운로드 주소를 가리킵니다.** 주소는
-  `@vercel/blob`의 `getDownloadUrl()`이 만드는 `...?download=1` 형태이고, 구현은
-  `app/subs/ax/components/sections/Hero.tsx`에 있습니다. 화면 규격은 2.1절에 있습니다.
+  `@vercel/blob`의 `getDownloadUrl()`이 만드는 `...?download=1`에 판본 쿼리 `&v=<발행일 YYYYMMDD>`를
+  붙인 형태이고, 구현은 `app/subs/ax/components/sections/Hero.tsx`에 있습니다. 화면 규격은 2.1절에 있습니다.
 
 **갱신 규칙은 한 줄입니다. 화면 문면이나 패키지 구성이 갈리면 원고도 같은 회차에 갈리고,
 원고가 갈리면 PDF를 다시 올려야 방문자가 받는 값이 바뀝니다.** 앞쪽을 빠뜨리면 원고가 옛
 값을 든 채 남고, 뒤쪽을 빠뜨리면 원고만 새 값이 되고 방문자는 계속 옛 PDF를 받습니다.
 재발행 절차는 티켓 `c6344891`이 쓴 형태를 따릅니다. 지금 배포된 파일을 날짜를 붙인 이름으로
 먼저 올려 두고, 새로 뽑은 PDF로 같은 경로를 덮은 뒤, 다운로드 주소가 `200`과
-`content-disposition: attachment`를 내는지 확인합니다.
+`content-disposition: attachment`를 내는지 확인합니다. **같은 회차에 `Hero.tsx` 다운로드 주소의 판본
+쿼리 `v=`를 새 발행일로 갱신합니다.** 파일은 `cache-control: public, max-age=2592000`(30일)으로
+나가므로, 주소가 그대로면 전에 받은 방문자의 브라우저가 재검증 없이 옛 PDF를 내줍니다.
 
 **문면 변경 티켓이 범위를 셀 때는 `app/`과 `docs/`를 함께 잽니다.**
 
