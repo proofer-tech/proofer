@@ -83,18 +83,55 @@
   letter-spacing: -0.03em;
 }
 
-.tileTools {
-  font-size: 20px;
+.tileToolsGroup {
+  margin-top: 10px;
+}
+
+.tileToolsRow + .tileToolsRow {
+  margin-top: 12px;
+}
+
+// 한글 라벨이라 var(--mono)를 쓰지 않는다 - IBM Plex Mono에 한글 글리프가 없다
+.tileToolsAxis {
+  display: block;
+  font-size: 13px;
+  color: var(--dim);
+  line-height: 1.5;
+}
+
+// 이름 단위로만 접히게 li에 nowrap을 걸고, 점은 li 앞쪽에 붙여 줄 첫 항목 앞에 남지 않게 한다
+.tileToolsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 16px;
   font-weight: 700;
   color: var(--ink);
-  margin-top: 10px;
   letter-spacing: -0.01em;
+  line-height: 1.5;
+
+  li {
+    white-space: nowrap;
+  }
+
+  li + li::before {
+    content: "·";
+    margin-right: 8px;
+    color: var(--dim);
+  }
 }
 
 .tileDesc {
   font-size: 14px;
   color: var(--muted);
   margin-top: 6px;
+}
+
+.tileToolsGroup + .tileDesc {
+  margin-top: 10px;
 }
 
 .marqueeOuter {
