@@ -99,7 +99,8 @@
   line-height: 1.5;
 }
 
-// 이름 단위로만 접히게 li에 nowrap을 걸고, 점은 li 앞쪽에 붙여 줄 첫 항목 앞에 남지 않게 한다
+// 이름 단위로만 접히게 li에 nowrap을 걸고, 점은 li 안쪽 앞에 붙여 점과 그 뒤 이름이 언제나 같은 줄에 남게 한다.
+// 줄이 바뀌면 그 줄 첫 항목 앞에 점이 남는데, 이것은 확정 동작이다 - docs/ax-tool-axis-spec.md 4.4절
 .tileToolsList {
   display: flex;
   flex-wrap: wrap;
