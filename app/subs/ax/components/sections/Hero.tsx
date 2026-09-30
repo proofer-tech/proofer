@@ -16,6 +16,20 @@ const MARQUEE_ITEMS = [
   "기업가치",
 ];
 
+// 축당 도구는 셋까지. 넷째는 Hero가 아니라 L2/L4 카드 desc에 적는다 (docs/ax-tool-axis-spec.md 4.4)
+const TOOL_AXES = [
+  {
+    id: "ax-tools-chat",
+    label: "대화형 도구",
+    tools: ["Claude", "ChatGPT", "Gemini"],
+  },
+  {
+    id: "ax-tools-coding",
+    label: "코딩 에이전트",
+    tools: ["Claude Code", "Antigravity", "Codex"],
+  },
+];
+
 function MarqueeList() {
   return (
     <div className={styles.marqueeList}>
@@ -61,7 +75,7 @@ export default function Hero() {
               </Enter>
               <Enter index={4} immediate>
                 <a
-                  href="https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/assets/ax/proofer-ax.pdf?download=1"
+                  href="https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/assets/ax/proofer-ax.pdf?download=1&v=20260914"
                   className="ax-btn ax-btn--ghost"
                 >
                   커리큘럼 다운로드
@@ -83,12 +97,29 @@ export default function Hero() {
             <Enter index={6} immediate>
               <div className={styles.tile}>
                 <div className={styles.tileLabel}>TOOLS</div>
-                <div className={styles.tileTools}>
-                  Claude · ChatGPT · Gemini · Cursor
+                <div className={styles.tileToolsGroup}>
+                  {TOOL_AXES.filter((axis) => axis.tools.length > 0).map(
+                    (axis) => (
+                      <div key={axis.id} className={styles.tileToolsRow}>
+                        <span className={styles.tileToolsAxis} id={axis.id}>
+                          {axis.label}
+                        </span>
+                        <ul
+                          className={styles.tileToolsList}
+                          role="list"
+                          aria-labelledby={axis.id}
+                        >
+                          {axis.tools.map((tool) => (
+                            <li key={tool}>{tool}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ),
+                  )}
                 </div>
                 <div className={styles.tileDesc}>
-                  특정 도구에 얽매이지 않고 고객사 환경에 맞는 도구를 중립적으로
-                  권합니다
+                  도구는 고객사마다 다르게 정합니다. 사내망 제약과 계정 정책에서
+                  실제로 돌아가는 것을 고릅니다
                 </div>
               </div>
             </Enter>
