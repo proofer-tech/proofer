@@ -57,6 +57,9 @@ export const metadata = generateMetadataFromTitle(
       description,
       images: [ogImage],
     },
+    other: {
+      "naver-site-verification": "540b6d827c4e811af74ab953bd05d5b3d35cdd96",
+    },
   },
 );
 
