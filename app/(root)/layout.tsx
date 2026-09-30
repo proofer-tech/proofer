@@ -28,7 +28,10 @@ export const metadata = merge(
       canonical: "https://proofer.tech",
     },
     other: {
-      "naver-site-verification": "a044ad12d46fb84c4b43c9132cd443911989605d",
+      "naver-site-verification": [
+        "a044ad12d46fb84c4b43c9132cd443911989605d",
+        "3d1a17d88258cd92e1c25f3ae48260888b450f39",
+      ],
     },
   },
   generateMetadataFromTitle({
