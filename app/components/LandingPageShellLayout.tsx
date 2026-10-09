@@ -16,7 +16,6 @@ import Footer from "@/app/components/Footer";
 import Header, { HeaderPortal } from "@/app/components/Header";
 import { ReactChannelIO } from "react-channel-plugin";
 import TallyContext from "@/src/contexts/TallyContext";
-import { useIsMounted } from "@react-pdf-viewer/core";
 
 interface LandingPageShellLayoutProps extends Omit<
   LandingPageShellProps,
@@ -49,11 +48,10 @@ export default function LandingPageShellLayout({
   const tallyInquireForm = useTallyInquireForm({
     onSubmit: () => inquireCompletedModal.open(),
   });
-  const isMounted = useIsMounted();
   const [_, scrollTo] = useWindowScroll();
   const [hash] = useHash();
   useEffect(() => {
-    if (isMounted && hash) {
+    if (hash) {
       setTimeout(() => {
         const hashAnchor = document.getElementById(hash.replace("#", ""));
         if (hashAnchor !== null) {
@@ -62,7 +60,7 @@ export default function LandingPageShellLayout({
         }
       }, 600);
     }
-  }, [isMounted, hash]);
+  }, [hash]);
   return (
     <ReactChannelIO
       pluginKey={process.env.NEXT_PUBLIC_CHANNEL_ID_PLUGIN_KEY!}

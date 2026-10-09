@@ -1,19 +1,15 @@
 import {
   Anchor,
   AppShell,
-  Box,
   Burger,
   Button,
   Container,
-  Divider,
   Group,
   Image,
-  Loader,
   NavLink,
 } from "@mantine/core";
 import React from "react";
-import { IconChevronRight, IconLogin2, IconLogout } from "@tabler/icons-react";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { IconChevronRight } from "@tabler/icons-react";
 
 export interface HeaderPortal {
   title: string;
@@ -35,8 +31,6 @@ export default function Header({
   onInquireClick,
   logoSrc,
 }: HeaderProps) {
-  const userContext = useUser();
-
   return (
     <>
       <AppShell.Header bg={"white"}>
@@ -70,29 +64,6 @@ export default function Header({
                       {menu.title}
                     </Anchor>
                   ))}
-                </Group>
-                <Group visibleFrom={"sm"} px={"0.5em"} align={"center"}>
-                  {userContext.isLoading ? (
-                    <Box px={"1em"}>
-                      <Loader color="blue" type="dots" size={"1em"} />
-                    </Box>
-                  ) : userContext.user ? (
-                    <Anchor
-                      href={"/api/auth/logout"}
-                      underline={"never"}
-                      size={"sm"}
-                    >
-                      로그아웃
-                    </Anchor>
-                  ) : (
-                    <Anchor
-                      href={"/auth/login"}
-                      underline={"never"}
-                      size={"sm"}
-                    >
-                      로그인
-                    </Anchor>
-                  )}
                 </Group>
               </Group>
             </Group>
@@ -128,29 +99,6 @@ export default function Header({
             onClick={onBurgerClick}
           />
         ))}
-        <Box py={"1em"}>
-          <Divider />
-        </Box>
-        {userContext.isLoading ? (
-          <NavLink
-            href={"/api/auth/logout"}
-            label={<Loader color="blue" type="dots" size={"1.5em"} />}
-          />
-        ) : userContext.user ? (
-          <NavLink
-            rightSection={<IconLogout size={"1em"} />}
-            href={"/api/auth/logout"}
-            label={"로그아웃"}
-            color={"red"}
-            c={"red"}
-          />
-        ) : (
-          <NavLink
-            rightSection={<IconLogin2 size={"1em"} />}
-            href={"/auth/login"}
-            label={"로그인"}
-          />
-        )}
       </AppShell.Navbar>
     </>
   );

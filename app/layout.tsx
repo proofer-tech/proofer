@@ -13,7 +13,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
-import { Auth0Provider } from "@auth0/nextjs-auth0/client";
 import { generateMetadataFromTitle } from "@/src/manifest";
 import { Notifications } from "@mantine/notifications";
 import { Toaster } from "@/components/ui/toaster";
@@ -90,16 +89,14 @@ export default async function RootLayout({ children }: { children: any }) {
         <script async src="https://tally.so/widgets/embed.js"></script>
       </head>
       <body>
-        <Auth0Provider>
-          <MantineProvider theme={theme} defaultColorScheme="light">
-            <Notifications position={"top-left"} />
-            {children}
-            <Toaster />
-          </MantineProvider>
-          <Analytics />
-          <SpeedInsights />
-          <GoogleAnalytics gaId="G-L765E402KF" />
-        </Auth0Provider>
+        <MantineProvider theme={theme} defaultColorScheme="light">
+          <Notifications position={"top-left"} />
+          {children}
+          <Toaster />
+        </MantineProvider>
+        <Analytics />
+        <SpeedInsights />
+        <GoogleAnalytics gaId="G-L765E402KF" />
       </body>
     </html>
   );

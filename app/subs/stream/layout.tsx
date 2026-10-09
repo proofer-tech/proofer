@@ -1,4 +1,3 @@
-import "@react-pdf-viewer/core/lib/styles/index.css";
 import React from "react";
 import { HeaderPortal } from "@/app/components/Header";
 import LandingPageShellLayout from "@/app/components/LandingPageShellLayout";

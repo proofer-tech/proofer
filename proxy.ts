@@ -78,12 +78,8 @@ async function handleSubdomainMiddleware(
     )
   ) {
     let rewritePath = path;
-    if (
-      path.startsWith("/api/auth") ||
-      path.startsWith("/api/health") ||
-      path.startsWith("/auth")
-    ) {
-      // auth 와 health 는 공통으로 사용합니다.
+    if (path.startsWith("/api/health")) {
+      // health 는 공통으로 사용합니다.
       return NextResponse.next();
     }
 
