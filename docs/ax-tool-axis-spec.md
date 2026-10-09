@@ -18,13 +18,13 @@ PRF-329의 산출물입니다. 랜딩에서 도구 이름이 나오는 자리를
 
 ## 0. 판정 요약
 
-| 항목                | 판정                                                                             |
-| ------------------- | -------------------------------------------------------------------------------- |
-| L4 코딩 도구 목록   | `Claude Code`, `Google Antigravity`, `Codex` 셋. Cursor는 뺍니다                  |
-| L4 도구를 적는 자리 | `target` 줄이 아니라 `desc` 첫 문장에 녹입니다                                   |
-| Hero TOOLS 타일     | 한 줄 나열을 버리고 대화형 / 코딩 에이전트 두 축으로 나눕니다                    |
+| 항목                | 판정                                                                                |
+| ------------------- | ----------------------------------------------------------------------------------- |
+| L4 코딩 도구 목록   | `Claude Code`, `Google Antigravity`, `Codex` 셋. Cursor는 뺍니다                    |
+| L4 도구를 적는 자리 | `target` 줄이 아니라 `desc` 첫 문장에 녹입니다                                      |
+| Hero TOOLS 타일     | 한 줄 나열을 버리고 대화형 / 코딩 에이전트 두 축으로 나눕니다                       |
 | 도구 중립 한 줄     | **기존 문장 수정**. Hero TOOLS 타일 설명 하나만 고칩니다. 새 문장을 더하지 않습니다 |
-| FAQ 4번 답변        | L4 목록만 위 판정에 맞춰 갈아 끼웁니다. 망·계정 축 문장은 넣지 않습니다           |
+| FAQ 4번 답변        | L4 목록만 위 판정에 맞춰 갈아 끼웁니다. 망·계정 축 문장은 넣지 않습니다             |
 
 ### 판정 근거
 
@@ -98,15 +98,15 @@ Claude Code · Antigravity · Codex   값 2
 
 ## 2. 컴포넌트 매핑
 
-| 영역                | 컴포넌트                                          | 출처                                                    | 비고                                                                                                                      |
-| ------------------- | ------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| 타일 껍데기         | `.tiles` / `.tile` / `.tileLabel` / `.tileDesc`  | `app/subs/ax/components/sections/Hero.module.scss`      | 그대로 씁니다                                                                                                             |
-| 타일 진입 모션      | `Enter` (`index={6}`, `immediate`)                | `app/subs/ax/components/Enter.tsx`                      | 그대로 씁니다. 6절 참고                                                                                                   |
-| 타일 도구 축 묶음   | `.tileToolsGroup` (신규)                          | 신규 클래스                                             | 기존 `.tileTools` 하나로는 축 라벨 두 개와 값 두 줄을 담을 자리가 없습니다. 축 사이 간격을 라벨/값과 다르게 줘야 합니다     |
-| 타일 축 라벨        | `.tileToolsAxis` (신규)                           | 신규 클래스                                             | `.tileLabel`은 `var(--mono)`인데 IBM Plex Mono에 한글 글리프가 없어 "대화형 도구"가 폴백 폰트로 떨어집니다. 재사용 불가입니다 |
-| 타일 값 목록        | `.tileToolsList` (신규)                           | 신규 클래스                                             | 기존 `.tileTools`(20px)를 대체합니다. 근거는 3절 타이포                                                                   |
-| L4 카드             | `.card` 이하 전체                                 | `app/subs/ax/components/sections/Lecture.module.scss`   | 문자열만 바뀝니다. 신규 없음                                                                                              |
-| FAQ 항목            | `Faq.tsx` / `Faq.data.ts`                         | `app/subs/ax/components/sections/`                      | 문자열만 바뀝니다. 신규 없음                                                                                              |
+| 영역              | 컴포넌트                                        | 출처                                                  | 비고                                                                                                                          |
+| ----------------- | ----------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| 타일 껍데기       | `.tiles` / `.tile` / `.tileLabel` / `.tileDesc` | `app/subs/ax/components/sections/Hero.module.scss`    | 그대로 씁니다                                                                                                                 |
+| 타일 진입 모션    | `Enter` (`index={6}`, `immediate`)              | `app/subs/ax/components/Enter.tsx`                    | 그대로 씁니다. 6절 참고                                                                                                       |
+| 타일 도구 축 묶음 | `.tileToolsGroup` (신규)                        | 신규 클래스                                           | 기존 `.tileTools` 하나로는 축 라벨 두 개와 값 두 줄을 담을 자리가 없습니다. 축 사이 간격을 라벨/값과 다르게 줘야 합니다       |
+| 타일 축 라벨      | `.tileToolsAxis` (신규)                         | 신규 클래스                                           | `.tileLabel`은 `var(--mono)`인데 IBM Plex Mono에 한글 글리프가 없어 "대화형 도구"가 폴백 폰트로 떨어집니다. 재사용 불가입니다 |
+| 타일 값 목록      | `.tileToolsList` (신규)                         | 신규 클래스                                           | 기존 `.tileTools`(20px)를 대체합니다. 근거는 3절 타이포                                                                       |
+| L4 카드           | `.card` 이하 전체                               | `app/subs/ax/components/sections/Lecture.module.scss` | 문자열만 바뀝니다. 신규 없음                                                                                                  |
+| FAQ 항목          | `Faq.tsx` / `Faq.data.ts`                       | `app/subs/ax/components/sections/`                    | 문자열만 바뀝니다. 신규 없음                                                                                                  |
 
 기존 `.tileTools` 클래스는 쓰는 자리가 없어지므로 지웁니다.
 
@@ -120,7 +120,11 @@ Claude Code · Antigravity · Codex   값 2
       <span className={styles.tileToolsAxis} id="ax-tools-chat">
         대화형 도구
       </span>
-      <ul className={styles.tileToolsList} role="list" aria-labelledby="ax-tools-chat">
+      <ul
+        className={styles.tileToolsList}
+        role="list"
+        aria-labelledby="ax-tools-chat"
+      >
         <li>Claude</li>
         <li>ChatGPT</li>
         <li>Gemini</li>
@@ -130,7 +134,11 @@ Claude Code · Antigravity · Codex   값 2
       <span className={styles.tileToolsAxis} id="ax-tools-coding">
         코딩 에이전트
       </span>
-      <ul className={styles.tileToolsList} role="list" aria-labelledby="ax-tools-coding">
+      <ul
+        className={styles.tileToolsList}
+        role="list"
+        aria-labelledby="ax-tools-coding"
+      >
         <li>Claude Code</li>
         <li>Antigravity</li>
         <li>Codex</li>
@@ -138,7 +146,8 @@ Claude Code · Antigravity · Codex   값 2
     </div>
   </div>
   <div className={styles.tileDesc}>
-    도구는 고객사마다 다르게 정합니다. 사내망 제약과 계정 정책에서 실제로 돌아가는 것을 고릅니다
+    도구는 고객사마다 다르게 정합니다. 사내망 제약과 계정 정책에서 실제로
+    돌아가는 것을 고릅니다
   </div>
 </div>
 ```
@@ -157,26 +166,26 @@ Claude Code · Antigravity · Codex   값 2
 
 ### 3.1 색
 
-| 자리                | 토큰            | 대비 (`--bg-alt` 위)                        |
-| ------------------- | --------------- | -------------------------------------------- |
-| `TOOLS` 라벨        | `--dim`         | `5.81:1` (스펙 3장 대비표)                   |
-| 축 라벨             | `--dim`         | `5.81:1`                                     |
-| 도구 이름           | `--ink`         | `16.03:1`                                    |
-| 가운뎃점 구분자     | `--dim`         | `5.81:1`. 이름보다 한 단계 낮춰 구분자로 읽히게 합니다 |
-| 타일 설명           | `--muted`       | `7.53:1`                                     |
-| L4 카드 설명        | `--muted`       | 기존 `.cardDesc` 그대로                      |
-| L4 카드 대상        | `--accent`      | 기존 `.cardTarget` 그대로                    |
+| 자리            | 토큰       | 대비 (`--bg-alt` 위)                                   |
+| --------------- | ---------- | ------------------------------------------------------ |
+| `TOOLS` 라벨    | `--dim`    | `5.81:1` (스펙 3장 대비표)                             |
+| 축 라벨         | `--dim`    | `5.81:1`                                               |
+| 도구 이름       | `--ink`    | `16.03:1`                                              |
+| 가운뎃점 구분자 | `--dim`    | `5.81:1`. 이름보다 한 단계 낮춰 구분자로 읽히게 합니다 |
+| 타일 설명       | `--muted`  | `7.53:1`                                               |
+| L4 카드 설명    | `--muted`  | 기존 `.cardDesc` 그대로                                |
+| L4 카드 대상    | `--accent` | 기존 `.cardTarget` 그대로                              |
 
 `.tile`의 바탕은 `--bg-alt`입니다. 새 면을 만들지 않으므로 스펙 3장 대비표를 다시 잴 일이
 없습니다.
 
 ### 3.2 타이포와 간격
 
-| 자리        | 크기      | 굵기 | 자간       | 폰트                                        |
-| ----------- | --------- | ---- | ---------- | ------------------------------------------- |
-| 축 라벨     | `13px`    | 400  | 기본       | 본문 폰트. `var(--mono)`를 쓰지 않습니다    |
-| 도구 이름   | `16px`    | 700  | `-0.01em`  | 본문 폰트                                   |
-| 줄 간격     | `1.5`     | -    | -          | 두 줄로 접혔을 때 줄이 붙지 않게 합니다     |
+| 자리      | 크기   | 굵기 | 자간      | 폰트                                     |
+| --------- | ------ | ---- | --------- | ---------------------------------------- |
+| 축 라벨   | `13px` | 400  | 기본      | 본문 폰트. `var(--mono)`를 쓰지 않습니다 |
+| 도구 이름 | `16px` | 700  | `-0.01em` | 본문 폰트                                |
+| 줄 간격   | `1.5`  | -    | -         | 두 줄로 접혔을 때 줄이 붙지 않게 합니다  |
 
 **값을 20px에서 16px로 낮춥니다.** 지금 `.tileTools`는 `20px/700` 한 줄입니다. 두 축이
 되면서 20px 두 줄은 옆 실적 타일의 `34px` 값과 시각 무게가 비슷해져, 히어로에서 먼저 읽혀야
@@ -288,7 +297,7 @@ Claude Code · Antigravity · Codex
 
 ### 5.3 FAQ 4번 답변 (`Faq.data.ts` `FAQS[3].a`)
 
-질문 `우리가 이미 쓰는 AI 도구가 있는데 그 도구로 가르칩니까.`는 그대로 둡니다.
+질문 `우리가 이미 쓰는 AI 도구가 있는데 그 도구로 가르치나요?`는 그대로 둡니다.
 
 ```
 고객사가 쓰는 도구에 맞춰 트랙을 고릅니다. L2 도구 실무에서는 Claude, Copilot, Gemini 가운데 하나를 골라 진행하고, L4 파워유저와 에이전트에서는 수강생이 Claude Code, Google Antigravity, Codex 가운데 고객사 스택에 맞는 도구로 직접 만듭니다. 프루퍼는 이 도구를 실무에서 다뤄 왔기 때문에 특정 도구에 얽매이지 않고 고객사 환경에 맞는 것을 중립적으로 권합니다. 아직 도구를 정하지 못했다면 무엇을 도입할지 고르는 일부터 함께 합니다.
@@ -316,11 +325,11 @@ Claude Code · Antigravity · Codex
 
 새 모션이 없습니다. 기존 것을 그대로 씁니다.
 
-| 전환                | 무엇이 움직이나              | 지속    | 이징                        | 라이브러리                    |
-| ------------------- | ---------------------------- | ------- | --------------------------- | ----------------------------- |
-| Hero 타일 진입      | 타일 전체 `opacity`, `translateY` 26px | `600ms` | `cubicBezier(0.2,0.7,0.2,1)` | animejs (`Enter`, `index={6}`) |
-| L4 카드 진입        | 카드 전체 `opacity`, `translateY` 26px | `600ms` | 같음                        | animejs (`Enter`, `index={3}`) |
-| L4 카드 호버        | `transform: translateY(-4px)` | `180ms` | `cubicBezier(0.2,0.8,0.2,1)` | CSS 트랜지션                  |
+| 전환           | 무엇이 움직이나                        | 지속    | 이징                         | 라이브러리                     |
+| -------------- | -------------------------------------- | ------- | ---------------------------- | ------------------------------ |
+| Hero 타일 진입 | 타일 전체 `opacity`, `translateY` 26px | `600ms` | `cubicBezier(0.2,0.7,0.2,1)` | animejs (`Enter`, `index={6}`) |
+| L4 카드 진입   | 카드 전체 `opacity`, `translateY` 26px | `600ms` | 같음                         | animejs (`Enter`, `index={3}`) |
+| L4 카드 호버   | `transform: translateY(-4px)`          | `180ms` | `cubicBezier(0.2,0.8,0.2,1)` | CSS 트랜지션                   |
 
 - Hero 타일은 `immediate`로 로드 직후 재생합니다. 축이 둘로 늘어도 `Enter`가 타일 전체를
   한 덩어리로 감싸므로 스태거 단계 수와 지연값이 바뀌지 않습니다.
@@ -385,20 +394,20 @@ Claude Code · Antigravity · Codex
 
 ### 8.1 고치는 줄
 
-| 파일                       | 줄        | 지금                                                              | 고칠 방향                                                    |
-| -------------------------- | --------- | ----------------------------------------------------------------- | ------------------------------------------------------------ |
-| `docs/ax-landing-spec.md`  | `127-128` | 타일 2 값 `Claude · ChatGPT · Gemini · Cursor`와 옛 설명 한 줄     | 두 축 구조와 5.2절 확정 문면으로 교체                        |
-| `docs/ax-landing-spec.md`  | `506-509` | FAQ 4번 답변. 507줄에 `Claude Code나 Cursor`                      | 5.3절 확정 문면으로 교체                                     |
-| `docs/ax-curriculum.md`    | `31-32`   | `Claude, Copilot, Gemini, Cursor를 실무에서 다뤄 왔기 때문에 ...` | 아래 8.3절 확정 문면으로 교체                                |
-| `docs/ax-curriculum.md`    | `114`     | L4 문단. `Claude Code나 Cursor로 직접 만들고`                     | 아래 8.3절 확정 문면으로 교체                                |
+| 파일                      | 줄        | 지금                                                              | 고칠 방향                             |
+| ------------------------- | --------- | ----------------------------------------------------------------- | ------------------------------------- |
+| `docs/ax-landing-spec.md` | `127-128` | 타일 2 값 `Claude · ChatGPT · Gemini · Cursor`와 옛 설명 한 줄    | 두 축 구조와 5.2절 확정 문면으로 교체 |
+| `docs/ax-landing-spec.md` | `506-509` | FAQ 4번 답변. 507줄에 `Claude Code나 Cursor`                      | 5.3절 확정 문면으로 교체              |
+| `docs/ax-curriculum.md`   | `31-32`   | `Claude, Copilot, Gemini, Cursor를 실무에서 다뤄 왔기 때문에 ...` | 아래 8.3절 확정 문면으로 교체         |
+| `docs/ax-curriculum.md`   | `114`     | L4 문단. `Claude Code나 Cursor로 직접 만들고`                     | 아래 8.3절 확정 문면으로 교체         |
 
 ### 8.2 손대지 않는 줄
 
-| 파일                      | 줄    | 이유                                                                              |
-| ------------------------- | ----- | --------------------------------------------------------------------------------- |
+| 파일                      | 줄    | 이유                                                                                |
+| ------------------------- | ----- | ----------------------------------------------------------------------------------- |
 | `docs/ax-landing-spec.md` | `200` | L2 행입니다. L2 도구 목록은 이번에 바뀌지 않습니다. 이 표에는 L4 설명 칸이 없습니다 |
-| `docs/ax-curriculum.md`   | `98`  | L2 제목입니다. 같은 이유입니다                                                    |
-| `app/subs/ax/layout.tsx`  | `41`  | 검색 키워드 `ChatGPT 기업 교육`입니다. 커리큘럼 도구 축이 아니라 SEO 자산입니다   |
+| `docs/ax-curriculum.md`   | `98`  | L2 제목입니다. 같은 이유입니다                                                      |
+| `app/subs/ax/layout.tsx`  | `41`  | 검색 키워드 `ChatGPT 기업 교육`입니다. 커리큘럼 도구 축이 아니라 SEO 자산입니다     |
 
 ### 8.3 문서 교체 문면
 
