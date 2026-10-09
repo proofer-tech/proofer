@@ -1,17 +1,5 @@
 "use client";
-import {
-  Badge,
-  Center,
-  Container,
-  Group,
-  Loader,
-  Skeleton,
-  Stack,
-  Table,
-  Text,
-  Title,
-  Tooltip,
-} from "@mantine/core";
+import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 import {
   IconAlertCircleFilled,
@@ -48,10 +36,10 @@ export default function HealthPage() {
     data?.[searchParams.get("service") || ""];
 
   return (
-    <Container>
-      <Center pt={"5vh"}>
+    <div className="mx-auto w-full max-w-[1200px] px-4">
+      <div className="flex justify-center pt-[5vh]">
         {isLoading ? (
-          <Loader color="rgba(0, 0, 0, 0.1)" size={"9em"} />
+          <div className="size-36 animate-spin rounded-full border-[12px] border-black/10 border-t-transparent" />
         ) : (
           error ||
           cond([
@@ -84,139 +72,129 @@ export default function HealthPage() {
             ],
           ])(serviceHealth(data)?.state)
         )}
-      </Center>
-      <Stack py={"3em"} align={"center"}>
+      </div>
+      <div className="flex flex-col items-center gap-4 py-12">
         {isLoading ? (
-          <Skeleton width={"80%"} height={"2em"} radius="xl" />
+          <Skeleton className="h-8 w-4/5 rounded-full" />
         ) : (
           error ||
           cond([
             [
               matches(HealthState.DOWN),
               constant(
-                <Title order={1} ta={"center"}>
+                <h1 className="text-center text-4xl font-bold">
                   {serviceHealth(data)?.name} 서비스에 문제를 발견하여
                   확인중입니다.
-                </Title>,
+                </h1>,
               ),
             ],
             [
               matches(HealthState.MAINTENANCE),
               constant(
-                <Title order={1} ta={"center"}>
+                <h1 className="text-center text-4xl font-bold">
                   {serviceHealth(data)?.name} 서비스가 점검중입니다.
-                </Title>,
+                </h1>,
               ),
             ],
             [
               stubTrue,
               constant(
-                <Title order={1} ta={"center"}>
+                <h1 className="text-center text-4xl font-bold">
                   {serviceHealth(data)?.name} 서비스가 정상동작중입니다.
-                </Title>,
+                </h1>,
               ),
             ],
           ])(serviceHealth(data)?.state)
         )}
         {isLoading ? (
-          <Skeleton width={"90%"} height={"1em"} radius="xl" />
+          <Skeleton className="h-4 w-[90%] rounded-full" />
         ) : (
           cond([
             [
               matches(HealthState.DOWN),
               constant(
-                <Text ta={"center"}>
+                <p className="text-center">
                   최대한 빠르게 복구하겠습니다. 양해해주셔서 감사합니다!
-                </Text>,
+                </p>,
               ),
             ],
             [
               matches(HealthState.MAINTENANCE),
               constant(
-                <Text ta={"center"}>
+                <p className="text-center">
                   궁금하신 사항은 아래 채널톡을 통해 문의해주시면 최대한 빠르게
                   답변드리겠습니다.
-                </Text>,
+                </p>,
               ),
             ],
             [
               stubTrue,
               constant(
-                <Text ta={"center"}>
+                <p className="text-center">
                   혹시 문제를 겪고 계시나요? 문제상황을 채널톡으로 전달해주시면
                   빠르게 확인 후 답변해드리겠습니다!
-                </Text>,
+                </p>,
               ),
             ],
           ])(serviceHealth(data)?.state)
         )}
-      </Stack>
-      <Group gap={"1em"} justify={"center"} py={"2em"}>
+      </div>
+      <div className="flex flex-wrap justify-center gap-4 py-8">
         {isLoading
-          ? Array.from({ length: 3 }, () => (
-              <Skeleton
-                key={Math.random()}
-                width={"10em"}
-                height={"2em"}
-                radius="xl"
-              />
+          ? Array.from({ length: 3 }, (_, i) => (
+              <Skeleton key={i} className="h-8 w-40 rounded-full" />
             ))
           : data &&
             Object.entries(data).map(([k, h]) => (
-              <Tooltip.Floating
+              <span
                 key={k}
-                label={h.description}
-                disabled={h.description.length > 0}
+                className="inline-flex items-center gap-2 rounded-full border px-4 py-1 text-base font-medium"
               >
-                <Badge
-                  size="xl"
-                  variant="dot"
-                  color={(() => {
-                    switch (h.state) {
-                      case HealthState.UP:
-                        return "var(--color-green)";
-                      case HealthState.DOWN:
-                        return "var(--color-red)";
-                      case HealthState.MAINTENANCE:
-                        return "var(--color-primary)";
-                      default:
-                        return "var(--color-darkgray-2)";
-                    }
-                  })()}
-                >
-                  {h.name}
-                </Badge>
-              </Tooltip.Floating>
+                <span
+                  className="size-2 rounded-full"
+                  style={{
+                    backgroundColor:
+                      HealthStateColor[h.state] ?? "var(--color-darkgray-2)",
+                  }}
+                />
+                {h.name}
+              </span>
             ))}
-      </Group>
+      </div>
       {isLoading ? (
-        <Stack>
-          {Array.from({ length: 5 }, () => (
-            <Skeleton key={Math.random()} width={"100%"} height={"1em"} />
+        <div className="flex flex-col gap-2">
+          {Array.from({ length: 5 }, (_, i) => (
+            <Skeleton key={i} className="h-4 w-full" />
           ))}
-        </Stack>
+        </div>
       ) : (
         data &&
         Object.values(data).some((h) => h.description.length > 0) && (
-          <Table captionSide="bottom">
-            {Object.entries(data)
-              .filter(([_, h]) => h.description.length > 0)
-              .map(([k, h]) => (
-                <Table.Tbody key={k}>
-                  <Table.Tr>
-                    <Table.Td>
-                      <Badge variant="light" color={HealthStateColor[h.state]}>
+          <table className="w-full text-left">
+            <tbody>
+              {Object.entries(data)
+                .filter(([_, h]) => h.description.length > 0)
+                .map(([k, h]) => (
+                  <tr key={k} className="border-b">
+                    <td className="p-2">
+                      <span
+                        className="rounded-full px-2 py-0.5 text-xs font-medium"
+                        style={{
+                          color: HealthStateColor[h.state],
+                          backgroundColor: `color-mix(in srgb, ${HealthStateColor[h.state]} 12%, transparent)`,
+                        }}
+                      >
                         {HealthStateLabel[h.state]}
-                      </Badge>
-                    </Table.Td>
-                    <Table.Td>{h.name}</Table.Td>
-                    <Table.Td>{h.description}</Table.Td>
-                  </Table.Tr>
-                </Table.Tbody>
-              ))}
-          </Table>
+                      </span>
+                    </td>
+                    <td className="p-2">{h.name}</td>
+                    <td className="p-2">{h.description}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         )
       )}
-    </Container>
+    </div>
   );
 }
