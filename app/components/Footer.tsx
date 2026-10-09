@@ -1,43 +1,21 @@
 "use client";
-import {
-  Anchor,
-  Avatar,
-  Box,
-  Flex,
-  Group,
-  List,
-  Stack,
-  Text,
-} from "@mantine/core";
 import React from "react";
 import { IconPhoneCall } from "@tabler/icons-react";
 import Image from "next/image";
-import { useIsDesktopMedia, useIsMobileMedia } from "@/src/hooks/mediaQuery";
-
-function FooterMenuItem({ children }: any) {
-  return <List.Item py={"0.3em"}>{children}</List.Item>;
-}
 
 interface FooterProps {
   linkGroups?: { [key: string]: React.ReactNode[] };
 }
 
-export default function Footer({ linkGroups }: FooterProps) {
-  const [isMobileMedia, isDesktopMedia] = [
-    useIsMobileMedia(),
-    useIsDesktopMedia(),
-  ];
+const muted = "text-[var(--color-darkgray-2)] no-underline";
+const avatarClass =
+  "flex size-[38px] items-center justify-center rounded-full border border-[var(--color-lightgray-2)] bg-[var(--color-white)] p-[0.1em]";
 
+export default function Footer({ linkGroups }: FooterProps) {
   return (
-    <Box py={"3em"} px={"2em"}>
-      <Flex
-        direction={isDesktopMedia ? "row" : "column-reverse"}
-        align={"start"}
-        justify={isDesktopMedia ? "space-between" : "revert"}
-        gap={"5em"}
-        style={{ position: "relative" }}
-      >
-        <Stack gap={"3em"}>
+    <div className="px-8 py-12">
+      <div className="relative flex flex-col-reverse items-start gap-20 min-[1200px]:flex-row min-[1200px]:justify-between">
+        <div className="flex flex-col gap-12">
           <Image
             src="/assets/images/logo.svg"
             width={320}
@@ -45,102 +23,85 @@ export default function Footer({ linkGroups }: FooterProps) {
             style={{ width: "8em", height: "auto" }}
             alt={"프루퍼 로고"}
           />
-          <Stack gap={1}>
-            <Text c={"var(--color-darkgray-2)"}>
+          <div className="flex flex-col gap-px">
+            <p className={muted}>
               서울특별시 강남구 강남대로112길 47, 2층 421A호
-            </Text>
-            <Text c={"var(--color-darkgray-2)"}>
+            </p>
+            <p className={muted}>
               개인정보관리책임자: 임한솔(
-              <Anchor
+              <a
                 href="mailto:hsol@proofer.tech"
                 target="_blank"
-                underline="never"
-                c={"var(--color-darkgray-2)"}
+                className={muted}
+                rel="noreferrer"
               >
                 hsol@proofer.tech
-              </Anchor>
+              </a>
               )
-            </Text>
-          </Stack>
-          <Group>
+            </p>
+          </div>
+          <div className="flex items-center gap-4">
             <IconPhoneCall color="var(--color-darkgray-2)" size={"1em"} />
-            <Anchor
+            <a
               href="tel:010-5182-0520"
               target="_blank"
-              underline="never"
-              c={"var(--color-darkgray-2)"}
+              className={muted}
+              rel="noreferrer"
             >
               010-5182-0520
-            </Anchor>
-          </Group>
-        </Stack>
-        <Group
-          w={isDesktopMedia ? "auto" : "100%"}
-          justify={"end"}
-          align={"start"}
-          gap={"5em"}
-          flex={1}
-          wrap={"nowrap"}
-          style={isMobileMedia ? { position: "absolute", top: 0 } : {}}
-        >
+            </a>
+          </div>
+        </div>
+        <div className="absolute top-0 flex w-full flex-1 flex-nowrap items-start justify-end gap-20 min-[768px]:static min-[1200px]:w-auto">
           {linkGroups &&
             Object.keys(linkGroups).map((k) => (
-              <Stack visibleFrom={"sm"} key={`footer-${k}`}>
-                <Text fw={700}>{k}</Text>
-                <List listStyleType={"none"} style={{ cursor: "pointer" }}>
+              <div
+                className="hidden flex-col gap-4 md:flex"
+                key={`footer-${k}`}
+              >
+                <p className="font-bold">{k}</p>
+                <ul className="m-0 cursor-pointer list-none p-0">
                   {linkGroups[k].map((n, idx) => (
-                    <FooterMenuItem key={idx}>{n}</FooterMenuItem>
+                    <li className="py-[0.3em]" key={idx}>
+                      {n}
+                    </li>
                   ))}
-                </List>
-              </Stack>
+                </ul>
+              </div>
             ))}
-          <Stack>
-            <Text fw={700} visibleFrom={"sm"}>
-              Follow Us On
-            </Text>
-            <Group gap={"0.5em"} wrap={"nowrap"}>
-              <Anchor
+          <div className="flex flex-col gap-4">
+            <p className="hidden font-bold md:block">Follow Us On</p>
+            <div className="flex flex-nowrap gap-2">
+              <a
                 href="https://medium.com/proofer-blog"
                 target="_blank"
-                underline="never"
+                className={avatarClass}
+                rel="noreferrer"
               >
-                <Avatar
-                  p={"0.1em"}
-                  bg={"var(--color-white)"}
-                  color={"var(--color-white)"}
-                  style={{ border: "1px solid var(--color-lightgray-2)" }}
-                >
-                  <Image
-                    src="/assets/images/bi-medium.png"
-                    width={21}
-                    height={21}
-                    alt="proofer in Medium"
-                  />
-                </Avatar>
-              </Anchor>
-              <Anchor
+                <Image
+                  src="/assets/images/bi-medium.png"
+                  width={21}
+                  height={21}
+                  alt="proofer in Medium"
+                />
+              </a>
+              <a
                 href={"https://www.linkedin.com/showcase/proofer-tech"}
                 target={"_blank"}
-                underline={"never"}
+                className={avatarClass}
+                rel="noreferrer"
               >
-                <Avatar
-                  p={"0.1em"}
-                  bg={"var(--color-white)"}
-                  color={"var(--color-white)"}
-                  style={{ border: "1px solid var(--color-lightgray-2)" }}
-                >
-                  <Image
-                    src="/assets/images/bi-linkedin.png"
-                    width={16}
-                    height={16}
-                    alt="proofer in linkedin"
-                  />
-                </Avatar>
-              </Anchor>
-            </Group>
-          </Stack>
-        </Group>
-      </Flex>
-    </Box>
+                <Image
+                  src="/assets/images/bi-linkedin.png"
+                  width={16}
+                  height={16}
+                  alt="proofer in linkedin"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

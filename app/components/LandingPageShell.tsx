@@ -1,9 +1,6 @@
-import { AppShell, AppShellProps } from "@mantine/core";
 import React from "react";
-import { ElementProps } from "@mantine/core/lib/core";
 
-export interface LandingPageShellProps
-  extends AppShellProps, ElementProps<"div"> {
+export interface LandingPageShellProps extends React.ComponentProps<"div"> {
   isNavbarOpened: boolean;
   children: React.ReactNode;
 }
@@ -14,17 +11,8 @@ export default function LandingPageShell({
   ...props
 }: LandingPageShellProps) {
   return (
-    <AppShell
-      header={{ height: 60 }}
-      navbar={{
-        width: 300,
-        breakpoint: "sm",
-        collapsed: { desktop: true, mobile: !isNavbarOpened },
-      }}
-      padding="md"
-      {...props}
-    >
+    <div data-navbar-opened={isNavbarOpened} {...props}>
       {children}
-    </AppShell>
+    </div>
   );
 }

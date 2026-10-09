@@ -9,13 +9,36 @@ import {
   NotReadyYetModal,
   ServiceEndedModal,
 } from "@/app/components/Modal";
-import React, { useEffect } from "react";
-import { useDisclosure, useHash, useWindowScroll } from "@mantine/hooks";
-import { Anchor, AppShell, Box, Text } from "@mantine/core";
+import React, { useCallback, useEffect, useState } from "react";
 import Footer from "@/app/components/Footer";
 import Header, { HeaderPortal } from "@/app/components/Header";
 import { ReactChannelIO } from "react-channel-plugin";
 import TallyContext from "@/src/contexts/TallyContext";
+
+function useDisclosure(initial: boolean) {
+  const [opened, setOpened] = useState(initial);
+  return [
+    opened,
+    {
+      open: useCallback(() => setOpened(true), []),
+      close: useCallback(() => setOpened(false), []),
+      toggle: useCallback(() => setOpened((o) => !o), []),
+    },
+  ] as const;
+}
+
+function useHash() {
+  const [hash, setHash] = useState("");
+  useEffect(() => {
+    const sync = () => setHash(window.location.hash);
+    sync();
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, []);
+  return hash;
+}
+
+const linkClass = "text-black no-underline";
 
 interface LandingPageShellLayoutProps extends Omit<
   LandingPageShellProps,
@@ -48,15 +71,14 @@ export default function LandingPageShellLayout({
   const tallyInquireForm = useTallyInquireForm({
     onSubmit: () => inquireCompletedModal.open(),
   });
-  const [_, scrollTo] = useWindowScroll();
-  const [hash] = useHash();
+  const hash = useHash();
   useEffect(() => {
     if (hash) {
       setTimeout(() => {
         const hashAnchor = document.getElementById(hash.replace("#", ""));
         if (hashAnchor !== null) {
           const y = hashAnchor.getBoundingClientRect().top + window.scrollY;
-          scrollTo({ y: y });
+          window.scrollTo({ top: y });
         }
       }, 600);
     }
@@ -76,45 +98,33 @@ export default function LandingPageShellLayout({
           onInquireClick={() => tallyInquireForm.openTallyPopup()}
           logoSrc={logoSrc}
         />
-        <AppShell.Main px={0} pt={"var(--app-shell-header-height)"}>
+        <main className="w-full pt-[60px]">
           <TallyContext.Provider value={tallyInquireForm}>
-            <Box w={"100%"} h={"100%"}>
-              {children}
-            </Box>
+            <div className="h-full w-full">{children}</div>
           </TallyContext.Provider>
-        </AppShell.Main>
-        <AppShell.Footer pos={"static"} bg={"transparent"} withBorder={false}>
+        </main>
+        <footer className="bg-transparent">
           <Footer
             linkGroups={{
               프루퍼: [
-                <Anchor
-                  key={2}
-                  href="https://proofer.tech"
-                  underline="never"
-                  c={"black"}
-                >
+                <a key={2} href="https://proofer.tech" className={linkClass}>
                   About 프루퍼
-                </Anchor>,
-                <Text key={1} onClick={() => tallyInquireForm.openTallyPopup()}>
+                </a>,
+                <span key={1} onClick={() => tallyInquireForm.openTallyPopup()}>
                   문의 & 지원
-                </Text>,
-                <Anchor key={2} href="/health" underline="never" c={"black"}>
+                </span>,
+                <a key={3} href="/health" className={linkClass}>
                   서비스 상태보기
-                </Anchor>,
+                </a>,
               ],
               바로가기: portals.map((portal) => (
-                <Anchor
-                  key={portal.title}
-                  href={portal.href}
-                  underline="never"
-                  c={"black"}
-                >
+                <a key={portal.title} href={portal.href} className={linkClass}>
                   {portal.title}
-                </Anchor>
+                </a>
               )),
             }}
           />
-        </AppShell.Footer>
+        </footer>
       </LandingPageShell>
       <InquireCompletedModal
         isOpened={isInquireCompletedModalOpened}
