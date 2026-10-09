@@ -69,6 +69,17 @@ export default withSentryConfig(
           },
         ],
       },
+      async redirects() {
+        // 지난 행사 종료: with-cto 서브도메인의 모든 경로를 event-us 로 보낸다(proxy 보다 먼저 적용).
+        return [
+          {
+            source: "/:path*",
+            has: [{ type: "host", value: "with-cto.proofer.tech" }],
+            destination: "https://event-us.kr/withcto/event",
+            permanent: false,
+          },
+        ];
+      },
       async rewrites() {
         return [];
       },
