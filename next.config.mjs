@@ -41,9 +41,6 @@ export default withSentryConfig(
       turbopack: {
         root: import.meta.dirname,
       },
-      experimental: {
-        optimizePackageImports: ["@mantine/core", "@mantine/hooks"],
-      },
       sassOptions: {
         // sass options
       },

@@ -10,12 +10,10 @@
 
 ## Stacks
 
-- [Mantine](https://mantine.dev)
 - [Next.js](https://nextjs.org/)
-- [PostCSS](https://postcss.org/) with [mantine-postcss-preset](https://mantine.dev/styles/postcss-preset)
+- [PostCSS](https://postcss.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Jest](https://jestjs.io/) setup with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
-- ESLint setup with [eslint-config-mantine](https://github.com/mantinedev/eslint-config-mantine)
 
 ## npm scripts
 

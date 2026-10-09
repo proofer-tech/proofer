@@ -1,12 +1,6 @@
-import "@mantine/core/styles.css";
 import "./globals.scss";
-import "@mantine/dates/styles.css";
-import "@mantine/nprogress/styles.css";
-import "@mantine/notifications/styles.css";
 import "dayjs/locale/en";
 import React from "react";
-import { ColorSchemeScript, MantineProvider } from "@mantine/core";
-import { theme } from "@/theme";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -14,7 +8,6 @@ import type { Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 import { generateMetadataFromTitle } from "@/src/manifest";
-import { Notifications } from "@mantine/notifications";
 import { Toaster } from "@/components/ui/toaster";
 
 export const viewport: Viewport = {
@@ -85,15 +78,11 @@ export default async function RootLayout({ children }: { children: any }) {
   return (
     <html lang="ko" suppressHydrationWarning>
       <head>
-        <ColorSchemeScript defaultColorScheme="light" />
         <script async src="https://tally.so/widgets/embed.js"></script>
       </head>
       <body>
-        <MantineProvider theme={theme} defaultColorScheme="light">
-          <Notifications position={"top-left"} />
-          {children}
-          <Toaster />
-        </MantineProvider>
+        {children}
+        <Toaster />
         <Analytics />
         <SpeedInsights />
         <GoogleAnalytics gaId="G-L765E402KF" />
