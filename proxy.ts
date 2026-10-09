@@ -95,7 +95,10 @@ async function handleSubdomainMiddleware(
       );
     }
 
-    if (subDomain === "with-cto") {
+    if (subDomain === "insight" || subDomain === "devm") {
+      // 종료된 서비스는 하위 경로도 모두 종료 안내 페이지 하나로 보낸다.
+      rewritePath = `/subs/${subDomain}`;
+    } else if (subDomain === "with-cto") {
       rewritePath = "/with-cto" + rewritePath;
     } else {
       rewritePath = `/subs/${subDomain}` + rewritePath;
