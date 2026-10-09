@@ -1,5 +1,4 @@
 import React from "react";
-import { Anchor, Container, Stack, Text, Title } from "@mantine/core";
 import { generateMetadataFromTitle } from "@/src/manifest";
 
 interface EndedService {
@@ -34,20 +33,21 @@ export function generateEndedMetadata({
 
 export default function ServiceEnded({ name, intro }: EndedService) {
   return (
-    <Container h={"100vh"} display={"flex"} style={{ alignItems: "center" }}>
-      <Stack gap={"md"} align={"center"} w={"100%"}>
-        <Text c={"var(--mantine-color-gray-7)"}>종료된 서비스</Text>
-        <Title order={1} ta={"center"}>
-          {name}
-        </Title>
-        <Text ta={"center"} maw={"36em"}>
-          {intro}
-        </Text>
-        <Text ta={"center"} c={"var(--mantine-color-gray-7)"}>
+    <div className="mx-auto flex h-screen w-full max-w-[1184px] items-center px-4">
+      <div className="flex w-full flex-col items-center gap-4">
+        <p className="text-gray-700">종료된 서비스</p>
+        <h1 className="text-center text-4xl font-bold">{name}</h1>
+        <p className="max-w-[36em] text-center">{intro}</p>
+        <p className="text-center text-gray-700">
           이 서비스는 2025년 4월에 종료되었습니다.
-        </Text>
-        <Anchor href={"https://proofer.tech"}>proofer.tech 로 이동하기</Anchor>
-      </Stack>
-    </Container>
+        </p>
+        <a
+          href="https://proofer.tech"
+          className="text-blue-600 hover:underline"
+        >
+          proofer.tech 로 이동하기
+        </a>
+      </div>
+    </div>
   );
 }

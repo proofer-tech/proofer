@@ -1,16 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Center,
-  Code,
-  Container,
-  Space,
-  Stack,
-  Text,
-  Title,
-} from "@mantine/core";
+import { Button } from "@/components/ui/button";
 
 const magnifierComponents = [
   <Image
@@ -64,30 +55,27 @@ export default function NotFoundPage({ error, reset }: NotFoundPageProps) {
   }, []);
 
   return (
-    <Container>
-      <Stack align={"center"}>
-        <Space h={"3em"} />
-        <Center>{magnifierComponent}</Center>
-        <Title order={1} c={"var(--mantine-color-gray-8)"}>
+    <div className="mx-auto w-full max-w-[1184px] px-4">
+      <div className="flex flex-col items-center gap-4 pt-12">
+        <div className="flex justify-center">{magnifierComponent}</div>
+        <h1 className="text-4xl font-bold text-gray-800">
           페이지를 찾을 수 없습니다.
-        </Title>
-        <Text c={"var(--mantine-color-gray-6)"} ta={"center"}>
+        </h1>
+        <p className="text-center text-gray-500">
           혹시 찾고 계시는 페이지의 URL이 잘못 입력된건 아닌지 한번 더
           확인해보세요
-        </Text>
-        <Stack>
-          <Code p={"1em 2em"}>
+        </p>
+        <div className="flex flex-col gap-4">
+          <code className="rounded bg-gray-100 px-8 py-4 text-sm">
             {error instanceof Error ? error.message : error}
-          </Code>
-          {reset !== undefined ? (
-            <Button onClick={() => reset()} variant={"outline"} size={"xs"}>
+          </code>
+          {reset !== undefined && (
+            <Button onClick={() => reset()} variant="outline" size="sm">
               새로고침하여 다시 시도해보기
             </Button>
-          ) : (
-            <></>
           )}
-        </Stack>
-      </Stack>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 }
