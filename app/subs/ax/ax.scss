@@ -265,9 +265,84 @@ body:has(.ax-root) {
     }
   }
 
+  /* 도킹 CTA (스펙 3.3.1절). 채널톡 런처는 오른쪽 아래라 오른쪽을 비워 둔다 */
+  .ax-dock {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    z-index: 70;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 10px 10px 24px;
+    border-radius: 999px;
+    background: var(--blue);
+    color: #fff;
+    box-shadow: 0 20px 50px -16px rgb(20 30 80 / 60%);
+    white-space: nowrap;
+    transform: translateX(-50%) translateY(160%);
+    visibility: hidden;
+    transition:
+      transform 0.55s cubic-bezier(0.5, 0, 0.2, 1),
+      visibility 0s 0.55s;
+  }
+
+  .ax-dock--on {
+    transform: translateX(-50%) translateY(0);
+    visibility: visible;
+    transition: transform 0.55s cubic-bezier(0.5, 0, 0.2, 1);
+  }
+
+  .ax-dock__btn {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 999px;
+    padding: 10px 18px;
+    background: #fff;
+    color: var(--blue);
+  }
+
+  @media (width <= 860px) {
+    .ax-dock {
+      left: calc(50% - 44px);
+    }
+  }
+
+  @media (width <= 620px) {
+    .ax-dock {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      justify-content: center;
+      gap: 0;
+      padding: 12px 92px 12px 16px;
+      border-radius: 16px 16px 0 0;
+      box-shadow: 0 -10px 30px -12px rgb(20 30 80 / 50%);
+      transform: translateY(120%);
+    }
+
+    .ax-dock--on {
+      transform: translateY(0);
+    }
+
+    .ax-dock b {
+      display: none;
+    }
+
+    .ax-dock__btn {
+      width: 100%;
+      padding: 14px;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .ax-header,
-    .ax-nav a {
+    .ax-nav a,
+    .ax-dock,
+    .ax-dock--on {
       transition: none;
     }
   }

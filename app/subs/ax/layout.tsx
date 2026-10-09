@@ -3,6 +3,7 @@ import Image from "next/image";
 import { generateMetadataFromTitle } from "@/src/manifest";
 import "./ax.scss";
 import Providers from "@/app/subs/ax/components/Providers";
+import Dock from "@/app/subs/ax/components/Dock";
 import Header from "@/app/subs/ax/components/Header";
 import { FAQS } from "@/app/subs/ax/components/sections/Faq.data";
 
@@ -126,6 +127,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="ax-root">
         <Header />
         {children}
+        <Dock />
         <footer className="ax-footer">
           <div className="ax-container">
             <div>
