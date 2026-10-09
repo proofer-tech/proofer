@@ -1,5 +1,4 @@
 import React from "react";
-import { Container, SimpleGrid, Box, Text, Title } from "@mantine/core";
 import {
   IconLink,
   IconRefresh,
@@ -50,37 +49,31 @@ const VALUES = [
 export default function ValueSection() {
   return (
     <section id="value" className={styles.valueSection}>
-      <Container size="lg">
+      <div className="mx-auto w-full max-w-[1184px] px-4">
         <div className={styles.sectionHeader}>
           <span className={styles.sectionTag}>CORE VALUES</span>
-          <Title order={2} className={styles.sectionTitle}>
+          <h2 className={styles.sectionTitle}>
             Stream이 제공하는
             <br />
             <span className={styles.gradientText}>핵심 가치</span>
-          </Title>
-          <Text className={styles.sectionDescription}>
+          </h2>
+          <p className={styles.sectionDescription}>
             흩어진 인재 데이터를 통합하고, 자동으로 최신화하며,
             <br />
             검색과 인사이트를 제공하는 인재 관리 솔루션
-          </Text>
+          </p>
         </div>
-        <SimpleGrid
-          cols={{ base: 1, sm: 2, lg: 4 }}
-          spacing="lg"
-          className={styles.valueGrid}
+        <div
+          className={`${styles.valueGrid} grid grid-cols-1 gap-6 min-[48em]:grid-cols-2 min-[75em]:grid-cols-4`}
         >
           {VALUES.map((item) => (
-            <Box key={item.key} className={styles.valueCard}>
+            <div key={item.key} className={styles.valueCard}>
               <div className={styles.valueIcon}>
                 <item.icon size={28} stroke={2} />
               </div>
-              <Title order={3} className={styles.valueTitle}>
-                {item.title}
-              </Title>
-              <Text className={styles.valueSubtitle}>{item.subtitle}</Text>
-              <Text className={styles.valueDescription}>
-                {item.description}
-              </Text>
+              <h3 className={styles.valueTitle}>{item.title}</h3>
+              <p className={styles.valueSubtitle}>{item.subtitle}</p>
+              <p className={styles.valueDescription}>{item.description}</p>
               <div className={styles.valueFeatures}>
                 {item.tags.map((tag) => (
                   <span key={tag} className={styles.featureTag}>
@@ -88,10 +81,10 @@ export default function ValueSection() {
                   </span>
                 ))}
               </div>
-            </Box>
+            </div>
           ))}
-        </SimpleGrid>
-      </Container>
+        </div>
+      </div>
     </section>
   );
 }

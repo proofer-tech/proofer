@@ -33,7 +33,7 @@
   max-height: 420px;
   object-fit: cover;
   box-shadow: 0 4px 24px rgb(0 0 0 / 40%);
-  border-radius: var(--mantine-radius-md);
+  border-radius: 0.5rem;
 }
 
 .coreServiceGrid {
@@ -43,7 +43,7 @@
 .coreServiceCard {
   padding: 1.75rem;
   background: var(--stream-card, #12121f);
-  border-radius: var(--mantine-radius-lg);
+  border-radius: 0.75rem;
   border: 1px solid var(--stream-border, rgb(255 255 255 / 8%));
   transition:
     box-shadow 0.2s ease,
@@ -64,7 +64,7 @@
 .talentCard {
   padding: 1.25rem;
   background: var(--stream-card, #12121f);
-  border-radius: var(--mantine-radius-md);
+  border-radius: 0.5rem;
   border: 1px solid var(--stream-border, rgb(255 255 255 / 8%));
   text-align: center;
   transition:
@@ -84,7 +84,7 @@
 .securityCard {
   padding: 1.5rem;
   background: var(--stream-card, #12121f);
-  border-radius: var(--mantine-radius-md);
+  border-radius: 0.5rem;
   border: 1px solid var(--stream-border, rgb(255 255 255 / 8%));
   transition:
     box-shadow 0.2s ease,
@@ -99,7 +99,7 @@
 .demoImage {
   width: 100%;
   box-shadow: 0 4px 24px rgb(0 0 0 / 35%);
-  border-radius: var(--mantine-radius-md);
+  border-radius: 0.5rem;
 }
 
 .finalCta {

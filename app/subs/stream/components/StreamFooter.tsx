@@ -1,16 +1,15 @@
-import { Container, Box, Text } from "@mantine/core";
 import styles from "./StreamFooter.module.scss";
 
 export default function StreamFooter() {
   return (
     <footer className={styles.footer}>
-      <Container size="lg">
-        <Box className={styles.footerBottom}>
-          <Text size="sm" c="dimmed">
+      <div className="mx-auto w-full max-w-[1184px] px-4">
+        <div className={styles.footerBottom}>
+          <p className="text-sm text-[#868e96]">
             © 2026 Stream by Proofer Inc. All rights reserved.
-          </Text>
-        </Box>
-      </Container>
+          </p>
+        </div>
+      </div>
     </footer>
   );
 }

@@ -1,14 +1,4 @@
 import React from "react";
-import {
-  Container,
-  Box,
-  Group,
-  Text,
-  Title,
-  List,
-  ListItem,
-  SimpleGrid,
-} from "@mantine/core";
 import { IconCircleCheck } from "@tabler/icons-react";
 import Image from "next/image";
 import styles from "./FeaturesSection.module.scss";
@@ -71,43 +61,37 @@ const FEATURES = [
 export default function FeaturesSection() {
   return (
     <section id="features" className={styles.featuresSection}>
-      <Container size="lg">
+      <div className="mx-auto w-full max-w-[1184px] px-4">
         <div className={styles.sectionHeader}>
           <span className={styles.sectionTag}>FEATURES</span>
-          <Title order={2} className={styles.sectionTitle}>
+          <h2 className={styles.sectionTitle}>
             <span className={styles.gradientText}>강력한 기능</span>으로
             <br />
             인재 관리를 혁신합니다
-          </Title>
+          </h2>
         </div>
         <div className={styles.featuresContent}>
           {FEATURES.map((item, idx) => (
-            <Box
+            <div
               key={item.number}
               className={styles.featureItem}
               style={{ flexDirection: item.reverse ? "row-reverse" : "row" }}
             >
               <div className={styles.featureText}>
-                <Text className={styles.featureNumber}>{item.number}</Text>
-                <Title order={3} className={styles.featureTitle}>
-                  {item.title}
-                </Title>
-                <Text className={styles.featureDescription}>
-                  {item.description}
-                </Text>
-                <List className={styles.featureList} spacing="sm">
+                <p className={styles.featureNumber}>{item.number}</p>
+                <h3 className={styles.featureTitle}>{item.title}</h3>
+                <p className={styles.featureDescription}>{item.description}</p>
+                <ul className={styles.featureList}>
                   {item.list.map((li) => (
-                    <ListItem
-                      key={li}
-                      icon={<IconCircleCheck size={18} color="#534ee3" />}
-                    >
+                    <li key={li} className="flex items-center gap-2">
+                      <IconCircleCheck size={18} color="#534ee3" />
                       {li}
-                    </ListItem>
+                    </li>
                   ))}
-                </List>
+                </ul>
               </div>
               <div className={styles.featureVisual}>
-                <Box className={styles.featureMockup}>
+                <div className={styles.featureMockup}>
                   <div className={styles.mockupHeader}>
                     <span className={styles.dot} />
                     <span className={styles.dot} />
@@ -115,79 +99,69 @@ export default function FeaturesSection() {
                   </div>
                   <div className={styles.mockupContent}>
                     {idx === 0 && (
-                      <Box className={styles.integrationPreview}>
-                        <SimpleGrid cols={3} spacing="md">
-                          <Box className={styles.integrationIcon}>in</Box>
-                          <Box className={styles.integrationIcon}>S</Box>
-                          <Box className={styles.integrationIcon}>R</Box>
-                        </SimpleGrid>
-                        <Box className={styles.syncPreview}>
+                      <div className={styles.integrationPreview}>
+                        <div className="grid grid-cols-3 gap-4">
+                          <div className={styles.integrationIcon}>in</div>
+                          <div className={styles.integrationIcon}>S</div>
+                          <div className={styles.integrationIcon}>R</div>
+                        </div>
+                        <div className={styles.syncPreview}>
                           <Image
                             src="/assets/images/stream/logo-icon.png"
                             alt="Stream"
                             width={64}
                             height={64}
                           />
-                        </Box>
-                      </Box>
+                        </div>
+                      </div>
                     )}
                     {idx === 1 && (
-                      <Box className={styles.timelinePreview}>
-                        <Box className={styles.timelineItem}>
+                      <div className={styles.timelinePreview}>
+                        <div className={styles.timelineItem}>
                           <span className={styles.timelineIconSuccess}>✓</span>
                           <div>
-                            <Text size="sm" fw={600}>
+                            <p className="text-sm font-semibold">
                               경력 업데이트 완료
-                            </Text>
-                            <Text size="xs" c="dimmed">
-                              방금 전
-                            </Text>
+                            </p>
+                            <p className="text-xs text-[#868e96]">방금 전</p>
                           </div>
-                        </Box>
-                        <Box className={styles.timelineItem}>
+                        </div>
+                        <div className={styles.timelineItem}>
                           <span className={styles.timelineIconInfo}>↻</span>
                           <div>
-                            <Text size="sm" fw={600}>
+                            <p className="text-sm font-semibold">
                               스킬 정보 동기화
-                            </Text>
-                            <Text size="xs" c="dimmed">
-                              2분 전
-                            </Text>
+                            </p>
+                            <p className="text-xs text-[#868e96]">2분 전</p>
                           </div>
-                        </Box>
-                      </Box>
+                        </div>
+                      </div>
                     )}
                     {idx === 2 && (
-                      <Box className={styles.searchPreview}>
-                        <Box className={styles.searchBar}>
-                          <Text size="sm" c="dimmed">
+                      <div className={styles.searchPreview}>
+                        <div className={styles.searchBar}>
+                          <p className="text-sm text-[#868e96]">
                             React, 5년 이상, 서울...
-                          </Text>
-                        </Box>
-                        <Group gap="xs" mb="sm">
+                          </p>
+                        </div>
+                        <div className="mb-3 flex flex-wrap items-center gap-2">
                           <span className={styles.chip}>경력 5년+</span>
                           <span className={styles.chip}>React</span>
                           <span className={styles.chip}>서울</span>
-                        </Group>
-                        <Text size="sm" c="dimmed">
+                        </div>
+                        <p className="text-sm text-[#868e96]">
                           매칭 인재 127명
-                        </Text>
-                      </Box>
+                        </p>
+                      </div>
                     )}
                     {idx === 3 && (
-                      <Box className={styles.dashboardPreview}>
-                        <Box className={styles.dashboardStat}>
-                          <Text size="xs" c="dimmed">
-                            총 인재
-                          </Text>
-                          <Text fw={700} size="xl">
-                            1,247
-                          </Text>
-                          <Text size="xs" c="green">
-                            +12%
-                          </Text>
-                        </Box>
-                        <Box className={styles.chartBars}>
+                      <div className={styles.dashboardPreview}>
+                        <div className={styles.dashboardStat}>
+                          <p className="text-xs text-[#868e96]">총 인재</p>
+                          <p className="text-xl font-bold">1,247</p>
+                          <p className="text-xs text-green-500">+12%</p>
+                        </div>
+                        <div className={styles.chartBars}>
                           {[60, 80, 45, 90, 70].map((h, i) => (
                             <span
                               key={i}
@@ -195,16 +169,16 @@ export default function FeaturesSection() {
                               style={{ height: `${h}%` }}
                             />
                           ))}
-                        </Box>
-                      </Box>
+                        </div>
+                      </div>
                     )}
                   </div>
-                </Box>
+                </div>
               </div>
-            </Box>
+            </div>
           ))}
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import { Container, SimpleGrid, Box, Text, Title } from "@mantine/core";
 import {
   IconBuilding,
   IconBuildingFactory,
@@ -34,37 +33,31 @@ const CASES = [
 export default function UseCasesSection() {
   return (
     <section className={styles.usecasesSection}>
-      <Container size="lg">
+      <div className="mx-auto w-full max-w-[1184px] px-4">
         <div className={styles.sectionHeader}>
           <span className={styles.sectionTag}>USE CASES</span>
-          <Title order={2} className={styles.sectionTitle}>
+          <h2 className={styles.sectionTitle}>
             다양한 조직에서
             <br />
             <span className={styles.gradientText}>
               Stream을 활용할 수 있습니다
             </span>
-          </Title>
+          </h2>
         </div>
-        <SimpleGrid
-          cols={{ base: 1, md: 3 }}
-          spacing="lg"
-          className={styles.usecasesGrid}
+        <div
+          className={`${styles.usecasesGrid} grid grid-cols-1 gap-6 min-[62em]:grid-cols-3`}
         >
           {CASES.map((item) => (
-            <Box key={item.key} className={styles.usecaseCard}>
+            <div key={item.key} className={styles.usecaseCard}>
               <div className={styles.usecaseIcon}>
                 <item.icon size={36} stroke={2} />
               </div>
-              <Title order={3} className={styles.usecaseTitle}>
-                {item.title}
-              </Title>
-              <Text className={styles.usecaseDescription}>
-                {item.description}
-              </Text>
-            </Box>
+              <h3 className={styles.usecaseTitle}>{item.title}</h3>
+              <p className={styles.usecaseDescription}>{item.description}</p>
+            </div>
           ))}
-        </SimpleGrid>
-      </Container>
+        </div>
+      </div>
     </section>
   );
 }
