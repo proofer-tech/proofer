@@ -176,6 +176,13 @@
       "when": 1787059919840,
       "tag": "0024_move_tables_to_public",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "5",
+      "when": 1787059920840,
+      "tag": "0025_drop_proofer_schema",
+      "breakpoints": true
     }
   ]
 }
