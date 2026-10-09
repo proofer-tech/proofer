@@ -169,6 +169,13 @@
       "when": 1787059918840,
       "tag": "0023_drop_insight_tables",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "5",
+      "when": 1787059919840,
+      "tag": "0024_move_tables_to_public",
+      "breakpoints": true
     }
   ]
 }

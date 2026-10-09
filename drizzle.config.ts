@@ -1,6 +1,6 @@
 import type { Config } from "drizzle-kit";
 export default {
-  schemaFilter: ["proofer"],
+  schemaFilter: ["public"],
   schema: "./database/schemas/**/*.ts",
   out: "./database/migrations",
   dialect: "postgresql",
