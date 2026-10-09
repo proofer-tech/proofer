@@ -1,4 +1,16 @@
-import { useMediaQuery } from "@mantine/hooks";
+import { useEffect, useState } from "react";
+
+const useMediaQuery = (query: string, initialValue: boolean) => {
+  const [matches, setMatches] = useState(initialValue);
+  useEffect(() => {
+    const mql = window.matchMedia(query);
+    const update = () => setMatches(mql.matches);
+    update();
+    mql.addEventListener("change", update);
+    return () => mql.removeEventListener("change", update);
+  }, [query]);
+  return matches;
+};
 
 export const useIsDesktopMedia = (initialValue: boolean = true) =>
   useMediaQuery(`(min-width: 1200px)`, initialValue);
