@@ -75,6 +75,12 @@ export default withSentryConfig(
             destination: "https://event-us.kr/withcto/event",
             permanent: false,
           },
+          {
+            source: "/docs/introduction-of-proofer",
+            destination:
+              "https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/assets/ir/proofer-ir.pdf?v=20261010",
+            permanent: false,
+          },
         ];
       },
       async rewrites() {
