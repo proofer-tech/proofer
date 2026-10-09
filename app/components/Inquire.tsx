@@ -108,7 +108,6 @@ export function InquireWidget({
   useEffect(() => {
     if (offsetPinRef.current === null) return;
     const rect = offsetPinRef.current.getBoundingClientRect();
-     
     setIsWidget(
       !(
         scrollY >= offsetPinRef.current.offsetTop ||
