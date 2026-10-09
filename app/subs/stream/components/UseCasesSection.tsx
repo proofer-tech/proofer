@@ -45,7 +45,7 @@ export default function UseCasesSection() {
           </h2>
         </div>
         <div
-          className={`${styles.usecasesGrid} grid grid-cols-1 gap-6 min-[62em]:grid-cols-3`}
+          className={`${styles.usecasesGrid} grid grid-cols-1 gap-6 min-[992px]:grid-cols-3`}
         >
           {CASES.map((item) => (
             <div key={item.key} className={styles.usecaseCard}>

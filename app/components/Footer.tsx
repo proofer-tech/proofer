@@ -52,7 +52,7 @@ export default function Footer({ linkGroups }: FooterProps) {
             </a>
           </div>
         </div>
-        <div className="absolute top-0 flex w-full flex-1 flex-nowrap items-start justify-end gap-20 min-[768px]:static min-[1200px]:w-auto">
+        <div className="absolute top-0 flex w-full flex-1 flex-nowrap items-start justify-end gap-20 md:static min-[1200px]:w-auto">
           {linkGroups &&
             Object.keys(linkGroups).map((k) => (
               <div

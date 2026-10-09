@@ -64,7 +64,7 @@ export default function ValueSection() {
           </p>
         </div>
         <div
-          className={`${styles.valueGrid} grid grid-cols-1 gap-6 min-[48em]:grid-cols-2 min-[75em]:grid-cols-4`}
+          className={`${styles.valueGrid} grid grid-cols-1 gap-6 md:grid-cols-2 min-[1200px]:grid-cols-4`}
         >
           {VALUES.map((item) => (
             <div key={item.key} className={styles.valueCard}>
