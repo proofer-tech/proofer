@@ -102,6 +102,62 @@ export default function Proof() {
                 인재 데이터 허브 위에 채용 실무를 자동화하는 AX 솔루션.
               </p>
             </div>
+            <div className="made-card">
+              <div className="top">
+                <Image
+                  src="/assets/images/dira/icon.svg"
+                  alt="dira"
+                  width={32}
+                  height={32}
+                />
+                <b style={{ flex: 1, fontSize: 20 }}>dira</b>
+                <span className="pill live">● 활동 중</span>
+              </div>
+              <p className="muted">
+                티켓 큐로 AI 에이전트 팀을 돌리는 로컬 멀티 에이전트 매니지먼트
+                시스템입니다.
+              </p>
+              <a
+                href="https://dira.proofer.tech"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  color: "var(--blue)",
+                  fontWeight: 700,
+                  fontSize: 14,
+                }}
+              >
+                바로가기 →
+              </a>
+            </div>
+            <div className="made-card">
+              <div className="top">
+                <Image
+                  src="/assets/images/pofol/icon.svg"
+                  alt="포폴 pofol"
+                  width={32}
+                  height={32}
+                />
+                <b style={{ flex: 1, fontSize: 20 }}>포폴</b>
+                <span className="pill live">● 활동 중</span>
+              </div>
+              <p className="muted">
+                국내 포트폴리오 웹사이트를 직군 구분 없이 모아 보여주는
+                아카이브입니다.
+              </p>
+              <a
+                href="https://pofol.works"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  color: "var(--blue)",
+                  fontWeight: 700,
+                  fontSize: 14,
+                }}
+              >
+                바로가기 →
+              </a>
+            </div>
           </div>
           <div className="past">
             <a
