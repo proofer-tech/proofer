@@ -5,7 +5,7 @@ import { SUB_DOMAIN } from "@/src/constants";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "/",
+      url: generateUrl("/"),
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1.0,
@@ -29,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: "/docs/introduction-of-proofer",
+      url: generateUrl("/docs/introduction-of-proofer"),
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
