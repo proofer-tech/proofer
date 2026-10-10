@@ -6,4 +6,5 @@ export const SUB_DOMAIN = {
   withCto: "with-cto",
   payapp: "payapp",
   ax: "ax",
+  blog: "blog",
 } as const;
