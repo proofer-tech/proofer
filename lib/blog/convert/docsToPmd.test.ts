@@ -92,3 +92,19 @@ describe("이전 글 49건", () => {
     expect(out).not.toMatch(/^\d{4}-\d{2}-\d{2} 백업/m);
   });
 });
+
+describe("검증기 오류를 막는 보정", () => {
+  const conv = (body: string) => docsToPmd(wrap(body), stub);
+  it("## 없이 시작하는 ### 는 ## 으로 올린다", () => {
+    expect(conv("### 가\n\n#### 나\n\n## 다\n")).toContain(
+      "## 가\n\n### 나\n\n## 다",
+    );
+  });
+  it("http 링크는 https, 메일 주소 링크는 mailto, 빈 링크는 글자만 남긴다", () => {
+    const out = conv(
+      "[a](http://a.com) [m@a.com](http://m@a.com) [글]() \n\n> - 출처\n",
+    );
+    expect(out).toContain("[a](https://a.com) [m@a.com](mailto:m@a.com) 글");
+    expect(out).toContain("> — 출처");
+  });
+});

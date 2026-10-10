@@ -83,5 +83,28 @@ export function docsToPmd(md: string, resolveImage: ImageResolver): string {
     body.push(isPlainParagraph(b) ? toBackslashBreaks(b) : b);
   }
 
-  return `---\ntitle: ${JSON.stringify(title)}\n${yaml}\n---\n\n${body.join("\n\n")}\n`;
+  return `---\ntitle: ${JSON.stringify(title)}\n${yaml}\n---\n\n${fixHeadings(body.map(fixInline)).join("\n\n")}\n`;
+}
+
+// 검증기 PMD003, PMD007, PMD008 이 걸던 이전 글의 모양을 고친다.
+// 천장: 코드 펜스 밖의 인라인 코드 속 http:// 도 https:// 로 바뀐다. 이전 글 49건에는 없다.
+function fixInline(b: string): string {
+  if (b.startsWith("```")) return b;
+  return b
+    .replace(/^> - (.*)$/, "> \u2014 $1") // 인용 끝의 `- 출처` 가 목록이 되는 것을 막는다
+    .replace(/\[([^\]]*)\]\(\s*\)/g, "$1") // 주소 없는 링크는 글자만 남긴다
+    .replace(/\]\(http:\/\/([^/)\s]+@[^/)\s]+)\)/g, "](mailto:$1)")
+    .replace(/(\]\(|\s|^|<)http:\/\//g, "$1https://");
+}
+
+/** 제목이 앞 단계보다 둘 이상 깊어지면 한 단계 아래로 올린다(## 없이 ### 로 시작하는 글). */
+function fixHeadings(blocks: string[]): string[] {
+  let last = 1;
+  return blocks.map((b) => {
+    const m = /^(#{2,}) /.exec(b);
+    if (!m || b.startsWith("```")) return b;
+    const depth = Math.min(m[1].length, last + 1);
+    last = depth;
+    return `${"#".repeat(depth)} ${b.slice(m[0].length)}`;
+  });
 }

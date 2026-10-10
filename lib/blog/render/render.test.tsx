@@ -2,7 +2,7 @@
 import { PmdBody } from "./index";
 
 // @types/react-dom 이 최상위에 없어 타입 없이 불러온다.
- 
+
 const { renderToStaticMarkup } = require("react-dom/server") as {
   renderToStaticMarkup: (e: unknown) => string;
 };

@@ -10,7 +10,10 @@ export const pmd019: Rule = {
   check: (doc) => {
     const main = fmStrings(doc.frontmatter, "keywords")?.[0];
     if (!main) return [];
-    const first = doc.tree.children.find((n) => n.type === "paragraph");
+    const first = doc.tree.children.find(
+      (n) =>
+        n.type === "paragraph" && n.children.some((c) => c.type !== "image"),
+    );
     const hay = [
       first,
       ...doc.tree.children.filter((n) => n.type === "heading" && n.depth === 2),

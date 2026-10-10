@@ -130,3 +130,8 @@ test("PMD019 주 검색어 (경고)", () => {
     ),
   ).toEqual([]);
 });
+
+test("PMD019: 이미지만 있는 문단은 첫 문단으로 세지 않는다", () => {
+  const md = `${FM}\n![a](https://a.com/a.png)\n\nClaude 이야기다.\n`;
+  expect(lint(md).filter((x) => x.ruleId === "PMD019")).toEqual([]);
+});

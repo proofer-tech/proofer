@@ -7,6 +7,13 @@ const date = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}([T ].+)?$/, "날짜 형식은 YYYY-MM-DD");
 
+const IMPORT_FIELDS = [
+  "source",
+  "reading_time_min",
+  "word_count",
+  "body_title",
+];
+
 const shape = {
   title: z.string().min(1),
   subtitle: z.string().min(40).max(160),
@@ -18,16 +25,21 @@ const shape = {
   cover: z.object({ src: z.url(), alt: z.string().min(1) }).nullish(),
   published_at: date.nullish(),
   updated_at: date.nullish(),
-  canonical_url: z.url().nullish(),
+  // 빈 문자열은 "원본 없음"이다(이전 글 변환 결과가 그렇게 낸다)
+  canonical_url: z.union([z.url(), z.literal("")]).nullish(),
 };
 
 export const frontmatterSchema = z
   .object(shape)
-  // medium_* 칸은 임포트 메타. 그 밖의 모르는 칸은 오류.
+  // medium_* 와 이전 글 임포트 메타(IMPORT_FIELDS)는 허용한다. 그 밖의 모르는 칸은 오류.
   .catchall(z.unknown())
   .superRefine((v, ctx) => {
     for (const k of Object.keys(v)) {
-      if (!(k in shape) && !k.startsWith("medium_")) {
+      if (
+        !(k in shape) &&
+        !k.startsWith("medium_") &&
+        !IMPORT_FIELDS.includes(k)
+      ) {
         ctx.addIssue({
           code: "custom",
           path: [k],
