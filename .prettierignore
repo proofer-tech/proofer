@@ -1,2 +1,3 @@
 warehouse/**/*
-dist/**/*lib/blog/__fixtures__
+dist/**/*
+lib/blog/__fixtures__

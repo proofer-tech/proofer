@@ -7,21 +7,14 @@ subtitle: "만족도와 웰빙, 성능, 활동, 의사소통과 협업, 효율�
 slug: "space-framework-분석-및-활용방법-bc4ee0cca6b1"
 author: "proofer"
 tags: ["개발자-생산성", "space-framework"]
-keywords:
-  [
-    "SPACE Framework",
-    "개발자 생산성 측정",
-    "SPACE 프레임워크",
-    "개발자 만족도 설문",
-  ]
+keywords: ["SPACE Framework", "개발자 생산성 측정", "SPACE 프레임워크", "개발자 만족도 설문"]
 canonical_url: ""
 published_at: "2024-03-05T23:02:07Z"
 updated_at: "2024-06-06T16:37:34Z"
 medium_id: "bc4ee0cca6b1"
 medium_url: "https://medium.com/proofer-blog/space-framework-%EB%B6%84%EC%84%9D-%EB%B0%8F-%ED%99%9C%EC%9A%A9%EB%B0%A9%EB%B2%95-bc4ee0cca6b1"
 medium_author: "프루퍼 (Proofer) (@proofer.tech)"
-medium_tags:
-  ["dev", "space-framework", "개발자", "developer-productivity", "tech"]
+medium_tags: ["dev", "space-framework", "개발자", "developer-productivity", "tech"]
 reading_time_min: 9.4
 word_count: 1162
 ```
@@ -40,7 +33,7 @@ word_count: 1162
 
 ![S, P, A, C, E 색 블록 옆에 만족도, 성능, 활동, 협업, 효율 요소의 영문 이름을 적은 도표](blob/c85c10e5-b370)
 
-_워낙에 내용이 방대해서 Space(우주) 라고 부른다고 한다 …_
+*워낙에 내용이 방대해서 Space(우주) 라고 부른다고 한다 …*
 
 SPACE Framework 에서는 생산성을 5가지 지표로 분류합니다.
 
@@ -167,6 +160,6 @@ SPACE 는 측정할 항목이 제공되지 않는 “프레임워크” 입니�
 
 ![파란색과 초록색 사선 위에 proofer.tech 글자를 얹은 프루퍼 로고](blob/8185f82e-4a58)
 
-_[https://proofer.tech](https://proofer.tech)_
+*[https://proofer.tech](https://proofer.tech)*
 
 [유용한 기술 아티클을 가장 먼저 받아보는 방법](https://medium.com/proofer-blog/newsletters/measurable-developer)

@@ -7,14 +7,7 @@ subtitle: "인프랩 이동욱 CTO가 개발팀의 40%가 신입이라는 주제
 slug: "with-cto-2nd-meet-모임-후기-da45be89affd"
 author: "maehong"
 tags: ["with-cto", "행사-후기"]
-keywords:
-  [
-    "with CTO",
-    "이동욱 CTO 강연",
-    "주니어 개발자 교육",
-    "DORA Metrics",
-    "CTO 네트워킹",
-  ]
+keywords: ["with CTO", "이동욱 CTO 강연", "주니어 개발자 교육", "DORA Metrics", "CTO 네트워킹"]
 canonical_url: "https://medium.com/proofer-blog/with-cto-2nd-meet-%EB%AA%A8%EC%9E%84-%ED%9B%84%EA%B8%B0-da45be89affd"
 published_at: "2024-07-16T10:50:42Z"
 updated_at: "2024-11-20T20:32:22Z"
