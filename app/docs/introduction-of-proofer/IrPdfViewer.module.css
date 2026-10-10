@@ -328,6 +328,9 @@
   }
 
   .frame:fullscreen {
+    --pad: 24px;
+    --gap: 16px;
+
     width: 100%;
   }
 }
