@@ -183,6 +183,13 @@
       "when": 1787059920840,
       "tag": "0025_drop_proofer_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1791665849628,
+      "tag": "0026_moaning_surge",
+      "breakpoints": true
     }
   ]
 }
