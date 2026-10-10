@@ -22,6 +22,7 @@
     "deploy": "npm run build",
     "analyze": "unset __NEXT_PRIVATE_STANDALONE_CONFIG; ANALYZE=true next build",
     "start": "next start",
+    "blog": "tsx scripts/blog/cli.ts",
     "typecheck": "tsc --noEmit",
     "generate-pwa": "pwa-assets-generator --preset minimal-2023 public/ic_launcher.svg",
     "lint": "eslint . && npm run lint:stylelint",
