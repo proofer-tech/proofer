@@ -427,7 +427,7 @@ export default function IrPdfViewer({ url }: { url: string }) {
         aria-label="소개서 보기 도구"
       >
         <div className={styles.group}>
-          <span className={styles.desktopOnly}>
+          <span className={cx(styles.group, styles.desktopOnly)}>
             {btn(
               "이전 쪽",
               () => goTo(current - 1),
