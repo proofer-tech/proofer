@@ -134,6 +134,10 @@ export default function IrPdfViewer({ url }: { url: string }) {
   const anchorRef = useRef<{ page: number; frac: number } | null>(null);
   const currentRef = useRef(1);
   currentRef.current = current;
+  const fsRef = useRef(false);
+  const pinTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const pinRef = useRef(0); // 전환 중 쪽 폭이 늦게 바뀌어도 이 쪽을 툴바 아래에 붙든다
+  const lockRef = useRef(false); // 전체 화면 전환 중에는 레이아웃이 흔들려 현재 쪽을 갱신하지 않는다
 
   const numPages = doc?.numPages ?? FALLBACK_PAGES;
   const effZoom = mobile ? null : zoom;
@@ -206,7 +210,9 @@ export default function IrPdfViewer({ url }: { url: string }) {
   const updateCurrent = useCallback(() => {
     const list = listRef.current;
     const toolbar = toolbarRef.current;
-    if (!list || !toolbar) return;
+    if (!list || !toolbar || lockRef.current) return;
+    if ((document.fullscreenElement === frameRef.current) !== fsRef.current)
+      return;
     const top = toolbar.getBoundingClientRect().bottom;
     const bottom = window.innerHeight;
     let best = 0;
@@ -214,7 +220,7 @@ export default function IrPdfViewer({ url }: { url: string }) {
     list.querySelectorAll<HTMLElement>("[data-page]").forEach((el) => {
       const r = el.getBoundingClientRect();
       const visible = Math.min(r.bottom, bottom) - Math.max(r.top, top);
-      if (visible > bestVisible) {
+      if (visible > bestVisible + 1) {
         bestVisible = visible;
         best = Number(el.dataset.page);
       }
@@ -279,8 +285,9 @@ export default function IrPdfViewer({ url }: { url: string }) {
     };
   };
   useLayoutEffect(() => {
-    const a = anchorRef.current;
+    let a = anchorRef.current;
     anchorRef.current = null;
+    if (pinRef.current) a = { page: pinRef.current, frac: 0 };
     const el = a && pageEl(a.page);
     const toolbar = toolbarRef.current;
     if (!a || !el || !toolbar) return;
@@ -318,13 +325,20 @@ export default function IrPdfViewer({ url }: { url: string }) {
   useEffect(() => {
     const onChange = () => {
       const on = document.fullscreenElement === frameRef.current;
+      fsRef.current = on;
+      lockRef.current = true;
       setFs(on);
       setZoom(null);
       frameRef.current?.focus();
-      // 쪽 폭이 같아도 틀의 위치가 바뀌므로 보던 쪽을 다시 맞춘다.
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => goTo(currentRef.current, false)),
-      );
+      // 쪽 폭은 레이아웃 뒤에 늦게 바뀌므로 전환이 가라앉을 때까지 보던 쪽을 붙든다.
+      pinRef.current = currentRef.current;
+      clearTimeout(pinTimer.current);
+      requestAnimationFrame(() => goTo(pinRef.current, false));
+      pinTimer.current = setTimeout(() => {
+        goTo(pinRef.current, false);
+        pinRef.current = 0;
+        lockRef.current = false;
+      }, 400);
     };
     document.addEventListener("fullscreenchange", onChange);
     return () => document.removeEventListener("fullscreenchange", onChange);
