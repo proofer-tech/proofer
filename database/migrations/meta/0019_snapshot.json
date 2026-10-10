@@ -1,10 +1,8 @@
 {
-  "id": "6edbe2dd-627d-4f2d-b9c3-8325ed8227f3",
-  "prevId": "dec87c34-fd65-41b1-800a-46370eeb63a0",
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {
-    "user": {
+    "proofer.user": {
       "name": "user",
       "schema": "proofer",
       "columns": {
@@ -27,14 +25,15 @@
       "uniqueConstraints": {
         "user_uidx_email": {
           "name": "user_uidx_email",
-          "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"],
+          "nullsNotDistinct": false
         }
-      }
+      },
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "article": {
+    "proofer.article": {
       "name": "article",
       "schema": "proofer",
       "columns": {
@@ -104,11 +103,19 @@
       },
       "indexes": {
         "article_idx_created_at": {
-          "name": "article_idx_created_at",
           "columns": [
-            "created_at"
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "article_idx_created_at",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {},
@@ -116,14 +123,15 @@
       "uniqueConstraints": {
         "article_uidx_slug": {
           "name": "article_uidx_slug",
-          "nullsNotDistinct": false,
-          "columns": [
-            "slug"
-          ]
+          "columns": ["slug"],
+          "nullsNotDistinct": false
         }
-      }
+      },
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "article_to_tag": {
+    "proofer.article_to_tag": {
       "name": "article_to_tag",
       "schema": "proofer",
       "columns": {
@@ -151,36 +159,31 @@
         "article_to_tag_article_id_article_id_fk": {
           "name": "article_to_tag_article_id_article_id_fk",
           "tableFrom": "article_to_tag",
+          "columnsFrom": ["article_id"],
           "tableTo": "article",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "article_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "article_to_tag_name_tag_name_fk": {
           "name": "article_to_tag_name_tag_name_fk",
           "tableFrom": "article_to_tag",
+          "columnsFrom": ["name"],
           "tableTo": "tag",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "name"
-          ],
-          "columnsTo": [
-            "name"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["name"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "tag": {
+    "proofer.tag": {
       "name": "tag",
       "schema": "proofer",
       "columns": {
@@ -203,14 +206,15 @@
       "uniqueConstraints": {
         "tag_uidx_name": {
           "name": "tag_uidx_name",
-          "nullsNotDistinct": false,
-          "columns": [
-            "name"
-          ]
+          "columns": ["name"],
+          "nullsNotDistinct": false
         }
-      }
+      },
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "processed_github_pull_request": {
+    "proofer.processed_github_pull_request": {
       "name": "processed_github_pull_request",
       "schema": "proofer",
       "columns": {
@@ -283,11 +287,19 @@
       },
       "indexes": {
         "idx_pghpr_pull_number": {
-          "name": "idx_pghpr_pull_number",
           "columns": [
-            "number"
+            {
+              "expression": "number",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "idx_pghpr_pull_number",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {},
@@ -295,14 +307,15 @@
       "uniqueConstraints": {
         "uidx_pghpr_pull_request_id": {
           "name": "uidx_pghpr_pull_request_id",
-          "nullsNotDistinct": false,
-          "columns": [
-            "pull_request_id"
-          ]
+          "columns": ["pull_request_id"],
+          "nullsNotDistinct": false
         }
-      }
+      },
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "processed_github_time_series": {
+    "proofer.processed_github_time_series": {
       "name": "processed_github_time_series",
       "schema": "proofer",
       "columns": {
@@ -357,77 +370,82 @@
       },
       "indexes": {
         "uidx_reference": {
-          "name": "uidx_reference",
           "columns": [
-            "workspace_id",
-            "event",
-            "reference_id"
+            {
+              "expression": "workspace_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "event",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "reference_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": true
+          "with": {},
+          "name": "uidx_reference",
+          "isUnique": true,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "processed_github_time_series_workspace_id_workspace_id_fk": {
           "name": "processed_github_time_series_workspace_id_workspace_id_fk",
           "tableFrom": "processed_github_time_series",
+          "columnsFrom": ["workspace_id"],
           "tableTo": "workspace",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "workspace_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "processed_github_time_series_installation_id_github_installation_installation_id_fk": {
           "name": "processed_github_time_series_installation_id_github_installation_installation_id_fk",
           "tableFrom": "processed_github_time_series",
+          "columnsFrom": ["installation_id"],
           "tableTo": "github_installation",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "installation_id"
-          ],
-          "columnsTo": [
-            "installation_id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["installation_id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "processed_github_time_series_repository_id_github_repository_id_fk": {
           "name": "processed_github_time_series_repository_id_github_repository_id_fk",
           "tableFrom": "processed_github_time_series",
+          "columnsFrom": ["repository_id"],
           "tableTo": "github_repository",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "repository_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "processed_github_time_series_user_id_github_user_user_id_fk": {
           "name": "processed_github_time_series_user_id_github_user_user_id_fk",
           "tableFrom": "processed_github_time_series",
+          "columnsFrom": ["user_id"],
           "tableTo": "github_user",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "user_id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["user_id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "github_commit": {
+    "proofer.github_commit": {
       "name": "github_commit",
       "schema": "proofer",
       "columns": {
@@ -490,76 +508,81 @@
       },
       "indexes": {
         "idx_ghc_created_at": {
-          "name": "idx_ghc_created_at",
           "columns": [
-            "created_at"
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "idx_ghc_created_at",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         },
         "idx_ghc_timestamp": {
-          "name": "idx_ghc_timestamp",
           "columns": [
-            "timestamp"
+            {
+              "expression": "timestamp",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "idx_ghc_timestamp",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "github_commit_repository_id_github_repository_id_fk": {
           "name": "github_commit_repository_id_github_repository_id_fk",
           "tableFrom": "github_commit",
+          "columnsFrom": ["repository_id"],
           "tableTo": "github_repository",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "repository_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "github_commit_author_id_github_user_user_id_fk": {
           "name": "github_commit_author_id_github_user_user_id_fk",
           "tableFrom": "github_commit",
+          "columnsFrom": ["author_id"],
           "tableTo": "github_user",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "author_id"
-          ],
-          "columnsTo": [
-            "user_id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["user_id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "github_commit_committer_id_github_user_user_id_fk": {
           "name": "github_commit_committer_id_github_user_user_id_fk",
           "tableFrom": "github_commit",
+          "columnsFrom": ["committer_id"],
           "tableTo": "github_user",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "committer_id"
-          ],
-          "columnsTo": [
-            "user_id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["user_id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "uidx_ghc_sha": {
           "name": "uidx_ghc_sha",
-          "nullsNotDistinct": false,
-          "columns": [
-            "sha"
-          ]
+          "columns": ["sha"],
+          "nullsNotDistinct": false
         }
-      }
+      },
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "github_installation": {
+    "proofer.github_installation": {
       "name": "github_installation",
       "schema": "proofer",
       "columns": {
@@ -632,14 +655,15 @@
       "uniqueConstraints": {
         "ghi_uidx_installation_id": {
           "name": "ghi_uidx_installation_id",
-          "nullsNotDistinct": false,
-          "columns": [
-            "installation_id"
-          ]
+          "columns": ["installation_id"],
+          "nullsNotDistinct": false
         }
-      }
+      },
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "github_issue": {
+    "proofer.github_issue": {
       "name": "github_issue",
       "schema": "proofer",
       "columns": {
@@ -732,83 +756,96 @@
       },
       "indexes": {
         "idx_ghi_number": {
-          "name": "idx_ghi_number",
           "columns": [
-            "number"
+            {
+              "expression": "number",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "idx_ghi_number",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         },
         "idx_ghi_created_at": {
-          "name": "idx_ghi_created_at",
           "columns": [
-            "created_at"
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "idx_ghi_created_at",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         },
         "idx_ghi_timestamp": {
-          "name": "idx_ghi_timestamp",
           "columns": [
-            "timestamp"
+            {
+              "expression": "timestamp",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "idx_ghi_timestamp",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "github_issue_repository_id_github_repository_id_fk": {
           "name": "github_issue_repository_id_github_repository_id_fk",
           "tableFrom": "github_issue",
+          "columnsFrom": ["repository_id"],
           "tableTo": "github_repository",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "repository_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "github_issue_user_id_github_user_user_id_fk": {
           "name": "github_issue_user_id_github_user_user_id_fk",
           "tableFrom": "github_issue",
+          "columnsFrom": ["user_id"],
           "tableTo": "github_user",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "user_id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["user_id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "github_issue_assignee_id_github_user_user_id_fk": {
           "name": "github_issue_assignee_id_github_user_user_id_fk",
           "tableFrom": "github_issue",
+          "columnsFrom": ["assignee_id"],
           "tableTo": "github_user",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "assignee_id"
-          ],
-          "columnsTo": [
-            "user_id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["user_id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "uidx_ghi_issue_id": {
           "name": "uidx_ghi_issue_id",
-          "nullsNotDistinct": false,
-          "columns": [
-            "issue_id"
-          ]
+          "columns": ["issue_id"],
+          "nullsNotDistinct": false
         }
-      }
+      },
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "github_issue_comment": {
+    "proofer.github_issue_comment": {
       "name": "github_issue_comment",
       "schema": "proofer",
       "columns": {
@@ -871,62 +908,71 @@
       },
       "indexes": {
         "idx_ghic_created_at": {
-          "name": "idx_ghic_created_at",
           "columns": [
-            "created_at"
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "idx_ghic_created_at",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         },
         "idx_ghic_timestamp": {
-          "name": "idx_ghic_timestamp",
           "columns": [
-            "timestamp"
+            {
+              "expression": "timestamp",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "idx_ghic_timestamp",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "github_issue_comment_issue_id_github_issue_issue_id_fk": {
           "name": "github_issue_comment_issue_id_github_issue_issue_id_fk",
           "tableFrom": "github_issue_comment",
+          "columnsFrom": ["issue_id"],
           "tableTo": "github_issue",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "issue_id"
-          ],
-          "columnsTo": [
-            "issue_id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["issue_id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "github_issue_comment_user_id_github_user_user_id_fk": {
           "name": "github_issue_comment_user_id_github_user_user_id_fk",
           "tableFrom": "github_issue_comment",
+          "columnsFrom": ["user_id"],
           "tableTo": "github_user",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "user_id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["user_id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "uidx_ghic_comment_id": {
           "name": "uidx_ghic_comment_id",
-          "nullsNotDistinct": false,
-          "columns": [
-            "comment_id"
-          ]
+          "columns": ["comment_id"],
+          "nullsNotDistinct": false
         }
-      }
+      },
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "github_pull_request": {
+    "proofer.github_pull_request": {
       "name": "github_pull_request",
       "schema": "proofer",
       "columns": {
@@ -1031,83 +1077,96 @@
       },
       "indexes": {
         "idx_ghpr_number": {
-          "name": "idx_ghpr_number",
           "columns": [
-            "number"
+            {
+              "expression": "number",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "idx_ghpr_number",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         },
         "idx_ghpr_created_at": {
-          "name": "idx_ghpr_created_at",
           "columns": [
-            "created_at"
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "idx_ghpr_created_at",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         },
         "idx_ghpr_timestamp": {
-          "name": "idx_ghpr_timestamp",
           "columns": [
-            "timestamp"
+            {
+              "expression": "timestamp",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "idx_ghpr_timestamp",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "github_pull_request_repository_id_github_repository_id_fk": {
           "name": "github_pull_request_repository_id_github_repository_id_fk",
           "tableFrom": "github_pull_request",
+          "columnsFrom": ["repository_id"],
           "tableTo": "github_repository",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "repository_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "github_pull_request_user_id_github_user_user_id_fk": {
           "name": "github_pull_request_user_id_github_user_user_id_fk",
           "tableFrom": "github_pull_request",
+          "columnsFrom": ["user_id"],
           "tableTo": "github_user",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "user_id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["user_id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "github_pull_request_assignee_id_github_user_user_id_fk": {
           "name": "github_pull_request_assignee_id_github_user_user_id_fk",
           "tableFrom": "github_pull_request",
+          "columnsFrom": ["assignee_id"],
           "tableTo": "github_user",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "assignee_id"
-          ],
-          "columnsTo": [
-            "user_id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["user_id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "uidx_ghpr_pull_request_id": {
           "name": "uidx_ghpr_pull_request_id",
-          "nullsNotDistinct": false,
-          "columns": [
-            "pull_request_id"
-          ]
+          "columns": ["pull_request_id"],
+          "nullsNotDistinct": false
         }
-      }
+      },
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "github_pull_request_review": {
+    "proofer.github_pull_request_review": {
       "name": "github_pull_request_review",
       "schema": "proofer",
       "columns": {
@@ -1169,62 +1228,71 @@
       },
       "indexes": {
         "idx_ghprr_submitted_at": {
-          "name": "idx_ghprr_submitted_at",
           "columns": [
-            "submitted_at"
+            {
+              "expression": "submitted_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "idx_ghprr_submitted_at",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         },
         "idx_ghprr_timestamp": {
-          "name": "idx_ghprr_timestamp",
           "columns": [
-            "timestamp"
+            {
+              "expression": "timestamp",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "idx_ghprr_timestamp",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "github_pull_request_review_pull_request_id_github_pull_request_pull_request_id_fk": {
           "name": "github_pull_request_review_pull_request_id_github_pull_request_pull_request_id_fk",
           "tableFrom": "github_pull_request_review",
+          "columnsFrom": ["pull_request_id"],
           "tableTo": "github_pull_request",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "pull_request_id"
-          ],
-          "columnsTo": [
-            "pull_request_id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["pull_request_id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "github_pull_request_review_user_id_github_user_user_id_fk": {
           "name": "github_pull_request_review_user_id_github_user_user_id_fk",
           "tableFrom": "github_pull_request_review",
+          "columnsFrom": ["user_id"],
           "tableTo": "github_user",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "user_id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["user_id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "uidx_ghprr_review_id": {
           "name": "uidx_ghprr_review_id",
-          "nullsNotDistinct": false,
-          "columns": [
-            "review_id"
-          ]
+          "columns": ["review_id"],
+          "nullsNotDistinct": false
         }
-      }
+      },
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "github_pull_request_review_comment": {
+    "proofer.github_pull_request_review_comment": {
       "name": "github_pull_request_review_comment",
       "schema": "proofer",
       "columns": {
@@ -1287,62 +1355,71 @@
       },
       "indexes": {
         "idx_ghprrc_created_at": {
-          "name": "idx_ghprrc_created_at",
           "columns": [
-            "created_at"
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "idx_ghprrc_created_at",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         },
         "idx_ghprrc_timestamp": {
-          "name": "idx_ghprrc_timestamp",
           "columns": [
-            "timestamp"
+            {
+              "expression": "timestamp",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "idx_ghprrc_timestamp",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "github_pull_request_review_comment_pull_request_review_id_github_pull_request_review_review_id_fk": {
           "name": "github_pull_request_review_comment_pull_request_review_id_github_pull_request_review_review_id_fk",
           "tableFrom": "github_pull_request_review_comment",
+          "columnsFrom": ["pull_request_review_id"],
           "tableTo": "github_pull_request_review",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "pull_request_review_id"
-          ],
-          "columnsTo": [
-            "review_id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["review_id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "github_pull_request_review_comment_user_id_github_user_user_id_fk": {
           "name": "github_pull_request_review_comment_user_id_github_user_user_id_fk",
           "tableFrom": "github_pull_request_review_comment",
+          "columnsFrom": ["user_id"],
           "tableTo": "github_user",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "user_id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["user_id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "uidx_ghprrc_review_comment_id": {
           "name": "uidx_ghprrc_review_comment_id",
-          "nullsNotDistinct": false,
-          "columns": [
-            "review_comment_id"
-          ]
+          "columns": ["review_comment_id"],
+          "nullsNotDistinct": false
         }
-      }
+      },
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "github_repository": {
+    "proofer.github_repository": {
       "name": "github_repository",
       "schema": "proofer",
       "columns": {
@@ -1417,34 +1494,46 @@
       },
       "indexes": {
         "uidx_ghr_bridge": {
-          "name": "uidx_ghr_bridge",
           "columns": [
-            "installation_id",
-            "repository_id"
+            {
+              "expression": "installation_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "repository_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": true
+          "with": {},
+          "name": "uidx_ghr_bridge",
+          "isUnique": true,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "github_repository_installation_id_github_installation_installation_id_fk": {
           "name": "github_repository_installation_id_github_installation_installation_id_fk",
           "tableFrom": "github_repository",
+          "columnsFrom": ["installation_id"],
           "tableTo": "github_installation",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "installation_id"
-          ],
-          "columnsTo": [
-            "installation_id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["installation_id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "github_user": {
+    "proofer.github_user": {
       "name": "github_user",
       "schema": "proofer",
       "columns": {
@@ -1511,14 +1600,15 @@
       "uniqueConstraints": {
         "ghu_uidx_user_id": {
           "name": "ghu_uidx_user_id",
-          "nullsNotDistinct": false,
-          "columns": [
-            "user_id"
-          ]
+          "columns": ["user_id"],
+          "nullsNotDistinct": false
         }
-      }
+      },
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "workspace_to_github_installation": {
+    "proofer.workspace_to_github_installation": {
       "name": "workspace_to_github_installation",
       "schema": "proofer",
       "columns": {
@@ -1550,19 +1640,35 @@
       },
       "indexes": {
         "wtgi_uidx_bridge": {
-          "name": "wtgi_uidx_bridge",
           "columns": [
-            "workspace_id",
-            "installation_id"
+            {
+              "expression": "workspace_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "installation_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": true
+          "with": {},
+          "name": "wtgi_uidx_bridge",
+          "isUnique": true,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "integration": {
+    "proofer.integration": {
       "name": "integration",
       "schema": "proofer",
       "columns": {
@@ -1617,14 +1723,15 @@
       "uniqueConstraints": {
         "integration_uidx_slug": {
           "name": "integration_uidx_slug",
-          "nullsNotDistinct": false,
-          "columns": [
-            "slug"
-          ]
+          "columns": ["slug"],
+          "nullsNotDistinct": false
         }
-      }
+      },
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "integration_tag": {
+    "proofer.integration_tag": {
       "name": "integration_tag",
       "schema": "proofer",
       "columns": {
@@ -1654,14 +1761,15 @@
       "uniqueConstraints": {
         "itt_uidx_name": {
           "name": "itt_uidx_name",
-          "nullsNotDistinct": false,
-          "columns": [
-            "name"
-          ]
+          "columns": ["name"],
+          "nullsNotDistinct": false
         }
-      }
+      },
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "integration_to_tag": {
+    "proofer.integration_to_tag": {
       "name": "integration_to_tag",
       "schema": "proofer",
       "columns": {
@@ -1686,48 +1794,56 @@
       },
       "indexes": {
         "ittt_uidx_bridge": {
-          "name": "ittt_uidx_bridge",
           "columns": [
-            "integration_id",
-            "tag_id"
+            {
+              "expression": "integration_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "tag_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": true
+          "with": {},
+          "name": "ittt_uidx_bridge",
+          "isUnique": true,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "integration_to_tag_integration_id_integration_id_fk": {
           "name": "integration_to_tag_integration_id_integration_id_fk",
           "tableFrom": "integration_to_tag",
+          "columnsFrom": ["integration_id"],
           "tableTo": "integration",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "integration_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "integration_to_tag_tag_id_integration_tag_id_fk": {
           "name": "integration_to_tag_tag_id_integration_tag_id_fk",
           "tableFrom": "integration_to_tag",
+          "columnsFrom": ["tag_id"],
           "tableTo": "integration_tag",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "tag_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "workspace": {
+    "proofer.workspace": {
       "name": "workspace",
       "schema": "proofer",
       "columns": {
@@ -1768,30 +1884,27 @@
         "workspace_owner_id_user_id_fk": {
           "name": "workspace_owner_id_user_id_fk",
           "tableFrom": "workspace",
+          "columnsFrom": ["owner_id"],
           "tableTo": "user",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "owner_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "workspace_uidx_slug": {
           "name": "workspace_uidx_slug",
-          "nullsNotDistinct": false,
-          "columns": [
-            "slug"
-          ]
+          "columns": ["slug"],
+          "nullsNotDistinct": false
         }
-      }
+      },
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "workspace_member": {
+    "proofer.workspace_member": {
       "name": "workspace_member",
       "schema": "proofer",
       "columns": {
@@ -1846,36 +1959,31 @@
         "workspace_member_workspace_id_workspace_id_fk": {
           "name": "workspace_member_workspace_id_workspace_id_fk",
           "tableFrom": "workspace_member",
+          "columnsFrom": ["workspace_id"],
           "tableTo": "workspace",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "workspace_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "workspace_member_user_id_user_id_fk": {
           "name": "workspace_member_user_id_user_id_fk",
           "tableFrom": "workspace_member",
+          "columnsFrom": ["user_id"],
           "tableTo": "user",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     },
-    "workspace_member_email": {
+    "proofer.workspace_member_email": {
       "name": "workspace_member_email",
       "schema": "proofer",
       "columns": {
@@ -1906,77 +2014,89 @@
       },
       "indexes": {
         "uidx_wme_workspace_id_email": {
-          "name": "uidx_wme_workspace_id_email",
           "columns": [
-            "workspace_id",
-            "email"
+            {
+              "expression": "workspace_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": true
+          "with": {},
+          "name": "uidx_wme_workspace_id_email",
+          "isUnique": true,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "workspace_member_email_workspace_id_workspace_id_fk": {
           "name": "workspace_member_email_workspace_id_workspace_id_fk",
           "tableFrom": "workspace_member_email",
+          "columnsFrom": ["workspace_id"],
           "tableTo": "workspace",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "workspace_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "workspace_member_email_workspace_member_id_workspace_member_id_fk": {
           "name": "workspace_member_email_workspace_member_id_workspace_member_id_fk",
           "tableFrom": "workspace_member_email",
+          "columnsFrom": ["workspace_member_id"],
           "tableTo": "workspace_member",
           "schemaTo": "proofer",
-          "columnsFrom": [
-            "workspace_member_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     }
   },
   "enums": {
-    "enum_github_event_type": {
+    "public.enum_github_event_type": {
       "name": "enum_github_event_type",
-      "values": {
-        "commit": "commit",
-        "push": "push",
-        "pull_request.opened": "pull_request.opened",
-        "pull_request.closed": "pull_request.closed",
-        "pull_request.merged": "pull_request.merged",
-        "pull_request_review.submitted": "pull_request_review.submitted",
-        "pull_request_review_comment.created": "pull_request_review_comment.created",
-        "issues.opened": "issues.opened",
-        "issue_comment.created": "issue_comment.created",
-        "release": "release"
-      }
+      "schema": "public",
+      "values": [
+        "commit",
+        "push",
+        "pull_request.opened",
+        "pull_request.closed",
+        "pull_request.merged",
+        "pull_request_review.submitted",
+        "pull_request_review_comment.created",
+        "issues.opened",
+        "issue_comment.created",
+        "release"
+      ]
     },
-    "enum_workspace_role": {
+    "public.enum_workspace_role": {
       "name": "enum_workspace_role",
-      "values": {
-        "OWNER": "OWNER",
-        "MANAGER": "MANAGER",
-        "MEMBER": "MEMBER"
-      }
+      "schema": "public",
+      "values": ["OWNER", "MANAGER", "MEMBER"]
     }
   },
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "6edbe2dd-627d-4f2d-b9c3-8325ed8227f3",
+  "prevId": "dec87c34-fd65-41b1-800a-46370eeb63a0",
+  "sequences": {},
+  "policies": {},
+  "views": {},
+  "roles": {}
 }

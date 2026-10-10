@@ -1,10 +1,8 @@
 {
-  "id": "27b24613-88d4-4ff9-8f5b-30a917b83b9f",
-  "prevId": "f1598689-3546-44f7-8c8e-f8c270eef109",
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {
-    "payapp_callback": {
+    "public.payapp_callback": {
       "name": "payapp_callback",
       "schema": "",
       "columns": {
@@ -49,14 +47,23 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false,
+      "checkConstraints": {}
     }
   },
   "enums": {},
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "27b24613-88d4-4ff9-8f5b-30a917b83b9f",
+  "prevId": "f1598689-3546-44f7-8c8e-f8c270eef109",
+  "sequences": {},
+  "policies": {},
+  "views": {},
+  "roles": {}
 }
