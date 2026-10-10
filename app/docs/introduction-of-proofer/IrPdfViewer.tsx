@@ -50,6 +50,7 @@ function PdfPage({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [near, setNear] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [drawn, setDrawn] = useState(false);
 
   useEffect(() => {
     const box = boxRef.current;
@@ -80,7 +81,10 @@ function PdfPage({
         canvas.width = Math.floor(viewport.width);
         canvas.height = Math.floor(viewport.height);
         task = page.render({ canvas, viewport });
-        return task.promise.then(() => setFailed(false));
+        return task.promise.then(() => {
+          setFailed(false);
+          setDrawn(true);
+        });
       })
       .catch((e) => {
         if (!cancelled && e?.name !== "RenderingCancelledException")
@@ -96,7 +100,7 @@ function PdfPage({
     <div
       ref={boxRef}
       data-page={pageNumber}
-      className={styles.page}
+      className={cx(styles.page, drawn && styles.drawn)}
       style={{ width, aspectRatio: "960 / 540" }}
     >
       {failed ? (

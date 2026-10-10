@@ -172,6 +172,9 @@
   overflow: hidden;
   background: var(--bg);
   border: 1px solid var(--line);
+}
+
+.drawn {
   box-shadow: 0 10px 30px -22px rgb(20 30 80 / 50%);
 }
 
