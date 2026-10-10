@@ -1,0 +1,343 @@
+/* 색과 크기는 docs/ir-viewer-design.md 와 docs/landing-design-system.md 의 토큰 이름을 따른다. */
+.frame {
+  --blue: #344fe0;
+  --blue-deep: #0020b6;
+  --blue-soft: #eef2ff;
+  --ink: #0b1020;
+  --gray: #5b6172;
+  --line: #e9ebf2;
+  --bg: #fff;
+  --bg-alt: #f6f7fa;
+  --no-mark: #c2c7d4;
+  --border-hover: #cdd6ff;
+  --warn-bg: #fff3e0;
+  --warn-text: #9a6400;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --pad: 24px;
+  --gap: 16px;
+
+  width: 100%;
+  max-width: 1112px;
+  margin: 0 auto;
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  color: var(--ink);
+}
+
+.frame:focus-visible,
+.frame button:focus-visible,
+.frame input:focus-visible,
+.frame a:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.toolbar {
+  position: sticky;
+  top: 60px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  padding: 0 12px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  border-radius: 18px 18px 0 0;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sep {
+  width: 1px;
+  height: 20px;
+  margin: 0 8px;
+  background: var(--line);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--gray);
+  cursor: pointer;
+  transition:
+    background 0.15s var(--ease),
+    color 0.15s var(--ease);
+}
+
+.btn:hover {
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+.btn:active {
+  background: var(--blue-soft);
+  color: var(--blue-deep);
+}
+
+.btn:disabled {
+  background: transparent;
+  color: var(--no-mark);
+  cursor: default;
+}
+
+.pageInput {
+  width: 44px;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 14.5px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.pageInput.wide {
+  width: 52px;
+}
+
+.pageInput:hover {
+  border-color: var(--border-hover);
+}
+
+.pageInput:focus {
+  border-color: var(--blue);
+}
+
+.pageInput:disabled {
+  color: var(--no-mark);
+}
+
+.total {
+  margin-left: 6px;
+  font-size: 14.5px;
+  color: var(--gray);
+  white-space: nowrap;
+}
+
+.zoomValue {
+  width: 52px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gray);
+  font-variant-numeric: tabular-nums;
+}
+
+.mobileOnly {
+  display: none;
+  font-size: 14.5px;
+  color: var(--gray);
+  white-space: nowrap;
+}
+
+.mobileOnly b {
+  color: var(--ink);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gap);
+  padding: var(--pad);
+  overflow-x: auto;
+}
+
+.page {
+  flex-shrink: 0;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 30px -22px rgb(20 30 80 / 50%);
+}
+
+.page canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 14.5px;
+  color: var(--gray);
+  text-align: center;
+}
+
+.spinner {
+  color: var(--blue);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.progress {
+  width: 160px;
+  height: 4px;
+  margin-top: 12px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.progress > div {
+  height: 100%;
+  background: linear-gradient(90deg, #344fe0, #45af66);
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  margin: var(--pad);
+  padding: 0 24px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  text-align: center;
+}
+
+.errorIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--warn-bg);
+  color: var(--warn-text);
+}
+
+.errorTitle {
+  margin: 14px 0 0;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.errorDesc {
+  max-width: 420px;
+  margin: 6px 0 0;
+  font-size: 14.5px;
+  color: var(--gray);
+}
+
+.errorLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: var(--blue);
+  color: var(--bg);
+  font-weight: 700;
+  box-shadow: 0 10px 22px -10px rgb(52 79 224 / 85%);
+}
+
+.errorLink:hover {
+  background: var(--blue-deep);
+}
+
+.frame:fullscreen {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  overflow-y: auto;
+  background: var(--ink);
+  border: 0;
+  border-radius: 0;
+}
+
+.frame:fullscreen .toolbar {
+  top: 0;
+  border-radius: 0;
+}
+
+.frame:fullscreen .page {
+  border: 0;
+  box-shadow: none;
+}
+
+@media (width <= 639px) {
+  .frame {
+    --pad: 8px;
+    --gap: 10px;
+
+    width: calc(100% - 16px);
+    border-radius: 14px;
+  }
+
+  .toolbar {
+    height: 48px;
+    padding: 0 4px 0 14px;
+    border-radius: 14px 14px 0 0;
+  }
+
+  .desktopOnly {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: block;
+  }
+
+  .btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .progress {
+    width: 120px;
+  }
+
+  .errorTitle {
+    font-size: 18px;
+  }
+
+  .frame:fullscreen {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+
+  .spinner {
+    animation: none;
+  }
+}
