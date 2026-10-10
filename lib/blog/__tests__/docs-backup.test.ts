@@ -49,5 +49,7 @@ ${rows.join("\n")}
     "../../../docs/blog/docs-backup-warnings.md",
   );
   if (process.env.WRITE_WARNINGS) fs.writeFileSync(out, md);
-  expect(fs.readFileSync(out, "utf8")).toBe(md);
+  // prettier 가 표 열 너비를 맞추므로 공백과 구분선 길이는 무시하고 비교한다.
+  const norm = (t: string) => t.replace(/-{3,}/g, "---").replace(/ +/g, " ");
+  expect(norm(fs.readFileSync(out, "utf8"))).toBe(norm(md));
 });
