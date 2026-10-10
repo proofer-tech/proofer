@@ -43,7 +43,7 @@ export function ArticleList({
               )}
               <p className="mt-3 text-sm text-gray-400">
                 {a.author_name ? `${a.author_name} · ` : ""}
-                {fmt(a.published_at)}
+                {fmt(new Date(a.published_at))}
                 {a.reading_minutes > 0 ? ` · ${a.reading_minutes}분` : ""}
               </p>
             </Link>
