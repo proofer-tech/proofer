@@ -14,7 +14,7 @@ const doc = (o: Record<string, string | undefined> = {}) => {
     .filter(([, v]) => v !== undefined)
     .map(([k, v]) => `${k}: ${v}`)
     .join("\n");
-  return `---\n${body}\n---\n\n본문입니다.\n`;
+  return `---\n${body}\n---\n\nClaude 본문입니다.\n`;
 };
 const ids = (md: string) => lint(md).map((r) => r.ruleId);
 
