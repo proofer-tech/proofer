@@ -132,3 +132,17 @@ export async function listTags() {
     .groupBy(Tag.slug, Tag.name)
     .orderBy(desc(sql`count(*)`));
 }
+
+export async function getTag(slug: string) {
+  const [row] = await dz.select().from(Tag).where(eq(Tag.slug, slug)).limit(1);
+  return row ?? null;
+}
+
+export async function getAuthor(slug: string) {
+  const [row] = await dz
+    .select()
+    .from(Author)
+    .where(eq(Author.slug, slug))
+    .limit(1);
+  return row ?? null;
+}
