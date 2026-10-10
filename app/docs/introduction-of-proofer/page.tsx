@@ -66,12 +66,12 @@ const sections = [
 
 export default function IntroductionOfProoferPage() {
   return (
-    <div className="mx-auto w-full max-w-[1184px] px-[24px]">
-      <div className="flex flex-col gap-4 py-8">
-        <h1 className="text-4xl font-bold">
-          프루퍼주식회사 서비스 소개서: 기업가치를 &apos;증명&apos;합니다
-        </h1>
-        <IrPdfViewer url={IR_PDF_URL} />
+    <div className="flex w-full flex-col gap-4 py-8">
+      <h1 className="mx-auto w-full max-w-[1184px] px-[24px] text-4xl font-bold">
+        프루퍼주식회사 서비스 소개서: 기업가치를 &apos;증명&apos;합니다
+      </h1>
+      <IrPdfViewer url={IR_PDF_URL} />
+      <div className="mx-auto flex w-full max-w-[1184px] flex-col gap-4 px-[24px]">
         <p>
           <PdfLink label="서비스 소개서 PDF 열기" />
         </p>
