@@ -146,3 +146,42 @@ export async function getAuthor(slug: string) {
     .limit(1);
   return row ?? null;
 }
+
+/** sitemap 용. published 글 전체(canonical_url 판정은 호출자가 한다), 태그, 저자. */
+export async function listSitemapSources() {
+  const [articles, tags, authors] = await Promise.all([
+    dz
+      .select({
+        slug: Article.slug,
+        updated_at: Article.updated_at,
+        canonical_url: Article.canonical_url,
+      })
+      .from(Article)
+      .where(listed),
+    listTags(),
+    dz
+      .selectDistinct({ slug: Author.slug })
+      .from(Author)
+      .innerJoin(Article, eq(Article.author_id, Author.id))
+      .where(listed),
+  ]);
+  return { articles, tags, authors };
+}
+
+/** RSS 용 최신 글. */
+export async function listFeedArticles(limit = 30) {
+  return dz
+    .select({
+      slug: Article.slug,
+      title: Article.title,
+      description: Article.description,
+      subtitle: Article.subtitle,
+      published_at: Article.published_at,
+      author_name: Author.display_name,
+    })
+    .from(Article)
+    .leftJoin(Author, eq(Article.author_id, Author.id))
+    .where(listed)
+    .orderBy(...newest)
+    .limit(limit);
+}

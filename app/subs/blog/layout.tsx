@@ -9,7 +9,10 @@ export const metadata = generateMetadataFromTitle(
   },
   {
     metadataBase: new URL("https://blog.proofer.tech"),
-    alternates: { canonical: "https://blog.proofer.tech" },
+    alternates: {
+      canonical: "https://blog.proofer.tech",
+      types: { "application/rss+xml": "https://blog.proofer.tech/rss.xml" },
+    },
   },
 );
 

@@ -16,9 +16,10 @@ async function isStaticFile(req: NextRequest): Promise<boolean> {
   const isRootFile =
     !path.slice(1).includes("/") &&
     path.includes(".") &&
-    // sitemap, robots 는 각자의 subdomain 파일을 따라가도록 한다.
+    // sitemap, robots, rss 는 각자의 subdomain 파일을 따라가도록 한다.
     !path.includes("sitemap.xml") &&
-    !path.includes("robots.txt");
+    !path.includes("robots.txt") &&
+    !path.includes("rss.xml");
 
   return (
     staticPaths.some((staticPath) => path.startsWith(staticPath)) ||
