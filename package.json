@@ -118,6 +118,10 @@
     "reagraph": "^4.15.25",
     "recharts": "^2.15.4",
     "redis": "^4.6.13",
+    "remark-cjk-friendly": "^2.3.2",
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
     "rss-parser": "^3.13.0",
     "schema-dts": "^1.1.2",
     "sonner": "^2.0.7",
@@ -125,7 +129,9 @@
     "swr": "^2.2.5",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
+    "unified": "^11.0.5",
     "vaul": "^1.1.2",
+    "yaml": "^2.9.1",
     "zod": "^4.1.13"
   },
   "devDependencies": {
@@ -144,6 +150,7 @@
     "@types/is-callable": "^1.1.2",
     "@types/jest": "^29.5.12",
     "@types/lodash": "^4.14.202",
+    "@types/mdast": "^4.0.4",
     "@types/node": "^20.11.20",
     "@types/react": "18.2.58",
     "@types/redis": "^4.0.11",
