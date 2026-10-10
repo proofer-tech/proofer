@@ -8,6 +8,9 @@ module.exports = {
 
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
+
+    // 블로그 렌더러(PmdBody)가 lib 아래에 있다
+    "./lib/blog/**/*.{ts,tsx}",
   ],
   theme: {
   	extend: {

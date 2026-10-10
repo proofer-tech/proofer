@@ -60,3 +60,6 @@ workbox-*.js.map
 .env*
 .gstack/
 .dira
+
+# 블로그 미리보기 산출물
+.blog-preview/

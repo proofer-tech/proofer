@@ -1,12 +1,18 @@
 // pnpm blog <lint|preview|publish> <글.md> [--images <폴더>]
-// preview 는 728ba2dc, publish 는 1ba8e7f4 가 COMMANDS 에 더한다.
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { join } from "node:path";
+import {
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  statSync,
+  writeFileSync,
+} from "node:fs";
+import { basename, join } from "node:path";
 import {
   docsToPmd,
   type ImageResolver,
 } from "../../lib/blog/convert/docsToPmd";
-import { lint } from "../../lib/blog/pmd";
+import { lint, parse } from "../../lib/blog/pmd";
 import {
   PLACEHOLDER_HOST,
   type PublishDeps,
@@ -65,6 +71,41 @@ function runLint(file: string, imagesDir?: string): number {
   const errors = results.filter((r) => r.severity === "error").length;
   console.log(`오류 ${errors}건, 경고 ${results.length - errors}건`);
   return errors > 0 ? 1 : 0;
+}
+
+/**
+ * DB 에 쓰지 않는다. 검증 결과와 본문을 .blog-preview/<slug>.json 에 쓰면
+ * 개발 서버의 /preview/<slug> 가 실제 글 화면으로 그린다. 오류가 있어도 만든다.
+ */
+function runPreview(file: string, imagesDir?: string): number {
+  const source = loadPmd(file, imagesDir);
+  const results = lint(source);
+  for (const r of results)
+    console.log(`${file}:${r.line} ${r.ruleId} ${r.message} -> ${r.fix}`);
+  const errors = results.filter((r) => r.severity === "error").length;
+  console.log(`오류 ${errors}건, 경고 ${results.length - errors}건`);
+
+  const fm = parse(source).frontmatter as Record<string, unknown>;
+  const m = /^---\r?\n[\s\S]*?\r?\n---\r?\n?/.exec(source);
+  const body_md = (m ? source.slice(m[0].length) : source).replace(/^\s+/, "");
+  const slug = String(fm.slug || basename(file).replace(/\.[^.]+$/, ""))
+    .replace(/[^\p{L}\p{N}_-]+/gu, "-")
+    .replace(/^-+|-+$/g, "");
+  if (!slug)
+    throw new Error("slug 를 만들 수 없다: 파일 이름이나 slug 를 확인한다");
+  mkdirSync(".blog-preview", { recursive: true });
+  writeFileSync(
+    join(".blog-preview", `${slug}.json`),
+    JSON.stringify(
+      { frontmatter: fm, body_md, errors, lint: results },
+      null,
+      2,
+    ),
+  );
+  console.log(
+    `미리보기: http://blog.localhost:3000/preview/${encodeURIComponent(slug)} (pnpm dev 가 떠 있어야 한다)`,
+  );
+  return 0;
 }
 
 const MIME: Record<string, string> = {
@@ -177,6 +218,7 @@ const COMMANDS: Record<
   (file: string, images?: string, flags?: string[]) => number | Promise<number>
 > = {
   lint: runLint,
+  preview: runPreview,
   publish: runPublish,
 };
 
@@ -199,11 +241,7 @@ async function main(argv: string[]): Promise<number> {
     const [cmd, file, ...flags] = args;
     const run = COMMANDS[cmd];
     if (!run) {
-      console.error(
-        cmd === "preview"
-          ? `${cmd} 는 아직 구현되지 않았다`
-          : `알 수 없는 명령: ${cmd}\n\n${USAGE}`,
-      );
+      console.error(`알 수 없는 명령: ${cmd}\n\n${USAGE}`);
       return 2;
     }
     if (!file || !existsSync(file)) {
