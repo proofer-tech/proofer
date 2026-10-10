@@ -299,7 +299,6 @@
     --pad: 8px;
     --gap: 10px;
 
-    width: calc(100% - 16px);
     border-radius: 14px;
   }
 

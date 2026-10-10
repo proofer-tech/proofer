@@ -66,7 +66,7 @@ const sections = [
 
 export default function IntroductionOfProoferPage() {
   return (
-    <div className="mx-auto w-full max-w-[1184px] px-4">
+    <div className="mx-auto w-full max-w-[1184px] px-[24px]">
       <div className="flex flex-col gap-4 py-8">
         <h1 className="text-4xl font-bold">
           프루퍼주식회사 서비스 소개서: 기업가치를 &apos;증명&apos;합니다
