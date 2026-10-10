@@ -111,6 +111,27 @@ function realDeps(imagesDir?: string): PublishDeps {
   };
 }
 
+// DB 쓰기는 이미 끝났으므로 실패해도 되돌리지 않고 경고만 찍는다.
+async function revalidate(slug: string) {
+  const secret = process.env.BLOG_REVALIDATE_SECRET;
+  if (!secret) {
+    console.warn("경고: BLOG_REVALIDATE_SECRET 이 없어 revalidate 를 건너뛴다");
+    return;
+  }
+  const base = process.env.BLOG_REVALIDATE_URL ?? "https://blog.proofer.tech";
+  try {
+    const res = await fetch(`${base}/api/blog/revalidate`, {
+      method: "POST",
+      headers: { authorization: `Bearer ${secret}` },
+      body: JSON.stringify({ slug }),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    console.log(`revalidate 완료: ${slug}`);
+  } catch (e) {
+    console.warn(`경고: revalidate 실패, DB 는 이미 써졌다: ${e}`);
+  }
+}
+
 async function runPublish(
   file: string,
   images?: string,
@@ -147,6 +168,7 @@ async function runPublish(
   console.log(
     `${write ? "[write]" : "[dry-run]"} ${plan.slug}: ${verb}${plan.revision ? " (이전 본문을 article_revision 에 남긴다)" : ""} 이미지 업로드 ${plan.uploads}건, 링크 카드 받기 ${plan.cards}건${write ? "" : " (dry-run 이라 하지 않았다)"}`,
   );
+  if (write && plan.action !== "unchanged") await revalidate(plan.slug);
   return 0;
 }
 
