@@ -1,4 +1,5 @@
 import React from "react";
+import IrPdfViewer from "./IrPdfViewer";
 
 const IR_PDF_URL =
   "https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/assets/ir/proofer-ir.pdf?v=20261010";
@@ -70,6 +71,7 @@ export default function IntroductionOfProoferPage() {
         <h1 className="text-4xl font-bold">
           프루퍼주식회사 서비스 소개서: 기업가치를 &apos;증명&apos;합니다
         </h1>
+        <IrPdfViewer url={IR_PDF_URL} />
         <p>
           <PdfLink label="서비스 소개서 PDF 열기" />
         </p>
