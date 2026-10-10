@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import InquireButton from "../InquireButton";
 
 const MARQUEE = [
@@ -61,13 +62,28 @@ export default function Hero() {
               조직 체질 <b>40% 교체</b>
             </span>
           </div>
-          <div className="reveal d3" style={{ marginTop: 30 }}>
+          <div
+            className="reveal d3"
+            style={{
+              marginTop: 30,
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 10,
+            }}
+          >
             <InquireButton
               className="btn btn-primary"
               style={{ padding: "14px 26px", fontSize: 16 }}
             >
               무료상담 신청
             </InquireButton>
+            <Link
+              href="/docs/introduction-of-proofer"
+              className="btn btn-ghost"
+              style={{ padding: "13px 25px", fontSize: 16 }}
+            >
+              서비스소개서
+            </Link>
           </div>
         </div>
       </div>

@@ -313,6 +313,16 @@ html.snapping {
     background: var(--blue-deep);
   }
 
+  .btn-ghost {
+    background: #fff;
+    color: var(--blue);
+    border: 1px solid var(--blue);
+  }
+
+  .btn-ghost:hover {
+    background: #eaf0ff;
+  }
+
   /* reveal (replays on enter) */
   .reveal {
     opacity: 0;
