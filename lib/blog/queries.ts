@@ -1,6 +1,13 @@
-import { and, desc, eq, ne, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, ne, sql } from "drizzle-orm";
+import { unstable_cache } from "next/cache";
 import { dz } from "@/database/engine";
-import { Article, ArticleToTag, Author, Tag } from "@/database/schemas/blog";
+import {
+  Article,
+  ArticleRedirect,
+  ArticleToTag,
+  Author,
+  Tag,
+} from "@/database/schemas/blog";
 
 export const PAGE_SIZE = 12;
 
@@ -28,7 +35,7 @@ const base = () =>
 const newest = [desc(Article.published_at), desc(Article.id)] as const;
 
 /** page 는 1부터. total 은 같은 조건의 전체 건수다. */
-export async function listArticles(page = 1) {
+async function rawListArticles(page = 1) {
   const offset = (Math.max(1, page) - 1) * PAGE_SIZE;
   const [items, [{ total }]] = await Promise.all([
     base()
@@ -45,7 +52,7 @@ export async function listArticles(page = 1) {
 }
 
 /** published 와 unlisted 모두 slug 로 열린다. draft 는 열리지 않는다. */
-export async function getArticle(slug: string) {
+async function rawGetArticle(slug: string) {
   const [row] = await dz
     .select({
       article: Article,
@@ -100,7 +107,7 @@ export async function listByAuthor(authorSlug: string, page = 1) {
 }
 
 /** 같은 태그를 하나라도 공유하는 최신 글 3건(자기 자신 제외). */
-export async function listRelated(articleId: number) {
+async function rawListRelated(articleId: number) {
   const mine = dz
     .select({ t: ArticleToTag.tag_name })
     .from(ArticleToTag)
@@ -118,7 +125,7 @@ export async function listRelated(articleId: number) {
 }
 
 /** 홈의 태그 바로가기. published 글이 있는 태그만, 글 많은 순. */
-export async function listTags() {
+async function rawListTags() {
   return dz
     .select({
       slug: Tag.slug,
@@ -184,4 +191,39 @@ export async function listFeedArticles(limit = 30) {
     .where(listed)
     .orderBy(...newest)
     .limit(limit);
+}
+
+// 캐시 태그. 발행 쓰기 쪽이 revalidateTag(BLOG_TAG) 또는 글 단위 태그로 비운다.
+// unstable_cache 는 Date 를 문자열로 돌려주므로 읽는 쪽은 new Date(x) 로 받는다.
+export const BLOG_TAG = "blog";
+export const articleTag = (slug: string) => `blog:article:${slug}`;
+
+export const listArticles = (page = 1) =>
+  unstable_cache(rawListArticles, ["blog-list"], { tags: [BLOG_TAG] })(page);
+export const listTags = unstable_cache(rawListTags, ["blog-tags"], {
+  tags: [BLOG_TAG],
+});
+export const getArticle = (slug: string) =>
+  unstable_cache(rawGetArticle, ["blog-article"], {
+    tags: [BLOG_TAG, articleTag(slug)],
+  })(slug);
+export const listRelated = (articleId: number) =>
+  unstable_cache(rawListRelated, ["blog-related"], { tags: [BLOG_TAG] })(
+    articleId,
+  );
+
+/** 옛 경로(from_path)에 걸린 글의 현재 slug. 없으면 null. */
+export async function findRedirect(paths: string[]) {
+  const [row] = await dz
+    .select({ slug: Article.slug })
+    .from(ArticleRedirect)
+    .innerJoin(Article, eq(Article.id, ArticleRedirect.article_id))
+    .where(
+      and(
+        inArray(ArticleRedirect.from_path, paths),
+        ne(Article.status, "draft"),
+      ),
+    )
+    .limit(1);
+  return row?.slug ?? null;
 }
