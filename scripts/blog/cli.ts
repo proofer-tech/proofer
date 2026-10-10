@@ -6,6 +6,7 @@ import {
   type ImageResolver,
 } from "../../lib/blog/convert/docsToPmd";
 import { lint } from "../../lib/blog/pmd";
+import { publish } from "../../lib/blog/publish/publish";
 
 const USAGE = `사용법: pnpm blog <명령> <글.md> [--images <폴더>]
 
@@ -61,11 +62,53 @@ function runLint(file: string, imagesDir?: string): number {
   return errors > 0 ? 1 : 0;
 }
 
-const COMMANDS: Record<string, (file: string, images?: string) => number> = {
+async function runPublish(
+  file: string,
+  images?: string,
+  flags: string[] = [],
+): Promise<number> {
+  const write = flags.includes("--write");
+  if (write && flags.includes("--dry-run"))
+    throw new Error("--write 와 --dry-run 은 같이 쓸 수 없다");
+  const source = loadPmd(file, images);
+  if (source.includes("https://blob.invalid/"))
+    throw new Error(
+      "자리표시 이미지 주소가 남아 있어 publish 할 수 없다: 이미지 업로드는 아직 구현되지 않았다",
+    );
+  if (!process.env.POSTGRES_URL) {
+    const errors = lint(source).filter((r) => r.severity === "error");
+    console.log(`검증 오류 ${errors.length}건`);
+    console.error("POSTGRES_URL 이 없어 DB 계획을 만들 수 없다");
+    return errors.length ? 1 : 2;
+  }
+  const { drizzleBlogDb } = await import("./db");
+  const plan = await publish(await drizzleBlogDb(), source, { write });
+  if (plan.action === "invalid") {
+    for (const r of plan.errors)
+      console.log(`${file}:${r.line} ${r.ruleId} ${r.message} -> ${r.fix}`);
+    console.log(`검증 오류 ${plan.errors.length}건: 아무것도 쓰지 않았다`);
+    return 1;
+  }
+  const verb = {
+    insert: "새로 넣는다",
+    update: "갱신한다",
+    unchanged: "바뀐 것이 없다",
+  }[plan.action];
+  console.log(
+    `${write ? "[write]" : "[dry-run]"} ${plan.slug}: ${verb}${plan.revision ? " (이전 본문을 article_revision 에 남긴다)" : ""}`,
+  );
+  return 0;
+}
+
+const COMMANDS: Record<
+  string,
+  (file: string, images?: string, flags?: string[]) => number | Promise<number>
+> = {
   lint: runLint,
+  publish: runPublish,
 };
 
-function main(argv: string[]): number {
+async function main(argv: string[]): Promise<number> {
   const args = [...argv];
   const take = (flag: string) => {
     const i = args.indexOf(flag);
@@ -81,11 +124,11 @@ function main(argv: string[]): number {
       return 0;
     }
     const images = take("--images");
-    const [cmd, file] = args;
+    const [cmd, file, ...flags] = args;
     const run = COMMANDS[cmd];
     if (!run) {
       console.error(
-        ["preview", "publish"].includes(cmd)
+        cmd === "preview"
           ? `${cmd} 는 아직 구현되지 않았다`
           : `알 수 없는 명령: ${cmd}\n\n${USAGE}`,
       );
@@ -95,11 +138,13 @@ function main(argv: string[]): number {
       console.error(`글 파일이 없다: ${file ?? "(인자 없음)"}`);
       return 2;
     }
-    return run(file, images);
+    return await run(file, images, flags);
   } catch (e) {
     console.error(e instanceof Error ? e.message : String(e));
     return 2;
   }
 }
 
-process.exitCode = main(process.argv.slice(2));
+void main(process.argv.slice(2)).then((c) => {
+  process.exitCode = c;
+});
