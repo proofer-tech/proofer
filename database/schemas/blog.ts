@@ -90,6 +90,11 @@ export const Article = schema.table(
     word_count: integer("word_count").default(0).notNull(),
     keywords: text("keywords").array(),
     content_hash: varchar("content_hash", { length: 64 }).default("").notNull(),
+    // 링크 카드 줄 URL -> 발행 때 받은 제목, 설명, 이미지
+    link_cards:
+      jsonb("link_cards").$type<
+        Record<string, { title?: string; description?: string; image?: string }>
+      >(),
   },
   (table) => ({
     created_at_idx: index("article_idx_created_at").on(table.created_at),

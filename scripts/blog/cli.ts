@@ -1,11 +1,16 @@
 // pnpm blog <lint|preview|publish> <글.md> [--images <폴더>]
 // preview 는 728ba2dc, publish 는 1ba8e7f4 가 COMMANDS 에 더한다.
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { join } from "node:path";
 import {
   docsToPmd,
   type ImageResolver,
 } from "../../lib/blog/convert/docsToPmd";
 import { lint } from "../../lib/blog/pmd";
+import {
+  PLACEHOLDER_HOST,
+  type PublishDeps,
+} from "../../lib/blog/publish/assets";
 import { publish } from "../../lib/blog/publish/publish";
 
 const USAGE = `사용법: pnpm blog <명령> <글.md> [--images <폴더>]
@@ -62,6 +67,50 @@ function runLint(file: string, imagesDir?: string): number {
   return errors > 0 ? 1 : 0;
 }
 
+const MIME: Record<string, string> = {
+  png: "image/png",
+  jpg: "image/jpeg",
+  jpeg: "image/jpeg",
+  gif: "image/gif",
+  webp: "image/webp",
+};
+
+/** 실제 파일, 네트워크, Vercel Blob. --write 에서만 불린다. */
+function realDeps(imagesDir?: string): PublishDeps {
+  return {
+    async readImage(url) {
+      const ext = url.split("?")[0].split(".").pop()?.toLowerCase() ?? "";
+      const contentType = MIME[ext] ?? "application/octet-stream";
+      if (url.startsWith(PLACEHOLDER_HOST)) {
+        if (!imagesDir) throw new Error(`--images 폴더가 필요하다: ${url}`);
+        const name = decodeURIComponent(url.slice(PLACEHOLDER_HOST.length));
+        return { bytes: readFileSync(join(imagesDir, name)), contentType };
+      }
+      const res = await fetch(url);
+      if (!res.ok)
+        throw new Error(`이미지를 받지 못했다(${res.status}): ${url}`);
+      return {
+        bytes: new Uint8Array(await res.arrayBuffer()),
+        contentType: res.headers.get("content-type") ?? contentType,
+      };
+    },
+    async putBlob(name, bytes, contentType) {
+      const { put } = await import("@vercel/blob");
+      const r = await put(name, Buffer.from(bytes), {
+        access: "public",
+        contentType,
+        addRandomSuffix: false,
+      });
+      return r.url;
+    },
+    async fetchHtml(url) {
+      const res = await fetch(url, { signal: AbortSignal.timeout(10_000) });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.text();
+    },
+  };
+}
+
 async function runPublish(
   file: string,
   images?: string,
@@ -71,10 +120,6 @@ async function runPublish(
   if (write && flags.includes("--dry-run"))
     throw new Error("--write 와 --dry-run 은 같이 쓸 수 없다");
   const source = loadPmd(file, images);
-  if (source.includes("https://blob.invalid/"))
-    throw new Error(
-      "자리표시 이미지 주소가 남아 있어 publish 할 수 없다: 이미지 업로드는 아직 구현되지 않았다",
-    );
   if (!process.env.POSTGRES_URL) {
     const errors = lint(source).filter((r) => r.severity === "error");
     console.log(`검증 오류 ${errors.length}건`);
@@ -82,7 +127,12 @@ async function runPublish(
     return errors.length ? 1 : 2;
   }
   const { drizzleBlogDb } = await import("./db");
-  const plan = await publish(await drizzleBlogDb(), source, { write });
+  const plan = await publish(
+    await drizzleBlogDb(),
+    source,
+    { write },
+    realDeps(images),
+  );
   if (plan.action === "invalid") {
     for (const r of plan.errors)
       console.log(`${file}:${r.line} ${r.ruleId} ${r.message} -> ${r.fix}`);
@@ -95,7 +145,7 @@ async function runPublish(
     unchanged: "바뀐 것이 없다",
   }[plan.action];
   console.log(
-    `${write ? "[write]" : "[dry-run]"} ${plan.slug}: ${verb}${plan.revision ? " (이전 본문을 article_revision 에 남긴다)" : ""}`,
+    `${write ? "[write]" : "[dry-run]"} ${plan.slug}: ${verb}${plan.revision ? " (이전 본문을 article_revision 에 남긴다)" : ""} 이미지 업로드 ${plan.uploads}건, 링크 카드 받기 ${plan.cards}건${write ? "" : " (dry-run 이라 하지 않았다)"}`,
   );
   return 0;
 }

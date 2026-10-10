@@ -4,7 +4,7 @@ import type { BlogDb } from "../../lib/blog/publish/publish";
 
 export async function drizzleBlogDb(): Promise<BlogDb> {
   const { dz } = await import("../../database/engine");
-  const { Article, ArticleRevision, ArticleToTag, Author, Tag } =
+  const { Article, Asset, ArticleRevision, ArticleToTag, Author, Tag } =
     await import("../../database/schemas/blog");
   return {
     transaction: (fn) =>
@@ -51,6 +51,21 @@ export async function drizzleBlogDb(): Promise<BlogDb> {
               body_md: bodyMd,
               content_hash: contentHash,
             });
+          },
+          async findAsset(originalUrl) {
+            const [row] = await t
+              .select({
+                url: Asset.url,
+                width: Asset.width,
+                height: Asset.height,
+              })
+              .from(Asset)
+              .where(eq(Asset.original_url, originalUrl))
+              .limit(1);
+            return row;
+          },
+          async insertAsset(a) {
+            await t.insert(Asset).values(a);
           },
           async setTags(articleId, tags) {
             await t

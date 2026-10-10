@@ -3,6 +3,16 @@
 import { createHash } from "node:crypto";
 import { lint, parse } from "../pmd";
 import type { LintResult } from "../pmd";
+import {
+  collectCardUrls,
+  collectImages,
+  imageSize,
+  isBlobUrl,
+  parseCard,
+  type LinkCardInfo,
+  type ImageRef,
+  type PublishDeps,
+} from "./assets";
 
 export type ArticleRow = {
   id: number;
@@ -29,6 +39,19 @@ export type ArticleValues = {
   word_count: number;
   keywords: string[];
   image: string | null;
+  link_cards: Record<string, LinkCardInfo>;
+};
+
+export type AssetRow = {
+  url: string;
+  width: number | null;
+  height: number | null;
+};
+export type AssetInsert = AssetRow & {
+  article_id: number;
+  original_url: string;
+  alt: string;
+  caption: string | null;
 };
 
 /** 트랜잭션 하나 안에서 쓰는 DB 연산. 구현이 하나(drizzle)와 가짜(jest)뿐이라 이 정도로 줄였다. */
@@ -47,6 +70,8 @@ export interface BlogTx {
     bodyMd: string,
     contentHash: string,
   ): Promise<void>;
+  findAsset(originalUrl: string): Promise<AssetRow | undefined>;
+  insertAsset(a: AssetInsert): Promise<void>;
   setTags(articleId: number, tags: string[]): Promise<void>;
 }
 export interface BlogDb {
@@ -59,6 +84,8 @@ export type PublishPlan =
       action: "insert" | "update" | "unchanged";
       slug: string;
       revision: boolean;
+      uploads: number;
+      cards: number;
     };
 
 type Fm = Record<string, unknown>;
@@ -114,6 +141,7 @@ export function toValues(
     word_count: words,
     keywords: Array.isArray(fm.keywords) ? fm.keywords.map(String) : [],
     image: (fm.cover as { src?: string } | null | undefined)?.src ?? null,
+    link_cards: {},
   };
 }
 
@@ -125,15 +153,28 @@ export async function publish(
   db: BlogDb,
   source: string,
   opts: { write: boolean },
+  deps: PublishDeps,
 ): Promise<PublishPlan> {
   const errors = lint(source).filter((r) => r.severity === "error");
   if (errors.length) return { action: "invalid", errors };
 
-  const fm = parse(source).frontmatter as Fm;
+  const doc = parse(source);
+  const fm = doc.frontmatter as Fm;
   const slug = String(fm.slug ?? "");
   if (!slug) throw new Error("slug 가 없다: frontmatter 에 slug 를 적는다");
   const tags = (fm.tags as string[]) ?? [];
+  const cover = (fm.cover as { src?: string; alt?: string } | null | undefined)
+    ?.src;
+  const images = collectImages(doc.tree);
+  if (cover && !images.some((i) => i.url === cover))
+    images.push({
+      url: cover,
+      alt: String((fm.cover as { alt?: string }).alt ?? ""),
+      caption: null,
+    });
+  const cardUrls = collectCardUrls(doc.tree);
 
+  // 천장: 업로드와 카드 받기를 DB 트랜잭션 안에서 한다. 글 한 편 단위라 짧지만, 이미지가 많아지면 밖으로 뺀다.
   return db.transaction(async (tx) => {
     const author = await tx.findAuthor(String(fm.author ?? "proofer"));
     if (!author)
@@ -142,22 +183,82 @@ export async function publish(
     const old = await tx.findArticle(slug, v.medium_post_id);
 
     if (old && old.content_hash === v.content_hash)
-      return { action: "unchanged", slug, revision: false };
+      return {
+        action: "unchanged",
+        slug,
+        revision: false,
+        uploads: 0,
+        cards: 0,
+      };
+
+    // 링크 카드: 받기 실패는 PMD012 로 발행을 막는다
+    const cardErrors: LintResult[] = [];
+    if (opts.write)
+      for (const { url, line } of cardUrls) {
+        try {
+          v.link_cards[url] = parseCard(await deps.fetchHtml(url), url);
+        } catch (e) {
+          cardErrors.push({
+            line,
+            ruleId: "PMD012",
+            severity: "error",
+            message: `링크 카드 정보를 받지 못했다: ${url} (${e instanceof Error ? e.message : String(e)})`,
+            fix: "주소가 열리는지 확인하거나, 카드가 필요 없으면 [글](https://...) 형태의 링크로 바꾼다",
+          });
+        }
+      }
+    if (cardErrors.length) return { action: "invalid", errors: cardErrors };
+
+    // 이미지: original_url 로 이미 올린 것은 재사용하고 나머지는 올린다
+    const todo: ImageRef[] = [];
+    const resolved = new Map<string, string>();
+    const fresh: Omit<AssetInsert, "article_id">[] = [];
+    for (const img of images) {
+      if (isBlobUrl(img.url)) continue;
+      const hit = await tx.findAsset(img.url);
+      if (hit) resolved.set(img.url, hit.url);
+      else todo.push(img);
+    }
+    if (opts.write)
+      for (const img of todo) {
+        const { bytes, contentType } = await deps.readImage(img.url);
+        const size = imageSize(bytes);
+        const name = `blog/${slug}/${img.url.split("/").pop() ?? "image"}`;
+        const url = await deps.putBlob(name, bytes, contentType);
+        resolved.set(img.url, url);
+        fresh.push({
+          ...size,
+          url,
+          original_url: img.url,
+          alt: img.alt,
+          caption: img.caption,
+        });
+      }
+
     const revision = !!old;
     const plan: PublishPlan = {
       action: old ? "update" : "insert",
       slug,
       revision,
+      uploads: todo.length,
+      cards: cardUrls.length,
     };
     if (!opts.write) return plan;
 
+    for (const [from, to] of resolved)
+      v.body_md = v.body_md.split(`](${from}`).join(`](${to}`);
+    if (cover && resolved.has(cover)) v.image = resolved.get(cover)!;
+
+    let id: number;
     if (old) {
+      id = old.id;
       await tx.insertRevision(old.id, old.body_md, old.content_hash);
       await tx.updateArticle(old.id, v);
-      await tx.setTags(old.id, tags);
     } else {
-      await tx.setTags(await tx.insertArticle(v), tags);
+      id = await tx.insertArticle(v);
     }
+    await tx.setTags(id, tags);
+    for (const a of fresh) await tx.insertAsset({ ...a, article_id: id });
     return plan;
   });
 }

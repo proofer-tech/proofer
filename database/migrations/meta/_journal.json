@@ -190,6 +190,13 @@
       "when": 1791665849628,
       "tag": "0026_moaning_surge",
       "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "7",
+      "when": 1791667974681,
+      "tag": "0027_opposite_sumo",
+      "breakpoints": true
     }
   ]
 }
