@@ -10,6 +10,15 @@ const fmt = (d: Date) =>
     timeZone: "Asia/Seoul",
   }).format(d);
 
+// params 의 한글 slug 는 인코딩된 채 들어온다.
+export function decodeSlug(slug: string) {
+  try {
+    return decodeURIComponent(slug);
+  } catch {
+    return slug;
+  }
+}
+
 export function parsePage(raw: string | undefined) {
   const n = Number(raw);
   return Number.isInteger(n) && n > 0 ? n : 1;

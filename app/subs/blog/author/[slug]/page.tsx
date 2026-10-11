@@ -2,7 +2,13 @@ import { notFound } from "next/navigation";
 import { getAuthor, listByAuthor } from "@/lib/blog/queries";
 import { generateMetadataFromTitle } from "@/src/manifest";
 import { FOCUS_RING } from "../../ui";
-import { ArticleList, EmptyState, EYEBROW, parsePage } from "../../ArticleList";
+import {
+  ArticleList,
+  decodeSlug,
+  EmptyState,
+  EYEBROW,
+  parsePage,
+} from "../../ArticleList";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -12,7 +18,7 @@ type Props = {
 const ORIGIN = "https://blog.proofer.tech";
 
 export async function generateMetadata({ params, searchParams }: Props) {
-  const { slug } = await params;
+  const slug = decodeSlug((await params).slug);
   const author = await getAuthor(slug);
   if (!author) return {};
   const page = parsePage((await searchParams).page);
@@ -31,7 +37,7 @@ export async function generateMetadata({ params, searchParams }: Props) {
 }
 
 export default async function AuthorPage({ params, searchParams }: Props) {
-  const { slug } = await params;
+  const slug = decodeSlug((await params).slug);
   const author = await getAuthor(slug);
   if (!author) notFound();
   const page = parsePage((await searchParams).page);

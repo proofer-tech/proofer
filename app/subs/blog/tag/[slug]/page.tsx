@@ -1,7 +1,13 @@
 import { notFound } from "next/navigation";
 import { getTag, listByTag } from "@/lib/blog/queries";
 import { generateMetadataFromTitle } from "@/src/manifest";
-import { ArticleList, EmptyState, EYEBROW, parsePage } from "../../ArticleList";
+import {
+  ArticleList,
+  decodeSlug,
+  EmptyState,
+  EYEBROW,
+  parsePage,
+} from "../../ArticleList";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -11,7 +17,7 @@ type Props = {
 const ORIGIN = "https://blog.proofer.tech";
 
 export async function generateMetadata({ params, searchParams }: Props) {
-  const { slug } = await params;
+  const slug = decodeSlug((await params).slug);
   const tag = await getTag(slug);
   if (!tag) return {};
   const page = parsePage((await searchParams).page);
@@ -30,7 +36,7 @@ export async function generateMetadata({ params, searchParams }: Props) {
 }
 
 export default async function TagPage({ params, searchParams }: Props) {
-  const { slug } = await params;
+  const slug = decodeSlug((await params).slug);
   const tag = await getTag(slug);
   if (!tag) notFound();
   const page = parsePage((await searchParams).page);

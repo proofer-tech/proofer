@@ -1,5 +1,5 @@
 // drizzle 로 BlogDb 를 구현한다. POSTGRES_URL 이 있는 PC 에서만 쓴다.
-import { eq, or } from "drizzle-orm";
+import { eq, or, sql } from "drizzle-orm";
 import type { BlogDb } from "../../lib/blog/publish/publish";
 
 export async function drizzleBlogDb(): Promise<BlogDb> {
@@ -75,7 +75,12 @@ export async function drizzleBlogDb(): Promise<BlogDb> {
             await t
               .insert(Tag)
               .values(tags.map((name) => ({ name, slug: name })))
-              .onConflictDoNothing();
+              .onConflictDoUpdate({
+                target: Tag.name,
+                set: {
+                  slug: sql`coalesce(nullif(${Tag.slug}, ''), excluded.slug)`,
+                },
+              });
             await t
               .insert(ArticleToTag)
               .values(
