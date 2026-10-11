@@ -227,16 +227,16 @@ export default function PostView({
           </h2>
           <ul className="mt-5 grid gap-3 md:grid-cols-2">
             {related.map((r) => (
-              <li key={r.slug}>
+              <li key={r.slug} className="min-w-0">
                 <Link
                   href={`/${r.slug}`}
                   className={`${CARD} ${FOCUS_RING} block h-full p-5`}
                 >
-                  <p className="line-clamp-2 break-keep font-bold text-proofer-ink">
+                  <p className="line-clamp-2 break-keep break-words font-bold text-proofer-ink">
                     {r.title}
                   </p>
                   {r.subtitle && (
-                    <p className="mt-1.5 line-clamp-1 text-[14.5px] text-proofer-gray">
+                    <p className="mt-1.5 line-clamp-1 break-words text-[14.5px] text-proofer-gray">
                       {r.subtitle}
                     </p>
                   )}
