@@ -36,6 +36,22 @@ describe("docsToPmd 대응표", () => {
     expect(out).toContain("Oct 11, 2026 · @임한솔");
   });
 
+  it("yaml 뒤의 구분선과 바이라인은 버리고 본문은 이미지로 시작한다", () => {
+    const md = `# 제목\n\n2026-10-11 백업 · 작성자\n\n\`\`\`yaml\nauthor: "p"\n\`\`\`\n\n---\n\n![a](blob/x)\n`;
+    const out = docsToPmd(md, stub);
+    expect(out.split("\n---\n\n")[1]).toMatch(/^!\[/);
+    const late = docsToPmd(
+      md.replace("---\n\n![", "Oct 11, 2026 · @a\n\n---\n\n!["),
+      stub,
+    );
+    expect(late).toBe(out);
+  });
+
+  it("본문 중간과 끝의 구분선은 남는다", () => {
+    const out = docsToPmd(wrap("가\n\n---\n\n나\n\n---\n"), stub);
+    expect(out.endsWith("가\n\n---\n\n나\n\n---\n")).toBe(true);
+  });
+
   it("둘째 yaml 블록은 본문에 남는다", () => {
     const out = docsToPmd(wrap("```yaml\na: 1\n```\n"), stub);
     expect(out).toContain("```yaml\na: 1\n```");

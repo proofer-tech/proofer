@@ -11,6 +11,7 @@ const YOUTUBE =
 const LINK_ONLY = /^(?:\[[^\]]*\]\((https?:\/\/[^)\s]+)\)|(https?:\/\/\S+))$/;
 const IMAGE_ONLY = /^!\[([^\]]*)\]\((blob\/[^)\s]+)\)$/;
 const ITALIC_ONLY = /^\*([^*].*)\*$/s;
+const RULE_ONLY = /^(?:-{3,}|\*{3,}|_{3,})$/;
 const CHIP_LINE =
   /^(?:\d{4}-\d{2}-\d{2}\b.*·|[A-Z][a-z]{2} \d{1,2}, \d{4} · @\S.*)/;
 
@@ -57,7 +58,6 @@ export function docsToPmd(md: string, resolveImage: ImageResolver): string {
     const b = blocks[i];
     if (!title && /^# /.test(b)) {
       title = b.slice(2).trim();
-      if (CHIP_LINE.test(blocks[i + 1] ?? "")) i++;
       continue;
     }
     if (!seenYaml && b.startsWith("```yaml")) {
@@ -65,6 +65,8 @@ export function docsToPmd(md: string, resolveImage: ImageResolver): string {
       yaml = b.split("\n").slice(1, -1).join("\n");
       continue;
     }
+    // 본문 첫 블록 전의 바이라인과 구분선은 머리의 일부라서 버린다.
+    if (!body.length && (CHIP_LINE.test(b) || RULE_ONLY.test(b))) continue;
     const img = IMAGE_ONLY.exec(b);
     if (img) {
       const { url } = resolveImage(img[2], imageIndex++);
