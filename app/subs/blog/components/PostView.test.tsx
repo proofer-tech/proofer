@@ -16,6 +16,7 @@ test("글 화면 일곱 요소와 Medium 출처", () => {
         reading_minutes: 3,
         source: "medium_publication",
         medium_url: "https://medium.com/p/1",
+        canonical_url: "https://medium.com/p/1",
       }}
       body_md={"## 소제목\n\n본문 **굵게**"}
       author={{ slug: "proofer", display_name: "프루퍼", bio: "소개" }}
@@ -45,4 +46,21 @@ test("글 화면 일곱 요소와 Medium 출처", () => {
   ]) {
     expect(out).toContain(s);
   }
+});
+
+test("canonical 이 블로그 자신인 회사 글에는 Medium 링크가 없다", () => {
+  const out = renderToStaticMarkup(
+    <PostView
+      frontmatter={{
+        title: "제목입니다",
+        published_at: "2026-10-11T00:00:00Z",
+        source: "medium_publication",
+        medium_url: "https://medium.com/p/1",
+        canonical_url: "https://proofer.tech/blog/x",
+      }}
+      body_md="본문"
+      tags={[]}
+    />,
+  );
+  expect(out).not.toContain("Medium 에서 처음 발행");
 });

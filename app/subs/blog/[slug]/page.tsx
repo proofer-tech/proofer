@@ -62,6 +62,7 @@ export default async function BlogPost({ params }: Props) {
           reading_minutes: article.reading_minutes,
           source: article.source,
           medium_url: article.medium_url,
+          canonical_url: article.canonical_url,
         }}
         body_md={article.body_md}
         author={author}

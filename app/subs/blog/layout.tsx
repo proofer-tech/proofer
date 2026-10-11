@@ -22,7 +22,6 @@ export const metadata = generateMetadataFromTitle(
 const FOOTER_LINKS = [
   ["프루퍼 홈", "https://proofer.tech"],
   ["RSS", "/rss.xml"],
-  ["Medium", "https://medium.com/proofer-blog"],
 ] as const;
 
 export default function BlogLayout({

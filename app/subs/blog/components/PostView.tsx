@@ -13,6 +13,7 @@ export type PostViewProps = {
     reading_minutes?: number;
     source?: "native" | "medium_publication" | "medium_personal";
     medium_url?: string | null;
+    canonical_url?: string | null;
   };
   body_md: string;
   author?: {
@@ -87,7 +88,11 @@ export default function PostView({
   tags,
   related = [],
 }: PostViewProps) {
-  const fromMedium = f.source?.startsWith("medium_") && f.medium_url;
+  // 원문이 Medium 에 남은 글에만 링크한다. canonical 이 블로그 자신인 회사 글은 숨긴다.
+  const fromMedium =
+    f.source?.startsWith("medium_") &&
+    f.medium_url &&
+    /^https?:\/\/([^/]+\.)?medium\.com\//.test(f.canonical_url ?? "");
   const firstTag = tags[0];
   return (
     <article className="mx-auto max-w-[680px]">
