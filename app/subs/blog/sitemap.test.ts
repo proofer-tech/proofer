@@ -21,8 +21,14 @@ jest.mock("@/lib/blog/queries", () => ({
   })),
 }));
 
+// .env.local 의 값과 무관하게 같은 결과를 내도록 고정하고 끝나면 되돌린다.
+const originalBaseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 beforeAll(() => {
-  process.env.NEXT_PUBLIC_BASE_URL ||= "https://proofer.tech";
+  process.env.NEXT_PUBLIC_BASE_URL = "https://proofer.tech";
+});
+afterAll(() => {
+  if (originalBaseUrl === undefined) delete process.env.NEXT_PUBLIC_BASE_URL;
+  else process.env.NEXT_PUBLIC_BASE_URL = originalBaseUrl;
 });
 
 test("Medium canonical 글은 빼고 태그와 저자는 넣는다", async () => {
