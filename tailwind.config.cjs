@@ -14,7 +14,20 @@ module.exports = {
   ],
   theme: {
   	extend: {
+  		fontFamily: {
+  			proofer: ['LINESeedKR', '-apple-system', '"Apple SD Gothic Neo"', '"Malgun Gothic"', 'sans-serif']
+  		},
+  		boxShadow: {
+  			'proofer-card': '0 18px 50px -22px rgba(20,30,80,.34)',
+  			'proofer-soft': '0 10px 30px -22px rgba(20,30,80,.5)'
+  		},
+  		transitionTimingFunction: {
+  			proofer: 'cubic-bezier(0.2, 0.7, 0.2, 1)'
+  		},
   		borderRadius: {
+  			proofer: '16px',
+  			'proofer-sm': '14px',
+  			'proofer-xs': '9px',
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
@@ -28,7 +41,10 @@ module.exports = {
   				'green-soft': 'var(--proofer-green-soft)',
   				ink: 'var(--proofer-ink)',
   				gray: 'var(--proofer-gray)',
-  				line: 'var(--proofer-line)'
+  				line: 'var(--proofer-line)',
+  				'bg-alt': 'var(--proofer-bg-alt)',
+  				'menu-ink': 'var(--proofer-menu-ink)',
+  				'border-hover': 'var(--proofer-border-hover)'
   			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

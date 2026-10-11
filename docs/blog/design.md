@@ -24,6 +24,8 @@
 `tailwind.config.cjs` 의 `theme.extend` 에 둔다. 아래에서 "기존" 은 이미 정의되어 있는 것이고,
 "추가" 는 12bfd120 이 같은 두 자리에 더하는 것이다. 다른 파일에 따로 정의하지 않는다.
 
+**구현 위치(12bfd120):** 색 변수는 `app/globals.scss` `:root` 의 `--proofer-*`, Tailwind 이름(색, `rounded-proofer*`, `shadow-proofer-*`, `ease-proofer`, `font-proofer`)은 `tailwind.config.cjs` `theme.extend`, 공통 클래스 묶음은 `app/subs/blog/ui.ts` 의 `FOCUS_RING`, `CARD` 이다.
+
 ### 색
 
 | 랜딩 토큰 (HEX)        | 블로그 용도                                                                     | Tailwind 표기                                                                   | 상태                          |
