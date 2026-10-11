@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PmdBody } from "@/lib/blog/render";
+import { CARD, FOCUS_RING } from "../ui";
 
 /** 글 화면 본문. DB 행이 아니라 이 모양의 데이터만 받아서 미리보기가 그대로 쓴다. */
 export type PostViewProps = {
@@ -37,6 +38,15 @@ const fmt = (d: Date | string) =>
     timeZone: "Asia/Seoul",
   }).format(new Date(d));
 
+const CHIP =
+  "inline-flex max-w-[220px] items-center truncate rounded-full border border-proofer-line bg-white px-3 py-1.5 text-[13px] font-bold text-proofer-menu-ink transition duration-200 ease-proofer hover:border-proofer-border-hover hover:bg-proofer-blue-soft hover:text-proofer-blue-deep " +
+  FOCUS_RING;
+const EYEBROW =
+  "text-[13px] font-bold uppercase tracking-[0.1em] text-proofer-blue";
+const BODY_LINK =
+  "text-proofer-blue underline underline-offset-4 hover:text-proofer-blue-deep rounded-proofer-xs " +
+  FOCUS_RING;
+
 function Avatar({
   url,
   name,
@@ -52,13 +62,18 @@ function Avatar({
       alt=""
       width={size}
       height={size}
-      className="rounded-full object-cover"
+      className="shrink-0 rounded-full object-cover"
       style={{ width: size, height: size }}
     />
   ) : (
     <span
-      className="flex items-center justify-center rounded-full bg-gray-100 font-bold text-gray-500"
-      style={{ width: size, height: size }}
+      aria-hidden
+      className="flex shrink-0 items-center justify-center rounded-full bg-proofer-blue-soft font-bold text-proofer-blue"
+      style={{
+        width: size,
+        height: size,
+        fontSize: Math.round(size * 0.42),
+      }}
     >
       {name.slice(0, 1)}
     </span>
@@ -73,17 +88,32 @@ export default function PostView({
   related = [],
 }: PostViewProps) {
   const fromMedium = f.source?.startsWith("medium_") && f.medium_url;
+  const firstTag = tags[0];
   return (
-    <article>
-      <h1 className="break-keep text-3xl font-bold leading-tight md:text-4xl">
+    <article className="mx-auto max-w-[680px]">
+      {firstTag && (
+        <Link
+          href={`/tag/${firstTag.slug ?? firstTag.name}`}
+          className={`inline-block rounded-proofer-xs ${EYEBROW} ${FOCUS_RING}`}
+        >
+          {firstTag.name}
+        </Link>
+      )}
+      <h1
+        className={`break-keep break-words text-[25px] font-bold leading-[1.14] tracking-[-0.02em] text-proofer-ink md:text-[38px] ${firstTag ? "mt-3" : ""}`}
+      >
         {f.title}
       </h1>
       {f.subtitle && (
-        <p className="mt-3 break-keep text-lg text-gray-500">{f.subtitle}</p>
+        <p className="mt-4 break-keep text-[18px] leading-[1.72] text-proofer-gray">
+          {f.subtitle}
+        </p>
       )}
 
       {author && (
-        <div className="mt-6 flex items-center gap-3 text-sm text-gray-500">
+        <div
+          className={`mt-7 flex items-center gap-3 ${f.cover ? "" : "border-b border-proofer-line pb-7"}`}
+        >
           <Avatar
             url={author.avatar_url}
             name={author.display_name}
@@ -92,11 +122,11 @@ export default function PostView({
           <div>
             <Link
               href={`/author/${author.slug}`}
-              className="font-bold text-gray-900"
+              className={`rounded-proofer-xs text-[15.5px] font-bold text-proofer-ink hover:text-proofer-blue ${FOCUS_RING}`}
             >
               {author.display_name}
             </Link>
-            <p>
+            <p className="text-[14.5px] leading-[1.55] text-proofer-gray">
               {fmt(f.published_at)}
               {f.reading_minutes ? ` · ${f.reading_minutes}분` : ""}
             </p>
@@ -105,27 +135,30 @@ export default function PostView({
       )}
 
       {f.cover && (
-        <Image
-          src={f.cover.src}
-          alt={f.cover.alt}
-          width={1200}
-          height={630}
-          priority
-          className="mt-8 h-auto w-full rounded-lg"
-        />
+        <div className="mt-9 overflow-hidden rounded-proofer bg-proofer-bg-alt md:-mx-10">
+          <Image
+            src={f.cover.src}
+            alt={f.cover.alt}
+            width={1200}
+            height={630}
+            priority
+            className="h-auto w-full"
+          />
+        </div>
       )}
 
-      <div className="mt-8">
+      <div className="mt-10">
         <PmdBody source={body_md} />
       </div>
 
       {tags.length > 0 && (
-        <ul className="mt-10 flex flex-wrap gap-2">
+        <ul className="mt-12 flex flex-wrap gap-2">
           {tags.map((t) => (
             <li key={t.name}>
               <Link
                 href={`/tag/${t.slug ?? t.name}`}
-                className="rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-600 hover:bg-gray-50"
+                title={t.name}
+                className={CHIP}
               >
                 {t.name}
               </Link>
@@ -135,28 +168,30 @@ export default function PostView({
       )}
 
       {author && (
-        <aside className="mt-12 flex gap-4 rounded-lg border border-gray-100 p-5">
+        <aside className="mt-10 flex gap-4 rounded-proofer border border-proofer-line bg-white p-6 shadow-proofer-soft">
           <Avatar
             url={author.avatar_url}
             name={author.display_name}
             size={56}
           />
-          <div className="min-w-0 text-sm">
+          <div className="min-w-0">
             <Link
               href={`/author/${author.slug}`}
-              className="text-base font-bold"
+              className={`rounded-proofer-xs text-[18px] font-bold text-proofer-ink hover:text-proofer-blue ${FOCUS_RING}`}
             >
               {author.display_name}
             </Link>
             {author.bio && (
-              <p className="mt-1 break-keep text-gray-600">{author.bio}</p>
+              <p className="mt-1.5 break-keep text-base leading-[1.62] text-proofer-gray">
+                {author.bio}
+              </p>
             )}
-            <p className="mt-2 flex flex-wrap gap-x-4 text-gray-500">
+            <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[14.5px]">
               {author.medium_url && (
                 <a
                   href={author.medium_url}
                   rel="noopener noreferrer"
-                  className="underline"
+                  className={BODY_LINK}
                 >
                   Medium
                 </a>
@@ -165,7 +200,7 @@ export default function PostView({
                 <a
                   href={author.website_url}
                   rel="noopener noreferrer"
-                  className="underline"
+                  className={BODY_LINK}
                 >
                   웹사이트
                 </a>
@@ -174,7 +209,7 @@ export default function PostView({
                 <a
                   href={f.medium_url!}
                   rel="noopener noreferrer"
-                  className="underline"
+                  className={BODY_LINK}
                 >
                   Medium 에서 처음 발행
                 </a>
@@ -185,19 +220,27 @@ export default function PostView({
       )}
 
       {related.length > 0 && (
-        <section className="mt-14">
-          <h2 className="mb-2 text-xl font-bold">같은 태그의 글</h2>
-          <ul className="divide-y divide-gray-100">
+        <section className="mt-16">
+          <p className={EYEBROW}>MORE</p>
+          <h2 className="mt-2 text-[23px] font-bold tracking-[-0.02em] text-proofer-ink">
+            같은 태그의 글
+          </h2>
+          <ul className="mt-5 grid gap-3 md:grid-cols-2">
             {related.map((r) => (
               <li key={r.slug}>
-                <Link href={`/${r.slug}`} className="block py-4">
-                  <p className="break-keep font-bold">{r.title}</p>
+                <Link
+                  href={`/${r.slug}`}
+                  className={`${CARD} ${FOCUS_RING} block h-full p-5`}
+                >
+                  <p className="line-clamp-2 break-keep font-bold text-proofer-ink">
+                    {r.title}
+                  </p>
                   {r.subtitle && (
-                    <p className="mt-1 line-clamp-1 text-sm text-gray-500">
+                    <p className="mt-1.5 line-clamp-1 text-[14.5px] text-proofer-gray">
                       {r.subtitle}
                     </p>
                   )}
-                  <p className="mt-1 text-xs text-gray-400">
+                  <p className="mt-3 text-[13px] text-proofer-gray">
                     {fmt(r.published_at)}
                   </p>
                 </Link>
