@@ -3,7 +3,8 @@ import { generateUrl } from "@/src/path";
 import { SUB_DOMAIN } from "@/src/constants";
 import { listFeedArticles } from "@/lib/blog/queries";
 
-export const revalidate = 3600;
+// 빌드 때 DB 를 읽지 않도록 요청 때 렌더링하고, CDN 이 1시간 캐시한다.
+export const dynamic = "force-dynamic";
 
 const url = (path: string) => generateUrl(path, SUB_DOMAIN.blog);
 const esc = (s: string) =>
@@ -35,6 +36,9 @@ ${items}
 </rss>
 `;
   return new NextResponse(xml, {
-    headers: { "Content-Type": "application/rss+xml; charset=utf-8" },
+    headers: {
+      "Content-Type": "application/rss+xml; charset=utf-8",
+      "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+    },
   });
 }

@@ -3,8 +3,9 @@ import { generateUrl } from "@/src/path";
 import { SUB_DOMAIN } from "@/src/constants";
 import { listSitemapSources } from "@/lib/blog/queries";
 
-// ponytail: sitemap 은 DB 를 읽으므로 1시간 캐시한다. 글 수가 수만 건이 되면 sitemap index 로 쪼갠다.
-export const revalidate = 3600;
+// 빌드 때 DB 를 읽지 않도록 요청 때 렌더링한다. 크롤러 요청이 드물어 캐시하지 않는다.
+// ponytail: 글 수가 수만 건이 되면 sitemap index 로 쪼갠다.
+export const dynamic = "force-dynamic";
 
 const url = (path: string) => generateUrl(path, SUB_DOMAIN.blog);
 
