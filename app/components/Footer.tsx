@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { IconPhoneCall } from "@tabler/icons-react";
+import { IconArticle, IconPhoneCall } from "@tabler/icons-react";
 import Image from "next/image";
 
 interface FooterProps {
@@ -73,17 +73,13 @@ export default function Footer({ linkGroups }: FooterProps) {
             <p className="hidden font-bold md:block">Follow Us On</p>
             <div className="flex flex-nowrap gap-2">
               <a
-                href="https://medium.com/proofer-blog"
+                href="https://blog.proofer.tech"
+                aria-label="프루퍼 블로그"
                 target="_blank"
                 className={avatarClass}
                 rel="noreferrer"
               >
-                <Image
-                  src="/assets/images/bi-medium.png"
-                  width={21}
-                  height={21}
-                  alt="proofer in Medium"
-                />
+                <IconArticle color="var(--color-darkgray-2)" size={21} />
               </a>
               <a
                 href={"https://www.linkedin.com/showcase/proofer-tech"}

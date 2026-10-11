@@ -44,14 +44,10 @@ export default function NotReadyYetLetter({
       <Separator />
       <div className="flex flex-col items-end gap-3 pt-[1em]">
         <p className="text-right text-xs">
-          새로운 소식과 유용한 기술 아티클을 제일 먼저 받아보세요.
+          새로운 소식과 기술 아티클은 프루퍼 블로그에 올립니다.
         </p>
-        <a
-          href="https://medium.com/proofer-blog/newsletters/measurable-developer"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <Button>뉴스레터 구독하기</Button>
+        <a href="https://blog.proofer.tech" target="_blank" rel="noreferrer">
+          <Button>블로그 보기</Button>
         </a>
       </div>
     </div>

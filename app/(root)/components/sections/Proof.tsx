@@ -196,7 +196,7 @@ export default function Proof() {
             </a>
             <a
               className="past-item"
-              href="https://medium.com/proofer-blog/newsletter"
+              href="https://blog.proofer.tech/tag/%EA%B0%9C%EB%B0%9C%EC%9E%90-%EC%83%9D%EC%82%B0%EC%84%B1"
               target="_blank"
               rel="noreferrer"
             >

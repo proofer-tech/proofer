@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { IconArticle } from "@tabler/icons-react";
 
 export default function Footer() {
   return (
@@ -44,14 +45,12 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://medium.com/proofer-blog"
+              href="https://blog.proofer.tech"
               target="_blank"
               rel="noreferrer"
-              aria-label="Medium"
+              aria-label="프루퍼 블로그"
             >
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42S14.2 15.54 14.2 12s1.51-6.42 3.38-6.42S20.96 8.46 20.96 12zM24 12c0 3.17-.53 5.75-1.19 5.75S21.62 15.17 21.62 12s.53-5.75 1.19-5.75S24 8.83 24 12z" />
-              </svg>
+              <IconArticle size={20} />
             </a>
           </div>
         </div>

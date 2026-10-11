@@ -35,7 +35,7 @@ const jsonLd = {
     availableLanguage: "Korean",
   },
   sameAs: [
-    "https://medium.com/proofer-blog",
+    "https://blog.proofer.tech",
     "https://www.linkedin.com/showcase/proofer-tech",
   ],
 };
