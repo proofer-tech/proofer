@@ -159,7 +159,7 @@ async function revalidate(slug: string) {
     console.warn("경고: BLOG_REVALIDATE_SECRET 이 없어 revalidate 를 건너뛴다");
     return;
   }
-  const base = process.env.BLOG_REVALIDATE_URL ?? "https://blog.proofer.tech";
+  const base = process.env.BLOG_REVALIDATE_URL ?? "https://proofer.tech";
   try {
     const res = await fetch(`${base}/api/blog/revalidate`, {
       method: "POST",

@@ -1,7 +1,11 @@
 /** @jest-environment node */
 import type { PublishDeps } from "./assets";
+import fs from "fs";
+import path from "path";
+import { docsToPmd } from "../convert/docsToPmd";
 import {
   publish,
+  toValues,
   type AssetInsert,
   type AssetRow,
   type ArticleRow,
@@ -16,7 +20,7 @@ slug: "good-post"
 author: proofer
 tags: ["with-cto"]
 keywords: ["프루퍼"]
-medium_post_id: "abc123"
+medium_id: "abc123"
 medium_url: "https://medium.com/x/abc123"
 canonical_url: "https://medium.com/x/abc123"
 ---
@@ -92,10 +96,7 @@ test("신규 삽입: article 과 태그를 쓴다", async () => {
     uploads: 0,
     cards: 0,
   });
-  expect(calls).toEqual([
-    "insert:abc123:medium_publication:7",
-    "tags:1:with-cto",
-  ]);
+  expect(calls).toEqual(["insert:abc123:medium_personal:7", "tags:1:with-cto"]);
 });
 
 test("덮어쓰기: 직전 본문을 revision 으로 남기고 갱신한다", async () => {
@@ -220,4 +221,40 @@ test("dry-run 은 업로드도 받기도 하지 않고 할 일만 센다", async
   });
   expect(d.log).toEqual([]);
   expect(calls).toEqual([]);
+});
+
+describe("toValues 이전 글 칸", () => {
+  const fmDoc = (extra: string) =>
+    `---\ntitle: "t"\nsubtitle: "s"\n${extra}\n---\n\n본문\n`;
+  const v = (extra: string) => toValues(fmDoc(extra), 1, "a");
+
+  it("reading_time_min 은 올림 정수, 최소 1", () => {
+    expect(v("reading_time_min: 10.7").reading_minutes).toBe(11);
+    expect(v("reading_time_min: 0.2").reading_minutes).toBe(1);
+  });
+
+  it("source 판정: id+canonical -> personal, id만 -> publication, id 없음 -> native, 명시 우선", () => {
+    const c = 'canonical_url: "https://a.test/x"';
+    expect(v(`medium_id: "m1"\n${c}`).source).toBe("medium_personal");
+    expect(v('medium_id: "m1"\ncanonical_url: ""').source).toBe(
+      "medium_publication",
+    );
+    expect(v(c).source).toBe("native");
+    expect(v(`medium_id: "m1"\n${c}\nsource: medium_publication`).source).toBe(
+      "medium_publication",
+    );
+  });
+
+  it("docs-backup 변환 결과에서 medium_post_id 가 원본 id 로 채워진다", () => {
+    const dir = path.join(__dirname, "../__fixtures__/docs-backup");
+    const md = fs.readFileSync(path.join(dir, "2e10c6e6b4a0.md"), "utf8");
+    const out = toValues(
+      docsToPmd(md, (_b, i) => ({ url: `https://img.test/${i}` })),
+      1,
+      "a",
+    );
+    expect(out.medium_post_id).toBe("2e10c6e6b4a0");
+    expect(out.reading_minutes).toBe(11);
+    expect(out.source).toBe("medium_publication");
+  });
 });

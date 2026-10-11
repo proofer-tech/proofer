@@ -110,7 +110,7 @@ export function toValues(
   const fm = parse(source).frontmatter as Fm;
   const body = bodyOf(source);
   const words = typeof fm.word_count === "number" ? fm.word_count : body.length;
-  const mediumId = str(fm.medium_post_id);
+  const mediumId = str(fm.medium_id);
   const src = str(fm.source);
   return {
     slug: String(fm.slug ?? ""),
@@ -130,13 +130,15 @@ export function toValues(
       src === "medium_publication" || src === "medium_personal"
         ? src
         : mediumId
-          ? "medium_publication"
+          ? str(fm.canonical_url)
+            ? "medium_personal"
+            : "medium_publication"
           : "native",
     medium_post_id: mediumId,
     medium_url: str(fm.medium_url),
     reading_minutes:
       typeof fm.reading_time_min === "number"
-        ? fm.reading_time_min
+        ? Math.max(1, Math.ceil(fm.reading_time_min))
         : Math.max(1, Math.ceil(words / 500)),
     word_count: words,
     keywords: Array.isArray(fm.keywords) ? fm.keywords.map(String) : [],
