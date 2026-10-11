@@ -17,6 +17,25 @@ describe("docsToPmd 대응표", () => {
     expect(out).not.toContain("작성자");
   });
 
+  it("영문 월 칩 줄(여러 작성자, 한 자리 날짜 포함)도 버린다", () => {
+    for (const chip of [
+      "Oct 11, 2026 · @임한솔",
+      "Oct 11, 2026 · @임한솔 @매홍",
+      "Oct 1, 2026 · @x",
+    ]) {
+      const out = docsToPmd(
+        `# 제목\n\n${chip}\n\n\`\`\`yaml\nauthor: "p"\n\`\`\`\n\n본문\n`,
+        stub,
+      );
+      expect(out).toBe('---\ntitle: "제목"\nauthor: "p"\n---\n\n본문\n');
+    }
+  });
+
+  it("H1 바로 다음이 아닌 칩 모양 문단은 본문에 남는다", () => {
+    const out = docsToPmd(wrap("본문\n\nOct 11, 2026 · @임한솔\n"), stub);
+    expect(out).toContain("Oct 11, 2026 · @임한솔");
+  });
+
   it("둘째 yaml 블록은 본문에 남는다", () => {
     const out = docsToPmd(wrap("```yaml\na: 1\n```\n"), stub);
     expect(out).toContain("```yaml\na: 1\n```");

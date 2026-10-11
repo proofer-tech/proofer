@@ -11,7 +11,8 @@ const YOUTUBE =
 const LINK_ONLY = /^(?:\[[^\]]*\]\((https?:\/\/[^)\s]+)\)|(https?:\/\/\S+))$/;
 const IMAGE_ONLY = /^!\[([^\]]*)\]\((blob\/[^)\s]+)\)$/;
 const ITALIC_ONLY = /^\*([^*].*)\*$/s;
-const CHIP_LINE = /^\d{4}-\d{2}-\d{2}\b.*·/;
+const CHIP_LINE =
+  /^(?:\d{4}-\d{2}-\d{2}\b.*·|[A-Z][a-z]{2} \d{1,2}, \d{4} · @\S.*)/;
 
 function splitBlocks(md: string): string[] {
   const blocks: string[] = [];
