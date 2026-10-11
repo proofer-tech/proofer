@@ -1,3 +1,4 @@
+import { createHash } from "crypto";
 import { and, desc, eq, inArray, ne, sql } from "drizzle-orm";
 import { unstable_cache } from "next/cache";
 import { dz } from "@/database/engine";
@@ -196,7 +197,10 @@ export async function listFeedArticles(limit = 30) {
 // 캐시 태그. 발행 쓰기 쪽이 revalidateTag(BLOG_TAG) 또는 글 단위 태그로 비운다.
 // unstable_cache 는 Date 를 문자열로 돌려주므로 읽는 쪽은 new Date(x) 로 받는다.
 export const BLOG_TAG = "blog";
-export const articleTag = (slug: string) => `blog:article:${slug}`;
+// 한글 slug 를 그대로 싣으면 x-next-cache-tags 헤더가 ERR_INVALID_CHAR 로 500 이 난다.
+// encodeURIComponent 는 긴 slug 에서 태그 한도(256자)를 넘으므로 sha256 앞 16자를 쓴다.
+export const articleTag = (slug: string) =>
+  `blog:article:${createHash("sha256").update(slug).digest("hex").slice(0, 16)}`;
 
 export const listArticles = (page = 1) =>
   unstable_cache(rawListArticles, ["blog-list"], { tags: [BLOG_TAG] })(page);

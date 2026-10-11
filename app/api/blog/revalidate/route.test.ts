@@ -1,12 +1,14 @@
 /** @jest-environment node */
 import { revalidateTag } from "next/cache";
+import { articleTag } from "@/lib/blog/queries";
 import { POST } from "./route";
 
-jest.mock("next/cache", () => ({ revalidateTag: jest.fn() }));
-jest.mock("@/lib/blog/queries", () => ({
-  BLOG_TAG: "blog",
-  articleTag: (s: string) => `blog:article:${s}`,
+jest.mock("next/cache", () => ({
+  revalidateTag: jest.fn(),
+  unstable_cache: (f: unknown) => f,
 }));
+// 실제 articleTag 를 쓰려면 DB 모듈을 막고 queries 는 원본을 가져온다.
+jest.mock("@/database/engine", () => ({ dz: {} }), { virtual: true });
 
 const call = (auth?: string, body: object = { slug: "a" }) =>
   POST(
@@ -38,7 +40,7 @@ test("서버에 비밀값이 없으면 빈 Bearer 도 401 이다", async () => {
 test("맞으면 글 태그와 목록 태그를 revalidate 한다", async () => {
   expect((await call("Bearer s3cret")).status).toBe(200);
   expect(jest.mocked(revalidateTag).mock.calls.map((c) => c[0])).toEqual([
-    "blog:article:a",
+    articleTag("a"),
     "blog",
   ]);
 });
