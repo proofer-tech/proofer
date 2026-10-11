@@ -50,7 +50,7 @@ export function ArticleList({
                 </div>
               )}
               <div className="min-w-0 flex-1">
-                <h2 className="line-clamp-2 break-keep text-[18px] font-bold leading-[1.2] tracking-[-0.02em] text-proofer-ink md:text-[23px]">
+                <h2 className="line-clamp-2 break-keep [overflow-wrap:anywhere] text-[18px] font-bold leading-[1.2] tracking-[-0.02em] text-proofer-ink md:text-[23px]">
                   {a.title}
                 </h2>
                 {a.subtitle && (

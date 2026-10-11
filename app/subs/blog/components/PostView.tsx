@@ -39,7 +39,7 @@ const fmt = (d: Date | string) =>
   }).format(new Date(d));
 
 const CHIP =
-  "inline-flex max-w-[220px] items-center truncate rounded-full border border-proofer-line bg-white px-3 py-1.5 text-[13px] font-bold text-proofer-menu-ink transition duration-200 ease-proofer hover:border-proofer-border-hover hover:bg-proofer-blue-soft hover:text-proofer-blue-deep " +
+  "inline-block max-w-[220px] truncate align-middle rounded-full border border-proofer-line bg-white px-3 py-1.5 text-[13px] font-bold text-proofer-menu-ink transition duration-200 ease-proofer hover:border-proofer-border-hover hover:bg-proofer-blue-soft hover:text-proofer-blue-deep " +
   FOCUS_RING;
 const EYEBROW =
   "text-[13px] font-bold uppercase tracking-[0.1em] text-proofer-blue";
