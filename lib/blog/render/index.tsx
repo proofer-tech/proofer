@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import type { Root, RootContent, PhrasingContent, Table } from "mdast";
+import { CARD, FOCUS_RING } from "@/app/subs/blog/ui";
 import {
   ALLOWED_BLOCKS,
   ALLOWED_HEADING_DEPTHS,
@@ -93,7 +94,7 @@ function Img({
       width={s.width}
       height={s.height}
       sizes={sizes}
-      className="h-auto w-full"
+      className="h-auto w-full rounded-proofer-sm"
     />
   );
 }
@@ -126,7 +127,7 @@ function Inline({ nodes, meta }: { nodes: PhrasingContent[]; meta: PmdMeta }) {
             return (
               <code
                 key={k}
-                className="rounded bg-gray-100 px-1 py-0.5 font-mono text-[0.9em]"
+                className="rounded-proofer-xs border border-proofer-line bg-proofer-bg-alt px-1.5 py-0.5 font-mono text-[0.86em] text-proofer-ink"
               >
                 {n.value}
               </code>
@@ -138,7 +139,7 @@ function Inline({ nodes, meta }: { nodes: PhrasingContent[]; meta: PmdMeta }) {
               <a
                 key={k}
                 href={safeUrl(n.url, n)}
-                className="underline underline-offset-2"
+                className={`text-proofer-blue underline underline-offset-4 hover:text-proofer-blue-deep ${FOCUS_RING}`}
                 rel="noopener noreferrer"
               >
                 {kids}
@@ -159,16 +160,20 @@ function LinkCard({ url, info }: { url: string; info?: LinkCardInfo }) {
     <a
       href={safeUrl(url, { type: "linkCard" })}
       rel="noopener noreferrer"
-      className="my-8 flex overflow-hidden rounded-lg border border-gray-200 no-underline"
+      className={`${CARD} ${FOCUS_RING} my-8 flex overflow-hidden no-underline`}
     >
-      <span className="flex min-w-0 flex-1 flex-col gap-1 p-4">
-        {info?.title && <span className="font-bold">{info.title}</span>}
+      <span className="flex min-w-0 flex-1 flex-col gap-1 p-5">
+        {info?.title && (
+          <span className="line-clamp-2 text-[16px] font-bold text-proofer-ink">
+            {info.title}
+          </span>
+        )}
         {info?.description && (
-          <span className="line-clamp-2 text-sm text-gray-500">
+          <span className="line-clamp-2 text-[14.5px] text-proofer-gray">
             {info.description}
           </span>
         )}
-        <span className="truncate text-sm text-gray-400">{url}</span>
+        <span className="truncate text-[13px] text-proofer-gray">{url}</span>
       </span>
       {info?.image && (
         <Image
@@ -176,7 +181,7 @@ function LinkCard({ url, info }: { url: string; info?: LinkCardInfo }) {
           alt=""
           width={160}
           height={160}
-          className="h-auto w-40 object-cover"
+          className="h-auto w-[132px] shrink-0 bg-proofer-bg-alt object-cover md:w-40"
         />
       )}
     </a>
@@ -201,11 +206,11 @@ function Block({
       if (!(ALLOWED_HEADING_DEPTHS as readonly number[]).includes(node.depth))
         fail(node);
       return node.depth === 2 ? (
-        <h2 className="mb-4 mt-12 text-2xl font-bold leading-snug">
+        <h2 className="mb-4 mt-14 text-[23px] font-bold leading-[1.3] tracking-[-0.02em]">
           {inline(node)}
         </h2>
       ) : (
-        <h3 className="mb-3 mt-8 text-xl font-bold leading-snug">
+        <h3 className="mb-3 mt-10 text-[21px] font-bold leading-[1.35] tracking-[-0.02em]">
           {inline(node)}
         </h3>
       );
@@ -216,13 +221,13 @@ function Block({
         const yt = YOUTUBE.exec(url);
         if (yt) {
           return (
-            <div className="my-8 aspect-video w-full">
+            <div className="my-8 aspect-video w-full overflow-hidden rounded-proofer-sm">
               <iframe
                 src={`https://www.youtube-nocookie.com/embed/${yt[1]}`}
                 title="YouTube video"
                 allowFullScreen
                 loading="lazy"
-                className="h-full w-full rounded-lg"
+                className="h-full w-full"
               />
             </div>
           );
@@ -256,7 +261,7 @@ function Block({
               sizes="(min-width: 768px) 680px, 100vw"
             />
             {im.title && (
-              <figcaption className="mt-2 text-center text-sm text-gray-500">
+              <figcaption className="mt-3 text-center text-[14.5px] leading-[1.55] text-proofer-gray">
                 {im.title}
               </figcaption>
             )}
@@ -267,7 +272,7 @@ function Block({
     }
     case "blockquote":
       return (
-        <blockquote className="my-8 border-l-4 border-gray-900 pl-5 italic">
+        <blockquote className="my-8 border-l-4 border-proofer-blue pl-5 text-proofer-gray [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
           {node.children.map((c, i) => (
             <Block key={i} node={c} meta={meta} />
           ))}
@@ -277,10 +282,10 @@ function Block({
       const L = node.ordered ? "ol" : "ul";
       return (
         <L
-          className={`my-6 pl-6 ${node.ordered ? "list-decimal" : "list-disc"}`}
+          className={`my-6 pl-6 marker:text-proofer-gray ${node.ordered ? "list-decimal" : "list-disc"}`}
         >
           {node.children.map((li, i) => (
-            <li key={i} className="my-1">
+            <li key={i} className="my-1.5">
               {li.children.map((c, j) =>
                 c.type === "paragraph" ? (
                   <Inline key={j} nodes={c.children} meta={meta} />
@@ -295,7 +300,10 @@ function Block({
     }
     case "code":
       return (
-        <pre className="my-8 overflow-x-auto rounded-lg bg-gray-900 p-4 text-sm leading-relaxed text-gray-100">
+        <pre
+          tabIndex={0}
+          className={`my-8 overflow-x-auto rounded-proofer-sm border border-proofer-line bg-proofer-bg-alt p-5 font-mono text-[14.5px] leading-[1.6] text-proofer-ink ${FOCUS_RING}`}
+        >
           <code className="font-mono" data-lang={node.lang ?? undefined}>
             {node.value}
           </code>
@@ -305,7 +313,7 @@ function Block({
       return (
         <div
           role="separator"
-          className="my-12 text-center text-2xl tracking-[0.5em] text-gray-400"
+          className="my-14 text-center text-2xl tracking-[0.5em] text-proofer-gray"
         >
           &middot;&middot;&middot;
         </div>
@@ -320,11 +328,11 @@ function Block({
 function TableBlock({ node, meta }: { node: Table; meta: PmdMeta }) {
   const [head, ...rows] = node.children;
   const row = (r: Table["children"][number], Cell: "th" | "td") => (
-    <tr>
+    <tr className="[&:last-child>td]:border-b-0">
       {r.children.map((c, i) => (
         <Cell
           key={i}
-          className={`border border-gray-200 px-3 py-2 text-left ${Cell === "th" ? "bg-gray-50 font-bold" : ""}`}
+          className={`border-b border-proofer-line px-4 py-2.5 text-left align-top ${Cell === "th" ? "bg-proofer-bg-alt font-bold text-proofer-ink" : ""}`}
         >
           <Inline nodes={c.children as PhrasingContent[]} meta={meta} />
         </Cell>
@@ -332,8 +340,11 @@ function TableBlock({ node, meta }: { node: Table; meta: PmdMeta }) {
     </tr>
   );
   return (
-    <div className="my-8 overflow-x-auto">
-      <table className="w-full border-collapse text-sm">
+    <div
+      tabIndex={0}
+      className={`my-8 overflow-x-auto rounded-proofer-sm border border-proofer-line ${FOCUS_RING}`}
+    >
+      <table className="w-full border-collapse text-[14.5px] leading-[1.55]">
         <thead>{row(head, "th")}</thead>
         <tbody>
           {rows.map((r, i) => (
@@ -349,7 +360,7 @@ const FragmentRow = ({ children }: { children: ReactNode }) => <>{children}</>;
 /** 이미 파싱한 트리를 그린다. 허용 밖 노드가 있으면 예외를 던진다. */
 export function PmdTree({ tree, meta = {} }: { tree: Root; meta?: PmdMeta }) {
   return (
-    <div className="font-[LINESeedKR] break-keep text-lg font-normal leading-8">
+    <div className="font-proofer break-keep text-[18px] font-normal leading-[1.72] text-proofer-ink [&>*:first-child]:mt-0">
       {tree.children.map((n, i) => (
         <Block key={i} node={n} meta={meta} />
       ))}

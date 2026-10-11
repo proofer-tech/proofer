@@ -67,7 +67,7 @@ test("허용 블록을 모두 그린다", () => {
     "https://example.com/post",
     "youtube-nocookie.com/embed/dQw4w9WgXcQ",
     "break-keep",
-    "LINESeedKR",
+    "font-proofer",
   ]) {
     expect(out).toContain(s);
   }
