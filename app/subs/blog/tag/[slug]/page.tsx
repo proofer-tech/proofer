@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getTag, listByTag } from "@/lib/blog/queries";
 import { generateMetadataFromTitle } from "@/src/manifest";
-import { ArticleList, parsePage } from "../../ArticleList";
+import { ArticleList, EmptyState, EYEBROW, parsePage } from "../../ArticleList";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -39,16 +39,19 @@ export default async function TagPage({ params, searchParams }: Props) {
 
   return (
     <>
-      <header className="mb-8">
-        <h1 className="break-keep text-3xl font-bold">{tag.name}</h1>
+      <header className="mx-auto mb-10 max-w-[760px]">
+        <p className={EYEBROW}>TAG</p>
+        <h1 className="mt-2 break-keep text-[25px] font-bold leading-[1.14] tracking-[-0.02em] md:text-[38px]">
+          {tag.name}
+        </h1>
         {tag.description && (
-          <p className="mt-3 break-keep text-gray-600">{tag.description}</p>
+          <p className="mt-3 break-keep text-base leading-[1.62] text-proofer-gray">
+            {tag.description}
+          </p>
         )}
       </header>
       {items.length === 0 ? (
-        <p className="py-20 text-center text-gray-500">
-          이 태그가 붙은 글이 아직 없습니다.
-        </p>
+        <EmptyState>이 태그가 붙은 글이 아직 없습니다.</EmptyState>
       ) : (
         <ArticleList
           items={items}

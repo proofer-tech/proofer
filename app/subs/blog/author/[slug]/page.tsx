@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import { getAuthor, listByAuthor } from "@/lib/blog/queries";
 import { generateMetadataFromTitle } from "@/src/manifest";
-import { ArticleList, parsePage } from "../../ArticleList";
+import { FOCUS_RING } from "../../ui";
+import { ArticleList, EmptyState, EYEBROW, parsePage } from "../../ArticleList";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -44,44 +45,54 @@ export default async function AuthorPage({ params, searchParams }: Props) {
 
   return (
     <>
-      <header className="mb-8 flex items-start gap-5">
-        {author.avatar_url && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={author.avatar_url}
-            alt={author.display_name}
-            width={80}
-            height={80}
-            className="size-20 rounded-full object-cover"
-          />
-        )}
-        <div>
-          <h1 className="break-keep text-3xl font-bold">
-            {author.display_name}
-          </h1>
-          {author.bio && (
-            <p className="mt-3 break-keep text-gray-600">{author.bio}</p>
+      <header className="mx-auto mb-10 max-w-[760px]">
+        <p className={EYEBROW}>AUTHOR</p>
+        <div className="mt-2 flex items-start gap-5">
+          {author.avatar_url ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={author.avatar_url}
+              alt={author.display_name}
+              width={80}
+              height={80}
+              className="size-20 shrink-0 rounded-full object-cover"
+            />
+          ) : (
+            <span
+              aria-hidden
+              className="flex size-20 shrink-0 items-center justify-center rounded-full bg-proofer-blue-soft text-[34px] font-bold text-proofer-blue"
+            >
+              {author.display_name.slice(0, 1)}
+            </span>
           )}
-          {links.length > 0 && (
-            <p className="mt-3 flex gap-4 text-sm">
-              {links.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  rel="me noopener"
-                  className="text-gray-500 underline"
-                >
-                  {l.label}
-                </a>
-              ))}
-            </p>
-          )}
+          <div>
+            <h1 className="break-keep text-[25px] font-bold leading-[1.14] tracking-[-0.02em] md:text-[38px]">
+              {author.display_name}
+            </h1>
+            {author.bio && (
+              <p className="mt-3 break-keep text-base leading-[1.62] text-proofer-gray">
+                {author.bio}
+              </p>
+            )}
+            {links.length > 0 && (
+              <p className="mt-3 flex gap-4 text-[14.5px]">
+                {links.map((l) => (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    rel="me noopener"
+                    className={`rounded-proofer-xs text-proofer-blue underline underline-offset-4 hover:text-proofer-blue-deep ${FOCUS_RING}`}
+                  >
+                    {l.label}
+                  </a>
+                ))}
+              </p>
+            )}
+          </div>
         </div>
       </header>
       {items.length === 0 ? (
-        <p className="py-20 text-center text-gray-500">
-          아직 올라온 글이 없습니다.
-        </p>
+        <EmptyState>아직 올라온 글이 없습니다.</EmptyState>
       ) : (
         <ArticleList
           items={items}
