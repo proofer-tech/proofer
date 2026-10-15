@@ -63,3 +63,6 @@ workbox-*.js.map
 
 # 블로그 미리보기 산출물
 .blog-preview/
+
+# jest 환경 래퍼는 소스다
+!jest.env-*.cjs
