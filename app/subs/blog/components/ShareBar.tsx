@@ -10,7 +10,7 @@ import {
 import { FOCUS_RING } from "../ui";
 
 const BTN =
-  "inline-flex h-11 w-11 items-center justify-center rounded-full border border-proofer-line bg-white text-proofer-menu-ink transition duration-200 ease-proofer hover:border-proofer-border-hover hover:bg-proofer-blue-soft hover:text-proofer-blue-deep " +
+  "inline-flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-full border border-proofer-line bg-white text-proofer-menu-ink transition duration-200 ease-proofer hover:border-proofer-border-hover hover:bg-proofer-blue-soft hover:text-proofer-blue-deep " +
   FOCUS_RING;
 const ICON = { size: 20, strokeWidth: 2, "aria-hidden": true } as const;
 
@@ -84,7 +84,7 @@ export default function ShareBar({
       <div
         role="group"
         aria-label="이 글 공유하기"
-        className="flex items-center gap-2"
+        className="flex items-center gap-[8px]"
       >
         <button
           type="button"
