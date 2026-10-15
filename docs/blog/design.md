@@ -190,17 +190,18 @@ Button Primary, CTA Big, Dock CTA, Layer 그림자와 reveal 애니메이션은 
 
 내용 폭 `mx-auto max-w-[680px]`. 대표 이미지만 데스크톱에서 `md:-mx-10`(좌우 40px씩, 760px)로 넓힌다.
 
-| 순서 | 요소                       | 간격 (위)                 | 스타일                                                                                                  |
-| ---- | -------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------- |
-| 1    | 태그 eyebrow(첫 태그 하나) | -                         | 태그가 있으면 첫 태그를 Eyebrow 모양 링크로 제목 위에 둔다(`/tag/<slug>`). 없으면 생략                  |
-| 2    | 제목 h1                    | `mt-3` (eyebrow 없으면 0) | Section H2 토큰 `text-[25px] md:text-[38px] font-bold leading-[1.14] tracking-[-0.02em] break-keep`     |
-| 3    | 부제                       | `mt-4`                    | Body Large `text-proofer-gray break-keep`                                                               |
-| 4    | 저자 줄                    | `mt-7`                    | 아래 "저자 줄"                                                                                          |
-| 5    | 대표 이미지                | `mt-9`                    | `rounded-proofer` `h-auto w-full`, 감싸개 `md:-mx-10 overflow-hidden rounded-proofer bg-proofer-bg-alt` |
-| 6    | 본문                       | `mt-10`                   | 5절 본문 요소 표                                                                                        |
-| 7    | 태그 줄                    | `mt-12`                   | 3절 태그 칩과 같은 모양, `flex flex-wrap gap-2`                                                         |
-| 8    | 저자 카드                  | `mt-10`                   | 아래 "저자 카드"                                                                                        |
-| 9    | 관련 글                    | `mt-16`                   | 아래 "관련 글"                                                                                          |
+| 순서 | 요소                       | 간격 (위)                    | 스타일                                                                                                  |
+| ---- | -------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------- |
+| 1    | 태그 eyebrow(첫 태그 하나) | -                            | 태그가 있으면 첫 태그를 Eyebrow 모양 링크로 제목 위에 둔다(`/tag/<slug>`). 없으면 생략                  |
+| 2    | 제목 h1                    | `mt-3` (eyebrow 없으면 0)    | Section H2 토큰 `text-[25px] md:text-[38px] font-bold leading-[1.14] tracking-[-0.02em] break-keep`     |
+| 3    | 부제                       | `mt-4`                       | Body Large `text-proofer-gray break-keep`                                                               |
+| 4    | 저자 줄                    | `mt-7`                       | 아래 "저자 줄"                                                                                          |
+| 5    | 대표 이미지                | `mt-9`                       | `rounded-proofer` `h-auto w-full`, 감싸개 `md:-mx-10 overflow-hidden rounded-proofer bg-proofer-bg-alt` |
+| 6    | 본문                       | `mt-10`                      | 5절 본문 요소 표                                                                                        |
+| 7    | 태그 줄                    | `mt-12`                      | 3절 태그 칩과 같은 모양, `flex flex-wrap gap-2`                                                         |
+| 8    | 공유 줄                    | `mt-8` (태그 없으면 `mt-12`) | 아래 "공유 줄"                                                                                          |
+| 9    | 저자 카드                  | `mt-10`                      | 아래 "저자 카드"                                                                                        |
+| 10   | 관련 글                    | `mt-16`                      | 아래 "관련 글"                                                                                          |
 
 ### 저자 줄
 
@@ -214,6 +215,80 @@ Button Primary, CTA Big, Dock CTA, Layer 그림자와 reveal 애니메이션은 
 - 이미지가 있으면 `rounded-full object-cover`.
 - 없으면 이니셜 원: `rounded-full bg-proofer-blue-soft font-bold text-proofer-blue` 가운데 정렬,
   글자 크기는 지름의 0.42 배. 이니셜은 장식이라 `aria-hidden`.
+
+### 공유 줄
+
+태그 줄과 저자 카드 사이에 한 줄로 둔다. 공유 대상 URL 은 블로그 자신의 주소
+`${BLOG_ORIGIN}/<encodeURIComponent(slug)>`(`lib/blog/seo.ts` selfUrl 과 같은 값)이고, Medium canonical 이 아니다.
+`navigator` 를 읽어야 하므로 이 줄만 클라이언트 컴포넌트(예: `components/ShareRow.tsx`, `"use client"`)로
+떼어 내고, `PostView` 는 URL 과 제목만 넘긴다.
+
+**감싸개**
+
+- `<div role="group" aria-label="이 글 공유하기">` + `flex items-center gap-2`. 화면에 보이는 라벨 글자는 두지 않는다.
+- 버튼 순서: 링크 복사, X, Facebook, LinkedIn, 공유하기(기기 공유 시트).
+
+**버튼 모양 (다섯 개 공통)**
+
+- 원형 아이콘 버튼 44 x 44px(터치 대상 최소값): `inline-flex h-11 w-11 items-center justify-center rounded-full`
+  `border border-proofer-line bg-white text-proofer-menu-ink transition duration-200 ease-proofer`
+  `hover:border-proofer-border-hover hover:bg-proofer-blue-soft hover:text-proofer-blue-deep` + 공통 포커스 링.
+  호버는 3절 태그 칩과 같은 값이고, 상승과 그림자는 쓰지 않는다.
+- 링크 복사와 공유하기는 `<button type="button">`, X, Facebook, LinkedIn 은
+  `<a target="_blank" rel="noopener noreferrer">` 이다. intent URL 을 링크로 두면 새 탭 열기가 브라우저 기본 동작으로 되고
+  팝업 차단에 걸리지 않는다. 창 크기를 지정하는 `window.open` 팝업은 쓰지 않는다.
+- 아이콘은 20px, 선 굵기 2, `aria-hidden`. 버튼 이름은 아이콘이 아니라 `aria-label` 이 정한다.
+
+**아이콘 출처 (기존 의존 안에서만)**
+
+| 버튼      | 아이콘                              | 패키지(이미 `package.json` 에 있음) |
+| --------- | ----------------------------------- | ----------------------------------- |
+| 링크 복사 | `Link` (복사 성공 2초 동안 `Check`) | `lucide-react`                      |
+| X         | `IconBrandX`                        | `@tabler/icons-react`               |
+| Facebook  | `IconBrandFacebook`                 | `@tabler/icons-react`               |
+| LinkedIn  | `IconBrandLinkedin`                 | `@tabler/icons-react`               |
+| 공유하기  | `Share2`                            | `lucide-react`                      |
+
+브랜드 세 개를 `lucide-react` 에서 가져오지 않는다. 그 패키지의 `Facebook`, `Linkedin` 은 deprecated 이고 X 로고가 없다
+(`Twitter` 는 옛 새 로고다). tabler 는 lucide 와 같은 24 격자 선 아이콘이라 `size={20} strokeWidth={2}` 로 맞추면
+굵기가 섞여 보이지 않는다. 브랜드 고유색은 쓰지 않는다: 1절 토큰 표에 없는 색이다. 다섯 개 모두 Menu Ink 이다.
+
+**`aria-label` 과 링크 대상**
+
+| 버튼      | `aria-label`              | 동작                                                                                                                          |
+| --------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| 링크 복사 | `링크 복사`               | `navigator.clipboard.writeText(url)`                                                                                          |
+| X         | `X에 공유 (새 탭)`        | `https://x.com/intent/post?url=<URL>&text=<제목>`                                                                             |
+| Facebook  | `Facebook에 공유 (새 탭)` | `https://www.facebook.com/sharer/sharer.php?u=<URL>`                                                                          |
+| LinkedIn  | `LinkedIn에 공유 (새 탭)` | `https://www.linkedin.com/sharing/share-offsite/?url=<URL>`                                                                   |
+| 공유하기  | `공유하기`                | `navigator.share({ title: <제목>, url: <URL> })`. 사용자가 시트를 닫아 나는 `AbortError` 는 무시하고 아무것도 표시하지 않는다 |
+
+`<URL>`, `<제목>` 은 `encodeURIComponent` 로 감싼다. 같은 문구를 `title` 로도 붙여서 마우스 사용자가 호버로 볼 수 있게 한다.
+
+**링크 복사 피드백**
+
+- 공유 줄 바로 아래 `<p role="status" aria-live="polite">` 한 줄을 늘 렌더하고, 문구가 없을 때는 비워 둔다.
+  스타일 `mt-2 min-h-[20px] text-[13px] font-bold leading-[20px]`. `min-h` 로 칸을 미리 잡아 문구가 나타나고 사라질 때
+  저자 카드가 위아래로 밀리지 않게 한다.
+- 성공: 문구 `링크를 복사했습니다`, 색 `text-proofer-gray`. 같은 2초 동안 링크 복사 버튼의 아이콘을 `Check` 로 바꾸고
+  버튼 `aria-label` 은 그대로 둔다(알림은 status 문구가 맡는다). **2000ms 뒤** 문구를 비우고 아이콘을 `Link` 로 되돌린다.
+- 실패(`navigator.clipboard` 가 없거나 `writeText` 가 거부됨): 문구 `링크를 복사하지 못했습니다. 주소창의 주소를 복사해 주세요`,
+  색 `text-proofer-ink`. 아이콘은 바꾸지 않는다. 읽을 시간이 더 필요하므로 **4000ms 뒤** 비운다.
+  1절 토큰 표에 빨강이 없으므로 성공과 실패는 색이 아니라 문구로 구분한다.
+- 연속으로 누르면 타이머를 다시 시작하고 문구를 새로 쓴다. 토스트(`sonner`, Radix Toast)는 쓰지 않는다: 블로그 셸에
+  Toaster 가 없고, 화면 구석의 알림은 누른 버튼과 멀다.
+
+**`navigator.share` 미지원**
+
+- 공유하기 버튼은 마운트 뒤 `typeof navigator.share === "function"` 일 때만 렌더한다. 서버 렌더와 첫 페인트에는 없다.
+  지원하지 않는 브라우저(대부분의 데스크톱 Firefox 등)에서는 자리를 비워 두지 않고 버튼 네 개로 끝난다.
+- 줄이 오른쪽으로 자라는 방향이라 버튼이 나중에 붙어도 앞의 네 버튼과 아래 저자 카드의 위치는 바뀌지 않는다.
+
+**390px 폭**
+
+- 셸 `px-6` 를 빼면 내용 폭은 342px 이다. 버튼 다섯 개는 44 x 5 + 8 x 4 = 252px 라 **한 줄에 다 들어가고 줄바꿈하지 않는다.**
+  그래서 감싸개에 `flex-wrap` 을 붙이지 않는다. 버튼을 더하는 변경이 생기면 이 계산을 다시 한다(7개 = 356px 부터 넘친다).
+- 실패 문구는 342px 에서 두 줄로 접힐 수 있다. `min-h` 는 한 줄 높이만 잡으므로 실패 때에만 저자 카드가 20px 밀리는 것을 허용한다.
 
 ### 저자 카드
 
