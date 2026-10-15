@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import { findRedirect, getArticle, listRelated } from "@/lib/blog/queries";
-import { articleMetadata, jsonLdString } from "@/lib/blog/seo";
+import { articleMetadata, jsonLdString, postUrl } from "@/lib/blog/seo";
 import PostView from "../components/PostView";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -68,6 +68,7 @@ export default async function BlogPost({ params }: Props) {
         author={author}
         tags={tags}
         related={related}
+        shareUrl={postUrl(article.slug)}
       />
     </>
   );

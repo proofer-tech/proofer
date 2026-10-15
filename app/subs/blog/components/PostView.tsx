@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PmdBody } from "@/lib/blog/render";
 import { CARD, FOCUS_RING } from "../ui";
+import ShareBar from "./ShareBar";
 
 /** 글 화면 본문. DB 행이 아니라 이 모양의 데이터만 받아서 미리보기가 그대로 쓴다. */
 export type PostViewProps = {
@@ -31,6 +32,8 @@ export type PostViewProps = {
     subtitle: string;
     published_at: Date | string;
   }[];
+  /** 없으면 공유 줄을 그리지 않는다(미리보기). */
+  shareUrl?: string;
 };
 
 const fmt = (d: Date | string) =>
@@ -87,6 +90,7 @@ export default function PostView({
   author,
   tags,
   related = [],
+  shareUrl,
 }: PostViewProps) {
   // 원문이 Medium 에 남은 글에만 링크한다. canonical 이 블로그 자신인 회사 글은 숨긴다.
   const fromMedium =
@@ -170,6 +174,14 @@ export default function PostView({
             </li>
           ))}
         </ul>
+      )}
+
+      {shareUrl && (
+        <ShareBar
+          url={shareUrl}
+          title={f.title}
+          className={tags.length > 0 ? "mt-8" : "mt-12"}
+        />
       )}
 
       {author && (

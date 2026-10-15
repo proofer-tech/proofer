@@ -28,8 +28,9 @@ export type SeoArticle = {
 };
 
 const iso = (d: Date | string) => new Date(d).toISOString();
-const selfUrl = (a: SeoArticle) =>
-  `${BLOG_ORIGIN}/${encodeURIComponent(a.slug)}`;
+export const postUrl = (slug: string) =>
+  `${BLOG_ORIGIN}/${encodeURIComponent(slug)}`;
+const selfUrl = (a: SeoArticle) => postUrl(a.slug);
 const authorUrl = (slug: string) =>
   `${BLOG_ORIGIN}/author/${encodeURIComponent(slug)}`;
 

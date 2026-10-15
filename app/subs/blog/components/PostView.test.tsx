@@ -64,3 +64,19 @@ test("canonical 이 블로그 자신인 회사 글에는 Medium 링크가 없다
   );
   expect(out).not.toContain("Medium 에서 처음 발행");
 });
+
+test("shareUrl 이 있을 때만 공유 줄을 그린다(미리보기는 넘기지 않는다)", () => {
+  const props = {
+    frontmatter: { title: "t", published_at: "2026-10-01" },
+    body_md: "본문",
+    tags: [],
+  };
+  expect(renderToStaticMarkup(<PostView {...props} />)).not.toContain(
+    "이 글 공유하기",
+  );
+  const out = renderToStaticMarkup(
+    <PostView {...props} shareUrl="https://blog.proofer.tech/x" />,
+  );
+  expect(out).toContain("이 글 공유하기");
+  expect(out).not.toContain("공유하기</");
+});
