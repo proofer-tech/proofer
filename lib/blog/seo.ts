@@ -28,11 +28,17 @@ export type SeoArticle = {
 };
 
 const iso = (d: Date | string) => new Date(d).toISOString();
-export const postUrl = (slug: string) =>
-  `${BLOG_ORIGIN}/${encodeURIComponent(slug)}`;
+// DB slug 은 이미 percent 인코딩된 값일 수 있어, 한 번 풀고 다시 한 번만 인코딩한다.
+const enc = (slug: string) => {
+  try {
+    return encodeURIComponent(decodeURIComponent(slug));
+  } catch {
+    return encodeURIComponent(slug);
+  }
+};
+export const postUrl = (slug: string) => `${BLOG_ORIGIN}/${enc(slug)}`;
 const selfUrl = (a: SeoArticle) => postUrl(a.slug);
-const authorUrl = (slug: string) =>
-  `${BLOG_ORIGIN}/author/${encodeURIComponent(slug)}`;
+const authorUrl = (slug: string) => `${BLOG_ORIGIN}/author/${enc(slug)}`;
 
 /** 대표 이미지가 없으면 /og 가 제목과 저자로 그린다. */
 function ogImage(a: SeoArticle) {
@@ -100,7 +106,7 @@ export function articleJsonLd(a: SeoArticle) {
       ? [
           {
             name: tag.name,
-            url: `${BLOG_ORIGIN}/tag/${encodeURIComponent(tag.slug)}`,
+            url: `${BLOG_ORIGIN}/tag/${enc(tag.slug)}`,
           },
         ]
       : []),

@@ -64,7 +64,7 @@ export default function ShareBar({
   const links = [
     {
       label: "X에 공유 (새 탭)",
-      href: `https://twitter.com/intent/tweet?url=${u}&text=${encodeURIComponent(title)}`,
+      href: `https://x.com/intent/post?url=${u}&text=${encodeURIComponent(title)}`,
       Icon: IconBrandX,
     },
     {
