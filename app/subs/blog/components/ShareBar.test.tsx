@@ -34,7 +34,7 @@ test("intent 링크 href", () => {
   const u = encodeURIComponent(URL_);
   const href = (n: string) => screen.getByLabelText(n).getAttribute("href");
   expect(href("X에 공유 (새 탭)")).toBe(
-    `https://twitter.com/intent/tweet?url=${u}&text=a%20b`,
+    `https://x.com/intent/post?url=${u}&text=a%20b`,
   );
   expect(href("Facebook에 공유 (새 탭)")).toBe(
     `https://www.facebook.com/sharer/sharer.php?u=${u}`,
