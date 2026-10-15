@@ -225,12 +225,17 @@ Button Primary, CTA Big, Dock CTA, Layer 그림자와 reveal 애니메이션은 
 
 **감싸개**
 
-- `<div role="group" aria-label="이 글 공유하기">` + `flex items-center gap-2`. 화면에 보이는 라벨 글자는 두지 않는다.
+- `<div role="group" aria-label="이 글 공유하기">` + `flex items-center gap-[8px]`. 화면에 보이는 라벨 글자는 두지 않는다.
+  간격도 px 로 고정하는 이유는 아래 "버튼 모양" 의 rem 설명과 같다. 그래야 "390px 폭" 의 계산이 화면 폭과 무관하게 맞는다.
 - 버튼 순서: 링크 복사, X, Facebook, LinkedIn, 공유하기(기기 공유 시트).
 
 **버튼 모양 (다섯 개 공통)**
 
-- 원형 아이콘 버튼 44 x 44px(터치 대상 최소값): `inline-flex h-11 w-11 items-center justify-center rounded-full`
+- 원형 아이콘 버튼 44 x 44px(터치 대상 최소값): `inline-flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-full`
+  **크기는 rem 이 아니라 px 로 고정한다.** `app/globals.scss` 가 화면 폭에 따라 루트 글자 크기를 16px(기본), 15px(1024 이하),
+  14px(768 이하), 13px(512 이하), 12px(320 이하)로 낮추기 때문에, `h-11 w-11`(2.75rem)은 390 폭에서 35.75px,
+  320 폭에서 33px 로 줄어든다(3873564d 측정). 터치 대상이 가장 필요한 휴대폰 폭에서 44px 가 깨지므로 `h-11 w-11` 은 쓰지 않는다.
+  36px 를 수용하지 않는다: 이 버튼은 간격 8px 로 붙어 있는 다섯 개의 표적이라, 크기를 줄이면 옆 버튼을 잘못 누르는 일이 늘어난다.
   `border border-proofer-line bg-white text-proofer-menu-ink transition duration-200 ease-proofer`
   `hover:border-proofer-border-hover hover:bg-proofer-blue-soft hover:text-proofer-blue-deep` + 공통 포커스 링.
   호버는 3절 태그 칩과 같은 값이고, 상승과 그림자는 쓰지 않는다.
@@ -286,9 +291,11 @@ Button Primary, CTA Big, Dock CTA, Layer 그림자와 reveal 애니메이션은 
 
 **390px 폭**
 
-- 셸 `px-6` 를 빼면 내용 폭은 342px 이다. 버튼 다섯 개는 44 x 5 + 8 x 4 = 252px 라 **한 줄에 다 들어가고 줄바꿈하지 않는다.**
-  그래서 감싸개에 `flex-wrap` 을 붙이지 않는다. 버튼을 더하는 변경이 생기면 이 계산을 다시 한다(7개 = 356px 부터 넘친다).
-- 실패 문구는 342px 에서 두 줄로 접힐 수 있다. `min-h` 는 한 줄 높이만 잡으므로 실패 때에만 저자 카드가 20px 밀리는 것을 허용한다.
+- 셸 `px-6` 은 rem 이라 390 폭(루트 13px)에서 좌우 19.5px 이고, 내용 폭은 351px 이다. 가장 좁은 320 폭(루트 12px)에서는
+  좌우 18px, 내용 폭 284px 이다. 버튼과 간격은 px 고정이므로 다섯 개는 어느 폭에서나 44 x 5 + 8 x 4 = 252px 이고,
+  **두 폭 모두에서 한 줄에 다 들어가고 줄바꿈하지 않는다.** 그래서 감싸개에 `flex-wrap` 을 붙이지 않는다.
+- 버튼을 더하는 변경이 생기면 이 계산을 다시 한다. 6개 = 304px 부터 320 폭(284px)에서 넘치고, 7개 = 356px 는 390 폭(351px)에서도 넘친다.
+- 실패 문구는 351px 에서 두 줄로 접힐 수 있다. `min-h` 는 한 줄 높이만 잡으므로 실패 때에만 저자 카드가 20px 밀리는 것을 허용한다.
 
 ### 저자 카드
 
