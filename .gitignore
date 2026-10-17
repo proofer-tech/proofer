@@ -66,3 +66,6 @@ workbox-*.js.map
 
 # jest 환경 래퍼는 소스다
 !jest.env-*.cjs
+dira-team/apm_modules/
+dira-team/.claude/
+dira-team/.agents/

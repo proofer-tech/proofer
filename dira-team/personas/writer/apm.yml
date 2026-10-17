@@ -1,0 +1,9 @@
+name: persona-writer
+version: 1.0.0
+description: "dira persona writer"
+dependencies:
+  apm:
+    - ../../skills/marketing-ideas
+    - ../../skills/seo-audit
+    - ../../skills/write-landing
+    - ../../skills/marketing-psychology
