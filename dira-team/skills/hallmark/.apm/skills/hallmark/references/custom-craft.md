@@ -1,16 +1,16 @@
 # Custom craft — how to hand-build hero artwork
 
-This file is loaded only when an enrichment archetype requires construction (Tier A or B in [`hero-enrichment.md`](hero-enrichment.md)). It tells you _which technique_ to reach for at _which complexity tier_ — and what each looks like done well.
+This file is loaded only when an enrichment archetype requires construction (Tier A or B in [`hero-enrichment.md`](hero-enrichment.md)). It tells you *which technique* to reach for at *which complexity tier* — and what each looks like done well.
 
 **The principle.** Custom-built artwork is the design. Library-picked artwork is a shortcut, and a good audience reads it as one. The skill's job is to make custom-build the path of least resistance — by knowing when CSS alone suffices, when SVG is right, when JS-driven animation earns its bundle cost, and when (rarely) Three.js is justified.
 
-The 2026 canon is set by Lynn Fisher (_A Single Div_), Diana Smith (_Pure CSS Francine_ / _Lace_), Rauno Freiberg, Paco Coursey, Jhey Tompkins, and Adam Argyle. The thread: constraint-driven, hand-crafted, performance-respecting, accessibility-embedded. Use the platform; don't fight it.
+The 2026 canon is set by Lynn Fisher (*A Single Div*), Diana Smith (*Pure CSS Francine* / *Lace*), Rauno Freiberg, Paco Coursey, Jhey Tompkins, and Adam Argyle. The thread: constraint-driven, hand-crafted, performance-respecting, accessibility-embedded. Use the platform; don't fight it.
 
 ---
 
 ## Tier A · Pure CSS art
 
-**When.** Geometric forms, gradient compositions, glyph-style decoration. Bars, dots, badges, icons, simple loaves, sliced spheres, abstract logos. Anything that's _shapes plus colour_.
+**When.** Geometric forms, gradient compositions, glyph-style decoration. Bars, dots, badges, icons, simple loaves, sliced spheres, abstract logos. Anything that's *shapes plus colour*.
 
 **Effort:** high (mastering `clip-path` + `conic-gradient` takes practice).
 **Payoff:** very high (zero bytes, browser-native, infinitely scalable).
@@ -18,18 +18,18 @@ The 2026 canon is set by Lynn Fisher (_A Single Div_), Diana Smith (_Pure CSS Fr
 
 ### The CSS-art toolkit (2026)
 
-| Feature                                  | Use for                                                         | Browser support                        |
-| ---------------------------------------- | --------------------------------------------------------------- | -------------------------------------- |
-| `clip-path: polygon(…)`                  | Multi-sided shapes (chevrons, hexagons, custom blobs)           | 96 %+                                  |
-| `clip-path: path("M …")`                 | Curved hand-drawn outlines from an SVG path                     | 88 %+ (use feature query for fallback) |
-| `conic-gradient()`                       | Pie segments, radial dividers, mandalas, rotating colour wheels | 96 %+                                  |
-| `radial-gradient()`                      | Spheres, glow points, sun-burst centres                         | 100 %                                  |
-| `linear-gradient()` (multi-stop)         | Composite shapes via stacked stops                              | 100 %                                  |
-| `mask-image: url(…)`                     | Layered transparency, morphing shapes, text-clip effects        | 95 %+                                  |
-| `mix-blend-mode`                         | Compositional depth (multiply, overlay, screen)                 | 95 %+                                  |
-| `filter` (drop-shadow, blur, hue-rotate) | Soft shadows on irregular shapes (uses the alpha channel)       | 100 %                                  |
-| `@property`                              | Smoothly-interpolated custom properties (colour, length, angle) | 88 %+                                  |
-| `animation-timeline: scroll() / view()`  | Declarative scroll-linked motion, hardware-composited           | Baseline 2025 (88 %)                   |
+| Feature | Use for | Browser support |
+| --- | --- | --- |
+| `clip-path: polygon(…)` | Multi-sided shapes (chevrons, hexagons, custom blobs) | 96 %+ |
+| `clip-path: path("M …")` | Curved hand-drawn outlines from an SVG path | 88 %+ (use feature query for fallback) |
+| `conic-gradient()` | Pie segments, radial dividers, mandalas, rotating colour wheels | 96 %+ |
+| `radial-gradient()` | Spheres, glow points, sun-burst centres | 100 % |
+| `linear-gradient()` (multi-stop) | Composite shapes via stacked stops | 100 % |
+| `mask-image: url(…)` | Layered transparency, morphing shapes, text-clip effects | 95 %+ |
+| `mix-blend-mode` | Compositional depth (multiply, overlay, screen) | 95 %+ |
+| `filter` (drop-shadow, blur, hue-rotate) | Soft shadows on irregular shapes (uses the alpha channel) | 100 % |
+| `@property` | Smoothly-interpolated custom properties (colour, length, angle) | 88 %+ |
+| `animation-timeline: scroll() / view()` | Declarative scroll-linked motion, hardware-composited | Baseline 2025 (88 %) |
 
 ### A worked example — the bakery loaf as a single div
 
@@ -49,24 +49,9 @@ The 2026 canon is set by Lynn Fisher (_A Single Div_), Diana Smith (_Pure CSS Fr
   height: 7rem;
   background:
     /* crust ridges */
-    radial-gradient(
-      ellipse at 30% 70%,
-      transparent 1.2rem,
-      var(--color-ink-2) 1.21rem 1.3rem,
-      transparent 1.31rem
-    ),
-    radial-gradient(
-      ellipse at 50% 70%,
-      transparent 1.2rem,
-      var(--color-ink-2) 1.21rem 1.3rem,
-      transparent 1.31rem
-    ),
-    radial-gradient(
-      ellipse at 70% 70%,
-      transparent 1.2rem,
-      var(--color-ink-2) 1.21rem 1.3rem,
-      transparent 1.31rem
-    ),
+    radial-gradient(ellipse at 30% 70%, transparent 1.2rem, var(--color-ink-2) 1.21rem 1.3rem, transparent 1.31rem),
+    radial-gradient(ellipse at 50% 70%, transparent 1.2rem, var(--color-ink-2) 1.21rem 1.3rem, transparent 1.31rem),
+    radial-gradient(ellipse at 70% 70%, transparent 1.2rem, var(--color-ink-2) 1.21rem 1.3rem, transparent 1.31rem),
     /* loaf body */
     linear-gradient(180deg, oklch(78% 0.12 60), oklch(64% 0.16 50));
   border-radius: 50% 50% 14% 14% / 70% 70% 30% 30%;
@@ -76,20 +61,15 @@ The 2026 canon is set by Lynn Fisher (_A Single Div_), Diana Smith (_Pure CSS Fr
 }
 
 @keyframes rise {
-  to {
-    --rise: -4px;
-  } /* the breath: 4px over 6s, the loaf is alive */
+  to { --rise: -4px; }   /* the breath: 4px over 6s, the loaf is alive */
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .loaf {
-    animation: none;
-    --rise: 0px;
-  }
+  .loaf { animation: none; --rise: 0px; }
 }
 ```
 
-That's a hand-built bakery centerpiece in about 25 lines, no asset, animated, accessible. The next bakery brief Hallmark touches gets a _different_ loaf because the variation knobs change (rise distance, loaf curvature, crust-ridge spacing, colour stop).
+That's a hand-built bakery centerpiece in about 25 lines, no asset, animated, accessible. The next bakery brief Hallmark touches gets a *different* loaf because the variation knobs change (rise distance, loaf curvature, crust-ridge spacing, colour stop).
 
 ### Anti-patterns of CSS art
 
@@ -121,10 +101,7 @@ That's a hand-built bakery centerpiece in about 25 lines, no asset, animated, ac
 ```html
 <svg viewBox="0 0 200 100" class="loaf-svg" aria-label="A loaf of bread">
   <path class="loaf-body" d="M 20 70 Q 100 10 180 70 L 180 90 L 20 90 Z" />
-  <path
-    class="loaf-score"
-    d="M 60 50 L 90 30 M 100 45 L 130 25 M 140 50 L 165 35"
-  />
+  <path class="loaf-score" d="M 60 50 L 90 30 M 100 45 L 130 25 M 140 50 L 165 35" />
 </svg>
 ```
 
@@ -151,26 +128,12 @@ That's a hand-built bakery centerpiece in about 25 lines, no asset, animated, ac
   animation: score 1.6s 0.8s var(--ease-out) forwards;
 }
 
-@keyframes bake {
-  to {
-    transform: scaleY(calc(1 + var(--bake) * 0.005));
-    --bake: 1%;
-  }
-}
-@keyframes score {
-  to {
-    stroke-dasharray: 200 200;
-  }
-}
+@keyframes bake  { to { transform: scaleY(calc(1 + var(--bake) * 0.005)); --bake: 1%; } }
+@keyframes score { to { stroke-dasharray: 200 200; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .loaf-body,
-  .loaf-score {
-    animation: none;
-  }
-  .loaf-score {
-    stroke-dasharray: 200 200;
-  }
+  .loaf-body, .loaf-score { animation: none; }
+  .loaf-score { stroke-dasharray: 200 200; }
 }
 ```
 
@@ -178,14 +141,14 @@ The breath comes from `@property --bake` interpolating a percentage; the score-m
 
 ### Animation choices for SVG in 2026
 
-| Method                                       | When                                                                      | Verdict                                                                                                 |
-| -------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| **CSS keyframes on `<path d>`**              | Path-morphing where shapes have matching anchor counts                    | Use this. Composable with the rest of CSS, GPU-friendly.                                                |
-| **`@property` + animated CSS variables**     | Smoothly interpolated colour, length, angle, percentage                   | Use this. Declarative, predictable.                                                                     |
-| **CSS keyframes on `transform` / `opacity`** | Position, rotation, fade                                                  | Always. Hardware-accelerated, no layout thrash.                                                         |
-| **`stroke-dasharray` draw-on**               | Hand-drawn line illustrations that build themselves                       | Yes. Cheap and effective.                                                                               |
-| **SMIL `<animate>`**                         | Legacy SVG-only attribute animation                                       | Acceptable in 2026 but deprioritised — CSS is composable, SMIL isn't. Use only if CSS can't express it. |
-| **JS via Motion / GSAP**                     | Multi-element orchestrated entrances, scroll-scrubbing, complex timelines | Use when CSS isn't enough — see Tier C below.                                                           |
+| Method | When | Verdict |
+| --- | --- | --- |
+| **CSS keyframes on `<path d>`** | Path-morphing where shapes have matching anchor counts | Use this. Composable with the rest of CSS, GPU-friendly. |
+| **`@property` + animated CSS variables** | Smoothly interpolated colour, length, angle, percentage | Use this. Declarative, predictable. |
+| **CSS keyframes on `transform` / `opacity`** | Position, rotation, fade | Always. Hardware-accelerated, no layout thrash. |
+| **`stroke-dasharray` draw-on** | Hand-drawn line illustrations that build themselves | Yes. Cheap and effective. |
+| **SMIL `<animate>`** | Legacy SVG-only attribute animation | Acceptable in 2026 but deprioritised — CSS is composable, SMIL isn't. Use only if CSS can't express it. |
+| **JS via Motion / GSAP** | Multi-element orchestrated entrances, scroll-scrubbing, complex timelines | Use when CSS isn't enough — see Tier C below. |
 
 ### Anti-patterns of hand-built SVG
 
@@ -212,19 +175,13 @@ The 2026 declarative animation canon. Use the platform first; reach for JS only 
   inherits: false;
 }
 
-@keyframes spin-hue {
-  to {
-    --hue: 360deg;
-  }
-}
+@keyframes spin-hue { to { --hue: 360deg; } }
 
 .gradient-loop {
-  background: conic-gradient(
-    from var(--hue),
+  background: conic-gradient(from var(--hue),
     oklch(70% 0.2 var(--hue)),
     oklch(70% 0.2 calc(var(--hue) + 120deg)),
-    oklch(70% 0.2 calc(var(--hue) + 240deg))
-  );
+    oklch(70% 0.2 calc(var(--hue) + 240deg)));
   animation: spin-hue 8s linear infinite;
 }
 ```
@@ -245,14 +202,8 @@ That's a smoothly hue-rotating conic gradient. No JS, no library, GPU-composited
 }
 
 @keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 ```
 
@@ -264,9 +215,7 @@ Production-ready in 2026 (Baseline October 2025 for same-document; Chromium 126+
 
 ```js
 function applyTheme(theme) {
-  const apply = () => {
-    /* mutate the DOM */
-  };
+  const apply = () => { /* mutate the DOM */ };
   if (!reduced && document.startViewTransition) {
     document.startViewTransition(apply);
   } else {
@@ -279,13 +228,13 @@ The browser handles the cross-fade. No animation libraries needed for state chan
 
 ### Motion / GSAP / friends — when each earns its bundle
 
-| Library                                                           | When                                                                                                                                        | Bundle                                                        | Verdict                                                   |
-| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | --------------------------------------------------------- |
-| **[Motion](https://motion.dev)** (`motion/react`, `motion`)       | Orchestrated multi-element entrances in React (variants, `AnimatePresence`, viewport hooks). The default for React heroes in 2026.          | 4 KB base + 2 KB React = 6 KB. Web Animations API–backed.     | First reach for React.                                    |
+| Library | When | Bundle | Verdict |
+| --- | --- | --- | --- |
+| **[Motion](https://motion.dev)** (`motion/react`, `motion`) | Orchestrated multi-element entrances in React (variants, `AnimatePresence`, viewport hooks). The default for React heroes in 2026. | 4 KB base + 2 KB React = 6 KB. Web Animations API–backed. | First reach for React. |
 | **[GSAP](https://gsap.com)** (free since the Webflow partnership) | Ambitious timelines, scrub-on-scroll, SVG path-morphing across mismatched anchors. Hero sequences with 20+ elements, multi-step narratives. | ~50 KB core; 100 KB+ with plugins (ScrollTrigger, Draggable). | Worth it when timelines are core. Overkill for a fade-in. |
-| **AutoAnimate**                                                   | Trivial layout transitions in React (a list reflows, an element appears).                                                                   | 2 KB.                                                         | Fine for what it does.                                    |
-| **Anime.js v4**                                                   | Lightweight stagger, simple animations, vanilla JS.                                                                                         | ~15 KB.                                                       | Acceptable; less common than Motion in 2026.              |
-| **Theatre.js**                                                    | Visual editor + code API for ambitious orchestration. Niche but powerful.                                                                   | Heavy (~80 KB+).                                              | Single-page interactive art only.                         |
+| **AutoAnimate** | Trivial layout transitions in React (a list reflows, an element appears). | 2 KB. | Fine for what it does. |
+| **Anime.js v4** | Lightweight stagger, simple animations, vanilla JS. | ~15 KB. | Acceptable; less common than Motion in 2026. |
+| **Theatre.js** | Visual editor + code API for ambitious orchestration. Niche but powerful. | Heavy (~80 KB+). | Single-page interactive art only. |
 
 **The decision rule:**
 
@@ -306,26 +255,24 @@ Reaching for Motion for a single fade-in (4 KB for nothing) is the bundle-bloat 
 - **Linear easing on UI** (no subtlety; reads as "demo from a tutorial").
 - **Bouncy elastic on hero entrances** (`cubic-bezier(0.34, 1.56, …)` and friends) — reserved for genuine physical interactions like drag-release.
 - **Importing Motion or GSAP for one fade-in.** 50 KB for what `transition: opacity 400ms var(--ease-out)` does in zero bytes.
-- **Scroll-fade-everything.** Every section fading in on scroll. The page never settles. Pick one orchestrated entrance on first load and let the rest _be there_.
+- **Scroll-fade-everything.** Every section fading in on scroll. The page never settles. Pick one orchestrated entrance on first load and let the rest *be there*.
 - **Reveal animations with no `prefers-reduced-motion` fallback.** Every transform / animation must be guarded.
 
 ---
 
 ## Tier D · Three.js / WebGL / shaders
 
-**When justified.** The 3D _is_ the hero value — a rotating product the user can interact with, an interactive 3D playground, a generative art piece. Examples: Apple's product pages with interactive bottles / iPhones, Bruno Simon's portfolio, Vercel's WebGL hero galleries.
+**When justified.** The 3D *is* the hero value — a rotating product the user can interact with, an interactive 3D playground, a generative art piece. Examples: Apple's product pages with interactive bottles / iPhones, Bruno Simon's portfolio, Vercel's WebGL hero galleries.
 
 **When not.** A static spinning thing the user can't interact with. A bloom-overdosed shader background that "looks premium". A 5-MB model loaded eagerly on a marketing page.
 
 **Performance budget.**
-
 - < 100 draw calls
 - < 2 MB JS + assets total
 - < 6 s load time
 - 60 fps target on mid-range mobile
 
 **Stack.**
-
 - React Three Fiber (R3F) for React projects — ergonomic, ~30 KB on top of Three.js
 - Vanilla [Three.js](https://threejs.org) otherwise (~100–300 KB depending on features)
 - Models: glTF 2.0 with Draco compression (20–50 % size reduction)
@@ -347,12 +294,12 @@ Reaching for Motion for a single fade-in (4 KB for nothing) is the bundle-bloat 
 
 When characters or specific scenes are needed and hand-build is uneconomical (the brief calls for a small mascot in five poses; the agency is selling a thing that needs an evocative atmospheric still).
 
-| Model                                                                                               | Cost           | Best for                                                                                                                         | Output                                            |
-| --------------------------------------------------------------------------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| Model | Cost | Best for | Output |
+| --- | --- | --- | --- |
 | **[Nanobanana 2 / Gemini 2.5 Flash Image](https://ai.google.dev/gemini-api/docs/image-generation)** | $0.039 / image | Character consistency across multiple panels, fast iteration, brand-style adherence via reference images, infographics with text | PNG (transparent supported); no SVG, no animation |
-| **[Recraft V4](https://www.recraft.ai/)**                                                           | ~$0.04 / image | **The only mainstream model with production-grade SVG output.** Logos, icons, illustrations that need to live in code and scale. | SVG + PNG                                         |
-| **[Midjourney v8](https://www.midjourney.com)**                                                     | ~$0.14 / image | Aesthetic beauty, artistic direction, atmospheric stills                                                                         | PNG                                               |
-| **[Flux 2](https://blackforestlabs.ai/)**                                                           | ~$0.03 / image | Photorealism, skin / fabric / product detail                                                                                     | PNG                                               |
+| **[Recraft V4](https://www.recraft.ai/)** | ~$0.04 / image | **The only mainstream model with production-grade SVG output.** Logos, icons, illustrations that need to live in code and scale. | SVG + PNG |
+| **[Midjourney v8](https://www.midjourney.com)** | ~$0.14 / image | Aesthetic beauty, artistic direction, atmospheric stills | PNG |
+| **[Flux 2](https://blackforestlabs.ai/)** | ~$0.03 / image | Photorealism, skin / fabric / product detail | PNG |
 
 ### Discipline when generating
 
@@ -381,7 +328,6 @@ When budget and timeline force a shortcut. The catalogue is in [`assets.md`](ass
 ### Lottie specifically — last resort
 
 **Use Lottie only when:**
-
 - The motion is character-articulated (a five-frame mascot wave, a multi-joint walking cycle) and CSS / SVG can't reasonably express it
 - You have a custom-commissioned Lottie that matches your brand
 - File is < 2 MB
@@ -389,7 +335,6 @@ When budget and timeline force a shortcut. The catalogue is in [`assets.md`](ass
 - `prefers-reduced-motion` fallback is a static keyframe
 
 **Don't use Lottie for:**
-
 - Spinning logo loops — use CSS `@keyframes rotate`
 - Checkmark-draw confirmations — use SVG `stroke-dasharray`
 - Loading spinners — use CSS conic-gradient + rotate
@@ -421,13 +366,13 @@ A 60-line SVG of a single loaf, three paths (crust + crumb + scoring marks), pos
  */
 ```
 
-The next bakery brief Hallmark touches gets a _different_ loaf — different curvature, different rise distance, different score pattern, possibly a different illustration entirely (a sourdough boule vs. a baguette vs. a flatbread). The variation knobs in [`hero-enrichment.md`](hero-enrichment.md) make sure of it.
+The next bakery brief Hallmark touches gets a *different* loaf — different curvature, different rise distance, different score pattern, possibly a different illustration entirely (a sourdough boule vs. a baguette vs. a flatbread). The variation knobs in [`hero-enrichment.md`](hero-enrichment.md) make sure of it.
 
 ---
 
 ## Recipe library
 
-The bakery loaf above is one worked example. This library catalogues four more — each a small, complete, copy-paste-able recipe at Tier A or Tier B. Use them when the brief calls for the named subject; otherwise treat them as _technique references_ (the workflow diagram's `stroke-dashoffset` flow is reusable; the mascot's blink-loop is reusable; etc.).
+The bakery loaf above is one worked example. This library catalogues four more — each a small, complete, copy-paste-able recipe at Tier A or Tier B. Use them when the brief calls for the named subject; otherwise treat them as *technique references* (the workflow diagram's `stroke-dashoffset` flow is reusable; the mascot's blink-loop is reusable; etc.).
 
 Each recipe ships with: a one-line description, full code, a "use when / avoid when" note, a `prefers-reduced-motion` fallback block, and a real-world inspiration line.
 
@@ -436,51 +381,27 @@ Each recipe ships with: a one-line description, full code, a "use when / avoid w
 Three labelled boxes connected by curved arrows. Slight asymmetric rotation (-1° on box one, +0.5° on box three) for hand-drawn feel. One arrow has an animated `stroke-dashoffset` flow suggesting data movement. Use case: feature page showing data flow, decision tree, or user journey steps.
 
 ```html
-<svg
-  class="flow"
-  viewBox="0 0 720 200"
-  role="img"
-  aria-label="Data flow: input, process, output"
->
+<svg class="flow" viewBox="0 0 720 200" role="img" aria-label="Data flow: input, process, output">
   <defs>
-    <marker
-      id="flow-arrow"
-      markerWidth="10"
-      markerHeight="10"
-      refX="8"
-      refY="3"
-      orient="auto"
-    >
+    <marker id="flow-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
       <path d="M0,0 L8,3 L0,6" fill="currentColor" />
     </marker>
   </defs>
 
   <g class="flow__step flow__step--a">
-    <rect class="flow__box" x="20" y="55" width="160" height="90" rx="0" />
+    <rect class="flow__box" x="20"  y="55" width="160" height="90" rx="0" />
     <text class="flow__label" x="100" y="105" text-anchor="middle">Input</text>
   </g>
 
-  <path
-    class="flow__arrow flow__arrow--live"
-    d="M 180 100 Q 220 80 260 100"
-    marker-end="url(#flow-arrow)"
-  />
+  <path class="flow__arrow flow__arrow--live" d="M 180 100 Q 220 80 260 100" marker-end="url(#flow-arrow)" />
 
   <g class="flow__step">
     <rect class="flow__box" x="260" y="55" width="200" height="90" rx="0" />
-    <text class="flow__label" x="360" y="100" text-anchor="middle">
-      Parse + Filter
-    </text>
-    <text class="flow__sub" x="360" y="118" text-anchor="middle">
-      small predicate language
-    </text>
+    <text class="flow__label" x="360" y="100" text-anchor="middle">Parse + Filter</text>
+    <text class="flow__sub"   x="360" y="118" text-anchor="middle">small predicate language</text>
   </g>
 
-  <path
-    class="flow__arrow"
-    d="M 460 100 Q 500 120 540 100"
-    marker-end="url(#flow-arrow)"
-  />
+  <path class="flow__arrow" d="M 460 100 Q 500 120 540 100" marker-end="url(#flow-arrow)" />
 
   <g class="flow__step flow__step--c">
     <rect class="flow__box" x="540" y="55" width="160" height="90" rx="0" />
@@ -496,75 +417,35 @@ Three labelled boxes connected by curved arrows. Slight asymmetric rotation (-1�
   inherits: false;
 }
 
-.flow {
-  width: 100%;
-  max-width: 48rem;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  color: var(--color-ink);
-}
-.flow__box {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-}
-.flow__label {
-  font-family: var(--font-display);
-  font-size: 16px;
-  fill: var(--color-ink);
-}
-.flow__sub {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  fill: var(--color-muted);
-}
-.flow__step--a {
-  transform: rotate(-1deg);
-  transform-origin: 100px 100px;
-}
-.flow__step--c {
-  transform: rotate(0.5deg);
-  transform-origin: 620px 100px;
-}
-.flow__arrow {
-  fill: none;
-  stroke: var(--color-muted);
-  stroke-width: 1.5;
-  stroke-linecap: round;
-}
+.flow { width: 100%; max-width: 48rem; height: auto; display: block; margin: 0 auto; color: var(--color-ink); }
+.flow__box   { fill: none; stroke: currentColor; stroke-width: 1.5; }
+.flow__label { font-family: var(--font-display); font-size: 16px; fill: var(--color-ink); }
+.flow__sub   { font-family: var(--font-mono); font-size: 11px; fill: var(--color-muted); }
+.flow__step--a { transform: rotate(-1deg); transform-origin: 100px 100px; }
+.flow__step--c { transform: rotate(0.5deg); transform-origin: 620px 100px; }
+.flow__arrow { fill: none; stroke: var(--color-muted); stroke-width: 1.5; stroke-linecap: round; }
 .flow__arrow--live {
   stroke: var(--color-accent);
   stroke-dasharray: 6 6;
   animation: flow 2.4s linear infinite;
 }
-@keyframes flow {
-  to {
-    stroke-dashoffset: -24;
-  }
-}
+@keyframes flow { to { stroke-dashoffset: -24; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .flow__arrow--live {
-    animation: none;
-    stroke-dasharray: 0;
-  }
+  .flow__arrow--live { animation: none; stroke-dasharray: 0; }
 }
 ```
 
 **Use when** the brief is "show the user how data flows" — feature page, docs landing, technical-narrative section. **Avoid when** the diagram has more than five nodes (use Mermaid or a real graph layout) or when relationships are non-linear (this recipe assumes left-to-right flow).
 
-_Inspiration:_ Lynn Fisher's `lynnandtonic.com` `<rect>`-rotation experiments; Rauno Freiberg's `stroke-dashoffset` flows on rauno.me.
+*Inspiration:* Lynn Fisher's `lynnandtonic.com` `<rect>`-rotation experiments; Rauno Freiberg's `stroke-dashoffset` flows on rauno.me.
 
 ### Recipe 2 · Minimal-line mascot
 
 A small SVG character — face only, ~120 × 120 px — that has personality without anthropomorphic uncanny-valley risk. Two ellipse eyes (with `@keyframes blink` 3s loop), a single quadratic-curve mouth, and two stem accents (hair / hat / horns / antennae). Pairs beside text.
 
 ```html
-<figure
-  class="mascot"
-  aria-label="The Hallmark mascot — a face with two eyes and a small smile"
->
+<figure class="mascot" aria-label="The Hallmark mascot — a face with two eyes and a small smile">
   <svg viewBox="0 0 120 130" class="mascot__svg">
     <circle class="mascot__head" cx="60" cy="60" r="42" />
 
@@ -580,125 +461,59 @@ A small SVG character — face only, ~120 × 120 px — that has personality wit
 ```
 
 ```css
-.mascot {
-  display: inline-block;
-  width: 80px;
-  height: 86px;
-  margin: 0;
-  vertical-align: -8px;
-}
-.mascot__svg {
-  width: 100%;
-  height: 100%;
-  color: var(--color-ink);
-}
-.mascot__head {
-  fill: color-mix(in oklch, var(--color-paper-2) 100%, var(--color-accent) 6%);
-  stroke: var(--color-ink);
-  stroke-width: 2;
-}
-.mascot__eye {
-  fill: var(--color-ink);
-  animation: blink 5s ease-in-out infinite;
-}
-.mascot__eye--r {
-  animation-delay: 80ms;
-} /* one eye lags slightly — feels organic */
+.mascot { display: inline-block; width: 80px; height: 86px; margin: 0; vertical-align: -8px; }
+.mascot__svg { width: 100%; height: 100%; color: var(--color-ink); }
+.mascot__head { fill: color-mix(in oklch, var(--color-paper-2) 100%, var(--color-accent) 6%); stroke: var(--color-ink); stroke-width: 2; }
+.mascot__eye  { fill: var(--color-ink); animation: blink 5s ease-in-out infinite; }
+.mascot__eye--r { animation-delay: 80ms; }   /* one eye lags slightly — feels organic */
 @keyframes blink {
-  0%,
-  8%,
-  92%,
-  100% {
-    ry: 6px;
-  }
-  12%,
-  14% {
-    ry: 0.8px;
-  }
+  0%, 8%, 92%, 100% { ry: 6px; }
+  12%, 14%          { ry: 0.8px; }
 }
-.mascot__mouth {
-  fill: none;
-  stroke: var(--color-ink);
-  stroke-width: 1.6;
-  stroke-linecap: round;
-}
-.mascot__accent {
-  fill: none;
-  stroke: var(--color-accent);
-  stroke-width: 1.2;
-  opacity: 0.6;
-  stroke-linecap: round;
-}
+.mascot__mouth { fill: none; stroke: var(--color-ink); stroke-width: 1.6; stroke-linecap: round; }
+.mascot__accent { fill: none; stroke: var(--color-accent); stroke-width: 1.2; opacity: 0.6; stroke-linecap: round; }
 
 @media (hover: hover) and (pointer: fine) {
-  .mascot:hover .mascot__head {
-    fill: color-mix(
-      in oklch,
-      var(--color-paper-2) 100%,
-      var(--color-accent) 12%
-    );
-    transition: fill 240ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
+  .mascot:hover .mascot__head { fill: color-mix(in oklch, var(--color-paper-2) 100%, var(--color-accent) 12%); transition: fill 240ms cubic-bezier(0.16, 1, 0.3, 1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mascot__eye {
-    animation: none;
-  }
+  .mascot__eye { animation: none; }
 }
 ```
 
 **Use when** a small product / studio / indie brand needs personality without the uncanny-valley risk of a generated character. **Avoid when** the mascot needs to be expressive across many states (use Rive instead — the @property route is for simple loops, not articulated emotion).
 
-_Inspiration:_ Are.na's reductive-aesthetic site mark; the Mailchimp Freddie family (single-colour confidence); Diana Smith's CSS-art portrait constraints.
+*Inspiration:* Are.na's reductive-aesthetic site mark; the Mailchimp Freddie family (single-colour confidence); Diana Smith's CSS-art portrait constraints.
 
 ### Recipe 3 · Three-tier architectural diagram
 
 Browser → API → Database, drawn at ~16/9 with three labelled boxes and animated `stroke-dasharray` flow lines using `@property --flow-offset`. The data-flow lines pulse to suggest live traffic. Use case: a developer-tool landing page showing where the product fits in the stack.
 
 ```html
-<svg
-  class="arch"
-  viewBox="0 0 320 180"
-  role="img"
-  aria-label="Three-tier architecture: browser, API, database"
->
+<svg class="arch" viewBox="0 0 320 180" role="img" aria-label="Three-tier architecture: browser, API, database">
   <g class="arch__tier">
-    <rect x="14" y="50" width="76" height="80" />
-    <text x="52" y="86" text-anchor="middle" class="arch__name">Browser</text>
-    <text x="52" y="104" text-anchor="middle" class="arch__sub">
-      React / Next
-    </text>
+    <rect x="14"  y="50" width="76" height="80" />
+    <text x="52"  y="86" text-anchor="middle" class="arch__name">Browser</text>
+    <text x="52"  y="104" text-anchor="middle" class="arch__sub">React / Next</text>
   </g>
 
-  <line class="arch__flow" x1="90" y1="90" x2="120" y2="90" />
-  <text class="arch__hop" x="105" y="80" text-anchor="middle">
-    HTTPS · OTLP
-  </text>
+  <line class="arch__flow" x1="90"  y1="90" x2="120" y2="90" />
+  <text class="arch__hop"  x="105"  y="80" text-anchor="middle">HTTPS · OTLP</text>
 
   <g class="arch__tier arch__tier--mid">
     <rect x="120" y="50" width="80" height="80" />
     <text x="160" y="86" text-anchor="middle" class="arch__name">API</text>
-    <text x="160" y="104" text-anchor="middle" class="arch__sub">
-      Edge runtime
-    </text>
+    <text x="160" y="104" text-anchor="middle" class="arch__sub">Edge runtime</text>
   </g>
 
-  <line
-    class="arch__flow arch__flow--reverse"
-    x1="200"
-    y1="90"
-    x2="230"
-    y2="90"
-  />
-  <text class="arch__hop" x="215" y="80" text-anchor="middle">SQL · gRPC</text>
+  <line class="arch__flow arch__flow--reverse" x1="200" y1="90" x2="230" y2="90" />
+  <text class="arch__hop"  x="215"  y="80" text-anchor="middle">SQL · gRPC</text>
 
   <g class="arch__tier">
     <rect x="230" y="50" width="76" height="80" />
     <text x="268" y="86" text-anchor="middle" class="arch__name">Database</text>
-    <text x="268" y="104" text-anchor="middle" class="arch__sub">
-      Postgres + vec
-    </text>
+    <text x="268" y="104" text-anchor="middle" class="arch__sub">Postgres + vec</text>
   </g>
 </svg>
 ```
@@ -710,14 +525,7 @@ Browser → API → Database, drawn at ~16/9 with three labelled boxes and anima
   inherits: false;
 }
 
-.arch {
-  width: 100%;
-  max-width: 48rem;
-  height: auto;
-  color: var(--color-ink);
-  display: block;
-  margin: 0 auto;
-}
+.arch { width: 100%; max-width: 48rem; height: auto; color: var(--color-ink); display: block; margin: 0 auto; }
 
 .arch__tier rect {
   fill: var(--color-paper-2);
@@ -729,23 +537,9 @@ Browser → API → Database, drawn at ~16/9 with three labelled boxes and anima
   stroke: color-mix(in oklch, var(--color-accent) 60%, var(--color-ink));
 }
 
-.arch__name {
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 500;
-  fill: var(--color-ink);
-}
-.arch__sub {
-  font-family: var(--font-mono);
-  font-size: 8px;
-  fill: var(--color-muted);
-}
-.arch__hop {
-  font-family: var(--font-mono);
-  font-size: 7px;
-  fill: var(--color-muted);
-  letter-spacing: 0.04em;
-}
+.arch__name { font-family: var(--font-display); font-size: 11px; font-weight: 500; fill: var(--color-ink); }
+.arch__sub  { font-family: var(--font-mono);    font-size: 8px;  fill: var(--color-muted); }
+.arch__hop  { font-family: var(--font-mono);    font-size: 7px;  fill: var(--color-muted); letter-spacing: 0.04em; }
 
 .arch__flow {
   stroke: var(--color-accent);
@@ -754,26 +548,17 @@ Browser → API → Database, drawn at ~16/9 with three labelled boxes and anima
   stroke-dasharray: 4 4;
   animation: arch-flow 1.6s linear infinite;
 }
-.arch__flow--reverse {
-  animation-direction: reverse;
-}
-@keyframes arch-flow {
-  to {
-    stroke-dashoffset: -8;
-  }
-}
+.arch__flow--reverse { animation-direction: reverse; }
+@keyframes arch-flow { to { stroke-dashoffset: -8; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .arch__flow {
-    animation: none;
-    stroke-dasharray: 0;
-  }
+  .arch__flow { animation: none; stroke-dasharray: 0; }
 }
 ```
 
 **Use when** the brief is a developer-facing product that needs to show its position in a stack — observability tools, edge functions, ORMs, ingestion services. **Avoid when** the architecture has more than five tiers or non-linear topology (this recipe is for the "three-box flow" model only; for graph-like topologies, use a real diagram tool and embed an SVG export).
 
-_Inspiration:_ Vercel's network/edge diagrams; Diana Smith's structural precision in placing geometry.
+*Inspiration:* Vercel's network/edge diagrams; Diana Smith's structural precision in placing geometry.
 
 ### Recipe 4 · Botanical leaf flourish
 
@@ -784,13 +569,13 @@ A small (~40 × 80 px) hand-drawn sprig with two asymmetric leaves at +25° and 
   <path class="sprig__stem" d="M 20 76 Q 18 56 21 36 Q 22 22 20 8" />
 
   <g transform="translate(8 38) rotate(-25)">
-    <ellipse class="sprig__leaf" cx="0" cy="0" rx="6" ry="11" />
-    <path class="sprig__vein" d="M 0 -10 Q 1 0 0 10" />
+    <ellipse class="sprig__leaf"  cx="0" cy="0" rx="6" ry="11" />
+    <path     class="sprig__vein" d="M 0 -10 Q 1 0 0 10" />
   </g>
 
   <g transform="translate(28 52) rotate(30)">
-    <ellipse class="sprig__leaf" cx="0" cy="0" rx="6" ry="11" />
-    <path class="sprig__vein" d="M 0 -10 Q -1 0 0 10" />
+    <ellipse class="sprig__leaf"  cx="0" cy="0" rx="6" ry="11" />
+    <path     class="sprig__vein" d="M 0 -10 Q -1 0 0 10" />
   </g>
 
   <path class="sprig__stem" d="M 20 22 Q 16 19 13 22" />
@@ -807,36 +592,17 @@ A small (~40 × 80 px) hand-drawn sprig with two asymmetric leaves at +25° and 
   color: var(--color-accent);
 }
 
-.sprig__stem {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.4;
-  stroke-linecap: round;
-}
-.sprig__leaf {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.4;
-}
-.sprig__vein {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 0.9;
-  opacity: 0.6;
-  stroke-linecap: round;
-}
+.sprig__stem  { fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; }
+.sprig__leaf  { fill: none; stroke: currentColor; stroke-width: 1.4; }
+.sprig__vein  { fill: none; stroke: currentColor; stroke-width: 0.9; opacity: 0.6; stroke-linecap: round; }
 
 /* Use beside a headline */
-h1.has-flourish {
-  display: flex;
-  align-items: baseline;
-  gap: 0.4em;
-}
+h1.has-flourish { display: flex; align-items: baseline; gap: 0.4em; }
 ```
 
-**Use when** the brief is a bakery, restaurant, café, boutique, herbalist, florist, atelier — anything where a hand-drawn signal of _care_ fits the brand. **Avoid when** the brand is technical, brutalist, or quietly austere (the sprig adds warmth where the page wants restraint).
+**Use when** the brief is a bakery, restaurant, café, boutique, herbalist, florist, atelier — anything where a hand-drawn signal of *care* fits the brand. **Avoid when** the brand is technical, brutalist, or quietly austere (the sprig adds warmth where the page wants restraint).
 
-_Inspiration:_ hand-drawn botanical assets in old broadsheet papers; restaurant menus from Lisbon and Tokyo; Lynn Fisher's constraint-driven simplicity (this recipe could have been _A Single Div_ with cleverer clip-paths, but SVG is more legible at small scale).
+*Inspiration:* hand-drawn botanical assets in old broadsheet papers; restaurant menus from Lisbon and Tokyo; Lynn Fisher's constraint-driven simplicity (this recipe could have been *A Single Div* with cleverer clip-paths, but SVG is more legible at small scale).
 
 ---
 
@@ -849,7 +615,7 @@ What all four recipes share — the four habits of hand-built CSS/SVG illustrati
 3. **Opacity layering for pencil/secondary detail.** The workflow's reverse arrow is `var(--color-muted)`; the architectural sub-labels are 60% opacity; the sprig veins are 0.6 opacity. The hierarchy of opacity is the hierarchy of attention.
 4. **Mono labels grounding decorative work in function.** The architectural diagram's `arch__sub` text uses `var(--font-mono)` at 8 px. The workflow's "small predicate language" uses mono. Decorative work earns its place by being legible and accurate; mono signals that.
 
-Use these recipes verbatim when they fit, or strip them for technique when the brief calls for something different. The point is that _every illustration on a Hallmark page is built, not picked._
+Use these recipes verbatim when they fit, or strip them for technique when the brief calls for something different. The point is that *every illustration on a Hallmark page is built, not picked.*
 
 - **Reaching for Lottie when CSS would do.** The new tell. Build the loaf in pure CSS or hand-built SVG; the Lottie is the shortcut that costs you.
 - **Importing 50 KB of GSAP for a single fade-in.** Use `transition: opacity 400ms var(--ease-out)`. Zero bytes.

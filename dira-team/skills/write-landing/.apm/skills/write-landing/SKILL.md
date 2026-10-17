@@ -13,16 +13,16 @@ You are an expert conversion copywriter and landing page strategist. Create comp
 
 Before writing, understand:
 
-| Question                                                          | Why it matters               |
-| ----------------------------------------------------------------- | ---------------------------- |
-| **Product/Service:** What are you selling?                        | Core messaging foundation    |
-| **Target audience:** Who is the ideal customer?                   | Voice, pain points, language |
-| **Primary goal:** What action should visitors take?               | CTA optimization             |
-| **Traffic source:** How will people arrive? (Ads, organic, email) | Message match                |
-| **Price point:** How much does it cost?                           | Objection handling depth     |
-| **Key differentiator:** Why you over competitors?                 | USP positioning              |
-| **Proof points:** Testimonials, case studies, metrics?            | Social proof section         |
-| **Existing brand voice:** Formal, casual, technical?              | Tone consistency             |
+| Question | Why it matters |
+|----------|---------------|
+| **Product/Service:** What are you selling? | Core messaging foundation |
+| **Target audience:** Who is the ideal customer? | Voice, pain points, language |
+| **Primary goal:** What action should visitors take? | CTA optimization |
+| **Traffic source:** How will people arrive? (Ads, organic, email) | Message match |
+| **Price point:** How much does it cost? | Objection handling depth |
+| **Key differentiator:** Why you over competitors? | USP positioning |
+| **Proof points:** Testimonials, case studies, metrics? | Social proof section |
+| **Existing brand voice:** Formal, casual, technical? | Tone consistency |
 
 If the user doesn't provide all of these, ask for the critical ones (product, audience, goal) and make reasonable assumptions for the rest.
 
@@ -31,9 +31,7 @@ If the user doesn't provide all of these, ask for the critical ones (product, au
 Select the right framework based on the product type and traffic temperature:
 
 #### Framework A: PAS (Problem-Agitation-Solution)
-
 **Best for:** Cold traffic, awareness stage, complex problems
-
 ```
 Hero (Problem statement)
   -> Agitate (Consequences of not solving)
@@ -44,9 +42,7 @@ Hero (Problem statement)
 ```
 
 #### Framework B: AIDA (Attention-Interest-Desire-Action)
-
 **Best for:** Warm traffic, known product category
-
 ```
 Hero (Attention-grabbing headline)
   -> Interest (Key features and hook)
@@ -55,9 +51,7 @@ Hero (Attention-grabbing headline)
 ```
 
 #### Framework C: Before-After-Bridge
-
 **Best for:** Transformation products (SaaS, courses, coaching)
-
 ```
 Hero (Before: current painful state)
   -> After (Vision of success)
@@ -68,9 +62,7 @@ Hero (Before: current painful state)
 ```
 
 #### Framework D: Feature-Benefit Grid
-
 **Best for:** Technical products, SaaS, feature-rich tools
-
 ```
 Hero (Bold promise)
   -> Feature-benefit grid
@@ -89,17 +81,16 @@ The hero section has 5 seconds to hook the visitor. Every word must earn its pla
 
 **Headline formula (H1):**
 
-| Formula                                        | When to use                           | Example                                         |
-| ---------------------------------------------- | ------------------------------------- | ----------------------------------------------- |
-| `{End result} without {Pain point}`            | When eliminating a known pain         | "Build your website without writing code"       |
-| `{Action verb} your {metric} by {amount}`      | When you have proven results          | "Double your email open rates in 30 days"       |
-| `The {adjective} way to {desired outcome}`     | When the method is the differentiator | "The fastest way to deploy full-stack apps"     |
-| `{Desired outcome} for {audience}`             | When audience-specific                | "Enterprise-grade security for startups"        |
-| `Stop {pain}. Start {benefit}.`                | When the problem is acute             | "Stop losing leads. Start closing deals."       |
-| `{Number} {people} use {product} to {outcome}` | When you have social proof scale      | "50,000 marketers use Buffer to grow on social" |
+| Formula | When to use | Example |
+|---------|------------|---------|
+| `{End result} without {Pain point}` | When eliminating a known pain | "Build your website without writing code" |
+| `{Action verb} your {metric} by {amount}` | When you have proven results | "Double your email open rates in 30 days" |
+| `The {adjective} way to {desired outcome}` | When the method is the differentiator | "The fastest way to deploy full-stack apps" |
+| `{Desired outcome} for {audience}` | When audience-specific | "Enterprise-grade security for startups" |
+| `Stop {pain}. Start {benefit}.` | When the problem is acute | "Stop losing leads. Start closing deals." |
+| `{Number} {people} use {product} to {outcome}` | When you have social proof scale | "50,000 marketers use Buffer to grow on social" |
 
 **Headline rules:**
-
 - Max 10 words (6-8 is ideal)
 - Specific > vague ("50% faster" > "blazing fast")
 - Benefit > feature ("Save 10 hours/week" > "AI-powered automation")
@@ -107,31 +98,25 @@ The hero section has 5 seconds to hook the visitor. Every word must earn its pla
 
 **Subheadline (H2):**
 Expand on the headline with specifics. Formula:
-
 ```
 {Product} helps {audience} {achieve outcome} by {mechanism/method}. {Proof point or time frame}.
 ```
-
 Example: "Acme helps SaaS teams automate their deployment pipeline with one-click CI/CD. Ship 10x faster from day one."
 
 **CTA Button:**
-
 - Use first-person: "Start my free trial" > "Start your free trial"
 - Action-oriented: "Get started free" > "Submit" > "Sign up"
 - Add micro-copy below: "No credit card required. Free for 14 days."
 - Button color should contrast with background (high contrast = more clicks)
 
 **Supporting element (choose one):**
-
 - Product screenshot or demo video
 - Key metric ("Trusted by 10,000+ companies")
 - Logo bar of notable customers
 - Short demo GIF
 
 ```tsx
-{
-  /* Hero Section */
-}
+{/* Hero Section */}
 <section className="relative bg-white pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-32 lg:pb-28">
   <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div className="mx-auto max-w-2xl text-center lg:max-w-4xl">
@@ -152,16 +137,10 @@ Example: "Acme helps SaaS teams automate their deployment pipeline with one-clic
 
       {/* CTA Group */}
       <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-        <a
-          href="#"
-          className="rounded-lg bg-indigo-600 px-8 py-4 text-base font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
+        <a href="#" className="rounded-lg bg-indigo-600 px-8 py-4 text-base font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
           {primaryCTA}
         </a>
-        <a
-          href="#"
-          className="text-base font-semibold text-gray-900 hover:text-gray-700"
-        >
+        <a href="#" className="text-base font-semibold text-gray-900 hover:text-gray-700">
           {secondaryCTA} <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
@@ -179,7 +158,7 @@ Example: "Acme helps SaaS teams automate their deployment pipeline with one-clic
       </div>
     </div>
   </div>
-</section>;
+</section>
 ```
 
 ---
@@ -197,7 +176,9 @@ Make the reader feel understood. Describe their current situation precisely.
       <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
         {problem_headline}
       </h2>
-      <p className="mt-4 text-lg text-gray-600">{problem_description}</p>
+      <p className="mt-4 text-lg text-gray-600">
+        {problem_description}
+      </p>
     </div>
 
     <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -215,14 +196,12 @@ Make the reader feel understood. Describe their current situation precisely.
 ```
 
 **Pain point formula:**
-
 ```
 Title: "{Frustrating situation}"
 Description: "You {specific scenario}. But {consequence}. And {escalation}."
 ```
 
 Example:
-
 - Title: "Deployment takes hours, not minutes"
 - Description: "You push code and wait. Build fails. Fix it. Wait again. By the time it's live, the bug report queue has doubled. And your weekend is gone."
 
@@ -252,9 +231,7 @@ Transition from pain to solution. Show the product as the bridge.
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 font-bold text-xl">
             {i + 1}
           </div>
-          <h3 className="mt-6 text-xl font-semibold text-gray-900">
-            {step.title}
-          </h3>
+          <h3 className="mt-6 text-xl font-semibold text-gray-900">{step.title}</h3>
           <p className="mt-4 text-gray-600">{step.description}</p>
         </div>
       ))}
@@ -264,7 +241,6 @@ Transition from pain to solution. Show the product as the bridge.
 ```
 
 **Step formula:**
-
 ```
 Step 1: "{Simple first action}" - Lower the barrier to entry
 Step 2: "{Core value action}" - The product doing its thing
@@ -272,7 +248,6 @@ Step 3: "{Desired outcome}" - The result they care about
 ```
 
 Example:
-
 1. "Connect your repo" - Link your GitHub in one click
 2. "Push your code" - Our AI handles builds, tests, and deployment
 3. "Ship with confidence" - Go live in minutes with zero-downtime deploys
@@ -284,7 +259,6 @@ Example:
 Never list features alone. Always pair with the benefit (the "so what?").
 
 **Feature-Benefit formula:**
-
 ```
 Feature: {What it does}
 Benefit: So you can {outcome the user cares about}
@@ -313,7 +287,6 @@ Benefit: So you can {outcome the user cares about}
 ```
 
 **Arrange features by importance:**
-
 1. The feature that solves the #1 pain point (biggest, most prominent)
 2. The feature that differentiates from competitors
 3. Supporting features that round out the product
@@ -327,21 +300,19 @@ Social proof is the most persuasive element on the page. Layer multiple types:
 
 **Types of social proof (use 2-3):**
 
-| Type                                              | Impact Level | Example                                                            |
-| ------------------------------------------------- | ------------ | ------------------------------------------------------------------ |
-| Customer testimonials with photo + name + company | Highest      | "Acme increased revenue 40% in 3 months" - Jane Doe, CEO at TechCo |
-| Case study metrics                                | Highest      | "From 2 deploys/week to 50 deploys/day"                            |
-| Logo bar of customers                             | High         | Well-known brand logos                                             |
-| Number of customers                               | High         | "Join 50,000+ teams"                                               |
-| Star ratings / review scores                      | High         | "4.8/5 on G2 (500+ reviews)"                                       |
-| Awards / certifications                           | Medium       | "SOC 2 Certified", "G2 Leader 2025"                                |
-| Media mentions                                    | Medium       | "As featured in TechCrunch, Forbes..."                             |
-| Integration partners                              | Medium       | "Works with Slack, GitHub, Jira..."                                |
+| Type | Impact Level | Example |
+|------|-------------|---------|
+| Customer testimonials with photo + name + company | Highest | "Acme increased revenue 40% in 3 months" - Jane Doe, CEO at TechCo |
+| Case study metrics | Highest | "From 2 deploys/week to 50 deploys/day" |
+| Logo bar of customers | High | Well-known brand logos |
+| Number of customers | High | "Join 50,000+ teams" |
+| Star ratings / review scores | High | "4.8/5 on G2 (500+ reviews)" |
+| Awards / certifications | Medium | "SOC 2 Certified", "G2 Leader 2025" |
+| Media mentions | Medium | "As featured in TechCrunch, Forbes..." |
+| Integration partners | Medium | "Works with Slack, GitHub, Jira..." |
 
 ```tsx
-{
-  /* Testimonial Section */
-}
+{/* Testimonial Section */}
 <section className="bg-gray-50 py-16 sm:py-24">
   <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div className="mx-auto max-w-2xl text-center">
@@ -360,16 +331,10 @@ Social proof is the most persuasive element on the page. Layer multiple types:
             &ldquo;{t.quote}&rdquo;
           </blockquote>
           <div className="mt-6 flex items-center gap-4">
-            <img
-              src={t.avatar}
-              alt={t.name}
-              className="h-12 w-12 rounded-full"
-            />
+            <img src={t.avatar} alt={t.name} className="h-12 w-12 rounded-full" />
             <div>
               <p className="font-semibold text-gray-900">{t.name}</p>
-              <p className="text-sm text-gray-500">
-                {t.role} at {t.company}
-              </p>
+              <p className="text-sm text-gray-500">{t.role} at {t.company}</p>
             </div>
           </div>
         </div>
@@ -386,11 +351,10 @@ Social proof is the most persuasive element on the page. Layer multiple types:
       </div>
     </div>
   </div>
-</section>;
+</section>
 ```
 
 **Testimonial writing rules:**
-
 - Include specific outcomes ("40% more leads" > "more leads")
 - Include name, role, company, and photo (real > stock)
 - Match testimonials to the objection they overcome
@@ -404,15 +368,15 @@ Address the top 5-7 objections that prevent conversion:
 
 **Common objection categories:**
 
-| Objection                         | How to address                                             |
-| --------------------------------- | ---------------------------------------------------------- |
-| "It's too expensive"              | ROI comparison, cost of inaction, payment plans            |
-| "I don't have time to set up"     | Quick start time, onboarding support, migration help       |
+| Objection | How to address |
+|-----------|---------------|
+| "It's too expensive" | ROI comparison, cost of inaction, payment plans |
+| "I don't have time to set up" | Quick start time, onboarding support, migration help |
 | "What if it doesn't work for me?" | Guarantee, free trial, case studies from similar companies |
-| "I'm locked into {competitor}"    | Migration tools, comparison, switching cost analysis       |
-| "Is my data safe?"                | Security certifications, compliance, data policies         |
-| "What if I need help?"            | Support channels, response time SLA, documentation         |
-| "It looks too complex"            | 3-step "how it works", demo video, free trial              |
+| "I'm locked into {competitor}" | Migration tools, comparison, switching cost analysis |
+| "Is my data safe?" | Security certifications, compliance, data policies |
+| "What if I need help?" | Support channels, response time SLA, documentation |
+| "It looks too complex" | 3-step "how it works", demo video, free trial |
 
 ```tsx
 <section className="bg-white py-16 sm:py-24">
@@ -425,9 +389,7 @@ Address the top 5-7 objections that prevent conversion:
       <dl className="mt-12 space-y-8">
         {faqs.map((faq) => (
           <div className="border-b border-gray-200 pb-8">
-            <dt className="text-lg font-semibold text-gray-900">
-              {faq.question}
-            </dt>
+            <dt className="text-lg font-semibold text-gray-900">{faq.question}</dt>
             <dd className="mt-4 text-gray-600">{faq.answer}</dd>
           </div>
         ))}
@@ -442,7 +404,6 @@ Address the top 5-7 objections that prevent conversion:
 #### Section 7: Pricing (if applicable)
 
 Only include pricing on the landing page if:
-
 - The product has clear, fixed pricing
 - The user wants pricing on the page
 - The traffic is warm/hot (they already know what the product does)
@@ -454,14 +415,14 @@ Only include pricing on the landing page if:
       <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
         Simple, transparent pricing
       </h2>
-      <p className="mt-4 text-lg text-gray-600">{pricing_subheadline}</p>
+      <p className="mt-4 text-lg text-gray-600">
+        {pricing_subheadline}
+      </p>
     </div>
 
     <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
       {plans.map((plan) => (
-        <div
-          className={`rounded-2xl p-8 ring-1 ${plan.featured ? "bg-indigo-600 text-white ring-indigo-600" : "bg-white ring-gray-200"}`}
-        >
+        <div className={`rounded-2xl p-8 ring-1 ${plan.featured ? 'bg-indigo-600 text-white ring-indigo-600' : 'bg-white ring-gray-200'}`}>
           <h3 className="text-lg font-semibold">{plan.name}</h3>
           <p className="mt-2 text-sm opacity-80">{plan.description}</p>
           <p className="mt-6">
@@ -476,10 +437,7 @@ Only include pricing on the landing page if:
               </li>
             ))}
           </ul>
-          <a
-            href="#"
-            className={`mt-8 block w-full rounded-lg py-3 text-center font-semibold ${plan.featured ? "bg-white text-indigo-600" : "bg-indigo-600 text-white"}`}
-          >
+          <a href="#" className={`mt-8 block w-full rounded-lg py-3 text-center font-semibold ${plan.featured ? 'bg-white text-indigo-600' : 'bg-indigo-600 text-white'}`}>
             {plan.cta}
           </a>
         </div>
@@ -490,7 +448,6 @@ Only include pricing on the landing page if:
 ```
 
 **Pricing copy rules:**
-
 - Anchor with the highest plan first (or highlight the middle plan)
 - Use specific numbers ("$49/mo" > "Starting at...")
 - Show value: "$49/mo - less than the cost of one lost lead"
@@ -527,7 +484,6 @@ The closing CTA should create urgency and restate the core value:
 ```
 
 **Final CTA formulas:**
-
 ```
 "Ready to {desired outcome}?"
 "Start {action}ing today"
@@ -541,12 +497,10 @@ The closing CTA should create urgency and restate the core value:
 Landing pages should rank too. Include:
 
 **Meta tags:**
-
 - Title: "{Product} - {Primary benefit} | {Brand}" (50-60 chars)
 - Description: "{Product} helps {audience} {outcome}. {Proof point}. {CTA}." (150-160 chars)
 
 **On-page SEO:**
-
 - H1 includes primary keyword
 - Primary keyword in first 100 words
 - Image alt text with keyword

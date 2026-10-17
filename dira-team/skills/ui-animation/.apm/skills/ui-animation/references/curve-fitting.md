@@ -20,35 +20,17 @@ asymmetric open/close curves.
   "duration_ms": 520,
   "properties": {
     "translate": {
-      "spring": {
-        "stiffness": 210.4,
-        "damping": 28.0,
-        "mass": 1.0,
-        "zeta": 0.97,
-        "overshoot": false,
-        "error": 0.018
-      },
-      "bezier": {
-        "cubic_bezier": [0.32, 0.0, 0.0, 1.0],
-        "css": "cubic-bezier(0.32, 0.0, 0.0, 1.0)",
-        "error": 0.012
-      },
+      "spring": { "stiffness": 210.4, "damping": 28.0, "mass": 1.0,
+                  "zeta": 0.97, "overshoot": false, "error": 0.018 },
+      "bezier":  { "cubic_bezier": [0.32, 0.0, 0.0, 1.0],
+                   "css": "cubic-bezier(0.32, 0.0, 0.0, 1.0)", "error": 0.012 },
       "recommended": "bezier"
     },
     "scaleY": {
-      "spring": {
-        "stiffness": 180.0,
-        "damping": 14.2,
-        "mass": 1.0,
-        "zeta": 0.53,
-        "overshoot": true,
-        "error": 0.024
-      },
-      "bezier": {
-        "cubic_bezier": [0.18, 1.42, 0.3, 1.0],
-        "css": "cubic-bezier(0.18, 1.42, 0.30, 1.0)",
-        "error": 0.061
-      },
+      "spring": { "stiffness": 180.0, "damping": 14.2, "mass": 1.0,
+                  "zeta": 0.53, "overshoot": true, "error": 0.024 },
+      "bezier":  { "cubic_bezier": [0.18, 1.42, 0.30, 1.0],
+                   "css": "cubic-bezier(0.18, 1.42, 0.30, 1.0)", "error": 0.061 },
       "recommended": "spring"
     }
   }
@@ -65,14 +47,14 @@ over-stretch-then-settle that makes a morph feel fluid. Fitting the axes separat
 
 ## Spring vs bezier
 
-| Pick spring when                                          | Pick bezier when                        |
-| --------------------------------------------------------- | --------------------------------------- |
-| Motion overshoots / bounces / settles                     | Motion is monotonic (no overshoot)      |
+| Pick spring when | Pick bezier when |
+|---|---|
+| Motion overshoots / bounces / settles | Motion is monotonic (no overshoot) |
 | Target API is spring-native (Motion, SwiftUI, Reanimated) | Target is CSS `transition`/`@keyframes` |
-| Duration should emerge from physics                       | Duration is fixed and known             |
-| It must stay interruptible mid-flight                     | One-shot, non-interruptible play        |
+| Duration should emerge from physics | Duration is fixed and known |
+| It must stay interruptible mid-flight | One-shot, non-interruptible play |
 
-You can ship a spring _as_ a bezier (the fit gives both), but a true overshoot needs a bezier
+You can ship a spring *as* a bezier (the fit gives both), but a true overshoot needs a bezier
 whose `y1`/`y2` exceed 1, or CSS `linear()` with sampled points; a spring expressed as a plain
 ease-out loses the bounce. The fitter caps `y1`/`y2` at 1.5, so a bigger bounce fits better as
 a spring (or a sampled `linear()`), never as a bezier.
@@ -81,11 +63,11 @@ a spring (or a sampled `linear()`), never as a bezier.
 
 `error` is normalized RMS against 0->1 progress, so it's comparable across properties.
 
-| error     | Reading                                                                           |
-| --------- | --------------------------------------------------------------------------------- |
-| < 0.03    | Tight fit: use the parameters directly                                            |
-| 0.03-0.08 | Decent: eyeball the recommended curve against the contact sheet                   |
-| > 0.08    | Suspect: usually multi-phase motion (see below), wrong element, or too few frames |
+| error | Reading |
+|---|---|
+| < 0.03 | Tight fit: use the parameters directly |
+| 0.03-0.08 | Decent: eyeball the recommended curve against the contact sheet |
+| > 0.08 | Suspect: usually multi-phase motion (see below), wrong element, or too few frames |
 
 **High error on BOTH models almost always means multi-phase motion** (blur-in, then move, then
 over-stretch, then settle). One curve can't fit that: split the timeline at the phase boundary

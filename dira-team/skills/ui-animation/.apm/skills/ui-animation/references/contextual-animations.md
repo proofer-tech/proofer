@@ -3,7 +3,6 @@
 Patterns for icon swaps, word-level stagger entrances, and subtle exits.
 
 ## Contents
-
 - [Contextual icon swaps](#contextual-icon-swaps)
 - [Word-level stagger entrances](#word-level-stagger-entrances)
 - [Subtle exit animations](#subtle-exit-animations)
@@ -17,7 +16,7 @@ For contextual state swaps (copy → check, play → pause, send → sent), anim
 **Motion (preferred, supports springs):**
 
 ```tsx
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react"
 
 <button onClick={handleCopy}>
   <AnimatePresence mode="wait" initial={false}>
@@ -43,7 +42,7 @@ import { AnimatePresence, motion } from "motion/react";
       </motion.span>
     )}
   </AnimatePresence>
-</button>;
+</button>
 ```
 
 **CSS only:**
@@ -74,10 +73,10 @@ For hero text or page-header entrances, split content into sections (or words) a
 
 **Two levels of stagger:**
 
-| Level         | Delay             | Use for                                      |
-| ------------- | ----------------- | -------------------------------------------- |
+| Level | Delay | Use for |
+|-------|-------|---------|
 | Section-level | 100ms per section | Title block, description block, button group |
-| Word-level    | 80ms per word     | Hero headline only                           |
+| Word-level | 80ms per word | Hero headline only |
 
 **CSS pattern:**
 
@@ -123,17 +122,15 @@ For hero text or page-header entrances, split content into sections (or words) a
 **Word-level JSX:**
 
 ```tsx
-{
-  "Track expenses, build habits".split(" ").map((word, i) => (
-    <span
-      key={word}
-      className="animate-enter animate-enter-word inline-block"
-      style={{ "--stagger": i + 1 }}
-    >
-      {word}&nbsp;
-    </span>
-  ));
-}
+{"Track expenses, build habits".split(" ").map((word, i) => (
+  <span
+    key={word}
+    className="animate-enter animate-enter-word inline-block"
+    style={{ "--stagger": i + 1 }}
+  >
+    {word}&nbsp;
+  </span>
+))}
 ```
 
 These differ from the general-purpose 30-50ms item stagger in `component-patterns.md`: use 30-50ms for lists, 80-100ms for page-level entrances where each chunk carries narrative weight.

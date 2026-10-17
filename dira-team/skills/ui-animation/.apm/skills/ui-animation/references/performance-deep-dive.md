@@ -3,7 +3,6 @@
 Advanced performance guidance beyond the quick rules in SKILL.md.
 
 ## Contents
-
 - [CSS vs JS animations](#css-vs-js-animations)
 - [Web Animations API (WAAPI)](#web-animations-api-waapi)
 - [CSS variables inheritance trap](#css-variables-inheritance-trap)
@@ -14,13 +13,13 @@ Advanced performance guidance beyond the quick rules in SKILL.md.
 
 ## CSS vs JS animations
 
-| Approach                          | Driver                                      | Interruptible           | Best for                               |
-| --------------------------------- | ------------------------------------------- | ----------------------- | -------------------------------------- |
-| CSS transitions                   | Browser/compositor for transform/opacity    | Yes (retargets)         | Predetermined state changes            |
-| CSS keyframes                     | Browser/compositor when properties allow it | No (restarts from zero) | Looping, predetermined sequences       |
-| WAAPI (`el.animate()`)            | Browser animation engine                    | Yes (cancel/reverse)    | Dynamic values with imperative control |
-| Motion values (`x`, `y`, `style`) | Motion DOM renderer, no React re-renders    | Yes                     | React gestures, drag, coordinated UI   |
-| JS (`requestAnimationFrame`)      | Main thread                                 | Yes (manual)            | Complex choreography, physics          |
+| Approach | Driver | Interruptible | Best for |
+|---|---|---|---|
+| CSS transitions | Browser/compositor for transform/opacity | Yes (retargets) | Predetermined state changes |
+| CSS keyframes | Browser/compositor when properties allow it | No (restarts from zero) | Looping, predetermined sequences |
+| WAAPI (`el.animate()`) | Browser animation engine | Yes (cancel/reverse) | Dynamic values with imperative control |
+| Motion values (`x`, `y`, `style`) | Motion DOM renderer, no React re-renders | Yes | React gestures, drag, coordinated UI |
+| JS (`requestAnimationFrame`) | Main thread | Yes (manual) | Complex choreography, physics |
 
 **Rule: CSS transitions > WAAPI > CSS keyframes > JS.** Under load (page navigation, heavy rendering), CSS stays smooth while JS drops frames.
 
@@ -38,7 +37,7 @@ const animation = element.animate(
     duration: 300,
     easing: "cubic-bezier(0.22, 1, 0.36, 1)",
     fill: "forwards",
-  },
+  }
 );
 
 // Cancel or reverse at any time
@@ -109,9 +108,7 @@ export function usePauseOffscreen<T extends HTMLElement>() {
 - Too many layers is worse than no promotion
 
 ```css
-.animating {
-  will-change: transform, opacity;
-}
+.animating { will-change: transform, opacity; }
 ```
 
 Toggle the class on animation start, remove on `transitionend` or `animationend`.

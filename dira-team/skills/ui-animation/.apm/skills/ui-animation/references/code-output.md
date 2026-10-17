@@ -20,9 +20,7 @@ Monotonic: use the fitted bezier:
 
 ```css
 .element {
-  transition:
-    transform Dms BEZIER,
-    opacity Dms ease-out;
+  transition: transform Dms BEZIER, opacity Dms ease-out;
 }
 ```
 
@@ -39,21 +37,10 @@ Multi-phase: each phase is a keyframe stop with its own easing:
 
 ```css
 @keyframes morph {
-  0% {
-    transform: translateY(-12px) scaleY(0.9);
-    filter: blur(6px);
-    opacity: 0;
-  }
-  35% {
-    filter: blur(0);
-    opacity: 1;
-  } /* blur/opacity lead the move */
-  70% {
-    transform: translateY(0) scaleY(1.06);
-  } /* over-stretch */
-  100% {
-    transform: translateY(0) scaleY(1);
-  } /* settle */
+  0%   { transform: translateY(-12px) scaleY(0.9); filter: blur(6px); opacity: 0; }
+  35%  { filter: blur(0); opacity: 1; }            /* blur/opacity lead the move */
+  70%  { transform: translateY(0) scaleY(1.06); }  /* over-stretch */
+  100% { transform: translateY(0) scaleY(1); }     /* settle */
 }
 ```
 
@@ -134,12 +121,12 @@ A self-contained artifact someone can implement without the video. Emit one per 
 
 Duration: <duration_ms> ms · Trigger: <what starts it>
 
-| Property  | Model  | Params         | Easing / config          | Fit err |
-| --------- | ------ | -------------- | ------------------------ | ------- |
-| translate | bezier | n/a            | cubic-bezier(0.32,0,0,1) | 0.012   |
-| scaleY    | spring | k=180 c=14 m=1 | overshoot, zeta 0.53     | 0.024   |
-| opacity   | bezier | n/a            | ease-out, 0-220ms        | 0.02    |
-| blur      | n/a    | 8px→0          | leads move by ~100ms     | n/a     |
+| Property | Model | Params | Easing / config | Fit err |
+|----------|-------|--------|-----------------|---------|
+| translate | bezier | n/a | cubic-bezier(0.32,0,0,1) | 0.012 |
+| scaleY | spring | k=180 c=14 m=1 | overshoot, zeta 0.53 | 0.024 |
+| opacity | bezier | n/a | ease-out, 0-220ms | 0.02 |
+| blur | n/a | 8px→0 | leads move by ~100ms | n/a |
 
 Choreography: blur+opacity lead; translate lags ~100ms; scaleY over-stretches to 1.06
 then settles. Bottom/side edges settle independently.

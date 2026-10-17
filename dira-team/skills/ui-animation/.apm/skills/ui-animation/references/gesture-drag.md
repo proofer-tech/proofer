@@ -3,7 +3,6 @@
 Drag, swipe, and gesture patterns where the user directly manipulates elements.
 
 ## Contents
-
 - [Momentum-based dismissal](#momentum-based-dismissal)
 - [Velocity handoff](#velocity-handoff)
 - [Momentum projection](#momentum-projection)
@@ -40,11 +39,7 @@ Motion and Framer Motion take absolute px/s velocity directly via the `velocity`
 
 ```ts
 // releaseVelocity in px/s, measured over the last few pointermove events
-animate(
-  el,
-  { y: target },
-  { type: "spring", velocity: releaseVelocity, bounce: 0, duration: 0.4 },
-);
+animate(el, { y: target }, { type: "spring", velocity: releaseVelocity, bounce: 0, duration: 0.4 });
 ```
 
 Some spring APIs want relative velocity: normalize by the remaining distance to the target.
@@ -63,7 +58,7 @@ Don't snap to the nearest boundary from the release point. Use velocity to proje
 ```ts
 // decelerationRate ~ 0.998 for a normal scroll feel; 0.99 for snappier
 function project(initialVelocity: number, decelerationRate = 0.998): number {
-  return ((initialVelocity / 1000) * decelerationRate) / (1 - decelerationRate);
+  return (initialVelocity / 1000) * decelerationRate / (1 - decelerationRate);
 }
 
 const projectedEndpoint = currentPosition + project(releaseVelocity);
@@ -71,7 +66,7 @@ const target = nearestSnapPoint(projectedEndpoint); // choose target from the pr
 animateSpringTo(target, { velocity: releaseVelocity }); // then hand off velocity (previous section)
 ```
 
-Use this exponential-decay form, not the physics-textbook `v^2 / (2 * decel)`; the decay form is what Apple ships in the _Designing Fluid Interfaces_ sample code.
+Use this exponential-decay form, not the physics-textbook `v^2 / (2 * decel)`; the decay form is what Apple ships in the *Designing Fluid Interfaces* sample code.
 
 ## Boundary damping
 
@@ -86,19 +81,12 @@ function applyDamping(offset: number, max: number): number {
 const dampedOffset = applyDamping(rawOffset, 200);
 ```
 
-Apple's canonical rubber-band function (from _Designing Fluid Interfaces_) is a good drop-in alternative, tuned to feel like iOS overscroll:
+Apple's canonical rubber-band function (from *Designing Fluid Interfaces*) is a good drop-in alternative, tuned to feel like iOS overscroll:
 
 ```ts
 // the further past the bound, the less the element follows
-function rubberband(
-  overshoot: number,
-  dimension: number,
-  constant = 0.55,
-): number {
-  return (
-    (overshoot * dimension * constant) /
-    (dimension + constant * Math.abs(overshoot))
-  );
+function rubberband(overshoot: number, dimension: number, constant = 0.55): number {
+  return (overshoot * dimension * constant) / (dimension + constant * Math.abs(overshoot));
 }
 ```
 
@@ -160,11 +148,7 @@ Hard stops feel broken; users expect physics. Apply friction for scroll containe
 Combine velocity, distance, and direction for a complete swipe gesture:
 
 ```ts
-function handleSwipeEnd(
-  direction: "left" | "right",
-  distance: number,
-  velocity: number,
-) {
+function handleSwipeEnd(direction: "left" | "right", distance: number, velocity: number) {
   const shouldDismiss = distance > THRESHOLD || velocity > 0.11;
 
   if (shouldDismiss) {

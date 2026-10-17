@@ -1,6 +1,6 @@
 # Choreography
 
-A single fitted curve is rarely the whole story. Polish lives in _orchestration_: what
+A single fitted curve is rarely the whole story. Polish lives in *orchestration*: what
 leads, lags, and settles independently. Annotate these from the contact sheet and frame
 timeline, then express them per target.
 
@@ -12,14 +12,14 @@ timeline, then express them per target.
 
 ## Patterns to look for
 
-| Pattern                         | What you see in the frames                                            | Why it reads well                                       |
-| ------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------- |
-| Blur-before-move                | Element/backdrop blurs or dims a few frames _before_ position changes | Sets context first; the move feels grounded, not abrupt |
-| Over-stretch then settle        | One axis scales past 1.0, then eases back                             | Soft and physical, not rigid                            |
-| Per-edge / independent settling | Bottom and side edges arrive on different frames                      | Mimics real material; avoids a mechanical pop           |
-| Staggered children              | List items/icons enter one after another                              | Builds hierarchy; the eye follows the lead              |
-| Tucked origin                   | Top edge stays clipped under a notch/island for the first third       | Anchors it to where it came from                        |
-| Asymmetric open/close           | Open slow + springy, close fast + flat                                | Open invites attention; close gets out of the way       |
+| Pattern | What you see in the frames | Why it reads well |
+|---|---|---|
+| Blur-before-move | Element/backdrop blurs or dims a few frames *before* position changes | Sets context first; the move feels grounded, not abrupt |
+| Over-stretch then settle | One axis scales past 1.0, then eases back | Soft and physical, not rigid |
+| Per-edge / independent settling | Bottom and side edges arrive on different frames | Mimics real material; avoids a mechanical pop |
+| Staggered children | List items/icons enter one after another | Builds hierarchy; the eye follows the lead |
+| Tucked origin | Top edge stays clipped under a notch/island for the first third | Anchors it to where it came from |
+| Asymmetric open/close | Open slow + springy, close fast + flat | Open invites attention; close gets out of the way |
 
 ## Reading timing offsets
 
@@ -34,7 +34,7 @@ translate:starts f3   settles f14   (100ms -> 467ms)   <- move lags blur by ~100
 scaleY:   starts f3   peaks f11     overshoots to 1.06  <- over-stretch
 ```
 
-That table _is_ the spec. The delays (blur leads, move lags 100ms, scale overshoots) carry
+That table *is* the spec. The delays (blur leads, move lags 100ms, scale overshoots) carry
 more feel than any single easing curve.
 
 ## Expressing it per target

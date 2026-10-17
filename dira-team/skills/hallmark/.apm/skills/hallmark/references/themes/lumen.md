@@ -18,15 +18,15 @@ Modal · Anthropic (Claude product surfaces) · Together AI · ElevenLabs · Clu
 
 The aesthetic to match: a single hand-engineered artefact in dead space; a lowercase classical-serif headline with one accent-coloured verb; mono UPPERCASE technical labels that read as if pulled from an internal docs site; tabular numerals everywhere a number appears. The combination is what AI-tool defaults do not ship — and exactly the combination that breaks every default the model was trained on.
 
-**Patron-saint reference (internal):** _Modal homepage rate sheet_ (the receipt is the artwork) + _Together AI hero diagram_ (annotated apparatus + leader lines + labelled callouts) + _Anthropic Claude landing typography_ (transitional serif + humanist sans). When in doubt about restraint, ask "would Modal ship this much chrome?" If yes, you've gone too far.
+**Patron-saint reference (internal):** *Modal homepage rate sheet* (the receipt is the artwork) + *Together AI hero diagram* (annotated apparatus + leader lines + labelled callouts) + *Anthropic Claude landing typography* (transitional serif + humanist sans). When in doubt about restraint, ask "would Modal ship this much chrome?" If yes, you've gone too far.
 
 ## Palette drops
 
-A Lumen drop is a named palette + apparatus-physics pair. The structural signature (italic-pivot headline + mono eyebrow + apparatus + leader callouts + meter strip + blueprint grid + hairline cards + three-stat row) is constant; the drop rotates the canvas, the accent, and what the apparatus _does_.
+A Lumen drop is a named palette + apparatus-physics pair. The structural signature (italic-pivot headline + mono eyebrow + apparatus + leader callouts + meter strip + blueprint grid + hairline cards + three-stat row) is constant; the drop rotates the canvas, the accent, and what the apparatus *does*.
 
-### Drop 01 · Night Foundry _(default · canonical)_
+### Drop 01 · Night Foundry *(default · canonical)*
 
-Cool-violet near-black canvas. Molten-brass accent that _emits_. The apparatus is an instrument — a filament-in-chamber, a circuit topology, a precision indicator — and it generates the light. Halos and inner-emit washes use `--color-glow` at 42% opacity.
+Cool-violet near-black canvas. Molten-brass accent that *emits*. The apparatus is an instrument — a filament-in-chamber, a circuit topology, a precision indicator — and it generates the light. Halos and inner-emit washes use `--color-glow` at 42% opacity.
 
 - `--color-paper: oklch(13% 0.014 265)` — late-night studio, violet tilt
 - `--color-ink: oklch(96% 0.006 262)` — near-white headlines
@@ -36,13 +36,13 @@ Cool-violet near-black canvas. Molten-brass accent that _emits_. The apparatus i
 - `--color-paper-emit: oklch(76% 0.17 50 / 0.04)` — inner-emit canvas wash
 - `--rule-blueprint: oklch(96% 0.006 262 / 0.04)` — grid hairline
 
-**Apparatus physics — emission.** The focal element is a built object (filament, circuit, indicator dial, layered lens stack) that _contains_ the light source. Subtle pulse animation (`--dur-pulse: 4s`) suggests the instrument is _running_. Card shadows are soft depth (`0 24px 60px -28px oklch(0% 0 0 / 0.55)`), not glows — the apparatus is the only thing that emits.
+**Apparatus physics — emission.** The focal element is a built object (filament, circuit, indicator dial, layered lens stack) that *contains* the light source. Subtle pulse animation (`--dur-pulse: 4s`) suggests the instrument is *running*. Card shadows are soft depth (`0 24px 60px -28px oklch(0% 0 0 / 0.55)`), not glows — the apparatus is the only thing that emits.
 
 **When to pick:** inference platforms · serverless GPU · model APIs · AI coding agents · voice synthesis · agentic tools · developer infra · anything that wants to feel "after hours" and "instrument-grade." Default.
 
 ### Drop 02 · Day Foundry
 
-Cool-bone canvas with a violet pull. Deep indigo accent that _refracts_. The apparatus is a transparent prism / lens stack / chromatic dispersion element — light passes through and is _separated_, not generated. Spectrum exit-fan + measurement annotations + scale bar give it the feel of a calibrated optical instrument, not a vibey gradient.
+Cool-bone canvas with a violet pull. Deep indigo accent that *refracts*. The apparatus is a transparent prism / lens stack / chromatic dispersion element — light passes through and is *separated*, not generated. Spectrum exit-fan + measurement annotations + scale bar give it the feel of a calibrated optical instrument, not a vibey gradient.
 
 - `--color-paper: oklch(97% 0.008 265)` — cool bone, violet pull
 - `--color-ink: oklch(18% 0.014 265)` — near-black, cool
@@ -51,7 +51,7 @@ Cool-bone canvas with a violet pull. Deep indigo accent that _refracts_. The app
 - `--color-glow: oklch(58% 0.22 268 / 0.28)` — indigo halo through prism
 - `--color-paper-emit: oklch(46% 0.24 268 / 0.03)` — canvas wash, faint
 
-**Apparatus physics — refraction.** The focal element is _static at rest_ with a 320ms reveal on first paint (the prism appears, the spectrum fans, both settle). No perpetual motion. The light is captured, not generated. Annotations carry mono micro-labels: `λ = 612 nm`, `θ_out = 38°`, etc. — the prism reads as a _measurement instrument_, not decoration.
+**Apparatus physics — refraction.** The focal element is *static at rest* with a 320ms reveal on first paint (the prism appears, the spectrum fans, both settle). No perpetual motion. The light is captured, not generated. Annotations carry mono micro-labels: `λ = 612 nm`, `θ_out = 38°`, etc. — the prism reads as a *measurement instrument*, not decoration.
 
 **When to pick:** AI for science · climate / research labs · document AI · typography / design tools · daytime productivity · briefs that want "considered" and "clear" rather than "after-dark and intense."
 
@@ -61,19 +61,19 @@ The diversification log records `"theme": "lumen", "drop": "night"` (or `"day"`)
 
 ### Why two drops, not five
 
-Lumen's identity is the apparatus, not the palette. Adding more drops would dilute what makes the theme legible. Two drops with _different physics_ (emission vs refraction) carry more variety than five drops with the same artefact in different colours.
+Lumen's identity is the apparatus, not the palette. Adding more drops would dilute what makes the theme legible. Two drops with *different physics* (emission vs refraction) carry more variety than five drops with the same artefact in different colours.
 
 ## The apparatus family
 
-Lumen's central commitment: **never a generic glowing orb**. The orb is the most overworked AI-tool tell of 2024–2025; every inference platform ships one. Lumen builds a _specific_ hand-engineered object per page, chosen to reflect what the product _does_.
+Lumen's central commitment: **never a generic glowing orb**. The orb is the most overworked AI-tool tell of 2024–2025; every inference platform ships one. Lumen builds a *specific* hand-engineered object per page, chosen to reflect what the product *does*.
 
 The canonical family (pick one per build, in the order of preference for the brief):
 
-### Apparatus type · Filament chamber _(Night Foundry, instrument-grade)_
+### Apparatus type · Filament chamber *(Night Foundry, instrument-grade)*
 
-A vertical glowing rod inside a rounded-rect cylindrical chamber, crossed by 3–4 horizontal hairline "electrodes." Subtle pulse on the filament (3% intensity oscillation, 4s period). References vacuum tubes, Tesla coils, fusion experiments, mass spectrometers. Reads as a _machine_.
+A vertical glowing rod inside a rounded-rect cylindrical chamber, crossed by 3–4 horizontal hairline "electrodes." Subtle pulse on the filament (3% intensity oscillation, 4s period). References vacuum tubes, Tesla coils, fusion experiments, mass spectrometers. Reads as a *machine*.
 
-**When to pick:** inference, runtime, model serving, anything that _produces_ output. Brand verbs: think, run, generate, infer, render, execute.
+**When to pick:** inference, runtime, model serving, anything that *produces* output. Brand verbs: think, run, generate, infer, render, execute.
 
 **SVG/CSS skeleton:**
 
@@ -90,76 +90,46 @@ A vertical glowing rod inside a rounded-rect cylindrical chamber, crossed by 3�
     <span class="chamber__stencil">RX-04</span>
   </div>
   <ul class="callouts">
-    <li class="callout" style="--side: left; --y: 18%">
-      <span>P50 · 28 ms</span>
-    </li>
-    <li class="callout" style="--side: right; --y: 36%">
-      <span>cold-start · 0.4 s</span>
-    </li>
-    <li class="callout" style="--side: left; --y: 62%">
-      <span>rps · 12 k</span>
-    </li>
-    <li class="callout" style="--side: right; --y: 80%">
-      <span>RX-04 · h100 80gb</span>
-    </li>
+    <li class="callout" style="--side: left; --y: 18%"><span>P50 · 28 ms</span></li>
+    <li class="callout" style="--side: right; --y: 36%"><span>cold-start · 0.4 s</span></li>
+    <li class="callout" style="--side: left; --y: 62%"><span>rps · 12 k</span></li>
+    <li class="callout" style="--side: right; --y: 80%"><span>RX-04 · h100 80gb</span></li>
   </ul>
 </figure>
 ```
 
 ```css
 .chamber {
-  position: relative;
-  width: clamp(180px, 22vw, 280px);
-  aspect-ratio: 0.55;
+  position: relative; width: clamp(180px, 22vw, 280px); aspect-ratio: 0.55;
   border: 1px solid var(--color-rule-2);
   border-radius: 999px;
   background: oklch(17% 0.016 265 / 0.8);
   overflow: hidden;
 }
 .chamber__filament {
-  position: absolute;
-  top: 8%;
-  bottom: 8%;
-  left: 50%;
-  width: 2px;
-  margin-left: -1px;
-  background: linear-gradient(
-    to bottom,
+  position: absolute; top: 8%; bottom: 8%; left: 50%;
+  width: 2px; margin-left: -1px;
+  background: linear-gradient(to bottom,
     oklch(96% 0.05 50) 0%,
     oklch(80% 0.17 50) 50%,
-    oklch(96% 0.05 50) 100%
-  );
+    oklch(96% 0.05 50) 100%);
   box-shadow:
     0 0 16px 4px var(--color-glow),
     0 0 48px 12px oklch(80% 0.16 50 / 0.22);
   animation: filament-pulse var(--dur-pulse) ease-in-out infinite;
 }
 .chamber__electrode {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: var(--y);
-  height: 1px;
-  background: var(--color-rule-2);
+  position: absolute; left: 0; right: 0; top: var(--y);
+  height: 1px; background: var(--color-rule-2);
 }
 .chamber__glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse 60% 50% at 50% 50%,
-    var(--color-glow-2) 0%,
-    transparent 70%
-  );
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 50%, var(--color-glow-2) 0%, transparent 70%);
   pointer-events: none;
 }
 @keyframes filament-pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.86;
-  }
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.86; }
 }
 .callout {
   font-family: var(--font-mono);
@@ -171,39 +141,37 @@ A vertical glowing rod inside a rounded-rect cylindrical chamber, crossed by 3�
   /* leader-line drawn as ::before pseudo */
 }
 .callout::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  height: 1px;
+  content: ""; position: absolute;
+  top: 50%; height: 1px;
   background: var(--color-rule-2);
 }
 ```
 
-### Apparatus type · Codebase graph / topology _(Night Foundry)_
+### Apparatus type · Codebase graph / topology *(Night Foundry)*
 
 An annotated SVG graph: one central node + 5–7 satellite nodes connected by hairlines, each satellite labelled with a mono filename or symbol. Light "flows" along the connecting lines at a slow walk (subtle gradient dot moving along each path). References CAD schematics, dependency graphs, electrical circuits, knowledge graphs.
 
-**When to pick:** AI coding agents, knowledge tools, anything that _traverses_ a structured space. Brand verbs: read, trace, explore, connect.
+**When to pick:** AI coding agents, knowledge tools, anything that *traverses* a structured space. Brand verbs: read, trace, explore, connect.
 
-### Apparatus type · Indicator dial / spectrum _(either drop)_
+### Apparatus type · Indicator dial / spectrum *(either drop)*
 
 A circular dial (Night) or a horizontal spectrum bar with annotated wavelength labels (Day). Includes scale ticks at known increments, a moving needle or active band, and mono callouts at boundaries. References analogue gauges, oscilloscopes, audio meters.
 
 **When to pick:** voice synthesis, audio AI, anything measuring a continuous quantity. Brand verbs: tune, measure, listen.
 
-### Apparatus type · Prism + measurement _(Day Foundry canonical)_
+### Apparatus type · Prism + measurement *(Day Foundry canonical)*
 
-A clip-path triangle (the prism) + an incoming beam from the left + a chromatic spectrum fan emerging from the right edge + leader-line annotations with wavelength labels and exit-angle measurements. References optical-bench experiments, atmospheric refraction diagrams, the cover of Pink Floyd's _Dark Side of the Moon_ re-read as a calibrated instrument.
+A clip-path triangle (the prism) + an incoming beam from the left + a chromatic spectrum fan emerging from the right edge + leader-line annotations with wavelength labels and exit-angle measurements. References optical-bench experiments, atmospheric refraction diagrams, the cover of Pink Floyd's *Dark Side of the Moon* re-read as a calibrated instrument.
 
 **When to pick:** Day Foundry default. AI for science, climate, research, document AI.
 
 ### Building rules across the family
 
-- **Pure CSS + SVG.** Never `<img>`, never icon fonts, never SVG paths copied from Figma. The apparatus is _constructed_, not _placed_.
+- **Pure CSS + SVG.** Never `<img>`, never icon fonts, never SVG paths copied from Figma. The apparatus is *constructed*, not *placed*.
 - **One per page.** Never two apparatus objects on a single Lumen build.
 - **Leader-line callouts.** Every apparatus carries 3–5 mono micro-type annotations (`P50 · 28 ms`, `λ = 612 nm`, `→ refunds.ts`) on horizontal leader lines. The callouts MUST contain real values from the brief — never `LOREM · 000`.
 - **Size.** 240–480 px max dimension on desktop. Scales down to ~180 px on mobile but never disappears.
-- **Pulse, not rotation.** Night apparatus _pulses_ (3% intensity oscillation, 4s period). It does _not_ rotate. Rotation was the orb's signature; the apparatus's signature is that it's clearly machined.
+- **Pulse, not rotation.** Night apparatus *pulses* (3% intensity oscillation, 4s period). It does *not* rotate. Rotation was the orb's signature; the apparatus's signature is that it's clearly machined.
 - **Day Foundry: no perpetual motion.** Day apparatus reveals once on first paint (320ms) and stays static. The light is captured.
 - **`prefers-reduced-motion: reduce`:** all pulses freeze at maximum intensity, all reveals collapse to final state.
 
@@ -225,37 +193,28 @@ Classical Instrument Serif at `--text-display`, **all-lowercase, upright**, with
 
 ```css
 .hero__title {
-  text-transform: lowercase; /* defensive — also applied at the prose level */
+  text-transform: lowercase;  /* defensive — also applied at the prose level */
 }
 .hero__title em {
-  font-style: normal; /* explicit — em is repurposed as the verb landmark */
+  font-style: normal;          /* explicit — em is repurposed as the verb landmark */
   color: var(--color-accent-2);
   position: relative;
   white-space: nowrap;
 }
 .hero__title em::after {
-  content: "";
-  position: absolute;
-  left: 0.05em;
-  right: 0.05em;
-  bottom: 0.04em;
+  content: ""; position: absolute;
+  left: 0.05em; right: 0.05em; bottom: 0.04em;
   height: 1px;
   background: var(--color-accent-2);
   transform-origin: left;
   animation: pivot-underline 320ms var(--ease-soft) 900ms backwards;
 }
 @keyframes pivot-underline {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero__title em::after {
-    animation: none;
-  }
+  .hero__title em::after { animation: none; }
 }
 ```
 
@@ -267,19 +226,14 @@ Classical Instrument Serif at `--text-display`, **all-lowercase, upright**, with
 
 ### 4. Blueprint grid background (4% opacity)
 
-The hero `<section>` and the meter strip both carry a **ruled grid background** at 4% opacity — 32px or 48px square cells, single hairline in `--rule-blueprint`. This is the "engineered, not vibed" signal. Aurora has blooms; Lumen has the grid. The grid sits beneath `--color-paper-emit` so the canvas appears to emit _through_ the grid lines.
+The hero `<section>` and the meter strip both carry a **ruled grid background** at 4% opacity — 32px or 48px square cells, single hairline in `--rule-blueprint`. This is the "engineered, not vibed" signal. Aurora has blooms; Lumen has the grid. The grid sits beneath `--color-paper-emit` so the canvas appears to emit *through* the grid lines.
 
 ```css
 .hero {
   background:
     linear-gradient(var(--rule-blueprint) 1px, transparent 1px) 0 0 / 48px 48px,
-    linear-gradient(90deg, var(--rule-blueprint) 1px, transparent 1px) 0 0 /
-      48px 48px,
-    radial-gradient(
-      60% 50% at 78% 30%,
-      var(--color-paper-emit) 0%,
-      transparent 65%
-    ),
+    linear-gradient(90deg, var(--rule-blueprint) 1px, transparent 1px) 0 0 / 48px 48px,
+    radial-gradient(60% 50% at 78% 30%, var(--color-paper-emit) 0%, transparent 65%),
     var(--color-paper);
 }
 ```
@@ -308,21 +262,15 @@ A full-bleed 32–48px band beneath the hero showing 60–80 thin vertical ticks
   border-block: 1px solid var(--color-rule);
   font-family: var(--font-mono);
 }
-.meter__bars {
-  display: flex;
-  gap: 2px;
-  align-items: end;
-  height: 28px;
-}
+.meter__bars { display: flex; gap: 2px; align-items: end; height: 28px; }
 .meter__bars > span {
-  flex: 1;
-  min-width: 1px;
+  flex: 1; min-width: 1px;
   background: var(--color-accent);
   border-radius: 0.5px;
 }
 ```
 
-The meter MUST be procedurally varied — never a flat row of equal ticks. Heights drawn from a clean envelope (sine, gaussian, log) so the strip reads as a _measurement_, not a decorative pattern.
+The meter MUST be procedurally varied — never a flat row of equal ticks. Heights drawn from a clean envelope (sine, gaussian, log) so the strip reads as a *measurement*, not a decorative pattern.
 
 ### 6. Hairline cards with inner emission
 
@@ -336,15 +284,15 @@ Stats display in Instrument Serif at large size (`clamp(2.5rem, 4vw + 1rem, 4.5r
 
 Lumen's motion stack is **lighter than Hum, heavier than Coral**.
 
-| Element           | Motion                                                                                                |
-| ----------------- | ----------------------------------------------------------------------------------------------------- |
-| Apparatus (Night) | Pulse: 3% intensity oscillation, 4s period. **Never rotates.**                                        |
-| Apparatus (Day)   | 320ms reveal on first paint, static thereafter.                                                       |
-| Verb landmark     | Color set permanently to accent-2; 1px underline draws in 320ms `delay: 900ms`. No font-style change. |
-| Cards             | `translateY(-4px)` + inner-glow brighten on hover, 220ms `--ease-soft`.                               |
-| Section heads     | Opacity 0→1 + translateY 12px→0 on view enter, 600ms, 60ms stagger.                                   |
-| Meter strip       | Static. No "live" animation — the strip is a printed readout, not a streaming feed.                   |
-| Scroll            | Lenis optional (`duration: 0.7, lerp: 0.08`).                                                         |
+| Element | Motion |
+|---|---|
+| Apparatus (Night) | Pulse: 3% intensity oscillation, 4s period. **Never rotates.** |
+| Apparatus (Day) | 320ms reveal on first paint, static thereafter. |
+| Verb landmark | Color set permanently to accent-2; 1px underline draws in 320ms `delay: 900ms`. No font-style change. |
+| Cards | `translateY(-4px)` + inner-glow brighten on hover, 220ms `--ease-soft`. |
+| Section heads | Opacity 0→1 + translateY 12px→0 on view enter, 600ms, 60ms stagger. |
+| Meter strip | Static. No "live" animation — the strip is a printed readout, not a streaming feed. |
+| Scroll | Lenis optional (`duration: 0.7, lerp: 0.08`). |
 
 **No magnetic cursors. No bento tile flips. No flashy parallax. No particle systems. No rotating orbs.** If you reach for any of these, you've drifted out of Lumen.
 
@@ -355,10 +303,7 @@ Lumen's motion stack is **lighter than Hum, heavier than Coral**.
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-  rel="stylesheet"
-/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 ```
 
 Three families, three weights each at most. No fourth family.
@@ -451,22 +396,22 @@ Brand wordmarks — lowercase: `cinder`, `wright`, `stratum`. Legal entity names
 
 ## How Lumen differs from neighbouring themes
 
-| vs                                  | difference                                                                                                                                                                                                                                                                                |
-| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| vs | difference |
+|---|---|
 | **Midnight** (atmospheric, closest) | Midnight is geometric Geist on cool dark (`H 250`), no apparatus, no italic pivot, no grid. Lumen sits 25° hue away (`H 265`) with classical Instrument Serif, hand-built apparatus + leader callouts, blueprint grid, meter strip. The differentiation is large at every signature axis. |
-| **Aurora** (atmospheric)            | Aurora is cool cyan blooms on dark, Sentient serif body. Lumen is brass-on-violet apparatus + Instrument Serif headline. Different temperature, different focal-element philosophy (Aurora: ambient blooms; Lumen: built apparatus).                                                      |
-| **Bloom** (atmospheric)             | Bloom is warm cream paper, expressive content (Suno/Runway). Lumen is dark or cool-bone, technical content (Modal/Anthropic). Different register entirely.                                                                                                                                |
-| **Atelier** (editorial)             | Atelier is Playfair Display Didone on warm cream — luxury fashion. Lumen's Instrument Serif is a 1960s technical-journal serif. Atelier sells perfume; Lumen sells inference.                                                                                                             |
+| **Aurora** (atmospheric) | Aurora is cool cyan blooms on dark, Sentient serif body. Lumen is brass-on-violet apparatus + Instrument Serif headline. Different temperature, different focal-element philosophy (Aurora: ambient blooms; Lumen: built apparatus). |
+| **Bloom** (atmospheric) | Bloom is warm cream paper, expressive content (Suno/Runway). Lumen is dark or cool-bone, technical content (Modal/Anthropic). Different register entirely. |
+| **Atelier** (editorial) | Atelier is Playfair Display Didone on warm cream — luxury fashion. Lumen's Instrument Serif is a 1960s technical-journal serif. Atelier sells perfume; Lumen sells inference. |
 
 ## Test brief expectations
 
 Lumen should be a candidate when the brief mentions:
 
-- _inference · model · LLM · AI tool · agent · coding agent · voice · synthesis · API · platform · GPU · serverless · runtime · developer experience · DX · the docs · the console · pricing · research lab · atmospheric model · weather · climate_
-- product categories: _AI infrastructure · ML platform · model API · AI dev tool · voice / audio AI · research AI · climate / science AI · agentic coding_
-- emotional tone: _engineered · premium · technical · instrument · after-hours · considered · post-Modal_
+- *inference · model · LLM · AI tool · agent · coding agent · voice · synthesis · API · platform · GPU · serverless · runtime · developer experience · DX · the docs · the console · pricing · research lab · atmospheric model · weather · climate*
+- product categories: *AI infrastructure · ML platform · model API · AI dev tool · voice / audio AI · research AI · climate / science AI · agentic coding*
+- emotional tone: *engineered · premium · technical · instrument · after-hours · considered · post-Modal*
 
-Briefs that say _bakery / café / atelier / fashion / podcast / record label / hot sauce / agency portfolio_ never route to Lumen.
+Briefs that say *bakery / café / atelier / fashion / podcast / record label / hot sauce / agency portfolio* never route to Lumen.
 
 ## Build hint
 
@@ -474,51 +419,34 @@ The first 22 lines of CSS should establish Lumen's anchor moves:
 
 ```css
 body {
-  background: var(--color-paper);
-  color: var(--color-ink-2);
+  background: var(--color-paper); color: var(--color-ink-2);
   font-family: var(--font-body);
   font-variant-numeric: tabular-nums;
-  text-transform: lowercase; /* prose default — the two-register foundation */
+  text-transform: lowercase;            /* prose default — the two-register foundation */
 }
 
-.eyebrow,
-.callout,
-.meter__label,
-.stat__label,
-.card__eyebrow {
-  font-family: var(--font-label);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase; /* mono labels are the only uppercase surface */
-  color: var(--color-ink);
-  opacity: 0.55;
+.eyebrow, .callout, .meter__label, .stat__label, .card__eyebrow {
+  font-family: var(--font-label); font-size: 11px; letter-spacing: 0.10em;
+  text-transform: uppercase;            /* mono labels are the only uppercase surface */
+  color: var(--color-ink); opacity: 0.55;
 }
 
 .hero__title {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: var(--text-display);
-  line-height: 1.02;
-  letter-spacing: -0.032em;
-  max-width: 16ch;
+  font-family: var(--font-display); font-weight: 400;
+  font-size: var(--text-display); line-height: 1.02;
+  letter-spacing: -0.032em; max-width: 16ch;
 }
 .hero__title em {
-  font-style: normal; /* italic is RETIRED in Lumen */
+  font-style: normal;                   /* italic is RETIRED in Lumen */
   color: var(--color-accent-2);
-  position: relative;
-  white-space: nowrap;
+  position: relative; white-space: nowrap;
 }
 
 .hero {
   background:
     linear-gradient(var(--rule-blueprint) 1px, transparent 1px) 0 0 / 48px 48px,
-    linear-gradient(90deg, var(--rule-blueprint) 1px, transparent 1px) 0 0 /
-      48px 48px,
-    radial-gradient(
-      60% 50% at 78% 30%,
-      var(--color-paper-emit) 0%,
-      transparent 65%
-    ),
+    linear-gradient(90deg, var(--rule-blueprint) 1px, transparent 1px) 0 0 / 48px 48px,
+    radial-gradient(60% 50% at 78% 30%, var(--color-paper-emit) 0%, transparent 65%),
     var(--color-paper);
 }
 ```

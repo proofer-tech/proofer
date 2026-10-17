@@ -1,7 +1,6 @@
 # Animation Decision Framework
 
 ## Contents
-
 - [1. Should this animate at all?](#1-should-this-animate-at-all)
 - [2. What is the purpose?](#2-what-is-the-purpose)
 - [3. What easing should it use?](#3-what-easing-should-it-use)
@@ -13,23 +12,23 @@ Answer these four questions in order before writing animation code. SKILL.md car
 
 **How often will users see this animation?**
 
-| Frequency         | Examples                                   | Decision                     |
-| ----------------- | ------------------------------------------ | ---------------------------- |
-| 100+ times/day    | Keyboard shortcuts, command palette toggle | No animation. Ever.          |
-| Tens of times/day | Hover effects, list navigation             | Remove or drastically reduce |
-| Occasional        | Modals, drawers, toasts                    | Standard animation           |
-| Rare / first-time | Onboarding, feedback forms, celebrations   | Can add delight              |
+| Frequency | Examples | Decision |
+|---|---|---|
+| 100+ times/day | Keyboard shortcuts, command palette toggle | No animation. Ever. |
+| Tens of times/day | Hover effects, list navigation | Remove or drastically reduce |
+| Occasional | Modals, drawers, toasts | Standard animation |
+| Rare / first-time | Onboarding, feedback forms, celebrations | Can add delight |
 
 ## 2. What is the purpose?
 
 Answer "why does this animate?" before writing code.
 
-| Purpose         | Description                            | Example                                           |
-| --------------- | -------------------------------------- | ------------------------------------------------- |
-| **Feedback**    | Confirms user action was received      | Button scale on press, toggle state               |
-| **Orientation** | Shows spatial relationship             | Drawer slides from edge, menu scales from trigger |
-| **Continuity**  | Preserves context across state changes | Page transitions, layout shifts                   |
-| **Delight**     | Adds personality (use sparingly)       | Stagger reveals, spring overshoot                 |
+| Purpose | Description | Example |
+|---|---|---|
+| **Feedback** | Confirms user action was received | Button scale on press, toggle state |
+| **Orientation** | Shows spatial relationship | Drawer slides from edge, menu scales from trigger |
+| **Continuity** | Preserves context across state changes | Page transitions, layout shifts |
+| **Delight** | Adds personality (use sparingly) | Stagger reveals, spring overshoot |
 
 ## 3. What easing should it use?
 

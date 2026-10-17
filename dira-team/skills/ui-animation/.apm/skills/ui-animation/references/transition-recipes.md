@@ -132,17 +132,14 @@ Tween a container's width or height when its layout state changes (compact/expan
 
 ```css
 .t-resize {
-  transition:
-    width var(--resize-dur) var(--resize-ease),
-    height var(--resize-dur) var(--resize-ease);
+  transition: width var(--resize-dur) var(--resize-ease),
+              height var(--resize-dur) var(--resize-ease);
   will-change: width, height;
   overflow: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .t-resize {
-    transition: none;
-  }
+  .t-resize { transition: none; }
 }
 ```
 
@@ -165,10 +162,9 @@ See also: `component-patterns.md` § Drawers and panels for percentage-based dra
   opacity: 0;
   transform: translateY(var(--panel-translate-y));
   filter: blur(var(--panel-blur));
-  transition:
-    opacity var(--panel-open-dur) var(--panel-ease),
-    transform var(--panel-open-dur) var(--panel-ease),
-    filter var(--panel-open-dur) var(--panel-ease);
+  transition: opacity var(--panel-open-dur) var(--panel-ease),
+              transform var(--panel-open-dur) var(--panel-ease),
+              filter var(--panel-open-dur) var(--panel-ease);
 }
 .t-panel[data-open="true"] {
   opacity: 1;
@@ -180,9 +176,7 @@ See also: `component-patterns.md` § Drawers and panels for percentage-based dra
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .t-panel {
-    transition: none;
-  }
+  .t-panel { transition: none; }
 }
 ```
 
@@ -207,10 +201,9 @@ Slide a small badge onto a trigger (button, icon) and pop the dot; the trigger s
   opacity: 0;
   transform: translate(var(--badge-offset-x), var(--badge-offset-y));
   filter: blur(var(--badge-blur));
-  transition:
-    opacity var(--badge-slide-dur) var(--badge-ease),
-    transform var(--badge-slide-dur) var(--badge-ease),
-    filter var(--badge-slide-dur) var(--badge-ease);
+  transition: opacity var(--badge-slide-dur) var(--badge-ease),
+              transform var(--badge-slide-dur) var(--badge-ease),
+              filter var(--badge-slide-dur) var(--badge-ease);
 }
 .t-badge[data-open="true"] {
   opacity: 1;
@@ -219,8 +212,7 @@ Slide a small badge onto a trigger (button, icon) and pop the dot; the trigger s
 }
 .t-badge-dot {
   display: block;
-  width: 8px;
-  height: 8px;
+  width: 8px; height: 8px;
   border-radius: 50%;
   background: currentColor;
   transform: scale(0);
@@ -232,11 +224,7 @@ Slide a small badge onto a trigger (button, icon) and pop the dot; the trigger s
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .t-badge,
-  .t-badge-dot {
-    transition: none;
-    animation: none;
-  }
+  .t-badge, .t-badge-dot { transition: none; animation: none; }
 }
 ```
 
@@ -264,10 +252,9 @@ See also: `contextual-animations.md` § Contextual icon swaps for the Motion/Ani
   opacity: 0;
   transform: scale(var(--icon-swap-start-scale));
   filter: blur(var(--icon-swap-blur));
-  transition:
-    opacity var(--icon-swap-dur) var(--icon-swap-ease),
-    transform var(--icon-swap-dur) var(--icon-swap-ease),
-    filter var(--icon-swap-dur) var(--icon-swap-ease);
+  transition: opacity var(--icon-swap-dur) var(--icon-swap-ease),
+              transform var(--icon-swap-dur) var(--icon-swap-ease),
+              filter var(--icon-swap-dur) var(--icon-swap-ease);
 }
 .t-icon-swap[data-state="a"] [data-icon="a"],
 .t-icon-swap[data-state="b"] [data-icon="b"] {
@@ -277,9 +264,7 @@ See also: `contextual-animations.md` § Contextual icon swaps for the Motion/Ani
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .t-icon {
-    transition: none;
-  }
+  .t-icon { transition: none; }
 }
 ```
 
@@ -292,16 +277,17 @@ Origin-aware dropdown with open/close animations. JS handles close-state cleanup
 See also: `component-patterns.md` § Popovers and dropdowns for Radix UI transform-origin and scale patterns.
 
 ```html
-<div class="t-dropdown" data-origin="top-left">Menu content</div>
+<div class="t-dropdown" data-origin="top-left">
+  Menu content
+</div>
 ```
 
 ```css
 .t-dropdown {
   opacity: 0;
   transform: scale(var(--dropdown-pre-scale));
-  transition:
-    opacity var(--dropdown-open-dur) var(--dropdown-ease),
-    transform var(--dropdown-open-dur) var(--dropdown-ease);
+  transition: opacity var(--dropdown-open-dur) var(--dropdown-ease),
+              transform var(--dropdown-open-dur) var(--dropdown-ease);
 }
 .t-dropdown.is-open {
   opacity: 1;
@@ -313,29 +299,15 @@ See also: `component-patterns.md` § Popovers and dropdowns for Radix UI transfo
   transition-duration: var(--dropdown-close-dur);
 }
 
-.t-dropdown[data-origin="top-left"] {
-  transform-origin: top left;
-}
-.t-dropdown[data-origin="top-center"] {
-  transform-origin: top center;
-}
-.t-dropdown[data-origin="top-right"] {
-  transform-origin: top right;
-}
-.t-dropdown[data-origin="bottom-left"] {
-  transform-origin: bottom left;
-}
-.t-dropdown[data-origin="bottom-center"] {
-  transform-origin: bottom center;
-}
-.t-dropdown[data-origin="bottom-right"] {
-  transform-origin: bottom right;
-}
+.t-dropdown[data-origin="top-left"]     { transform-origin: top left; }
+.t-dropdown[data-origin="top-center"]   { transform-origin: top center; }
+.t-dropdown[data-origin="top-right"]    { transform-origin: top right; }
+.t-dropdown[data-origin="bottom-left"]  { transform-origin: bottom left; }
+.t-dropdown[data-origin="bottom-center"]{ transform-origin: bottom center; }
+.t-dropdown[data-origin="bottom-right"] { transform-origin: bottom right; }
 
 @media (prefers-reduced-motion: reduce) {
-  .t-dropdown {
-    transition: none;
-  }
+  .t-dropdown { transition: none; }
 }
 ```
 
@@ -345,9 +317,7 @@ See also: `component-patterns.md` § Popovers and dropdowns for Radix UI transfo
 function closeDropdown(el) {
   el.classList.add("is-closing");
   el.classList.remove("is-open");
-  const dur = parseFloat(
-    getComputedStyle(el).getPropertyValue("--dropdown-close-dur"),
-  );
+  const dur = parseFloat(getComputedStyle(el).getPropertyValue("--dropdown-close-dur"));
   setTimeout(() => el.classList.remove("is-closing"), dur);
 }
 ```
@@ -369,9 +339,8 @@ See also: `component-patterns.md` § Modals and dialogs for `@starting-style` en
   opacity: 0;
   transform: scale(var(--modal-scale));
   transform-origin: center;
-  transition:
-    opacity var(--modal-open-dur) var(--modal-ease),
-    transform var(--modal-open-dur) var(--modal-ease);
+  transition: opacity var(--modal-open-dur) var(--modal-ease),
+              transform var(--modal-open-dur) var(--modal-ease);
 }
 .t-modal.is-open {
   opacity: 1;
@@ -384,9 +353,7 @@ See also: `component-patterns.md` § Modals and dialogs for `@starting-style` en
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .t-modal {
-    transition: none;
-  }
+  .t-modal { transition: none; }
 }
 ```
 
@@ -396,9 +363,7 @@ See also: `component-patterns.md` § Modals and dialogs for `@starting-style` en
 function closeModal(el) {
   el.classList.add("is-closing");
   el.classList.remove("is-open");
-  const dur = parseFloat(
-    getComputedStyle(el).getPropertyValue("--modal-close-dur"),
-  );
+  const dur = parseFloat(getComputedStyle(el).getPropertyValue("--modal-close-dur"));
   setTimeout(() => el.classList.remove("is-closing"), dur);
 }
 ```
@@ -416,10 +381,9 @@ Swap text in place with a blurred vertical transition ("Processing..." → "Done
 ```css
 .t-text-swap {
   display: inline-block;
-  transition:
-    opacity var(--text-swap-dur) var(--text-swap-ease),
-    transform var(--text-swap-dur) var(--text-swap-ease),
-    filter var(--text-swap-dur) var(--text-swap-ease);
+  transition: opacity var(--text-swap-dur) var(--text-swap-ease),
+              transform var(--text-swap-dur) var(--text-swap-ease),
+              filter var(--text-swap-dur) var(--text-swap-ease);
 }
 .t-text-swap.is-exit {
   opacity: 0;
@@ -433,9 +397,7 @@ Swap text in place with a blurred vertical transition ("Processing..." → "Done
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .t-text-swap {
-    transition: none;
-  }
+  .t-text-swap { transition: none; }
 }
 ```
 
@@ -443,9 +405,7 @@ Swap text in place with a blurred vertical transition ("Processing..." → "Done
 
 ```js
 function swapText(el, newText) {
-  const dur = parseFloat(
-    getComputedStyle(el).getPropertyValue("--text-swap-dur"),
-  );
+  const dur = parseFloat(getComputedStyle(el).getPropertyValue("--text-swap-dur"));
   el.classList.add("is-exit");
   setTimeout(() => {
     el.textContent = newText;
@@ -479,17 +439,14 @@ See also: `component-patterns.md` § Step form navigation for the Motion/Animate
 }
 .t-page-slide > * {
   grid-area: 1 / 1;
-  transition:
-    opacity var(--page-dur) var(--page-ease),
-    transform var(--page-dur) var(--page-ease),
-    filter var(--page-dur) var(--page-ease);
+  transition: opacity var(--page-dur) var(--page-ease),
+              transform var(--page-dur) var(--page-ease),
+              filter var(--page-dur) var(--page-ease);
 }
 
 /* Page 1 active */
 .t-page-slide[data-page="1"] [data-page-id="1"] {
-  opacity: 1;
-  transform: translateX(0);
-  filter: blur(0);
+  opacity: 1; transform: translateX(0); filter: blur(0);
 }
 .t-page-slide[data-page="1"] [data-page-id="2"] {
   opacity: 0;
@@ -499,9 +456,7 @@ See also: `component-patterns.md` § Step form navigation for the Motion/Animate
 
 /* Page 2 active */
 .t-page-slide[data-page="2"] [data-page-id="2"] {
-  opacity: 1;
-  transform: translateX(0);
-  filter: blur(0);
+  opacity: 1; transform: translateX(0); filter: blur(0);
 }
 .t-page-slide[data-page="2"] [data-page-id="1"] {
   opacity: 0;
@@ -510,9 +465,7 @@ See also: `component-patterns.md` § Step form navigation for the Motion/Animate
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .t-page-slide > * {
-    transition: none;
-  }
+  .t-page-slide > * { transition: none; }
 }
 ```
 
@@ -559,17 +512,11 @@ Re-enter digits with directional blur on number update (counters, prices, balanc
   display: inline-block;
   animation: digit-enter var(--digit-dur) var(--digit-ease) both;
 }
-.t-digit[data-stagger="1"] {
-  animation-delay: var(--digit-stagger);
-}
-.t-digit[data-stagger="2"] {
-  animation-delay: calc(var(--digit-stagger) * 2);
-}
+.t-digit[data-stagger="1"] { animation-delay: var(--digit-stagger); }
+.t-digit[data-stagger="2"] { animation-delay: calc(var(--digit-stagger) * 2); }
 
 @media (prefers-reduced-motion: reduce) {
-  .t-digit {
-    animation: none;
-  }
+  .t-digit { animation: none; }
 }
 ```
 
@@ -581,8 +528,7 @@ function updateDigits(container, newValue) {
   container.innerHTML = String(newValue)
     .split("")
     .map((d, i, arr) => {
-      const stagger =
-        i >= arr.length - 2 ? ` data-stagger="${arr.length - 1 - i}"` : "";
+      const stagger = i >= arr.length - 2 ? ` data-stagger="${arr.length - 1 - i}"` : "";
       return `<span class="t-digit"${stagger}>${d}</span>`;
     })
     .join("");
@@ -615,48 +561,36 @@ Distance-falloff lift on a horizontal stack. Hovered item lifts and scales; neig
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .t-avatar {
-    transition: none;
-  }
+  .t-avatar { transition: none; }
 }
 ```
 
 **JS, distance-based lift:**
 
-Set `transition-timing-function` inline _before_ writing CSS variables. The browser applies whatever timing function is current when the property changes, giving smooth ease-in on hover and bouncy ease-out on return without separate declarations.
+Set `transition-timing-function` inline *before* writing CSS variables. The browser applies whatever timing function is current when the property changes, giving smooth ease-in on hover and bouncy ease-out on return without separate declarations.
 
 ```js
 const group = document.querySelector(".t-avatar-group");
 const items = [...group.querySelectorAll(".t-avatar")];
-const lift = parseFloat(
-  getComputedStyle(group).getPropertyValue("--avatar-lift"),
-);
-const scale = parseFloat(
-  getComputedStyle(group).getPropertyValue("--avatar-scale"),
-);
-const falloff = parseFloat(
-  getComputedStyle(group).getPropertyValue("--avatar-falloff"),
-);
+const lift = parseFloat(getComputedStyle(group).getPropertyValue("--avatar-lift"));
+const scale = parseFloat(getComputedStyle(group).getPropertyValue("--avatar-scale"));
+const falloff = parseFloat(getComputedStyle(group).getPropertyValue("--avatar-falloff"));
 
-group.addEventListener(
-  "mouseenter",
-  (e) => {
-    const target = e.target.closest(".t-avatar");
-    if (!target) return;
-    const idx = items.indexOf(target);
-    items.forEach((item, i) => {
-      const dist = Math.abs(i - idx);
-      item.style.transitionTimingFunction = "var(--avatar-ease-in)";
-      if (dist === 0) {
-        item.style.transform = `translateY(${lift}px) scale(${scale})`;
-      } else {
-        const y = lift * Math.pow(falloff, dist);
-        item.style.transform = `translateY(${y}px)`;
-      }
-    });
-  },
-  true,
-);
+group.addEventListener("mouseenter", (e) => {
+  const target = e.target.closest(".t-avatar");
+  if (!target) return;
+  const idx = items.indexOf(target);
+  items.forEach((item, i) => {
+    const dist = Math.abs(i - idx);
+    item.style.transitionTimingFunction = "var(--avatar-ease-in)";
+    if (dist === 0) {
+      item.style.transform = `translateY(${lift}px) scale(${scale})`;
+    } else {
+      const y = lift * Math.pow(falloff, dist);
+      item.style.transform = `translateY(${y}px)`;
+    }
+  });
+}, true);
 
 group.addEventListener("mouseleave", () => {
   items.forEach((item) => {
@@ -688,8 +622,7 @@ Multi-layered success: fade, rotation, blur reduction, Y-bob with overshoot, opt
 @keyframes success-in {
   0% {
     opacity: 0;
-    transform: rotate(var(--success-rotate-from))
-      translateY(var(--success-bob-y));
+    transform: rotate(var(--success-rotate-from)) translateY(var(--success-bob-y));
     filter: blur(var(--success-blur-from));
   }
   100% {
@@ -714,16 +647,8 @@ Multi-layered success: fade, rotation, blur reduction, Y-bob with overshoot, opt
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .t-success {
-    animation: none;
-    opacity: 1;
-    transform: none;
-    filter: none;
-  }
-  .t-success-path {
-    transition: none;
-    stroke-dashoffset: 0;
-  }
+  .t-success { animation: none; opacity: 1; transform: none; filter: none; }
+  .t-success-path { transition: none; stroke-dashoffset: 0; }
 }
 ```
 
@@ -759,21 +684,11 @@ Per-segment shake with auto-reverting error border. Three classes: `.is-error` o
 
 ```css
 @keyframes shake {
-  0% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(var(--shake-dist));
-  }
-  50% {
-    transform: translateX(calc(-1 * var(--shake-overshoot)));
-  }
-  75% {
-    transform: translateX(calc(var(--shake-dist) * 0.5));
-  }
-  100% {
-    transform: translateX(0);
-  }
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(var(--shake-dist)); }
+  50%  { transform: translateX(calc(-1 * var(--shake-overshoot))); }
+  75%  { transform: translateX(calc(var(--shake-dist) * 0.5)); }
+  100% { transform: translateX(0); }
 }
 
 .t-error-input {
@@ -791,9 +706,7 @@ Per-segment shake with auto-reverting error border. Three classes: `.is-error` o
 .t-error-msg {
   opacity: 0;
   transform: translateY(-4px);
-  transition:
-    opacity 150ms ease,
-    transform 150ms ease;
+  transition: opacity 150ms ease, transform 150ms ease;
 }
 .t-error-wrap.is-error .t-error-msg {
   opacity: 1;
@@ -801,12 +714,8 @@ Per-segment shake with auto-reverting error border. Three classes: `.is-error` o
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .t-error-input {
-    animation: none;
-  }
-  .t-error-msg {
-    transition: none;
-  }
+  .t-error-input { animation: none; }
+  .t-error-msg { transition: none; }
 }
 ```
 
@@ -819,17 +728,11 @@ function triggerError(wrap, input) {
   wrap.classList.add("is-error");
   input.classList.add("is-error", "is-shaking");
 
-  input.addEventListener(
-    "animationend",
-    () => {
-      input.classList.remove("is-shaking");
-    },
-    { once: true },
-  );
+  input.addEventListener("animationend", () => {
+    input.classList.remove("is-shaking");
+  }, { once: true });
 
-  const hold = parseFloat(
-    getComputedStyle(wrap).getPropertyValue("--shake-hold"),
-  );
+  const hold = parseFloat(getComputedStyle(wrap).getPropertyValue("--shake-hold"));
   setTimeout(() => {
     wrap.classList.remove("is-error");
     input.classList.remove("is-error");

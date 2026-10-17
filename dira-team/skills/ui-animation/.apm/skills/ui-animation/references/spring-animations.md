@@ -3,7 +3,6 @@
 Springs simulate physics, so they feel more natural than duration-based animations: no fixed duration, they settle by physical parameters.
 
 ## Contents
-
 - [When to use springs](#when-to-use-springs)
 - [Spring parameters](#spring-parameters)
 - [Configuration presets](#configuration-presets)
@@ -24,11 +23,11 @@ Springs simulate physics, so they feel more natural than duration-based animatio
 
 ## Spring parameters
 
-| Parameter   | What it controls                       | Typical range |
-| ----------- | -------------------------------------- | ------------- |
-| `stiffness` | Speed of movement (higher = faster)    | 100-500       |
-| `damping`   | Resistance (lower = more bounce)       | 15-40         |
-| `mass`      | Weight feel (higher = slower, heavier) | 0.5-2         |
+| Parameter | What it controls | Typical range |
+|---|---|---|
+| `stiffness` | Speed of movement (higher = faster) | 100-500 |
+| `damping` | Resistance (lower = more bounce) | 15-40 |
+| `mass` | Weight feel (higher = slower, heavier) | 0.5-2 |
 
 ## Configuration presets
 
@@ -40,12 +39,12 @@ Springs simulate physics, so they feel more natural than duration-based animatio
 
 **Traditional physics (more control):**
 
-| Preset                 | stiffness | damping | Use case                         |
-| ---------------------- | --------- | ------- | -------------------------------- |
-| Snappy (Apple default) | 500       | 40      | General UI, no bounce            |
-| Bouncy                 | 300       | 20      | Playful elements, notifications  |
-| Gentle                 | 200       | 30      | Page transitions, large elements |
-| Stiff                  | 700       | 50      | Small precise movements          |
+| Preset | stiffness | damping | Use case |
+|---|---|---|---|
+| Snappy (Apple default) | 500 | 40 | General UI, no bounce |
+| Bouncy | 300 | 20 | Playful elements, notifications |
+| Gentle | 200 | 30 | Page transitions, large elements |
+| Stiff | 700 | 50 | Small precise movements |
 
 Bounce signals brand personality. Default to zero (the safe choice): a finance dashboard should never bounce; a learning app or creative tool can use subtle bounce (0.1-0.2) to feel friendlier. The question isn't "does it look better with bounce?" but "does it match the brand?"
 
@@ -60,11 +59,11 @@ Default most UI to **damping 1.0** (critically damped): graceful and non-distrac
 
 Values Apple ships:
 
-| Interaction                  | Damping | Response |
-| ---------------------------- | ------- | -------- |
-| Move / reposition (e.g. PiP) | `1.0`   | `0.4`    |
-| Rotation                     | `0.8`   | `0.4`    |
-| Drawer / sheet               | `0.8`   | `0.3`    |
+| Interaction | Damping | Response |
+|---|---|---|
+| Move / reposition (e.g. PiP) | `1.0` | `0.4` |
+| Rotation | `0.8` | `0.4` |
+| Drawer / sheet | `0.8` | `0.3` |
 
 **Web mapping:** Motion's `bounce` + `duration` spring API maps closely to Apple's damping + response. A safe house style is critically damped springs everywhere by default; reserve bounce for momentum-driven, physical interactions.
 

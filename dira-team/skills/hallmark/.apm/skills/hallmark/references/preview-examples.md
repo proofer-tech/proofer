@@ -4,8 +4,7 @@ Four sample Step 5 preview blocks for the model to imitate, varied across macros
 
 ---
 
-_Long Document (editorial, motion-cut):_
-
+*Long Document (editorial, motion-cut):*
 > **Hallmark · v1.1.0**
 >
 > - **Macrostructure** · Long Document
@@ -16,8 +15,7 @@ _Long Document (editorial, motion-cut):_
 > - **Slop test** · 58 / 58 ✓
 > - **Diversification** · first run for this project
 
-_Bento Grid (SaaS, motion-on):_
-
+*Bento Grid (SaaS, motion-on):*
 > **Hallmark · v1.1.0**
 >
 > - **Macrostructure** · Bento Grid
@@ -28,8 +26,7 @@ _Bento Grid (SaaS, motion-on):_
 > - **Slop test** · 58 / 58 ✓
 > - **Diversification** · differs from Plain on paper hue (light-cool vs pure-white) + accent (indigo vs ink-blue)
 
-_Manifesto (declarative, no enrichment):_
-
+*Manifesto (declarative, no enrichment):*
 > **Hallmark · v1.1.0**
 >
 > - **Macrostructure** · Manifesto
@@ -40,8 +37,7 @@ _Manifesto (declarative, no enrichment):_
 > - **Slop test** · 58 / 58 ✓
 > - **Diversification** · differs from Newsprint on paper band (dark vs light) + display style (display-heavy vs geometric-sans)
 
-_Custom (Coffeebox archival café):_
-
+*Custom (Coffeebox archival café):*
 > **Hallmark · v1.1.0**
 >
 > - **Macrostructure** · Long Document

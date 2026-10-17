@@ -20,22 +20,22 @@ Canonical home for reverse-engineering motion from a recording: route "reverse e
 
 ## Reference files
 
-| File                                                                       | Read when                                                                                                                                                    |
-| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [references/decision-framework.md](references/decision-framework.md)       | Default: deciding whether/why to animate, picking easing character                                                                                           |
-| [references/spring-animations.md](references/spring-animations.md)         | Spring physics, framer-motion useSpring, configuring spring params, Apple damping/response values, interruption mechanics                                    |
-| [references/component-patterns.md](references/component-patterns.md)       | Buttons, popovers, tooltips, drawers, modals, toasts with animation                                                                                          |
-| [references/clip-path-techniques.md](references/clip-path-techniques.md)   | clip-path for reveals, tabs, hold-to-delete, comparison sliders                                                                                              |
-| [references/gesture-drag.md](references/gesture-drag.md)                   | Drag, swipe-to-dismiss, momentum, pointer capture, velocity handoff, momentum projection                                                                     |
-| [references/performance-deep-dive.md](references/performance-deep-dive.md) | Jank, CSS vs JS, WAAPI, CSS variables trap, Framer Motion caveats                                                                                            |
-| [references/review-format.md](references/review-format.md)                 | Reviewing animation code: ten standards (each with flag-on-sight triggers), Before/After/Why table, Block/Approve verdict                                    |
-| [references/contextual-animations.md](references/contextual-animations.md) | Contextual icon swaps, word-level stagger entrances, fixed-offset exits                                                                                      |
-| [references/transition-recipes.md](references/transition-recipes.md)       | Installing a CSS transition: card resize, badge, dropdown, modal, panel, page slide, icon swap, number pop-in, text swap, success, avatar hover, error shake |
-| [references/measurement-guide.md](references/measurement-guide.md)         | Reverse-engineer: what to measure, eye vs script, reading `metrics.json`, choosing an ROI                                                                    |
-| [references/curve-fitting.md](references/curve-fitting.md)                 | Reverse-engineer: reading `fit_curves.py` output, spring vs bezier, judging fit error, asymmetric open/close                                                 |
-| [references/code-output.md](references/code-output.md)                     | Reverse-engineer: emitting code for CSS, Motion/Framer Motion, SwiftUI, React Native, UIKit                                                                  |
-| [references/choreography.md](references/choreography.md)                   | Reverse-engineer: multi-element/multi-phase motion: staggers, blur-before-move, per-edge settling                                                            |
-| [references/vocabulary.md](references/vocabulary.md)                       | Naming a motion effect the user describes vaguely ("what's it called when...")                                                                               |
+| File | Read when |
+| --- | --- |
+| [references/decision-framework.md](references/decision-framework.md) | Default: deciding whether/why to animate, picking easing character |
+| [references/spring-animations.md](references/spring-animations.md) | Spring physics, framer-motion useSpring, configuring spring params, Apple damping/response values, interruption mechanics |
+| [references/component-patterns.md](references/component-patterns.md) | Buttons, popovers, tooltips, drawers, modals, toasts with animation |
+| [references/clip-path-techniques.md](references/clip-path-techniques.md) | clip-path for reveals, tabs, hold-to-delete, comparison sliders |
+| [references/gesture-drag.md](references/gesture-drag.md) | Drag, swipe-to-dismiss, momentum, pointer capture, velocity handoff, momentum projection |
+| [references/performance-deep-dive.md](references/performance-deep-dive.md) | Jank, CSS vs JS, WAAPI, CSS variables trap, Framer Motion caveats |
+| [references/review-format.md](references/review-format.md) | Reviewing animation code: ten standards (each with flag-on-sight triggers), Before/After/Why table, Block/Approve verdict |
+| [references/contextual-animations.md](references/contextual-animations.md) | Contextual icon swaps, word-level stagger entrances, fixed-offset exits |
+| [references/transition-recipes.md](references/transition-recipes.md) | Installing a CSS transition: card resize, badge, dropdown, modal, panel, page slide, icon swap, number pop-in, text swap, success, avatar hover, error shake |
+| [references/measurement-guide.md](references/measurement-guide.md) | Reverse-engineer: what to measure, eye vs script, reading `metrics.json`, choosing an ROI |
+| [references/curve-fitting.md](references/curve-fitting.md) | Reverse-engineer: reading `fit_curves.py` output, spring vs bezier, judging fit error, asymmetric open/close |
+| [references/code-output.md](references/code-output.md) | Reverse-engineer: emitting code for CSS, Motion/Framer Motion, SwiftUI, React Native, UIKit |
+| [references/choreography.md](references/choreography.md) | Reverse-engineer: multi-element/multi-phase motion: staggers, blur-before-move, per-edge settling |
+| [references/vocabulary.md](references/vocabulary.md) | Naming a motion effect the user describes vaguely ("what's it called when...") |
 
 ## Core rules
 
@@ -69,17 +69,17 @@ Canonical home for reverse-engineering motion from a recording: route "reverse e
 
 ## Easing defaults
 
-| Element                  | Duration     | Easing                           |
-| ------------------------ | ------------ | -------------------------------- |
-| Button press feedback    | 100-160ms    | `cubic-bezier(0.22, 1, 0.36, 1)` |
-| Tooltips, small popovers | 125-200ms    | `ease-out` or enter curve        |
-| Dropdowns, selects       | 150-250ms    | `cubic-bezier(0.22, 1, 0.36, 1)` |
-| Modals, drawers          | 200-350ms    | `cubic-bezier(0.22, 1, 0.36, 1)` |
-| Move/slide on screen     | 200-300ms    | `cubic-bezier(0.25, 1, 0.5, 1)`  |
-| Page transitions         | 250-400ms    | enter or move curve              |
-| Hover (colour/opacity)   | 200ms        | `ease`                           |
-| Hover (transform/scale)  | 100-150ms    | enter curve                      |
-| Illustrative/marketing   | Up to 1000ms | Spring or custom                 |
+| Element                       | Duration     | Easing                           |
+| ----------------------------- | ------------ | -------------------------------- |
+| Button press feedback         | 100-160ms    | `cubic-bezier(0.22, 1, 0.36, 1)` |
+| Tooltips, small popovers      | 125-200ms    | `ease-out` or enter curve        |
+| Dropdowns, selects            | 150-250ms    | `cubic-bezier(0.22, 1, 0.36, 1)` |
+| Modals, drawers               | 200-350ms    | `cubic-bezier(0.22, 1, 0.36, 1)` |
+| Move/slide on screen          | 200-300ms    | `cubic-bezier(0.25, 1, 0.5, 1)`  |
+| Page transitions              | 250-400ms    | enter or move curve              |
+| Hover (colour/opacity)        | 200ms        | `ease`                           |
+| Hover (transform/scale)       | 100-150ms    | enter curve                      |
+| Illustrative/marketing        | Up to 1000ms | Spring or custom                 |
 
 Keep routine UI under 300ms; scale duration with distance (a full-screen slide can exceed 300ms, a 6px tooltip shift stays under 150ms).
 
@@ -95,20 +95,20 @@ Avoid `ease-in` for UI: it starts slow, so the element lags the user's action an
 
 Match the UI element first, then pick the recipe from [references/transition-recipes.md](references/transition-recipes.md):
 
-| UI pattern                            | Recipe                   |
-| ------------------------------------- | ------------------------ |
-| Trigger + floating dot/count          | Notification badge       |
-| Trigger + anchored surface            | Menu dropdown            |
-| Centred surface on top of page        | Modal dialog             |
-| Panel sliding into existing container | Panel reveal             |
-| List ↔ detail or wizard steps         | Page side-by-side slides |
-| Element dimension changes             | Card resize              |
-| Text updating in place                | Text state swap          |
-| Two icons in same slot                | Icon swap                |
-| Number updating                       | Number pop-in            |
-| Confirmation / success moment         | Success celebration      |
-| Hovering item in horizontal stack     | Avatar group hover       |
-| Form validation error                 | Error state shake        |
+| UI pattern | Recipe |
+|---|---|
+| Trigger + floating dot/count | Notification badge |
+| Trigger + anchored surface | Menu dropdown |
+| Centred surface on top of page | Modal dialog |
+| Panel sliding into existing container | Panel reveal |
+| List ↔ detail or wizard steps | Page side-by-side slides |
+| Element dimension changes | Card resize |
+| Text updating in place | Text state swap |
+| Two icons in same slot | Icon swap |
+| Number updating | Number pop-in |
+| Confirmation / success moment | Success celebration |
+| Hovering item in horizontal stack | Avatar group hover |
+| Form validation error | Error state shake |
 
 Prefer lower-overhead transitions (CSS-only) unless the design requires JS orchestration.
 
