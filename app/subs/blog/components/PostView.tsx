@@ -98,6 +98,9 @@ export default function PostView({
     f.medium_url &&
     /^https?:\/\/([^/]+\.)?medium\.com\//.test(f.canonical_url ?? "");
   const firstTag = tags[0];
+  // 대표 이미지가 본문에도 있으면 맨 위 커버는 그리지 않는다. 목록 썸네일과 OG 에만 쓴다.
+  const cover =
+    f.cover && !body_md.includes(`](${f.cover.src}`) ? f.cover : null;
   return (
     <article className="mx-auto max-w-[680px]">
       {firstTag && (
@@ -121,7 +124,7 @@ export default function PostView({
 
       {author && (
         <div
-          className={`mt-7 flex items-center gap-3 ${f.cover ? "" : "border-b border-proofer-line pb-7"}`}
+          className={`mt-7 flex items-center gap-3 ${cover ? "" : "border-b border-proofer-line pb-7"}`}
         >
           <Avatar
             url={author.avatar_url}
@@ -143,11 +146,11 @@ export default function PostView({
         </div>
       )}
 
-      {f.cover && (
+      {cover && (
         <div className="mt-9 overflow-hidden rounded-proofer bg-proofer-bg-alt md:-mx-10">
           <Image
-            src={f.cover.src}
-            alt={f.cover.alt}
+            src={cover.src}
+            alt={cover.alt}
             width={1200}
             height={630}
             priority
