@@ -3,6 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { generateSubdomainPath } from "@/src/path";
+import { SUB_DOMAIN } from "@/src/constants";
 import {
   SEGMENTS,
   SEGMENT_ORDER,
@@ -17,7 +19,7 @@ export default function SegmentTabs() {
       {SEGMENT_ORDER.map((key) => (
         <Link
           key={key}
-          href={SEGMENTS[key].path}
+          href={generateSubdomainPath(SEGMENTS[key].path, SUB_DOMAIN.ax)}
           className={`ax-tab${key === current ? " ax-tab--on" : ""}`}
           aria-current={key === current ? "page" : undefined}
         >
