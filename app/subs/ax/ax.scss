@@ -139,10 +139,13 @@ body:has(.ax-root) {
 
   /* 헤더 */
 
-  .ax-header {
+  .ax-top {
     position: sticky;
     top: 0;
     z-index: 50;
+  }
+
+  .ax-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -154,11 +157,6 @@ body:has(.ax-root) {
     transition:
       background-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
       border-bottom-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
-  .ax-header--scrolled {
-    background: rgb(8 12 26 / 96%);
-    border-bottom-color: var(--line-card);
   }
 
   .ax-header__brand {
@@ -196,23 +194,31 @@ body:has(.ax-root) {
     font-size: 14px;
   }
 
-  /* 세그먼트 탭: 헤더 둘째 줄 */
+  /* 세그먼트 탭: 헤더 아래 둘째 단, 가로 전체 폭 3등분 */
 
   .ax-tabs {
-    order: 9;
-    flex-basis: 100%;
     display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    scrollbar-width: none;
+    background: rgb(8 12 26 / 82%);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+    transition:
+      background-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-bottom-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .ax-top--scrolled .ax-header,
+  .ax-top--scrolled .ax-tabs {
+    background: rgb(8 12 26 / 96%);
+    border-bottom-color: var(--line-card);
   }
 
   .ax-tab {
-    flex: none;
-    border: 1px solid var(--line-card);
-    border-radius: 999px;
-    padding: 7px 16px;
-    font-size: 13px;
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 12px 8px;
+    text-align: center;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
     color: var(--muted);
     transition:
       color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
@@ -221,12 +227,11 @@ body:has(.ax-root) {
 
   .ax-tab:hover {
     color: var(--ink);
-    border-color: var(--line-hover);
   }
 
   .ax-tab--on {
     color: var(--ink);
-    border-color: var(--blue);
+    border-bottom-color: var(--blue);
     background: rgb(52 79 224 / 22%);
   }
 
@@ -374,6 +379,7 @@ body:has(.ax-root) {
 
   @media (prefers-reduced-motion: reduce) {
     .ax-header,
+    .ax-tabs,
     .ax-tab,
     .ax-nav a,
     .ax-dock,

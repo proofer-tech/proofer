@@ -30,26 +30,28 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`ax-header${scrolled ? " ax-header--scrolled" : ""}`}>
-      <a href="#top" className="ax-header__brand" aria-label="proofer AX 홈">
-        <Image
-          src="/assets/images/branding.svg"
-          alt="proofer"
-          width={21}
-          height={22}
-          priority
-        />
-        <span className="ax-header__brand-mark">AX</span>
-      </a>
-      <nav className="ax-nav" aria-label="섹션 내비게이션">
-        {nav.map((n) => (
-          <a key={n.href} href={n.href}>
-            {n.label}
-          </a>
-        ))}
-      </nav>
-      <AxInquireButton className="ax-btn">도입 문의</AxInquireButton>
+    <div className={`ax-top${scrolled ? " ax-top--scrolled" : ""}`}>
+      <header className="ax-header">
+        <a href="#top" className="ax-header__brand" aria-label="proofer AX 홈">
+          <Image
+            src="/assets/images/branding.svg"
+            alt="proofer"
+            width={21}
+            height={22}
+            priority
+          />
+          <span className="ax-header__brand-mark">AX</span>
+        </a>
+        <nav className="ax-nav" aria-label="섹션 내비게이션">
+          {nav.map((n) => (
+            <a key={n.href} href={n.href}>
+              {n.label}
+            </a>
+          ))}
+        </nav>
+        <AxInquireButton className="ax-btn">도입 문의</AxInquireButton>
+      </header>
       <SegmentTabs />
-    </header>
+    </div>
   );
 }
