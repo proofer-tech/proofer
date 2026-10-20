@@ -2,22 +2,17 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import AxInquireButton from "@/app/subs/ax/components/AxInquireButton";
-
-const NAV = [
-  { href: "#approach", label: "관점" },
-  { href: "#system", label: "커리큘럼" },
-  { href: "#lecture", label: "Lecture" },
-  { href: "#hackathon", label: "Hackathon" },
-  { href: "#consulting", label: "Consulting" },
-  { href: "#package", label: "패키지" },
-];
+import SegmentTabs from "@/app/subs/ax/components/SegmentTabs";
+import { SEGMENTS, segmentFromPath } from "@/app/subs/ax/segments";
 
 // 스펙 4.3절 "상단 헤더" 행: 40px 넘게 내리면 배경/경계선이 짙어진다
 const SCROLL_THRESHOLD = 40;
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const nav = SEGMENTS[segmentFromPath(usePathname() ?? "/")].nav;
 
   useEffect(() => {
     let ticking = false;
@@ -47,13 +42,14 @@ export default function Header() {
         <span className="ax-header__brand-mark">AX</span>
       </a>
       <nav className="ax-nav" aria-label="섹션 내비게이션">
-        {NAV.map((n) => (
+        {nav.map((n) => (
           <a key={n.href} href={n.href}>
             {n.label}
           </a>
         ))}
       </nav>
       <AxInquireButton className="ax-btn">도입 문의</AxInquireButton>
+      <SegmentTabs />
     </header>
   );
 }

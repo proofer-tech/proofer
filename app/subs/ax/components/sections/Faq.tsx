@@ -1,9 +1,8 @@
 import React from "react";
 import Enter from "@/app/subs/ax/components/Enter";
-import { FAQS } from "./Faq.data";
 import styles from "./Faq.module.scss";
 
-export default function Faq() {
+export default function Faq({ faqs }: { faqs: { q: string; a: string }[] }) {
   return (
     <section id="faq" className="ax-section">
       <div className="ax-container">
@@ -14,7 +13,7 @@ export default function Faq() {
           </div>
         </Enter>
         <div className={styles.list}>
-          {FAQS.map((item, i) => (
+          {faqs.map((item, i) => (
             <Enter key={item.q} index={i + 1}>
               <details className={styles.item}>
                 <summary className={styles.question}>

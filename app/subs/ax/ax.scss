@@ -196,6 +196,40 @@ body:has(.ax-root) {
     font-size: 14px;
   }
 
+  /* 세그먼트 탭: 헤더 둘째 줄 */
+
+  .ax-tabs {
+    order: 9;
+    flex-basis: 100%;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .ax-tab {
+    flex: none;
+    border: 1px solid var(--line-card);
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-size: 13px;
+    color: var(--muted);
+    transition:
+      color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .ax-tab:hover {
+    color: var(--ink);
+    border-color: var(--line-hover);
+  }
+
+  .ax-tab--on {
+    color: var(--ink);
+    border-color: var(--blue);
+    background: rgb(52 79 224 / 22%);
+  }
+
   /* 푸터 */
 
   .ax-footer {
@@ -340,6 +374,7 @@ body:has(.ax-root) {
 
   @media (prefers-reduced-motion: reduce) {
     .ax-header,
+    .ax-tab,
     .ax-nav a,
     .ax-dock,
     .ax-dock--on {

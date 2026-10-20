@@ -176,7 +176,12 @@
 }
 
 .marqueeDot {
-  color: var(--blue);
+  display: inline-block;
+  align-self: center;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--blue);
 }
 
 @media (width <= 880px) {

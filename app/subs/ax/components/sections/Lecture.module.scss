@@ -204,3 +204,44 @@
     padding: 24px;
   }
 }
+
+.opsItems {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.opsItem {
+  border: 1px solid var(--line-card);
+  border-radius: 14px;
+  padding: 22px;
+  background: var(--bg);
+}
+
+.opsItemLabel {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+.opsItemTitle {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.opsItemText {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+@media (width <= 880px) {
+  .opsItems {
+    grid-template-columns: 1fr;
+  }
+}

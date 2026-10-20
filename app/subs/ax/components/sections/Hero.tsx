@@ -1,6 +1,8 @@
 import React from "react";
 import AxInquireButton from "@/app/subs/ax/components/AxInquireButton";
 import Enter from "@/app/subs/ax/components/Enter";
+import type { SegmentMeta } from "@/app/subs/ax/segments";
+import type { Hero as HeroContent } from "@/app/subs/ax/content/types";
 import styles from "./Hero.module.scss";
 
 const MARQUEE_ITEMS = [
@@ -11,7 +13,7 @@ const MARQUEE_ITEMS = [
   "리더 세션",
   "해커톤",
   "PBL 인큐베이터",
-  "사내 도구 구축",
+  "AI Native 업무환경",
   "업무 자동화",
   "기업가치",
 ];
@@ -36,36 +38,40 @@ function MarqueeList() {
       {MARQUEE_ITEMS.map((item) => (
         <React.Fragment key={item}>
           <span>{item}</span>
-          <span className={styles.marqueeDot}>·</span>
+          <span className={styles.marqueeDot} aria-hidden="true" />
         </React.Fragment>
       ))}
     </div>
   );
 }
 
-export default function Hero() {
+export default function Hero({
+  segment,
+  hero,
+}: {
+  segment: SegmentMeta;
+  hero: HeroContent;
+}) {
   return (
     <>
       <section id="top" className={styles.hero}>
         <div className={styles.grid}>
           <div>
             <Enter index={0} immediate>
-              <div className="ax-eyebrow">AX CURRICULUM · PROOF OF VALUE</div>
+              <div className="ax-eyebrow">{hero.eyebrow}</div>
             </Enter>
             <Enter index={1} immediate>
               <h1 className={styles.headline}>
-                임직원 AI 교육만으로
-                <br />
-                끝내지 않습니다
+                {hero.headline.map((line, i) => (
+                  <React.Fragment key={line}>
+                    {i > 0 && <br />}
+                    {line}
+                  </React.Fragment>
+                ))}
               </h1>
             </Enter>
             <Enter index={2} immediate>
-              <p className={styles.lead}>
-                기업의 AI 도입은 도입 여부를 고민하는 단계를 지났습니다. 남은
-                질문은 도입한 AI를 어떻게 실제 성과로 바꾸느냐입니다. 프루퍼는
-                교육회사가 아니라 그로스 컨설팅 회사입니다. 현장에 들어가 직접
-                만들고 운영해 온 방식을 그대로 가르칩니다.
-              </p>
+              <p className={styles.lead}>{hero.lead}</p>
             </Enter>
             <div className={styles.actions}>
               <Enter index={3} immediate>
@@ -74,10 +80,7 @@ export default function Hero() {
                 </AxInquireButton>
               </Enter>
               <Enter index={4} immediate>
-                <a
-                  href="https://asgkzse2rqmcnxxg.public.blob.vercel-storage.com/assets/ax/proofer-ax.pdf?download=1&v=20260914"
-                  className="ax-btn ax-btn--ghost"
-                >
+                <a href={segment.pdf} className="ax-btn ax-btn--ghost">
                   커리큘럼 다운로드
                 </a>
               </Enter>
@@ -117,10 +120,7 @@ export default function Hero() {
                     ),
                   )}
                 </div>
-                <div className={styles.tileDesc}>
-                  도구는 고객사마다 다르게 정합니다. 사내망 제약과 계정 정책에서
-                  실제로 돌아가는 것을 고릅니다
-                </div>
+                <div className={styles.tileDesc}>{hero.toolsNote}</div>
               </div>
             </Enter>
           </div>

@@ -1,25 +1,11 @@
 import React from "react";
 import Enter from "@/app/subs/ax/components/Enter";
+import Lines from "@/app/subs/ax/components/Lines";
+import type { Outcome as OutcomeContent } from "@/app/subs/ax/content/types";
 import styles from "./Outcome.module.scss";
 
-const ITEMS = [
-  { n: "01", text: "임직원이 수준별로 AI 활용력을 갖춥니다." },
-  {
-    n: "02",
-    text: "강의가 실습 산출물과 사내 도구로 남아 교육 이후에도 자산이 됩니다.",
-  },
-  {
-    n: "03",
-    text: "현업의 진짜 문제가 발굴되고, 그중 일부를 실제 서비스로 전환합니다.",
-  },
-  {
-    n: "04",
-    text: "AI 도입을 영업이익과 기업가치로 잇는 경로를 만듭니다.",
-    strong: true,
-  },
-];
-
-export default function Outcome() {
+export default function Outcome({ outcome }: { outcome: OutcomeContent }) {
+  const last = outcome.items.length - 1;
   return (
     <section id="outcome" className="ax-section ax-section--alt">
       <div className={`ax-container ${styles.wrap}`}>
@@ -27,25 +13,25 @@ export default function Outcome() {
           <div className="ax-eyebrow">EXPECTED OUTCOME</div>
           <Enter index={0}>
             <h2 className={styles.headline}>
-              교육 이후에
-              <br />
-              기업에 남는 것
+              <Lines lines={outcome.headline} />
             </h2>
           </Enter>
         </div>
         <div className={styles.list}>
-          {ITEMS.map((item, i) => (
-            <Enter key={item.n} index={i + 1}>
+          {outcome.items.map((text, i) => (
+            <Enter key={text} index={i + 1}>
               <div className={styles.item}>
-                <span className={styles.itemNumber}>{item.n}</span>
+                <span className={styles.itemNumber}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
                 <span
                   className={
-                    item.strong
+                    outcome.strongLast && i === last
                       ? `${styles.itemText} ${styles.itemTextStrong}`
                       : styles.itemText
                   }
                 >
-                  {item.text}
+                  {text}
                 </span>
               </div>
             </Enter>

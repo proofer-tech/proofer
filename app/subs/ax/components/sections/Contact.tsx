@@ -1,9 +1,11 @@
 import React from "react";
 import AxInquireButton from "@/app/subs/ax/components/AxInquireButton";
 import Enter from "@/app/subs/ax/components/Enter";
+import Lines from "@/app/subs/ax/components/Lines";
+import type { Contact as ContactContent } from "@/app/subs/ax/content/types";
 import styles from "./Contact.module.scss";
 
-export default function Contact() {
+export default function Contact({ contact }: { contact: ContactContent }) {
   return (
     <section id="contact" className={styles.section}>
       <div className={styles.content}>
@@ -12,15 +14,11 @@ export default function Contact() {
         </Enter>
         <Enter index={1}>
           <h2 className={styles.headline}>
-            성과로 이어지는 기업 AI 교육 업체를
-            <br />
-            찾고 계셨다면.
+            <Lines lines={contact.headline} />
           </h2>
         </Enter>
         <Enter index={2}>
-          <p className={styles.desc}>
-            강의 · 해커톤 · 컨설팅. 어느 지점부터 시작할지 함께 정해봅시다.
-          </p>
+          <p className={styles.desc}>{contact.desc}</p>
         </Enter>
         <div className={styles.actions}>
           <Enter index={3}>

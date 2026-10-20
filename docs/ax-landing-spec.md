@@ -1175,8 +1175,11 @@ linear-gradient(168deg, #101838 0%, #0A0F26 46%, #080C1A 100%)
 
 - **인쇄 원고: `docs/ax-landing-print.html`.** 이 랜딩의 내용을 A4 면에 맞춰 다시 짠 인쇄본이고
   레포에 들어 있습니다. 색 토큰은 `app/subs/ax/ax.scss`와 같고 레이아웃만 다릅니다.
-- **배포물: Vercel Blob의 `assets/ax/proofer-ax.pdf`.** 원고를 헤드리스 크롬
-  `--print-to-pdf`로 뽑아 올린 파일입니다. 레포에는 두지 않습니다(5장 결정 9).
+- **배포물: Vercel Blob의 PDF 셋.** 세그먼트마다 하나입니다. 스타트업판은 `assets/ax/proofer-ax-startup.pdf`,
+  중소-중견판은 `assets/ax/proofer-ax-growth.pdf`, 엔터프라이즈판은 `assets/ax/proofer-ax.pdf`(기존 링크를
+  살리려고 경로를 유지했습니다)입니다. 20261020 판부터는 이 레포에서 렌더하지 않고, 품질 점검을 마친 PDF를
+  공유 드라이브(`시안/PDF/`)에서 바이트 그대로 올립니다. 시안이 바뀌면 그쪽에서 다시 뽑아 올립니다.
+  레포에는 두지 않습니다(5장 결정 9). 다운로드 주소는 `app/subs/ax/segments.ts`가 한곳에서 만듭니다.
 - **히어로 보조 버튼 `커리큘럼 다운로드`가 그 파일의 다운로드 주소를 가리킵니다.** 주소는
   `@vercel/blob`의 `getDownloadUrl()`이 만드는 `...?download=1`에 판본 쿼리 `&v=<발행일 YYYYMMDD>`를
   붙인 형태이고, 구현은 `app/subs/ax/components/sections/Hero.tsx`에 있습니다. 화면 규격은 2.1절에 있습니다.
