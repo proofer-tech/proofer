@@ -80,3 +80,25 @@ test("shareUrl 이 있을 때만 공유 줄을 그린다(미리보기는 넘기�
   expect(out).toContain("이 글 공유하기");
   expect(out).not.toContain("공유하기</");
 });
+
+test("본문에 이미 있는 대표 이미지는 맨 위 커버로 다시 그리지 않는다", () => {
+  const props = {
+    title: "제목입니다",
+    published_at: "2026-10-11T00:00:00Z",
+    cover: { src: "https://example.com/a.png", alt: "표지" },
+  };
+  const dup = renderToStaticMarkup(
+    <PostView
+      frontmatter={props}
+      body_md={"![사진](https://example.com/a.png)\n\n본문"}
+      author={null}
+      tags={[]}
+    />,
+  );
+  expect(dup).not.toContain("표지");
+  expect(dup).toContain("사진");
+  const solo = renderToStaticMarkup(
+    <PostView frontmatter={props} body_md={"본문"} author={null} tags={[]} />,
+  );
+  expect(solo).toContain("표지");
+});
