@@ -197,7 +197,8 @@
   }
 
   .headline {
-    font-size: 44px;
+    /* 첫 줄 "작은 팀이라서 가능한"이 342px 안에 들어가도록 뷰포트에 비례해 줄인다 */
+    font-size: min(44px, 9vw);
   }
 
   .lead {

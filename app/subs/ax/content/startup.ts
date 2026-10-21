@@ -10,7 +10,7 @@ const enterpriseWorkspace = enterprise.blocks.find(
 export const startup: SegmentContent = {
   hero: {
     eyebrow: "AX CURRICULUM / FOR STARTUPS",
-    headline: ["작은 팀이라서 가능한", "가볍게 시작하는 AI Native"],
+    headline: ["작은 팀이라서 가능한", "가볍게 시작하는", "AI Native"],
     lead: "한 사람이 서너 가지 일을 맡는 팀에서는 반복 업무를 AI에 넘긴 시간이 곧 제품과 고객에게 갑니다. 프루퍼는 회사의 사업자료를 AI가 읽게 만들고, 대표와 팀이 그 위에서 바로 일하도록 돕습니다. 현장에 들어가 직접 만들고 운영해 온 방식을 그대로 가르칩니다.",
     toolsNote:
       "팀이 이미 쓰는 도구에서 시작합니다. 아직 정한 도구가 없으면 무엇부터 쓸지 함께 고릅니다.",
