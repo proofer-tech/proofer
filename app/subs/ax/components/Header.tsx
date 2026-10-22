@@ -4,15 +4,23 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import AxInquireButton from "@/app/subs/ax/components/AxInquireButton";
+import AudienceTabs from "@/app/subs/ax/components/AudienceTabs";
 import SegmentTabs from "@/app/subs/ax/components/SegmentTabs";
-import { SEGMENTS, segmentFromPath } from "@/app/subs/ax/segments";
+import {
+  OPEN,
+  SEGMENTS,
+  isOpenPath,
+  segmentFromPath,
+} from "@/app/subs/ax/segments";
 
 // 스펙 4.3절 "상단 헤더" 행: 40px 넘게 내리면 배경/경계선이 짙어진다
 const SCROLL_THRESHOLD = 40;
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const nav = SEGMENTS[segmentFromPath(usePathname() ?? "/")].nav;
+  const pathname = usePathname() ?? "/";
+  const open = isOpenPath(pathname);
+  const nav = open ? OPEN.nav : SEGMENTS[segmentFromPath(pathname)].nav;
 
   useEffect(() => {
     let ticking = false;
@@ -31,6 +39,7 @@ export default function Header() {
 
   return (
     <div className={`ax-top${scrolled ? " ax-top--scrolled" : ""}`}>
+      <AudienceTabs />
       <header className="ax-header">
         <a href="#top" className="ax-header__brand" aria-label="proofer AX 홈">
           <Image
@@ -51,7 +60,7 @@ export default function Header() {
         </nav>
         <AxInquireButton className="ax-btn">도입 문의</AxInquireButton>
       </header>
-      <SegmentTabs />
+      {!open && <SegmentTabs />}
     </div>
   );
 }

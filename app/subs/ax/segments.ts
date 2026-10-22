@@ -110,6 +110,34 @@ export const SEGMENTS: Record<SegmentKey, SegmentMeta> = {
   },
 };
 
+/** 공개 교육(기관 과정판). 세그먼트 3판과 별개의 상위 구분이라 SEGMENTS 에 넣지 않는다. PDF 는 판본 쿼리를 따로 쓴다 */
+export const OPEN = {
+  path: "/open",
+  title: "기관 위탁 AI 교육, 대학 사업단과 지자체를 위한 공개 AI 교육",
+  description:
+    "대학 사업단, 창업지원기관, 지자체와 공공기관이 여는 AI 교육을 맡습니다. 수강생이 자기 자료로 실습하고 자기 결과물을 들고 가며, 기획부터 모집, 운영, 결과보고까지 함께 맡을 수 있습니다.",
+  keywords: [
+    "공개 AI 교육",
+    "기관 위탁 AI 교육",
+    "대학 사업단 AI 교육",
+    "창업지원기관 AI 교육",
+    "지자체 AI 교육",
+    "AI 리터러시 교육",
+    "AI 교육 운영 대행",
+    "AX 교육",
+  ],
+  pdf: `${BLOB}/proofer-ax-open.pdf?download=1&v=20261022`,
+  nav: [
+    { href: "#problem", label: "문제" },
+    { href: "#view", label: "관점" },
+    { href: "#formats", label: "과정 형식" },
+    { href: "#audience", label: "대상별" },
+    { href: "#operation", label: "운영 범위" },
+    { href: "#case", label: "사례" },
+    { href: "#package", label: "견적" },
+  ],
+};
+
 export const SEGMENT_ORDER: SegmentKey[] = ["startup", "growth", "enterprise"];
 
 /** 브라우저 경로에서 판을 고른다. `/` 와 알 수 없는 경로는 enterprise */
@@ -117,4 +145,9 @@ export function segmentFromPath(pathname: string): SegmentKey {
   if (pathname.includes("/startup")) return "startup";
   if (pathname.includes("/growth")) return "growth";
   return "enterprise";
+}
+
+/** 공개 교육 경로인지 본다. 로컬은 `/subs/ax/open` 이라 포함 여부로 맞춘다 */
+export function isOpenPath(pathname: string): boolean {
+  return pathname.includes(OPEN.path);
 }

@@ -194,6 +194,37 @@ body:has(.ax-root) {
     font-size: 14px;
   }
 
+  /* 상위 구분(기업 교육 / 공개 교육): 헤더 위 얇은 막대 */
+
+  .ax-aud {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 40px;
+    background: var(--bg-footer);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .ax-aud__item {
+    padding: 5px 18px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    transition:
+      color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+      background-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .ax-aud__item:hover {
+    color: var(--ink);
+  }
+
+  .ax-aud__item--on {
+    color: #fff;
+    background: var(--blue);
+  }
+
   /* 세그먼트 탭: 헤더 아래 둘째 단, 가로 전체 폭 3등분 */
 
   .ax-tabs {
@@ -381,6 +412,7 @@ body:has(.ax-root) {
     .ax-header,
     .ax-tabs,
     .ax-tab,
+    .ax-aud__item,
     .ax-nav a,
     .ax-dock,
     .ax-dock--on {

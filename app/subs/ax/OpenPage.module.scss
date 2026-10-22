@@ -1,0 +1,1052 @@
+// 공개 교육(기관 과정판) 페이지. 기업 판과 달리 흰 바탕이다.
+// 팔레트는 로고 파랑 #344FE0, 초록 #45AF66, 남색 #1E2A66, 회색 계열만 쓴다 (크림, 노랑, 알약 라벨 금지).
+// 값은 시안 assets/open2.css 와 맞춘다. .ax-root a (0-1-1) 가 모듈 클래스를 이기므로 전부 .open 아래에 둔다.
+
+$ink: #0f1424;
+$body: #3b4256;
+$mute: #5b6275;
+$line: #e2e6ee;
+$blue: #344fe0;
+$blue-ink: #2c45c9;
+$blue-tint: #ebeefd;
+$green: #45af66;
+$green-ink: #23793f;
+$green-tint: #e6f5ea;
+$navy: #1e2a66;
+$gray: #f2f4f8;
+$mono:
+  "IBM Plex Mono", ui-monospace, monospace, pretendard, "Apple SD Gothic Neo",
+  "Malgun Gothic", sans-serif;
+
+.open {
+  background: #fff;
+  color: $ink;
+  line-height: 1.5;
+
+  section[id] {
+    scroll-margin-top: 110px;
+  }
+
+  .sec {
+    padding: 96px 40px;
+    border-bottom: 1px solid $line;
+  }
+
+  .alt {
+    background: #f8f9fc;
+  }
+
+  .wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+
+  .run {
+    display: flex;
+    justify-content: space-between;
+    font-family: $mono;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: $mute;
+    padding-bottom: 12px;
+    border-bottom: 1px solid $line;
+  }
+
+  .kick {
+    font-family: $mono;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: $blue;
+    font-weight: 600;
+  }
+
+  .h1 {
+    margin: 18px 0 0;
+    font-size: 52px;
+    line-height: 1.26;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: $ink;
+    text-wrap: balance;
+  }
+
+  .h2 {
+    font-size: 38px;
+    line-height: 1.3;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: $ink;
+    text-wrap: balance;
+  }
+
+  .h1 em,
+  .h2 em {
+    font-style: normal;
+    color: $blue;
+  }
+
+  .h3 {
+    margin-top: 12px;
+    font-size: 22px;
+    font-weight: 800;
+    color: $ink;
+  }
+
+  .lead {
+    margin: 0;
+    max-width: 760px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: $body;
+    text-wrap: pretty;
+  }
+
+  // 카드와 본문 글자
+  .card {
+    background: #fff;
+    border: 1px solid $line;
+    border-radius: 12px;
+    padding: 22px;
+  }
+
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .row {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .rowText {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .tag {
+    font-family: $mono;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $mute;
+  }
+
+  .ct {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.4;
+    font-weight: 800;
+    color: $ink;
+    letter-spacing: -0.01em;
+  }
+
+  .cardTitle {
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .cb {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: $body;
+    text-wrap: pretty;
+  }
+
+  .cs {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: $body;
+  }
+
+  .mono {
+    font-family: $mono;
+    font-size: 12px;
+    color: $mute;
+  }
+
+  .note {
+    background: $gray;
+    border-radius: 12px;
+    padding: 18px 22px;
+    font-size: 14px;
+    line-height: 1.75;
+    color: $body;
+
+    strong {
+      color: $ink;
+    }
+  }
+
+  .noteBlue {
+    background: $blue-tint;
+    color: $navy;
+
+    strong {
+      color: $navy;
+    }
+  }
+
+  .link {
+    display: inline-block;
+    font-weight: 700;
+    color: $blue-ink;
+    border-bottom: 1px solid currentcolor;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    height: 28px;
+    padding: 0 12px;
+    border-radius: 6px;
+    background: $gray;
+    color: $body;
+    font-size: 12.5px;
+    font-weight: 700;
+  }
+
+  .pill_b {
+    background: $blue-tint;
+    color: $ink;
+  }
+
+  .pill_g {
+    background: $green-tint;
+    color: $green-ink;
+  }
+
+  .pillSm {
+    height: 24px;
+    padding: 0 10px;
+    font-size: 11.5px;
+  }
+
+  .grid2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .grid3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .photo {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: $line;
+
+    img {
+      object-fit: cover;
+    }
+  }
+
+  .ico {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ico_b {
+    background: $blue-tint;
+    color: $blue;
+  }
+
+  .ico_g {
+    background: $green-tint;
+    color: $green-ink;
+  }
+
+  .ico_y {
+    background: $gray;
+    color: $body;
+  }
+
+  .round {
+    display: flex;
+
+    .ico {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+    }
+  }
+
+  .arrow {
+    flex: none;
+    display: flex;
+    align-items: center;
+    color: $blue;
+  }
+
+  // 표지
+  .hero {
+    padding-top: 72px;
+  }
+
+  .big {
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+
+    small {
+      margin-left: 4px;
+      font-size: 17px;
+      font-weight: 700;
+      color: $body;
+    }
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tools {
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.6;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    height: 52px;
+    padding: 0 30px;
+    border: 1px solid $blue;
+    border-radius: 999px;
+    background: $blue;
+    color: #fff;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.18s;
+
+    &:hover {
+      background: #3d57e4;
+    }
+  }
+
+  .btnGhost {
+    background: #fff;
+    color: $blue-ink;
+
+    &:hover {
+      background: $blue-tint;
+    }
+  }
+
+  // 문제 인식
+  .flows {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .flowLabel {
+    font-size: 13px;
+    font-weight: 800;
+    color: $mute;
+  }
+
+  .flowOn {
+    color: $blue;
+  }
+
+  .flowRow {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .flowBox {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+    border: 1px solid $line;
+    border-radius: 8px;
+    background: #fff;
+
+    b {
+      font-size: 15px;
+    }
+
+    span {
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: $body;
+    }
+  }
+
+  .flowBoxOn {
+    background: $blue-tint;
+  }
+
+  .flowBoxOff {
+    border-style: dashed;
+    border-color: #c3c9d6;
+    background: $gray;
+
+    b {
+      color: $mute;
+    }
+  }
+
+  .signals {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .signal {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    padding: 12px 0;
+    border-bottom: 1px solid $line;
+    font-size: 14px;
+
+    b {
+      font-family: $mono;
+      font-size: 12px;
+      color: $blue;
+    }
+  }
+
+  // 관점
+  .trio {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 28px 22px;
+  }
+
+  .trioItem {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+
+    b {
+      font-size: 16px;
+    }
+  }
+
+  .trio .arrow {
+    padding-top: 24px;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 360px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  // 과정 형식
+  .chartBox {
+    padding: 16px 8px 8px;
+  }
+
+  .chart {
+    display: block;
+    width: 100%;
+    height: auto;
+    font-family: inherit;
+  }
+
+  .format {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .formatTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .who {
+    font-size: 13px;
+    font-weight: 700;
+    color: $green-ink;
+  }
+
+  .out {
+    margin: auto 0 0;
+    padding-top: 12px;
+    border-top: 1px solid $line;
+    font-size: 13px;
+    line-height: 1.55;
+
+    b {
+      margin-right: 8px;
+      color: $blue-ink;
+    }
+  }
+
+  // 대상별 구성
+  $aud-cols: 44px 150px minmax(0, 1fr) 18px minmax(0, 1fr) 120px;
+
+  .audHead,
+  .aud {
+    display: grid;
+    grid-template-columns: $aud-cols;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .audHead {
+    padding: 0 23px;
+  }
+
+  .right {
+    text-align: right;
+  }
+
+  .audList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: -14px;
+  }
+
+  .aud {
+    padding: 14px 22px;
+
+    b {
+      font-size: 14.5px;
+      line-height: 1.4;
+    }
+  }
+
+  .audArrow {
+    display: flex;
+    color: $blue;
+  }
+
+  .audOut {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  .audFormat {
+    font-size: 12px;
+    font-weight: 700;
+    color: $blue-ink;
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  // Hands-on Lab 타임라인
+  .timeline {
+    padding: 26px 14px;
+  }
+
+  .steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    // 단계 번호 원의 가운데를 잇는 선
+    &::before {
+      content: "";
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 18px;
+      height: 2px;
+      background: #d7ddfb;
+    }
+
+    li {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+    }
+
+    b {
+      font-size: 14px;
+    }
+  }
+
+  .stepn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: $blue;
+    color: #fff;
+    font-family: $mono;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stepnGreen {
+    background: $green;
+  }
+
+  .result {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+    b {
+      font-size: 14px;
+    }
+  }
+
+  // Project Course 회차 계단
+  .rounds {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .stairs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    align-items: end;
+  }
+
+  .stair {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 10px;
+    height: 100%;
+  }
+
+  .stairText {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    b {
+      font-size: 14px;
+      color: $green-ink;
+    }
+  }
+
+  .stairBar {
+    display: flex;
+    align-items: flex-end;
+    padding: 12px;
+    border-radius: 6px 6px 2px 2px;
+    font-size: 15px;
+    font-weight: 800;
+  }
+
+  // 운영 4단계
+  .ops {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      top: 32px;
+      height: 2px;
+      background: #d7ddfb;
+    }
+
+    > li {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .round .ico {
+      border: 4px solid #fff;
+    }
+
+    .opList {
+      width: 100%;
+      margin: 0;
+      padding: 14px 16px;
+      list-style: none;
+      border: 1px solid $line;
+      border-radius: 10px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .opItem {
+        font-size: 13px;
+        line-height: 1.5;
+        color: $body;
+        padding-left: 12px;
+        position: relative;
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 8px;
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background: $blue;
+        }
+      }
+    }
+  }
+
+  .opTitle {
+    font-size: 18px;
+  }
+
+  // 사례
+  .caseTop {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    gap: 14px;
+  }
+
+  .donut {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .donutFacts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .fact {
+    font-size: 22px;
+    font-weight: 800;
+  }
+
+  .process {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-top: 10px;
+      border-top: 3px solid $blue;
+    }
+
+    b {
+      font-size: 14px;
+    }
+  }
+
+  .processGreen {
+    border-top-color: $green !important;
+  }
+
+  // 패키지 쌓기 막대
+  .pkgs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    align-items: end;
+  }
+
+  .pkg {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 6px;
+  }
+
+  .layer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .pkgLabel {
+    margin-top: 6px;
+    padding: 14px;
+    border: 1px solid $line;
+    border-radius: 8px;
+    background: $gray;
+    font-size: 12.5px;
+    color: $body;
+
+    b {
+      display: block;
+      font-size: 15px;
+      color: $ink;
+    }
+  }
+
+  .pkgLabelDark {
+    background: $ink;
+    border-color: $ink;
+    color: #d7ddfb;
+
+    b {
+      color: #fff;
+    }
+  }
+
+  .start {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .startItem {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    b {
+      font-size: 15px;
+    }
+  }
+
+  .after {
+    align-items: center;
+    padding: 16px 18px;
+  }
+
+  // FAQ
+  .faqs {
+    padding: 6px 28px;
+  }
+
+  .faq {
+    border-bottom: 1px solid $line;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    summary {
+      display: flex;
+      gap: 14px;
+      align-items: baseline;
+      padding: 18px 0;
+      cursor: pointer;
+      list-style: none;
+      font-size: 16px;
+      font-weight: 800;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      span {
+        font-family: $mono;
+        font-size: 13px;
+        font-weight: 600;
+        color: $blue;
+      }
+    }
+
+    p {
+      margin: 0 0 18px 36px;
+      font-size: 14px;
+      line-height: 1.75;
+      color: $body;
+    }
+  }
+
+  // 도입 문의
+  .contact {
+    margin-top: 16px;
+    padding-top: 26px;
+    border-top: 1px solid $line;
+  }
+
+  .mail {
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  @media (width <= 880px) {
+    .sec {
+      padding: 64px 24px;
+    }
+
+    .h1 {
+      font-size: 38px;
+    }
+
+    .h2 {
+      font-size: 30px;
+    }
+
+    .split,
+    .caseTop {
+      grid-template-columns: 1fr;
+    }
+
+    .ops,
+    .pkgs {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ops::before {
+      display: none;
+    }
+
+    .steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px 10px;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    .process {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .audHead {
+      display: none;
+    }
+
+    .audList {
+      margin-top: 0;
+    }
+
+    .aud {
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 6px 14px;
+
+      .audArrow {
+        display: none;
+      }
+
+      > :nth-child(n + 3) {
+        grid-column: 2;
+      }
+    }
+
+    .audFormat {
+      text-align: left;
+    }
+  }
+
+  @media (width <= 640px) {
+    .grid2,
+    .grid3,
+    .stairs {
+      grid-template-columns: 1fr;
+    }
+
+    .stairs {
+      align-items: stretch;
+    }
+
+    .flowRow,
+    .trio,
+    .start {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .arrow {
+      justify-content: center;
+      transform: rotate(90deg);
+      padding: 0 !important;
+    }
+
+    .trioItem {
+      align-items: center;
+    }
+
+    .big {
+      font-size: 36px;
+    }
+  }
+}
