@@ -9,9 +9,9 @@ import { generateSubdomainPath } from "@/src/path";
 import { SUB_DOMAIN } from "@/src/constants";
 import styles from "./OpenPage.module.scss";
 
-// 공개 교육(기관 과정판) 한 장짜리 페이지. 문면은 시안 편집본 AX커리큘럼_기관과정판_20261022.md 와 글자 단위로 맞춘다.
-// ponytail: 문면과 구성이 이 페이지 하나에만 쓰여서 content/ 로 나누지 않고 한 파일에 둔다.
-// 공개 교육 페이지가 둘 이상(개인 신청형 세미나 등)이 되면 문면을 content/ 로 빼고 섹션을 나눈다.
+// 공개 교육(기관 과정판) 랜딩 페이지. 사실(형식, 시간, 대상, 산출물, 숫자, 헤드라인)은
+// 시안 편집본 AX커리큘럼_기관과정판_20261022.md 와 PDF 에 맞춘다. 웹은 PDF 쪽 순서를 따르지 않고
+// 판단에 쓰는 사실을 밖에 두고 설명만 접는다(2026-10-23 임한솔 지시: 접힌 곳에서만 확인되는 사실 금지).
 // 키보드 기본 밖 특수문자(가운뎃점, 화살표 글리프, 둥근 따옴표, em dash)는 쓰지 않는다. 화살표는 SVG 다.
 
 type Tone = "b" | "g" | "y";
@@ -149,68 +149,6 @@ function Icon({
   );
 }
 
-function Step() {
-  return (
-    <span className={styles.arrow}>
-      <Arrow size={18} />
-    </span>
-  );
-}
-
-/** 쪽 상단의 `NN / 제목` 줄, 키커, 제목, 도입 문단 */
-function Head({
-  run,
-  tag,
-  kick,
-  title,
-  lead,
-}: {
-  run: string;
-  tag: string;
-  kick: string;
-  title: string[];
-  lead?: string;
-}) {
-  return (
-    <div className={styles.head}>
-      <div className={styles.run}>
-        <span>{run}</span>
-        <span>{tag}</span>
-      </div>
-      <div className={styles.kick}>{kick}</div>
-      <h2 className={styles.h2}>
-        {title.map((line, i) => (
-          <React.Fragment key={line}>
-            {i > 0 && <br />}
-            {line}
-          </React.Fragment>
-        ))}
-      </h2>
-      {lead && <p className={styles.lead}>{lead}</p>}
-    </div>
-  );
-}
-
-function Photo({
-  src,
-  alt,
-  ratio,
-  sizes = "(max-width: 1100px) 100vw, 1000px",
-  priority,
-}: {
-  src: string;
-  alt: string;
-  ratio: string;
-  sizes?: string;
-  priority?: boolean;
-}) {
-  return (
-    <div className={styles.photo} style={{ aspectRatio: ratio }}>
-      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} />
-    </div>
-  );
-}
-
 const PHOTO = "/assets/images/ax/open";
 
 const PROBLEM_FLOWS: { label: string; on: boolean; boxes: string[][] }[] = [
@@ -258,12 +196,6 @@ const PROBLEM_CARDS: {
     title: "보여줄 성과가 없음",
     text: "출석과 만족도 외에 수강생이 무엇을 만들었는지 보여줄 자료가 없습니다. 다음 해 사업 계획에 쓸 근거가 약합니다.",
   },
-];
-
-const SIGNALS = [
-  "수료 설문에서는 유익했다는 응답이 많은데, 지금도 쓰고 있는지 물으면 답이 흐려진다",
-  "같은 과정을 해마다 다시 열지만 회차마다 내용이 거의 같다",
-  "모집 공고를 내면 이름만 다른 AI 교육이 같은 지역에 여럿 겹친다",
 ];
 
 const VIEW_TRIO: {
@@ -478,12 +410,6 @@ const LAB_FACTS: {
   },
 ];
 
-const LAB_RESULTS: { icon: string; tone: Tone; who: string; what: string }[] = [
-  { icon: "bulb", tone: "y", who: "창업팀", what: "자사 소개 페이지" },
-  { icon: "brief", tone: "b", who: "재직자", what: "직무 문서 초안" },
-  { icon: "cap", tone: "g", who: "학생", what: "포트폴리오 페이지" },
-];
-
 const ROUNDS: {
   n: string;
   title: string;
@@ -683,30 +609,6 @@ const START: { title: string; text: string }[] = [
   },
 ];
 
-const AFTER: { icon: string; tone: Tone; text: string; link?: boolean }[] = [
-  {
-    icon: "doc",
-    tone: "g",
-    text: "수강생마다 자기 자료로 만든 결과물을 갖고 돌아갑니다.",
-  },
-  {
-    icon: "box",
-    tone: "b",
-    text: "수강생은 설치 패키지로 교육 뒤에도 같은 업무환경을 다시 꾸릴 수 있습니다.",
-  },
-  {
-    icon: "clipboard",
-    tone: "y",
-    text: "기관은 수강생 결과물을 수록한 결과보고서로 성과를 보여줍니다.",
-  },
-  {
-    icon: "brief",
-    tone: "y",
-    text: "창업하거나 팀 단위 도입이 필요해진 수강생은 기업 교육 과정으로 이어 갑니다.",
-    link: true,
-  },
-];
-
 const FAQ: { q: string; a: string }[] = [
   {
     q: "수강생 수준이 제각각입니다.",
@@ -736,107 +638,98 @@ const FAQ: { q: string; a: string }[] = [
 
 const ORG_ID = "https://ax.proofer.tech/#organization";
 
-/** 도형 두 개와 글자가 한 덩어리인 버블 차트. 시안 O04 의 SVG 를 그대로 옮겼다 */
-function FormatsChart() {
-  const bubbles = [
-    { cx: 130, cy: 160, r: 36, c: "#8A8FA3", a: "AI Talk", b: "특강" },
-    {
-      cx: 280,
-      cy: 120,
-      r: 50,
-      c: "#344FE0",
-      a: "Hands-on Lab",
-      b: "개인 실습",
-    },
-    { cx: 440, cy: 88, r: 50, c: "#1E2A66", a: "AI Hackathon", b: "팀 결과물" },
-    {
-      cx: 590,
-      cy: 74,
-      r: 56,
-      c: "#45AF66",
-      a: "Project Course",
-      b: "개인 또는 팀",
-    },
-  ];
-  const xs: [number, string][] = [
-    [130, "1 ~ 2시간"],
-    [280, "반일"],
-    [440, "1 ~ 2일"],
-    [590, "2 ~ 4회차"],
-  ];
+// 형식별 투입 시간의 상대 길이(시안 O04 버블 차트의 가로 순서와 같다: Talk, Lab, Hackathon, Project)
+const FORMAT_SPAN: Record<string, number> = {
+  F1: 16,
+  F2: 38,
+  F4: 66,
+  F3: 100,
+};
+
+const TRUST = [
+  "나라장터 경쟁입찰참가자격 등록",
+  "소프트웨어사업자 신고",
+  "벤처기업 확인",
+];
+
+/** 섹션 머리: 키커, 제목, 짧은 도입 */
+function SectionHead({
+  kick,
+  title,
+  lead,
+  light,
+  center,
+}: {
+  kick: string;
+  title: React.ReactNode;
+  lead?: string;
+  light?: boolean;
+  center?: boolean;
+}) {
+  return (
+    <Enter>
+      <div
+        className={`${styles.head} ${light ? styles.headLight : ""} ${center ? styles.headCenter : ""}`}
+      >
+        <div className={styles.kick}>{kick}</div>
+        <h2 className={styles.h2}>{title}</h2>
+        {lead && <p className={styles.lead}>{lead}</p>}
+      </div>
+    </Enter>
+  );
+}
+
+/** 완성 비율 도넛. 33명 중 32명 */
+function Donut({ size = 132, dark }: { size?: number; dark?: boolean }) {
+  const r = 52;
+  const c = 2 * Math.PI * r;
   return (
     <svg
-      viewBox="0 0 680 228"
+      viewBox="0 0 132 132"
+      width={size}
+      height={size}
       role="img"
-      aria-label="과정 형식별 시간과 결과물 깊이"
-      className={styles.chart}
+      aria-label="33명 중 32명 완성"
+      className={styles.donutSvg}
     >
-      <line
-        x1="60"
-        y1="200"
-        x2="660"
-        y2="200"
-        stroke="#C3C9D6"
-        strokeWidth="1"
+      <circle
+        cx="66"
+        cy="66"
+        r={r}
+        fill="none"
+        stroke={dark ? "rgb(255 255 255 / 14%)" : "#E6F5EA"}
+        strokeWidth="14"
       />
-      <line x1="60" y1="20" x2="60" y2="200" stroke="#C3C9D6" strokeWidth="1" />
-      <text x="68" y="14" fontSize="11" fontWeight="700" fill="#3B4256">
-        결과물 깊이
+      <circle
+        cx="66"
+        cy="66"
+        r={r}
+        fill="none"
+        stroke="#45AF66"
+        strokeWidth="14"
+        strokeLinecap="round"
+        strokeDasharray={`${((c * 32) / 33).toFixed(1)} ${c.toFixed(1)}`}
+        transform="rotate(-90 66 66)"
+      />
+      <text
+        x="66"
+        y="70"
+        textAnchor="middle"
+        fontSize="30"
+        fontWeight="800"
+        fill={dark ? "#FFFFFF" : "#0F1424"}
+      >
+        32
       </text>
       <text
-        x="660"
-        y="190"
-        textAnchor="end"
+        x="66"
+        y="90"
+        textAnchor="middle"
         fontSize="11"
-        fontWeight="700"
-        fill="#3B4256"
+        fill={dark ? "#C9CFEF" : "#3B4256"}
       >
-        투입 시간
+        33명 중 완성
       </text>
-      {xs.map(([x, t]) => (
-        <text
-          key={t}
-          x={x}
-          y="218"
-          textAnchor="middle"
-          fontSize="10.5"
-          fill="#5B6275"
-        >
-          {t}
-        </text>
-      ))}
-      {bubbles.map((b) => (
-        <g key={b.a}>
-          <circle
-            cx={b.cx}
-            cy={b.cy}
-            r={b.r}
-            fill={b.c}
-            fillOpacity="0.18"
-            stroke={b.c}
-            strokeWidth="1.5"
-          />
-          <text
-            x={b.cx}
-            y={b.cy - 2}
-            textAnchor="middle"
-            fontSize="12"
-            fontWeight="800"
-            fill="#0F1424"
-          >
-            {b.a}
-          </text>
-          <text
-            x={b.cx}
-            y={b.cy + 15}
-            textAnchor="middle"
-            fontSize="10.5"
-            fill="#3B4256"
-          >
-            {b.b}
-          </text>
-        </g>
-      ))}
     </svg>
   );
 }
@@ -864,20 +757,20 @@ export default function OpenPage() {
 
   return (
     <main className={styles.open}>
-      <section id="top" className={`${styles.sec} ${styles.hero}`}>
-        <div className={styles.wrap}>
-          <Enter index={0} immediate>
+      {/* 히어로: 헤드라인과 현장 사진, 사례 숫자를 한 화면에 */}
+      <section id="top" className={styles.hero}>
+        <div className={styles.heroGrid}>
+          <Enter index={0} immediate className={styles.heroText}>
             <div className={styles.kick}>기관과 함께 여는 공개 AI 교육</div>
             <h1 className={styles.h1}>
               배운 그날부터 활용하는
               <br />
               <em>AI 리터러시 교육</em>
             </h1>
-            <p className={styles.lead}>
+            <p className={styles.heroLead}>
               대학 사업단, 창업지원기관, 지자체와 공공기관이 여는 AI 교육을
-              맡습니다. 예비창업자, 대학생, 고등학생, 지역 재직자처럼 수강
-              대상이 누구든 각자의 자료로 실습하고 자기 결과물을 들고 갑니다.
-              기획부터 모집, 운영, 결과보고까지 함께 맡을 수 있습니다.
+              맡습니다. 수강 대상이 누구든 각자의 자료로 실습하고 자기 결과물을
+              들고 갑니다.
             </p>
             <div className={styles.actions}>
               <AxInquireButton className={styles.btn}>
@@ -888,662 +781,514 @@ export default function OpenPage() {
               </a>
             </div>
           </Enter>
-          <Enter index={1} immediate>
-            <Photo
-              src={`${PHOTO}/room.jpg`}
-              alt="노트북을 펴고 실습하는 수강생들"
-              ratio="1600 / 694"
-              priority
-            />
+          <Enter index={1} immediate className={styles.heroVisual}>
+            <div className={styles.heroPhoto}>
+              <Image
+                src={`${PHOTO}/room.jpg`}
+                alt="노트북을 펴고 각자의 자료로 실습하는 수강생들"
+                fill
+                sizes="(max-width: 960px) 100vw, 620px"
+                priority
+              />
+            </div>
+            <div className={styles.heroCase}>
+              <Donut size={96} />
+              <div>
+                <div className={styles.heroCaseTag}>Case Record</div>
+                <b>33명 중 32명이 결과물 완성</b>
+                <span>대학 앵커사업단 창업실무 과정, 3.5시간</span>
+              </div>
+            </div>
+            <div className={styles.heroChip}>
+              <span className={styles.dot} />
+              자기 자료로 실습
+            </div>
           </Enter>
-          <div className={styles.grid3}>
-            <div className={`${styles.card} ${styles.stat}`}>
-              <div className={styles.tag}>Case Record</div>
-              <div className={styles.big}>
-                32<small>/ 33명</small>
-              </div>
-              <p className={styles.cb}>
-                대학 앵커사업단 창업실무 과정에서 자기 결과물을 완성한 수강생
-              </p>
-            </div>
-            <div className={`${styles.card} ${styles.stat}`}>
-              <div className={styles.tag}>Format</div>
-              <div className={styles.big}>
-                3.5<small>시간</small>
-              </div>
-              <p className={styles.cb}>
-                반일 실습 안에 자료 연결부터 결과물 완성까지
-              </p>
-            </div>
-            <div className={`${styles.card} ${styles.stat}`}>
-              <div className={styles.tag}>Tools</div>
-              <div className={styles.tools}>
-                Claude, ChatGPT, Gemini
-                <br />
-                Claude Code, Antigravity, Codex
-              </div>
-              <p className={styles.cb}>
-                수강생이 쓰는 도구로 진행하고, 실습용 계정이 필요하면 교육 기간
-                동안 지원합니다.
-              </p>
-            </div>
+        </div>
+        <div className={styles.trust}>
+          <div className={styles.trustInner}>
+            {TRUST.map((t) => (
+              <span key={t} className={styles.trustItem}>
+                <Icon name="check" tone="g" size={16} />
+                {t}
+              </span>
+            ))}
+            <span className={styles.trustTools}>
+              Claude, ChatGPT, Gemini, Claude Code, Antigravity, Codex
+            </span>
           </div>
         </div>
       </section>
 
+      {/* 문제: 두 과정의 흐름을 나란히 */}
       <section id="problem" className={styles.sec}>
         <div className={styles.wrap}>
-          <Enter>
-            <Head
-              run="01 / 문제 인식"
-              tag="PROBLEM"
-              kick="Problem"
-              title={["AI 교육은 늘었는데", "수료 뒤에 쓰는 사람은 적습니다"]}
-              lead="기관이 여는 AI 교육은 이제 흔합니다. 도구 소개와 따라 하기 시연으로 채운 과정은 모집이 쉬운 대신, 수강생이 다음 주에 다시 열어 보는 일은 드뭅니다. 기관이 결과보고에 담을 성과도 수료 인원에서 멈춥니다."
-            />
-          </Enter>
-          <div className={`${styles.card} ${styles.flows}`}>
+          <SectionHead
+            kick="Problem"
+            title={
+              <>
+                AI 교육은 늘었는데
+                <br />
+                수료 뒤에 쓰는 사람은 적습니다
+              </>
+            }
+            lead="도구 소개와 따라 하기 시연으로 채운 과정은 모집이 쉬운 대신, 수강생이 다음 주에 다시 열어 보는 일은 드뭅니다."
+          />
+          <div className={styles.compare}>
             {PROBLEM_FLOWS.map((f) => (
-              <div key={f.label} className={styles.flow}>
-                <div
-                  className={`${styles.flowLabel} ${f.on ? styles.flowOn : ""}`}
-                >
-                  {f.label}
+              <Enter
+                key={f.label}
+                index={f.on ? 1 : 0}
+                className={`${styles.compareCol} ${f.on ? styles.compareOn : ""}`}
+              >
+                <div className={styles.compareLabel}>
+                  {f.on ? "프루퍼 주식회사의 과정" : "흔한 AI 교육"}
                 </div>
-                <div className={styles.flowRow}>
+                <b className={styles.compareTitle}>{f.label}</b>
+                <ol className={styles.compareSteps}>
                   {f.boxes.map(([t, d], i) => (
-                    <React.Fragment key={t}>
-                      {i > 0 && <Step />}
-                      <div
-                        className={`${styles.flowBox} ${f.on ? styles.flowBoxOn : ""} ${
-                          !f.on && i === 2 ? styles.flowBoxOff : ""
-                        }`}
-                      >
+                    <li
+                      key={t}
+                      className={!f.on && i === 2 ? styles.stepFade : ""}
+                    >
+                      <span className={styles.compareNum}>{i + 1}</span>
+                      <div>
                         <b>{t}</b>
                         <span>{d}</span>
                       </div>
-                    </React.Fragment>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className={styles.grid3}>
-            {PROBLEM_CARDS.map((c) => (
-              <div key={c.title} className={`${styles.card} ${styles.col}`}>
-                <Icon name={c.icon} tone={c.tone} />
-                <h3 className={styles.ct}>{c.title}</h3>
-                <p className={styles.cb}>{c.text}</p>
-              </div>
-            ))}
-          </div>
-          <div className={styles.note}>
-            기관 교육의 성과는 수강생이 교육 뒤에도 AI를 쓰는지로 갈립니다.{" "}
-            <strong>
-              그러려면 실습 자료부터 수강생 자신의 것이어야 합니다.
-            </strong>
-          </div>
-          <div className={styles.signals}>
-            <div className={styles.tag}>Signals</div>
-            {SIGNALS.map((s, i) => (
-              <div key={s} className={styles.signal}>
-                <b>{"ABC"[i]}</b>
-                {s}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="view" className={`${styles.sec} ${styles.alt}`}>
-        <div className={styles.wrap}>
-          <Enter>
-            <Head
-              run="02 / 프루퍼 주식회사의 관점"
-              tag="OUR VIEW"
-              kick="Our View"
-              title={["수강생이 가져온 자료로", "자기 결과물을 만듭니다"]}
-              lead="프루퍼 주식회사의 교육은 대상이 달라도 같은 순서로 진행합니다. 수강생이 가진 자료를 AI에 연결하고, 문서에 없는 기준을 직접 적고, 그 위에서 결과물을 만듭니다. 창업팀은 사업자료, 재직자는 직무 문서, 학생은 과제와 활동 기록이 실습 자료가 됩니다."
-            />
-          </Enter>
-          <div className={`${styles.card} ${styles.trio}`}>
-            {VIEW_TRIO.map((t, i) => (
-              <React.Fragment key={t.tag}>
-                {i > 0 && <Step />}
-                <div className={styles.trioItem}>
-                  <span className={styles.round}>
-                    <Icon name={t.icon} tone={t.tone} size={28} />
-                  </span>
-                  <div className={styles.tag}>{t.tag}</div>
-                  <b>{t.title}</b>
-                  <span className={styles.cb}>{t.text}</span>
-                </div>
-              </React.Fragment>
-            ))}
-          </div>
-          <div className={styles.split}>
-            <Photo
-              src={`${PHOTO}/coach.jpg`}
-              alt="보조강사가 수강생 옆에서 화면을 보며 돕는 모습"
-              ratio="1600 / 801"
-              sizes="(max-width: 900px) 100vw, 420px"
-            />
-            <div className={styles.stack}>
-              {VIEW_CARDS.map((c) => (
-                <div key={c.title} className={`${styles.card} ${styles.row}`}>
-                  <Icon name={c.icon} tone={c.tone} />
-                  <div className={styles.rowText}>
-                    <h3 className={styles.ct}>{c.title}</h3>
-                    <p className={styles.cb}>{c.text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className={styles.note}>
-            프루퍼 주식회사는 사내에서 실제로 일하는 방식을 가르칩니다. 흩어진
-            사내 지식을 AI가 읽도록 구조화하고 반복 업무를 자동화 워크플로로
-            돌려 온 방식을{" "}
-            <strong>수강생의 자료와 수준에 맞춰 옮깁니다.</strong>
-          </div>
-        </div>
-      </section>
-
-      <section id="formats" className={styles.sec}>
-        <div className={styles.wrap}>
-          <Enter>
-            <Head
-              run="03 / 과정 형식"
-              tag="PROGRAM FORMATS"
-              kick="Program Formats"
-              title={["기관 일정과 예산에 맞춰", "과정 형식을 고릅니다"]}
-              lead="특강부터 몇 회차에 걸친 프로젝트 과정까지 고를 수 있습니다. 어느 형식이든 수강생 자료로 실습하고 자기 결과물을 만드는 쪽으로 무게를 둡니다."
-            />
-          </Enter>
-          <div className={`${styles.card} ${styles.chartBox}`}>
-            <FormatsChart />
-          </div>
-          <div className={styles.grid2}>
-            {FORMATS.map((f) => (
-              <div key={f.id} className={`${styles.card} ${styles.format}`}>
-                <div className={styles.formatTop}>
-                  <span
-                    className={`${styles.pill} ${f.tone === "n" ? "" : styles[`pill_${f.tone}`]}`}
-                  >
-                    {f.id} {f.name}
-                  </span>
-                  <span className={styles.mono}>{f.time}</span>
-                </div>
-                <div className={styles.who}>{f.who}</div>
-                <p className={styles.cb}>{f.text}</p>
-                <p className={styles.out}>
-                  <b>산출물</b>
-                  {f.out}
-                </p>
-              </div>
-            ))}
-          </div>
-          <div className={`${styles.note} ${styles.noteBlue}`}>
-            수강생이 창업하거나, 수강생이 다니는 회사가 팀 단위로 도입하려 하면
-            기업 교육 과정(스타트업, 중소-중견)으로 이어 갑니다.{" "}
-            <strong>
-              교육에서 만든 업무환경과 기준 문서에서 바로 시작합니다.
-            </strong>{" "}
-            <Link href={enterpriseHref} className={styles.link}>
-              기업 교육 보기
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section id="audience" className={`${styles.sec} ${styles.alt}`}>
-        <div className={styles.wrap}>
-          <Enter>
-            <Head
-              run="04 / 대상별 구성 예시"
-              tag="AUDIENCE EXAMPLES"
-              kick="Audience Examples"
-              title={[
-                "수강 대상은 가리지 않습니다",
-                "자료와 결과물을 수강생에 맞춥니다",
-              ]}
-              lead="아래는 구성 예시입니다. 과정은 기관의 사업 목적과 수강생 구성을 듣고 함께 짭니다."
-            />
-          </Enter>
-          <div className={`${styles.tag} ${styles.audHead}`}>
-            <span />
-            <span>대상</span>
-            <span>실습 자료</span>
-            <span />
-            <span>결과물 예시</span>
-            <span className={styles.right}>권장 형식</span>
-          </div>
-          <div className={styles.audList}>
-            {AUDIENCE.map((a) => (
-              <div key={a.who} className={`${styles.card} ${styles.aud}`}>
-                <Icon name={a.icon} tone={a.tone} />
-                <b>{a.who}</b>
-                <span className={styles.cb}>{a.material}</span>
-                <span className={styles.audArrow}>
-                  <Arrow size={18} />
-                </span>
-                <span className={styles.audOut}>{a.output}</span>
-                <span className={styles.audFormat}>{a.format}</span>
-              </div>
-            ))}
-          </div>
-          <div className={styles.grid2}>
-            <div className={`${styles.card} ${styles.col}`}>
-              <div className={styles.tag}>Mixed Class</div>
-              <div className={styles.cardTitle}>수준이 섞인 반</div>
-              <p className={styles.cb}>
-                신청 단계의 사전 설문으로 AI 사용 경험과 가져올 자료를 묻습니다.
-                그 결과로 반을 나누거나, 같은 반 안에서 사람마다 결과물의 크기를
-                달리 잡습니다.
-              </p>
-            </div>
-            <div className={`${styles.card} ${styles.col}`}>
-              <div className={styles.tag}>No Materials</div>
-              <div className={styles.cardTitle}>자료가 없는 수강생</div>
-              <p className={styles.cb}>
-                대상에 맞춘 예시 자료를 준비해 먼저 실습합니다. 방법을 익힌 뒤
-                자기 자료로 옮기고, 자료가 쌓이면 교육 뒤에도 같은 방법으로 이어
-                씁니다.
-              </p>
-            </div>
-          </div>
-          <div className={styles.note}>
-            한 사업 안에 대상이 여럿이면 대상별로 트랙을 나누고, 트랙마다 형식과
-            회차를 따로 잡습니다.{" "}
-            <strong>
-              같은 대상 안에서도 수준이 크게 갈리면 반을 다시 나눕니다.
-            </strong>
-          </div>
-        </div>
-      </section>
-
-      <section id="lab" className={styles.sec}>
-        <div className={styles.wrap}>
-          <Enter>
-            <Head
-              run="05 / Hands-on Lab"
-              tag="개인 실습"
-              kick="F2 / Hands-on Lab"
-              title={[
-                "반나절 안에 나한테 특화된",
-                "결과물까지 가져갈 수 있습니다",
-              ]}
-              lead="완성된 모습을 먼저 보여주고 개념은 그다음에 설명합니다. 무엇을 만드는지 본 뒤에 설명을 들으면 수강생이 자기 일에 대입해 듣습니다. 이어지는 실습은 전부 수강생 자신의 자료로 합니다."
-            />
-          </Enter>
-          <div className={`${styles.card} ${styles.timeline}`}>
-            <ol className={styles.steps}>
-              {LAB_STEPS.map((s, i) => (
-                <li key={s.title}>
-                  <span
-                    className={`${styles.stepn} ${i === 4 ? styles.stepnGreen : ""}`}
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <b>{s.title}</b>
-                  <span className={styles.cs}>{s.text}</span>
-                  <span
-                    className={`${styles.pill} ${styles.pillSm} ${i === 4 ? styles.pill_g : ""}`}
-                  >
-                    {s.pill}
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </div>
-          <div className={styles.grid3}>
-            {LAB_FACTS.map((f) => (
-              <div key={f.tag} className={`${styles.card} ${styles.col}`}>
-                <Icon name={f.icon} tone={f.tone} />
-                <div className={styles.tag}>{f.tag}</div>
-                <div className={styles.cardTitle}>{f.title}</div>
-                <p className={styles.cb}>{f.text}</p>
-              </div>
-            ))}
-          </div>
-          <div className={`${styles.card} ${styles.col}`}>
-            <div className={styles.tag}>결과물 예시</div>
-            <div className={styles.grid3}>
-              {LAB_RESULTS.map((r) => (
-                <div key={r.who} className={styles.result}>
-                  <Icon name={r.icon} tone={r.tone} size={20} />
-                  <div>
-                    <b>{r.who}</b>
-                    <div className={styles.cb}>{r.what}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <p className={styles.cb}>
-              결과물은 대상에 맞춰 정하고, 그날 완성할 수 있는 크기로 잡습니다.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="project" className={`${styles.sec} ${styles.alt}`}>
-        <div className={styles.wrap}>
-          <Enter>
-            <Head
-              run="06 / Project Course, AI Hackathon"
-              tag="확장 과정"
-              kick="F3 / Project Course"
-              title={[
-                "업무나 프로젝트에 쓰는 결과물이 될 때까지",
-                "회차를 이어 갑니다",
-              ]}
-              lead="반일 실습에서 만든 결과물을 몇 회차에 걸쳐 업무나 프로젝트에 쓰는 수준으로 키웁니다. 짧은 기간에 팀 단위 결과물이 필요하면 해커톤 형식으로 압축합니다."
-            />
-          </Enter>
-          <div className={`${styles.card} ${styles.rounds}`}>
-            <div className={styles.tag}>회차 예시</div>
-            <div className={styles.stairs}>
-              {ROUNDS.map((r) => (
-                <div key={r.n} className={styles.stair}>
-                  <div className={styles.stairText}>
-                    <b>{r.title}</b>
-                    <span className={styles.cs}>{r.text}</span>
-                  </div>
-                  <div
-                    className={styles.stairBar}
-                    style={{ height: r.h, background: r.bg, color: r.fg }}
-                  >
-                    {r.n}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <p className={styles.cb}>
-              회차 수와 간격은 기관 일정에 맞춥니다. 재직자 과정은 평일 저녁이나
-              주말로도 엽니다.
-            </p>
-          </div>
-          <div className={styles.kick}>F4 / AI Hackathon</div>
-          <div className={styles.grid3}>
-            {HACKATHON.map((c) => (
-              <div key={c.title} className={`${styles.card} ${styles.col}`}>
-                <Icon name={c.icon} tone={c.tone} />
-                <h3 className={styles.ct}>{c.title}</h3>
-                <p className={styles.cb}>{c.text}</p>
-              </div>
-            ))}
-          </div>
-          <div className={styles.note}>
-            두 형식 모두 마지막에 수강생이 직접 결과물을 시연합니다.{" "}
-            <strong>시연 기록과 결과물은 결과보고서에 그대로 실립니다.</strong>
-          </div>
-        </div>
-      </section>
-
-      <section id="operation" className={styles.sec}>
-        <div className={styles.wrap}>
-          <Enter>
-            <Head
-              run="07 / 운영 범위"
-              tag="OPERATION"
-              kick="Operation"
-              title={["기획부터 결과보고까지", "필요한 만큼 맡기세요"]}
-              lead="강의만 맡기실 수도 있고, 과정 기획부터 모집, 운영, 결과보고까지 한 번에 맡기실 수도 있습니다. 기관 담당자가 챙길 일이 줄도록 단계마다 산출물을 정해 두고 진행합니다."
-            />
-          </Enter>
-          <ol className={styles.ops}>
-            {OPERATION.map((o, i) => (
-              <li key={o.title}>
-                <span className={styles.round}>
-                  <Icon name={o.icon} tone={o.tone} size={26} />
-                </span>
-                <div className={styles.tag}>
-                  Step {String(i + 1).padStart(2, "0")}
-                </div>
-                <b className={styles.opTitle}>{o.title}</b>
-                <ul className={styles.opList}>
-                  {o.items.map((it) => (
-                    <li key={it} className={styles.opItem}>
-                      {it}
                     </li>
                   ))}
-                </ul>
-              </li>
+                </ol>
+              </Enter>
             ))}
-          </ol>
-          <div className={styles.grid2}>
-            {OPERATION_CARDS.map((c) => (
-              <div key={c.title} className={`${styles.card} ${styles.row}`}>
-                <Icon name={c.icon} tone={c.tone} />
-                <div className={styles.rowText}>
+          </div>
+          <div className={styles.pains}>
+            {PROBLEM_CARDS.map((c) => (
+              <div key={c.title} className={styles.pain}>
+                <Icon name={c.icon} tone={c.tone === "y" ? "b" : c.tone} />
+                <div>
                   <h3 className={styles.ct}>{c.title}</h3>
                   <p className={styles.cb}>{c.text}</p>
                 </div>
               </div>
             ))}
           </div>
-          <div className={styles.note}>
-            대학 앵커사업단 과정에서는 수강생 전원에게 실습용 AI 도구 계정을
-            지원하고, 회수 날짜를 미리 정해 운영했습니다.{" "}
-            <strong>참가자 결과물을 붙인 결과보고서까지 제출했습니다.</strong>
+        </div>
+      </section>
+
+      {/* 관점: 자료, 기준, 결과물 흐름 */}
+      <section id="view" className={`${styles.sec} ${styles.alt}`}>
+        <div className={styles.wrap}>
+          <SectionHead
+            kick="Our View"
+            title={
+              <>
+                수강생이 가져온 자료로
+                <br />
+                자기 결과물을 만듭니다
+              </>
+            }
+            lead="대상이 달라도 순서는 같습니다. 창업팀은 사업자료, 재직자는 직무 문서, 학생은 과제와 활동 기록이 실습 자료가 됩니다."
+          />
+          <Enter className={styles.pipe}>
+            {VIEW_TRIO.map((t, i) => (
+              <React.Fragment key={t.tag}>
+                {i > 0 && (
+                  <span className={styles.pipeArrow}>
+                    <Arrow size={22} />
+                  </span>
+                )}
+                <div
+                  className={`${styles.pipeItem} ${i === 2 ? styles.pipeOut : ""}`}
+                >
+                  <Icon
+                    name={t.icon}
+                    tone={t.tone === "y" ? "b" : t.tone}
+                    size={26}
+                  />
+                  <div className={styles.tag}>{t.tag}</div>
+                  <b>{t.title}</b>
+                  <span className={styles.pipeText}>{t.text}</span>
+                </div>
+              </React.Fragment>
+            ))}
+          </Enter>
+          <div className={styles.grid3}>
+            {VIEW_CARDS.map((c, i) => (
+              <Enter key={c.title} index={i} className={styles.card}>
+                <Icon name={c.icon} tone={c.tone === "y" ? "b" : c.tone} />
+                <h3 className={styles.ct}>{c.title}</h3>
+                <p className={styles.cb}>{c.text}</p>
+              </Enter>
+            ))}
           </div>
         </div>
       </section>
 
-      <section id="case" className={`${styles.sec} ${styles.alt}`}>
+      {/* 과정 형식: 투입 시간 막대와 산출물 */}
+      <section id="formats" className={styles.sec}>
         <div className={styles.wrap}>
-          <Enter>
-            <Head
-              run="08 / 실제로 해 본 과정"
-              tag="CASE"
-              kick="Case / OO대학교 앵커사업단"
-              title={["초기창업기업 대표들이", "자기 사업자료로 만든 업무환경"]}
-              lead="2026년 10월, 한 대학 앵커사업단의 창업실무 고도화 과정을 프루퍼 주식회사가 맡았습니다. 예비창업자와 초기창업기업 대표가 자기 사업자료를 AI에 연결하고, 그 위에서 자사 소개 페이지를 만들었습니다."
-            />
-          </Enter>
-          <div className={styles.caseTop}>
-            <Photo
-              src={`${PHOTO}/lab.jpg`}
-              alt="실습 중인 수강생"
-              ratio="1600 / 1053"
-              sizes="(max-width: 900px) 100vw, 700px"
-            />
-            <div className={`${styles.card} ${styles.donut}`}>
-              <svg
-                viewBox="0 0 150 150"
-                role="img"
-                aria-label="33명 중 32명 완성"
-                width="150"
-                height="150"
+          <SectionHead
+            kick="Program Formats"
+            title={
+              <>
+                기관 일정과 예산에 맞춰
+                <br />
+                과정 형식을 고릅니다
+              </>
+            }
+            lead="특강부터 몇 회차에 걸친 프로젝트 과정까지. 어느 형식이든 수강생 자료로 실습하고 자기 결과물을 만듭니다."
+          />
+          <div className={styles.formats}>
+            {FORMATS.map((f, i) => (
+              <Enter
+                key={f.id}
+                index={i}
+                className={`${styles.format} ${f.id === "F2" ? styles.formatMain : ""}`}
               >
-                <circle
-                  cx="75"
-                  cy="75"
-                  r="54"
-                  fill="none"
-                  stroke="#E6F5EA"
-                  strokeWidth="16"
-                />
-                <circle
-                  cx="75"
-                  cy="75"
-                  r="54"
-                  fill="none"
-                  stroke="#45AF66"
-                  strokeWidth="16"
-                  strokeLinecap="round"
-                  strokeDasharray="329.0 339.3"
-                  transform="rotate(-90 75 75)"
-                />
-                <text
-                  x="75"
-                  y="76"
-                  textAnchor="middle"
-                  fontSize="30"
-                  fontWeight="800"
-                  fill="#0F1424"
-                >
-                  32
-                </text>
-                <text
-                  x="75"
-                  y="98"
-                  textAnchor="middle"
-                  fontSize="11"
-                  fill="#3B4256"
-                >
-                  33명 중 완성
-                </text>
-              </svg>
-              <div className={styles.donutFacts}>
-                <div>
-                  <div className={styles.tag}>참여</div>
-                  <div className={styles.fact}>33명</div>
+                {f.id === "F2" && (
+                  <span className={styles.formatBadge}>대표 과정</span>
+                )}
+                <div className={styles.formatId}>{f.id}</div>
+                <h3 className={styles.formatName}>{f.name}</h3>
+                <div className={styles.formatTime}>
+                  <span className={styles.timeText}>{f.time}</span>
+                  <span className={styles.bar}>
+                    <span style={{ width: `${FORMAT_SPAN[f.id]}%` }} />
+                  </span>
                 </div>
-                <div>
-                  <div className={styles.tag}>시간</div>
-                  <div className={styles.fact}>3.5시간</div>
+                <div className={styles.formatWho}>{f.who}</div>
+                <div className={styles.formatOut}>
+                  <span className={styles.tag}>산출물</span>
+                  <b>{f.out}</b>
                 </div>
-              </div>
-            </div>
+                <details className={styles.more}>
+                  <summary>자세히</summary>
+                  <p>{f.text}</p>
+                </details>
+              </Enter>
+            ))}
           </div>
-          <div className={`${styles.card} ${styles.col}`}>
-            <div className={styles.tag}>Process</div>
-            <ol className={styles.process}>
-              {CASE_PROCESS.map((p) => (
-                <li
-                  key={p.title}
-                  className={p.green ? styles.processGreen : ""}
-                >
-                  <b>{p.title}</b>
-                  <span className={styles.cs}>{p.text}</span>
+          <div className={styles.bridge}>
+            <p>
+              수강생이 창업하거나 다니는 회사가 팀 단위로 도입하려 하면 기업
+              교육 과정으로 이어 갑니다. 교육에서 만든 업무환경과 기준 문서에서
+              바로 시작합니다.
+            </p>
+            <Link href={enterpriseHref} className={styles.bridgeLink}>
+              기업 교육 보기
+              <Arrow size={16} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 대상별: 자료에서 결과물로 */}
+      <section id="audience" className={`${styles.sec} ${styles.alt}`}>
+        <div className={styles.wrap}>
+          <SectionHead
+            kick="Audience Examples"
+            title={
+              <>
+                수강 대상은 가리지 않습니다
+                <br />
+                자료와 결과물을 수강생에 맞춥니다
+              </>
+            }
+            lead="구성 예시입니다. 과정은 기관의 사업 목적과 수강생 구성을 듣고 함께 짭니다."
+          />
+          <div className={styles.auds}>
+            {AUDIENCE.map((a, i) => (
+              <Enter key={a.who} index={i} className={styles.aud}>
+                <div className={styles.audWho}>
+                  <Icon name={a.icon} tone={a.tone === "y" ? "b" : a.tone} />
+                  <b>{a.who}</b>
+                </div>
+                <div className={styles.audFlow}>
+                  <div>
+                    <span className={styles.tag}>실습 자료</span>
+                    <span>{a.material}</span>
+                  </div>
+                  <span className={styles.audArrow}>
+                    <Arrow size={18} />
+                  </span>
+                  <div>
+                    <span className={styles.tag}>결과물</span>
+                    <b>{a.output}</b>
+                  </div>
+                </div>
+                <div className={styles.audFormat}>{a.format}</div>
+              </Enter>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Hands-on Lab: 6단계 */}
+      <section id="lab" className={styles.sec}>
+        <div className={styles.wrap}>
+          <SectionHead
+            kick="F2 / Hands-on Lab"
+            title={
+              <>
+                반나절 안에 나한테 특화된
+                <br />
+                결과물까지 가져갈 수 있습니다
+              </>
+            }
+            lead="완성된 모습을 먼저 보여주고 개념은 그다음에 설명합니다. 이어지는 실습은 전부 수강생 자신의 자료로 합니다."
+          />
+          <Enter>
+            <ol className={styles.stepper}>
+              {LAB_STEPS.map((s, i) => (
+                <li key={s.title} className={i === 4 ? styles.stepKey : ""}>
+                  <span className={styles.stepNum}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <b>{s.title}</b>
+                  <span className={styles.cs}>{s.text}</span>
+                  <span className={styles.stepOut}>{s.pill}</span>
                 </li>
               ))}
             </ol>
-          </div>
-          <div className={styles.grid2}>
-            <div className={`${styles.card} ${styles.col}`}>
-              <div className={styles.tag}>Learned</div>
-              <div className={styles.cardTitle}>결과를 가른 것은 회사 기준</div>
-              <p className={styles.cb}>
-                최신판 문서를 찾는 일은 AI가 스스로 해냈습니다. 같은 질문에 답이
-                갈린 지점은 문서에 없는 기준을 적어 두었는지였습니다. 그래서
-                과정의 무게를 자료 찾기에서 기준 정하기로 옮겼습니다.
-              </p>
-            </div>
-            <div className={`${styles.card} ${styles.col}`}>
-              <div className={styles.tag}>Takeaway</div>
-              <div className={styles.cardTitle}>
-                교육 뒤에도 다시 설치할 수 있게
+          </Enter>
+          <div className={styles.facts}>
+            {LAB_FACTS.map((f) => (
+              <div key={f.tag} className={styles.fact}>
+                <span className={styles.tag}>{f.tag}</span>
+                <b>{f.title}</b>
+                <span className={styles.cs}>{f.text}</span>
               </div>
-              <p className={styles.cb}>
-                참가자는 업무환경을 처음부터 다시 꾸릴 수 있는 설치 패키지를
-                받았습니다. 지원사업 조회와 소개 페이지 요청문이 함께 들어
-                있습니다.
-              </p>
-            </div>
-          </div>
-          <div className={styles.note}>
-            기관이 창업팀을 위해 연 Hands-on Lab입니다.{" "}
-            <strong>
-              다른 대상도 같은 순서로 진행하고, 실습 자료와 결과물을 대상에 맞춰
-              바꿉니다.
-            </strong>
+            ))}
           </div>
         </div>
       </section>
 
-      <section id="package" className={styles.sec}>
+      {/* Project Course 와 AI Hackathon */}
+      <section id="project" className={`${styles.sec} ${styles.alt}`}>
         <div className={styles.wrap}>
-          <Enter>
-            <Head
-              run="09 / 구성과 견적"
-              tag="PACKAGES"
-              kick="Packages"
-              title={["필요한 범위만 골라", "견적을 받습니다"]}
-            />
-          </Enter>
-          <div className={styles.pkgs}>
-            {PACKAGES.map((p, i) => (
-              <div key={p.title} className={styles.pkg}>
-                {p.stack.map((k) => (
-                  <div
-                    key={k}
-                    className={styles.layer}
-                    style={{ background: LAYERS[k].bg, color: LAYERS[k].fg }}
-                  >
-                    {LAYERS[k].label}
+          <SectionHead
+            kick="F3 / Project Course, F4 / AI Hackathon"
+            title={
+              <>
+                업무나 프로젝트에 쓰는 결과물이 될 때까지
+                <br />
+                회차를 이어 갑니다
+              </>
+            }
+            lead="짧은 기간에 팀 단위 결과물이 필요하면 해커톤 형식으로 압축합니다. 두 형식 모두 마지막에 수강생이 직접 결과물을 시연합니다."
+          />
+          <div className={styles.projGrid}>
+            <Enter className={styles.card}>
+              <div className={styles.tag}>Project Course 회차 예시</div>
+              <div className={styles.stairs}>
+                {ROUNDS.map((r) => (
+                  <div key={r.n} className={styles.stair}>
+                    <div className={styles.stairText}>
+                      <b>{r.title}</b>
+                      <span className={styles.cs}>{r.text}</span>
+                    </div>
+                    <div
+                      className={styles.stairBar}
+                      style={{ height: r.h, background: r.bg, color: r.fg }}
+                    >
+                      {r.n}
+                    </div>
                   </div>
                 ))}
+              </div>
+              <p className={styles.cs}>
+                회차 수와 간격은 기관 일정에 맞춥니다. 재직자 과정은 평일
+                저녁이나 주말로도 엽니다.
+              </p>
+            </Enter>
+            <div className={styles.stack}>
+              <div className={styles.tag}>AI Hackathon, 1 ~ 2일</div>
+              {HACKATHON.map((c, i) => (
+                <Enter key={c.title} index={i} className={styles.hackItem}>
+                  <Icon name={c.icon} tone={c.tone === "y" ? "b" : c.tone} />
+                  <div>
+                    <h3 className={styles.ct}>{c.title}</h3>
+                    <p className={styles.cb}>{c.text}</p>
+                  </div>
+                </Enter>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 사례: 짙은 띠 */}
+      <section id="case" className={`${styles.sec} ${styles.dark}`}>
+        <div className={styles.wrap}>
+          <SectionHead
+            light
+            kick="Case / OO대학교 앵커사업단"
+            title={
+              <>
+                초기창업기업 대표들이
+                <br />
+                자기 사업자료로 만든 업무환경
+              </>
+            }
+            lead="2026년 10월, 한 대학 앵커사업단의 창업실무 고도화 과정을 프루퍼 주식회사가 맡았습니다. 대표들이 자기 사업자료를 AI에 연결하고, 그 위에서 자사 소개 페이지를 만들었습니다."
+          />
+          <div className={styles.caseGrid}>
+            <Enter className={styles.caseStats}>
+              <Donut size={150} dark />
+              <div className={styles.caseNums}>
+                <div>
+                  <span className={styles.tag}>참여</span>
+                  <b>33명</b>
+                </div>
+                <div>
+                  <span className={styles.tag}>완성</span>
+                  <b>32명</b>
+                </div>
+                <div>
+                  <span className={styles.tag}>시간</span>
+                  <b>3.5시간</b>
+                </div>
+              </div>
+            </Enter>
+            <Enter index={1} className={styles.casePhoto}>
+              <Image
+                src={`${PHOTO}/lab.jpg`}
+                alt="자기 사업자료로 실습 중인 수강생"
+                fill
+                sizes="(max-width: 960px) 100vw, 560px"
+              />
+            </Enter>
+          </div>
+          <ol className={styles.caseSteps}>
+            {CASE_PROCESS.map((p, i) => (
+              <li key={p.title} className={p.green ? styles.caseGreen : ""}>
+                <span>{String(i + 1).padStart(2, "0")}</span>
+                <b>{p.title}</b>
+                <small>{p.text}</small>
+              </li>
+            ))}
+          </ol>
+          <blockquote className={styles.learned}>
+            <b>결과를 가른 것은 회사 기준</b>
+            <p>
+              최신판 문서를 찾는 일은 AI가 스스로 해냈습니다. 같은 질문에 답이
+              갈린 지점은 문서에 없는 기준을 적어 두었는지였습니다. 참가자는
+              교육 뒤에도 업무환경을 다시 꾸릴 수 있는 설치 패키지를 받았습니다.
+            </p>
+          </blockquote>
+        </div>
+      </section>
+
+      {/* 운영 범위 */}
+      <section id="operation" className={styles.sec}>
+        <div className={styles.wrap}>
+          <SectionHead
+            kick="Operation"
+            title={
+              <>
+                기획부터 결과보고까지
+                <br />
+                필요한 만큼 맡기세요
+              </>
+            }
+            lead="강의만 맡기실 수도 있고, 기획부터 모집, 운영, 결과보고까지 한 번에 맡기실 수도 있습니다."
+          />
+          <div className={styles.ops}>
+            {OPERATION.map((o, i) => (
+              <Enter key={o.title} index={i} className={styles.op}>
+                <div className={styles.opHead}>
+                  <span className={styles.opNum}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <b>{o.title}</b>
+                </div>
+                <ul>
+                  {o.items.map((it) => (
+                    <li key={it}>{it}</li>
+                  ))}
+                </ul>
+              </Enter>
+            ))}
+          </div>
+          <div className={styles.grid2}>
+            {OPERATION_CARDS.map((c) => (
+              <div key={c.title} className={`${styles.card} ${styles.row}`}>
+                <Icon name={c.icon} tone={c.tone} />
+                <div>
+                  <h3 className={styles.ct}>{c.title}</h3>
+                  <p className={styles.cb}>{c.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 구성과 견적 */}
+      <section id="package" className={`${styles.sec} ${styles.alt}`}>
+        <div className={styles.wrap}>
+          <SectionHead
+            kick="Packages"
+            title={
+              <>
+                필요한 범위만 골라
+                <br />
+                견적을 받습니다
+              </>
+            }
+            lead="견적은 인원, 회차, 운영 범위를 기준으로 잡습니다. 같은 과정을 다시 여는 경우 두 번째부터는 기획 비용이 빠집니다."
+          />
+          <Enter className={styles.pkgs}>
+            {PACKAGES.map((p, i) => (
+              <div key={p.title} className={styles.pkg}>
+                <div className={styles.pkgStack}>
+                  {p.stack.map((k) => (
+                    <div
+                      key={k}
+                      className={styles.layer}
+                      style={{ background: LAYERS[k].bg, color: LAYERS[k].fg }}
+                    >
+                      {LAYERS[k].label}
+                    </div>
+                  ))}
+                </div>
                 <div
                   className={`${styles.pkgLabel} ${i === 3 ? styles.pkgLabelDark : ""}`}
                 >
                   <b>{p.title}</b>
-                  <div>{p.text}</div>
+                  <span>{p.text}</span>
                 </div>
               </div>
             ))}
-          </div>
-          <p className={styles.cb}>
-            견적은 인원, 회차, 운영 범위를 기준으로 잡습니다. 같은 과정을 다시
-            여는 경우 두 번째부터는 기획 비용이 빠집니다.
-          </p>
-          <div className={`${styles.card} ${styles.col}`}>
+          </Enter>
+          <div className={styles.start}>
             <div className={styles.tag}>How We Start</div>
-            <div className={styles.start}>
+            <ol>
               {START.map((s, i) => (
-                <React.Fragment key={s.title}>
-                  {i > 0 && <Step />}
-                  <div className={styles.startItem}>
+                <li key={s.title}>
+                  <span className={styles.opNum}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
                     <b>{s.title}</b>
-                    <span className={styles.cb}>{s.text}</span>
+                    <span className={styles.cs}>{s.text}</span>
                   </div>
-                </React.Fragment>
+                </li>
               ))}
-            </div>
-          </div>
-          <h3 className={styles.h3}>과정 뒤에 달라지는 것</h3>
-          <div className={styles.grid2}>
-            {AFTER.map((a) => (
-              <div
-                key={a.text}
-                className={`${styles.card} ${styles.row} ${styles.after}`}
-              >
-                <Icon name={a.icon} tone={a.tone} size={20} />
-                <p className={styles.cb}>
-                  {a.text}
-                  {a.link && (
-                    <>
-                      {" "}
-                      <Link href={enterpriseHref} className={styles.link}>
-                        기업 교육 보기
-                      </Link>
-                    </>
-                  )}
-                </p>
-              </div>
-            ))}
+            </ol>
           </div>
         </div>
       </section>
 
-      <section id="faq" className={`${styles.sec} ${styles.alt}`}>
-        <div className={styles.wrap}>
-          <Enter>
-            <Head
-              run="10 / 자주 묻는 질문"
-              tag="FAQ"
-              kick="FAQ"
-              title={["자주 묻는 질문"]}
-            />
-          </Enter>
-          <div className={`${styles.card} ${styles.faqs}`}>
-            {FAQ.map((f, i) => (
+      {/* FAQ */}
+      <section id="faq" className={styles.sec}>
+        <div className={`${styles.wrap} ${styles.faqWrap}`}>
+          <SectionHead kick="FAQ" title="자주 묻는 질문" />
+          <div className={styles.faqs}>
+            {FAQ.map((f) => (
               <details key={f.q} className={styles.faq}>
-                <summary>
-                  <span>Q{i + 1}</span>
-                  {f.q}
-                </summary>
+                <summary>{f.q}</summary>
                 <p>{f.a}</p>
               </details>
             ))}
@@ -1551,53 +1296,37 @@ export default function OpenPage() {
         </div>
       </section>
 
-      <section id="contact" className={styles.sec}>
-        <div className={styles.wrap}>
+      {/* 문의 */}
+      <section id="contact" className={styles.cta}>
+        <div className={styles.ctaInner}>
           <div className={styles.kick}>Proof of Value</div>
-          <h2 className={styles.h2}>
+          <h2 className={styles.ctaTitle}>
             강의만 듣고 끝나지 않는 AI 교육,
             <br />
-            <em>함께 만들어 가 봅시다!</em>
+            함께 만들어 가 봅시다!
           </h2>
-          <p className={styles.lead}>
+          <p className={styles.ctaLead}>
             특강, 실습 과정, 프로젝트 과정, 모집, 운영 일괄 모두 가능합니다.
           </p>
-          <Photo
-            src={`${PHOTO}/coach.jpg`}
-            alt="수강생 옆에서 함께 실습하는 모습"
-            ratio="1600 / 520"
-          />
           <div className={styles.actions}>
-            <AxInquireButton className={styles.btn}>
+            <AxInquireButton className={`${styles.btn} ${styles.btnWhite}`}>
               도입 문의하기
             </AxInquireButton>
-            <a href={OPEN.pdf} className={`${styles.btn} ${styles.btnGhost}`}>
+            <a href={OPEN.pdf} className={`${styles.btn} ${styles.btnLine}`}>
               커리큘럼 다운로드
             </a>
             <Link
               href={enterpriseHref}
-              className={`${styles.btn} ${styles.btnGhost}`}
+              className={`${styles.btn} ${styles.btnLine}`}
             >
               기업 교육 보기
             </Link>
           </div>
-          <div className={`${styles.grid2} ${styles.contact}`}>
-            <div className={styles.col}>
-              <div className={styles.tag}>Contact</div>
-              <a href="mailto:info@proofer.tech" className={styles.mail}>
-                info@proofer.tech
-              </a>
-              <div className={styles.cb}>ax.proofer.tech</div>
-              <div className={styles.cb}>proofer.tech</div>
-            </div>
-            <div className={styles.col}>
-              <div className={styles.tag}>Company</div>
-              <div className={styles.mail}>프루퍼 주식회사 / 대표 임한솔</div>
-              <div className={styles.cb}>사업자등록번호 337-81-03650</div>
-              <div className={styles.cb}>
-                서울 강남구 강남대로112길 47, 2층 421A
-              </div>
-            </div>
+          <div className={styles.ctaInfo}>
+            <a href="mailto:info@proofer.tech">info@proofer.tech</a>
+            <span>프루퍼 주식회사, 대표 임한솔</span>
+            <span>사업자등록번호 337-81-03650</span>
+            <span>서울 강남구 강남대로112길 47, 2층 421A</span>
           </div>
         </div>
       </section>
