@@ -867,11 +867,6 @@ export default function OpenPage() {
       <section id="top" className={`${styles.sec} ${styles.hero}`}>
         <div className={styles.wrap}>
           <Enter index={0} immediate>
-            <div className={styles.brand}>
-              <span className={styles.pill}>
-                AX Curriculum / For Institutions
-              </span>
-            </div>
             <div className={styles.kick}>기관과 함께 여는 공개 AI 교육</div>
             <h1 className={styles.h1}>
               배운 그날부터 활용하는
