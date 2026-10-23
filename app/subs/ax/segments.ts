@@ -126,7 +126,7 @@ export const OPEN = {
     "AI 교육 운영 대행",
     "AX 교육",
   ],
-  pdf: `${BLOB}/proofer-ax-open.pdf?download=1&v=20261022`,
+  pdf: `${BLOB}/proofer-ax-open.pdf?download=1&v=20261023`,
   nav: [
     { href: "#problem", label: "문제" },
     { href: "#view", label: "관점" },

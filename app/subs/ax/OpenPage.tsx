@@ -761,7 +761,7 @@ export default function OpenPage() {
       <section id="top" className={styles.hero}>
         <div className={styles.heroGrid}>
           <Enter index={0} immediate className={styles.heroText}>
-            <div className={styles.kick}>기관과 함께 여는 공개 AI 교육</div>
+            <div className={styles.kick}>공개 AI 교육</div>
             <h1 className={styles.h1}>
               배운 그날부터 활용하는
               <br />
