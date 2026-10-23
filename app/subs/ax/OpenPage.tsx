@@ -1322,12 +1322,6 @@ export default function OpenPage() {
               기업 교육 보기
             </Link>
           </div>
-          <div className={styles.ctaInfo}>
-            <a href="mailto:info@proofer.tech">info@proofer.tech</a>
-            <span>프루퍼 주식회사, 대표 임한솔</span>
-            <span>사업자등록번호 337-81-03650</span>
-            <span>서울 강남구 강남대로112길 47, 2층 421A</span>
-          </div>
         </div>
       </section>
 

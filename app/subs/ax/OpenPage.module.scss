@@ -59,17 +59,16 @@ $mono:
   }
 
   .kick {
-    font-family: $mono;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
     color: $blue;
   }
 
   .h1 {
     margin: 0;
-    font-size: 60px;
-    line-height: 1.18;
+    font-size: 52px;
+    line-height: 1.22;
     font-weight: 800;
     letter-spacing: -0.035em;
     color: $ink;
@@ -112,10 +111,9 @@ $mono:
   }
 
   .tag {
-    font-family: $mono;
-    font-size: 11.5px;
+    font-size: 12.5px;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.01em;
     color: $mute;
   }
 
@@ -268,7 +266,7 @@ $mono:
   // 히어로
   .hero {
     position: relative;
-    padding: 72px 40px 0;
+    padding: 72px 0 0;
     background:
       radial-gradient(
         900px 480px at 85% 10%,
@@ -284,13 +282,14 @@ $mono:
   }
 
   .heroGrid {
+    box-sizing: content-box;
     max-width: 1120px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
     align-items: center;
     gap: 56px;
-    padding-bottom: 72px;
+    padding: 0 40px 72px;
   }
 
   .heroText {
@@ -351,10 +350,8 @@ $mono:
 
   .heroCaseTag {
     margin-bottom: 2px;
-    font-family: $mono;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    font-size: 12px;
+    font-weight: 700;
     color: $green-ink;
   }
 
@@ -391,13 +388,14 @@ $mono:
   }
 
   .trustInner {
+    box-sizing: content-box;
     max-width: 1120px;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 12px 28px;
-    padding: 22px 0;
+    padding: 22px 40px;
   }
 
   .trustItem {
@@ -447,10 +445,8 @@ $mono:
   }
 
   .compareLabel {
-    font-family: $mono;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
+    font-size: 13px;
+    font-weight: 700;
     color: $mute;
   }
 
@@ -1273,22 +1269,6 @@ $mono:
     color: #dbe1ff;
   }
 
-  .ctaInfo {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 24px;
-    margin-top: 24px;
-    padding-top: 24px;
-    border-top: 1px solid rgb(255 255 255 / 20%);
-    font-size: 14px;
-    color: #c9d2ff;
-
-    a {
-      font-weight: 700;
-      color: #fff;
-    }
-  }
-
   // 반응형
   @media (width <= 960px) {
     .sec,
@@ -1297,10 +1277,11 @@ $mono:
     }
 
     .hero {
-      padding: 40px 24px 0;
+      padding: 40px 0 0;
     }
 
     .heroGrid {
+      padding: 0 24px 64px;
       grid-template-columns: 1fr;
       gap: 48px;
     }
@@ -1323,7 +1304,7 @@ $mono:
     }
 
     .trustInner {
-      padding: 22px 0;
+      padding: 22px 24px;
     }
 
     .compare,
