@@ -1382,8 +1382,8 @@
   box-shadow: 0 28px 56px -32px var(--acc);
 }
 
-.axw .hchip,
-.axw .token {
+.axw .chip.acc.hchip,
+.axw .chip.acc.token {
   position: absolute;
   left: 0;
   top: 0;
@@ -1391,7 +1391,16 @@
   opacity: 0;
   pointer-events: none;
   white-space: nowrap;
-  box-shadow: 0 8px 20px -8px var(--acc);
+
+  /* 옮겨지는 칩은 불투명 바탕과 테두리로 뒤의 글자가 비치지 않게 하고, 들어 올린 그림자로 이동 중임을 보인다 */
+  background: color-mix(in srgb, var(--acc) 28%, var(--bg));
+  border: 1px solid var(--acc);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 0 0 4px var(--bg),
+    0 14px 28px -10px rgb(0 0 0 / 70%),
+    0 0 18px -4px var(--acc);
+  transform-origin: left center;
 }
 
 .axw .mod .bar span {

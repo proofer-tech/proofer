@@ -353,14 +353,16 @@ function journey(sec: HTMLElement, wide: boolean) {
       // 다음 단계 카드 윗변에 걸쳐 앉는다(카드 글을 가리지 않는다)
       return { x: r.left + 14, y: r.top - 16 };
     };
+    // 산출물 칩이 들려서(scale) 다음 단계로 건너가고, 내려앉은 뒤 사라진다
     tl.fromTo(
       chip,
-      { x: () => from().x, y: () => from().y, opacity: 0 },
-      { opacity: 1, duration: 0.15 },
+      { x: () => from().x, y: () => from().y, opacity: 0, scale: 0.92 },
+      { opacity: 1, scale: 1.08, duration: 0.15 },
       i,
     );
-    tl.to(chip, { x: () => to().x, y: () => to().y, duration: 0.7 }, i + 0.15);
-    tl.to(chip, { opacity: 0, duration: 0.15 }, i + 0.85);
+    tl.to(chip, { x: () => to().x, y: () => to().y, duration: 0.6 }, i + 0.15);
+    tl.to(chip, { scale: 1, duration: 0.1 }, i + 0.75);
+    tl.to(chip, { opacity: 0, duration: 0.1 }, i + 0.88);
   });
   tl.set({}, {}, n - 1 + 0.2);
 }
