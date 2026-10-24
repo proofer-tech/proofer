@@ -393,7 +393,6 @@ function mods(el: HTMLElement, wide: boolean) {
 /** 해커톤: 시간축 위 간트 막대가 하루에서 시즌 길이까지 자란다 */
 function gantt(el: HTMLElement) {
   const fills = all(el, ".track span i");
-  const labels = all(el, ".track span em");
   const tl = gsap.timeline({
     defaults: { ease: "none" },
     scrollTrigger: {
@@ -403,13 +402,8 @@ function gantt(el: HTMLElement) {
       scrub: 0.6,
     },
   });
+  // 기간 글자(em)는 처음부터 보인다. 막대 채움만 자란다
   tl.fromTo(fills, { scaleX: 0 }, { scaleX: 1, duration: 1, stagger: 0.15 }, 0);
-  tl.fromTo(
-    labels,
-    { opacity: 0 },
-    { opacity: 1, duration: 0.5, stagger: 0.15 },
-    0.5,
-  );
 }
 
 /** 컨설팅 레이어: 아래부터 쌓인다 */
@@ -417,10 +411,9 @@ function layers(el: HTMLElement) {
   const cards = Array.from(el.children).reverse();
   gsap.fromTo(
     cards,
-    { y: 28, opacity: 0.25 },
+    { y: 28 },
     {
       y: 0,
-      opacity: 1,
       ease: "none",
       stagger: 0.5,
       scrollTrigger: {
@@ -473,9 +466,8 @@ function progress(el: HTMLElement) {
 function rows(el: HTMLElement) {
   gsap.fromTo(
     all(el, ".r"),
-    { opacity: 0.25, x: 10 },
+    { x: 10 },
     {
-      opacity: 1,
       x: 0,
       ease: "none",
       stagger: 0.4,

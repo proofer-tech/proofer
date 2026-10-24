@@ -1406,9 +1406,14 @@
   transform-origin: left;
 }
 
+/* 기간 글자는 막대가 비어 있을 때도 읽히게 자체 바탕을 둔다 */
 .axw .grow .track span em {
   position: relative;
   font-style: normal;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgb(5 7 15 / 45%);
+  color: #fff;
 }
 
 .axw .steps {
