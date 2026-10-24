@@ -292,7 +292,8 @@ function chain(el: HTMLElement) {
     },
     onUpdate: () => {
       const p = tl.progress();
-      const idx = Math.min(last, Math.floor(p * steps.length * 0.999));
+      // 이름은 칩이 지금 지나는 단계와 맞춘다(위치와 같은 기준으로 반올림)
+      const idx = Math.min(last, Math.round(p * last));
       token.textContent = labels[idx];
       steps.forEach((s, i) => s.classList.toggle("is-on", i <= idx));
     },
