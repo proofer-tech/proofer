@@ -570,10 +570,21 @@
   border-radius: 18px;
 }
 
+/* 대상 글이 두 줄로 넘어가도 레벨 칩과 붙지 않게 간격을 두고 오른쪽 정렬한다 */
 .axw .mod .lv {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 14px;
+}
+
+.axw .mod .lv .chip {
+  flex: none;
+}
+
+.axw .mod .lv .tag {
+  text-align: right;
+  line-height: 1.5;
 }
 
 .axw .mod h3 {
