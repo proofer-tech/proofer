@@ -1457,3 +1457,8 @@
 .axw .chip.is-on {
   box-shadow: 0 0 0 2px var(--acc);
 }
+
+/* next/image fill 사진이 상자 비율에 맞춰 늘어나지 않게 잘라 채운다 */
+.axw img[data-nimg="fill"] {
+  object-fit: cover;
+}
