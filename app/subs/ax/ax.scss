@@ -1,338 +1,75 @@
-/* ax.proofer.tech 랜딩 스타일. .ax-root 아래로 스코프.
-   치수와 레이아웃은 디자인 파일(.dira/attachments/4ccaf032-Proofer_AX_Landing.dc.html)을
-   따르고, 색 토큰은 docs/ax-landing-spec.md 3.2절을 따른다. */
+/* ax.proofer.tech 레이아웃 보조 스타일. 섹션 스타일은 web.scss(시안 web.css 이식)에 있고,
+   여기에는 시안에 없는 것(독, 버튼 요소 보정, 모션 보조, 탭 전환 색 보간)만 둔다. */
 
-@import "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap";
+@import "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap";
 
-/* app/globals.scss가 body에 루트 랜딩 값(#f8f8f8, LINESeedKR)을 씌워 놓아서
-   .ax-root만으로는 body 자체 값이 스펙과 어긋난다. :has()로 AX 경로에만 덮어쓴다. */
-body:has(.ax-root) {
-  background-color: #080c1a;
-  font-family:
-    "Pretendard Variable",
-    Pretendard,
-    -apple-system,
-    "Apple SD Gothic Neo",
-    "Malgun Gothic",
-    sans-serif;
+/* 탭을 바꾸면 포인트 색만 0.4초 보간한다. 등록하지 않은 사용자 정의 속성은 보간되지 않는다 */
+@property --acc {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #344fe0;
 }
 
-.ax-root {
-  --bg-footer: #05070f;
-  --bg: #080c1a;
-  --bg-alt: #0b1022;
-  --surface: #141d42;
-  --surface-hi: #18214a;
-  --ink: #e9ecf8;
-  --ink-soft: #c4cbe2;
-  --muted: #9aa3c0;
-  --dim: #848eae;
-  --blue: #344fe0;
-  --blue-hover: #3d57e4;
-  --accent: #8fa5ff;
-  --accent-2: #9be3b4;
-  --focus: #9be3b4;
-  --green: #45af66;
-  --line: rgb(154 176 255 / 12%);
-  --line-card: rgb(154 176 255 / 18%);
-  --line-hover: rgb(154 176 255 / 34%);
-  --hero-bg: linear-gradient(168deg, #101838 0%, #0a0f26 46%, #080c1a 100%);
-  --cta-bg: linear-gradient(120deg, #0a1030 0%, #141d4e 50%, #0a1030 100%);
-  --mono: "IBM Plex Mono", monospace;
+@property --acc-hi {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #8fa5ff;
+}
 
-  position: relative;
-  background: var(--bg);
-  color: var(--ink);
-  font-family:
-    "Pretendard Variable",
-    Pretendard,
-    -apple-system,
-    "Apple SD Gothic Neo",
-    "Malgun Gothic",
-    sans-serif;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: clip;
-  word-break: keep-all;
-  overflow-wrap: break-word;
+@property --acc-on {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #fff;
+}
 
-  * {
-    box-sizing: border-box;
+@property --acc-soft {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgb(52 79 224 / 18%);
+}
+
+@property --tint {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #101838;
+}
+
+/* app/globals.scss 가 body 에 루트 랜딩 값을 씌우므로 AX 경로에만 덮어쓴다 */
+body:has(.axw) {
+  background-color: #05070f;
+}
+
+.axw {
+  transition:
+    --acc 0.4s ease,
+    --acc-hi 0.4s ease,
+    --acc-on 0.4s ease,
+    --acc-soft 0.4s ease,
+    --tint 0.4s ease;
+
+  section[id] {
+    scroll-margin-top: 112px;
   }
 
-  a {
+  a:hover {
     color: inherit;
-    text-decoration: none;
   }
 
-  /* :where()로 감싸 특이도를 0으로 낮춘다. 안 그러면 이 리셋(0-1-1)이
-     CSS 모듈 클래스(0-1-0)를 이겨서 모듈이 지정한 margin이 무시된다. */
-  :where(&) :where(h1, h2, h3) {
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin: 0;
-  }
-
-  /* 후속 섹션 티켓이 공유하는 유틸. 이름은 그대로 쓴다. */
-
-  .ax-section {
-    padding: 104px 40px;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .ax-section--alt {
-    background: var(--bg-alt);
-  }
-
-  .ax-container {
-    max-width: 1180px;
-    margin: 0 auto;
-  }
-
-  .ax-eyebrow {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.22em;
-    color: var(--accent);
-  }
-
-  .ax-h2 {
-    font-size: 44px;
-    font-weight: 800;
-    letter-spacing: -0.035em;
-    line-height: 1.2;
-    color: var(--ink);
-  }
-
-  .ax-btn {
-    height: 100%;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 600;
-    font-size: 16px;
-    border-radius: 999px;
-    padding: 16px 32px;
-    border: none;
-    cursor: pointer;
+  button.btn {
     font-family: inherit;
-    background: var(--blue);
-    color: var(--ink);
-    white-space: nowrap;
-    transition: background 0.18s;
+    cursor: pointer;
   }
 
-  .ax-btn:hover {
-    background: var(--blue-hover);
+  .nav .btn.go svg {
+    flex: none;
   }
 
-  .ax-btn--ghost {
-    background: transparent;
-    border: 1px solid var(--line-hover);
-    color: var(--ink);
+  .faq summary span {
+    transition: transform 0.2s ease;
   }
 
-  .ax-btn--ghost:hover {
-    border-color: var(--accent);
-    color: var(--ink);
-  }
-
-  /* 헤더 */
-
-  .ax-top {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-  }
-
-  .ax-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    padding: 16px 40px;
-    background: rgb(8 12 26 / 82%);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--line);
-    transition:
-      background-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
-      border-bottom-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
-  .ax-header__brand {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    color: var(--ink);
-  }
-
-  .ax-header__brand-mark {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    color: var(--accent);
-  }
-
-  .ax-nav {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    font-size: 14px;
-    color: var(--muted);
-  }
-
-  .ax-nav a {
-    transition: color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
-  .ax-nav a:hover {
-    color: var(--ink);
-  }
-
-  .ax-header .ax-btn {
-    padding: 10px 20px;
-    font-size: 14px;
-  }
-
-  /* 상위 구분(기업 교육 / 공개 교육): 헤더 위 얇은 막대 */
-
-  .ax-aud {
-    display: flex;
-    justify-content: center;
-    gap: 4px;
-    padding: 6px 40px;
-    background: var(--bg-footer);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .ax-aud__item {
-    padding: 5px 18px;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--muted);
-    transition:
-      color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
-      background-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
-  .ax-aud__item:hover {
-    color: var(--ink);
-  }
-
-  .ax-aud__item--on {
-    color: #fff;
-    background: var(--blue);
-  }
-
-  /* 세그먼트 탭: 헤더 아래 둘째 단, 가로 전체 폭 3등분 */
-
-  .ax-tabs {
-    display: flex;
-    background: rgb(8 12 26 / 82%);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--line);
-    transition:
-      background-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
-      border-bottom-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
-  .ax-top--scrolled .ax-header,
-  .ax-top--scrolled .ax-tabs {
-    background: rgb(8 12 26 / 96%);
-    border-bottom-color: var(--line-card);
-  }
-
-  .ax-tab {
-    flex: 1 1 0;
-    min-width: 0;
-    padding: 12px 8px;
-    text-align: center;
-    border-bottom: 2px solid transparent;
-    font-size: 14px;
-    color: var(--muted);
-    transition:
-      color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
-      border-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
-  .ax-tab:hover {
-    color: var(--ink);
-  }
-
-  .ax-tab--on {
-    color: var(--ink);
-    border-bottom-color: var(--blue);
-    background: rgb(52 79 224 / 22%);
-  }
-
-  /* 푸터 */
-
-  .ax-footer {
-    padding: 56px 40px;
-    border-top: 1px solid var(--line);
-    background: var(--bg-footer);
-  }
-
-  .ax-footer .ax-container {
-    display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-    gap: 48px;
-    align-items: start;
-  }
-
-  .ax-footer__biz {
-    margin-top: 20px;
-    font-size: 14px;
-    line-height: 1.9;
-    color: var(--dim);
-  }
-
-  .ax-footer__biz strong {
-    color: var(--muted);
-    font-weight: 600;
-  }
-
-  .ax-footer__contact {
-    display: grid;
-    gap: 10px;
-    font-size: 14px;
-    color: var(--dim);
-  }
-
-  .ax-footer__contact-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    color: var(--muted);
-  }
-
-  // Responsive overrides live here, at the very end of .ax-root.
-  // Same specificity as the base rules, so anything placed earlier gets
-  // overridden by the base rule that follows it.
-  @media (width <= 880px) {
-    .ax-section {
-      padding: 72px 24px;
-    }
-
-    .ax-header {
-      padding: 14px 20px;
-      gap: 12px;
-    }
-
-    .ax-nav {
-      display: none;
-    }
-
-    .ax-footer .ax-container {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (width <= 560px) {
-    .ax-h2 {
-      font-size: 32px;
-    }
+  details.faq[open] summary span {
+    transform: rotate(45deg);
   }
 
   /* 도킹 CTA (스펙 3.3.1절). 채널톡 런처는 오른쪽 아래라 오른쪽을 비워 둔다 */
@@ -346,7 +83,7 @@ body:has(.ax-root) {
     gap: 16px;
     padding: 10px 10px 10px 24px;
     border-radius: 999px;
-    background: var(--blue);
+    background: var(--brand);
     color: #fff;
     box-shadow: 0 20px 50px -16px rgb(20 30 80 / 60%);
     white-space: nowrap;
@@ -372,7 +109,7 @@ body:has(.ax-root) {
     border-radius: 999px;
     padding: 10px 18px;
     background: #fff;
-    color: var(--blue);
+    color: var(--brand);
   }
 
   @media (width <= 860px) {
@@ -409,13 +146,11 @@ body:has(.ax-root) {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .ax-header,
-    .ax-tabs,
-    .ax-tab,
-    .ax-aud__item,
-    .ax-nav a,
+    transition: none;
+
     .ax-dock,
-    .ax-dock--on {
+    .ax-dock--on,
+    .faq summary span {
       transition: none;
     }
   }

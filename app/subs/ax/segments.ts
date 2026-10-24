@@ -1,4 +1,4 @@
-// 세그먼트 3판의 라우팅, 메타, PDF 주소. 클라이언트(Header)도 가져다 쓰므로 문면(content/)은 넣지 않는다.
+// 세그먼트 3판의 라우팅, 메타, PDF 주소. 클라이언트(Header)도 가져다 쓰므로 문면(views/)은 넣지 않는다.
 // 판본이 바뀌면 PDF_VERSION 을 올린다. 세 링크가 같은 회차의 쿼리를 쓴다 (docs/ax-landing-spec.md 3.6절).
 
 export type SegmentKey = "startup" | "growth" | "enterprise";
@@ -47,11 +47,12 @@ export const SEGMENTS: Record<SegmentKey, SegmentMeta> = {
     ],
     pdf: pdf("proofer-ax-startup.pdf"),
     nav: [
-      { href: "#approach", label: "관점" },
-      { href: "#system", label: "커리큘럼" },
+      { href: "#view", label: "관점" },
+      { href: "#flow", label: "커리큘럼" },
       { href: "#founder", label: "Founder" },
       { href: "#workshop", label: "Workshop" },
       { href: "#sprint", label: "Sprint" },
+      { href: "#case", label: "사례" },
       { href: "#package", label: "구성" },
     ],
   },
@@ -70,11 +71,12 @@ export const SEGMENTS: Record<SegmentKey, SegmentMeta> = {
     ],
     pdf: pdf("proofer-ax-growth.pdf"),
     nav: [
-      { href: "#approach", label: "관점" },
-      { href: "#system", label: "커리큘럼" },
+      { href: "#view", label: "관점" },
+      { href: "#flow", label: "커리큘럼" },
       { href: "#lecture", label: "Lecture" },
       { href: "#hackathon", label: "Hackathon" },
       { href: "#consulting", label: "진단" },
+      { href: "#case", label: "사례" },
       { href: "#package", label: "패키지" },
     ],
   },
@@ -100,8 +102,8 @@ export const SEGMENTS: Record<SegmentKey, SegmentMeta> = {
     // 기존 링크를 살리려고 경로를 바꾸지 않고 새 판으로 교체했다
     pdf: pdf("proofer-ax.pdf"),
     nav: [
-      { href: "#approach", label: "관점" },
-      { href: "#system", label: "커리큘럼" },
+      { href: "#view", label: "관점" },
+      { href: "#curriculum", label: "커리큘럼" },
       { href: "#lecture", label: "Lecture" },
       { href: "#hackathon", label: "Hackathon" },
       { href: "#consulting", label: "Consulting" },
@@ -128,13 +130,14 @@ export const OPEN = {
   ],
   pdf: `${BLOB}/proofer-ax-open.pdf?download=1&v=20261023`,
   nav: [
-    { href: "#problem", label: "문제" },
-    { href: "#view", label: "관점" },
     { href: "#formats", label: "과정 형식" },
     { href: "#audience", label: "대상별" },
-    { href: "#operation", label: "운영 범위" },
     { href: "#case", label: "사례" },
+    { href: "#record", label: "실적과 운영진" },
+    { href: "#operation", label: "운영 범위" },
+    { href: "#kpi", label: "성과 관리" },
     { href: "#package", label: "견적" },
+    { href: "#faq", label: "FAQ" },
   ],
 };
 
