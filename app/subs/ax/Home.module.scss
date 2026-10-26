@@ -882,3 +882,22 @@
     color: #a6acbd;
   }
 }
+
+/* 모바일 탭 대상: 보이는 크기는 두고 세로 패딩으로 눌리는 영역만 40px 이상으로 키운다 */
+@media (width <= 767px) {
+  .brand {
+    min-height: 44px;
+  }
+
+  .nav a:not(.navCta) {
+    padding: 11px 0;
+  }
+
+  .sizes a {
+    padding: 10px 0;
+  }
+
+  .footer a {
+    padding: 11px 0;
+  }
+}
