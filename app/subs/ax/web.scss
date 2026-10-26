@@ -1,0 +1,1464 @@
+/* stylelint-disable no-descending-specificity */
+
+/* ax.proofer.tech 웹 시안 공용 스타일. 기업 교육 3탭은 다크 바탕을 공유하고 포인트 색만 바꾼다. 공개 교육은 .light
+   포인트 색(--acc)은 콘텐츠(아이브로, 강조, 도식, 숫자)에만 쓴다. 버튼, 탭 같은 범용 UI 는 브랜드 파랑(--brand)을 유지한다 */
+.axw {
+  --bg: #080c1a;
+  --bg2: #0b1022;
+  --ink: #e9ecf8;
+  --soft: #c4cbe2;
+  --muted: #9aa3c0;
+  --line: rgb(154 176 255 / 14%);
+  --card: rgb(255 255 255 / 3.5%);
+  --acc: #344fe0;
+  --acc-hi: #8fa5ff;
+  --acc-on: #fff;
+  --acc-soft: rgb(52 79 224 / 18%);
+  --tint: #101838;
+  --good: #9be3b4;
+  --brand: #344fe0;
+  --brand-on: #fff;
+
+  font-family: var(
+    --font-kr,
+    "LINESeedKR",
+    -apple-system,
+    "Apple SD Gothic Neo",
+    sans-serif
+  );
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.55;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  width: 100%;
+  min-width: 0;
+  display: block;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.axw * {
+  box-sizing: border-box;
+}
+
+.axw[data-seg="startup"] {
+  --acc: #45af66;
+  --acc-hi: #9be3b4;
+  --acc-on: #06150c;
+  --acc-soft: rgb(69 175 102 / 18%);
+  --tint: #0f2a1f;
+}
+
+.axw[data-seg="growth"] {
+  --acc: #1f9e97;
+  --acc-hi: #7fdcd4;
+  --acc-on: #031615;
+  --acc-soft: rgb(31 158 151 / 20%);
+  --tint: #0c2a2c;
+}
+
+.axw.light {
+  --bg: #fff;
+  --bg2: #f6f7fb;
+  --ink: #0f1424;
+  --soft: #3b4256;
+  --muted: #5b6275;
+  --line: #e2e6ee;
+  --card: #fff;
+  --acc: #344fe0;
+  --acc-hi: #2c45c9;
+  --acc-on: #fff;
+  --acc-soft: #ebeefd;
+  --good: #23793f;
+}
+
+/* 상단 */
+.axw .top {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgb(5 7 15 / 94%);
+  border-bottom: 1px solid rgb(154 176 255 / 14%);
+}
+
+.axw .nav {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 24px;
+}
+
+.axw .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.axw .brand img {
+  width: 22px;
+  height: 23px;
+}
+
+.axw .brand span {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #9aa3c0;
+  font-weight: 600;
+}
+
+.axw .links {
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.axw .links a {
+  color: #c4cbe2;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.axw .links a:hover {
+  color: #fff;
+}
+
+.axw .nav .btn {
+  height: 42px;
+  padding: 0 20px;
+  font-size: 14px;
+  border-radius: 999px;
+}
+
+.axw .acts {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+.axw .nav .btn.go {
+  padding: 0 18px 0 15px;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--soft);
+  border-color: rgb(154 176 255 / 24%);
+}
+
+.axw .nav .btn.go:hover {
+  color: #fff;
+  border-color: rgb(154 176 255 / 50%);
+}
+
+.axw.light .nav .btn.go {
+  color: #c4cbe2;
+  border-color: rgb(154 176 255 / 24%);
+}
+
+.axw .segs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid rgb(154 176 255 / 10%);
+}
+
+.axw .segs a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 8px;
+  font-size: 14px;
+  color: #9aa3c0;
+  text-decoration: none;
+}
+
+.axw .segs a.on {
+  color: #fff;
+  background: rgb(255 255 255 / 4%);
+  box-shadow: inset 0 -2px 0 var(--brand);
+}
+
+.axw .segs i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* 버튼 */
+.axw .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 54px;
+  padding: 0 26px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  background: var(--brand);
+  color: var(--brand-on);
+  border: 1px solid var(--brand);
+}
+
+.axw .btn.ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: rgb(154 176 255 / 30%);
+}
+
+.axw.light .btn.ghost {
+  color: var(--brand);
+  border-color: var(--brand);
+}
+
+/* 히어로 */
+.axw .hero {
+  background:
+    radial-gradient(1000px 520px at 82% -10%, var(--acc-soft), transparent 70%),
+    linear-gradient(172deg, var(--tint) 0%, var(--bg) 62%);
+  border-bottom: 1px solid var(--line);
+  font-size: 16px;
+  line-height: 1.55;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+.axw.light .hero {
+  background:
+    radial-gradient(
+      900px 480px at 85% 10%,
+      rgb(52 79 224 / 10%),
+      transparent 70%
+    ),
+    radial-gradient(
+      700px 420px at 10% 90%,
+      rgb(69 175 102 / 8%),
+      transparent 70%
+    ),
+    #fff;
+}
+
+.axw .hero-in {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 88px 24px 80px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  gap: 56px;
+  align-items: center;
+}
+
+.axw .eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--acc-hi);
+}
+
+.axw .h1 {
+  margin: 18px 0 0;
+  font-size: 54px;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.axw .h1 em,
+.axw .h2 em {
+  font-style: normal;
+  color: var(--acc-hi);
+}
+
+.axw .lead {
+  margin: 22px 0 0;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--soft);
+  max-width: 540px;
+}
+
+.axw .cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+
+.axw .proof {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.axw .proof b {
+  display: block;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.axw .proof span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.axw .strip {
+  border-top: 1px solid var(--line);
+}
+
+.axw .strip-in {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  display: flex;
+  gap: 12px 28px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.axw .strip-in b {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* 유리 패널과 칩 */
+.axw .panel {
+  background: rgb(255 255 255 / 4.5%);
+  border: 1px solid rgb(154 176 255 / 18%);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 40px 80px -40px rgb(0 0 0 / 70%);
+  position: relative;
+}
+
+.axw.light .panel {
+  background: #fff;
+  border-color: #e2e6ee;
+  box-shadow: 0 32px 64px -36px rgb(20 30 80 / 35%);
+}
+
+.axw .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 6%);
+  border: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--soft);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: normal;
+}
+
+.axw .chip.acc {
+  background: var(--acc-soft);
+  border-color: transparent;
+  color: var(--acc-hi);
+  font-weight: 700;
+}
+
+.axw .tag {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.axw .muted {
+  color: var(--muted);
+}
+
+.axw .soft {
+  color: var(--soft);
+}
+
+.axw .arrow {
+  color: var(--acc-hi);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+/* 섹션 */
+.axw .sec {
+  padding: 112px 24px;
+}
+
+.axw .sec.alt {
+  background: var(--bg2);
+}
+
+.axw .wrap {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.axw .head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 780px;
+}
+
+.axw .h2 {
+  margin: 0;
+  font-size: 40px;
+  line-height: 1.28;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.axw .head p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--soft);
+}
+
+.axw .grid2,
+.axw .grid3,
+.axw .grid4 {
+  display: grid;
+  gap: 16px;
+}
+
+.axw .grid2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.axw .grid3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.axw .grid4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.axw .card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+.axw .card h3 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.axw .card p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--soft);
+}
+
+.axw .ico {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--acc-soft);
+  color: var(--acc-hi);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.axw .num {
+  font-family: "IBM Plex Mono", ui-monospace, LINESeedKR, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--acc-hi);
+}
+
+/* 여정 */
+.axw .journey {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  position: relative;
+}
+
+.axw .jstep {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 26px 22px;
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.axw .jstep b {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.axw .jstep .t {
+  font-size: 14px;
+  color: var(--soft);
+  line-height: 1.6;
+}
+
+.axw .jstep .out {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--good);
+}
+
+.axw .jstep.key {
+  border-color: var(--acc);
+  box-shadow: 0 28px 56px -32px var(--acc);
+}
+
+.axw .handoff {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  font-size: 14px;
+  color: var(--soft);
+}
+
+/* 모듈 */
+.axw .mod {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 26px 22px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+/* 대상 글이 두 줄로 넘어가도 레벨 칩과 붙지 않게 간격을 두고 오른쪽 정렬한다 */
+.axw .mod .lv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+
+.axw .mod .lv .chip {
+  flex: none;
+}
+
+.axw .mod .lv .tag {
+  text-align: right;
+  line-height: 1.5;
+}
+
+.axw .mod h3 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.axw .mod .who {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.axw .bar {
+  height: 6px;
+  border-radius: 3px;
+  background: rgb(255 255 255 / 8%);
+  overflow: hidden;
+}
+
+.axw.light .bar {
+  background: #f2f4f8;
+}
+
+.axw .bar span {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--acc);
+}
+
+.axw .dur {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--acc-hi);
+}
+
+.axw .outc {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.axw .outc b {
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--good);
+}
+
+.axw details.more summary {
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--muted);
+  list-style: none;
+}
+
+.axw details.more summary::-webkit-details-marker {
+  display: none;
+}
+
+.axw details.more p {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--soft);
+}
+
+/* 기간 막대 */
+.axw .gantt {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.axw .grow {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr) 240px;
+  gap: 20px;
+  align-items: center;
+}
+
+.axw .grow b {
+  font-size: 16px;
+}
+
+.axw .grow .track {
+  height: 34px;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 4%);
+  position: relative;
+}
+
+.axw.light .grow .track {
+  background: #f2f4f8;
+}
+
+.axw .grow .track span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--acc-on);
+  white-space: nowrap;
+}
+
+.axw .grow .res {
+  font-size: 14px;
+  color: var(--soft);
+}
+
+/* 표처럼 읽는 행 */
+.axw .rows {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+
+.axw .rows > div {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr) 220px;
+  gap: 20px;
+  padding: 18px 4px;
+  border-bottom: 1px solid var(--line);
+  align-items: baseline;
+  font-size: 15px;
+}
+
+.axw .rows b {
+  font-size: 16px;
+}
+
+.axw .rows .r {
+  color: var(--good);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* 온톨로지 도식 */
+.axw .onto {
+  display: grid;
+  grid-template-columns: 220px 60px minmax(0, 1fr) 60px 220px;
+  align-items: center;
+  gap: 0;
+  position: relative;
+}
+
+.axw .onto .col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.axw .onto .tool {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.axw .onto .core {
+  padding: 32px;
+  border-radius: 24px;
+  background: var(--acc-soft);
+  border: 1px solid var(--acc);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  text-align: center;
+}
+
+.axw .onto .core b {
+  font-size: 22px;
+}
+
+.axw .onto .core .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.axw .onto .flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* 숫자 */
+.axw .big {
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.axw .big small {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-left: 4px;
+}
+
+.axw .metric {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 28px;
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  font-size: 16px;
+  line-height: 1.55;
+  font-weight: 400;
+  letter-spacing: normal;
+  position: relative;
+}
+
+.axw .metric p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--soft);
+  line-height: 1.6;
+}
+
+/* 패키지 */
+.axw .pkgs {
+  display: grid;
+  gap: 14px;
+  align-items: end;
+}
+
+.axw .pkg {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.axw .layer {
+  min-height: 50px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.axw .pkg .lab {
+  margin-top: 6px;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  font-size: 13.5px;
+  color: var(--soft);
+}
+
+.axw .pkg .lab b {
+  display: block;
+  font-size: 17px;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.axw .pkg.final .lab {
+  background: var(--acc);
+  border-color: var(--acc);
+  color: var(--acc-on);
+}
+
+.axw .pkg.final .lab b {
+  color: var(--acc-on);
+}
+
+/* FAQ */
+.axw .faqs {
+  border-top: 1px solid var(--line);
+}
+
+.axw .faq {
+  border-bottom: 1px solid var(--line);
+}
+
+.axw .faq summary {
+  padding: 22px 4px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 17px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.axw .faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.axw .faq summary span {
+  color: var(--acc-hi);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.axw .faq p {
+  margin: 0 4px 22px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--soft);
+}
+
+/* 문의 */
+.axw .contact {
+  padding: 112px 24px;
+  background:
+    radial-gradient(
+      800px 400px at 80% 0%,
+      rgb(255 255 255 / 14%),
+      transparent 70%
+    ),
+    linear-gradient(135deg, var(--acc) 0%, var(--tint) 100%);
+  color: #fff;
+}
+
+.axw.light .contact {
+  background:
+    radial-gradient(
+      800px 400px at 80% 0%,
+      rgb(69 175 102 / 35%),
+      transparent 70%
+    ),
+    linear-gradient(135deg, #344fe0 0%, #1e2a66 100%);
+}
+
+.axw .contact .in {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.axw .contact h2 {
+  margin: 0;
+  font-size: 46px;
+  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.axw .contact p {
+  margin: 0;
+  font-size: 18px;
+  color: rgb(255 255 255 / 82%);
+}
+
+.axw .contact .btn {
+  background: #fff;
+  color: #0f1424;
+  border-color: #fff;
+}
+
+.axw .contact .btn.ghost {
+  background: transparent;
+  color: #fff;
+  border-color: rgb(255 255 255 / 50%);
+}
+
+.axw .foot {
+  padding: 40px 24px;
+  background: #05070f;
+  color: #9aa3c0;
+  font-size: 13px;
+}
+
+.axw .foot .in {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+/* 좁은 화면 */
+@media (width <= 960px) {
+  .axw .links {
+    display: none;
+  }
+
+  .axw .hero-in {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 56px 20px;
+    gap: 40px;
+  }
+
+  .axw .h1 {
+    font-size: 40px;
+  }
+
+  .axw .h2 {
+    font-size: 30px;
+  }
+
+  .axw .sec,
+  .axw .contact {
+    padding: 80px 20px;
+  }
+
+  .axw .grid3,
+  .axw .grid4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .axw .journey {
+    flex-direction: column;
+  }
+
+  .axw .journey .arrow {
+    transform: rotate(90deg);
+  }
+
+  .axw .grow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .axw .rows > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .axw .onto {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .axw .onto .flow {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .axw .contact h2 {
+    font-size: 32px;
+  }
+}
+
+@media (width <= 600px) {
+  .axw .grid2,
+  .axw .grid3,
+  .axw .grid4 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .axw .h1 {
+    font-size: 34px;
+  }
+
+  .axw .segs a {
+    font-size: 13px;
+  }
+
+  .axw .nav .btn.go {
+    display: none;
+  }
+}
+
+/* 패키지 층 색 */
+.axw .l1 {
+  background: rgb(255 255 255 / 8%);
+  color: var(--soft);
+}
+
+.axw .l2 {
+  background: var(--acc-soft);
+  color: var(--acc-hi);
+}
+
+.axw .l3 {
+  background: var(--acc);
+  color: var(--acc-on);
+}
+
+.axw .l4 {
+  background: #e9ecf8;
+  color: #0f1424;
+}
+
+.axw.light .l1 {
+  background: #c9cfef;
+  color: #0f1424;
+}
+
+.axw.light .l2 {
+  background: #344fe0;
+  color: #fff;
+}
+
+.axw.light .l3 {
+  background: #45af66;
+  color: #fff;
+}
+
+.axw.light .l4 {
+  background: #1e2a66;
+  color: #fff;
+}
+
+/* 히어로 여정 패널 */
+.axw .vsteps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.axw .vstep {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: start;
+  padding: 16px 0;
+  position: relative;
+}
+
+.axw .vstep + .vstep {
+  border-top: 1px dashed rgb(154 176 255 / 20%);
+}
+
+.axw .vstep .n {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--acc);
+  color: var(--acc-hi);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+}
+
+.axw .vstep.last .n {
+  background: var(--acc);
+  color: var(--acc-on);
+}
+
+.axw .vstep b {
+  display: block;
+  font-size: 17px;
+}
+
+.axw .vstep .o {
+  font-size: 13.5px;
+  color: var(--good);
+  font-weight: 600;
+  margin-top: 4px;
+  display: block;
+}
+
+.axw .vstep .d {
+  font-size: 12.5px;
+  color: var(--muted);
+  white-space: nowrap;
+  padding-top: 4px;
+}
+
+/* 전후 비교 */
+.axw .ba {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr);
+  align-items: stretch;
+  gap: 0;
+}
+
+.axw .ba .side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.axw .msg {
+  padding: 10px 12px;
+  border-radius: 12px 12px 12px 4px;
+  background: rgb(255 255 255 / 7%);
+  font-size: 13px;
+  color: var(--soft);
+  line-height: 1.45;
+}
+
+.axw .cells {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.axw .cells span {
+  background: rgb(255 255 255 / 6%);
+  padding: 6px 8px;
+  font-size: 11.5px;
+  color: var(--muted);
+  font-family: "IBM Plex Mono", ui-monospace, LINESeedKR, monospace;
+}
+
+.axw .cells span.x {
+  background: rgb(255 120 120 / 14%);
+  color: #ffb4b4;
+}
+
+.axw .report {
+  padding: 16px;
+  border-radius: 14px;
+  background: var(--acc-soft);
+  border: 1px solid var(--acc);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.axw .report .line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  color: var(--soft);
+  border-bottom: 1px solid rgb(154 176 255 / 16%);
+  padding-bottom: 6px;
+}
+
+.axw .report .line b {
+  color: var(--ink);
+}
+
+/* 결과물 순환 (실제 수강생 결과물, 식별 불가하게 흐린 이미지) */
+.axw .rot {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: #e2e6ee;
+  overflow: hidden;
+}
+
+.axw .rot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+}
+
+/* 스크롤 장면 보조. 기본값이 최종 상태이고, GSAP 장면이 그 상태로 끝난다(reduced-motion 이면 장면을 만들지 않는다) */
+.axw .cnt {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
+
+.axw .hl {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  white-space: nowrap;
+}
+
+.axw .hl i {
+  position: absolute;
+  inset: auto -0.12em 0.06em;
+  height: 0.46em;
+  z-index: -1;
+  background: color-mix(in srgb, var(--acc) 42%, transparent);
+  transform-origin: left;
+}
+
+.axw .struck {
+  position: relative;
+  opacity: 0.45;
+}
+
+.axw .struck i {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0.85em;
+  height: 2px;
+  background: currentcolor;
+  transform-origin: left;
+}
+
+.axw .vline {
+  position: absolute;
+  left: 19px;
+  top: 36px;
+  width: 2px;
+  height: calc(100% - 84px);
+  background: var(--acc);
+  transform-origin: top;
+  pointer-events: none;
+}
+
+.axw .pkt {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--acc-hi);
+  box-shadow: 0 0 12px var(--acc);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.axw .rot img:first-child {
+  opacity: 1;
+}
+
+.axw .rot-cover {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: #e2e6ee;
+  transform: scaleY(0);
+  transform-origin: 50% 100%;
+}
+
+.axw .ck {
+  margin-right: 6px;
+  vertical-align: -2px;
+  color: var(--acc-hi);
+}
+
+.axw .report .line span {
+  display: inline-flex;
+  align-items: center;
+}
+
+.axw .donut {
+  flex: none;
+}
+
+.axw .donut-bg {
+  stroke: var(--line);
+  stroke-width: 6;
+}
+
+.axw .donut-fg {
+  stroke: var(--acc);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+}
+
+.axw .metric > .donut {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+}
+
+.axw .journey .arrow {
+  position: relative;
+}
+
+.axw .journey .seg {
+  position: absolute;
+  left: -10px;
+  right: -10px;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  background: var(--acc);
+  transform-origin: left;
+}
+
+.axw .journey .arrow svg {
+  position: relative;
+}
+
+.axw .jstep.is-on {
+  border-color: var(--acc);
+  box-shadow: 0 28px 56px -32px var(--acc);
+}
+
+.axw .chip.acc.hchip,
+.axw .chip.acc.token {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+
+  /* 옮겨지는 칩은 불투명 바탕과 테두리로 뒤의 글자가 비치지 않게 하고, 들어 올린 그림자로 이동 중임을 보인다 */
+  background: color-mix(in srgb, var(--acc) 28%, var(--bg));
+  border: 1px solid var(--acc);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 0 0 4px var(--bg),
+    0 14px 28px -10px rgb(0 0 0 / 70%),
+    0 0 18px -4px var(--acc);
+  transform-origin: left center;
+}
+
+.axw .mod .bar span {
+  transform-origin: left;
+}
+
+.axw .grow .track span i {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: var(--acc);
+  transform-origin: left;
+}
+
+/* 기간 글자는 막대가 비어 있을 때도 읽히게 자체 바탕을 둔다 */
+.axw .grow .track span em {
+  position: relative;
+  font-style: normal;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgb(5 7 15 / 45%);
+  color: #fff;
+}
+
+.axw .steps {
+  position: relative;
+}
+
+.axw .pdot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--acc-hi);
+  box-shadow: 0 0 12px var(--acc);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.axw .chip.is-on {
+  box-shadow: 0 0 0 2px var(--acc);
+}
+
+/* next/image fill 사진이 상자 비율에 맞춰 늘어나지 않게 잘라 채운다 */
+.axw img[data-nimg="fill"] {
+  object-fit: cover;
+}

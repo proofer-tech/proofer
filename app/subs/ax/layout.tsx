@@ -1,4 +1,5 @@
 import React from "react";
+import "./web.scss";
 import "./ax.scss";
 import Providers from "@/app/subs/ax/components/Providers";
 
@@ -10,7 +11,7 @@ const jsonLd = [
     "@type": "Organization",
     "@id": ORG_ID,
     name: "프루퍼",
-    legalName: "프루퍼주식회사",
+    legalName: "프루퍼 주식회사",
     url: "https://ax.proofer.tech/",
     logo: "https://ax.proofer.tech/assets/images/branding.svg",
     email: "info@proofer.tech",

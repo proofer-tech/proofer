@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@gsap/react':
+        specifier: ^2.1.2
+        version: 2.1.2(gsap@3.15.0)(react@18.3.1)
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.4.0(react-hook-form@7.82.0(react@18.3.1))
@@ -146,9 +149,6 @@ importers:
       ably:
         specifier: ^2.0.1
         version: 2.25.0(bufferutil@4.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@6.0.6)
-      animejs:
-        specifier: ^4.5.0
-        version: 4.5.0(@types/three@0.185.1)(three@0.184.0)
       apexcharts:
         specifier: ^3.48.0
         version: 3.54.1
@@ -1702,6 +1702,12 @@ packages:
 
   '@floating-ui/utils@0.2.12':
     resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
+
+  '@gsap/react@2.1.2':
+    resolution: {integrity: sha512-JqliybO1837UcgH2hVOM4VO+38APk3ECNrsuSM4MuXp+rbf+/2IG2K1YJiqfTcXQHH7XlA0m3ykniFYstfq0Iw==}
+    peerDependencies:
+      gsap: ^3.12.5
+      react: '>=17'
 
   '@hookform/resolvers@5.4.0':
     resolution: {integrity: sha512-EIsqr/t/qbinPIhGjMdtvutIN1Kk4uwbROE9/UQ93CAVGR7GkA7Y92+fX80OzXi/OB67jVFYwKGO1WzkxmkFZw==}
@@ -4377,17 +4383,6 @@ packages:
 
   ajv@8.20.0:
     resolution: {integrity: sha512-Thbli+OlOj+iMPYFBVBfJ3OmCAnaSyNn4M1vz9T6Gka5Jt9ba/HIR56joy65tY6kx/FCF5VXNB819Y7/GUrBGA==}
-
-  animejs@4.5.0:
-    resolution: {integrity: sha512-NQimYX+lz8WaXonGS9zVVoviCIAjONeJayxacUditaivYLqyXgGjFKjuyl0aUUhFKm5MriX9ty1TGovNzoJQWA==}
-    peerDependencies:
-      '@types/three': '>=0.150.0'
-      three: '>=0.150.0'
-    peerDependenciesMeta:
-      '@types/three':
-        optional: true
-      three:
-        optional: true
 
   ansi-escapes@4.3.2:
     resolution: {integrity: sha512-gKXj5ALrKWQLsYG9jlTRmR/xKluxHV+Z9QEwNIgCfM1/uwPMCuzVVnh5mwTd+OuBZcwSIMbqssNWRm1lE51QaQ==}
@@ -11365,6 +11360,11 @@ snapshots:
 
   '@floating-ui/utils@0.2.12': {}
 
+  '@gsap/react@2.1.2(gsap@3.15.0)(react@18.3.1)':
+    dependencies:
+      gsap: 3.15.0
+      react: 18.3.1
+
   '@hookform/resolvers@5.4.0(react-hook-form@7.82.0(react@18.3.1))':
     dependencies:
       '@standard-schema/utils': 0.3.0
@@ -14234,11 +14234,6 @@ snapshots:
       fast-uri: 3.1.4
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
-
-  animejs@4.5.0(@types/three@0.185.1)(three@0.184.0):
-    optionalDependencies:
-      '@types/three': 0.185.1
-      three: 0.184.0
 
   ansi-escapes@4.3.2:
     dependencies:

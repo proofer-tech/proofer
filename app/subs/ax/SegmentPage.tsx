@@ -1,44 +1,42 @@
 import React from "react";
-import Hero from "@/app/subs/ax/components/sections/Hero";
-import Problem from "@/app/subs/ax/components/sections/Problem";
-import Approach from "@/app/subs/ax/components/sections/Approach";
-import System from "@/app/subs/ax/components/sections/System";
-import Lecture from "@/app/subs/ax/components/sections/Lecture";
-import Hackathon from "@/app/subs/ax/components/sections/Hackathon";
-import Consulting from "@/app/subs/ax/components/sections/Consulting";
-import Workspace from "@/app/subs/ax/components/sections/Workspace";
-import Case from "@/app/subs/ax/components/sections/Case";
-import Package from "@/app/subs/ax/components/sections/Package";
-import Outcome from "@/app/subs/ax/components/sections/Outcome";
-import Faq from "@/app/subs/ax/components/sections/Faq";
-import Contact from "@/app/subs/ax/components/sections/Contact";
-import { CONTENT } from "@/app/subs/ax/content";
-import { SEGMENTS, type SegmentKey } from "@/app/subs/ax/segments";
-import type { Block } from "@/app/subs/ax/content/types";
+import StartupView, {
+  COURSES as STARTUP_COURSES,
+  FAQ as STARTUP_FAQ,
+} from "@/app/subs/ax/views/Startup";
+import GrowthView, {
+  COURSES as GROWTH_COURSES,
+  FAQ as GROWTH_FAQ,
+} from "@/app/subs/ax/views/Growth";
+import EnterpriseView, {
+  COURSES as ENTERPRISE_COURSES,
+  FAQ as ENTERPRISE_FAQ,
+} from "@/app/subs/ax/views/Enterprise";
+import type { SegmentKey } from "@/app/subs/ax/segments";
 
 const ORG_ID = "https://ax.proofer.tech/#organization";
 
-function renderBlock(block: Block) {
-  switch (block.kind) {
-    case "course":
-      return <Lecture key={block.id} block={block} />;
-    case "table":
-      return <Hackathon key={block.id} block={block} />;
-    case "consulting":
-      return <Consulting key={block.id} block={block} />;
-    case "workspace":
-      return <Workspace key={block.id} block={block} />;
-    case "case":
-      return <Case key={block.id} block={block} />;
+const PAGES: Record<
+  SegmentKey,
+  {
+    View: React.ComponentType;
+    courses: { name: string; description: string }[];
+    faq: { q: string; a: string }[];
   }
-}
+> = {
+  startup: { View: StartupView, courses: STARTUP_COURSES, faq: STARTUP_FAQ },
+  growth: { View: GrowthView, courses: GROWTH_COURSES, faq: GROWTH_FAQ },
+  enterprise: {
+    View: EnterpriseView,
+    courses: ENTERPRISE_COURSES,
+    faq: ENTERPRISE_FAQ,
+  },
+};
 
-/** 세그먼트 3판이 공유하는 페이지 골격. 문면은 content/ 에서 온다 */
+/** 세그먼트 3판이 공유하는 페이지 골격. 문면은 views/ 에 있다 */
 export default function SegmentPage({ segment }: { segment: SegmentKey }) {
-  const meta = SEGMENTS[segment];
-  const c = CONTENT[segment];
+  const { View, courses, faq } = PAGES[segment];
   const jsonLd = [
-    ...c.courses.map((course) => ({
+    ...courses.map((course) => ({
       "@context": "https://schema.org",
       "@type": "Course",
       name: course.name,
@@ -48,7 +46,7 @@ export default function SegmentPage({ segment }: { segment: SegmentKey }) {
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: c.faq.map((item) => ({
+      mainEntity: faq.map((item) => ({
         "@type": "Question",
         name: item.q,
         acceptedAnswer: { "@type": "Answer", text: item.a },
@@ -58,15 +56,7 @@ export default function SegmentPage({ segment }: { segment: SegmentKey }) {
 
   return (
     <>
-      <Hero segment={meta} hero={c.hero} />
-      <Problem problem={c.problem} />
-      <Approach approach={c.approach} />
-      <System system={c.system} />
-      {c.blocks.map(renderBlock)}
-      <Package pkg={c.package} />
-      <Outcome outcome={c.outcome} />
-      <Faq faqs={c.faq} />
-      <Contact contact={c.contact} />
+      <View />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
