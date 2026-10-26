@@ -471,6 +471,9 @@
   position: relative;
   isolation: isolate;
 
+  /* sticky 배경의 음수 margin-bottom 때문에 배경이 .deep 아래로 한 화면 더 내려가 #contact 와 푸터를 덮는다. clip 은 스크롤 컨테이너를 만들지 않아 sticky 가 유지된다 */
+  overflow: clip;
+
   --card: linear-gradient(
     155deg,
     rgb(255 255 255 / 8.5%),
