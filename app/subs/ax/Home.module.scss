@@ -714,6 +714,24 @@
     color: var(--fg-1);
     background: #eef2ff;
   }
+
+  @media (width <= 640px) {
+    table {
+      min-width: 0;
+    }
+
+    th,
+    td {
+      padding: 12px 10px;
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    thead th {
+      padding: 10px;
+      font-size: 12px;
+    }
+  }
 }
 
 .follow {
