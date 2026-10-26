@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 import AxInquireButton from "@/app/subs/ax/components/AxInquireButton";
 import AudienceTabs from "@/app/subs/ax/components/AudienceTabs";
 import SegmentTabs from "@/app/subs/ax/components/SegmentTabs";
+import { generateSubdomainPath } from "@/src/path";
+import { SUB_DOMAIN } from "@/src/constants";
 import {
   OPEN,
   SEGMENTS,
@@ -41,7 +43,11 @@ export default function Header() {
     <div className={`ax-top${scrolled ? " ax-top--scrolled" : ""}`}>
       <AudienceTabs />
       <header className="ax-header">
-        <a href="#top" className="ax-header__brand" aria-label="proofer AX 홈">
+        <a
+          href={generateSubdomainPath("/", SUB_DOMAIN.ax)}
+          className="ax-header__brand"
+          aria-label="proofer AX 홈"
+        >
           <Image
             src="/assets/images/branding.svg"
             alt="proofer"

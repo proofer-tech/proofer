@@ -39,14 +39,10 @@ function build({ title, description, keywords, url }: PageMeta): Metadata {
   );
 }
 
-/**
- * 세그먼트별 title, description, og. `/` 와 `/enterprise` 는 같은 내용이라
- * canonical 을 `/` 하나로 모은다 (검색 노출과 기존 공유 링크를 지킨다).
- */
-export function segmentMetadata(key: SegmentKey, atRoot = false): Metadata {
+/** 세그먼트별 title, description, og */
+export function segmentMetadata(key: SegmentKey): Metadata {
   const seg = SEGMENTS[key];
-  const url = key === "enterprise" ? ORIGIN : `${ORIGIN}${seg.path}`;
-  return build({ ...seg, url: atRoot ? ORIGIN : url });
+  return build({ ...seg, url: `${ORIGIN}${seg.path}` });
 }
 
 /** 공개 교육(기관 과정판) 페이지의 title, description, og */

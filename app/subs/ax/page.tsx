@@ -1,9 +1,4 @@
-import SegmentPage from "@/app/subs/ax/SegmentPage";
-import { segmentMetadata } from "@/app/subs/ax/segmentMetadata";
-
-// `/` 는 리다이렉트하지 않고 enterprise 판을 그대로 렌더한다 (기존 공유 링크와 검색 노출 유지)
-export const metadata = segmentMetadata("enterprise", true);
-
+// 새 첫 화면 자리표시. 본문은 docs/ax-home-spec.md 에 따라 이어서 채운다
 export default function Page() {
-  return <SegmentPage segment="enterprise" />;
+  return <main id="top" />;
 }

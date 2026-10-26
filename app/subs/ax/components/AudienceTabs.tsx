@@ -11,7 +11,7 @@ import { OPEN, isOpenPath } from "@/app/subs/ax/segments";
 export default function AudienceTabs() {
   const open = isOpenPath(usePathname() ?? "/");
   const items = [
-    { href: "/", label: "기업 교육", on: !open },
+    { href: "/enterprise", label: "기업 교육", on: !open },
     { href: OPEN.path, label: "공개 교육", on: open },
   ];
   return (

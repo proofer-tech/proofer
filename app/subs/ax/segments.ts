@@ -11,7 +11,7 @@ const pdf = (file: string) => `${BLOB}/${file}?download=1&v=${PDF_VERSION}`;
 
 export interface SegmentMeta {
   key: SegmentKey;
-  /** 사이트 경로. enterprise 는 `/` 와 `/enterprise` 가 같은 내용이다 */
+  /** 사이트 경로 */
   path: string;
   label: string;
   title: string;
@@ -140,7 +140,7 @@ export const OPEN = {
 
 export const SEGMENT_ORDER: SegmentKey[] = ["startup", "growth", "enterprise"];
 
-/** 브라우저 경로에서 판을 고른다. `/` 와 알 수 없는 경로는 enterprise */
+/** 브라우저 경로에서 판을 고른다. 알 수 없는 경로는 enterprise */
 export function segmentFromPath(pathname: string): SegmentKey {
   if (pathname.includes("/startup")) return "startup";
   if (pathname.includes("/growth")) return "growth";
