@@ -99,16 +99,7 @@ export default function StartupView() {
               </div>
             </div>
           </div>
-          <div
-            data-scene="hero-startup"
-            className="panel"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "minmax(0, 0.85fr) 40px minmax(0, 1.15fr)",
-              gap: "0",
-              alignItems: "center",
-            }}
-          >
+          <div data-scene="hero-startup" className="panel hero-flow">
             <div
               style={{ display: "flex", flexDirection: "column", gap: "8px" }}
             >
@@ -409,10 +400,7 @@ export default function StartupView() {
                 끝까지 돌려 봅니다.
               </p>
             </div>
-            <div
-              className="grid4"
-              style={{ gridTemplateColumns: "repeat(5, minmax(0, 1fr))" }}
-            >
+            <div className="grid4 c5">
               <div className="card">
                 <span className="num">01</span>
                 <h3>반입 기준</h3>
@@ -688,14 +676,7 @@ export default function StartupView() {
                 AI에 연결하고 그 위에서 자사 소개 페이지를 만들었습니다.
               </p>
             </div>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns:
-                  "repeat(3, minmax(0, 1fr)) minmax(0, 1.4fr)",
-                gap: "16px",
-              }}
-            >
+            <div className="split split-stat">
               <div className="metric">
                 <span className="tag">PARTICIPANTS</span>
                 <div className="big">
@@ -810,11 +791,7 @@ export default function StartupView() {
                 모듈만 골라 구성할 수 있습니다.
               </p>
             </div>
-            <div
-              data-scene="pkgs"
-              className="pkgs"
-              style={{ gridTemplateColumns: "repeat(4, minmax(0, 1fr))" }}
-            >
+            <div data-scene="pkgs" className="pkgs c4">
               <div className="pkg">
                 <div className="layer l2">회사 기준 문서</div>
                 <div className="layer l1">Founder Session</div>

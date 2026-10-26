@@ -658,6 +658,40 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.axw .grid4.c5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.axw .split {
+  display: grid;
+  gap: 16px;
+}
+
+.axw .split-a {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 2fr);
+}
+
+.axw .split-b {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+}
+
+.axw .split-c {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.axw .split-stat {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.4fr);
+}
+
+.axw .hero-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) 40px minmax(0, 1.15fr);
+  gap: 0;
+  align-items: center;
+}
+
 .axw .card {
   display: flex;
   flex-direction: column;
@@ -1037,6 +1071,14 @@
   align-items: end;
 }
 
+.axw .pkgs.c4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.axw .pkgs.c5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
 .axw .pkg {
   display: flex;
   flex-direction: column;
@@ -1262,8 +1304,26 @@
 @media (width <= 600px) {
   .axw .grid2,
   .axw .grid3,
-  .axw .grid4 {
+  .axw .grid4,
+  .axw .grid4.c5,
+  .axw .pkgs.c4,
+  .axw .pkgs.c5,
+  .axw .split,
+  .axw .hero-flow {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .axw .split-stat {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .axw .hero-flow {
+    gap: 12px;
+  }
+
+  .axw .hero-flow .arrow {
+    justify-self: center;
+    transform: rotate(90deg);
   }
 
   .axw .h1 {

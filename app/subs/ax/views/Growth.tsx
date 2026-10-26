@@ -763,11 +763,7 @@ export default function GrowthView() {
               <h2 className="h2">필요한 단계부터 시작합니다</h2>
               <p>지급은 금액 구간에 따라 나눠서 받습니다.</p>
             </div>
-            <div
-              data-scene="pkgs"
-              className="pkgs"
-              style={{ gridTemplateColumns: "repeat(5, minmax(0, 1fr))" }}
-            >
+            <div data-scene="pkgs" className="pkgs c5">
               <div className="pkg">
                 <div className="layer l1">전 직원 리터러시</div>
                 <div className="layer l1">리더 세션</div>

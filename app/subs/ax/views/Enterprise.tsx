@@ -207,13 +207,7 @@ export default function EnterpriseView() {
                 교육을 맡습니다
               </h2>
             </div>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "minmax(0, 0.9fr) minmax(0, 2fr)",
-                gap: "16px",
-              }}
-            >
+            <div className="split split-a">
               <div className="metric" style={{ justifyContent: "center" }}>
                 <span className="tag">FLAGSHIP RECORD</span>
                 <div className="big" style={{ color: "var(--good)" }}>
@@ -430,13 +424,7 @@ export default function EnterpriseView() {
                 </details>
               </div>
             </div>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "minmax(0, 1.1fr) minmax(0, 1fr)",
-                gap: "16px",
-              }}
-            >
+            <div className="split split-b">
               <div className="card">
                 <span className="tag">
                   LEADERSHIP / 임원과 직책자, 2 ~ 3시간
@@ -571,14 +559,7 @@ export default function EnterpriseView() {
                 운영합니다.
               </p>
             </div>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
-                gap: "24px",
-                alignItems: "start",
-              }}
-            >
+            <div className="split split-c">
               <div
                 data-scene="layers"
                 style={{ display: "flex", flexDirection: "column", gap: "8px" }}
@@ -774,11 +755,7 @@ export default function EnterpriseView() {
                 컨설팅과 구축은 진단 범위와 산출물 기준으로 견적을 잡습니다.
               </p>
             </div>
-            <div
-              data-scene="pkgs"
-              className="pkgs"
-              style={{ gridTemplateColumns: "repeat(5, minmax(0, 1fr))" }}
-            >
+            <div data-scene="pkgs" className="pkgs c5">
               <div className="pkg">
                 <div className="layer l1">전 직원 리터러시</div>
                 <div className="layer l1">리더 세션</div>
