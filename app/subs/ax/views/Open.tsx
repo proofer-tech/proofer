@@ -499,10 +499,7 @@ export default function OpenView() {
               결과물까지 가져갈 수 있습니다
             </h2>
           </div>
-          <div
-            className="grid4"
-            style={{ gridTemplateColumns: "repeat(6, minmax(0, 1fr))" }}
-          >
+          <div className="grid4 c6">
             <div className="card" style={{ padding: "20px" }}>
               <span className="num">01</span>
               <h3>시연</h3>
@@ -556,19 +553,10 @@ export default function OpenView() {
               자기 사업자료로 만든 업무환경
             </h2>
           </div>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "minmax(0, 0.9fr) minmax(0, 1.1fr)",
-              gap: "24px",
-            }}
-          >
+          <div className="split split-d">
             <div
+              className="stat3"
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-                gap: "0",
-                alignItems: "center",
                 padding: "32px",
                 borderRadius: "20px",
                 background: "rgba(255, 255, 255, 0.06)",
@@ -813,10 +801,7 @@ export default function OpenView() {
               </div>
             </div>
           </div>
-          <div
-            className="grid4"
-            style={{ gridTemplateColumns: "repeat(6, minmax(0, 1fr))" }}
-          >
+          <div className="grid4 c6">
             <div className="card" style={{ padding: "20px" }}>
               <span className="num">D-30</span>
               <p>공문 발송, 신청 페이지 오픈</p>
@@ -1008,11 +993,7 @@ export default function OpenView() {
               여는 경우 두 번째부터는 기획 비용이 빠집니다.
             </p>
           </div>
-          <div
-            data-scene="pkgs"
-            className="pkgs"
-            style={{ gridTemplateColumns: "repeat(4, minmax(0, 1fr))" }}
-          >
+          <div data-scene="pkgs" className="pkgs c4">
             <div className="pkg">
               <div className="layer l1">AI Talk</div>
               <div className="lab">

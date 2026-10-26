@@ -686,6 +686,10 @@
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
+.axw .grid4.c6 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
 .axw .split {
   display: grid;
   gap: 16px;
@@ -703,6 +707,18 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
   align-items: start;
+}
+
+.axw .split-d {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 24px;
+}
+
+.axw .stat3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  align-items: center;
 }
 
 .axw .split-stat {
@@ -1330,9 +1346,11 @@
   .axw .grid3,
   .axw .grid4,
   .axw .grid4.c5,
+  .axw .grid4.c6,
   .axw .pkgs.c4,
   .axw .pkgs.c5,
   .axw .split,
+  .axw .stat3,
   .axw .hero-flow {
     grid-template-columns: minmax(0, 1fr);
   }
