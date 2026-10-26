@@ -1719,6 +1719,48 @@ html.snapping {
     border-top: 1px dashed var(--line);
   }
 
+  /* ax: 대상별 진입 카드 */
+  #ax .ax-grid {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  #ax .ax-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: #fff;
+    border: 1.6px solid var(--line);
+    border-radius: 14px;
+    padding: 22px;
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s,
+      border-color 0.2s;
+  }
+
+  #ax .ax-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+    border-color: #cdd6ff;
+  }
+
+  #ax .ax-card b {
+    color: var(--blue);
+    font-size: 17px;
+  }
+
+  #ax .ax-card span {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  #ax .ax-cta {
+    margin-top: 28px;
+  }
+
   /* signals: 5 checklist */
   .signals {
     list-style: none;
@@ -2112,6 +2154,7 @@ html.snapping {
     .prob-grid,
     .case-metrics,
     .signals,
+    #ax .ax-grid,
     .engage-grid {
       grid-template-columns: 1fr;
     }

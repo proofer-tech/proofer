@@ -45,6 +45,7 @@ const DOTS = [
   { href: "#problem", label: "문제" },
   { href: "#solution", label: "우리의 답" },
   { href: "#consulting", label: "컨설팅" },
+  { href: "#ax", label: "AX 교육" },
   { href: "#proof", label: "케이스" },
   { href: "#signals", label: "대상" },
   { href: "#why", label: "차별점" },
