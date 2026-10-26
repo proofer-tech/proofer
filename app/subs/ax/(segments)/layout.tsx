@@ -5,7 +5,7 @@ import Header from "@/app/subs/ax/components/Header";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <div className="ax-root">
       <Header />
       {children}
       <Dock />
@@ -34,6 +34,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

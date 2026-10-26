@@ -49,3 +49,22 @@ export function segmentMetadata(key: SegmentKey): Metadata {
 export function openMetadata(): Metadata {
   return build({ ...OPEN, url: `${ORIGIN}${OPEN.path}` });
 }
+
+/** 첫 화면(`/`)의 title, description, og. canonical 은 도메인 루트 */
+export function homeMetadata(): Metadata {
+  return build({
+    title: "AX 컨설팅과 AI 업무환경 구축, AI Native 조직 설계",
+    description:
+      "AI를 들였는데 일하는 방식은 그대로라면. 프루퍼 주식회사가 회사 안에 직접 들어가 AI로 바꿀 업무를 고르고, 회사 자료와 AI를 연결하고, 조직이 그 방식대로 일하게 만듭니다.",
+    keywords: [
+      "AX 컨설팅",
+      "AX 교육",
+      "기업 AI 교육",
+      "AI 업무환경 구축",
+      "AI Native 조직",
+      "사내 AI 해커톤",
+      "AI 전환 컨설팅",
+    ],
+    url: ORIGIN,
+  });
+}

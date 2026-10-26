@@ -26,7 +26,7 @@ const jsonLd = [
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Providers>
-      <div className="ax-root">{children}</div>
+      {children}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

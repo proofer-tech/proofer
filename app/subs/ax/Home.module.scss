@@ -1,0 +1,436 @@
+/* stylelint-disable no-descending-specificity -- 섹션별 중첩 블록이 같은 요소(a, span, strong)를 각자 꾸민다. 섹션 스코프라 충돌하지 않는다 */
+
+/* `/` 첫 화면. docs/ax-home-spec.md 와 시안 Home.dc.html 을 따른다. ax-root 밖이라 밝은 바탕이다. */
+
+.home {
+  --fg-1: #0b1020;
+  --fg-2: #5b6172;
+  --border-soft: #e9ebf2;
+  --inverted: #0b1020;
+  --blue: #344fe0;
+  --blue-deep: #0020b6;
+
+  width: 100%;
+  background: #fff;
+  color: var(--fg-1);
+  font-family:
+    LINESeedKR,
+    -apple-system,
+    "Apple SD Gothic Neo",
+    sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  word-break: keep-all;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  h1,
+  h2,
+  p,
+  ul {
+    margin: 0;
+  }
+
+  button {
+    font-family: inherit;
+    border: 0;
+    cursor: pointer;
+  }
+}
+
+/* 히어로 */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--inverted);
+  color: #fff;
+}
+
+.heroBg {
+  object-fit: cover;
+  object-position: 70% 45%;
+}
+
+.heroShade {
+  position: absolute;
+  inset: 0;
+  background: rgb(11 16 32 / 42%);
+}
+
+.heroInner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 720px;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+
+  span {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  font-size: 14px;
+
+  a {
+    color: #c3c8d6;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #fff;
+  }
+}
+
+.navCta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--blue-deep);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.heroCopy {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+  max-width: 820px;
+  padding: 64px 0 56px;
+
+  h1 {
+    font-size: clamp(40px, 6vw, 76px);
+    line-height: 1.12;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+
+    span {
+      display: block;
+      padding-bottom: 0.06em;
+    }
+  }
+
+  p {
+    max-width: 560px;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #d4d8e3;
+  }
+}
+
+.heroBtns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btnPrimary,
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  min-height: 52px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.btnPrimary {
+  padding: 0 28px;
+  background: var(--blue);
+}
+
+.btnGhost {
+  padding: 0 24px;
+  border: 1.6px solid rgb(255 255 255 / 35%);
+}
+
+.strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  margin-bottom: 8px;
+  border-top: 1px solid rgb(255 255 255 / 22%);
+
+  a {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 22px 20px 26px 0;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  strong {
+    font-size: 17px;
+  }
+
+  span {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #b9bfcf;
+  }
+}
+
+/* 함께한 곳 */
+.cases {
+  padding: 56px 0;
+  background: #f8f8f8;
+}
+
+.casesHead {
+  max-width: 1160px;
+  margin: 0 auto 28px;
+  padding: 0 24px;
+
+  h2 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--fg-2);
+  }
+}
+
+.mqRows {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.mq {
+  overflow: hidden;
+
+  &:hover > div {
+    animation-play-state: paused;
+  }
+}
+
+.mqL,
+.mqR {
+  display: flex;
+  width: max-content;
+  animation: 70s linear infinite;
+}
+
+.mqL {
+  animation-name: mq-l;
+}
+
+.mqR {
+  animation-name: mq-r;
+}
+
+.mqSet {
+  display: flex;
+  flex: none;
+}
+
+.mqItem {
+  flex: none;
+  padding: 0 28px;
+  white-space: nowrap;
+  border-right: 1px solid var(--border-soft);
+
+  strong {
+    font-size: 26px;
+    letter-spacing: -0.02em;
+  }
+
+  span {
+    font-size: 15px;
+    color: var(--fg-2);
+  }
+}
+
+.mqMuted {
+  color: #8a90a2;
+}
+
+@keyframes mq-l {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes mq-r {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mqL,
+  .mqR {
+    animation: none;
+  }
+}
+
+/* 팀 */
+.team {
+  background: #fff;
+}
+
+.teamInner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  align-items: start;
+  gap: 48px 64px;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 112px 24px 96px;
+}
+
+.teamIntro {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h2 {
+    font-size: clamp(30px, 3.6vw, 46px);
+    line-height: 1.22;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+  }
+
+  > p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--fg-2);
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  li strong {
+    font-size: 16px;
+  }
+
+  li span {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--fg-2);
+  }
+}
+
+.members {
+  display: flex;
+  flex-direction: column;
+  border-top: 1.6px solid var(--fg-1);
+}
+
+.member {
+  display: flex;
+  gap: 20px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--border-soft);
+
+  img {
+    flex: none;
+    width: 72px;
+    height: 72px;
+    border-radius: 999px;
+    object-fit: cover;
+    background: #f3f2ef;
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  p {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--fg-2);
+  }
+}
+
+.memberHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+
+  strong {
+    font-size: 19px;
+  }
+
+  span {
+    font-size: 13.5px;
+    color: var(--fg-2);
+  }
+}
+
+/* 푸터 */
+.footer {
+  background: var(--inverted);
+  color: #a6acbd;
+
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 28px 24px;
+    font-size: 13px;
+  }
+
+  a {
+    color: #a6acbd;
+  }
+}
