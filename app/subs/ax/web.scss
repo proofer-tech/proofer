@@ -1227,6 +1227,9 @@
   }
 
   .axw .journey .arrow {
+    align-self: center;
+    width: 20px;
+    height: 20px;
     transform: rotate(90deg);
   }
 
@@ -1583,6 +1586,14 @@
   margin-top: -1px;
   background: var(--acc);
   transform-origin: left;
+}
+
+/* 세로 배치에서는 화살표가 20px 정사각형이므로 선도 그 안에만 그린다 */
+@media (width <= 960px) {
+  .axw .journey .seg {
+    left: 0;
+    right: 0;
+  }
 }
 
 .axw .journey .arrow svg {
