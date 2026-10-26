@@ -1,5 +1,8 @@
 import React from "react";
 import Image from "next/image";
+import { IconArrowUpRight } from "@tabler/icons-react";
+import { generateUrl } from "@/src/path";
+import { SUB_DOMAIN } from "@/src/constants";
 import InquireButton from "./InquireButton";
 
 const MENU = [
@@ -29,6 +32,15 @@ export default function Header() {
               {m.label}
             </a>
           ))}
+          <a
+            href={generateUrl("/", SUB_DOMAIN.ax)}
+            target="_blank"
+            rel="noreferrer"
+            style={{ display: "inline-flex", alignItems: "center" }}
+          >
+            AX 교육
+            <IconArrowUpRight size={14} style={{ marginLeft: 2 }} />
+          </a>
         </nav>
         <InquireButton className="btn btn-primary">무료상담 신청</InquireButton>
       </div>

@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import { IconArticle } from "@tabler/icons-react";
+import { generateUrl } from "@/src/path";
+import { SUB_DOMAIN } from "@/src/constants";
 
 export default function Footer() {
   return (
@@ -33,6 +35,15 @@ export default function Footer() {
             <b>연락처</b>
           </div>
           <div>info@proofer.tech</div>
+          <div>
+            <a
+              href={generateUrl("/", SUB_DOMAIN.ax)}
+              target="_blank"
+              rel="noreferrer"
+            >
+              프루퍼 AX
+            </a>
+          </div>
           <div className="soc">
             <a
               href="https://www.linkedin.com/showcase/proofer-tech"
