@@ -3,6 +3,7 @@ import Link from "next/link";
 import AxInquireButton from "@/app/subs/ax/components/AxInquireButton";
 import { homeMetadata } from "@/app/subs/ax/segmentMetadata";
 import { SEGMENTS } from "@/app/subs/ax/segments";
+import HomeMotion from "@/app/subs/ax/HomeMotion";
 import s from "@/app/subs/ax/Home.module.scss";
 
 export const metadata = homeMetadata();
@@ -218,15 +219,18 @@ function Marquee({
 export default function Page() {
   return (
     <div className={s.home}>
+      <HomeMotion />
       <section id="top" className={s.hero}>
-        <Image
-          src="/assets/images/ax/home/ax-hero.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className={s.heroBg}
-        />
+        <div data-m="hero-bg" className={s.heroBgWrap}>
+          <Image
+            src="/assets/images/ax/home/ax-hero.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className={s.heroBg}
+          />
+        </div>
         <div aria-hidden="true" className={s.heroShade} />
         <div className={s.heroInner}>
           <header className={s.header}>
@@ -249,16 +253,20 @@ export default function Page() {
               </AxInquireButton>
             </nav>
           </header>
-          <div className={s.heroCopy}>
+          <div data-m="hero-copy" className={s.heroCopy}>
             <h1>
-              <span>AI를 들였는데</span>
-              <span>일하는 방식은 그대로라면</span>
+              <span>
+                <span data-m="hl">AI를 들였는데</span>
+              </span>
+              <span>
+                <span data-m="hl">일하는 방식은 그대로라면</span>
+              </span>
             </h1>
-            <p>
+            <p data-m="hero-fade">
               프루퍼 주식회사는 회사 안에 직접 들어가 AI로 바꿀 업무를 고르고,
               회사 자료와 AI를 연결하고, 조직이 그 방식대로 일하게 만듭니다.
             </p>
-            <div className={s.heroBtns}>
+            <div data-m="hero-fade" className={s.heroBtns}>
               <AxInquireButton className={s.btnPrimary}>
                 무료상담 신청
               </AxInquireButton>
@@ -267,7 +275,7 @@ export default function Page() {
               </a>
             </div>
           </div>
-          <div className={s.strip}>
+          <div data-m="hero-strip" className={s.strip}>
             {SERVICES.map((v) => (
               <a key={v.title} href={v.href}>
                 <strong>{v.title}</strong>
@@ -279,7 +287,7 @@ export default function Page() {
       </section>
 
       <section id="cases" className={s.cases}>
-        <div className={s.casesHead}>
+        <div data-m="rv" className={s.casesHead}>
           <h2>함께한 곳</h2>
         </div>
         <div className={s.mqRows}>
@@ -290,7 +298,7 @@ export default function Page() {
 
       <section id="team" className={s.team}>
         <div className={s.teamInner}>
-          <div className={s.teamIntro}>
+          <div data-m="rv" className={s.teamIntro}>
             <h2>
               회사를 직접 키워서
               <br />
@@ -311,7 +319,7 @@ export default function Page() {
               ))}
             </ul>
           </div>
-          <div className={s.members}>
+          <div data-m="rvs" className={s.members}>
             {MEMBERS.map((m) => (
               <div key={m.img} className={s.member}>
                 <Image
@@ -334,16 +342,18 @@ export default function Page() {
       </section>
 
       <section id="org" className={s.org}>
-        <Image
-          src="/assets/images/ax/home/ax-org-bg.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          className={s.orgBg}
-        />
+        <div data-m="org-bg" className={s.orgBgWrap}>
+          <Image
+            src="/assets/images/ax/home/ax-org-bg.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className={s.orgBg}
+          />
+        </div>
         <div aria-hidden="true" className={s.orgShade} />
         <div className={s.orgInner}>
-          <div className={s.split}>
+          <div data-m="rv" className={s.split}>
             <h2>
               AI Native 조직은
               <br />
@@ -355,7 +365,7 @@ export default function Page() {
               함께 조직 설계도 봅니다.
             </p>
           </div>
-          <div className={s.stats}>
+          <div data-m="rvs" className={s.stats}>
             {ORG_STATS.map(([n, d]) => (
               <div key={n}>
                 <strong>{n}</strong>
@@ -363,7 +373,7 @@ export default function Page() {
               </div>
             ))}
           </div>
-          <div className={s.orgRows}>
+          <div data-m="rvs" className={s.orgRows}>
             {ORG_ROWS.map(([t, d]) => (
               <div key={t}>
                 <strong>{t}</strong>
@@ -376,7 +386,7 @@ export default function Page() {
 
       <section id="start" className={s.start}>
         <div className={s.startInner}>
-          <div className={`${s.split} ${s.splitDark}`}>
+          <div data-m="rv" className={`${s.split} ${s.splitDark}`}>
             <h2>
               지금 회사 상황에서
               <br />
@@ -388,7 +398,7 @@ export default function Page() {
               됩니다.
             </p>
           </div>
-          <div className={s.rowLinks}>
+          <div data-m="rvs" className={s.rowLinks}>
             {CURRICULUM.map(([when, title, desc, out]) => (
               <Link key={title} href="/enterprise" className={s.rowLink}>
                 <span className={s.rowTitle}>
@@ -404,7 +414,7 @@ export default function Page() {
               </Link>
             ))}
           </div>
-          <div className={s.sizes}>
+          <div data-m="rv" className={s.sizes}>
             <strong>회사 규모별 커리큘럼</strong>
             <Link href="/startup">스타트업</Link>
             <Link href="/growth">중소, 중견기업</Link>
@@ -419,16 +429,16 @@ export default function Page() {
 
       <section className={s.proof}>
         <div className={s.proofInner}>
-          <h2>
+          <h2 data-m="rv">
             현업에서 쓰이고 숫자가 바뀔 때까지
             <br />
             같이 봅니다
           </h2>
-          <p>
+          <p data-m="rv">
             결과물을 넘기는 날을 일의 끝으로 잡지 않습니다. 넘긴 뒤에도 실제로
             쓰이는지, 숫자가 바뀌는지를 정해 둔 기간 동안 함께 확인합니다.
           </p>
-          <div className={s.tableWrap}>
+          <div data-m="rv" className={s.tableWrap}>
             <table>
               <thead>
                 <tr>
@@ -448,7 +458,7 @@ export default function Page() {
               </tbody>
             </table>
           </div>
-          <div className={s.follow}>
+          <div data-m="rvs" className={s.follow}>
             {FOLLOW_UP.map(([t, d]) => (
               <div key={t}>
                 <strong>{t}</strong>
@@ -461,8 +471,8 @@ export default function Page() {
 
       <section id="faq" className={s.faq}>
         <div className={s.faqInner}>
-          <h2>자주 묻는 질문</h2>
-          <div className={s.faqList}>
+          <h2 data-m="rv">자주 묻는 질문</h2>
+          <div data-m="rvs" className={s.faqList}>
             {FAQ.map(([q, a]) => (
               <details key={q}>
                 <summary>{q}</summary>
@@ -475,7 +485,7 @@ export default function Page() {
 
       <section id="contact" className={s.contact}>
         <div className={s.contactInner}>
-          <div className={s.contactCopy}>
+          <div data-m="rv" className={s.contactCopy}>
             <h2>
               어디서 시작할지 모르겠다면
               <br />
