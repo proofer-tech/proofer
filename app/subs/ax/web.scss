@@ -224,8 +224,6 @@
 /* 히어로 */
 .axw .hero {
   position: relative;
-  overflow: hidden;
-  isolation: isolate;
   background:
     radial-gradient(1000px 520px at 82% -10%, var(--acc-soft), transparent 70%),
     linear-gradient(172deg, var(--tint) 0%, var(--bg) 62%);
@@ -401,9 +399,14 @@
   flex: none;
 }
 
-/* 히어로 실사 배경: 이미지, 틴트, 그림자 위에 글과 패널이 올라온다 */
-.axw .hero > .hero-in,
-.axw .hero > .strip {
+/* 히어로 실사 배경: 이미지, 틴트, 그림자 위에 글과 패널이 올라온다. 기업 교육 3탭 전용이다 */
+.axw:not(.light) .hero {
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.axw:not(.light) .hero > .hero-in,
+.axw:not(.light) .hero > .strip {
   position: relative;
   z-index: 2;
 }
@@ -444,13 +447,13 @@
     linear-gradient(180deg, rgb(8 12 26 / 0%) 55%, rgb(8 12 26 / 88%) 100%);
 }
 
-.axw .hero .panel {
+.axw:not(.light) .hero .panel {
   background: rgb(8 12 26 / 60%);
   backdrop-filter: blur(18px);
   border-color: rgb(154 176 255 / 22%);
 }
 
-.axw .hero .strip {
+.axw:not(.light) .hero .strip {
   background: rgb(5 7 15 / 55%);
   backdrop-filter: blur(10px);
 }
@@ -580,6 +583,20 @@
   .axw .deep .report {
     backdrop-filter: blur(10px) saturate(140%);
   }
+}
+
+/* 공개교육 히어로 전용: Case Record 카드와 자격 띠 */
+.axw.light .open-case {
+  background: #fff;
+  border: 1px solid #e2e6ee;
+  border-radius: 20px;
+  box-shadow: 0 32px 64px -36px rgb(20 30 80 / 35%);
+  position: absolute;
+}
+
+.axw.light .open-strip {
+  border-top: 1px solid var(--line);
+  background: transparent;
 }
 
 /* 섹션 */

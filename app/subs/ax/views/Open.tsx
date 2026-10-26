@@ -80,7 +80,7 @@ export default function OpenView() {
               />
             </div>
             <div
-              className="panel"
+              className="open-case"
               style={{
                 position: "absolute",
                 left: "-32px",
@@ -147,7 +147,7 @@ export default function OpenView() {
             </span>
           </div>
         </div>
-        <div className="strip">
+        <div className="open-strip">
           <div className="strip-in">
             <b>나라장터 경쟁입찰참가자격 등록</b>
             <b>소프트웨어사업자 신고</b>
