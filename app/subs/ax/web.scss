@@ -593,6 +593,30 @@
   border-radius: 20px;
   box-shadow: 0 32px 64px -36px rgb(20 30 80 / 35%);
   position: absolute;
+  left: -32px;
+  bottom: -28px;
+  padding: 16px 22px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.axw.light .open-case .big {
+  white-space: nowrap;
+}
+
+/* 960px 이하에서는 사진 상자 왼쪽 끝에 맞춰 viewport 밖으로 나가지 않게 한다 */
+@media (width <= 960px) {
+  .axw.light .open-case {
+    left: 0;
+    right: 0;
+    padding: 14px 16px;
+    gap: 12px;
+  }
+
+  .axw.light .open-case .donut {
+    flex-shrink: 0;
+  }
 }
 
 .axw.light .open-strip {

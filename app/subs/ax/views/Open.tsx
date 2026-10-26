@@ -79,18 +79,7 @@ export default function OpenView() {
                 sizes="(max-width: 960px) 100vw, 640px"
               />
             </div>
-            <div
-              className="open-case"
-              style={{
-                position: "absolute",
-                left: "-32px",
-                bottom: "-28px",
-                padding: "16px 22px",
-                display: "flex",
-                gap: "14px",
-                alignItems: "center",
-              }}
-            >
+            <div className="open-case">
               <svg
                 className="donut"
                 width="56"
