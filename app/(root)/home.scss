@@ -805,6 +805,14 @@ html.snapping {
     white-space: nowrap;
   }
 
+  .layer .lh-link {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blue);
+    white-space: nowrap;
+    text-decoration: underline;
+  }
+
   .layer .desc {
     max-height: 0;
     overflow: hidden;

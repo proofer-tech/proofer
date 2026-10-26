@@ -32,6 +32,14 @@ export default function Consulting() {
                 <h3>진단 &amp; 전환 (DX·AX)</h3>
               </div>
               <span className="tagr">DX·AX 컨설팅</span>
+              <a
+                className="lh-link"
+                href={generateUrl("/", SUB_DOMAIN.ax)}
+                target="_blank"
+                rel="noreferrer"
+              >
+                AX 교육 보기
+              </a>
             </div>
             <div className="desc">
               <div className="desc-block">
