@@ -223,6 +223,9 @@
 
 /* 히어로 */
 .axw .hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   background:
     radial-gradient(1000px 520px at 82% -10%, var(--acc-soft), transparent 70%),
     linear-gradient(172deg, var(--tint) 0%, var(--bg) 62%);
@@ -396,6 +399,184 @@
   align-items: center;
   justify-content: center;
   flex: none;
+}
+
+/* 히어로 실사 배경: 이미지, 틴트, 그림자 위에 글과 패널이 올라온다 */
+.axw .hero > .hero-in,
+.axw .hero > .strip {
+  position: relative;
+  z-index: 2;
+}
+
+.axw .hero-bg {
+  position: absolute;
+  left: 0;
+  top: -12%;
+  width: 100%;
+  height: 124%;
+  z-index: 0;
+  will-change: transform;
+}
+
+.axw .hero-shade,
+.axw .hero-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.axw .hero-tint {
+  background: var(--tint);
+  mix-blend-mode: color;
+  opacity: 0.4;
+}
+
+.axw .hero-shade {
+  background:
+    linear-gradient(
+      90deg,
+      rgb(8 12 26 / 94%) 0%,
+      rgb(8 12 26 / 80%) 34%,
+      rgb(8 12 26 / 48%) 62%,
+      rgb(8 12 26 / 42%) 100%
+    ),
+    linear-gradient(180deg, rgb(8 12 26 / 0%) 55%, rgb(8 12 26 / 88%) 100%);
+}
+
+.axw .hero .panel {
+  background: rgb(8 12 26 / 60%);
+  backdrop-filter: blur(18px);
+  border-color: rgb(154 176 255 / 22%);
+}
+
+.axw .hero .strip {
+  background: rgb(5 7 15 / 55%);
+  backdrop-filter: blur(10px);
+}
+
+@media (width <= 960px) {
+  .axw .hero-shade {
+    background: linear-gradient(
+      180deg,
+      rgb(8 12 26 / 70%) 0%,
+      rgb(8 12 26 / 86%) 45%,
+      rgb(8 12 26 / 94%) 100%
+    );
+  }
+}
+
+/* 본문 배경: 히어로 다음부터 #contact 전까지 sticky 사진 위로 섹션이 지나간다. 카드는 유리 표면이다 */
+.axw .deep {
+  position: relative;
+  isolation: isolate;
+
+  --card: linear-gradient(
+    155deg,
+    rgb(255 255 255 / 8.5%),
+    rgb(255 255 255 / 2.5%)
+  );
+  --line: rgb(255 255 255 / 12%);
+  --muted: #b0b8d2;
+}
+
+.axw .deep-bg {
+  position: sticky;
+  top: 0;
+  height: min(100vh, 1100px);
+  margin-bottom: calc(-1 * min(100vh, 1100px));
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.axw .deep-img {
+  position: absolute;
+  left: 0;
+  top: -8%;
+  width: 100%;
+  height: 116%;
+  will-change: transform;
+}
+
+.axw .deep-tint {
+  position: absolute;
+  inset: 0;
+  background: var(--tint);
+  mix-blend-mode: color;
+  opacity: 0.45;
+}
+
+.axw .deep-shade {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    120% 90% at 50% 40%,
+    rgb(8 12 26 / 58%) 0%,
+    rgb(8 12 26 / 84%) 100%
+  );
+}
+
+.axw .deep > .sec {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+
+.axw .deep > .sec.alt {
+  background: rgb(4 6 14 / 40%);
+}
+
+.axw .deep .card,
+.axw .deep .mod,
+.axw .deep .jstep,
+.axw .deep .metric,
+.axw .deep .panel,
+.axw .deep .onto .tool,
+.axw .deep .pkg .lab {
+  background: var(--card);
+  border-color: rgb(255 255 255 / 12%);
+  backdrop-filter: blur(18px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 9%),
+    0 28px 56px -32px rgb(0 0 0 / 75%);
+}
+
+.axw .deep .jstep.key {
+  border-color: var(--acc);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 9%),
+    0 28px 56px -32px var(--acc);
+}
+
+.axw .deep .onto .core,
+.axw .deep .report {
+  backdrop-filter: blur(18px) saturate(140%);
+}
+
+.axw .deep .pkg.final .lab {
+  background: var(--acc);
+  border-color: var(--acc);
+}
+
+.axw .deep .grow .track {
+  background: rgb(255 255 255 / 6%);
+  backdrop-filter: blur(12px);
+}
+
+/* 모바일은 blur 를 낮춰 합성 비용을 줄인다 */
+@media (width <= 600px) {
+  .axw .deep .card,
+  .axw .deep .mod,
+  .axw .deep .jstep,
+  .axw .deep .metric,
+  .axw .deep .panel,
+  .axw .deep .onto .tool,
+  .axw .deep .pkg .lab,
+  .axw .deep .onto .core,
+  .axw .deep .report {
+    backdrop-filter: blur(10px) saturate(140%);
+  }
 }
 
 /* 섹션 */

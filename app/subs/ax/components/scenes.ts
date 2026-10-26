@@ -110,6 +110,52 @@ function marks(root: HTMLElement) {
   });
 }
 
+/** 히어로 진입(배경 축소, 글 묶음, 패널)과 스크롤 패럴랙스, 본문 sticky 배경 패럴랙스. 세 겹이 다른 속도로 움직인다 */
+function segBg(root: HTMLElement) {
+  const hero = root.querySelector<HTMLElement>("#top.hero");
+  if (!hero) return;
+  const copy = hero.querySelector<HTMLElement>(".hero-copy");
+  const panel = hero.querySelector<HTMLElement>(".hero-in > .panel");
+  const bg = hero.querySelector<HTMLElement>('[data-bg="hero"]');
+  gsap
+    .timeline({ defaults: { ease: "power4.out" } })
+    .from(bg, { scale: 1.1, duration: 1.8, ease: "power2.out" }, 0)
+    .from(
+      copy ? copy.children : [],
+      { y: 24, duration: 0.9, stagger: 0.1 },
+      0.2,
+    )
+    .from(panel, { y: 40, duration: 1.1 }, 0.45);
+
+  const scrub = {
+    trigger: hero,
+    start: "top top",
+    end: "bottom top",
+    scrub: true,
+  };
+  gsap.to(bg, { yPercent: 14, ease: "none", scrollTrigger: scrub });
+  gsap.to(copy, { y: -80, opacity: 0.2, ease: "none", scrollTrigger: scrub });
+  gsap.to(panel, { y: -36, ease: "none", scrollTrigger: scrub });
+
+  const deep = root.querySelector<HTMLElement>(".deep");
+  if (!deep) return;
+  gsap.fromTo(
+    deep.querySelector('[data-bg="deep"]'),
+    { yPercent: -6, scale: 1.04 },
+    {
+      yPercent: 6,
+      scale: 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: deep,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
+    },
+  );
+}
+
 /** 엔터프라이즈 히어로: 세로 여정선이 01에서 04로 그려지고 선이 닿는 단계마다 산출물이 켜진다 */
 function heroEnterprise(el: HTMLElement) {
   const line = el.querySelector<HTMLElement>(".vline");
@@ -625,6 +671,7 @@ export function playScenes(root: HTMLElement, seg: string) {
           if (off) cleanups.push(off);
         });
 
+      segBg(root);
       counts(root);
       donuts(root);
       marks(root);
