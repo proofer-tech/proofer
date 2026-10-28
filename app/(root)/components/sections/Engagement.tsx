@@ -26,7 +26,7 @@ export default function Engagement() {
       <div className="wrap">
         <div className="sect-head reveal" style={{ maxWidth: 720 }}>
           <div className="eyebrow">ENGAGEMENT MODEL</div>
-          <h2>스킨 인 더 게임 — 결과로 정렬된 구조</h2>
+          <h2>스킨 인 더 게임 - 결과로 정렬된 구조</h2>
           <p className="muted" style={{ marginTop: 8 }}>
             회사를 &apos;팔리는 상태&apos;까지 만들고, 결정은 대주주에게. 보상은
             그에 합당하게.

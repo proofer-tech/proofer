@@ -58,7 +58,7 @@ export default function Proof() {
 
         <div className="proof-secondary reveal d3">
           <div className="sub-eyebrow">
-            기술 실행력의 증거 — 직접 만들어온 것들
+            기술 실행력의 증거 - 직접 만들어온 것들
           </div>
           <div className="made-row">
             <div className="made-card">

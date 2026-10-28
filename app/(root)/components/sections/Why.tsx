@@ -1,6 +1,6 @@
 import React from "react";
 
-// ✓ = yes, △ = partial, — = no
+// ✓ = yes, △ = partial, - = no
 const ROWS: {
   label: string;
   cells: [
@@ -17,7 +17,7 @@ const ROWS: {
   { label: "결과 책임 (성공 인센티브)", cells: ["partial", "yes", "yes"] },
 ];
 
-const MARK = { yes: "✓", partial: "△", no: "—" } as const;
+const MARK = { yes: "✓", partial: "△", no: "-" } as const;
 
 export default function Why() {
   return (
