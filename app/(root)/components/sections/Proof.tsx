@@ -158,6 +158,34 @@ export default function Proof() {
                 바로가기 →
               </a>
             </div>
+            <div className="made-card">
+              <div className="top">
+                <Image
+                  src="/assets/images/hravengers/favicon-96x96.png"
+                  alt="HR Avengers"
+                  width={32}
+                  height={32}
+                />
+                <b style={{ flex: 1, fontSize: 20 }}>HR Avengers</b>
+                <span className="pill live">● 운영 중</span>
+              </div>
+              <p className="muted">
+                기업의 성장 단계에 따라 필요한 HR 사항을 진단하고 분석하여
+                최적의 해결방안을 찾아드리는 서비스입니다.
+              </p>
+              <a
+                href="https://hravengers.co.kr"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  color: "var(--blue)",
+                  fontWeight: 700,
+                  fontSize: 14,
+                }}
+              >
+                바로가기 →
+              </a>
+            </div>
           </div>
           <div className="past">
             <a
