@@ -17,7 +17,7 @@ export default function Footer() {
             height={22}
           />
           <div>
-            <b>프루퍼주식회사</b> · 대표 임한솔
+            <b>프루퍼 주식회사</b> · 대표 임한솔, 임덕만
           </div>
           <div>사업자등록번호 337-81-03650</div>
           <div>벤처기업확인 제20260722010048호</div>
