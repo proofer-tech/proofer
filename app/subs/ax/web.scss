@@ -1498,6 +1498,22 @@
   gap: 10px;
 }
 
+/* 600px 이하에서는 BEFORE, 화살표, AFTER 를 한 열로 쌓는다(기본 규칙보다 뒤에 있어야 이긴다) */
+@media (width <= 600px) {
+  .axw .ba {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .axw .ba > .arrow {
+    justify-self: center;
+  }
+
+  .axw .ba > .arrow svg {
+    transform: rotate(90deg);
+  }
+}
+
 .axw .msg {
   padding: 10px 12px;
   border-radius: 12px 12px 12px 4px;
