@@ -916,10 +916,25 @@ html.snapping {
     color: #9a6400;
   }
 
+  /* 카드 수가 2열로 떨어지지 않으면 마지막 카드 옆이 비므로 6칸 격자에 3열로 깔고,
+     마지막 줄에 남는 카드는 칸을 나눠 가져 줄을 채운다. */
   .made-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(6, 1fr);
     gap: 16px;
+  }
+
+  .made-row > * {
+    grid-column: span 2;
+  }
+
+  .made-row > :nth-child(3n + 1):nth-last-child(2),
+  .made-row > :nth-child(3n + 2):last-child {
+    grid-column: span 3;
+  }
+
+  .made-row > :nth-child(3n + 1):last-child {
+    grid-column: span 6;
   }
 
   .made-card {
@@ -929,6 +944,7 @@ html.snapping {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    word-break: keep-all;
     transition:
       transform 0.2s,
       box-shadow 0.2s;
@@ -2131,6 +2147,13 @@ html.snapping {
     .made-row,
     .past {
       grid-template-columns: 1fr;
+    }
+
+    .made-row > *,
+    .made-row > :nth-child(3n + 1):nth-last-child(2),
+    .made-row > :nth-child(3n + 2):last-child,
+    .made-row > :nth-child(3n + 1):last-child {
+      grid-column: auto;
     }
 
     .changes {

@@ -161,7 +161,7 @@ export default function Proof() {
             <div className="made-card">
               <div className="top">
                 <Image
-                  src="/assets/images/hravengers/favicon-96x96.png"
+                  src="/assets/images/hravengers/icon.svg"
                   alt="HR Avengers"
                   width={32}
                   height={32}
@@ -171,7 +171,7 @@ export default function Proof() {
               </div>
               <p className="muted">
                 기업의 성장 단계에 따라 필요한 HR 사항을 진단하고 분석하여
-                최적의 해결방안을 찾아드리는 서비스입니다.
+                최적의 해결방안을 찾아드립니다.
               </p>
               <a
                 href="https://hravengers.co.kr"

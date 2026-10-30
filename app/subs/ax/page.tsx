@@ -511,7 +511,7 @@ export default function Page() {
 
       <footer className={s.footer}>
         <div>
-          <span>프루퍼 주식회사, 대표 임한솔</span>
+          <span>프루퍼 주식회사, 대표 임한솔, 임덕만</span>
           <span>사업자등록번호 337-81-03650</span>
           <span>서울 강남구 강남대로112길 47, 2층 421A호</span>
           <a href="https://proofer.tech">proofer.tech</a>
