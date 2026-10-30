@@ -884,13 +884,29 @@
 }
 
 /* 모바일 탭 대상: 보이는 크기는 두고 세로 패딩으로 눌리는 영역만 40px 이상으로 키운다 */
-@media (width <= 767px) {
-  .brand {
-    min-height: 44px;
+
+/* 서브 페이지 헤더(web.scss)와 같은 기준: 960px 이하에서는 섹션 링크를 숨기고 로고와 버튼만 한 줄에 둔다 */
+@media (width <= 960px) {
+  .header {
+    flex-wrap: nowrap;
+  }
+
+  .nav {
+    flex-wrap: nowrap;
   }
 
   .nav a:not(.navCta) {
-    padding: 11px 0;
+    display: none;
+  }
+
+  .navCta {
+    white-space: nowrap;
+  }
+}
+
+@media (width <= 767px) {
+  .brand {
+    min-height: 44px;
   }
 
   .sizes a {
