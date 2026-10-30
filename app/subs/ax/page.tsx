@@ -4,6 +4,7 @@ import AxInquireButton from "@/app/subs/ax/components/AxInquireButton";
 import { homeMetadata } from "@/app/subs/ax/segmentMetadata";
 import { SEGMENTS } from "@/app/subs/ax/segments";
 import HomeMotion from "@/app/subs/ax/HomeMotion";
+import Dock from "@/app/subs/ax/components/Dock";
 import s from "@/app/subs/ax/Home.module.scss";
 
 export const metadata = homeMetadata();
@@ -220,6 +221,7 @@ export default function Page() {
   return (
     <div className={s.home}>
       <HomeMotion />
+      <Dock />
       <section id="top" className={s.hero}>
         <div data-m="hero-bg" className={s.heroBgWrap}>
           <Image
