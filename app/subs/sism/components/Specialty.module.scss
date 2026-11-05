@@ -1,3 +1,47 @@
 .root {
   display: block;
+  background: linear-gradient(180deg, #f5f7ff 0%, #fff 100%);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: 14px;
+}
+
+.root .card {
+  padding: 26px 24px;
+  border-radius: 18px;
+}
+
+.abbr {
+  align-self: flex-start;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.desc {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.62;
+  color: var(--sism-fg-muted);
 }
