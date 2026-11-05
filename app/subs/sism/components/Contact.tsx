@@ -5,7 +5,7 @@ export default function Contact() {
   return (
     <section id="contact" className={s.root}>
       <div className="sism-container">
-        <div className={s.box}>
+        <div className={s.box} data-m="cta">
           <div className={s.text}>
             <h2 className="sism-title">
               어디서부터 시작해야 할지

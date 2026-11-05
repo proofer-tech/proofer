@@ -46,6 +46,7 @@ export default function Credentials() {
             <a
               key={c.src}
               className={s.card}
+              data-reveal="card"
               href={c.src}
               target="_blank"
               rel="noopener noreferrer"

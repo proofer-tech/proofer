@@ -302,7 +302,7 @@ export default function Problem() {
         </div>
         <div className={s.grid}>
           {CARDS.map((c) => (
-            <article key={c.l1} className="sism-card">
+            <article key={c.l1} className="sism-card" data-reveal="problem">
               <div aria-hidden="true" className={s.art}>
                 <svg viewBox="0 0 240 120" className={s.svg}>
                   {c.art}

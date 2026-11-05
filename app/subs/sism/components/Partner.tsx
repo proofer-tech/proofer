@@ -27,7 +27,11 @@ export default function Partner() {
         </div>
         <div className={s.grid}>
           {CARDS.map((c) => (
-            <article key={c.tag} className={`sism-card ${s.card}`}>
+            <article
+              key={c.tag}
+              className={`sism-card ${s.card}`}
+              data-reveal="card"
+            >
               <span className={s.tag}>{c.tag}</span>
               <h3>{c.title}</h3>
               <p>{c.body}</p>

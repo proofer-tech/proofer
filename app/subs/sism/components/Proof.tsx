@@ -25,13 +25,13 @@ export default function Proof() {
         <div className={s.box}>
           <div className={s.grid}>
             {ITEMS.map((it) => (
-              <div key={it.text} className={s.item}>
+              <div key={it.text} className={s.item} data-reveal="card">
                 <span className={s.year}>{it.year}</span>
                 <strong>{it.text}</strong>
               </div>
             ))}
           </div>
-          <div className={s.more}>
+          <div className={s.more} data-reveal="proof-more">
             <div className={s.moreText}>
               <div aria-hidden="true" className={s.dots}>
                 <span className={s.dotBlue} />

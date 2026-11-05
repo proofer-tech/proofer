@@ -37,7 +37,11 @@ export default function Specialty() {
         </div>
         <div className={s.grid}>
           {ITEMS.map((i) => (
-            <article key={i.abbr} className={`sism-card ${s.card}`}>
+            <article
+              key={i.abbr}
+              className={`sism-card ${s.card}`}
+              data-reveal="specialty"
+            >
               <strong className={`sism-hl ${s.abbr}`} data-abbr={i.abbr}>
                 {i.abbr}
               </strong>

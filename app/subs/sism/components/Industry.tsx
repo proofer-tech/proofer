@@ -47,7 +47,11 @@ export default function Industry() {
         </div>
         <div className={s.grid}>
           {ITEMS.map((i) => (
-            <article key={i.title} className={`sism-card ${s.card}`}>
+            <article
+              key={i.title}
+              className={`sism-card ${s.card}`}
+              data-reveal="card"
+            >
               <h3 className={s.cardTitle}>{i.title}</h3>
               <p className={s.desc}>{i.desc}</p>
               <div className={s.tags}>

@@ -59,7 +59,11 @@ export default function Scope() {
         </div>
         <div className={s.list}>
           {ROWS.map((r) => (
-            <article key={r.no} className={`${s.row} ${r.bg}`}>
+            <article
+              key={r.no}
+              className={`${s.row} ${r.bg}`}
+              data-reveal="scope"
+            >
               <div className={s.body}>
                 <span className={s.no}>{r.no}</span>
                 <h3 className={s.h3}>{r.title}</h3>

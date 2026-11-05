@@ -39,14 +39,16 @@ export default function Faq() {
         </div>
         <div className={s.list}>
           {QA.map((x) => (
-            <details key={x.q} className={s.item}>
+            <details key={x.q} className={s.item} data-reveal="card">
               <summary>
                 {x.q}
                 <span className={s.plus} aria-hidden="true">
                   +
                 </span>
               </summary>
-              <p>{x.a}</p>
+              <div className={s.body}>
+                <p>{x.a}</p>
+              </div>
             </details>
           ))}
         </div>

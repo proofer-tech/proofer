@@ -5,7 +5,7 @@ import { useRef } from "react";
 import InquireButton from "@/app/subs/sism/components/InquireButton";
 import s from "./Hero.module.scss";
 
-const MENU = [
+export const MENU = [
   ["서비스", "#scope"],
   ["비용", "#price"],
   ["업무 시스템", "#specialty"],
@@ -104,7 +104,7 @@ export default function Hero() {
       </div>
 
       <div className={s.band}>
-        <div className={`sism-container ${s.bandGrid}`}>
+        <div className={`sism-container ${s.bandGrid}`} data-m="band">
           {BAND.map(([title, desc]) => (
             <div key={title} className={s.bandItem}>
               <strong>{title}</strong>

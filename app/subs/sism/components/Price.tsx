@@ -53,6 +53,7 @@ export default function Price() {
               <article
                 key={p.title}
                 className={`sism-card ${s.card} ${sm ? s.sm : ""}`}
+                data-reveal="price"
               >
                 <span className={`${s.tag} ${sm ? s.tagSm : ""}`}>{p.tag}</span>
                 <h3 className={s.cardTitle}>{p.title}</h3>
@@ -69,7 +70,7 @@ export default function Price() {
           })}
         </div>
         <p className={s.vat}>부가세 별도입니다.</p>
-        <div className={s.quote}>
+        <div className={s.quote} data-reveal="card">
           <div className={s.quoteText}>
             <strong>하루 안에 메일로 견적을 드립니다</strong>
             <p>요구사항명세서를 첨부하거나 필요한 기능을 정리해 보내 주세요.</p>
