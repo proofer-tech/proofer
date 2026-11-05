@@ -65,8 +65,11 @@
 ## 5. 시안과 다르게 옮기는 곳
 
 - 운영과 유지관리 줄의 태그 "월간 개선 보고"는 "개선 요청 처리"로 씁니다(매달 무엇을 준다는 약속을 하지 않습니다).
-- 상담 버튼("무료상담 신청")은 전부 루트와 같은 Tally 팝업(`app/(root)/components/InquireButton`)을 엽니다.
+- 상담 버튼("무료상담 신청": 헤더, 히어로, 수행 이력 줄, 상담 CTA, 모바일 메뉴)은 전부 채널톡 메신저를 엽니다.
+  ax 의 `app/subs/ax/components/AxInquireButton` 과 같은 방식(`useChannelIOApi().showMessenger`,
+  `src/hooks/channel.ts` 의 로드 확인)이고, Tally 팝업은 쓰지 않습니다(요구사항 aa57ff47).
   시안의 `mailto:info@proofer.tech` 는 시안 도구에 상담 흐름이 없어서 쓴 자리입니다.
+- 채널톡 위젯은 2절의 Providers 가 모든 페이지에 띄웁니다. 환경변수는 다른 곳과 같은 `NEXT_PUBLIC_CHANNEL_ID_PLUGIN_KEY` 입니다.
 - "이메일로 견적 받아보기"는 시안 그대로 제목("견적 요청")과 작성 양식이 채워진 mailto 입니다.
 - 푸터의 회사 표기는 루트 푸터와 같게 "프루퍼 주식회사", 대표 "임한솔, 임덕만" 으로 씁니다
   (시안의 "프루퍼주식회사 | 대표이사 임한솔" 대신).
@@ -107,4 +110,6 @@ proofer.tech 가 ax.proofer.tech 로 보내는 두 자리와 같은 방식으로
 - `pnpm install` 뒤 `npx tsc --noEmit`, 바꾼 파일만 `npx eslint`, `npx next build`
 - 1440px, 768px, 390px 에서 `/` 스크린샷을 시안(`docs/sism-home/Main.dc.html` 을 같은 폭으로 렌더한 것)과
   비교합니다. 세 폭 모두 가로 스크롤이 없습니다(`document.documentElement.scrollWidth <= innerWidth`).
+- 채널톡 버튼이 보이고, 무료상담 신청 버튼(960px 이하 모바일 메뉴 포함)이 메신저를 엽니다. 390px 에서 채널톡 버튼이
+  미니 헤더와 하단 콘텐츠(상담 CTA, 푸터)를 가리지 않습니다.
 - proofer.tech, ax.proofer.tech 의 `/` 가 바뀌기 전과 같게 보입니다(proofer.tech 헤더와 푸터의 진입점 링크만 다릅니다).
