@@ -1,3 +1,118 @@
 .root {
   display: block;
+  background: var(--sism-bg-page);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.box {
+  border-radius: 18px;
+  background: #fff;
+  border: 1.6px solid var(--sism-line);
+  overflow: hidden;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+}
+
+.item {
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--sism-line);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  strong {
+    font-size: 16.5px;
+    letter-spacing: -0.02em;
+  }
+}
+
+.year {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sism-blue);
+}
+
+.more {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 24px;
+  background: linear-gradient(90deg, #f3f5ff 0%, #f2faf5 100%);
+}
+
+.moreText {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+
+  p {
+    margin: 0;
+    font-size: 15.5px;
+    line-height: 1.5;
+  }
+}
+
+.dots {
+  display: flex;
+}
+
+.dotBlue,
+.dotGreen,
+.dotPlus {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.dotBlue {
+  background: var(--sism-blue);
+}
+
+.dotGreen {
+  margin-left: -9px;
+  background: var(--sism-green);
+}
+
+.dotPlus {
+  margin-left: -9px;
+  background: #c9d2ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sism-blue-dark);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1.6px solid var(--sism-line-hover);
+  color: var(--sism-blue-dark);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
 }

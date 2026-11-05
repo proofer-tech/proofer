@@ -1,3 +1,47 @@
 .root {
   display: block;
+  background: var(--sism-bg-page);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 14px;
+}
+
+.card {
+  padding: 26px;
+  border-radius: 18px;
+
+  h3 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.62;
+    color: var(--sism-fg-muted);
+  }
+}
+
+.tag {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sism-blue);
 }
