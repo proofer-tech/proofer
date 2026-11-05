@@ -1,4 +1,4 @@
-import AxInquireButton from "@/app/subs/ax/components/AxInquireButton";
+import InquireButton from "@/app/subs/sism/components/InquireButton";
 import s from "./Contact.module.scss";
 
 export default function Contact() {
@@ -17,7 +17,7 @@ export default function Contact() {
               시스템으로 옮길지 정합니다.
             </p>
           </div>
-          <AxInquireButton className={s.btn}>무료상담 신청</AxInquireButton>
+          <InquireButton className={s.btn}>무료상담 신청</InquireButton>
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 import React from "react";
 import "./sism.scss";
-import Providers from "@/app/(root)/components/Providers";
+import Providers from "@/app/subs/sism/components/Providers";
 
 const ORG_ID = "https://sism.proofer.tech/#organization";
 
