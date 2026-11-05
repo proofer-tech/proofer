@@ -29,6 +29,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
+      url: generateUrl("/", SUB_DOMAIN.sism),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 1.0,
+    },
+    {
       url: generateUrl("/docs/introduction-of-proofer"),
       lastModified: new Date(),
       changeFrequency: "monthly",
