@@ -1,3 +1,39 @@
 .root {
-  display: block;
+  background: #f8f8f8;
+  color: #5b6172;
+  padding: 56px 0 40px;
+  border-top: 1px solid #e9ebf2;
+
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 28px;
+  }
+
+  .brand {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .logo {
+    height: 28px;
+    width: auto;
+    align-self: flex-start;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+
+  @media (width <= 760px) {
+    .inner {
+      flex-direction: column;
+    }
+  }
 }

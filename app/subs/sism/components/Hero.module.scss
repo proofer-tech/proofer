@@ -1,3 +1,322 @@
-.root {
-  display: block;
+/* 시안 helmet style 의 #top, header 규칙. 전역 .sism-root section[id] 여백과 a 색을 이기려고 선택자를 올려 쓴다 */
+/* stylelint-disable-next-line selector-pseudo-class-no-unknown -- CSS Modules 는 id 도 해시하므로 :global 로 시안의 #top 을 유지한다 */
+:global(#top).root {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  background: #fff;
+
+  .bg {
+    object-fit: cover;
+    object-position: 72% 50%;
+  }
+
+  .veil {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgb(255 255 255 / 97%) 0%,
+      rgb(255 255 255 / 93%) 36%,
+      rgb(255 255 255 / 60%) 58%,
+      rgb(255 255 255 / 8%) 100%
+    );
+  }
+
+  .inner {
+    position: relative;
+  }
+
+  .header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 0;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #0b1020;
+  }
+
+  .brandName {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #0b1020;
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 22px;
+    font-size: 14px;
+    background: rgb(255 255 255 / 92%);
+    padding: 6px 6px 6px 22px;
+    border-radius: 999px;
+    box-shadow: 0 10px 30px -22px rgb(20 30 80 / 50%);
+  }
+
+  .navlink {
+    color: #5b6172;
+    text-decoration: none;
+
+    &:hover {
+      color: #0b1020;
+    }
+  }
+
+  .navCta.navCta {
+    min-height: 44px;
+    padding: 0 20px;
+    font-size: 14px;
+  }
+
+  .mMenu {
+    display: none;
+    position: relative;
+
+    summary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      border: 1.6px solid #e9ebf2;
+      border-radius: 999px;
+      background: #fff;
+      cursor: pointer;
+      list-style: none;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      span {
+        display: block;
+        width: 18px;
+        height: 2px;
+        border-radius: 2px;
+        background: #0b1020;
+        transition: transform 0.25s ease;
+      }
+    }
+
+    &[open] summary span:first-child {
+      transform: translateY(3.5px) rotate(45deg);
+    }
+
+    &[open] summary span:last-child {
+      transform: translateY(-3.5px) rotate(-45deg);
+    }
+  }
+
+  .mPanel {
+    position: absolute;
+    right: 0;
+    top: 54px;
+    z-index: 20;
+    width: min(320px, calc(100vw - 32px));
+    display: flex;
+    flex-direction: column;
+    padding: 10px 18px 18px;
+    border-radius: 20px;
+    background: #fff;
+    border: 1.6px solid #e9ebf2;
+    box-shadow: 0 24px 48px -24px rgb(20 30 80 / 45%);
+
+    a {
+      padding: 13px 2px;
+      border-bottom: 1px solid #e9ebf2;
+      font-size: 16px;
+      font-weight: 700;
+      color: #0b1020;
+      text-decoration: none;
+    }
+  }
+
+  .mCta.mCta {
+    margin-top: 14px;
+    padding: 13px 2px;
+    border: 0;
+    border-radius: 999px;
+    background: #344fe0;
+    color: #fff;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .body {
+    display: flex;
+    align-items: center;
+    min-height: 560px;
+    padding: 48px 0 96px;
+  }
+
+  .copy {
+    flex: 0 1 600px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  .h1 {
+    margin: 0;
+    font-size: clamp(36px, 5.6vw, 64px);
+    line-height: 1.12;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .sub {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #5b6172;
+    max-width: 600px;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .ghost {
+    display: inline-flex;
+    align-items: center;
+    min-height: 52px;
+    padding: 0 24px;
+    border-radius: 999px;
+    border: 1.6px solid #e9ebf2;
+    background: #fff;
+    color: #0b1020;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .band {
+    position: relative;
+    border-top: 1px solid #e9ebf2;
+    background: rgb(255 255 255 / 96%);
+  }
+
+  .bandGrid {
+    padding-top: 22px;
+    padding-bottom: 22px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 16px 24px;
+  }
+
+  .bandItem {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    strong {
+      font-size: 15px;
+    }
+  }
+
+  .bandDesc {
+    font-size: 13px;
+    color: #5b6172;
+  }
+
+  @media (width <= 1100px) {
+    .nav {
+      gap: 16px;
+      font-size: 13.5px;
+    }
+  }
+
+  @media (width <= 960px) {
+    .header {
+      flex-wrap: nowrap;
+      gap: 10px;
+    }
+
+    .brand {
+      margin-right: auto;
+    }
+
+    .navlink {
+      display: none;
+    }
+
+    .nav {
+      padding: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .mMenu {
+      display: block;
+      order: 2;
+    }
+
+    .bandGrid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (width <= 760px) {
+    .veil {
+      background: linear-gradient(
+        180deg,
+        rgb(255 255 255 / 97%) 0%,
+        rgb(255 255 255 / 92%) 58%,
+        rgb(255 255 255 / 55%) 100%
+      );
+    }
+
+    .bg {
+      object-position: 70% 50%;
+    }
+
+    .body {
+      min-height: 0;
+      padding: 24px 0 56px;
+    }
+
+    .h1 {
+      font-size: clamp(34px, 10vw, 44px);
+    }
+
+    .sub {
+      font-size: 16px;
+    }
+
+    .navCta.navCta {
+      min-height: 40px;
+      padding: 0 16px;
+      font-size: 14px;
+      box-shadow: none;
+    }
+
+    .brandName {
+      font-size: 18px;
+    }
+  }
+
+  @media (width <= 420px) {
+    .navCta.navCta {
+      display: none;
+    }
+  }
 }
