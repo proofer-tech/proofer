@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>프루퍼 SI SM 첫 화면</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/proofer/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#ffffff}
+*{box-sizing:border-box}
+a{color:#344fe0}a:hover{color:#0020b6}
+summary{cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+.card{transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.card:hover{transform:translateY(-4px);border-color:#cdd6ff;box-shadow:0 18px 40px -24px rgba(20,30,80,.55)}
+.btn-p{transition:background .2s ease,transform .2s ease}
+.btn-p:hover{background:#0020b6;color:#ffffff;transform:translateY(-1px)}
+.navlink{color:#5b6172;text-decoration:none}
+.navlink:hover{color:#0b1020}
+.hl{background:linear-gradient(115deg,#344fe0 0%,#45af66 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+details[open] .faq-plus{transform:rotate(45deg)}
+.faq-plus{transition:transform .2s ease}
+
+.m-menu{display:none;position:relative}
+.m-menu>summary{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;width:44px;height:44px;border:1.6px solid #e9ebf2;border-radius:999px;background:#ffffff}
+.m-menu>summary span{display:block;width:18px;height:2px;border-radius:2px;background:#0b1020;transition:transform .25s ease}
+.m-menu[open]>summary span:first-child{transform:translateY(3.5px) rotate(45deg)}
+.m-menu[open]>summary span:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+.m-panel{position:absolute;right:0;top:54px;z-index:20;width:min(320px,calc(100vw - 32px));display:flex;flex-direction:column;padding:10px 18px 18px;border-radius:20px;background:#ffffff;border:1.6px solid #e9ebf2;box-shadow:0 24px 48px -24px rgba(20,30,80,.45)}
+.m-panel a{padding:13px 2px;border-bottom:1px solid #e9ebf2;font-size:16px;font-weight:700;color:#0b1020;text-decoration:none}
+.m-panel a.m-cta{margin-top:14px;border:0;border-radius:999px;background:#344fe0;color:#ffffff;text-align:center}
+@media (max-width:1100px){#top header nav{gap:16px!important;font-size:13.5px!important}}
+@media (max-width:960px){
+#top header{flex-wrap:nowrap!important;gap:10px!important}
+#top header>a{margin-right:auto}
+#top header nav .navlink{display:none}
+#top header nav{padding:0!important;background:transparent!important;box-shadow:none!important}
+#top header .m-menu{display:block;order:2}
+#top>div:last-of-type>div{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media (max-width:760px){
+section[id]:not(#top):not(#contact){padding:64px 0 36px!important}
+#top>div[aria-hidden="true"]{background:linear-gradient(180deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.92) 58%,rgba(255,255,255,.55) 100%)!important}
+#top>img{object-position:70% 50%!important}
+#top>div:nth-of-type(2)>div:nth-of-type(1){min-height:0!important;padding:24px 0 56px!important}
+#top h1{font-size:clamp(34px,10vw,44px)!important}
+#top p{font-size:16px!important}
+#top header a.btn-p{min-height:40px!important;padding:0 16px!important;font-size:14px!important;box-shadow:none!important}
+#top header>a>span{font-size:18px!important}
+#credentials [style*="grid-template-columns"]{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+#credentials a.card{padding:8px 8px 12px!important;gap:10px!important}
+#credentials a.card strong{font-size:14px!important}
+#credentials a.card span span{font-size:12px!important}
+#scope article{padding:22px 20px!important}
+#contact>div>div{border-radius:20px!important}
+footer>div{flex-direction:column}
+}
+@media (max-width:420px){#top header nav a.btn-p{display:none!important}}
+</style>
+</helmet>
+<div style="width: 100%; font-family: var(--font-kr, 'LINE Seed Sans KR', -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif); color: var(--fg-1, #0b1020); background: #ffffff; word-break: keep-all; font-size: 15px; line-height: 1.5;">
+
+<!-- 헤더 + 히어로 -->
+<section id="top" style="position: relative; overflow: hidden; background: #ffffff;">
+<img src="/_blob/dc751ef5061ada09d925d510e8c8172b" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 72% 50%;">
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.93) 36%, rgba(255,255,255,0.6) 58%, rgba(255,255,255,0.08) 100%);"></div>
+<div style="position: relative; max-width: 1160px; margin: 0 auto; padding: 0 24px;">
+<header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0;">
+<a href="#top" aria-label="proofer SI SM 홈" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #0b1020;"><img src="/_blob/8ded4c5297816382b26a4122487b7539" alt="" style="width: 22px; height: 23px;"><span style="font-size: 20px; font-weight: 700; letter-spacing: 0.02em; color: #0b1020;">SI SM</span></a>
+<details class="m-menu"><summary aria-label="메뉴 열기"><span></span><span></span></summary><div class="m-panel"><a href="#scope">서비스</a><a href="#price">비용</a><a href="#specialty">업무 시스템</a><a href="#industry">업종</a><a href="#proof">수행 이력</a><a href="#credentials">등록 서류</a><a href="#faq">자주 묻는 질문</a><a class="m-cta" href="#contact">무료상담 신청</a></div></details>
+<nav aria-label="주 메뉴" style="display: flex; flex-wrap: wrap; align-items: center; gap: 22px; font-size: 14px; background: rgba(255,255,255,0.92); padding: 6px 6px 6px 22px; border-radius: 999px; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5);">
+<a class="navlink" href="#scope">서비스</a>
+<a class="navlink" href="#price">비용</a>
+<a class="navlink" href="#specialty">업무 시스템</a>
+<a class="navlink" href="#industry">업종</a>
+<a class="navlink" href="#proof">수행 이력</a>
+<a class="navlink" href="#credentials">등록 서류</a>
+<a class="navlink" href="#faq">자주 묻는 질문</a>
+<a class="btn-p" href="#contact" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; background: #344fe0; color: #ffffff; font-weight: 700; text-decoration: none; box-shadow: 0 10px 22px -10px rgba(52,79,224,0.85);">무료상담 신청</a>
+</nav>
+</header>
+
+<div style="display: flex; align-items: center; min-height: 560px; padding: 48px 0 96px;">
+<div style="flex: 0 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 26px;">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #344fe0;">SYSTEM INTEGRATION + SYSTEM MANAGEMENT</div>
+<h1 style="margin: 0; font-size: clamp(36px, 5.6vw, 64px); line-height: 1.12; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance;"><span class="hl">내 사업</span>처럼<br>만들고, 관리합니다</h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.7; color: #5b6172; max-width: 600px;">고객사의 사정을 백번 이해하고, 유연하게 함께 움직입니다. 오픈한 뒤에도 운영에 필요한것들을 알아서 챙기며 관리해드립니다.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px;">
+<a class="btn-p" href="#contact" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; border-radius: 999px; background: #344fe0; color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; box-shadow: 0 10px 22px -10px rgba(52,79,224,0.85);">무료상담 신청</a>
+<a href="#price" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; border-radius: 999px; border: 1.6px solid #e9ebf2; background: #ffffff; color: #0b1020; font-size: 16px; font-weight: 700; text-decoration: none;">비용 보기</a>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- 등록과 인증 띠 -->
+<div style="position: relative; border-top: 1px solid #e9ebf2; background: rgba(255,255,255,0.96);">
+<div style="max-width: 1160px; margin: 0 auto; padding: 22px 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 16px 24px;">
+<div style="display: flex; flex-direction: column; gap: 2px;"><strong style="font-size: 15px;">나라장터 경쟁입찰참가자격</strong><span style="font-size: 13px; color: #5b6172;">공공기관 발주 입찰 참가</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px;"><strong style="font-size: 15px;">소프트웨어사업자 신고</strong><span style="font-size: 13px; color: #5b6172;">한국인공지능소프트웨어산업협회</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px;"><strong style="font-size: 15px;">벤처기업 확인</strong><span style="font-size: 13px; color: #5b6172;">2026년 7월 확인</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px;"><strong style="font-size: 15px">수행 프로젝트 100건+</strong><span style="font-size: 13px; color: rgb(91, 97, 114)">홈페이지, 업무시스템과 앱, AI까지</span></div>
+</div>
+</div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem" style="background: var(--bg-page, #f8f8f8); padding: 88px 0 56px;">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; gap: 32px;">
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #344fe0;">PROBLEM</div>
+<h2 style="margin: 0; font-size: clamp(25px, 3.4vw, 38px); line-height: 1.3; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance;">외주를 맡길 때마다<br>같은 고민을 반복하시나요?</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 14px;">
+<article class="card" style="padding: 24px; border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 10px;">
+<div aria-hidden="true" style="height: 128px; margin: -4px -4px 6px; border-radius: 12px; background: linear-gradient(135deg, #f3f5ff 0%, #f2faf5 100%); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 240 120" width="100%" height="120" style="max-width: 260px;">
+<path d="M66 44 C100 20, 130 90, 174 48" fill="none" stroke="#c9cedd" stroke-width="2" stroke-dasharray="5 5"></path>
+<path d="M60 84 C110 110, 140 20, 180 82" fill="none" stroke="#c9cedd" stroke-width="2" stroke-dasharray="5 5"></path>
+<rect x="28" y="22" width="48" height="44" rx="10" fill="#ffffff" stroke="#dfe5ff" stroke-width="2"></rect>
+<path d="M42 54 L58 34 L64 40 L48 60 Z" fill="#344fe0"></path><path d="M42 54 L40 62 L48 60 Z" fill="#45af66"></path>
+<rect x="164" y="22" width="48" height="44" rx="10" fill="#ffffff" stroke="#dfe5ff" stroke-width="2"></rect>
+<rect x="178" y="28" width="20" height="32" rx="4" fill="none" stroke="#344fe0" stroke-width="3"></rect><circle cx="188" cy="54" r="2" fill="#344fe0"></circle>
+<rect x="96" y="64" width="48" height="44" rx="10" fill="#ffffff" stroke="#dfe5ff" stroke-width="2"></rect>
+<rect x="108" y="72" width="24" height="10" rx="3" fill="#344fe0"></rect><rect x="108" y="86" width="24" height="10" rx="3" fill="#45af66"></rect>
+<circle cx="120" cy="34" r="13" fill="#ffffff" stroke="#c9cedd" stroke-width="2"></circle><text x="120" y="40" text-anchor="middle" font-size="17" font-weight="700" fill="#344fe0">?</text></svg></div>
+<h3 style="margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -0.02em;">제각각 맡겼더니<br>조립도 못해보고 끝났어요</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">디자인, 앱, 서버를 업체마다 따로 맡기면 조율하는 일이 더 커집니다. 문제가 생기면 서로 책임을 미룹니다.</p>
+</article>
+<article class="card" style="padding: 24px; border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 10px;">
+<div aria-hidden="true" style="height: 128px; margin: -4px -4px 6px; border-radius: 12px; background: linear-gradient(135deg, #f3f5ff 0%, #f2faf5 100%); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 240 120" width="100%" height="120" style="max-width: 260px;">
+<rect x="62" y="12" width="78" height="98" rx="8" fill="#ffffff" stroke="#c9cedd" stroke-width="2" stroke-dasharray="6 5"></rect>
+<rect x="76" y="30" width="40" height="6" rx="3" fill="#dfe5ff"></rect><rect x="76" y="46" width="50" height="5" rx="2.5" fill="#eef0f6"></rect>
+<rect x="76" y="58" width="44" height="5" rx="2.5" fill="#eef0f6"></rect><rect x="76" y="70" width="48" height="5" rx="2.5" fill="#eef0f6"></rect>
+<circle cx="164" cy="44" r="22" fill="#ffffff" stroke="#dfe5ff" stroke-width="2"></circle>
+<path d="M164 30 a10 10 0 0 1 6 18 v5 h-12 v-5 a10 10 0 0 1 6 -18 z" fill="#344fe0"></path><rect x="158" y="55" width="12" height="4" rx="2" fill="#45af66"></rect>
+<path d="M150 86 l10 10 M160 86 l-10 10" stroke="#c9cedd" stroke-width="3" stroke-linecap="round"></path>
+<text x="176" y="96" font-size="12" font-weight="700" fill="#c9cedd">견적</text></svg></div>
+<h3 style="margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -0.02em;">기획서가 없어<br>견적도 못 받고 있어요</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">만들고 싶은 건 분명한데 문서로 정리하지 못해서 견적 요청부터 막힙니다.</p>
+</article>
+<article class="card" style="padding: 24px; border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 10px;">
+<div aria-hidden="true" style="height: 128px; margin: -4px -4px 6px; border-radius: 12px; background: linear-gradient(135deg, #f3f5ff 0%, #f2faf5 100%); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 240 120" width="100%" height="120" style="max-width: 260px;">
+<rect x="14" y="36" width="56" height="44" rx="12" fill="#ffffff" stroke="#dfe5ff" stroke-width="2"></rect>
+<path d="M26 80 l-4 12 l14 -12" fill="#ffffff" stroke="#dfe5ff" stroke-width="2" stroke-linejoin="round"></path>
+<rect x="24" y="48" width="36" height="5" rx="2.5" fill="#344fe0"></rect><rect x="24" y="60" width="26" height="5" rx="2.5" fill="#dfe5ff"></rect>
+<path d="M76 58 h14" stroke="#c9cedd" stroke-width="2.5" stroke-linecap="round"></path><path d="M86 53 l5 5 l-5 5" fill="none" stroke="#c9cedd" stroke-width="2.5" stroke-linecap="round"></path>
+<rect x="94" y="30" width="56" height="58" rx="8" fill="#ffffff" stroke="#dfe5ff" stroke-width="2"></rect>
+<path d="M94 46 h56 M94 62 h56 M94 76 h56 M114 30 v58" stroke="#dfe5ff" stroke-width="1.5"></path>
+<rect x="118" y="50" width="28" height="8" rx="2" fill="#45af66"></rect>
+<path d="M156 58 h14" stroke="#c9cedd" stroke-width="2.5" stroke-linecap="round"></path><path d="M166 53 l5 5 l-5 5" fill="none" stroke="#c9cedd" stroke-width="2.5" stroke-linecap="round"></path>
+<rect x="174" y="30" width="52" height="58" rx="8" fill="#ffffff" stroke="#dfe5ff" stroke-width="2"></rect>
+<rect x="182" y="38" width="36" height="12" rx="3" fill="#dfe5ff"></rect>
+<g fill="#c9cedd"><rect x="182" y="56" width="9" height="8" rx="2"></rect><rect x="195" y="56" width="9" height="8" rx="2"></rect><rect x="208" y="56" width="9" height="8" rx="2"></rect><rect x="182" y="68" width="9" height="8" rx="2"></rect><rect x="195" y="68" width="9" height="8" rx="2"></rect></g>
+<rect x="208" y="68" width="9" height="8" rx="2" fill="#344fe0"></rect>
+<circle cx="214" cy="30" r="9" fill="#f05252"></circle><path d="M210 26 l8 8 M218 26 l-8 8" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"></path></svg></div>
+<h3 style="margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -0.02em;">같은 내용을<br>세 번 입력합니다</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">메신저로 받은 주문을 엑셀에 옮기고 회계 프로그램에 또 칩니다. 한 곳이 틀리면 어디서 틀렸는지 찾는 일이 따로 생깁니다.</p>
+</article>
+<article class="card" style="padding: 24px; border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 10px;">
+<div aria-hidden="true" style="height: 128px; margin: -4px -4px 6px; border-radius: 12px; background: linear-gradient(135deg, #f3f5ff 0%, #f2faf5 100%); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 240 120" width="100%" height="120" style="max-width: 260px;">
+<rect x="40" y="26" width="64" height="70" rx="12" fill="#ffffff" stroke="#dfe5ff" stroke-width="2"></rect>
+<rect x="52" y="40" width="40" height="6" rx="3" fill="#344fe0"></rect><rect x="52" y="54" width="30" height="5" rx="2.5" fill="#dfe5ff"></rect><rect x="52" y="66" width="36" height="5" rx="2.5" fill="#dfe5ff"></rect>
+<path d="M108 61 h12" stroke="#344fe0" stroke-width="3" stroke-linecap="round"></path>
+<path d="M136 61 h12" stroke="#c9cedd" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 4"></path>
+<path d="M122 52 l4 7 l-4 3 l5 8" fill="none" stroke="#f05252" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<circle cx="176" cy="61" r="24" fill="#ffffff" stroke="#c9cedd" stroke-width="2" stroke-dasharray="5 5"></circle>
+<circle cx="176" cy="54" r="7" fill="#c9cedd"></circle><path d="M164 74 a12 10 0 0 1 24 0" fill="#c9cedd"></path>
+<path d="M60 102 l12 -20 l12 20 z" fill="#f6b33c"></path><rect x="71" y="88" width="2.4" height="7" rx="1" fill="#ffffff"></rect><circle cx="72.2" cy="98" r="1.4" fill="#ffffff"></circle></svg></div>
+<h3 style="margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -0.02em;">만든 업체가<br>연락을 끊고 잠수탔어요</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">소스도 서버 계정도 받아 둔 게 없어서 글자를 고치는 일도 맡길 데가 없습니다. 보안 경고가 떠도 손댈 사람이 없습니다.</p>
+</article>
+</div>
+</div>
+</section>
+
+<!-- SCOPE -->
+<section id="scope" style="background: #ffffff; padding: 88px 0 56px;">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; gap: 32px;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px;">
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #344fe0;">OUR ANSWER</div>
+<h2 style="margin: 0; font-size: clamp(25px, 3.4vw, 38px); line-height: 1.3; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance;">처음 상담부터 오픈 이후까지<br>한 팀이 맡습니다</h2>
+</div>
+<p style="margin: 0; max-width: 420px; font-size: 15px; line-height: 1.7; color: #5b6172;">기획서가 없어도 상담에서 함께 정리해드리고,<br>여기저기 흩어진 자료들도 하나로 묶어드립니다.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px;">
+<article style="display: flex; flex-wrap: wrap; gap: 20px 32px; padding: 26px 28px; border-radius: 20px; background: linear-gradient(180deg, #ffffff 0%, #eff3ff 100%); border: 1.6px solid #e9ebf2; box-shadow: 0 18px 40px -28px rgba(20,30,80,0.45);">
+<div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+<span style="font-size: 13px; font-weight: 700; color: #344fe0;">03 SM</span>
+<h3 style="margin: 0; font-size: clamp(18px, 1.8vw, 23px); font-weight: 700; letter-spacing: -0.02em;">운영과 유지관리</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">보안 업데이트와 서버, 인증서 갱신을 챙기고 장애가 나면 고칩니다. 다른 업체가 만든 시스템은 소스를 먼저 살펴본 뒤 넘겨받습니다.</p>
+</div>
+<ul style="flex: 1 1 300px; min-width: 0; margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 8px;">
+<li style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">보안 취약점 점검</li>
+<li style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">서버 이전</li>
+<li style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">장애 접수와 처리 기록</li>
+<li style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">월간 개선 보고</li>
+<li style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">기존 시스템 인수</li>
+</ul>
+</article>
+<article style="display: flex; flex-wrap: wrap; gap: 20px 32px; padding: 26px 28px; border-radius: 20px; background: linear-gradient(180deg, #ffffff 0%, #f6f8ff 100%); border: 1.6px solid #e9ebf2; box-shadow: 0 18px 40px -28px rgba(20,30,80,0.45);">
+<div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+<span style="font-size: 13px; font-weight: 700; color: #344fe0;">02 SI</span>
+<h3 style="margin: 0; font-size: clamp(18px, 1.8vw, 23px); font-weight: 700; letter-spacing: -0.02em;">사내 시스템과 연동</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">주문, 재고, 고객 관리처럼 회사 안에서 쓰는 시스템을 만들고, ERP나 회계 프로그램, 결제 서비스와 연결합니다.</p>
+</div>
+<ul style="flex: 1 1 300px; min-width: 0; margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 8px;">
+<li style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">ERP, 재고 연동</li>
+<li style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">PG 결제, 정기결제</li>
+<li style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">알림톡, 문자 발송</li>
+<li style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">공공데이터, 외부 API</li>
+<li style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">주문, 재고 관리</li>
+</ul>
+</article>
+<article style="display: flex; flex-wrap: wrap; gap: 20px 32px; padding: 26px 28px; border-radius: 20px; background: linear-gradient(180deg, #ffffff 0%, #fbfcff 100%); border: 1.6px solid #e9ebf2; box-shadow: 0 18px 40px -28px rgba(20,30,80,0.45);">
+<div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+<span style="font-size: 13px; font-weight: 700; color: #344fe0;">01 SI</span>
+<h3 style="margin: 0; font-size: clamp(18px, 1.8vw, 23px); font-weight: 700; letter-spacing: -0.02em;">웹과 앱</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">회사 홈페이지와 서비스 웹, 쇼핑몰, iOS 와 안드로이드 앱을 기획부터 디자인, 개발까지 만듭니다. 관리자 화면과 직원별 권한도 같이 만듭니다.</p>
+</div>
+<ul style="flex: 1 1 300px; min-width: 0; margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 8px;">
+<li style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #e7f6ec; color: #2c7a47;">기업 홈페이지</li>
+<li style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #e7f6ec; color: #2c7a47;">서비스 웹</li>
+<li style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #e7f6ec; color: #2c7a47;">쇼핑몰</li>
+<li style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #e7f6ec; color: #2c7a47;">모바일 앱</li>
+<li style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #e7f6ec; color: #2c7a47;">관리자 화면</li>
+</ul>
+</article>
+</div>
+</div>
+</section>
+
+<!-- ENGAGEMENT MODEL: 가격 -->
+<section id="price" style="background: var(--bg-page, #f8f8f8); padding: 88px 0 56px;">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; gap: 32px;">
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #344fe0;">ENGAGEMENT MODEL</div>
+<h2 style="margin: 0; font-size: clamp(25px, 3.4vw, 38px); line-height: 1.3; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance;">기능 단위로 범위를 정하고<br>시작 금액을 먼저 보여드립니다</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 14px;">
+<article class="card" style="padding: 24px; border-radius: 18px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 14px;">
+<span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #e7f6ec; color: #2c7a47;">SI</span>
+<h3 style="margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -0.02em;">홈페이지 제작</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">맞춤 디자인 10페이지 내외, 관리자 화면, 문의 접수와 메일 알림</p>
+<div style="margin-top: auto; padding-top: 14px; border-top: 1px solid #e9ebf2; display: flex; align-items: baseline; gap: 6px;"><strong style="font-size: 26px; letter-spacing: -0.02em">250만원</strong><span style="font-size: 14px; color: rgb(91, 97, 114)">부터</span></div>
+</article>
+<article class="card" style="padding: 24px; border-radius: 18px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 14px;">
+<span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #e7f6ec; color: #2c7a47;">SI</span>
+<h3 style="margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -0.02em;">업무 시스템</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">업무 영역 1개, 역할별 권한, 엑셀 업로드와 다운로드, 현황 대시보드</p>
+<div style="margin-top: auto; padding-top: 14px; border-top: 1px solid #e9ebf2; display: flex; align-items: baseline; gap: 6px;"><strong style="font-size: 26px; letter-spacing: -0.02em;">800만원</strong><span style="font-size: 14px; color: #5b6172;">부터</span></div>
+</article>
+<article class="card" style="padding: 24px; border-radius: 18px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 14px;">
+<span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #e7f6ec; color: #2c7a47;">SI</span>
+<h3 style="margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -0.02em;">시스템 연동</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">외부 프로그램 1개와 자동 동기화, 오류 재처리, 기존 데이터 이관</p>
+<div style="margin-top: auto; padding-top: 14px; border-top: 1px solid #e9ebf2; display: flex; align-items: baseline; gap: 6px;"><strong style="font-size: 26px; letter-spacing: -0.02em;">450만원</strong><span style="font-size: 14px; color: #5b6172;">부터</span></div>
+</article>
+<article class="card" style="padding: 24px; border-radius: 18px; background: linear-gradient(120deg, #eef2ff 0%, #ffffff 100%); border: 1.6px solid #cdd6ff; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 14px;">
+<span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #344fe0; color: #ffffff;">SM</span>
+<h3 style="margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -0.02em;">운영 유지관리</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">보안 점검, 서버와 인증서, 장애 대응, 개선 작업</p>
+<div style="margin-top: auto; padding-top: 14px; border-top: 1px solid #cdd6ff; display: flex; align-items: baseline; gap: 6px;"><strong style="font-size: 26px; letter-spacing: -0.02em;">월 90만원</strong><span style="font-size: 14px; color: #5b6172;">부터</span></div>
+</article>
+</div>
+<p style="margin: 0; font-size: 13px; color: #5b6172;">부가세 별도입니다.</p>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; padding: 28px 30px; border-radius: 20px; background: #ffffff; border: 1.6px solid #cdd6ff;">
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 6px;">
+<strong style="font-size: 19px; letter-spacing: -0.02em;">하루 안에 메일로 견적을 드립니다</strong>
+<p style="margin: 0; font-size: 15px; line-height: 1.62; color: #5b6172;">요구사항명세서를 첨부하거나 필요한 기능을 정리해 보내 주세요.</p>
+</div>
+<a href="mailto:info@proofer.tech?subject=%EA%B2%AC%EC%A0%81%20%EC%9A%94%EC%B2%AD&amp;body=%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%EB%AA%85%EC%84%B8%EC%84%9C%EB%A5%BC%20%EC%B2%A8%EB%B6%80%ED%95%98%EC%8B%9C%EA%B1%B0%EB%82%98%20%EC%95%84%EB%9E%98%EC%97%90%20%ED%95%84%EC%9A%94%ED%95%9C%20%EA%B8%B0%EB%8A%A5%EC%9D%84%20%EC%A0%81%EC%96%B4%20%EC%A3%BC%EC%84%B8%EC%9A%94.%0A%0A%ED%9A%8C%EC%82%AC%EB%AA%85%3A%0A%EB%8B%B4%EB%8B%B9%EC%9E%90%20%EC%97%B0%EB%9D%BD%EC%B2%98%3A%0A%ED%95%84%EC%9A%94%ED%95%9C%20%EA%B8%B0%EB%8A%A5%3A%0A%ED%9D%AC%EB%A7%9D%20%EC%98%A4%ED%94%88%20%EC%8B%9C%EA%B8%B0%3A%0A" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; border-radius: 999px; background: #344fe0; color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none;">이메일로 견적 받아보기</a>
+</div>
+</div>
+</section>
+
+<!-- SPECIALTY: 업무 시스템 -->
+<section id="specialty" style="background: linear-gradient(180deg, #f5f7ff 0%, #ffffff 100%); padding: 88px 0 56px;">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; gap: 32px;">
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #344fe0;">SPECIALTY</div>
+<h2 style="margin: 0; font-size: clamp(25px, 3.4vw, 38px); line-height: 1.3; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance;">회사가 돌아가는 방식을<br>시스템에 담습니다</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 14px;">
+<article class="card" style="padding: 26px 24px; border-radius: 18px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 10px;">
+<strong class="hl" style="font-size: 32px; letter-spacing: -0.02em; line-height: 1.1;">ERP</strong>
+<h3 style="margin: 0; font-size: 17px; font-weight: 700;">전사 자원 관리</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">주문, 재고, 생산, 구매를 한 흐름으로 묶고 회계 프로그램과 연결합니다.</p>
+</article>
+<article class="card" style="padding: 26px 24px; border-radius: 18px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 10px;">
+<strong class="hl" style="font-size: 32px; letter-spacing: -0.02em; line-height: 1.1;">CRM</strong>
+<h3 style="margin: 0; font-size: 17px; font-weight: 700;">고객 관계 관리</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">문의, 상담, 영업 이력을 고객별로 모으고 담당자가 바뀌어도 이어서 봅니다.</p>
+</article>
+<article class="card" style="padding: 26px 24px; border-radius: 18px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 10px;">
+<strong class="hl" style="font-size: 32px; letter-spacing: -0.02em; line-height: 1.1;">HRM</strong>
+<h3 style="margin: 0; font-size: 17px; font-weight: 700;">인사 관리</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">채용 접수부터 인사 기록, 근태와 평가까지 직원의 기록을 한곳에서 관리합니다.</p>
+</article>
+<article class="card" style="padding: 26px 24px; border-radius: 18px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 10px;">
+<strong class="hl" style="font-size: 32px; letter-spacing: -0.02em; line-height: 1.1;">KMS</strong>
+<h3 style="margin: 0; font-size: 17px; font-weight: 700;">지식 관리</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">흩어진 사내 문서와 자료를 권한별로 정리하고 필요할 때 바로 찾게 합니다.</p>
+</article>
+</div>
+</div>
+</section>
+
+<!-- WHO WE WORK WITH -->
+<section id="industry" style="background: #ffffff; padding: 88px 0 56px;">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; gap: 32px;">
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #344fe0;">WHO WE WORK WITH</div>
+<h2 style="margin: 0; font-size: clamp(25px, 3.4vw, 38px); line-height: 1.3; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance;">일하는 방식에<br>맞춰 만듭니다</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 14px;">
+<article class="card" style="padding: 24px; border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 12px;">
+<h3 style="margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -0.02em;">제조, 공장</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">도면과 수량, 납기를 받아 기술 담당에게 넘깁니다. 도면은 볼 수 있는 사람을 정해 두고, 고친 도면은 이전 판과 함께 보관합니다.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto;"><span style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">도면 견적 접수</span><span style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">고객별 기술자료</span></div>
+</article>
+<article class="card" style="padding: 24px; border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 12px;">
+<h3 style="margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -0.02em;">건설, 시공</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">현장 상담을 접수하고, 고객마다 견적과 수정안을 따로 보여줍니다. 공사가 끝난 뒤 하자 접수와 처리 기록도 같은 곳에 남습니다.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto;"><span style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">현장 상담</span><span style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">하자 접수</span></div>
+</article>
+<article class="card" style="padding: 24px; border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 12px;">
+<h3 style="margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -0.02em;">기업 간 거래, 유통</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">승인된 거래처만 로그인해서 자기 단가로 발주하고 출고 상태를 확인합니다. 쓰던 엑셀 가격표를 옮기는 데서 시작합니다.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto;"><span style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">거래처별 단가</span><span style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">발주 승인</span></div>
+</article>
+<article class="card" style="padding: 24px; border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 12px;">
+<h3 style="margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -0.02em;">프랜차이즈, 외식</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">가맹 문의와 매장 주문, 쿠폰 발행과 정산을 다룹니다. 본사와 매장이 보는 화면은 나눠서 만듭니다.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto;"><span style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">주문 시스템</span><span style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">쇼핑몰 연동</span><span style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">매장 관리</span></div>
+</article>
+<article class="card" style="padding: 24px; border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 12px;">
+<h3 style="margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -0.02em;">교육, 회원 관리</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">출결과 납부는 관리자 화면에서 보고, 보호자 안내는 모바일 앱으로 보냅니다.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto;"><span style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">출석부</span><span style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">회원 관리</span><span style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">LMS</span></div>
+</article>
+<article class="card" style="padding: 24px; border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 12px;">
+<h3 style="margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -0.02em;">반복 행정 업무</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">증명서를 떼고 서류를 모으는 일처럼 매번 같은 사이트를 오가는 작업을 자동으로 돌립니다.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto;"><span style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">발급 자동화</span><span style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">정산</span><span style="font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: #eef2ff; color: #344fe0;">데이터 수집</span></div>
+</article>
+</div>
+</div>
+</section>
+
+<!-- PROOF -->
+<section id="proof" style="background: var(--bg-page, #f8f8f8); padding: 88px 0 56px;">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; gap: 32px;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px;">
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #344fe0;">PROOF</div>
+<h2 style="margin: 0; font-size: clamp(25px, 3.4vw, 38px); line-height: 1.3; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance;">피자 주문부터<br>정부 서류 자동화까지</h2>
+</div>
+</div>
+<div style="border-radius: 18px; background: #ffffff; border: 1.6px solid #e9ebf2; overflow: hidden;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 0;">
+<div style="padding: 22px 24px; border-bottom: 1px solid #e9ebf2; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 13px; font-weight: 700; color: #344fe0;">2026</span><strong style="font-size: 16.5px; letter-spacing: -0.02em;">콘텐츠 제작사 웹사이트 리뉴얼과 백오피스 구축</strong></div>
+<div style="padding: 22px 24px; border-bottom: 1px solid #e9ebf2; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 13px; font-weight: 700; color: #344fe0;">2023</span><strong style="font-size: 16.5px; letter-spacing: -0.02em;">정부 증명서 발급 자동화 솔루션</strong></div>
+<div style="padding: 22px 24px; border-bottom: 1px solid #e9ebf2; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 13px; font-weight: 700; color: #344fe0;">2023</span><strong style="font-size: 16.5px; letter-spacing: -0.02em;">태권도 도장 관리 시스템, 웹과 모바일 앱</strong></div>
+<div style="padding: 22px 24px; border-bottom: 1px solid #e9ebf2; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 13px; font-weight: 700; color: #344fe0;">2016</span><strong style="font-size: 16.5px; letter-spacing: -0.02em;">버거 프랜차이즈 주문 시스템</strong></div>
+<div style="padding: 22px 24px; border-bottom: 1px solid #e9ebf2; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 13px; font-weight: 700; color: #344fe0;">2015</span><strong style="font-size: 16.5px; letter-spacing: -0.02em;">피자 프랜차이즈 홈페이지와 주문 시스템</strong></div>
+<div style="padding: 22px 24px; border-bottom: 1px solid #e9ebf2; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 13px; font-weight: 700; color: #344fe0;">2015</span><strong style="font-size: 16.5px; letter-spacing: -0.02em;">피자 프랜차이즈 e쿠폰 관리자 웹</strong></div>
+</div>
+<div style="position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; background: linear-gradient(90deg, #f3f5ff 0%, #f2faf5 100%);">
+<div style="display: flex; align-items: center; gap: 14px; min-width: 0;">
+<div aria-hidden="true" style="display: flex;"><span style="width: 28px; height: 28px; border-radius: 50%; background: #344fe0; border: 2px solid #ffffff;"></span><span style="width: 28px; height: 28px; margin-left: -9px; border-radius: 50%; background: #45af66; border: 2px solid #ffffff;"></span><span style="width: 28px; height: 28px; margin-left: -9px; border-radius: 50%; background: #c9d2ff; border: 2px solid #ffffff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #0020b6;">+</span></div>
+<p style="margin: 0; font-size: 15.5px; line-height: 1.5;"><strong class="hl">100건이 넘는</strong> 프로젝트 가운데 일부입니다. 홈페이지, 업무 시스템, 앱, AI 서비스까지 이어집니다.</p>
+</div>
+<a href="#contact" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: 999px; background: #ffffff; border: 1.6px solid #cdd6ff; color: #0020b6; font-size: 15px; font-weight: 700; text-decoration: none;">무료상담 신청</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 등록과 확인 서류 갤러리 -->
+
+
+<!-- 함께 일하는 방식 -->
+<section id="credentials" style="background: #ffffff; padding: 88px 0 56px;">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; gap: 32px;">
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #344fe0;">CREDENTIALS</div>
+<h2 style="margin: 0; font-size: clamp(25px, 3.4vw, 38px); line-height: 1.3; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance;">공인 기관들로부터<br>보증 받았습니다</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 20px;">
+<a class="card" href="/_blob/e7bd8825362e448f3278ab229ab4dc90" target="_blank" rel="noopener" style="display: flex; flex-direction: column; gap: 14px; padding: 14px 14px 18px; border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); text-decoration: none; color: #0b1020;">
+<span style="display: block; border-radius: 10px; overflow: hidden; background: #f1f3f8; border: 1px solid #e9ebf2;"><img src="/_blob/e7bd8825362e448f3278ab229ab4dc90" alt="조달청 경쟁입찰참가자격등록증 1쪽, 전화번호는 가림" style="display: block; width: 100%; aspect-ratio: 210 / 297; object-fit: cover; object-position: top;"></span>
+<span style="display: flex; flex-direction: column; gap: 4px; padding: 0 4px;"><strong style="font-size: 16px; letter-spacing: -0.02em;">경쟁입찰참가자격등록증</strong><span style="font-size: 13px; color: #5b6172;">조달청 나라장터, 2026년 10월</span></span>
+</a>
+<a class="card" href="/_blob/99b3f1cf5a4e5cb362ade5fedba074a3" target="_blank" rel="noopener" style="display: flex; flex-direction: column; gap: 14px; padding: 14px 14px 18px; border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); text-decoration: none; color: #0b1020;">
+<span style="display: block; border-radius: 10px; overflow: hidden; background: #f1f3f8; border: 1px solid #e9ebf2;"><img src="/_blob/99b3f1cf5a4e5cb362ade5fedba074a3" alt="소프트웨어사업자 일반 현황 관리확인서, 매출과 인원은 가림" style="display: block; width: 100%; aspect-ratio: 210 / 297; object-fit: cover; object-position: top;"></span>
+<span style="display: flex; flex-direction: column; gap: 4px; padding: 0 4px;"><strong style="font-size: 16px; letter-spacing: -0.02em;">소프트웨어사업자 확인서</strong><span style="font-size: 13px; color: #5b6172;">한국인공지능소프트웨어산업협회, 2026년 10월</span></span>
+</a>
+<a class="card" href="/_blob/a6b2d3efcadde2345da7d8165606e37a" target="_blank" rel="noopener" style="display: flex; flex-direction: column; gap: 14px; padding: 14px 14px 18px; border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); text-decoration: none; color: #0b1020;">
+<span style="display: block; border-radius: 10px; overflow: hidden; background: #f1f3f8; border: 1px solid #e9ebf2;"><img src="/_blob/a6b2d3efcadde2345da7d8165606e37a" alt="벤처기업확인서" style="display: block; width: 100%; aspect-ratio: 210 / 297; object-fit: cover; object-position: top;"></span>
+<span style="display: flex; flex-direction: column; gap: 4px; padding: 0 4px;"><strong style="font-size: 16px; letter-spacing: -0.02em;">벤처기업확인서</strong><span style="font-size: 13px; color: #5b6172;">벤처기업확인기관, 2026년 7월</span></span>
+</a>
+<a class="card" href="/_blob/657b3bbd8028a952ce39f9daaa366504" target="_blank" rel="noopener" style="display: flex; flex-direction: column; gap: 14px; padding: 14px 14px 18px; border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); text-decoration: none; color: #0b1020;">
+<span style="display: block; border-radius: 10px; overflow: hidden; background: #f1f3f8; border: 1px solid #e9ebf2;"><img src="/_blob/657b3bbd8028a952ce39f9daaa366504" alt="중소기업 확인서 소기업" style="display: block; width: 100%; aspect-ratio: 210 / 297; object-fit: cover; object-position: top;"></span>
+<span style="display: flex; flex-direction: column; gap: 4px; padding: 0 4px;"><strong style="font-size: 16px; letter-spacing: -0.02em;">중소기업 확인서</strong><span style="font-size: 13px; color: #5b6172;">중소벤처기업부, 2026년 7월</span></span>
+</a>
+</div>
+</div>
+</section><section id="partner" style="background: var(--bg-page, #f8f8f8); padding: 88px 0 56px;">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; gap: 32px;">
+<div style="display: flex; flex-wrap: wrap; gap: 32px 48px; align-items: center;">
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #344fe0;">HOW TO WORK WITH US</div>
+<h2 style="margin: 0; font-size: clamp(25px, 3.4vw, 38px); line-height: 1.3; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance;">공공 과제, 기업 프로젝트<br>모두 가능합니다</h2>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 14px;">
+<article class="card" style="padding: 26px; border-radius: 18px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 10px;">
+<span style="font-size: 13px; font-weight: 700; color: #344fe0;">기업 프로젝트</span>
+<h3 style="margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -0.02em;">아이디어만 있어도 시작합니다</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">기획서가 없어도 됩니다. 만들고 싶은 것과 참고할 서비스를 보고 기획부터 같이 잡습니다.</p>
+</article>
+<article class="card" style="padding: 26px; border-radius: 18px; background: #ffffff; border: 1.6px solid #e9ebf2; box-shadow: 0 10px 30px -22px rgba(20,30,80,0.5); display: flex; flex-direction: column; gap: 10px;">
+<span style="font-size: 13px; font-weight: 700; color: #344fe0;">공공과 지원사업</span>
+<h3 style="margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -0.02em;">입찰과 과제 증빙까지 준비합니다</h3>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #5b6172;">나라장터 입찰에 참가할 수 있습니다. 지원사업 과제라면 개발과 함께 제출할 산출물과 증빙 문서도 만듭니다.</p>
+</article>
+</div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background: #ffffff; padding: 88px 0 56px;">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; gap: 32px 48px;">
+<div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #344fe0;">FAQ</div>
+<h2 style="margin: 0; font-size: clamp(25px, 3.4vw, 38px); line-height: 1.3; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance;">자주 묻는 질문</h2>
+</div>
+<div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 10px;">
+<details style="border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; padding: 0 22px;">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; font-size: 16px; font-weight: 700;">다른 업체가 만든 시스템에 기능을 붙일 수 있나요?<span class="faq-plus" aria-hidden="true" style="flex: none; font-size: 22px; color: #344fe0;">+</span></summary>
+<p style="margin: 0 0 20px; font-size: 14.5px; line-height: 1.62; color: #5b6172;">소스와 서버에 접근할 수 있으면 됩니다. 구조와 보안 상태를 먼저 보고, 기존 화면에 붙일지 따로 만들어 연결할지 정합니다.</p>
+</details>
+<details style="border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; padding: 0 22px;">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; font-size: 16px; font-weight: 700;">견적서에 금액 대신 범위가 적혀 오는 이유가 있나요?<span class="faq-plus" aria-hidden="true" style="flex: none; font-size: 22px; color: #344fe0;">+</span></summary>
+<p style="margin: 0 0 20px; font-size: 14.5px; line-height: 1.62; color: #5b6172;">기능 개발은 연동할 대상과 예외 상황에 따라 공수가 크게 달라집니다. 처음에는 범위로 드리고, 계약 전에 기능 목록을 확정하면서 금액도 하나로 정합니다.</p>
+</details>
+<details style="border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; padding: 0 22px;">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; font-size: 16px; font-weight: 700;">소스 코드와 서버 계정은 누가 갖나요?<span class="faq-plus" aria-hidden="true" style="flex: none; font-size: 22px; color: #344fe0;">+</span></summary>
+<p style="margin: 0 0 20px; font-size: 14.5px; line-height: 1.62; color: #5b6172;">소스 코드와 서버 계정, 데이터를 어디까지 넘길지 계약서에 적고 오픈할 때 넘깁니다. 유지관리를 저희에게 맡기지 않더라도 다른 업체가 이어받을 수 있게 문서를 남깁니다.</p>
+</details>
+<details style="border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; padding: 0 22px;">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; font-size: 16px; font-weight: 700;">유지관리만 맡길 수도 있나요?<span class="faq-plus" aria-hidden="true" style="flex: none; font-size: 22px; color: #344fe0;">+</span></summary>
+<p style="margin: 0 0 20px; font-size: 14.5px; line-height: 1.62; color: #5b6172;">됩니다. 넘겨받기 전에 소스와 서버 버전, 보안 상태를 살펴보고, 당장 고칠 것과 매달 나눠 고칠 것을 정리해 드립니다.</p>
+</details>
+<details style="border-radius: 16px; background: #ffffff; border: 1.6px solid #e9ebf2; padding: 0 22px;">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; font-size: 16px; font-weight: 700;">AI 기능도 넣을 수 있나요?<span class="faq-plus" aria-hidden="true" style="flex: none; font-size: 22px; color: #344fe0;">+</span></summary>
+<p style="margin: 0 0 20px; font-size: 14.5px; line-height: 1.62; color: #5b6172;">문의 분류나 문서 요약, 자료 검색처럼 업무 중에 쓰는 기능은 개발 범위에 넣을 수 있습니다. 회사 전체의 AI 전환은 <a href="https://ax.proofer.tech">프루퍼 AX</a> 에서 따로 안내합니다.</p>
+</details>
+</div>
+</div>
+</section>
+
+<!-- CTA -->
+<section id="contact" style="background: #ffffff; padding: 72px 0;">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 24px;">
+<div style="border-radius: 26px; background: linear-gradient(135deg, #0020b6 0%, #344fe0 100%); color: #ffffff; padding: clamp(36px, 6vw, 64px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px; box-shadow: 0 16px 44px -10px rgba(0,8,70,0.55);">
+<div style="flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 14px;">
+<h2 style="margin: 0; font-size: clamp(25px, 3.4vw, 38px); line-height: 1.3; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance;">어디서부터 시작해야 할지<br>막막하신가요?</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.7; color: #dfe5ff;">첫 상담에서 손이 가장 많이 가는 업무를 같이 고르고, 어디까지 시스템으로 옮길지 정합니다.</p>
+</div>
+<a href="mailto:info@proofer.tech" style="display: inline-flex; align-items: center; min-height: 56px; padding: 0 32px; border-radius: 999px; background: #ffffff; color: #0020b6; font-size: 17px; font-weight: 700; text-decoration: none;">무료상담 신청</a>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background: var(--bg-page, #f8f8f8); color: #5b6172; padding: 56px 0 40px; border-top: 1px solid #e9ebf2;">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 28px;">
+<div style="display: flex; flex-direction: column; gap: 14px;">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #344fe0;">PROOF OF VALUE</div>
+<img src="/_blob/5af080bd729b87c8def72c1583defcab" alt="proofer" style="height: 28px; width: auto; align-self: flex-start;">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; line-height: 1.6;">
+<span>프루퍼주식회사 | 대표이사 임한솔</span>
+<span>사업자등록번호 337-81-03650</span>
+<span>06121 서울 강남구 강남대로112길 47, 2층 421A호</span>
+<span><a href="mailto:info@proofer.tech" style="color: #344fe0;">info@proofer.tech</a> | <a href="https://proofer.tech" style="color: #344fe0;">proofer.tech</a></span>
+</div>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":7600}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
