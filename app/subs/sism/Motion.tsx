@@ -526,6 +526,8 @@ export default function Motion() {
         );
       });
 
+      let cancelNav: (() => void) | null = null;
+      signal.addEventListener("abort", () => cancelNav?.());
       /* 10. 메뉴 이동: 부드럽게, 미니 헤더 높이만큼 띄워 멈춘다 */
       document.addEventListener(
         "click",
@@ -548,11 +550,40 @@ export default function Motion() {
               : null;
           if (!t) return;
           e.preventDefault();
-          const top =
+          /* 이동 중에 refresh 나 줄 분할로 높이가 바뀌므로 목표를 매 프레임 다시 계산한다 */
+          const goal = () =>
             t.getBoundingClientRect().top +
             window.scrollY -
             (t.id === "top" ? 0 : mh.offsetHeight);
-          window.scrollTo({ top, behavior: "smooth" });
+          cancelNav?.();
+          const t0 = performance.now();
+          let raf = 0;
+          const stop = () => {
+            cancelAnimationFrame(raf);
+            ["wheel", "touchstart", "keydown"].forEach((n) =>
+              removeEventListener(n, stop),
+            );
+            cancelNav = null;
+          };
+          cancelNav = stop;
+          ["wheel", "touchstart", "keydown"].forEach((n) =>
+            addEventListener(n, stop, { passive: true }),
+          );
+          const step = () => {
+            const g = goal();
+            const d = g - window.scrollY;
+            if (Math.abs(d) < 1 || performance.now() - t0 > 2500) {
+              window.scrollTo(0, g);
+              stop();
+              return;
+            }
+            window.scrollTo(
+              0,
+              window.scrollY + Math.sign(d) * Math.max(1, Math.abs(d) * 0.14),
+            );
+            raf = requestAnimationFrame(step);
+          };
+          raf = requestAnimationFrame(step);
         },
         { signal },
       );
