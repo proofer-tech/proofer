@@ -5,6 +5,7 @@ import Solution from "./components/sections/Solution";
 import Consulting from "./components/sections/Consulting";
 import Ax from "./components/sections/Ax";
 import Proof from "./components/sections/Proof";
+import Portfolio from "./components/sections/Portfolio";
 import Signals from "./components/sections/Signals";
 import Why from "./components/sections/Why";
 import Engagement from "./components/sections/Engagement";
@@ -56,6 +57,7 @@ export default function Page() {
       <Consulting />
       <Ax />
       <Proof />
+      <Portfolio />
       <Signals />
       <Why />
       <Engagement />

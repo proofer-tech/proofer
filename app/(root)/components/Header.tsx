@@ -7,6 +7,7 @@ import InquireButton from "./InquireButton";
 
 const MENU = [
   { href: "#proof", label: "케이스" },
+  { href: "#portfolio", label: "포트폴리오" },
   { href: "#why", label: "차별점" },
   { href: "#engagement", label: "참여방식" },
   { href: "#team", label: "팀 소개" },
