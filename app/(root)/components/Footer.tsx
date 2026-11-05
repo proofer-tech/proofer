@@ -44,6 +44,15 @@ export default function Footer() {
               프루퍼 AX
             </a>
           </div>
+          <div>
+            <a
+              href={generateUrl("/", SUB_DOMAIN.sism)}
+              target="_blank"
+              rel="noreferrer"
+            >
+              프루퍼 SI SM
+            </a>
+          </div>
           <div className="soc">
             <a
               href="https://www.linkedin.com/showcase/proofer-tech"

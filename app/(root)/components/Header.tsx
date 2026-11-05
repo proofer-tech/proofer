@@ -41,6 +41,15 @@ export default function Header() {
             AX 교육
             <IconArrowUpRight size={14} style={{ marginLeft: 2 }} />
           </a>
+          <a
+            href={generateUrl("/", SUB_DOMAIN.sism)}
+            target="_blank"
+            rel="noreferrer"
+            style={{ display: "inline-flex", alignItems: "center" }}
+          >
+            SI SM
+            <IconArrowUpRight size={14} style={{ marginLeft: 2 }} />
+          </a>
         </nav>
         <InquireButton className="btn btn-primary">무료상담 신청</InquireButton>
       </div>
