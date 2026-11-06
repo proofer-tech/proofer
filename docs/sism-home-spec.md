@@ -70,6 +70,15 @@
   `src/hooks/channel.ts` 의 로드 확인)이고, Tally 팝업은 쓰지 않습니다(요구사항 aa57ff47).
   시안의 `mailto:info@proofer.tech` 는 시안 도구에 상담 흐름이 없어서 쓴 자리입니다.
 - 채널톡 위젯은 2절의 Providers 가 모든 페이지에 띄웁니다. 환경변수는 다른 곳과 같은 `NEXT_PUBLIC_CHANNEL_ID_PLUGIN_KEY` 입니다.
+- 도킹 CTA(화면 아래쪽에 떠 있는 "무료상담 신청" 바)는 시안에 없지만 proofer.tech, ax.proofer.tech 와 같은 모듈로
+  붙입니다(요구사항 9253ea8d). 기준은 `app/subs/ax/components/Dock.tsx` 와 `app/subs/ax/ax.scss` 의 `.ax-dock` 입니다.
+  - 동작: `#top`(히어로) 하단이 화면 높이의 40% 지점보다 아래에 있는 동안, 그리고 `#contact` 머리가 화면 높이의
+    60% 지점보다 위로 올라온 뒤에는 숨고, 그 사이 구간에서만 아래에서 올라옵니다. 숨은 동안 `aria-hidden` 입니다.
+  - 모양: 파랑 `#344fe0` 알약 바, 왼쪽 문구 "프루퍼와 이야기 나눠 보세요", 오른쪽 흰 버튼 "무료상담 신청".
+    크기, 그림자, 위치, 620px 이하에서 문구를 감추고 화면 아래에 붙는 변형, 채널톡 런처 자리를 비우는 여백까지
+    `.ax-dock` 과 같습니다. `prefers-reduced-motion: reduce` 이면 전환 없이 나타나고 사라집니다.
+  - 버튼은 위의 다른 상담 버튼과 같은 sism `InquireButton`(채널톡 메신저)을 씁니다.
+  - 4절의 규칙대로 컴포넌트와 스타일은 `app/subs/sism/` 안에 사본으로 둡니다. ax 와 루트의 파일은 고치지 않습니다.
 - "이메일로 견적 받아보기"는 시안 그대로 제목("견적 요청")과 작성 양식이 채워진 mailto 입니다.
 - 푸터의 회사 표기는 루트 푸터와 같게 "프루퍼 주식회사", 대표 "임한솔, 임덕만" 으로 씁니다
   (시안의 "프루퍼주식회사 | 대표이사 임한솔" 대신).
@@ -110,6 +119,6 @@ proofer.tech 가 ax.proofer.tech 로 보내는 두 자리와 같은 방식으로
 - `pnpm install` 뒤 `npx tsc --noEmit`, 바꾼 파일만 `npx eslint`, `npx next build`
 - 1440px, 768px, 390px 에서 `/` 스크린샷을 시안(`docs/sism-home/Main.dc.html` 을 같은 폭으로 렌더한 것)과
   비교합니다. 세 폭 모두 가로 스크롤이 없습니다(`document.documentElement.scrollWidth <= innerWidth`).
-- 채널톡 버튼이 보이고, 무료상담 신청 버튼(960px 이하 모바일 메뉴 포함)이 메신저를 엽니다. 390px 에서 채널톡 버튼이
+- 채널톡 버튼이 보이고, 무료상담 신청 버튼(960px 이하 모바일 메뉴와 도킹 CTA 포함)이 메신저를 엽니다. 390px 에서 채널톡 버튼이
   미니 헤더와 하단 콘텐츠(상담 CTA, 푸터)를 가리지 않습니다.
 - proofer.tech, ax.proofer.tech 의 `/` 가 바뀌기 전과 같게 보입니다(proofer.tech 헤더와 푸터의 진입점 링크만 다릅니다).
