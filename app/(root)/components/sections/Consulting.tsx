@@ -102,6 +102,14 @@ export default function Consulting() {
                 <h3>비즈니스 &amp; 조직</h3>
               </div>
               <span className="tagr">비즈니스·조직 컨설팅</span>
+              <a
+                className="lh-link"
+                href="https://hravengers.co.kr"
+                target="_blank"
+                rel="noreferrer"
+              >
+                HR Avengers 보기
+              </a>
             </div>
             <div className="desc">
               <div className="desc-block">
@@ -124,6 +132,18 @@ export default function Consulting() {
                   사업과 일하는 방식이 달라지며 바뀌는 역할과 책임을 어떻게
                   재설계할지까지 함께 봅니다.
                 </p>
+                <a
+                  href="https://hravengers.co.kr"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    color: "var(--blue)",
+                    fontWeight: 700,
+                    fontSize: 14,
+                  }}
+                >
+                  HR Avengers 자세히 보기
+                </a>
               </div>
             </div>
           </div>
