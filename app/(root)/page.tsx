@@ -3,7 +3,6 @@ import Hero from "./components/sections/Hero";
 import Problem from "./components/sections/Problem";
 import Solution from "./components/sections/Solution";
 import Consulting from "./components/sections/Consulting";
-import Ax from "./components/sections/Ax";
 import Proof from "./components/sections/Proof";
 import Portfolio from "./components/sections/Portfolio";
 import Signals from "./components/sections/Signals";
@@ -55,7 +54,6 @@ export default function Page() {
       <Problem />
       <Solution />
       <Consulting />
-      <Ax />
       <Proof />
       <Portfolio />
       <Signals />
