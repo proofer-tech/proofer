@@ -109,9 +109,10 @@
 
 proofer.tech 가 ax.proofer.tech 로 보내는 두 자리와 같은 방식으로 답니다.
 
-- 헤더 메뉴(`app/(root)/components/Header.tsx`): "AX 교육" 바로 뒤에 "SI SM" 링크, 같은 화살표 아이콘과
+- 헤더 메뉴(`app/(root)/components/Header.tsx`)에는 "SI SM" 링크를 두지 않습니다. 헤더에서 이만큼 강조할
+  필요가 없다는 요구(`a0544bef`)로 뺐습니다. 헤더의 외부 링크는 "AX 교육" 하나입니다.
+- 푸터(`app/(root)/components/Footer.tsx`): "프루퍼 AX" 링크 아래 "프루퍼 SI SM" 링크, 같은 화살표 아이콘과
   `target="_blank"`, href `generateUrl("/", SUB_DOMAIN.sism)`
-- 푸터(`app/(root)/components/Footer.tsx`): "프루퍼 AX" 링크 아래 "프루퍼 SI SM" 링크, 같은 속성
 - 그 밖의 proofer.tech 화면은 바꾸지 않습니다.
 
 ## 9. 검증
@@ -121,4 +122,4 @@ proofer.tech 가 ax.proofer.tech 로 보내는 두 자리와 같은 방식으로
   비교합니다. 세 폭 모두 가로 스크롤이 없습니다(`document.documentElement.scrollWidth <= innerWidth`).
 - 채널톡 버튼이 보이고, 무료상담 신청 버튼(960px 이하 모바일 메뉴와 도킹 CTA 포함)이 메신저를 엽니다. 390px 에서 채널톡 버튼이
   미니 헤더와 하단 콘텐츠(상담 CTA, 푸터)를 가리지 않습니다.
-- proofer.tech, ax.proofer.tech 의 `/` 가 바뀌기 전과 같게 보입니다(proofer.tech 헤더와 푸터의 진입점 링크만 다릅니다).
+- proofer.tech, ax.proofer.tech 의 `/` 가 바뀌기 전과 같게 보입니다(proofer.tech 푸터의 진입점 링크만 다릅니다).
