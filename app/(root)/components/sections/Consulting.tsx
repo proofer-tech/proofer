@@ -77,6 +77,14 @@ export default function Consulting() {
                 <h3>개발 &amp; 구축</h3>
               </div>
               <span className="tagr">시스템 통합</span>
+              <a
+                className="lh-link"
+                href={generateUrl("/", SUB_DOMAIN.sism)}
+                target="_blank"
+                rel="noreferrer"
+              >
+                SI SM 보기
+              </a>
             </div>
             <div className="desc">
               <div className="desc-block">
@@ -85,6 +93,18 @@ export default function Consulting() {
                   진단에서 멈추지 않습니다. 기획부터 앱, 서버, AI까지 한 팀으로
                   직접 만들어 드립니다.
                 </p>
+                <a
+                  href={generateUrl("/", SUB_DOMAIN.sism)}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    color: "var(--blue)",
+                    fontWeight: 700,
+                    fontSize: 14,
+                  }}
+                >
+                  프루퍼 SI SM 자세히 보기
+                </a>
               </div>
               <div className="desc-block">
                 <span className="dlabel">검증·자문</span>
