@@ -97,8 +97,8 @@
   }
 }
 
-/* 주 버튼 */
-.sism-btn-p {
+/* 주 버튼. <a>에 붙어도 .sism-root a 색(0,1,1)에 지지 않도록 .sism-root 를 앞에 붙인다 */
+.sism-root .sism-btn-p {
   display: inline-flex;
   align-items: center;
   min-height: 52px;
@@ -127,7 +127,6 @@
 /* 그라데이션 강조 */
 .sism-hl {
   background: linear-gradient(115deg, #344fe0 0%, #45af66 100%);
-  background-clip: text;
   background-clip: text;
   color: transparent;
 }
