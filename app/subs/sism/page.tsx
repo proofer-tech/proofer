@@ -10,6 +10,7 @@ import Partner from "@/app/subs/sism/components/Partner";
 import Faq from "@/app/subs/sism/components/Faq";
 import Contact from "@/app/subs/sism/components/Contact";
 import Footer from "@/app/subs/sism/components/Footer";
+import Dock from "@/app/subs/sism/components/Dock";
 import Motion from "@/app/subs/sism/Motion";
 import { homeMetadata } from "@/app/subs/sism/metadata";
 
@@ -30,6 +31,7 @@ export default function Page() {
       <Faq />
       <Contact />
       <Footer />
+      <Dock />
       <Motion />
     </>
   );
