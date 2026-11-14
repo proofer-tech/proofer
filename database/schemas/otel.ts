@@ -17,6 +17,11 @@ export const OtelTenant = schema.table("otel_tenant", {
   slug: varchar("slug", { length: 64 }).notNull().unique(),
   name: text("name").notNull(),
   token_hash: varchar("token_hash", { length: 64 }).notNull().unique(),
+  // 대시보드 로그인. 테넌트의 Vercel 팀이 소유한 Sign in with Vercel 앱의 client id 다.
+  // 앱의 Sign-In Access 를 팀 멤버로 제한해 두면, 이 앱으로 로그인했다는 것이 곧 팀 멤버라는 뜻이다.
+  vercel_client_id: varchar("vercel_client_id", { length: 128 }).unique(),
+  // 팀 권한(private beta)이 열리면 앱 하나로 합칠 때 쓴다.
+  vercel_team_id: varchar("vercel_team_id", { length: 64 }),
   created_at: timestamp("created_at").defaultNow().notNull(),
   disabled_at: timestamp("disabled_at"),
 });

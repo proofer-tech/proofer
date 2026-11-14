@@ -28,7 +28,7 @@ export function bearerToken(req: Request): string | null {
 
 async function findTenant(token: string) {
   const [tenant] = await dz
-    .select({ id: OtelTenant.id })
+    .select({ id: OtelTenant.id, slug: OtelTenant.slug })
     .from(OtelTenant)
     .where(
       and(
@@ -51,9 +51,11 @@ async function readJson(req: NextRequest): Promise<unknown> {
 
 // OTLP/HTTP 응답 규약: 성공은 200 + Export*ServiceResponse(JSON 빈 객체 허용),
 // 503 은 익스포터가 재시도한다. 400/401/413/415 는 재시도하지 않는다.
+// expectedSlug 가 있으면(/{tenant}/v1/...) 토큰의 테넌트와 경로의 테넌트가 같아야 한다.
 export async function ingest(
   req: NextRequest,
   signal: Signal,
+  expectedSlug?: string,
 ): Promise<NextResponse> {
   const token = bearerToken(req);
   if (!token) return new NextResponse(null, { status: 401 });
@@ -72,6 +74,9 @@ export async function ingest(
     return new NextResponse(null, { status: 503 });
   }
   if (!tenant) return new NextResponse(null, { status: 401 });
+  if (expectedSlug && tenant.slug !== expectedSlug) {
+    return new NextResponse(null, { status: 401 });
+  }
 
   let payload: unknown;
   try {
