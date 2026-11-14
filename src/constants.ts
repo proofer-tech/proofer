@@ -8,4 +8,5 @@ export const SUB_DOMAIN = {
   ax: "ax",
   blog: "blog",
   sism: "sism",
+  otel: "otel",
 } as const;
