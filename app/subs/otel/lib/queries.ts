@@ -210,6 +210,7 @@ export async function bySource(
 
 export type PromptRow = {
   prompt_id: string | null;
+  session_id: string | null;
   at: string;
   user_email: string | null;
   service_name: string | null;
@@ -222,7 +223,7 @@ export async function recentPrompts(
   limit = 30,
 ): Promise<PromptRow[]> {
   const r = await rows<PromptRow>(sql`
-    select prompt_id, ${TS} as at, user_email, service_name,
+    select prompt_id, session_id, ${TS} as at, user_email, service_name,
       left(attributes->>'prompt', 300) as prompt,
       (attributes->>'prompt_length')::int as prompt_length
     from otel_log_record
@@ -253,4 +254,172 @@ export async function promptEvents(
     order by coalesce((attributes->>'event.sequence')::bigint, 0), ${TS}, id
     limit 500
   `);
+}
+
+// ---- 세션, 이벤트 탐색, 리플레이 ----
+
+// Cowork 는 본문 수집이 꺼져 있으면 이 문자열을 보낸다.
+export const REDACTED = "<REDACTED>";
+export const textOrNull = (v: unknown): string | null =>
+  typeof v === "string" && v !== "" && v !== REDACTED ? v : null;
+
+export type SessionRow = {
+  session_id: string;
+  user_email: string | null;
+  service_name: string | null;
+  started_at: string;
+  ended_at: string;
+  events: number;
+  prompts: number;
+  tool_calls: number;
+  cost_usd: number;
+  first_prompt: string | null;
+};
+
+export async function sessions(
+  tenantId: number,
+  days: number,
+  user?: string,
+): Promise<SessionRow[]> {
+  const r = await rows<Record<keyof SessionRow, string>>(sql`
+    select session_id,
+      max(user_email) as user_email,
+      max(service_name) as service_name,
+      min(${TS}) as started_at,
+      max(${TS}) as ended_at,
+      count(*) as events,
+      count(*) filter (where event_name = 'user_prompt') as prompts,
+      count(*) filter (where event_name = 'tool_result') as tool_calls,
+      coalesce(sum(${num("cost_usd")}) filter (where event_name = 'api_request'), 0) as cost_usd,
+      (array_agg(attributes->>'prompt' order by ${TS}) filter (where event_name = 'user_prompt'))[1] as first_prompt
+    from otel_log_record
+    where tenant_id = ${tenantId} and ${since(days)} and session_id is not null
+      ${user ? sql`and user_email = ${user}` : sql``}
+    group by session_id
+    order by max(${TS}) desc
+    limit 200
+  `);
+  return r.map((x) => ({
+    session_id: x.session_id,
+    user_email: x.user_email,
+    service_name: x.service_name,
+    started_at: x.started_at,
+    ended_at: x.ended_at,
+    events: Number(x.events),
+    prompts: Number(x.prompts),
+    tool_calls: Number(x.tool_calls),
+    cost_usd: Number(x.cost_usd),
+    first_prompt: textOrNull(x.first_prompt),
+  }));
+}
+
+export type FullEvent = {
+  id: number;
+  at: string;
+  event_name: string | null;
+  service_name: string | null;
+  user_email: string | null;
+  session_id: string | null;
+  prompt_id: string | null;
+  severity: string | null;
+  body: string | null;
+  attributes: Record<string, unknown>;
+  resource: Record<string, unknown>;
+  scope: Record<string, unknown> | null;
+};
+
+// 같은 배치가 재전송되면 같은 이벤트가 두 번 들어올 수 있어 내용이 같은 행은 하나만 남긴다.
+export async function sessionEvents(
+  tenantId: number,
+  sessionId: string,
+): Promise<FullEvent[]> {
+  return rows<FullEvent>(sql`
+    select distinct on (event_name, attributes->>'event.timestamp', attributes->>'event.sequence', prompt_id, attributes->>'tool_use_id', attributes->>'request_id')
+      id, ${TS} as at, event_name, service_name, user_email, session_id, prompt_id,
+      severity, body, attributes, resource, scope
+    from otel_log_record
+    where tenant_id = ${tenantId} and session_id = ${sessionId}
+    order by event_name, attributes->>'event.timestamp', attributes->>'event.sequence', prompt_id,
+      attributes->>'tool_use_id', attributes->>'request_id', id
+    limit 3000
+  `);
+}
+
+export type EventFilter = {
+  event?: string;
+  user?: string;
+  session?: string;
+  prompt?: string;
+  days: number;
+  before?: number;
+};
+
+export type EventListRow = {
+  id: number;
+  at: string;
+  event_name: string | null;
+  service_name: string | null;
+  user_email: string | null;
+  session_id: string | null;
+  prompt_id: string | null;
+  summary: string | null;
+};
+
+export const EVENT_PAGE = 100;
+
+export async function listEvents(
+  tenantId: number,
+  f: EventFilter,
+): Promise<EventListRow[]> {
+  return rows<EventListRow>(sql`
+    select id, ${TS} as at, event_name, service_name, user_email, session_id, prompt_id,
+      left(coalesce(
+        attributes->>'tool_name',
+        attributes->>'model',
+        attributes->>'plugin.name',
+        attributes->>'hook_event',
+        attributes->>'status',
+        attributes->>'error',
+        body
+      ), 120) as summary
+    from otel_log_record
+    where tenant_id = ${tenantId} and ${since(f.days)}
+      ${f.event ? sql`and event_name = ${f.event}` : sql``}
+      ${f.user ? sql`and user_email = ${f.user}` : sql``}
+      ${f.session ? sql`and session_id = ${f.session}` : sql``}
+      ${f.prompt ? sql`and prompt_id = ${f.prompt}` : sql``}
+      ${f.before ? sql`and id < ${f.before}` : sql``}
+    order by id desc
+    limit ${EVENT_PAGE}
+  `);
+}
+
+export async function eventFacets(tenantId: number, days: number) {
+  const [events, users] = await Promise.all([
+    rows<{ v: string; n: string }>(sql`
+      select event_name as v, count(*) as n from otel_log_record
+      where tenant_id = ${tenantId} and ${since(days)} and event_name is not null
+      group by 1 order by 2 desc`),
+    rows<{ v: string; n: string }>(sql`
+      select user_email as v, count(*) as n from otel_log_record
+      where tenant_id = ${tenantId} and ${since(days)} and user_email is not null
+      group by 1 order by 2 desc`),
+  ]);
+  return {
+    events: events.map((x) => ({ v: x.v, n: Number(x.n) })),
+    users: users.map((x) => ({ v: x.v, n: Number(x.n) })),
+  };
+}
+
+export async function eventById(
+  tenantId: number,
+  id: number,
+): Promise<FullEvent | null> {
+  const [r] = await rows<FullEvent>(sql`
+    select id, ${TS} as at, event_name, service_name, user_email, session_id, prompt_id,
+      severity, body, attributes, resource, scope
+    from otel_log_record
+    where tenant_id = ${tenantId} and id = ${id}
+  `);
+  return r ?? null;
 }
