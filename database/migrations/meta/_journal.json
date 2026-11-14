@@ -204,6 +204,13 @@
       "when": 1794667414345,
       "tag": "0028_otel_ingest",
       "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "7",
+      "when": 1794667967792,
+      "tag": "0029_otel_tenant_vercel",
+      "breakpoints": true
     }
   ]
 }
