@@ -11,6 +11,7 @@ import {
   kpis,
   parseRange,
   recentPrompts,
+  textOrNull,
 } from "@/app/subs/otel/lib/queries";
 import DailyChart from "./DailyChart";
 import { Card, Header, Stat, Table, compact, kst, n, usd } from "./ui";
@@ -135,7 +136,13 @@ export default async function TenantDashboard({ params, searchParams }: Props) {
               head={["사용자", "프롬프트", "세션", "비용", "마지막 활동"]}
               align={["left", "right", "right", "right", "right"]}
               rows={users.map((u) => [
-                u.user_email ?? "(없음)",
+                <Link
+                  key="u"
+                  href={`${tenantPath(slug, "/sessions")}?days=${days}&user=${encodeURIComponent(u.user_email ?? "")}`}
+                  className="hover:underline"
+                >
+                  {u.user_email ?? "(없음)"}
+                </Link>,
                 n(u.prompts),
                 n(u.sessions),
                 usd(u.cost_usd),
@@ -175,25 +182,44 @@ export default async function TenantDashboard({ params, searchParams }: Props) {
 
         <Card title="최근 프롬프트">
           <Table
-            head={["시각", "사용자", "출처", "프롬프트"]}
-            rows={prompts.map((p) => [
-              <span key="a" className="whitespace-nowrap">
-                {kst(p.at)}
-              </span>,
-              p.user_email ?? "",
-              p.service_name ?? "",
-              p.prompt_id ? (
-                <Link
-                  key="p"
-                  href={tenantPath(slug, `/p/${p.prompt_id}`)}
-                  className="line-clamp-2 underline-offset-2 hover:underline"
-                >
-                  {p.prompt ?? `(본문 미수집, ${p.prompt_length ?? "?"}자)`}
-                </Link>
-              ) : (
-                (p.prompt ?? `(본문 미수집, ${p.prompt_length ?? "?"}자)`)
-              ),
-            ])}
+            head={["시각", "사용자", "출처", "프롬프트", ""]}
+            rows={prompts.map((p) => {
+              const text =
+                textOrNull(p.prompt) ??
+                `(본문 미수집, ${p.prompt_length ?? "?"}자)`;
+              return [
+                <span key="a" className="whitespace-nowrap">
+                  {kst(p.at)}
+                </span>,
+                p.user_email ?? "",
+                p.service_name ?? "",
+                p.prompt_id ? (
+                  <Link
+                    key="p"
+                    href={tenantPath(slug, `/p/${p.prompt_id}`)}
+                    className="line-clamp-2 underline-offset-2 hover:underline"
+                  >
+                    {text}
+                  </Link>
+                ) : (
+                  text
+                ),
+                p.session_id ? (
+                  <Link
+                    key="r"
+                    href={tenantPath(
+                      slug,
+                      `/s/${encodeURIComponent(p.session_id)}`,
+                    )}
+                    className="whitespace-nowrap font-bold underline underline-offset-2"
+                  >
+                    리플레이
+                  </Link>
+                ) : (
+                  ""
+                ),
+              ];
+            })}
           />
         </Card>
 

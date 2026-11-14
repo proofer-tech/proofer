@@ -104,9 +104,31 @@ export function Header({ session }: { session: Session }) {
   return (
     <header className="border-b border-proofer-line bg-white">
       <div className="mx-auto flex h-14 max-w-[1160px] items-center justify-between px-6">
-        <Link href={tenantPath(session.tenantSlug)} className="font-bold">
-          {session.tenantName} <span className="text-proofer-gray">OTel</span>
-        </Link>
+        <div className="flex items-center gap-5">
+          <Link href={tenantPath(session.tenantSlug)} className="font-bold">
+            {session.tenantName} <span className="text-proofer-gray">OTel</span>
+          </Link>
+          <nav className="flex gap-4 text-sm text-proofer-gray">
+            <Link
+              href={tenantPath(session.tenantSlug)}
+              className="hover:text-proofer-ink"
+            >
+              대시보드
+            </Link>
+            <Link
+              href={tenantPath(session.tenantSlug, "/sessions")}
+              className="hover:text-proofer-ink"
+            >
+              세션
+            </Link>
+            <Link
+              href={tenantPath(session.tenantSlug, "/events")}
+              className="hover:text-proofer-ink"
+            >
+              이벤트
+            </Link>
+          </nav>
+        </div>
         <div className="flex items-center gap-3 text-sm text-proofer-gray">
           <span>{session.email ?? session.name}</span>
           <form
