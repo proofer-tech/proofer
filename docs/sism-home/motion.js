@@ -53,7 +53,6 @@
 
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
-  const EASE_OUT = 'cubic-bezier(.22,1,.36,1)';
 
   /* 1. 제목 줄 마스크 분할 */
   function splitLines(el) {
