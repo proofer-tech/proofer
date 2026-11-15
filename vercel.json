@@ -3,6 +3,10 @@
     {
       "path": "/cron/fetch-medium",
       "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/cron/otel-retention",
+      "schedule": "0 19 * * *"
     }
   ]
 }
