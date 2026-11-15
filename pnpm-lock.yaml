@@ -129,8 +129,8 @@ importers:
         specifier: ^1.2.2
         version: 1.6.1(next@16.0.11(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.101.3))(react@18.3.1)
       '@vercel/blob':
-        specifier: ^0.22.3
-        version: 0.22.3
+        specifier: ^2.9.0
+        version: 2.9.0
       '@vercel/edge-config':
         specifier: ^1.1.0
         version: 1.4.3(@opentelemetry/api@1.9.1)(next@16.0.11(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.101.3))
@@ -1686,10 +1686,6 @@ packages:
   '@eslint/plugin-kit@0.4.1':
     resolution: {integrity: sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@fastify/busboy@2.1.1':
-    resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
-    engines: {node: '>=14'}
 
   '@floating-ui/core@1.8.0':
     resolution: {integrity: sha512-0CIZ5itps/8x7BG8dEIhs53BvCUH2PCoogtakwRTut+Arm58sJooJ0AuZhLw2HJYIR5cMLNPBSS728sPho2khQ==}
@@ -4174,9 +4170,16 @@ packages:
       vue-router:
         optional: true
 
-  '@vercel/blob@0.22.3':
-    resolution: {integrity: sha512-l0t2KhbOO/I8ZNOl9zypYf1NE0837aO4/CPQNGR/RAxtj8FpdYKjhyUADUXj2gERLQmnhun+teaVs/G7vZJ/TQ==}
-    engines: {node: '>=16.14'}
+  '@vercel/blob@2.9.0':
+    resolution: {integrity: sha512-o+1CMRlT8/RvGo1aGkFv40F7v3MLdSOaVaIccepBXWrXgonKId3hHKSKGQ+iBDPoSe03crmHfhpHtTs0CCXiig==}
+    engines: {node: '>=20.0.0'}
+
+  '@vercel/cli-config@0.3.1':
+    resolution: {integrity: sha512-sISbygqlFXYb8qfPu/+2Cf/A8IjrlAuZePdag3EDQr2PRA455s7UZtl9Ro674CWsB/saBRmz3jEkw0YsQs8OoQ==}
+
+  '@vercel/cli-exec@1.0.1':
+    resolution: {integrity: sha512-g9XerViJ/paZujufXYcu5XYI2vU2rtB4sgdpjUHde5RnOkdmpu0ngH46LCFGHoPXO/C+qDPSczIHIRN+8Q2YKQ==}
+    engines: {node: '>= 18'}
 
   '@vercel/edge-config-fs@0.1.0':
     resolution: {integrity: sha512-NRIBwfcS0bUoUbRWlNGetqjvLSwgYH/BqKqDN7vK1g32p7dN96k0712COgaz6VFizAm9b0g6IG6hR6+hc0KCPg==}
@@ -4199,6 +4202,10 @@ packages:
     resolution: {integrity: sha512-uTKddsqVYS2GRAM/QMNNXCTuw9N742mLoGRXoNDcyECaxEXvIHG0dEY+ZnYISV4Vz534VwJO+64fd9XeSggSKw==}
     engines: {node: '>=14.6'}
     deprecated: 'Vercel KV is deprecated. If you had an existing KV store, it should have moved to Upstash Redis which you will see under Vercel Integrations. For new projects, install a Redis integration from Vercel Marketplace: https://vercel.com/marketplace?category=storage&search=redis'
+
+  '@vercel/oidc@3.8.10':
+    resolution: {integrity: sha512-sPw1kIfQEA6/2dB+zlAJHnhhNBRJ8t/t4HfFvKO+g0EPBA7NbCKyGovuhgAV6Mnl865ka7HqCEguIy596czdAw==}
+    engines: {node: '>= 20'}
 
   '@vercel/postgres@0.9.0':
     resolution: {integrity: sha512-WiI2g3+ce2g1u1gP41MoDj2DsMuQQ+us7vHobysRixKECGaLHpfTI7DuVZmHU087ozRAGr3GocSyqmWLLo+fig==}
@@ -4776,10 +4783,6 @@ packages:
   byte-counter@0.1.0:
     resolution: {integrity: sha512-jheRLVMeUKrDBjVw2O5+k4EvR4t9wtxHL+bo/LxfkxsVeuGMy3a5SEGgXdAFA4FSzTrU8rQXQIrsZ3oBq5a0pQ==}
     engines: {node: '>=20'}
-
-  bytes@3.1.2:
-    resolution: {integrity: sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==}
-    engines: {node: '>= 0.8'}
 
   cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
@@ -6656,6 +6659,9 @@ packages:
     resolution: {integrity: sha512-5KoIu2Ngpyek75jXodFvnafB6DJgr3u8uuK0LEZJjrU19DrMD3EVERaR8sjz8CCGgpZvxPl9SuE1GMVPFHx1mw==}
     engines: {node: '>= 0.4'}
 
+  is-node-process@1.2.0:
+    resolution: {integrity: sha512-Vg4o6/fqPxIjtxgUH5QLJhwZ7gW5diGCVlXpuUfELC62CuxM1iHcRe51f2W1FDy04Ai4KJkagKjx3XaqyfRKXw==}
+
   is-number-object@1.1.1:
     resolution: {integrity: sha512-lZhclumE1G6VYD8VHe35wFaIif+CTy5SJIi5+3y4psDgWu4wPDoBhF8NxUOinEc7pHgiTsT6MaBb92rKhhD+Xw==}
     engines: {node: '>= 0.4'}
@@ -6967,6 +6973,9 @@ packages:
   jiti@1.21.7:
     resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
     hasBin: true
+
+  jose@5.10.0:
+    resolution: {integrity: sha512-s+3Al/p9g32Iq+oqXxkW//7jk2Vig6FF1CFqzVXoTUXt2qz89YWbL+OwS17NFYEvxC35n0FKeGO2LGYSxeM2Gg==}
 
   js-md5@0.8.3:
     resolution: {integrity: sha512-qR0HB5uP6wCuRMrWPTrkMaev7MJZwJuuw4fnwAzRgP4J4/F8RwtodOKpGp4XpqsLBFzzgqIO42efFAyz2Et6KQ==}
@@ -7903,6 +7912,10 @@ packages:
 
   orderedmap@2.1.1:
     resolution: {integrity: sha512-TvAWxi0nDe1j/rtMcWcIj94+Ffe6n7zhow33h40SKxmsmozs6dz/e+EajymfoFcHd7sxNn8yHM8839uixMOV6g==}
+
+  os-paths@4.4.0:
+    resolution: {integrity: sha512-wrAwOeXp1RRMFfQY8Sy7VaGVmPocaLwSFOYCGKSyo8qmJ+/yaafCl5BCA1IQZWqFSRBrKDYFeR9d/VyQzfH/jg==}
+    engines: {node: '>= 6.0'}
 
   own-keys@1.0.2:
     resolution: {integrity: sha512-19YVAg7T+WTrxggPukVq7DjTv6+PJ867TmhCvBsYwmbFCsZd344rq2Ld1p0wo8f8Qrrhgp82c6FJRqdXWtSEhg==}
@@ -9420,6 +9433,10 @@ packages:
   three@0.184.0:
     resolution: {integrity: sha512-wtTRjG92pM5eUg/KuUnHsqSAlPM296brTOcLgMRqEeylYTh/CdtvKUvCyyCQTzFuStieWxvZb8mVTMvdPyUpxg==}
 
+  throttleit@2.1.0:
+    resolution: {integrity: sha512-nt6AMGKW1p/70DF/hGBdJB57B8Tspmbp5gfJ8ilhLnt7kkr2ye7hzD6NVG8GGErk2HWF34igrL2CXmNIkzKqKw==}
+    engines: {node: '>=18'}
+
   through2@2.0.5:
     resolution: {integrity: sha512-/mrRod8xqpA+IHSLyGCQ2s8SPHiCDEeQJSep1jqLYeEUClOFG2Qsh+4FU6G9VeqpZnGW/Su8LQGc4YKni5rYSQ==}
 
@@ -9671,10 +9688,6 @@ packages:
 
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
-
-  undici@5.29.0:
-    resolution: {integrity: sha512-raqeBD6NQK4SkWhQzeYKd1KmIG6dllBOTt55Rmkt4HtI9mwdWtJljnrXjAFUBLTSN67HWrOIZ3EPF4kjUw80Bg==}
-    engines: {node: '>=14.0'}
 
   undici@6.27.0:
     resolution: {integrity: sha512-YmfV3YnEDzXRC5lZ2jWtWWHKGUm1zIt8AhesR1tens+HTNv+YZlN/dp6G727LOvMJ8xjP9Be7Y2Sdr96LDm+pg==}
@@ -10066,6 +10079,14 @@ packages:
       utf-8-validate:
         optional: true
 
+  xdg-app-paths@5.5.1:
+    resolution: {integrity: sha512-hI3flOB4PLZIy5prbtTpirobtPE2ZtZ52szO+2mM9Efp6ErM398La+C1lIpNWDfNoQk+6Lsi6nMcCwVB7pxeMQ==}
+    engines: {node: '>= 6.0'}
+
+  xdg-portable@7.3.0:
+    resolution: {integrity: sha512-sqMMuL1rc0FmMBOzCpd0yuy9trqF2yTTVe+E9ogwCSWQCdDEtQUwrZPT6AxqtsFGRNxycgncbP/xmOOSPw5ZUw==}
+    engines: {node: '>= 6.0'}
+
   xml-name-validator@4.0.0:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==}
     engines: {node: '>=12'}
@@ -10148,6 +10169,9 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       zod: ^3.25.0 || ^4.0.0
+
+  zod@4.1.11:
+    resolution: {integrity: sha512-WPsqwxITS2tzx1bzhIKsEs19ABD5vmCVa4xBo2tq/SrV4RNZtfws1EnCWQXM6yh8bD08a1idvkB5MZSBiZsjwg==}
 
   zod@4.4.3:
     resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
@@ -11353,8 +11377,6 @@ snapshots:
     dependencies:
       '@eslint/core': 0.17.0
       levn: 0.4.1
-
-  '@fastify/busboy@2.1.1': {}
 
   '@floating-ui/core@1.8.0':
     dependencies:
@@ -14017,12 +14039,23 @@ snapshots:
       next: 16.0.11(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.101.3)
       react: 18.3.1
 
-  '@vercel/blob@0.22.3':
+  '@vercel/blob@2.9.0':
     dependencies:
+      '@vercel/oidc': 3.8.10
       async-retry: 1.3.3
-      bytes: 3.1.2
       is-buffer: 2.0.5
-      undici: 5.29.0
+      is-node-process: 1.2.0
+      throttleit: 2.1.0
+      undici: 6.27.0
+
+  '@vercel/cli-config@0.3.1':
+    dependencies:
+      xdg-app-paths: 5.5.1
+      zod: 4.1.11
+
+  '@vercel/cli-exec@1.0.1':
+    dependencies:
+      execa: 5.1.1
 
   '@vercel/edge-config-fs@0.1.0': {}
 
@@ -14036,6 +14069,12 @@ snapshots:
   '@vercel/kv@1.0.1':
     dependencies:
       '@upstash/redis': 1.25.1
+
+  '@vercel/oidc@3.8.10':
+    dependencies:
+      '@vercel/cli-config': 0.3.1
+      '@vercel/cli-exec': 1.0.1
+      jose: 5.10.0
 
   '@vercel/postgres@0.9.0':
     dependencies:
@@ -14666,8 +14705,6 @@ snapshots:
   builtin-modules@3.3.0: {}
 
   byte-counter@0.1.0: {}
-
-  bytes@3.1.2: {}
 
   cac@6.7.14: {}
 
@@ -16734,6 +16771,8 @@ snapshots:
 
   is-negative-zero@2.0.3: {}
 
+  is-node-process@1.2.0: {}
+
   is-number-object@1.1.1:
     dependencies:
       call-bound: 1.0.4
@@ -17240,6 +17279,8 @@ snapshots:
       - ts-node
 
   jiti@1.21.7: {}
+
+  jose@5.10.0: {}
 
   js-md5@0.8.3: {}
 
@@ -18265,6 +18306,8 @@ snapshots:
       word-wrap: 1.2.5
 
   orderedmap@2.1.1: {}
+
+  os-paths@4.4.0: {}
 
   own-keys@1.0.2:
     dependencies:
@@ -20081,6 +20124,8 @@ snapshots:
 
   three@0.184.0: {}
 
+  throttleit@2.1.0: {}
+
   through2@2.0.5:
     dependencies:
       readable-stream: 2.3.8
@@ -20326,10 +20371,6 @@ snapshots:
       jiti: 1.21.7
 
   undici-types@6.21.0: {}
-
-  undici@5.29.0:
-    dependencies:
-      '@fastify/busboy': 2.1.1
 
   undici@6.27.0: {}
 
@@ -20878,6 +20919,15 @@ snapshots:
       bufferutil: 4.1.0
       utf-8-validate: 6.0.6
 
+  xdg-app-paths@5.5.1:
+    dependencies:
+      os-paths: 4.4.0
+      xdg-portable: 7.3.0
+
+  xdg-portable@7.3.0:
+    dependencies:
+      os-paths: 4.4.0
+
   xml-name-validator@4.0.0: {}
 
   xml2js@0.5.0:
@@ -20947,6 +20997,8 @@ snapshots:
   zod-validation-error@4.0.2(zod@4.4.3):
     dependencies:
       zod: 4.4.3
+
+  zod@4.1.11: {}
 
   zod@4.4.3: {}
 
